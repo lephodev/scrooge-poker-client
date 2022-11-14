@@ -1,0 +1,136 @@
+.buy-coins-modal .modal-dialog {
+  max-width: 720px!important;
+}
+
+.buy-coins-list {
+  grid-gap: 30px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.buy-coins-list .buy-coins-box {
+  text-align: center;
+  padding: 20px 10px;
+  height: 240px;
+  background: #191b25;
+  border: 1px solid #2b2e3c;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all ease .5s;
+}
+
+.buy-coins-list .buy-coins-box h6,
+.buy-coins-list .buy-coins-box p,
+.buy-coins-list .buy-coins-boxm h5 {
+  margin: 0;
+}
+
+.buy-coins-list .lv-coins-box {
+  justify-content: center;
+  align-items: center;
+}
+
+.buy-coins-box:hover {
+  border: 1px solid #b9a11e;
+  box-shadow: 0px 0px 30px rgb(185 161 30 / 50%);
+}
+
+.buy-coins-list .buy-coins-box:hover button{
+  background: #b9a11e;
+  border: 1px solid #b9a11e;
+}
+
+.buy-coins-list .lv-coins-box:hover {
+  border: 1px solid #2b2e3c;
+  box-shadow: none;
+}
+
+.buy-coins-list .buy-coins-box button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  gap: 10px;
+  min-width: 80px;
+  height: 26px;
+  background: #30323c;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid #30323c;
+}
+
+.buy-coins-list .buy-coins-box button:hover, .buy-coins-list .buy-coins-box button:focus{
+  background: #b9a11e;
+  border: 1px solid #b9a11e;
+  box-shadow: none;
+}
+
+.buy-coins-box .tag-img {
+  position: absolute;
+  width: auto !important;
+  transform: translate(-15%, -50%);
+  left: 1px;
+  top: 5px;
+}
+
+.buy-coins-list .buy-coins-box img {
+  width: 120px;
+}
+
+.buy-coins-list .buy-coin-image img {
+  width: 130px;
+}
+
+.buy-coins-list .buy-coins-box.lv-coins-box img {
+  width: 90px;
+}
+
+
+.buy-coins-list .buy-coins-box h5 {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tag-label {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.buy-coins-modal .modal-header .close {
+  padding: 0px !important;
+  margin-left: auto;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  margin: 0;
+}
+.buy-coins-modal .modal-body {
+  padding: 10px;
+}
+
+
+@media screen and (max-width: 767px) {
+  .buy-coins-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .buy-coins-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .buy-coins-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

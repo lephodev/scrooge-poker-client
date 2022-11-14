@@ -1,0 +1,28 @@
+.leave-confirm.modal .sub-btn .btn {
+  border-color: #b9a11e;
+  font-size: 14px;
+  box-shadow: none;
+}
+.leave-confirm.modal .sub-btn .btn.btn-primary:hover,
+.leave-confirm.modal .sub-btn .btn.btn-primary:focus {
+  border-color: #b9a11e;
+  background: #b9a11e;
+  box-shadow: none;
+}
+.leave-confirm.modal .sub-btn {
+  margin-bottom: 30px;
+}
+
+.leave-confirm.modal .sub-btn .btn + .btn {
+  margin-left: 15px;
+}
+.leave-confirm.modal .block > p {
+  text-align: center;
+  padding-bottom: 34px;
+}
+
+@media screen and (max-width: 767px) {
+  .leave-confirm.modal .block > p {
+    padding-bottom: 10px;
+  }
+}
