@@ -77,6 +77,7 @@ const numFormatter = (num) => {
     return (num / 1000000000000).toFixed(2) + 'T';
   else return num; // if value < 1000, nothing to do
 };
+
 const chunk = (arr, players) => {
   let newArr = [];
   if (arr.length === 0) {
@@ -206,6 +207,7 @@ const ParticipantView = ({
       }
     }
   }, [micStream, micOn]);
+
   const {
     name,
     photoURI: playerImage,
@@ -335,6 +337,7 @@ const ParticipantView = ({
         console.log('Error req', error);
       });
   };
+
   const handleConnect = async (friendId, nickname) => {
     toast.success('Send friend request..', {
       id: 'please-wait',
@@ -425,6 +428,7 @@ const ParticipantView = ({
       });
     console.log('It works my friend-request!!!');
   };
+
   return (
     <>
       <div
@@ -1051,22 +1055,9 @@ const PokerTable = (props) => {
     const isLoggedIn = async () => {
       let urlParams = new URLSearchParams(window.location.search);
       let user;
-      if (!localStorage.getItem('xtkn') && !urlParams.get('token')) {
+      if (!localStorage.getItem('token') && !urlParams.get('token')) {
         return (window.location.href = `${window.location.origin}/login`);
       }
-      if (urlParams.get('token')) {
-        let table = urlParams.get('tableid');
-        let type =
-          urlParams.get('gameCollection') || urlParams.get('gamecollection');
-        socket.emit('checkTable', {
-          tableId: table,
-          userId: null,
-          gameType: type,
-          token: urlParams.get('token'),
-        });
-        getFollowing(idToken);
-        setLoader(true);
-      } else {
         firebase.auth().onAuthStateChanged(async (response) => {
           user = response;
           if (user) {
@@ -1087,10 +1078,10 @@ const PokerTable = (props) => {
             });
             setLoader(true);
           } else {
-            return (window.location.href = `${window.location.origin}/login`);
+            // return (window.location.href = `${window.location.origin}/login`);
           }
         });
-      }
+      
     };
     isLoggedIn();
   }, []);
