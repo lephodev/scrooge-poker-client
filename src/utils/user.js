@@ -5,15 +5,15 @@ import { userInstance } from "./axios.config";
 const getAuthUserData = async () => {
     try {
         const userData = await userInstance().get('/');
-        return userData;
+        return {success:true, data:userData.data};
     } catch (error) {
         console.log(error);
         return {success: false}
     }
 } 
 
-const user = {
+const userUtils = {
     getAuthUserData
 }
 
-export default user;
+export default userUtils;

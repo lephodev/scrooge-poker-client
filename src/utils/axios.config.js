@@ -5,6 +5,12 @@ const getAuthorizationHeader = () => `Bearer ${localStorage.getItem('token')}`;
 
 export const userInstance = () =>
   axios.create({
-    baseURL: `${CONSTANTS.landingServerUrl}/v1/users`,
+    baseURL: `${CONSTANTS.landingServerUrl}/users`,
+    headers: { Authorization: getAuthorizationHeader() },
+  });
+
+  export const authInstance = () =>
+  axios.create({
+    baseURL: `${CONSTANTS.landingServerUrl}/auth`,
     headers: { Authorization: getAuthorizationHeader() },
   });
