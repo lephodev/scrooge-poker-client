@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { HashRouter } from 'react-router-dom';
+import {
+  HashRouter,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 import PokerTable from './components/pokertable/table';
 import 'animate.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './page/home/Home';
 
 const App = () => {
   useEffect(() => {
@@ -16,9 +22,15 @@ const App = () => {
 
   return (
     <div className='App'>
-      <HashRouter>
-        <PokerTable />
-      </HashRouter>
+      <Router>
+        <Route exact path='/'>
+          <Home />
+        </Route>
+        <Route path='/table'>
+          <PokerTable />
+        </Route>
+      </Router>
+
       <div className='abc'>
         <Toaster
           position='top-right'

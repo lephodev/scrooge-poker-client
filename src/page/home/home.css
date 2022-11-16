@@ -1,0 +1,25 @@
+
+.poker-home {
+  padding: 20px 0px;
+  overflow-x: scroll;
+}
+
+.poker-home .btn-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.avatar img {
+  border-radius: 50%;
+  position: relative;
+  left: -5px;
+  margin-left: -15px;
+  z-index: 1;
+}
+
+.avatars {
+  direction: rtl;  /* This is to get the stack with left on top */
+  text-align: left;  /* Now need to explitly align left */
+  padding-left: 15px;  /* Same value as the negative margin */
+}

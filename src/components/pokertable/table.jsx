@@ -48,7 +48,7 @@ import MarketStore from '../MarketPlace/marketStore';
 import axios from 'axios';
 import defaultFlag from '../../assets/flag.png';
 import winImage from '../../assets/animation/win.json';
-import userUtils from './../../utils/user'
+import userUtils from './../../utils/user';
 
 const winImageanim = {
   loop: true,
@@ -1060,32 +1060,26 @@ const PokerTable = (props) => {
         return (window.location.href = `${window.location.origin}/login`);
       }
 
-      const userData = await userUtils.getAuthUserData();
-      console.log('USER DATA HERE -------',{userData})
-        // firebase.auth().onAuthStateChanged(async (response) => {
-        //   user = response;
-        //   if (user) {
-        //     userId = user.uid;
-        //     idToken = await firebase.auth().currentUser.getIdToken();
-        //     let table = urlParams.get('tableid');
-        //     let type =
-        //       urlParams.get('gameCollection') ||
-        //       urlParams.get('gamecollection');
-        //     const users = await getDoc('users', user.uid);
-        //     setExchangeRate(users.exchangeRate);
-        //     fetchFriendList();
-        //     getFollowing(idToken);
-        //     socket.emit('checkTable', {
-        //       tableId: table,
-        //       userId: user.uid,
-        //       gameType: type,
-        //     });
-        //     setLoader(true);
-        //   } else {
-        //     // return (window.location.href = `${window.location.origin}/login`);
-        //   }
-        // });
-      
+      user = await userUtils.getAuthUserData();
+      console.log('USER DATA HERE -------', { user });
+
+      if (!user.success) {
+        return (window.location.href = `${window.location.origin}/login`);
+      }
+
+      let table = urlParams.get('tableid');
+      let type =
+        urlParams.get('gameCollection') || urlParams.get('gamecollection');
+      const users = await getDoc('users', user?.uid);
+      setExchangeRate(users.exchangeRate);
+      fetchFriendList();
+      getFollowing(idToken);
+      socket.emit('checkTable', {
+        tableId: table,
+        userId: user?.id,
+        gameType: type,
+      });
+      setLoader(true);
     };
     isLoggedIn();
   }, []);

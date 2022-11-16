@@ -8,7 +8,7 @@ body {
   padding: 0;
   color: #ddd !important;
   background: #11131d !important;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .poker {
