@@ -950,6 +950,8 @@ const PokerTable = (props) => {
     setOpen(e);
   };
 
+  console.log('Players Data ------------- ',{players})
+
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
@@ -1066,17 +1068,18 @@ const PokerTable = (props) => {
       if (!user.success) {
         return (window.location.href = `${window.location.origin}/login`);
       }
-
+      userId = user?.data.user?.id;
       let table = urlParams.get('tableid');
       let type =
         urlParams.get('gameCollection') || urlParams.get('gamecollection');
-      const users = await getDoc('users', user?.uid);
-      setExchangeRate(users.exchangeRate);
-      fetchFriendList();
-      getFollowing(idToken);
+      // const users = await getDoc('users', user?.uid);
+      // setExchangeRate(users.exchangeRate);
+      // fetchFriendList();
+      // getFollowing(idToken);
+      // alert(`HERE ${table} ${JSON.stringify(user)}`)
       socket.emit('checkTable', {
-        tableId: table,
-        userId: user?.id,
+        gameId: table,
+        userId: user?.data.user?.id,
         gameType: type,
       });
       setLoader(true);
@@ -1098,9 +1101,6 @@ const PokerTable = (props) => {
   useEffect(() => {
     socket.on('userId', async (data) => {
       userId = data;
-      const users = await getDoc('users', userId);
-      setExchangeRate(users.exchangeRate);
-      fetchFriendList();
     });
     socket.on('newMessage', (data) => {
       playAudio('chat');
@@ -1410,25 +1410,6 @@ const PokerTable = (props) => {
       toast.error(data.msg, { id: 'A' });
     });
 
-    socket.on('roomData', (data) => {
-      console.log('updateRoom =>', data);
-      roomData = data;
-      setTablePot(roomData.pot);
-      if (data.runninground === 0) {
-        updatePlayer(data.players, 0);
-      } else if (data.runninground === 1) {
-        updatePlayer(data.preflopround);
-      } else if (data.runninground === 2) {
-        updatePlayer(data.flopround);
-      } else if (data.runninground === 3) {
-        updatePlayer(data.turnround);
-      } else if (data.runninground === 4) {
-        updatePlayer(data.riverround);
-      } else if (data.runninground === 5) {
-        updatePlayer(data.showdown);
-      }
-    });
-
     socket.on('raise', (data) => {
       playAudio('bet');
       roomData = data.updatedRoom;
@@ -1543,10 +1524,11 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on('updatePlayerList', (data) => {
+    socket.on('updateGame', (data) => {
       setLoader(false);
-      roomData = data;
+      roomData = data.game;
       console.log('room =>', roomData);
+      console.log({userId})
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
         !roomData.preflopround.find((ele) => ele.id === userId) &&
@@ -1812,6 +1794,7 @@ const PokerTable = (props) => {
       setHandWinner(roomData.handWinner);
     }
   };
+
   const startGame = () => {
     socket.emit('startPreflopRound', {
       tableId,
@@ -1828,6 +1811,7 @@ const PokerTable = (props) => {
     setNewUser(false);
     setAllowWatcher(false);
   };
+
   const leaveWatcherJoinPlayer = () => {
     socket.emit('leaveWatcherJoinPlayer', {
       tableId,
@@ -1853,6 +1837,7 @@ const PokerTable = (props) => {
     socket.emit('approveRequest', data);
     setNewUser(false);
   };
+
   const cancelRequest = (data) => {
     socket.emit('cancelRequest', data);
   };
@@ -2135,7 +2120,7 @@ const PokerTable = (props) => {
         )}
 
         <div className='container'>
-          {isAdmin && !roomData.public ? (
+          {isAdmin && !roomData?.public ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -2219,7 +2204,7 @@ const PokerTable = (props) => {
                     )}
                   {roomData &&
                   roomData.handWinner.length === 0 &&
-                  !roomData.gamestart ? (
+                  !roomData?.gamestart ? (
                     <p className='joined-player'>
                       Invited Players joined -{' '}
                       {roomData.players.filter((ele) =>
@@ -2240,61 +2225,9 @@ const PokerTable = (props) => {
                   matchCards={matchCards}
                 />
 
-                {!isWatcher && roomData && roomData.media !== 'no-media'
-                  ? roomData &&
+                {!isWatcher && roomData &&
                     userId &&
-                    roomData.meetingId &&
-                    roomData.meetingToken && (
-                      <MeetingProvider
-                        config={{
-                          meetingId: roomData.meetingId,
-                          micEnabled:
-                            roomData.media === 'video' ||
-                            roomData.media === 'audio',
-                          webcamEnabled: roomData.media === 'video',
-                          name: userId,
-                        }}
-                        token={
-                          roomData.hostId === userId
-                            ? roomData.meetingToken
-                            : roomData.players.find(
-                                (ele) => ele.userid === userId
-                              )
-                            ? roomData.players.length &&
-                              roomData.players.find(
-                                (ele) => ele.userid === userId
-                              ).meetingToken
-                            : 'null'
-                        }>
-                        <MeetingConsumer {...{}}>
-                          {() => (
-                            <MeetingView
-                              timer={timer}
-                              action={action}
-                              actionText={actionText}
-                              remainingTime={remainingTime}
-                              currentPlayer={currentPlayer}
-                              winner={winner}
-                              handMatch={handMatch}
-                              message={message}
-                              messageBy={messageBy}
-                              betOn={betOn}
-                              betWin={betWin}
-                              setBuyinPopup={setBuyinPopup}
-                              players={players}
-                              isAdmin={isAdmin}
-                              winAnimationType={winAnimationType}
-                              setShowFollowMe={setShowFollowMe}
-                              friendList={friendList}
-                              followingList={followingList}
-                              setFriendList={setFriendList}
-                              setFollowingList={setFollowingList}
-                            />
-                          )}
-                        </MeetingConsumer>
-                      </MeetingProvider>
-                    )
-                  : players.map((player, i) => (
+                   players.map((player, i) => (
                       <Players
                         key={`item-${
                           player.userid ? player.userid : player.id
@@ -2636,12 +2569,12 @@ const PokerTable = (props) => {
         joinGame={leaveWatcherJoinPlayer}
         allowWatcher={allowWatcher}
       />
-      <NewBuyInPopup
+      {/* <NewBuyInPopup
         setBuyinPopup={setBuyinPopup}
         buyinPopup={buyinPopup}
         setModalShow={setShowCoin}
         leaveTable={leaveTable}
-      />
+      /> */}
       <BuyInPopup
         setModalShow={setShowCoin}
         setBuyinPopup={setBuyinPopup}
@@ -2739,7 +2672,6 @@ const Players = ({
   const {
     name,
     photoURI: playerImage,
-    stats: { Level, total, max, countryCode },
   } = playerData;
 
   const handleFollow = async (followerId, nickname) => {
@@ -3065,7 +2997,6 @@ const Players = ({
           <div
             className='player-pic'
             style={{
-              backgroundImage: `url(${playerData.items.avatar})`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
@@ -3131,7 +3062,7 @@ const Players = ({
           <BubbleMessage message={message} />
         )}
       </div>
-      <Overlay
+      {/* <Overlay
         target={target.current}
         show={showFollowMe}
         placement='right'
@@ -3217,7 +3148,7 @@ const Players = ({
             </div>
           </div>
         )}
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };
