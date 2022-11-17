@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Row, Col } from 'react-bootstrap';
+import {useHistory} from 'react-router-dom'
 import './home.css';
 import { useEffect } from 'react';
 import userUtils from '../../utils/user';
@@ -15,6 +16,8 @@ const Home = () => {
     public: false,
     minchips: '',
   };
+
+  const history = useHistory();
 
   // States
   const [loader, setLoader] = useState(true);
@@ -60,17 +63,25 @@ const Home = () => {
       setErrors({ ...tableValidation.err });
       return;
     }
+    try {
+      const resp = await pokerInstance().post('/createTable', gameState);
+      console.log('Create table response ',resp.data);
+      setGameState({ ...gameInit });
+      history.push({
+        pathname: '/table',
+        search: '?gamecollection=poker&tableid=' + resp.data.roomData._id
+      })
+    } catch (error) {
+      console.log(error)
+    }
 
-    const resp = await pokerInstance().post('/createTable', gameState);
-    console.log(resp.data);
-    setGameState({ ...gameInit });
+
   };
 
   // UseEffects
   useEffect(() => {
     (async () => {
       const data = await userUtils.getAuthUserData();
-      console.log('Auth USER DATA', { data });
       if (!data.success) {
         return (window.location.href = `${window.location.origin}/login`);
       }

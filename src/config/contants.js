@@ -1,5 +1,5 @@
 const CONSTANTS = {
-  landingServerUrl: 'http://localhost:3001/v1',
+  landingServerUrl: 'http://52.73.137.241:3002/v1',
   serverUrl: 'http://localhost:3002',
 };
 
