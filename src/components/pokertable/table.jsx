@@ -49,6 +49,7 @@ import axios from 'axios';
 import defaultFlag from '../../assets/flag.png';
 import winImage from '../../assets/animation/win.json';
 import userUtils from './../../utils/user';
+import { useHistory } from 'react-router-dom';
 
 const winImageanim = {
   loop: true,
@@ -874,6 +875,7 @@ const MeetingView = ({
       }
     });
   }, []);
+
   return (
     <ParticipantsView
       toggleWebcam={toggleWebcam}
@@ -940,7 +942,7 @@ const PokerTable = (props) => {
     allin: false,
     fold: false,
   });
-
+  const history = useHistory();
   const [open, setOpen] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [leaveConfirmShow, setLeaveConfirm] = useState(false);
@@ -950,7 +952,7 @@ const PokerTable = (props) => {
     setOpen(e);
   };
 
-  console.log('Players Data ------------- ',{players})
+  console.log('Players Data ------------- ', { players });
 
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
@@ -1528,7 +1530,7 @@ const PokerTable = (props) => {
       setLoader(false);
       roomData = data.game;
       console.log('room =>', roomData);
-      console.log({userId})
+      console.log({ userId });
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
         !roomData.preflopround.find((ele) => ele.id === userId) &&
@@ -2092,6 +2094,18 @@ const PokerTable = (props) => {
     setShowStore(true);
     setSelectedUser(id);
   };
+
+  useEffect(() => {
+    socket.on('notInvited', () => {
+      alert('This is a private table');
+      history.push('/');
+    });
+
+    return () => {
+      socket.off('notInvited');
+    };
+  }, [history]);
+
   return (
     <div className='poker' id={players.length}>
       <Helmet>
@@ -2225,45 +2239,44 @@ const PokerTable = (props) => {
                   matchCards={matchCards}
                 />
 
-                {!isWatcher && roomData &&
-                    userId &&
-                   players.map((player, i) => (
-                      <Players
-                        key={`item-${
-                          player.userid ? player.userid : player.id
-                        }`}
-                        followingList={followingList}
-                        friendList={friendList}
-                        systemplayer={i === 0 ? true : false}
-                        playerclass={`player${
-                          player.availablePosition + 1
-                        } wow animate__animated animate__zoomIn animate__delay-01s`}
-                        playerData={player}
-                        timer={timer}
-                        action={action}
-                        actionText={actionText}
-                        remainingTime={remainingTime}
-                        currentPlayer={currentPlayer}
-                        winner={winner}
-                        handMatch={handMatch}
-                        message={message}
-                        messageBy={messageBy}
-                        betOn={betOn}
-                        betWin={betWin}
-                        tableId={tableId}
-                        sitout={sitout}
-                        sitin={sitin}
-                        gameCollection={gameCollection}
-                        showCoin={showCoin}
-                        setShowCoin={setShowCoin}
-                        setBuyinPopup={setBuyinPopup}
-                        handleShowStore={handleShowStore}
-                        winAnimationType={winAnimationType}
-                        setShowFollowMe={setShowFollowMe}
-                        setFriendList={setFriendList}
-                        setFollowingList={setFollowingList}
-                      />
-                    ))}
+                {!isWatcher &&
+                  roomData &&
+                  userId &&
+                  players.map((player, i) => (
+                    <Players
+                      key={`item-${player.userid ? player.userid : player.id}`}
+                      followingList={followingList}
+                      friendList={friendList}
+                      systemplayer={i === 0 ? true : false}
+                      playerclass={`player${
+                        player.availablePosition + 1
+                      } wow animate__animated animate__zoomIn animate__delay-01s`}
+                      playerData={player}
+                      timer={timer}
+                      action={action}
+                      actionText={actionText}
+                      remainingTime={remainingTime}
+                      currentPlayer={currentPlayer}
+                      winner={winner}
+                      handMatch={handMatch}
+                      message={message}
+                      messageBy={messageBy}
+                      betOn={betOn}
+                      betWin={betWin}
+                      tableId={tableId}
+                      sitout={sitout}
+                      sitin={sitin}
+                      gameCollection={gameCollection}
+                      showCoin={showCoin}
+                      setShowCoin={setShowCoin}
+                      setBuyinPopup={setBuyinPopup}
+                      handleShowStore={handleShowStore}
+                      winAnimationType={winAnimationType}
+                      setShowFollowMe={setShowFollowMe}
+                      setFriendList={setFriendList}
+                      setFollowingList={setFollowingList}
+                    />
+                  ))}
               </div>
             ) : (
               <div className='poker-table-bg wow animate__animated animate__fadeIn'>
@@ -2669,10 +2682,7 @@ const Players = ({
       setNewPurchase(false);
     }
   }, [playerData, setBuyinPopup]);
-  const {
-    name,
-    photoURI: playerImage,
-  } = playerData;
+  const { name, photoURI: playerImage } = playerData;
 
   const handleFollow = async (followerId, nickname) => {
     const Uid = followerId;
