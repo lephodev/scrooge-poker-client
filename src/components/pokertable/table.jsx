@@ -1,20 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  MeetingProvider,
-  MeetingConsumer,
-  useMeeting,
-  useParticipant,
-} from '@videosdk.live/react-sdk';
 import logo from '../../assets/whitelogo.png';
-import { Button, Spinner, Dropdown } from 'react-bootstrap';
+import { Button, } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Lottie from 'react-lottie';
-import front from '../../assets/cards/BLUE_BACK.svg';
-import back from '../../assets/cards/RED_BACK.svg';
+import front from '../../assets/game/Black-Card.png';
+import back from '../../assets/game/Black-Card.png';
 import { socket } from '../../config/socketConnection';
-import firebase from '../../config/firebase';
 import accept from '../../assets/checked.png';
 import reject from '../../assets/close.png';
 import Chat from '../chat/chat';
@@ -28,15 +21,14 @@ import myTurn from '../../assets/Poker Sfx/MyTurn.wav';
 import arrow from '../../assets/left-arrow.png';
 import Bet from '../bet/bet';
 import './table.css';
-import footerlogo from '../../assets/chat/logocoin.png';
-import { Tooltip, Overlay, OverlayTrigger } from 'react-bootstrap';
+import footerlogo from '../../assets/game/logo.png';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import winnericon from '../../assets/win-icon.png';
 import loseicon from '../../assets/loss-icon.png';
 import StatsPopup from './statsPopup';
 import BuyInPopup from './buyInPopup';
 import LeaveConfirmPopup from './leaveConfirmPopup';
 import './tablepopup.css';
-import NewBuyInPopup from './newBuyinPopup';
 import btntoggle from '../../assets/btnmenu.png';
 import sitdown from '../../assets/sit-in.png';
 import situp from '../../assets/sit-out.png';
@@ -46,7 +38,6 @@ import InviteFriend from './InviteFriend';
 import Helmet from 'react-helmet';
 import MarketStore from '../MarketPlace/marketStore';
 import axios from 'axios';
-import defaultFlag from '../../assets/flag.png';
 import winImage from '../../assets/animation/win.json';
 import userUtils from './../../utils/user';
 import { useHistory } from 'react-router-dom';
@@ -80,828 +71,6 @@ const numFormatter = (num) => {
   else return num; // if value < 1000, nothing to do
 };
 
-const chunk = (arr, players) => {
-  let newArr = [];
-  if (arr.length === 0) {
-    return players;
-  }
-  for (let i = 0; i < players.length; i++) {
-    let player = arr.find((el) => el.displayName === players[i].id);
-    console.log(player, i, 'fsdfsdf');
-    if (player) newArr.push(player);
-    else newArr.push(players[i]);
-  }
-  console.log('newArr =>', newArr);
-  return newArr;
-};
-
-const ParticipantView = ({
-  participantId,
-  toggleMic,
-  toggleWebcam,
-  systemplayer,
-  winner,
-  setBuyinPopup,
-  playerclass,
-  betOn,
-  betWin,
-  handMatch,
-  message,
-  messageBy,
-  action,
-  currentPlayer,
-  playerData,
-  actionText,
-  timer,
-  remainingTime,
-  winAnimationType,
-  friendList,
-  followingList,
-  setFriendList,
-  setFollowingList,
-}) => {
-  const webcamRef = useRef(null);
-  const micRef = useRef(null);
-  const [showFollowMe, setShowFollowMe] = useState(false);
-  const [followClick, setFollowClick] = useState('');
-  const target = useRef(null);
-  const onStreamEnabled = (stream) => {};
-  const onStreamDisabled = (stream) => {};
-  const [newPurchase, setNewPurchase] = useState(false);
-
-  useEffect(() => {
-    const showBuyIn = () => {
-      if (
-        playerData &&
-        playerData.id === userId &&
-        playerData.wallet === 0 &&
-        roomData &&
-        roomData.runninground === 0 &&
-        !roomData.buyin.find(
-          (ele) => ele.userid === userId && ele.redeem === 0
-        ) &&
-        roomData.gameType !== 'pokerTournament_Tables'
-      ) {
-        setBuyinPopup(true);
-      } else {
-        setBuyinPopup(false);
-      }
-      if (
-        playerData &&
-        playerData.id === userId &&
-        roomData &&
-        roomData.buyin.find(
-          (ele) => ele.userid === userId && ele.redeem === 0
-        ) &&
-        roomData.gameType !== 'pokerTournament_Tables'
-      ) {
-        setBuyinPopup(false);
-        setNewPurchase(true);
-      }
-    };
-    if (playerData && playerData.wallet === 0) {
-      showBuyIn();
-    }
-    if (roomData && roomData.runninground === 0) {
-      setNewPurchase(false);
-    }
-  }, [playerData, setBuyinPopup]);
-
-  const { webcamStream, micStream, webcamOn, micOn } = useParticipant(
-    participantId,
-    {
-      onStreamEnabled,
-      onStreamDisabled,
-    }
-  );
-  useEffect(() => {
-    if (webcamRef.current) {
-      if (webcamOn) {
-        const mediaStream = new MediaStream();
-        mediaStream.addTrack(webcamStream.track);
-
-        webcamRef.current.srcObject = mediaStream;
-        webcamRef.current
-          .play()
-          .catch((error) =>
-            console.error('videoElem.current.play() failed', error)
-          );
-      } else {
-        webcamRef.current.srcObject = null;
-      }
-    }
-  }, [webcamStream, webcamOn]);
-
-  useEffect(() => {
-    if (micRef.current) {
-      if (micOn) {
-        const mediaStream = new MediaStream();
-        mediaStream.addTrack(micStream.track);
-
-        micRef.current.srcObject = mediaStream;
-        micRef.current
-          .play()
-          .catch((error) =>
-            console.error('audioElem.current.play() failed', error)
-          );
-      } else {
-        micRef.current.srcObject = null;
-      }
-    }
-  }, [micStream, micOn]);
-
-  const {
-    name,
-    photoURI: playerImage,
-    stats: { Level, total, max, countryCode },
-  } = playerData;
-
-  const handleFollow = async (followerId, nickname) => {
-    const Uid = followerId;
-    toast.success('Following..', {
-      id: 'please-wait',
-      icon: '♠️',
-      style: {
-        borderRadius: '5px',
-        background: '#333',
-        color: '#fff',
-      },
-    });
-
-    axios
-      .get('https://follow-t3e66zpola-lz.a.run.app', {
-        params: { frId: Uid },
-        headers: { idtoken: idToken },
-      })
-      .then((response) => {
-        setFollowClick('');
-        if (response.data) {
-          if (
-            response.data.error === 'no error' &&
-            response.data.success === true
-          ) {
-            setFollowingList((old) => [...old, followerId]);
-            toast.success('You are now following @' + nickname, {
-              id: 'follow-request',
-              icon: '✔️',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-
-          if (
-            response.data.error === 'no error' &&
-            response.data.success === true &&
-            response.data.special ===
-              'You have removed this follower in the past'
-          ) {
-            toast.success(
-              'You are now following @' +
-                nickname +
-                ', notice that you removed him from following you',
-              {
-                id: 'follow-request',
-                icon: '✔️',
-                style: {
-                  borderRadius: '5px',
-                  background: '#333',
-                  color: '#fff',
-                },
-              }
-            );
-          }
-
-          if (response.data.error === 'already following him') {
-            toast.success('You are aleady following @' + nickname, {
-              id: 'follow-aleady',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-
-          if (response.data.error === 'You are rejected follower') {
-            toast.success('Request rejected by @' + nickname, {
-              id: 'follow-rejected',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-
-          if (response.data.error === 'You are rejected follower') {
-            toast.success('You rejected @' + nickname + 'from following', {
-              id: 'follow-aleady',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-
-          if (response.data.error === 'you can not follow yourself') {
-            toast.success('You can not follow yourself', {
-              id: 'follow-yourself',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          } else if (response.data.error !== 'no error') {
-            toast.success(response.data.error, {
-              id: 'follow-yourself',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-        } else {
-          console.log('backend response failed: ', response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.log('Error req', error);
-      });
-  };
-
-  const handleConnect = async (friendId, nickname) => {
-    toast.success('Send friend request..', {
-      id: 'please-wait',
-      icon: '♠️',
-      style: {
-        borderRadius: '5px',
-        background: '#333',
-        color: '#fff',
-      },
-    });
-    const FUid = friendId;
-    const Fname = nickname;
-
-    const IdTokenConst = idToken;
-    const Uid = userId;
-    axios
-      .get('https://friend-reqest-t3e66zpola-uc.a.run.app', {
-        params: { usid: Uid, frId: FUid },
-        headers: { idtoken: IdTokenConst },
-      })
-      .then((response) => {
-        console.log('Executing friend-request:');
-        if (response.data) {
-          if (response.data.error === 'already sent friend request') {
-            toast.success(
-              'Friend request already sent to @' +
-                Fname +
-                ' please wait ' +
-                response.data.hours +
-                ' hours before you can try again.',
-              {
-                duration: 6000,
-                id: 'frined-already-sent',
-                icon: '❌',
-                style: {
-                  borderRadius: '5px',
-                  background: '#333',
-                  color: '#fff',
-                },
-              }
-            );
-          }
-          if (response.data.error === 'already friends') {
-            toast.success('You and @' + Fname + ' already friends', {
-              duration: 4000,
-              id: 'frined-already-sent',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-          if (
-            response.data.error === 'no error' &&
-            response.data.success === true
-          ) {
-            setFriendList((old) => [...old, friendId]);
-            toast.success('Friend request successfully sent to @' + Fname, {
-              duration: 4000,
-              id: 'frined-request',
-              icon: '✔️',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          } else if (response.data.error !== 'no error') {
-            toast.success(response.data.error, {
-              id: 'follow-yourself',
-              icon: '❌',
-              style: {
-                borderRadius: '5px',
-                background: '#333',
-                color: '#fff',
-              },
-            });
-          }
-          setFollowClick('');
-        } else {
-          console.log('Backend response failed: ', response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.log('Error req', error);
-      });
-    console.log('It works my friend-request!!!');
-  };
-
-  return (
-    <>
-      <div
-        key={playerData?.id}
-        onClick={() => {
-          if (playerData?.id !== userId) {
-            setShowFollowMe(!showFollowMe);
-          }
-        }}
-        ref={target}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
-        } ${playerData && playerData.playing ? '' : 'not-playing'}`}>
-        {/* start win or lose animation */}
-        {/* {winner &&
-      playerData &&
-      winner.id !== playerData.id &&
-      winAnimationType.activeWinAnimation.win !== "notFound" &&
-      winAnimationType.level ? (
-        <div className="win-animation"> */}
-        {/* loser div */}
-        {/* {`${winAnimationType.activeWinAnimation.win}-${
-            winAnimationType.level
-          } ${
-            playerData.items.level > winAnimationType.level &&
-            playerData.items["defence"][
-              winAnimationType.activeWinAnimation.type
-            ]
-              ? "<"
-              : ">"
-          } ${
-            winAnimationType.activeWinAnimation.type === "fart"
-              ? "Gas-mask"
-              : winAnimationType.activeWinAnimation.type === "gun"
-              ? "Shield"
-              : winAnimationType.activeWinAnimation.type === "dick"
-              ? "Umbrella"
-              : ""
-          }${playerData.items.level}`} */}
-
-        {/* <img
-            src={
-              require(`../../assets/${
-                playerData.items.level > winAnimationType.level &&
-                playerData.items["defence"][
-                  winAnimationType.activeWinAnimation.type
-                ]
-                  ? playerData.items["defence"][
-                      winAnimationType.activeWinAnimation.type
-                    ] + playerData.items.level
-                  : winAnimationType.activeWinAnimation.type +
-                    winAnimationType.level
-              }.gif`).default
-            }
-            alt="animation effect"
-          /> */}
-        {/* </div>
-      ) : (
-        ""
-      )} */}
-
-        {/* end of win or lose animation */}
-        {currentPlayer &&
-          playerData &&
-          currentPlayer.id === playerData.id &&
-          action && <span className='player-action'>{actionText}</span>}
-
-        <div className='player-box'>
-          <audio ref={micRef} muted={userId === playerData.id} autoPlay />
-
-          {winner && playerData && winner.id === playerData.id && (
-            <div className='pyro'>
-              <div className='before'></div>
-              <div className='after'></div>
-              <Lottie options={winImageanim} width={600} height={500} />
-            </div>
-          )}
-          {playerData && (playerData.fold || !playerData.playing) ? (
-            ''
-          ) : roomData && roomData.runninground === 5 ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData &&
-            roomData.runninground >= 1 &&
-            playerData.id === userId ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData && roomData.runninground === 0 ? (
-            ''
-          ) : (
-            <HideCard />
-          )}
-          <div
-            className='player-pic'
-            style={{
-              backgroundImage: `url(${playerData.items.avatar})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}>
-            {currentPlayer &&
-              playerData &&
-              currentPlayer.id === playerData.id && (
-                <TimerSeparator time={timer} remainingTime={remainingTime} />
-              )}
-            {roomData?.media === 'video' && webcamOn ? (
-              <video ref={webcamRef} autoPlay muted playsInline />
-            ) : (
-              <img src={playerData?.photoURI} alt='off-camera' />
-              // <video ref={webcamRef} autoPlay />
-            )}
-          </div>
-          <div className='player-with-icons'>
-            {systemplayer ? (
-              <div className='cam-tool'>
-                <Dropdown>
-                  <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                    <i className='fa fa-ellipsis-v'></i>
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item>
-                      <div eventKey='audio'>
-                        <i
-                          onClick={() => {
-                            toggleMic();
-                          }}
-                          className={`cursor ${
-                            micOn
-                              ? 'fas fa-microphone-alt'
-                              : 'fas fa-microphone-alt-slash'
-                          }`}></i>
-                      </div>
-                      {roomData?.media === 'video' ? (
-                        <div eventKey='video-cam'>
-                          <>
-                            <i
-                              onClick={() => toggleWebcam()}
-                              className={`cursor ${
-                                webcamOn ? 'fas fa-video' : 'fas fa-video-slash'
-                              }`}></i>
-                          </>
-                        </div>
-                      ) : (
-                        ''
-                      )}
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            ) : (
-              ''
-            )}
-
-            <div className='player-info'>
-              <h4>
-                {playerData && playerData.name.length > 8
-                  ? playerData.name.substring(0, 8) + '..'
-                  : playerData.name}
-              </h4>
-              <p>
-                {newPurchase
-                  ? 'Purchase'
-                  : numFormatter(playerData && playerData.wallet)}
-              </p>
-              {/* {userId === playerData.id && gameCollection !== 'pokerTournament_Tables' && } */}
-            </div>
-          </div>
-          {roomData &&
-            roomData.runninground !== 0 &&
-            playerData &&
-            (playerData.isBigBlind ||
-              playerData.isSmallBlind ||
-              playerData.isDealer) && (
-              <div className='player-badge'>
-                {playerData.isSmallBlind
-                  ? 'S'
-                  : playerData.isBigBlind
-                  ? 'B'
-                  : playerData.isDealer
-                  ? 'D'
-                  : ''}
-              </div>
-            )}
-
-          {playerData && playerData.pot > 0 && playerData !== undefined ? (
-            <div className='player-chip'>
-              <span>{numFormatter(playerData && playerData.pot)}</span>
-            </div>
-          ) : (
-            ''
-          )}
-
-          {betOn && playerData && betOn === playerData.id ? (
-            <WatcherResult betWin={betWin} />
-          ) : (
-            ''
-          )}
-
-          {betOn && playerData && betOn === playerData.id ? (
-            <WatcherResult betWin={betWin} />
-          ) : (
-            ''
-          )}
-        </div>
-        {playerData && playerData.id === messageBy && (
-          <BubbleMessage message={message} />
-        )}
-      </div>
-
-      <Overlay
-        target={target.current}
-        show={showFollowMe}
-        placement='right'
-        rootClose={true}
-        onHide={() => setShowFollowMe(false)}>
-        {({ placement, arrowProps, show: _show, popper, ...props }) => (
-          <div
-            id='button-tooltip'
-            className='tootltip player-tooltip'
-            {...props}>
-            <div className='tooltip-box'>
-              <h5>
-                {name}{' '}
-                <img
-                  className='country-flag'
-                  src={
-                    countryCode
-                      ? `https://countryflagsapi.com/png/${countryCode}`
-                      : 'https://countryflagsapi.com/png/us'
-                  }
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = defaultFlag;
-                  }}
-                  alt='country-flag'
-                />
-              </h5>
-              <div className='tooltip-content'>
-                <img src={playerImage} alt='las-vegas-player' />
-                <div className='player-details-content'>
-                  <p>
-                    Level - <span>{Level}</span>
-                  </p>
-                  <p>
-                    Win - <span>{total.win}</span>
-                  </p>
-                  <p>
-                    Win ratio - <span>{total.wl_ratio.toFixed(2)}</span>
-                  </p>
-                </div>
-              </div>
-
-              <p>
-                Win coins - <span>{max.winCoins}</span>
-              </p>
-              <p>
-                Game played - <span>{total.games}</span>
-              </p>
-              <div className='action-tooltip'>
-                <Button
-                  className='btn-gold'
-                  onClick={() => {
-                    setFollowClick('follow');
-                    handleFollow(playerData.id, playerData.name);
-                  }}
-                  disabled={
-                    followClick ||
-                    followingList.find((ele) => ele === playerData.id)
-                  }>
-                  {followClick === 'follow' ? (
-                    <Spinner animation='border' />
-                  ) : (
-                    'Follow'
-                  )}
-                </Button>
-                <Button
-                  className='btn-dark'
-                  onClick={() => {
-                    setFollowClick('friend');
-                    handleConnect(playerData.id, playerData.name);
-                  }}
-                  disabled={
-                    followClick ||
-                    friendList.find((ele) => ele === playerData.id)
-                  }>
-                  {followClick === 'friend' ? (
-                    <Spinner animation='border' />
-                  ) : (
-                    'Add Friend'
-                  )}
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </Overlay>
-    </>
-  );
-};
-
-const ParticipantsView = ({
-  toggleWebcam,
-  toggleMic,
-  players,
-  winner,
-  setBuyinPopup,
-  betOn,
-  betWin,
-  handMatch,
-  message,
-  messageBy,
-  action,
-  currentPlayer,
-  actionText,
-  timer,
-  remainingTime,
-  winAnimationType,
-  setShowFollowMe,
-  friendList,
-  followingList,
-  setFriendList,
-  setFollowingList,
-}) => {
-  const { participants } = useMeeting();
-  return chunk([...participants.values()], players).map((l, i) =>
-    AvailablePosition[i] + 1 ? (
-      <ParticipantView
-        key={l.id}
-        playerclass={`player${AvailablePosition[i] + 1} wow animate__animated`}
-        systemplayer={i === 0 ? true : false}
-        participantId={l.id}
-        toggleMic={toggleMic}
-        toggleWebcam={toggleWebcam}
-        playerData={players.length > i ? players[i] : undefined}
-        winner={winner}
-        setBuyinPopup={setBuyinPopup}
-        betOn={betOn}
-        betWin={betWin}
-        handMatch={handMatch}
-        message={message}
-        messageBy={messageBy}
-        action={action}
-        currentPlayer={currentPlayer}
-        actionText={actionText}
-        timer={timer}
-        remainingTime={remainingTime}
-        winAnimationType={winAnimationType}
-        setShowFollowMe={setShowFollowMe}
-        friendList={friendList}
-        followingList={followingList}
-        setFriendList={setFriendList}
-        setFollowingList={setFollowingList}
-      />
-    ) : (
-      ''
-    )
-  );
-};
-
-const MeetingView = ({
-  players,
-  winner,
-  setBuyinPopup,
-  betOn,
-  betWin,
-  handMatch,
-  message,
-  messageBy,
-  action,
-  currentPlayer,
-  actionText,
-  timer,
-  remainingTime,
-  winAnimationType,
-  setShowFollowMe,
-  friendList,
-  followingList,
-  setFriendList,
-  setFollowingList,
-}) => {
-  const onSpeakerChanged = (activeSpeakerId) => {};
-  const { join, leave, toggleMic, toggleWebcam, participants, end } =
-    useMeeting({
-      onParticipantJoined,
-      onParticipantLeft,
-      onSpeakerChanged,
-      onMainParticipantChanged,
-      onEntryRequested,
-      onEntryResponded,
-      onMeetingJoined,
-      onMeetingLeft,
-    });
-  function onParticipantJoined(participant) {
-    console.log(' onParticipantJoined', participant);
-  }
-  function onParticipantLeft(participant) {
-    console.log(' onParticipantLeft', participant);
-  }
-
-  function onMainParticipantChanged(participant) {
-    console.log(' onMainParticipantChanged', participant);
-  }
-  function onEntryRequested(participant) {
-    if (admin) {
-      // if (
-      //   ![...participants.values()].find(
-      //     (ele) => ele.displayName === participant.name
-      //   )
-      // )
-      participant.allow();
-    } else participant.deny();
-  }
-  function onEntryResponded(participantId, name) {
-    console.log(' onEntryResponded', participantId, name);
-  }
-
-  function onMeetingJoined() {
-    console.log('onMeetingJoined');
-  }
-  function onMeetingLeft() {
-    console.log('onMeetingLeft');
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (participants) join();
-    }, 1000);
-    return leave();
-  }, []);
-
-  useEffect(() => {
-    socket.on('roomFinished', () => {
-      if (admin) {
-        end();
-      }
-    });
-  }, []);
-
-  return (
-    <ParticipantsView
-      toggleWebcam={toggleWebcam}
-      toggleMic={toggleMic}
-      players={players}
-      winner={winner}
-      setBuyinPopup={setBuyinPopup}
-      betOn={betOn}
-      betWin={betWin}
-      handMatch={handMatch}
-      message={message}
-      messageBy={messageBy}
-      action={action}
-      currentPlayer={currentPlayer}
-      actionText={actionText}
-      timer={timer}
-      remainingTime={remainingTime}
-      winAnimationType={winAnimationType}
-      setShowFollowMe={setShowFollowMe}
-      friendList={friendList}
-      followingList={followingList}
-      setFriendList={setFriendList}
-      setFollowingList={setFollowingList}
-    />
-  );
-};
 
 const PokerTable = (props) => {
   const [currentPlayer, setCurrentPlayer] = useState();
@@ -962,56 +131,9 @@ const PokerTable = (props) => {
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followingList, setFollowingList] = useState([]);
   const [friendList, setFriendList] = useState([]);
-  const [exchangeRate, setExchangeRate] = useState({
-    rate: 1,
-    currency: 'USD',
-  });
 
-  const getDoc = async (coll, u) => {
-    //u = user.uid
-    const res = await axios.get('https://get-doc-t3e66zpola-uc.a.run.app/', {
-      params: {
-        coll,
-        usid: u,
-      },
-    });
 
-    return {
-      ...res.data.doc,
-      inGame: res.data.inGame,
-      exchangeRate: {
-        rate: res.data.exchangeRate,
-        currency: res.data.currency,
-      },
-    };
-  };
 
-  const getFollowing = async (token) => {
-    const res = await axios.get(
-      `https://followers-table-t3e66zpola-ez.a.run.app/?type=following`,
-      { headers: { idtoken: token } }
-    );
-    if (res.data.success) {
-      setFollowingList(res.data.followers.map((ele) => ele.uid));
-    }
-  };
-
-  const fetchFriendList = async () => {
-    try {
-      const res = await axios.get('https://base-api-t3e66zpola-uk.a.run.app', {
-        params: {
-          usid: userId,
-          service: 'getFr-BlockTables',
-          params: `usid=${userId},mode=lobby`,
-        },
-      });
-      if (res.data.error === 'no error') {
-        setFriendList(res.data.friendList.map((ele) => ele.uid));
-      }
-    } catch (err) {
-      console.log('Error in fetch friend list =>', err.message);
-    }
-  };
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
@@ -2120,6 +1242,7 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
+
       <div className={`poker-bg ${loader ? 'loaderactive' : ''} `}>
         {loader && (
           <div className='poker-loader'>
@@ -2151,14 +1274,14 @@ const PokerTable = (props) => {
               roomData.players.find((ele) => ele.userid === userId)) ||
             isWatcher ? (
               <div
-                className={`poker-table-bg wow animate__animated animate__fadeIn count-${players?.length}`}>
-                <TableLogo />
-                <div className='start-game-btn'>
+                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
+                
+                <div className='start-game'>
                   {isAdmin && roomData && !roomData.gamestart ? (
-                    <>
+                    <div className='start-game-btn'>
                       <p>Click to start game</p>
                       {/* disabled={players && players.length <2} */}
-                      <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                      <div className='footer-btn '>
                         {players && players.length >= 2 && (
                           <Button
                             onClick={() => {
@@ -2181,33 +1304,33 @@ const PokerTable = (props) => {
                           </OverlayTrigger>
                         )}
                       </div>
-                    </>
+                    </div>
                   ) : newUser ? (
-                    <>
+                    <div className='start-game-btn'>
                       <p>Join table</p>
-                      <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                      <div className='footer-btn '>
                         <Button onClick={() => joinGame()}>Join Game</Button>
                       </div>
-                    </>
+                    </div>
                   ) : allowWatcher ? (
-                    <>
+                    <div className='start-game-btn'>
                       <p>Join as</p>
                       <div className='d-flex'>
-                        <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                        <div className='footer-btn '>
                           <Button onClick={() => joinGame()}>Player</Button>
                         </div>
-                        <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                        <div className='footer-btn '>
                           <Button onClick={() => joinWatcher()}>Watcher</Button>
                         </div>
                       </div>
-                    </>
+                    </div>
                   ) : onlywatcher ? (
-                    <>
+                    <div className='start-game-btn'>
                       <p>Game started, Join as -</p>
-                      <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                      <div className='footer-btn '>
                         <Button onClick={() => joinWatcher()}>Watcher</Button>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     ''
                   )}
@@ -2215,18 +1338,18 @@ const PokerTable = (props) => {
                     roomData.runninground === 0 &&
                     !roomData.gamestart &&
                     !isAdmin && (
-                      <p>Please wait for the Admin to "Start the game"</p>
+                      <div className='start-game-btn'><p>Please wait for the Admin to Start the game</p></div>
                     )}
                   {roomData &&
                   roomData.handWinner.length === 0 &&
                   !roomData?.gamestart ? (
-                    <p className='joined-player'>
+                    <div className='start-game-btn'><p className='joined-player'>
                       Invited Players joined -{' '}
                       {roomData.players.filter((ele) =>
                         roomData.invPlayers.includes(ele.userid)
                       ).length + 1}
                       /{roomData.invPlayers.length + 1}
-                    </p>
+                    </p></div>
                   ) : (
                     ''
                   )}
@@ -2240,55 +1363,56 @@ const PokerTable = (props) => {
                   matchCards={matchCards}
                 />
 
-                {!isWatcher &&
-                  roomData &&
-                  userId &&
-                  players.map((player, i) => (
-                    <Players
-                      key={`item-${player.userid ? player.userid : player.id}`}
-                      followingList={followingList}
-                      friendList={friendList}
-                      systemplayer={i === 0 ? true : false}
-                      playerclass={`player${
-                        player.availablePosition + 1
-                      } wow animate__animated animate__zoomIn animate__delay-01s`}
-                      playerData={player}
-                      timer={timer}
-                      action={action}
-                      actionText={actionText}
-                      remainingTime={remainingTime}
-                      currentPlayer={currentPlayer}
-                      winner={winner}
-                      handMatch={handMatch}
-                      message={message}
-                      messageBy={messageBy}
-                      betOn={betOn}
-                      betWin={betWin}
-                      tableId={tableId}
-                      sitout={sitout}
-                      sitin={sitin}
-                      gameCollection={gameCollection}
-                      showCoin={showCoin}
-                      setShowCoin={setShowCoin}
-                      setBuyinPopup={setBuyinPopup}
-                      handleShowStore={handleShowStore}
-                      winAnimationType={winAnimationType}
-                      setShowFollowMe={setShowFollowMe}
-                      setFriendList={setFriendList}
-                      setFollowingList={setFollowingList}
-                    />
-                  ))}
+                {!isWatcher && roomData &&
+                    userId &&
+                   players.map((player, i) => (
+                      <Players
+                        key={`item-${
+                          player.userid ? player.userid : player.id
+                        }`}
+                        followingList={followingList}
+                        friendList={friendList}
+                        systemplayer={i === 0 ? true : false}
+                        playerclass={`player${
+                          player.availablePosition + 1
+                        }`}
+                        playerData={player}
+                        timer={timer}
+                        action={action}
+                        actionText={actionText}
+                        remainingTime={remainingTime}
+                        currentPlayer={currentPlayer}
+                        winner={winner}
+                        handMatch={handMatch}
+                        message={message}
+                        messageBy={messageBy}
+                        betOn={betOn}
+                        betWin={betWin}
+                        tableId={tableId}
+                        sitout={sitout}
+                        sitin={sitin}
+                        gameCollection={gameCollection}
+                        showCoin={showCoin}
+                        setShowCoin={setShowCoin}
+                        setBuyinPopup={setBuyinPopup}
+                        handleShowStore={handleShowStore}
+                        winAnimationType={winAnimationType}
+                        setShowFollowMe={setShowFollowMe}
+                        setFriendList={setFriendList}
+                        setFollowingList={setFollowingList}
+                      />
+                    ))}
               </div>
             ) : (
               <div className='poker-table-bg wow animate__animated animate__fadeIn'>
-                <TableLogo />
+                
                 <div className='start-game-btn'>
                   {roomData ? (
                     !roomData.gamestart ? (
                       newUser ? (
                         <>
                           <p>Join table</p>
-                          <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                          <div className='footer-btn'>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
@@ -2298,10 +1422,10 @@ const PokerTable = (props) => {
                         <>
                           <p>Join as</p>
                           <div className='d-flex'>
-                            <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                            <div className='footer-btn '>
                               <Button onClick={() => joinGame()}>Player</Button>
                             </div>
-                            <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                            <div className='footer-btn '>
                               <Button onClick={() => joinWatcher()}>
                                 Watcher
                               </Button>
@@ -2311,7 +1435,7 @@ const PokerTable = (props) => {
                       ) : onlywatcher ? (
                         <>
                           <p>Game started, Join as -</p>
-                          <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                          <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
@@ -2328,10 +1452,10 @@ const PokerTable = (props) => {
                       <>
                         <p>Join as</p>
                         <div className='d-flex'>
-                          <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                          <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>Player</Button>
                           </div>
-                          <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                          <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
@@ -2343,7 +1467,7 @@ const PokerTable = (props) => {
                       roomData.gamestart ? (
                       <>
                         <p>Game started, Join as -</p>
-                        <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinWatcher();
@@ -2358,7 +1482,7 @@ const PokerTable = (props) => {
                   ) : newUser ? (
                     <>
                       <p>Join table</p>
-                      <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                      <div className='footer-btn '>
                         <Button
                           onClick={() => {
                             joinGame();
@@ -2371,7 +1495,7 @@ const PokerTable = (props) => {
                     <>
                       <p>Join as</p>
                       <div className='d-flex'>
-                        <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinGame();
@@ -2379,7 +1503,7 @@ const PokerTable = (props) => {
                             Player
                           </Button>
                         </div>
-                        <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinWatcher();
@@ -2392,7 +1516,7 @@ const PokerTable = (props) => {
                   ) : onlywatcher ? (
                     <>
                       <p>Game started, Join as -</p>
-                      <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                      <div className='footer-btn '>
                         <Button onClick={() => joinWatcher()}>Watcher</Button>
                       </div>
                     </>
@@ -2403,6 +1527,7 @@ const PokerTable = (props) => {
               </div>
             )}
           </div>
+
           <FooterButton
             bet={bet}
             setBet={setBet}
@@ -2424,6 +1549,7 @@ const PokerTable = (props) => {
           />
         </div>
       </div>
+
       <div className='btn-toggler' onClick={handleBtnClick} role='presentation'>
         <img src={btntoggle} alt='' />
       </div>
@@ -2598,7 +1724,6 @@ const PokerTable = (props) => {
         setNewJoinLowBalance={setNewJoinLowBalance}
         newJoinlowBalance={newJoinlowBalance}
         gameType={gameCollection}
-        exchangeRate={exchangeRate}
       />
       <InviteFriend
         setShowInvite={setShowInvite}
@@ -3005,7 +2130,7 @@ const Players = ({
           ) : (
             <HideCard />
           )}
-          <div
+          {/* <div
             className='player-pic'
             style={{
               backgroundSize: 'cover',
@@ -3018,13 +2143,13 @@ const Players = ({
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
             <img src={playerData?.photoURI} alt='' />
-          </div>
+          </div> */}
 
           <div className='player-info'>
             <h4>
-              {playerData && playerData.name.length > 8
-                ? playerData.name.substring(0, 8) + '..'
-                : playerData.name}
+              {playerData && playerData?.name?.length > 8
+                ? playerData?.name?.substring(0, 8) + '..'
+                : playerData?.name}
             </h4>
             <p>
               {newPurchase
@@ -3188,23 +2313,22 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
 
 const TablePotMoney = ({ tablePot }) => {
   return (
-    <div className='total-pot-money wow animate__animated animate__fadeInDown  animate__delay-02s'>
+    <div className='total-pot-money'>
       <span>{numFormatter(tablePot && tablePot)}</span>
     </div>
   );
 };
 
-const TableLogo = () => {
-  return (
-    <div className='poker-logo'>
-      <img
-        src={logo}
-        alt='logo'
-        className='wow animate__animated animate__pulse'
-      />
-    </div>
-  );
-};
+// const TableLogo = () => {
+//   return (
+//     <div className='poker-logo'>
+//       <img
+//         src={logo}
+//         alt='logo'
+//       />
+//     </div>
+//   );
+// };
 
 const FooterButton = ({
   bet,
@@ -3227,18 +2351,18 @@ const FooterButton = ({
           {currentPlayer && currentPlayer.id === userId ? (
             <>
               {openAction.fold && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   <Button onClick={() => foldAction()}>Fold</Button>
                 </div>
               )}
               {openAction.call && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   <Button onClick={() => callAction()}>Call</Button>
                 </div>
               )}
 
               {openAction.bet && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   {bet && (
                     <BetView
                       currentPlayer={currentPlayer}
@@ -3257,12 +2381,12 @@ const FooterButton = ({
                 </div>
               )}
               {openAction.allin && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   <Button onClick={() => allinAction()}>All In</Button>
                 </div>
               )}
               {openAction.raise && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   {raise && (
                     <RaiseView
                       currentPlayer={currentPlayer}
@@ -3281,7 +2405,7 @@ const FooterButton = ({
                 </div>
               )}
               {openAction.check && (
-                <div className='footer-btn wow animate__animated animate__zoomIn animate__delay-01s'>
+                <div className='footer-btn '>
                   <Button onClick={() => checkAction()}>Check</Button>
                 </div>
               )}
@@ -3429,11 +2553,11 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
     <div className='play-pause-button'>
       {roomData && roomData.autoNextHand ? (
         roomData.pause ? (
-          <div className='play-btn wow animate__animated animate__zoomIn animate__delay-3-1s'>
+          <div className='play-btn'>
             <Button onClick={() => resumeGame()}>Resume</Button>
           </div>
         ) : (
-          <div className='play-btn wow animate__animated animate__zoomIn animate__delay-3-1s'>
+          <div className='play-btn'>
             <Button onClick={() => pauseGame()}>Pause</Button>
           </div>
         )
@@ -3442,7 +2566,7 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
       )}
 
       {!showFinish && (
-        <div className='pause-btn wow animate__animated animate__zoomIn animate__delay-1s'>
+        <div className='pause-btn'>
           <Button
             onClick={() => {
               finishGame();
@@ -3481,7 +2605,7 @@ const ShowCard = ({ cards, handMatch }) => {
               handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
                 : `winner-card`
-            } wow animate__animated animate__zoomIn animate__delay-02s`}
+            } `}
           />
         ))}
     </div>

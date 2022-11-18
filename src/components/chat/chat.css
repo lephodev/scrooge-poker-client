@@ -2,8 +2,8 @@
   max-width: 350px;
   position: fixed;
   width: 100%;
-  bottom: 0;
-  right: 20px;
+  bottom: -12px;
+  right: 10px;
   z-index: 99;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -25,14 +25,14 @@
 .chat-header .close-icon {
   width: 40px;
   height: 40px;
-  background: #b9a11e;
+  background: #171b27;
   text-align: center;
   line-height: 44px;
   border-radius: 100%;
   transition: all 0.5s;
   cursor: pointer;
   position: relative;
-  bottom: 20px;
+  bottom: 10px;
 }
 
 i.fa.fa-sign-out {
@@ -49,11 +49,11 @@ i.fa.fa-sign-out {
 
 .chat-content {
   transition: all 0.5s;
-  background: #191b25;
-  padding: 20px;
-  border: 1px solid #484848;
-  border-radius: 5px;
   position: relative;
+  background: #131721;
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid #222632;
 }
 
 .chat-content:before {
@@ -80,14 +80,15 @@ i.fa.fa-sign-out {
 }
 
 .chat-search.chat-input .form-inline .form-control {
-  border: 1px solid #484848;
-  width: calc(100% - 38px);
-  font-family: sans-serif;
-  background: transparent;
-  margin-left: -2px;
+  border: 1px solid #1e2432;
+  width: calc(100% - 50px);
+  background: #131620;
+  margin-left: 0px;
   color: #fff;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+  font-size: 14px;
+  height: 40px;
 }
 
 .chat-search.chat-input .form-inline .form-control:focus {
@@ -97,15 +98,15 @@ i.fa.fa-sign-out {
 .chat-search.chat-input .form-inline .btn-primary,
 .chat-search.chat-input .form-inline .btn-primary:hover,
 .chat-search.chat-input .form-inline .btn-primary:focus {
-  background: #b9a11e;
-  color: #fff;
-  font-size: 16px;
-  width: 38px;
-  height: 38px;
-  border-color: #b9a11e;
-  box-shadow: none;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  background: #f9ff00;
+    color: #000;
+    font-size: 16px;
+    width: 50px;
+    height: 40px;
+    border-color: #f9ff00;
+    box-shadow: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .chat-logo img {
@@ -115,7 +116,7 @@ i.fa.fa-sign-out {
 }
 .chat-search.chat-input {
   border-bottom: none;
-  padding: 15px 0px;
+  padding: 5px 0px 10px;
 }
 
 .chat-back {
@@ -146,7 +147,7 @@ i.fa.fa-sign-out {
 
 span.msg-limit {
   font-size: 10px;
-  color: #706c6c;
-  position: absolute;
-  right: 24px;
+  color: #bababa;
+  display: block;
+  text-align: right;
 }

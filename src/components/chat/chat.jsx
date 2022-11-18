@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap"
-import logo from "../../assets/chat/logocoin.png";
+import logo from "../../assets/game/logo.png";
 import "./chat.css";
 import { socket } from '../../config/socketConnection';
 
