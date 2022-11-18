@@ -40,6 +40,7 @@ import MarketStore from '../MarketPlace/marketStore';
 import axios from 'axios';
 import winImage from '../../assets/animation/win.json';
 import userUtils from './../../utils/user';
+import { useHistory } from 'react-router-dom';
 
 const winImageanim = {
   loop: true,
@@ -110,7 +111,7 @@ const PokerTable = (props) => {
     allin: false,
     fold: false,
   });
-
+  const history = useHistory();
   const [open, setOpen] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [leaveConfirmShow, setLeaveConfirm] = useState(false);
@@ -120,7 +121,7 @@ const PokerTable = (props) => {
     setOpen(e);
   };
 
-  console.log('Players Data ------------- ',{players})
+  console.log('Players Data ------------- ', { players });
 
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
@@ -651,7 +652,7 @@ const PokerTable = (props) => {
       setLoader(false);
       roomData = data.game;
       console.log('room =>', roomData);
-      console.log({userId})
+      console.log({ userId });
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
         !roomData.preflopround.find((ele) => ele.id === userId) &&
@@ -700,6 +701,7 @@ const PokerTable = (props) => {
 
     socket.on('onlyOnePlayingPlayer', (data) => {
       roomData = data.roomdata;
+      console.log({ roomData });
       updatePlayer(roomData.players);
     });
     socket.on('roomResume', () => {
@@ -1215,6 +1217,18 @@ const PokerTable = (props) => {
     setShowStore(true);
     setSelectedUser(id);
   };
+
+  useEffect(() => {
+    socket.on('notInvited', () => {
+      alert('This is a private table');
+      history.push('/');
+    });
+
+    return () => {
+      socket.off('notInvited');
+    };
+  }, [history]);
+
   return (
     <div className='poker' id={players.length}>
       <Helmet>
@@ -1794,10 +1808,7 @@ const Players = ({
       setNewPurchase(false);
     }
   }, [playerData, setBuyinPopup]);
-  const {
-    name,
-    photoURI: playerImage,
-  } = playerData;
+  const { name, photoURI: playerImage } = playerData;
 
   const handleFollow = async (followerId, nickname) => {
     const Uid = followerId;
