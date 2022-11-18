@@ -1579,6 +1579,7 @@ const PokerTable = (props) => {
 
     socket.on('onlyOnePlayingPlayer', (data) => {
       roomData = data.roomdata;
+      console.log({ roomData });
       updatePlayer(roomData.players);
     });
     socket.on('roomResume', () => {
