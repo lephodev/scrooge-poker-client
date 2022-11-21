@@ -388,7 +388,7 @@ body {
 .players.player1 .player-chip {
   position: absolute;
   width: 100%;
-  top: -33px;
+  top: -125px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -404,7 +404,7 @@ body {
 .players.player6 .player-chip {
   position: absolute;
   width: 100%;
-  bottom: -35px;
+  bottom: -70px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -572,16 +572,16 @@ body {
 
 .total-pot-money {
   position: absolute;
-  top: 90px;
-  left: calc(50% - 70px);
+  top: 108px;
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .total-pot-money span {
-  background: url(../../assets/main-pot.png);
+  background: url(../../assets/game/total-pot.png);
   text-align: center;
-  width: 136px;
-  height: 41px;
+  width: 150px;
+  height: 56px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -589,13 +589,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
-  padding-right: 10px;
-  color: #000;
+  color: #fff;
 }
 
-.total-pot-money span::before {
+/* .total-pot-money span::before {
   content: "";
   background: url(../../assets/coin-5.png);
   text-align: center;
@@ -606,7 +605,7 @@ body {
   background-position: center;
   position: absolute;
   right: -20px;
-}
+} */
 
 .player-action {
   font-size: 18px;
@@ -646,13 +645,13 @@ body {
 
 .player-chip {
   text-align: center;
-  padding-left: 20px;
 }
 .player-chip span {
-  background: #ffff71;
-  border-radius: 30px;
+  background: url(../../assets/game/btn-bg.png);
   text-align: center;
   max-width: 100px;
+  width: 100%;
+  height: 45px;
   margin: 0px auto;
   background-size: cover;
   background-repeat: no-repeat;
@@ -661,14 +660,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: #000;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
   padding: 2px 0px;
   letter-spacing: 1px;
-  padding-left: 10px;
+  font-weight: 500;
 }
 
-.player-chip span::before {
+/* .player-chip span::before {
   content: "";
   background: url(../../assets/chips.png);
   text-align: center;
@@ -679,7 +678,7 @@ body {
   background-position: center;
   position: absolute;
   left: -20px;
-}
+} */
 
 .player-badge {
   background: url(../../assets/d-budge.png);
@@ -692,8 +691,8 @@ body {
   background-position: center;
   position: absolute;
   font-size: 12px;
-  right: -15px;
-  bottom: 0px;
+  right: -25px;
+  bottom: 10px;
 }
 
 .play-pause-button {
@@ -852,7 +851,7 @@ body {
 
 .game-msg {
   position: absolute;
-  top: 150px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 99;
@@ -912,15 +911,21 @@ body {
 
 .winner-player .show-card {
   z-index: 9;
-  left: -20px;
-  top: 50px;
-  transform: rotate(-5deg);
 }
 
-.winner-player .show-card img {
-  transform: inherit;
+.winner-text {
+  background: linear-gradient(180deg, #e2e60d, #fcff7f);
+  padding: 15px 30px !important;
+  width: 100%;
+  z-index: 999999999;
+  position: relative;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #e2e71a;
+  color: #000!important;
+  text-shadow: none!important;
 }
-
 /**** Winner Animation *******/
 
 .pyro > .before,
@@ -1367,10 +1372,10 @@ body {
   border: 1px solid #191e2b;
   max-width: 350px;
   width: 100%;
-  animation: shake 1.5s cubic-bezier(.36,.07,.19,.97) both infinite;
+  /* animation: shake 1.5s cubic-bezier(.36,.07,.19,.97) both infinite;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  perspective: 1000px;
+  perspective: 1000px; */
 }
 
 @keyframes shake {

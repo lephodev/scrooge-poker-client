@@ -370,28 +370,7 @@ input:checked + .slider:before {
     border-left: none;
     border-right: none;
 } */
-.winner-text {
-  background-color: #a46b1cba;
-  padding: 10px 30px !important;
-  width: 100%;
-  z-index: 999999999;
-  position: relative;
-  font-size: 20px !important;
-  text-shadow: 0px 3px 10px #0e0e0e !important;
-  border-radius: 0;
-  font-weight: 400;
-  background: linear-gradient(
-    to right,
-    #cf6e0e17 0%,
-    #a46b31 17%,
-    #a46b1c 83%,
-    #a0681a00 100%
-  );
-  border: 1px solid #cc6600;
-  border-left: none;
-  border-right: none;
-  text-align: center;
-}
+
 .bet-challenger .bet-winner {
   background-color: #046104;
   border-radius: 25px;
