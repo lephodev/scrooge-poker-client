@@ -510,10 +510,10 @@ body {
 }
 
 .footer-btn {
-  background: url(../../assets/title-bg.png);
+  background: url(../../assets/game/btn-bg.png);
   text-align: center;
   width: 140px;
-  height: 55px;
+  height: 63px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -528,7 +528,7 @@ body {
 .footer-btn .btn:hover,
 .footer-btn .btn:focus {
   background: transparent;
-  color: #361302;
+  color: #fff;
   font-size: 15px;
   line-height: 15px;
   border: none;
@@ -536,17 +536,17 @@ body {
   box-shadow: none;
   width: 100%;
   transition: all 0.5s;
-  margin-top: 0;
+  margin-top: -4px;
 }
 
 .footer-btn .btn:hover {
-  color: #da9916;
+  color: #fff;
 }
 
 .footer-btn .btn-primary:not(:disabled):not(.disabled).active,
 .footer-btn .btn-primary:not(:disabled):not(.disabled):active {
   background: transparent;
-  color: #361302;
+  color: #fff;
   border: none;
   outline: none;
   box-shadow: none;
@@ -681,10 +681,10 @@ body {
 } */
 
 .player-badge {
-  background: url(../../assets/d-budge.png);
+  background: url(../../assets/game/badge.png);
   text-align: center;
-  width: 25px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
   line-height: 25px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -693,6 +693,7 @@ body {
   font-size: 12px;
   right: -25px;
   bottom: 10px;
+  padding-left: 3px;
 }
 
 .play-pause-button {
@@ -805,7 +806,7 @@ body {
   position: absolute;
   top: -55px;
   left: 32%;
-  background: #806244;
+  background: #1f2432;
   padding: 10px;
   border-radius: 30px;
   padding-right: 25px;
@@ -815,14 +816,14 @@ body {
 .close-bet {
   position: absolute;
   right: 13px;
-  color: #1b1b1b;
+  color: #c8c8c8;
   cursor: pointer;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .bet-view span {
-  background: #da9916;
+  background: #f9ff00;
   border-radius: 30px;
   min-width: 55px;
   padding: 1px 5px;
@@ -832,9 +833,10 @@ body {
   font-size: 13px;
   cursor: pointer;
   transition: all 0.5s;
+  font-weight: 600;
 }
 .bet-view span:hover {
-  background: #ffc95b;
+  background: #f9ff00;
 }
 
 .bet-view::before {
@@ -843,7 +845,7 @@ body {
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-top: 15px solid #806244;
+  border-top: 15px solid #1f2432;
   position: absolute;
   bottom: -10px;
   left: 15px;
@@ -1401,7 +1403,7 @@ body {
   justify-content: center;
   margin: 0px auto;
   width: 120px;
-  height: 42px;
+  height: 54px;
 }
 
 .start-game-btn .footer-btn .btn {
