@@ -21,7 +21,7 @@ import myTurn from '../../assets/Poker Sfx/MyTurn.wav';
 import arrow from '../../assets/left-arrow.png';
 import Bet from '../bet/bet';
 import './table.css';
-import footerlogo from '../../assets/game/logo.png';
+import footerlogo from '../../assets/game/logo-poker.png';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import winnericon from '../../assets/win-icon.png';
 import loseicon from '../../assets/loss-icon.png';
