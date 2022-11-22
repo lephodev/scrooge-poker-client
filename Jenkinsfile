@@ -9,7 +9,7 @@ pwd
 rm -rf build/
 rm -rf pokerbuild.tar.gz
 npm install --force
-npm run build
+CI= npm run build
 tar cvf pokerbuild.tar.gz build
 ls'''
       }
