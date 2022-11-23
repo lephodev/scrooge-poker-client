@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form} from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
 import './home.css';
 import { useEffect } from 'react';
 import userUtils from '../../utils/user';
 import loaderImg from '../../assets/chat/loader1.webp';
+import casino from '../../assets/game/placeholder.png';
+import logo from '../../assets/game/logo-poker.png';
 import { pokerInstance } from '../../utils/axios.config';
 
 const Home = () => {
@@ -105,27 +107,43 @@ const Home = () => {
         createTable={createTable}
         errors={errors}
       />
-      <div className='btn-container container mb-4'>
-        <div>
-          <p>Welcome {userData?.username}</p>
-          <p>Wallet: {userData?.wallet || 0}</p>
+
+      <div className='user-header'>
+        <div className='container'>
+        <div className='user-header-grid'>
+          <div className='casino-logo'>
+            <img src={logo} alt="" />
+          </div>
+          <div className='create-game-box'>
+            <div className='user-info-box'>
+              <h5>{userData?.username}</h5>
+              <p><i className='fa fa-wallet' /> <span>{userData?.wallet || 0}</span></p>
+            </div>
+            <button
+              type='button'
+              onClick={handleShow}>
+              Create Game
+            </button>
+          </div>
         </div>
-        <div>
-          <button
-            type='button'
-            className='btn btn-primary'
-            onClick={handleShow}>
-            Create Game
-          </button>
         </div>
       </div>
 
-      <div className='open-table'>
+      <div className='home-poker-card'>
         <div className='container'>
-          <div className='row'>
-            <div className='col-md-12 mb-4'>
-              <h3>Open Tables</h3>
+            <h3>Open Tables</h3>
+            <div className='home-poker-card-grid'>
+              <GameTable />
+              <GameTable />
+              <GameTable />
             </div>
+        </div>
+      </div>
+
+      <div className='home-poker-card'>
+        <div className='container'>
+            <h3>Open Tourrnaments</h3>
+            <div className='home-poker-card-grid'>
             <GameTable />
             <GameTable />
             <GameTable />
@@ -133,18 +151,6 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='open-tournament'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-12 mb-4'>
-              <h3>Open Tournament</h3>
-            </div>
-            <GameTable />
-            <GameTable />
-            <GameTable />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
@@ -158,13 +164,13 @@ const CreateTable = ({
   errors,
 }) => {
   return (
-    <Modal show={show} onHide={handleShow}>
+    <Modal show={show} onHide={handleShow} centered className='casino-popup'>
       <Modal.Header closeButton>
         <Modal.Title className='text-dark'>Create Table</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group className='mb-3' controlId='formPlaintextPassword'>
-          <Form.Label className='text-dark'>Enter game name</Form.Label>
+        <Form.Group className='form-group' controlId='formPlaintextPassword'>
+          <Form.Label>Enter game name</Form.Label>
           <Form.Control
             name='gameName'
             type='text'
@@ -176,8 +182,8 @@ const CreateTable = ({
             <p className='text-danger'>{errors?.gameName}</p>
           )}
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formPlaintextPassword'>
-          <Form.Label className='text-dark'>
+        <Form.Group className='form-group' controlId='formPlaintextPassword'>
+          <Form.Label>
             Enter minimum bet amount
           </Form.Label>
           <Form.Control
@@ -194,7 +200,6 @@ const CreateTable = ({
         <Form.Check
           inline
           label='Public Game'
-          className='text-dark'
           name='public'
           type='checkbox'
           id={'public'}
@@ -216,15 +221,15 @@ const CreateTable = ({
 
 const GameTable = () => {
   return (
-    <div className='col-md-4 mb-4'>
-      <div className='card'>
+    <div className='home-poker-content'>
+      <div className='home-poker-cover'>
         <img
-          className='card-img-top'
-          src='https://images.unsplash.com/10/wii.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
-          alt=''
+          alt=""
+          src={casino}
         />
-        <div className='card-body'>
-          <h5 className='card-title text-dark'>Adam's Game</h5>
+        </div>
+        <div className='home-poker-info'>
+          <h4>Adam's Game</h4>
 
           <AvatarGroup
             imgArr={[
@@ -235,18 +240,17 @@ const GameTable = () => {
               'https://www.fillmurray.com/50/50',
             ]}
           />
-          <a href='/' className='btn btn-primary'>
+          <button type='submit'>
             Join Game
-          </a>
+          </button>
         </div>
       </div>
-    </div>
   );
 };
 
 const AvatarGroup = ({ imgArr }) => {
   return (
-    <>
+    <div className='poker-avatar-box'>
       <div className='avatars'>
         {Array.isArray(imgArr) &&
           imgArr.map((el) => (
@@ -255,8 +259,8 @@ const AvatarGroup = ({ imgArr }) => {
             </span>
           ))}
       </div>
-      <p className='text-dark'>{imgArr?.length || 0} people</p>
-    </>
+      <p>{imgArr?.length || 0} people</p>
+    </div>
   );
 };
 
