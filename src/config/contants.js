@@ -1,6 +1,7 @@
 const CONSTANTS = {
-  landingServerUrl: 'http://52.73.137.241:3002/v1',
-  serverUrl: 'http://localhost:3002',
+  landingServerUrl: 'https://api.scrooge.casino/v1',
+  serverUrl: 'https://poker-api.scrooge.casino/',
+  landingClient: 'https://scrooge.casino/',
 };
 
 export default CONSTANTS;
