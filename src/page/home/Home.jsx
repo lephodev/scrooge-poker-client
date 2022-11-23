@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Row, Col } from 'react-bootstrap';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import './home.css';
 import { useEffect } from 'react';
 import userUtils from '../../utils/user';
 import loaderImg from '../../assets/chat/loader1.webp';
 import { pokerInstance } from '../../utils/axios.config';
+import CONSTANTS from '../../config/contants';
 
 const Home = () => {
   // inital state
@@ -65,17 +66,15 @@ const Home = () => {
     }
     try {
       const resp = await pokerInstance().post('/createTable', gameState);
-      console.log('Create table response ',resp.data);
+      console.log('Create table response ', resp.data);
       setGameState({ ...gameInit });
       history.push({
         pathname: '/table',
-        search: '?gamecollection=poker&tableid=' + resp.data.roomData._id
-      })
+        search: '?gamecollection=poker&tableid=' + resp.data.roomData._id,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-
   };
 
   // UseEffects
@@ -83,7 +82,7 @@ const Home = () => {
     (async () => {
       const data = await userUtils.getAuthUserData();
       if (!data.success) {
-        return (window.location.href = `${window.location.origin}/login`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       setLoader(false);
       setUserData({ ...data.data.user });
