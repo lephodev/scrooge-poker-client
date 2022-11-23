@@ -15,7 +15,7 @@ body {
 }
 
 .poker-bg {
-  background: url(../../assets/game/bg.png);
+  background: url(../../assets/game/poker-bg.jpg);
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
@@ -24,7 +24,7 @@ body {
 
 .poker-bg::before {
   content: "";
-  background: #0c111dc9;
+  background: rgb(0 0 0 / 10%);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -42,9 +42,9 @@ body {
 }
 
 .poker-table-bg {
-  background: url(../../assets/game/table.png);
+  background: url(../../assets/game/poker-table.png);
   width: 100%;
-  height: 537px;
+  height: 421px;
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
@@ -126,58 +126,58 @@ body {
   filter: brightness(0.5);
 }
 .player1 {
-  bottom: -10px;
+  bottom: -50px;
   left: 50%;
   transform: translateX(-50%);
 }
 .player4 {
-  top: 120px;
+  top: 90px;
   left: 0;
 }
 
 .player5 {
-  top: -20px;
+  top: -40px;
   left: 25%;
   transform: translateX(-25%);
 }
 
 .player6 {
-  top: -20px;
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .player7 {
-  top: -20px;
+  top: -40px;
   left: 75%;
   transform: translateX(-75%);
 }
 
 .player8 {
-  top: 120px;
+  top: 90px;
   left: 100%;
   transform: translateX(-100%);
 }
 
 .player9 {
-  bottom: 120px;
+  bottom: 90px;
   right: 0;
 }
 
 .player10 {
-  bottom: -10px;
+  bottom: -50px;
   right: 25%;
   transform: translateX(25%);
 }
 
 .player2 {
-  bottom: -10px;
+  bottom: -50px;
   right: 75%;
   transform: translateX(75%);
 }
 
 .player3 {
-  bottom: 120px;
+  bottom: 90px;
   left: 0;
 }
 
@@ -388,7 +388,7 @@ body {
 .players.player1 .player-chip {
   position: absolute;
   width: 100%;
-  top: -33px;
+  top: -125px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -404,7 +404,7 @@ body {
 .players.player6 .player-chip {
   position: absolute;
   width: 100%;
-  bottom: -35px;
+  bottom: -70px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -510,10 +510,10 @@ body {
 }
 
 .footer-btn {
-  background: url(../../assets/title-bg.png);
+  background: url(../../assets/game/btn-bg.png);
   text-align: center;
   width: 140px;
-  height: 55px;
+  height: 63px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -528,7 +528,7 @@ body {
 .footer-btn .btn:hover,
 .footer-btn .btn:focus {
   background: transparent;
-  color: #361302;
+  color: #fff;
   font-size: 15px;
   line-height: 15px;
   border: none;
@@ -536,17 +536,17 @@ body {
   box-shadow: none;
   width: 100%;
   transition: all 0.5s;
-  margin-top: 0;
+  margin-top: -4px;
 }
 
 .footer-btn .btn:hover {
-  color: #da9916;
+  color: #fff;
 }
 
 .footer-btn .btn-primary:not(:disabled):not(.disabled).active,
 .footer-btn .btn-primary:not(:disabled):not(.disabled):active {
   background: transparent;
-  color: #361302;
+  color: #fff;
   border: none;
   outline: none;
   box-shadow: none;
@@ -572,16 +572,16 @@ body {
 
 .total-pot-money {
   position: absolute;
-  top: 90px;
-  left: calc(50% - 70px);
+  top: 108px;
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .total-pot-money span {
-  background: url(../../assets/main-pot.png);
+  background: url(../../assets/game/total-pot.png);
   text-align: center;
-  width: 136px;
-  height: 41px;
+  width: 150px;
+  height: 56px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -589,13 +589,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
-  padding-right: 10px;
-  color: #000;
+  color: #fff;
 }
 
-.total-pot-money span::before {
+/* .total-pot-money span::before {
   content: "";
   background: url(../../assets/coin-5.png);
   text-align: center;
@@ -606,7 +605,7 @@ body {
   background-position: center;
   position: absolute;
   right: -20px;
-}
+} */
 
 .player-action {
   font-size: 18px;
@@ -646,13 +645,13 @@ body {
 
 .player-chip {
   text-align: center;
-  padding-left: 20px;
 }
 .player-chip span {
-  background: #ffff71;
-  border-radius: 30px;
+  background: url(../../assets/game/btn-bg.png);
   text-align: center;
   max-width: 100px;
+  width: 100%;
+  height: 45px;
   margin: 0px auto;
   background-size: cover;
   background-repeat: no-repeat;
@@ -661,14 +660,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: #000;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
   padding: 2px 0px;
   letter-spacing: 1px;
-  padding-left: 10px;
+  font-weight: 500;
 }
 
-.player-chip span::before {
+/* .player-chip span::before {
   content: "";
   background: url(../../assets/chips.png);
   text-align: center;
@@ -679,21 +678,22 @@ body {
   background-position: center;
   position: absolute;
   left: -20px;
-}
+} */
 
 .player-badge {
-  background: url(../../assets/d-budge.png);
+  background: url(../../assets/game/badge.png);
   text-align: center;
-  width: 25px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
   line-height: 25px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
   font-size: 12px;
-  right: -15px;
-  bottom: 0px;
+  right: -25px;
+  bottom: 10px;
+  padding-left: 3px;
 }
 
 .play-pause-button {
@@ -806,7 +806,7 @@ body {
   position: absolute;
   top: -55px;
   left: 32%;
-  background: #806244;
+  background: #1f2432;
   padding: 10px;
   border-radius: 30px;
   padding-right: 25px;
@@ -816,14 +816,14 @@ body {
 .close-bet {
   position: absolute;
   right: 13px;
-  color: #1b1b1b;
+  color: #c8c8c8;
   cursor: pointer;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .bet-view span {
-  background: #da9916;
+  background: #f9ff00;
   border-radius: 30px;
   min-width: 55px;
   padding: 1px 5px;
@@ -833,9 +833,10 @@ body {
   font-size: 13px;
   cursor: pointer;
   transition: all 0.5s;
+  font-weight: 600;
 }
 .bet-view span:hover {
-  background: #ffc95b;
+  background: #f9ff00;
 }
 
 .bet-view::before {
@@ -844,7 +845,7 @@ body {
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-top: 15px solid #806244;
+  border-top: 15px solid #1f2432;
   position: absolute;
   bottom: -10px;
   left: 15px;
@@ -852,7 +853,7 @@ body {
 
 .game-msg {
   position: absolute;
-  top: 150px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 99;
@@ -912,15 +913,21 @@ body {
 
 .winner-player .show-card {
   z-index: 9;
-  left: -20px;
-  top: 50px;
-  transform: rotate(-5deg);
 }
 
-.winner-player .show-card img {
-  transform: inherit;
+.winner-text {
+  background: linear-gradient(180deg, #e2e60d, #fcff7f);
+  padding: 15px 30px !important;
+  width: 100%;
+  z-index: 999999999;
+  position: relative;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #e2e71a;
+  color: #000!important;
+  text-shadow: none!important;
 }
-
 /**** Winner Animation *******/
 
 .pyro > .before,
@@ -1358,19 +1365,19 @@ body {
 }
 .start-game-btn {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 10px;
+  right: 10px;
   z-index: 999;
-  background: #131721;
+  background: #131721db;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #191e2b;
   max-width: 350px;
   width: 100%;
-  animation: shake 1.5s cubic-bezier(.36,.07,.19,.97) both infinite;
+  /* animation: shake 1.5s cubic-bezier(.36,.07,.19,.97) both infinite;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  perspective: 1000px;
+  perspective: 1000px; */
 }
 
 @keyframes shake {
@@ -1396,7 +1403,7 @@ body {
   justify-content: center;
   margin: 0px auto;
   width: 120px;
-  height: 42px;
+  height: 54px;
 }
 
 .start-game-btn .footer-btn .btn {
@@ -1490,9 +1497,8 @@ p.joined-player {
 } */
 .logo--bottom-image {
   position: absolute;
-  bottom: 30px;
-  left: 15px;
-  transform: translate(0%, 15px);
+  top: 5px;
+  left: 5px;
 }
 
 /**************** Camera *********************/
