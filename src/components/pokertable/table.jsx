@@ -42,6 +42,7 @@ import winImage from '../../assets/animation/win.json';
 import userUtils from './../../utils/user';
 import { useHistory } from 'react-router-dom';
 import CONSTANTS from '../../config/contants';
+import { getCookie } from '../../utils/cookieUtil';
 
 const winImageanim = {
   loop: true,
@@ -179,7 +180,11 @@ const PokerTable = (props) => {
     const isLoggedIn = async () => {
       let urlParams = new URLSearchParams(window.location.search);
       let user;
-      if (!localStorage.getItem('token') && !urlParams.get('token')) {
+      if (
+        !localStorage.getItem('token') &&
+        !urlParams.get('token') &&
+        !getCookie('token')
+      ) {
         return (window.location.href = `${CONSTANTS.landingClient}`);
       }
 
