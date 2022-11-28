@@ -602,7 +602,7 @@
   letter-spacing: 1px;
   position: absolute;
   left: 50%;
-  bottom: 120%;
+  bottom: 250%;
   transform: translateX(-50%);
   opacity: 0;
   color: #fff;
@@ -623,7 +623,7 @@
 
   75% {
     position: absolute;
-    bottom: 120%;
+    bottom: 250%;
     opacity: 1;
     font-size: 18px;
   }
@@ -2115,6 +2115,7 @@ ul.btn-list > li > button > img {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999999;
+  background: transparent;
 }
 .poker-bg .poker-loader > img {
   width: 100px;
@@ -2668,19 +2669,21 @@ ul.btn-list > li > button > img {
 }
 
 @media screen and (max-width: 1366px) {
-  .poker .container {
-    max-width: 900px;
-  }
   .poker-table-bg {
-     height: 400px;
-}
-.player4, .player8 {
-  top: 100px;
-}
-.player3, .player9 {
-  bottom: 100px;
-}
+    height: 400px;
+  }
+  .player4, .player8 {
+    top: 100px;
+  }
+  .player3, .player9 {
+    bottom: 100px;
+  }
 
+}
+@media screen and (max-width: 1200px) {
+.poker-table-bg {
+  height: 335px;
+}
 }
 
 @media screen and (max-width: 1024px) {
