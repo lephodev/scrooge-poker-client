@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logo from '../../assets/whitelogo.png';
 import { Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -705,6 +704,7 @@ const PokerTable = (props) => {
       roomData = data.roomdata;
       console.log({ roomData });
       updatePlayer(roomData.players);
+      setStart(false);
     });
     socket.on('roomResume', () => {
       toast.success('Game is resumed for next hand', { id: 'A' });
