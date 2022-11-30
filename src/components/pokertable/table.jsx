@@ -59,6 +59,8 @@ let showFinish = false;
 let AvailablePosition = [];
 let admin = false;
 let idToken;
+let interval;
+let retryCount = 0;
 
 const numFormatter = (num) => {
   if (num > 999 && num < 1000000) {
@@ -212,6 +214,65 @@ const PokerTable = (props) => {
     isLoggedIn();
   }, []);
 
+  // Sometimes start game and other button was not showing
+  // when creating a new game so checking on interval if user
+  // player are on the table or not
+  // if not for waiting a limited time
+  // We should reload the page
+  useEffect(() => {
+    if (!Array.isArray(players) || !players.length) {
+      interval = setInterval(async () => {
+        console.log({ retryCount });
+        if (retryCount === 1) {
+          window.location.reload();
+          return;
+        }
+
+        retryCount = +1;
+        let urlParams = new URLSearchParams(window.location.search);
+        let user;
+        if (
+          !localStorage.getItem('token') &&
+          !urlParams.get('token') &&
+          !getCookie('token')
+        ) {
+          return (window.location.href = `${CONSTANTS.landingClient}`);
+        }
+
+        user = await userUtils.getAuthUserData();
+        console.log('USER DATA HERE -------', { user });
+
+        if (!user.success) {
+          return (window.location.href = `${CONSTANTS.landingClient}`);
+        }
+        userId = user?.data.user?.id;
+        let table = urlParams.get('tableid');
+        let type =
+          urlParams.get('gameCollection') || urlParams.get('gamecollection');
+        console.log({ userId, table, type, socket });
+        // const users = await getDoc('users', user?.uid);
+        // setExchangeRate(users.exchangeRate);
+        // fetchFriendList();
+        // getFollowing(idToken);
+        // alert(`HERE ${table} ${JSON.stringify(user)}`)
+        socket.emit('checkTable', {
+          gameId: table,
+          userId: user?.data.user?.id,
+          gameType: type,
+        });
+        setLoader(true);
+      }, 8000);
+    } else if (interval) {
+      clearInterval();
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [players]);
+
   useEffect(() => {
     socket.on('roomFull', () => {
       setLoader(false);
@@ -262,8 +323,15 @@ const PokerTable = (props) => {
       setBetWin(data.betType);
     });
 
-    socket.on('OnlyOne', () => {
+    socket.on('OnlyOne', (data) => {
       toast.error('Only One player, please wait for othe to join', { id: 'A' });
+      setStart(false);
+      setTablePot(data.tablePot);
+      updatePlayer(data.players);
+      if (data.hostId === userId) {
+        setisAdmin(true);
+        admin = true;
+      }
     });
 
     socket.on('newWatcherJoin', (data) => {
