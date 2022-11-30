@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import {
-  HashRouter,
+  // HashRouter,
   BrowserRouter as Router,
-  Switch,
+  // Switch,
   Route,
 } from 'react-router-dom';
 import PokerTable from './components/pokertable/table';
