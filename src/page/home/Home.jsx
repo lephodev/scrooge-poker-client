@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Form} from 'react-bootstrap';
-import {useHistory} from 'react-router-dom'
+import { Form } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import './home.css';
 import { useEffect } from 'react';
 import userUtils from '../../utils/user';
@@ -20,15 +20,14 @@ const Home = () => {
     minchips: '',
   };
 
-  const history = useHistory();
-
   // States
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
   const [gameState, setGameState] = useState({ ...gameInit });
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const [pokerRooms, setPokerRooms] = useState([]);
+  const history = useHistory();
   // utils function
   const handleShow = () => setShow(!show);
   const handleChange = (e) => {
@@ -91,6 +90,17 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await pokerInstance().get('/rooms');
+        setPokerRooms(response.data.rooms);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
   return (
     <div className='poker-home'>
       {loader && (
@@ -109,47 +119,56 @@ const Home = () => {
 
       <div className='user-header'>
         <div className='container'>
-        <div className='user-header-grid'>
-          <div className='casino-logo'>
-            <img src={logo} alt="" />
-          </div>
-          <div className='create-game-box'>
-            <div className='user-info-box'>
-              <h5>{userData?.username}</h5>
-              <p><i className='fa fa-wallet' /> <span>{userData?.wallet || 0}</span></p>
+          <div className='user-header-grid'>
+            <div className='casino-logo'>
+              <img src={logo} alt='' />
             </div>
-            <button
-              type='button'
-              onClick={handleShow}>
-              Create Game
-            </button>
+            <div className='create-game-box'>
+              <div className='user-info-box'>
+                <h5>{userData?.username}</h5>
+                <p>
+                  <i className='fa fa-wallet' />{' '}
+                  <span>{userData?.wallet || 0}</span>
+                </p>
+              </div>
+              <button type='button' onClick={handleShow}>
+                Create Game
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       </div>
 
       <div className='home-poker-card'>
         <div className='container'>
-            <h3>Open Tables</h3>
+          <h3>Open Tables</h3>
+          {pokerRooms.length > 0 ? (
             <div className='home-poker-card-grid'>
-              <GameTable />
-              <GameTable />
-              <GameTable />
+              {pokerRooms.map((el) => (
+                <GameTable data={el} />
+              ))}
             </div>
+          ) : (
+            <div className='d-flex flex-column justify-content-center align-items-center create-game-box'>
+              <h2>No Room availble</h2>
+              <button type='button' onClick={handleShow}>
+                Create Game
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       <div className='home-poker-card'>
         <div className='container'>
-            <h3>Open Tourrnaments</h3>
-            <div className='home-poker-card-grid'>
+          <h3>Open Tourrnaments</h3>
+          <div className='home-poker-card-grid'>
             <GameTable />
             <GameTable />
             <GameTable />
           </div>
         </div>
       </div>
-
     </div>
   );
 };
@@ -182,9 +201,7 @@ const CreateTable = ({
           )}
         </Form.Group>
         <Form.Group className='form-group' controlId='formPlaintextPassword'>
-          <Form.Label>
-            Enter minimum bet amount
-          </Form.Label>
+          <Form.Label>Enter minimum bet amount</Form.Label>
           <Form.Control
             name='minchips'
             onChange={handleChange}
@@ -218,32 +235,37 @@ const CreateTable = ({
   );
 };
 
-const GameTable = () => {
+const GameTable = ({ data }) => {
+  const history = useHistory();
+  const redirectToTable = () => {
+    history.push({
+      pathname: '/table',
+      search: '?gamecollection=poker&tableid=' + data?._id,
+    });
+  };
+
   return (
     <div className='home-poker-content'>
       <div className='home-poker-cover'>
-        <img
-          alt=""
-          src={casino}
-        />
-        </div>
-        <div className='home-poker-info'>
-          <h4>Adam's Game</h4>
-
-          <AvatarGroup
-            imgArr={[
-              'https://www.fillmurray.com/50/50',
-              'https://www.fillmurray.com/100/100',
-              'https://www.fillmurray.com/200/200',
-              'https://www.fillmurray.com/150/150',
-              'https://www.fillmurray.com/50/50',
-            ]}
-          />
-          <button type='submit'>
-            Join Game
-          </button>
-        </div>
+        <img alt='' src={casino} />
       </div>
+      <div className='home-poker-info'>
+        <h4>Adam's Game</h4>
+
+        <AvatarGroup
+          imgArr={[
+            'https://www.fillmurray.com/50/50',
+            'https://www.fillmurray.com/100/100',
+            'https://www.fillmurray.com/200/200',
+            'https://www.fillmurray.com/150/150',
+            'https://www.fillmurray.com/50/50',
+          ]}
+        />
+        <button onClick={redirectToTable} type='submit'>
+          Join Game
+        </button>
+      </div>
+    </div>
   );
 };
 
