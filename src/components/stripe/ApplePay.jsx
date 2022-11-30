@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   PaymentRequestButtonElement,
   useStripe,
-} from "@stripe/react-stripe-js";
-import StatusMessages, { useMessages } from "./StatusMessages";
-import axios from "axios";
+} from '@stripe/react-stripe-js';
+import StatusMessages, { useMessages } from './StatusMessages';
+import axios from 'axios';
 
 const useOptions = (paymentRequest) => {
   const options = useMemo(
@@ -12,9 +12,9 @@ const useOptions = (paymentRequest) => {
       paymentRequest,
       style: {
         paymentRequestButton: {
-          theme: "dark",
-          height: "38px",
-          type: "buy",
+          theme: 'dark',
+          height: '38px',
+          type: 'buy',
         },
       },
     }),
@@ -63,7 +63,7 @@ const usePaymentRequest = ({
 
   useEffect(() => {
     if (paymentRequest) {
-      paymentRequest.on("paymentmethod", async (ev) => {
+      paymentRequest.on('paymentmethod', async (ev) => {
         handleLoading();
         // Confirm the PaymentIntent without handling potential next actions (yet).
         const { paymentIntent, error: confirmError } =
@@ -74,21 +74,21 @@ const usePaymentRequest = ({
           );
 
         if (confirmError) {
-          ev.complete("fail");
+          ev.complete('fail');
           handlePermitionFail();
         } else if (paymentIntent) {
           // Report to the browser that the confirmation was successful, prompting
           // it to close the browser payment method collection interface.
-          ev.complete("success");
-          console.log(" Payment =>", paymentIntent);
+          ev.complete('success');
+          console.log(' Payment =>', paymentIntent);
 
           const { id } = paymentIntent;
 
-          if (paymentIntent.status === "succeeded") {
+          if (paymentIntent.status === 'succeeded') {
             await axios
-              .get("https://auth-api-t3e66zpola-ue.a.run.app", {
+              .get('https://auth-api-t3e66zpola-ue.a.run.app', {
                 params: {
-                  service: "buyCoins",
+                  service: 'buyCoins',
                   params: `usid=${uid},action=buy-coins,id=${id},from=social_media,usd=${
                     paymentValue / 100
                   },payMethod=Google Pay,cardNr=visa`,
@@ -96,28 +96,28 @@ const usePaymentRequest = ({
                 headers: { idtoken: idToken },
               })
               .then((response) => {
-                console.log("Executing transactionLog request:");
+                console.log('Executing transactionLog request:');
                 if (
-                  response.data.error === "no error" &&
+                  response.data.error === 'no error' &&
                   response.data.success === true
                 ) {
                   console.log(
-                    "Complete response.data transactionLog: ",
+                    'Complete response.data transactionLog: ',
                     response.data
                   );
                   handleSuccess();
                 } else {
-                  console.log("backend response failed: ", response.statusText);
+                  console.log('backend response failed: ', response.statusText);
                   handlePermitionFail();
                 }
               })
               .catch((error) => {
                 handlePermitionFail();
-                console.log("Error req", error);
+                console.log('Error req', error);
               });
           }
-          if (paymentIntent.code === "card_declined") {
-            handlePermitionFail("Card Declined");
+          if (paymentIntent.code === 'card_declined') {
+            handlePermitionFail('Card Declined');
           }
           // Check if the PaymentIntent requires any actions and if so let Stripe.js
           // handle the flow. If using an API version older than "2019-02-11"
@@ -127,7 +127,7 @@ const usePaymentRequest = ({
     }
     return () => {
       if (paymentRequest) {
-        paymentRequest.off("paymentmethod");
+        paymentRequest.off('paymentmethod');
       }
     };
   }, [
@@ -156,14 +156,14 @@ const ApplePay = ({
   idToken,
   handleLoading,
 }) => {
-  const [messages, addMessage] = useMessages();
+  const [messages /* addMessage */] = useMessages();
 
   const paymentRequest = usePaymentRequest({
     options: {
-      country: "US",
-      currency: "usd",
+      country: 'US',
+      currency: 'usd',
       total: {
-        label: "Google Pay",
+        label: 'Google Pay',
         amount: paymentValue,
       },
     },
@@ -185,19 +185,19 @@ const ApplePay = ({
     <>
       <h1>Apple Pay</h1>
       <PaymentRequestButtonElement
-        className="PaymentRequestButton"
+        className='PaymentRequestButton'
         options={options}
         onReady={() => {
-          console.log("PaymentRequestButton [ready]");
+          console.log('PaymentRequestButton [ready]');
         }}
         onClick={(event) => {
-          console.log("PaymentRequestButton [click]", event);
+          console.log('PaymentRequestButton [click]', event);
         }}
         onBlur={() => {
-          console.log("PaymentRequestButton [blur]");
+          console.log('PaymentRequestButton [blur]');
         }}
         onFocus={() => {
-          console.log("PaymentRequestButton [focus]");
+          console.log('PaymentRequestButton [focus]');
         }}
       />
       <StatusMessages messages={messages} />
