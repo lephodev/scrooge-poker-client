@@ -238,14 +238,14 @@ const PokerTable = (props) => {
           !urlParams.get('token') &&
           !getCookie('token')
         ) {
-          return (window.location.href = `${CONSTANTS.landingClient}`);
+          // return (window.location.href = `${CONSTANTS.landingClient}`);
         }
 
         user = await userUtils.getAuthUserData();
         console.log('USER DATA HERE -------', { user });
 
         if (!user.success) {
-          return (window.location.href = `${CONSTANTS.landingClient}`);
+          // return (window.location.href = `${CONSTANTS.landingClient}`);
         }
         userId = user?.data.user?.id;
         let table = urlParams.get('tableid');
@@ -795,6 +795,20 @@ const PokerTable = (props) => {
           { id: 'GameAdmin' }
         );
       }
+    });
+
+    socket.on('notEnoughBalance', (data) => {
+      toast.error(data.message);
+      setTimeout(() => {
+        window.location.href = window.location.origin;
+      }, 1000);
+    });
+
+    socket.on('inOtherGame', (data) => {
+      toast.error(data.message);
+      setTimeout(() => {
+        window.location.href = window.location.origin;
+      }, 1000);
     });
 
     socket.on('joinInRunningGame', (data) => {
