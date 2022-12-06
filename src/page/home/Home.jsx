@@ -11,6 +11,8 @@ import casino from '../../assets/game/placeholder.png';
 import logo from '../../assets/game/logo-poker.png';
 import { pokerInstance } from '../../utils/axios.config';
 import CONSTANTS from '../../config/contants';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Home = () => {
   // inital state
@@ -74,7 +76,9 @@ const Home = () => {
         search: '?gamecollection=poker&tableid=' + resp.data.roomData._id,
       });
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message, { id: 'create-table-error' });
+      }
     }
   };
 
@@ -163,9 +167,9 @@ const Home = () => {
         <div className='container'>
           <h3>Open Tourrnaments</h3>
           <div className='home-poker-card-grid'>
+            {/* <GameTable />
             <GameTable />
-            <GameTable />
-            <GameTable />
+            <GameTable /> */}
           </div>
         </div>
       </div>
@@ -236,6 +240,7 @@ const CreateTable = ({
 };
 
 const GameTable = ({ data }) => {
+  console.log({ data });
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -250,17 +255,9 @@ const GameTable = ({ data }) => {
         <img alt='' src={casino} />
       </div>
       <div className='home-poker-info'>
-        <h4>Adam's Game</h4>
+        <h4>{data.gameName}</h4>
 
-        <AvatarGroup
-          imgArr={[
-            'https://www.fillmurray.com/50/50',
-            'https://www.fillmurray.com/100/100',
-            'https://www.fillmurray.com/200/200',
-            'https://www.fillmurray.com/150/150',
-            'https://www.fillmurray.com/50/50',
-          ]}
-        />
+        <AvatarGroup imgArr={data.players} />
         <button onClick={redirectToTable} type='submit'>
           Join Game
         </button>
@@ -276,7 +273,15 @@ const AvatarGroup = ({ imgArr }) => {
         {Array.isArray(imgArr) &&
           imgArr.map((el) => (
             <span className='avatar'>
-              <img src={el} width='30' height='30' alt='' />
+              <img
+                src={
+                  el.photoURI ||
+                  'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                }
+                width='30'
+                height='30'
+                alt=''
+              />
             </span>
           ))}
       </div>
