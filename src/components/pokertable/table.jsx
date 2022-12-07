@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+// import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import ProgressBar from "react-animated-progress-bar";
 import "react-circular-progressbar/dist/styles.css";
 import Lottie from "react-lottie";
@@ -2922,8 +2922,8 @@ const TimerSeparator = ({ time, remainingTime }) => {
     //   />
     // </div>
     <ProgressBar
-      width="400px"
-      height="10px"
+      width="100%"
+      height="100%"
       rect
       fontColor="gray"
       percentage={activeTime}
