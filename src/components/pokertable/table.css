@@ -265,7 +265,7 @@
 
 .players.player1 {
   width: 150px;
-  z-index: 9;
+  /* z-index: 9; */
 }
 .players.player2 {
   z-index: 99;
@@ -2418,17 +2418,28 @@ ul.btn-list > li > button > img {
 .player-info .progress-bar {
   position: absolute;
   background: transparent;
-  top: -3px;
+  top: -5px;
   left: -5px;
-  height: 50px;
+  height: 55px;
 }
 
 .player-info .progress-bar .progress-bar-rect-wrapper {
   height: 100% !important;
 }
 
+.player-info .rect-progress-bar-percent{
+  display: none !important;
+}
+.player-info .progress-bar-rect-wrap-container{
+  height: 100%;
+}
 
 
+
+
+.inner-rect-bar {
+  transition:  2s ease 0s;
+}
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
