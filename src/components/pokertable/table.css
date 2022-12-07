@@ -2410,6 +2410,24 @@ ul.btn-list > li > button > img {
   border-color: #b9a11e !important;
 }
 
+/********* progress bar *********/
+.player-info .progress-bar {
+  background: transparent;
+}
+
+.player-info .progress-bar {
+  position: absolute;
+  background: transparent;
+  top: -3px;
+  left: -5px;
+  height: 50px;
+}
+
+.player-info .progress-bar .progress-bar-rect-wrapper {
+  height: 100% !important;
+}
+
+
 
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/

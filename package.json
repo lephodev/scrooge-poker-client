@@ -16,6 +16,7 @@
     "firebase": "^8.6.7",
     "history": "^5.0.0",
     "react": "^17.0.2",
+    "react-animated-progress-bar": "^1.1.2",
     "react-bootstrap": "^1.0.0",
     "react-circular-progressbar": "^2.1.0",
     "react-countdown-circle-timer": "^2.5.3",
