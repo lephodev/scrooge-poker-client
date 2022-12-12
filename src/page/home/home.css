@@ -255,3 +255,20 @@ input[type="number"] {
 .createGameCheckHand .form-check-input{
   background-color: yellow !important;
 }
+
+.no-room-available {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #141414;
+  border-radius: 12px;
+  padding: 50px;
+  width: 100%;
+}
+
+.no-room-available h4 {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: 30px;
+}
