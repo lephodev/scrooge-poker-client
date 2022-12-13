@@ -3492,9 +3492,6 @@ ul.btn-list > li > button > img {
   .logo--bottom-image img {
     width: 80px;
   }
-  .players.player1 .player-chip {
-    top: 0px;
-  }
   .players.player2 .player-chip {
     position: absolute;
     width: 100%;
@@ -3518,9 +3515,6 @@ ul.btn-list > li > button > img {
     left: 20px;
     transform: inherit;
     top: 5px;
-  }
-  .players.player6 .player-chip {
-    bottom: -25px;
   }
   .players.player7 .player-chip {
     bottom: inherit;
