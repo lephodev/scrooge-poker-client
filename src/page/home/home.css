@@ -69,6 +69,7 @@
   background: #f9ff00;
   border-radius: 8px;
   font-weight: 500;
+  border: 1px solid #f9ff00;
 }
 
 .home-poker-card {
@@ -119,6 +120,7 @@
   background: #f9ff00;
   border-radius: 8px;
   font-weight: 500;
+  border: 1px solid #f9ff00;
 }
 .backtoHome {
   position: absolute;
@@ -271,4 +273,21 @@ input[type="number"] {
   margin: 0;
   padding-bottom: 20px;
   font-size: 30px;
+}
+
+@media screen and (max-width: 767px) {
+.home-poker-card-grid {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.user-header-grid {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.create-game-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 0px;
+}
 }
