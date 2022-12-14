@@ -155,19 +155,24 @@ const Home = () => {
               Home
             </a>
           </div>
-          <h3>Open Tables</h3>
-          {pokerRooms.length > 0 ? (
+          
+          {pokerRooms?.length > 0 ? (
+            <>
+            <h3>Open Tables</h3>
             <div className="home-poker-card-grid">
               {pokerRooms.map((el) => (
                 <GameTable data={el} />
               ))}
             </div>
+            </>
           ) : (
             <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-              <h2>No Room Available</h2>
+              <div className="no-room-available">
+              <h4>No Room Available</h4>
               <button type="button" onClick={handleShow}>
                 Create Game
               </button>
+            </div>
             </div>
           )}
         </div>
@@ -175,7 +180,7 @@ const Home = () => {
 
       <div className="home-poker-card">
         <div className="container">
-          <h3>Open Tournaments</h3>
+          {/* <h3>Open Tournaments</h3> */}
           <div className="home-poker-card-grid">
             {/* <GameTable />
             <GameTable />

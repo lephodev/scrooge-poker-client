@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Modal, Button } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Modal, Button } from 'react-bootstrap';
 import {
   CardElement,
   Elements,
   ElementsConsumer,
-} from "@stripe/react-stripe-js";
-import GooglePay from "./googlePay";
-import axios from "axios";
-import { isChrome, isSafari } from "react-device-detect";
-import "./stripe.css";
-import check from "../../assets/images/profile/check.png";
-import info from "../../assets/images/profile/info.png";
-import cancel from "../../assets/images/profile/cancel.png";
-import loader from "../../assets/images/profile/Rolling-2.6s-88px (1).gif";
-import coin6 from "../../assets/images/profile/coin-6.png";
-import coin5 from "../../assets/images/profile/coin-5.png";
-import coin4 from "../../assets/images/profile/coin-4.png";
-import coin3 from "../../assets/images/profile/coin-3.png";
-import coin2 from "../../assets/images/profile/coin-2.png";
-import coin1 from "../../assets/images/profile/coin-1.png";
-import tag1 from "../../assets/images/profile/tag.png";
-import tag2 from "../../assets/images/profile/tag2.png";
-import { socket } from "../../config/socketConnection";
-import firebase from "../../config/firebase";
-import ApplePay from "./ApplePay";
-import PayPal from "./payPal";
-import "./buyPopup.css";
+} from '@stripe/react-stripe-js';
+import GooglePay from './googlePay';
+import axios from 'axios';
+import { isChrome, isSafari } from 'react-device-detect';
+import './stripe.css';
+import check from '../../assets/images/profile/check.png';
+import info from '../../assets/images/profile/info.png';
+import cancel from '../../assets/images/profile/cancel.png';
+import loader from '../../assets/images/profile/Rolling-2.6s-88px (1).gif';
+import coin6 from '../../assets/images/profile/coin-6.png';
+import coin5 from '../../assets/images/profile/coin-5.png';
+import coin4 from '../../assets/images/profile/coin-4.png';
+import coin3 from '../../assets/images/profile/coin-3.png';
+import coin2 from '../../assets/images/profile/coin-2.png';
+import coin1 from '../../assets/images/profile/coin-1.png';
+import tag1 from '../../assets/images/profile/tag.png';
+import tag2 from '../../assets/images/profile/tag2.png';
+import { socket } from '../../config/socketConnection';
+import firebase from '../../config/firebase';
+import ApplePay from './ApplePay';
+import PayPal from './payPal';
+import './buyPopup.css';
 
 const CheckoutForm = (props) => {
-  const [idToken, setIdToken] = useState("");
+  const [idToken, setIdToken] = useState('');
   const [confirmState, setConfirmState] = useState(false);
   const [stripebox, setStripebox] = useState(true);
   const [stripeCard, setStripeCard] = useState(false);
   const [permitionState, setPermitionState] = useState(false);
   const [stripeFail, setStripeFail] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [cardErr, setcardErr] = useState("");
-  const [card, setcard] = useState("");
+  const [cardErr, setcardErr] = useState('');
+  const [card, setcard] = useState('');
   const [complete, setComplete] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const CheckoutForm = (props) => {
   }, []);
 
   useEffect(() => {
-    socket.on("CoinsAdded", () => {
+    socket.on('CoinsAdded', () => {
       setPermitionState(true);
       setLoading(false);
       setConfirmState(false);
@@ -57,11 +57,11 @@ const CheckoutForm = (props) => {
       if (props.values.newJoinlowBalance)
         props.values.setNewJoinLowBalance(true);
     });
-    socket.on("addFail", () => {
+    socket.on('addFail', () => {
       setStripeFail(true);
       setLoading(false);
       if (props.values.newJoinlowBalance)
-        props.values.setNewJoinLowBalance("fail");
+        props.values.setNewJoinLowBalance('fail');
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -77,27 +77,27 @@ const CheckoutForm = (props) => {
           },
         }
       );
-      if (error.code === "resource_missing") {
+      if (error.code === 'resource_missing') {
         setStripeFail(true);
         setLoading(false);
-        setcardErr("Not a valid card");
+        setcardErr('Not a valid card');
         if (props.values.newJoinlowBalance)
-          props.values.setNewJoinLowBalance("fail");
+          props.values.setNewJoinLowBalance('fail');
       }
-      if (paymentIntent === undefined && error.code === "card_declined") {
+      if (paymentIntent === undefined && error.code === 'card_declined') {
         setStripeFail(true);
         setLoading(false);
-        setcardErr("Card declined");
+        setcardErr('Card declined');
         if (props.values.newJoinlowBalance)
-          props.values.setNewJoinLowBalance("fail");
+          props.values.setNewJoinLowBalance('fail');
       }
       if (!error && paymentIntent) {
         if (values.newJoinlowBalance) {
-          if (paymentIntent.status === "succeeded") {
+          if (paymentIntent.status === 'succeeded') {
             await axios
-              .get("https://auth-api-t3e66zpola-ue.a.run.app", {
+              .get('https://auth-api-t3e66zpola-ue.a.run.app', {
                 params: {
-                  service: "buyCoins",
+                  service: 'buyCoins',
                   params: `usid=${values.uid},action=buy-coins,id=${
                     paymentIntent.id
                   },from=social_media,usd=${
@@ -108,7 +108,7 @@ const CheckoutForm = (props) => {
               })
               .then((response) => {
                 if (
-                  response.data.error === "no error" &&
+                  response.data.error === 'no error' &&
                   response.data.success === true
                 ) {
                   setPermitionState(true);
@@ -121,43 +121,43 @@ const CheckoutForm = (props) => {
                   setStripeFail(true);
                   setLoading(false);
                   if (props.values.newJoinlowBalance)
-                    props.values.setNewJoinLowBalance("fail");
+                    props.values.setNewJoinLowBalance('fail');
                 }
               })
               .catch((error) => {
                 setStripeFail(true);
                 setLoading(false);
                 if (props.values.newJoinlowBalance)
-                  props.values.setNewJoinLowBalance("fail");
+                  props.values.setNewJoinLowBalance('fail');
               });
           }
-          if (paymentIntent.code === "card_declined") {
+          if (paymentIntent.code === 'card_declined') {
             setStripeFail(true);
             setLoading(false);
-            setcardErr("Card Declined");
+            setcardErr('Card Declined');
             if (props.values.newJoinlowBalance)
-              props.values.setNewJoinLowBalance("fail");
+              props.values.setNewJoinLowBalance('fail');
           }
         } else {
-          socket.emit("addCoins", {
+          socket.emit('addCoins', {
             userId: values.uid,
             tableId: values.tableId,
             amt: values.numCoins,
             usd: values.paymentValue,
-            payMethod: "card",
+            payMethod: 'card',
             cardNr: card,
           });
         }
       }
     } catch (error) {
-      console.log("Error", error);
+      console.log('Error', error);
     }
   };
 
   const handleChange = (change) => {
     setcard(change.brand);
     if (change.complete) {
-      setcardErr("");
+      setcardErr('');
       setComplete(true);
     }
   };
@@ -177,7 +177,7 @@ const CheckoutForm = (props) => {
     if (complete) {
       setConfirmState(true);
     } else {
-      setcardErr("Please fill details Properly");
+      setcardErr('Please fill details Properly');
     }
   };
 
@@ -191,7 +191,7 @@ const CheckoutForm = (props) => {
     setLoading(false);
     setConfirmState(false);
     if (props.values.newJoinlowBalance)
-      props.values.setNewJoinLowBalance("fail");
+      props.values.setNewJoinLowBalance('fail');
   };
   const closePopUp = () => {
     setPermitionState(false);
@@ -209,61 +209,73 @@ const CheckoutForm = (props) => {
             </h5>
             <br></br>
           </div> */}
-          <div className="buy-coins-popup">
-            <div className="buy-coins-list">
+          <div className='buy-coins-popup'>
+            <div className='buy-coins-list'>
               <div
-                className="buy-coins-box"
-                onClick={() => handleClickStripe(1000000, 9999)}
-              >
-                <div className="tag-label">
-                  <img src={tag1} alt="lvcoins" className="tag-img" />
+                className='buy-coins-box'
+                onClick={() => handleClickStripe(1000000, 9999)}>
+                <div className='tag-label'>
+                  <img src={tag1} alt='lvcoins' className='tag-img' />
                 </div>
                 <h5>1,000,000</h5>
-                <img src={coin1} alt="lvcoins" />
-                <Button>{(99.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin1} alt='lvcoins' />
+                <Button>
+                  {(99.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
               <div
-                className="buy-coins-box"
-                onClick={() => handleClickStripe(360000, 4999)}
-              >
+                className='buy-coins-box'
+                onClick={() => handleClickStripe(360000, 4999)}>
                 <h5>360,000</h5>
-                <img src={coin2} alt="lvcoins" />
-                <Button>{(49.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin2} alt='lvcoins' />
+                <Button>
+                  {(49.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
               <div
-                className="buy-coins-box buy-coin-image"
-                onClick={() => handleClickStripe(120000, 1999)}
-              >
-                <div className="tag-label">
-                  <img src={tag2} alt="lvcoins" className="tag-img" />
+                className='buy-coins-box buy-coin-image'
+                onClick={() => handleClickStripe(120000, 1999)}>
+                <div className='tag-label'>
+                  <img src={tag2} alt='lvcoins' className='tag-img' />
                 </div>
                 <h5>120,000</h5>
-                <img src={coin3} alt="lvcoins" />
-                <Button>1{(19.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin3} alt='lvcoins' />
+                <Button>
+                  1{(19.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
               <div
-                className="buy-coins-box"
-                onClick={() => handleClickStripe(50000, 999)}
-              >
+                className='buy-coins-box'
+                onClick={() => handleClickStripe(50000, 999)}>
                 <h5>50,000</h5>
-                <img src={coin4} alt="lvcoins" />
-                <Button>{(9.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin4} alt='lvcoins' />
+                <Button>
+                  {(9.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
               <div
-                className="buy-coins-box"
-                onClick={() => handleClickStripe(20000, 499)}
-              >
+                className='buy-coins-box'
+                onClick={() => handleClickStripe(20000, 499)}>
                 <h5>20,000</h5>
-                <img src={coin5} alt="lvcoins" />
-                <Button>{(4.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin5} alt='lvcoins' />
+                <Button>
+                  {(4.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
               <div
-                className="buy-coins-box"
-                onClick={() => handleClickStripe(10000, 299)}
-              >
+                className='buy-coins-box'
+                onClick={() => handleClickStripe(10000, 299)}>
                 <h5>10,000</h5>
-                <img src={coin6} alt="lvcoins" />
-                <Button>{(2.99 * props.values.exchangeRate).toFixed(2)} &nbsp;{props.values.currency}</Button>
+                <img src={coin6} alt='lvcoins' />
+                <Button>
+                  {(2.99 * props.values.exchangeRate).toFixed(2)} &nbsp;
+                  {props.values.currency}
+                </Button>
               </div>
             </div>
           </div>
@@ -271,11 +283,11 @@ const CheckoutForm = (props) => {
       ) : stripeCard ? (
         <>
           <div>
-            <h5 className="CoinsHeader">
-              Get{" "}
-              <b style={{ color: "#ffc107" }}>
+            <h5 className='CoinsHeader'>
+              Get{' '}
+              <b style={{ color: '#ffc107' }}>
                 {props.values.numCoins.toLocaleString()}
-              </b>{" "}
+              </b>{' '}
               LV Coins
             </h5>
           </div>
@@ -284,14 +296,14 @@ const CheckoutForm = (props) => {
             options={{
               style: {
                 base: {
-                  fontSize: "16px",
-                  color: "#fff",
-                  "::placeholder": {
-                    color: "#fff",
+                  fontSize: '16px',
+                  color: '#fff',
+                  '::placeholder': {
+                    color: '#fff',
                   },
                 },
                 invalid: {
-                  color: "#fff",
+                  color: '#fff',
                 },
               },
             }}
@@ -301,15 +313,14 @@ const CheckoutForm = (props) => {
             onReady={handleReady}
             onClick={handleClick}
           />
-          <div className="payment-btn">
-            {cardErr !== "" && <p>{cardErr}</p>}
-            <div className="sub-btn text-center">
+          <div className='payment-btn'>
+            {cardErr !== '' && <p>{cardErr}</p>}
+            <div className='sub-btn text-center'>
               {complete && (
                 <button
-                  type="submit"
+                  type='submit'
                   onClick={handleStripePay}
-                  disabled={!props.stripe}
-                >
+                  disabled={!props.stripe}>
                   Pay
                 </button>
               )}
@@ -328,7 +339,7 @@ const CheckoutForm = (props) => {
                 tableId={props.values.tableId}
               />
             ) : (
-              ""
+              ''
             )}
             {isSafari ? (
               <ApplePay
@@ -344,7 +355,7 @@ const CheckoutForm = (props) => {
                 tableId={props.values.tableId}
               />
             ) : (
-              ""
+              ''
             )}
             <PayPal
               uid={props.values.uid}
@@ -365,15 +376,14 @@ const CheckoutForm = (props) => {
       ) : stripeFail ? (
         <StripeFailed closePopUp={closePopUp} />
       ) : (
-        ""
+        ''
       )}
       <Modal
         show={confirmState}
         centered
-        className="friends-popup stripe-modal stripe-confirmation-popup "
-      >
+        className='friends-popup stripe-modal stripe-confirmation-popup '>
         <Modal.Body>
-          <div className="block">
+          <div className='block'>
             <StripeConfirmation
               loading={loading}
               handlePermition={handlePermition}
@@ -390,25 +400,25 @@ const CheckoutForm = (props) => {
 const StripeConfirmation = (props) => {
   return (
     <>
-      <div className="stripe-confirmation text-center ">
+      <div className='stripe-confirmation text-center '>
         {props.loading ? (
           <>
-            <div className="loader-img">
-              <img src={loader} alt="" />
+            <div className='loader-img'>
+              <img src={loader} alt='' />
             </div>
             <p>Please wait...</p>
           </>
         ) : (
           <>
-            <div className="confirm-icon">
-              <img src={info} alt="confirm" />
+            <div className='confirm-icon'>
+              <img src={info} alt='confirm' />
             </div>
             <h3>Are you sure you?</h3>
             <p>
-              You will get {props.values.numCoins} coins for{" "}
+              You will get {props.values.numCoins} coins for{' '}
               {props.values.paymentValue / 100}$.
             </p>
-            <div className="sc-btn">
+            <div className='sc-btn'>
               <button onClick={() => props.handlePermition()}>Yes</button>
               <button onClick={() => props.handlePermitionFail()}>No</button>
             </div>
@@ -421,8 +431,8 @@ const StripeConfirmation = (props) => {
 
 const StripeSuccess = (props) => {
   const handleClose = () => {
-    console.log("close ->", props.values.newJoinlowBalance);
-    socket.emit("checkTable", {
+    console.log('close ->', props.values.newJoinlowBalance);
+    socket.emit('checkTable', {
       tableId: props.values.tableId,
       userId: props.values.uid,
       gameType: props.values.gameType,
@@ -431,13 +441,13 @@ const StripeSuccess = (props) => {
   };
   return (
     <>
-      <div className="stripe-confirmation text-center">
-        <div className="confirm-icon">
-          <img src={check} alt="confirm" />
+      <div className='stripe-confirmation text-center'>
+        <div className='confirm-icon'>
+          <img src={check} alt='confirm' />
         </div>
         <h3> Payment Successfully </h3>
         <p>Wallet amount will update on next Hand start. </p>
-        <div className="sc-btn">
+        <div className='sc-btn'>
           <button onClick={() => handleClose()}>Ok</button>
         </div>
       </div>
@@ -450,19 +460,19 @@ const StripeFailed = (props) => {
     if (props.values.newJoinlowBalance) {
       props.closePopUp();
       if (props.values.newJoinlowBalance)
-        window.location.href = window.location.origin + "/profile";
+        window.location.href = window.location.origin;
     } else {
       props.closePopUp();
     }
   };
   return (
     <>
-      <div className="stripe-confirmation text-center">
-        <div className="confirm-icon">
-          <img src={cancel} alt="confirm" />
+      <div className='stripe-confirmation text-center'>
+        <div className='confirm-icon'>
+          <img src={cancel} alt='confirm' />
         </div>
         <h3> Payment Failed Please Try Again After some time </h3>
-        <div className="sc-btn">
+        <div className='sc-btn'>
           <button onClick={() => handleClose()}>Ok</button>
         </div>
       </div>
@@ -486,7 +496,7 @@ const InjectedCheckoutForm = (props) => (
 );
 
 const stripePromise = loadStripe(
-  "pk_live_51Ixsp4FVoELiMoreDHF3SXZj2LLomeR5kW3Rf5wcnSbQLAdgkjefw4vDeKMhN9R0b9V3uv60kqsIPiS0nEwM4tGD00yrZLdpD0"
+  'pk_live_51Ixsp4FVoELiMoreDHF3SXZj2LLomeR5kW3Rf5wcnSbQLAdgkjefw4vDeKMhN9R0b9V3uv60kqsIPiS0nEwM4tGD00yrZLdpD0'
 );
 
 const StripeApp = ({
@@ -496,26 +506,26 @@ const StripeApp = ({
   setNewJoinLowBalance,
   newJoinlowBalance,
   gameType,
-  exchangeRate
+  exchangeRate,
 }) => {
   const [values, setValues] = useState({
     uid: userId,
     paymentValue: 999,
     numCoins: 50000,
     SuccessShow: false,
-    client_secret: "",
+    client_secret: '',
     tableId,
     newJoinlowBalance,
     gameType,
     setNewJoinLowBalance,
-	exchangeRate: exchangeRate.rate || 1,
-	currency: exchangeRate.currency || "USD"
+    exchangeRate: exchangeRate.rate || 1,
+    currency: exchangeRate.currency || 'USD',
   });
 
   useEffect(() => {
     return () => {
-      if (newJoinlowBalance === "fail") {
-        window.location.href = window.location.origin + "/profile";
+      if (newJoinlowBalance === 'fail') {
+        window.location.href = window.location.origin;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -525,12 +535,12 @@ const StripeApp = ({
     let coins = coin;
 
     const res = await axios.post(
-      "https://stripe-pay-t3e66zpola-uk.a.run.app/",
+      'https://stripe-pay-t3e66zpola-uk.a.run.app/',
       {
         usd: target,
       }
     );
-    if (res.data.error === "no error") {
+    if (res.data.error === 'no error') {
       setValues({
         ...values,
         paymentValue: target,
