@@ -332,37 +332,37 @@
 }
 
 .players.player4 .player-chip {
-  bottom: 25px;
+  bottom: 40px;
   position: absolute;
   width: 100%;
-  right: -100px;
+  right: -125px;
 }
 
 .players.player8 .player-chip {
-  bottom: 25px;
+  bottom: 40px;
   position: absolute;
   width: 100%;
-  left: -100px;
+  left: -125px;
 }
 
 .players.player9 .player-chip {
   position: absolute;
   width: 100%;
-  left: -100px;
-  top: 0;
+  left: -125px;
+  top: -50px;
 }
 
 .players.player3 .player-chip {
   position: absolute;
   width: 100%;
-  right: -100px;
-  top: 0;
+  right: -125px;
+  top: -50px;
 }
 
 .players.player10 .player-chip {
   position: absolute;
   width: 100%;
-  top: -40px;
+  top: -125px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -370,7 +370,7 @@
 .players.player2 .player-chip {
   position: absolute;
   width: 100%;
-  top: -40px;
+  top: -125px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -386,7 +386,7 @@
 .players.player5 .player-chip {
   position: absolute;
   width: 100%;
-  bottom: -35px;
+  bottom: -70px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -402,7 +402,7 @@
 .players.player7 .player-chip {
   position: absolute;
   width: 100%;
-  bottom: -35px;
+  bottom: -70px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -843,9 +843,9 @@
 
 .game-msg {
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   z-index: 99;
 }
 
@@ -913,7 +913,7 @@
   position: relative;
   font-weight: 600;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 50px;
   border: 1px solid #e2e71a;
   color: #000!important;
   text-shadow: none!important;
@@ -2425,8 +2425,12 @@ ul.btn-list > li > button > img {
 
 .player-info .progress-bar .progress-bar-rect-wrapper {
   height: 100% !important;
+  border: none!important;
+  border-radius: 50px!important;
 }
-
+.inner-rect-bar{
+  border-radius: 50px!important;
+}
 .player-info .rect-progress-bar-percent{
   display: none !important;
 }
@@ -2434,12 +2438,12 @@ ul.btn-list > li > button > img {
   height: 100%;
 }
 
-
-
-
 .inner-rect-bar {
   transition:  2s ease 0s;
 }
+
+
+
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -2448,184 +2452,6 @@ ul.btn-list > li > button > img {
     max-width: 1200px;
   }
 
-  /*  Players initial sizes */
-
-  .count-1 .players,
-  .count-2 .players,
-  .count-3 .players,
-  .count-4 .players {
-    width: 250px;
-    height: 250px;
-  }
-
-  .count-1 .players .player-pic,
-  .count-2 .players .player-pic,
-  .count-3 .players .player-pic,
-  .count-4 .players .player-pic {
-    height: 250px;
-    width: 250px;
-  }
-
-  .count-1 .players .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .players .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .players .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .players .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery {
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .count-1 .players.player1,
-  .count-2 .players.player1,
-  .count-3 .players.player1,
-  .count-4 .players.player1 {
-    width: 250px;
-    height: 250px;
-  }
-
-  .count-1 .players.player1 .player-pic,
-  .count-2 .players.player1 .player-pic,
-  .count-3 .players.player1 .player-pic,
-  .count-4 .players.player1 .player-pic {
-    height: 250px;
-    width: 250px;
-  }
-
-  .count-1 .player1 .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .player1 .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .player1 .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .player1 .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery {
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .count-1 .player-info,
-  .count-2 .player-info,
-  .count-3 .player-info,
-  .count-4 .player-info {
-    margin-top: -60px;
-  }
-
-  .count-1 .table-card,
-  .count-2 .table-card,
-  .count-3 .table-card,
-  .count-4 .table-card {
-    margin-top: 0;
-  }
-  .count-1 .total-pot-money,
-  .count-2 .total-pot-money,
-  .count-3 .total-pot-money,
-  .count-4 .total-pot-money {
-    top: 65px;
-  }
-  .count-2 .player5,
-  .count-2 .player6,
-  .count-2 .player7 {
-    top: -210px;
-  }
-
-  .count-3 .player5,
-  .count-3 .player6,
-  .count-3 .player7 {
-    top: -210px;
-  }
-
-  .count-4 .player5,
-  .count-4 .player6,
-  .count-4 .player7 {
-    top: -210px;
-  }
-
-  .count-4 .player5 {
-    left: 0;
-    transform: translateX(0);
-  }
-  .count-4 .player7 {
-    left: 100%;
-    transform: translateX(-100%);
-  }
-  .count-1 .cam-tool i:last-child,
-  .count-2 .cam-tool i:last-child,
-  .count-3 .cam-tool i:last-child,
-  .count-4 .cam-tool i:last-child {
-    right: 55px;
-  }
-  .count-1 .cam-tool i:first-child,
-  .count-2 .cam-tool i:first-child,
-  .count-3 .cam-tool i:first-child,
-  .count-4 .cam-tool i:first-child {
-    left: 55px;
-  }
-
-  .count-1 .players.player1 .player-chip,
-  .count-2 .players.player1 .player-chip,
-  .count-3 .players.player1 .player-chip,
-  .count-4 .players.player1 .player-chip {
-    top: 20px;
-  }
-
-  .count-1 .player-badge,
-  .count-2 .player-badge,
-  .count-3 .player-badge,
-  .count-4 .player-badge {
-    right: 40px;
-    bottom: 5px;
-  }
-
-  .count-1 .player1 .player-badge,
-  .count-2 .player1 .player-badge,
-  .count-3 .player1 .player-badge,
-  .count-4 .player1 .player-badge {
-    right: 40px;
-    bottom: 5px;
-  }
-  .count-1 .player-card,
-  .count-2 .player-card,
-  .count-3 .player-card,
-  .count-4 .player-card {
-    left: 40px;
-    top: 80px;
-  }
-  .count-1 .player1 .show-card,
-  .count-2 .player1 .show-card,
-  .count-3 .player1 .show-card,
-  .count-4 .player1 .show-card {
-    left: 25px;
-    top: 80px;
-  }
-
-  .count-1 .winner-player .show-card,
-  .count-2 .winner-player .show-card,
-  .count-3 .winner-player .show-card,
-  .count-4 .winner-player .show-card {
-    left: 20px;
-    top: 80px;
-  }
-
-  .count-1 .winner-player:after,
-  .count-2 .winner-player:after,
-  .count-3 .winner-player:after,
-  .count-4 .winner-player:after {
-    transform: scale(0.6);
-    -moz-filter: blur(10vw);
-    -ms-filter: blur(10vw);
-    filter: blur(10vw);
-  }
 }
 
 @media all and (max-width: 1366px) and (min-width: 768px) {
@@ -2665,7 +2491,7 @@ ul.btn-list > li > button > img {
   } */
 
   .total-pot-money {
-    top: 50px;
+    top: 90px;
   }
   .game-msg {
     top: 112px;
@@ -2680,9 +2506,6 @@ ul.btn-list > li > button > img {
     left: -7px !important;
   }
 
-}
-
-@media all and (max-width: 1280px) and (min-width: 1024px) {
 }
 
 @media all and (max-width: 1009px) and (min-width: 767px) {
@@ -2702,16 +2525,20 @@ ul.btn-list > li > button > img {
     height: 400px;
   }
   .player4, .player8 {
-    top: 100px;
+    top: 60px;
   }
   .player3, .player9 {
-    bottom: 100px;
+    bottom: 60px;
   }
 
 }
-@media screen and (max-width: 1200px) {
+
+@media screen and (max-width: 1199px) {
 .poker-table-bg {
   height: 335px;
+}
+.total-pot-money {
+  top: 70px;
 }
 }
 
@@ -2727,7 +2554,7 @@ ul.btn-list > li > button > img {
     height: 100px !important;
   }
 
-  /* *************** Swati **************** */
+  
   .poker .container {
     max-width: calc(100% - 150px);
   }
@@ -2748,6 +2575,9 @@ ul.btn-list > li > button > img {
     font-size: 14px;
   }
 
+  .player-card, .show-card{
+    top: -50px;
+  }
   .total-pot-money span::before {
     width: 36px;
     height: 38px;
@@ -2771,6 +2601,7 @@ ul.btn-list > li > button > img {
 
   .player-info h4 {
     font-size: 12px;
+    padding-top: 0;
   }
 
   .player-info p {
@@ -2778,8 +2609,8 @@ ul.btn-list > li > button > img {
   }
 
   .player-info {
-    width: 110px;
-    height: 40px;
+    width: 125px;
+    height: 45px;
   }
 
   .player-badge {
@@ -2787,8 +2618,6 @@ ul.btn-list > li > button > img {
     height: 22px;
     line-height: 20px;
     font-size: 10px;
-    right: 18px;
-    top: -18px;
   }
 
   .players.winner-player .player-pic:before {
@@ -2799,10 +2628,7 @@ ul.btn-list > li > button > img {
   }
 
   .total-pot-money {
-    position: absolute;
-    top: 55px;
-    left: calc(50% - 50px);
-    transform: translateX(-50%);
+    top: 65px;
   }
 
   .game-msg {
@@ -2813,29 +2639,18 @@ ul.btn-list > li > button > img {
     margin-top: 0;
   }
 
-  .player-card {
-    left: 0px;
-    top: 40px;
-  }
 
-  .show-card img {
+  .show-card img, .player-card img {
     width: 40px;
   }
 
-  .show-card {
-    left: 0;
-    top: 40px;
-  }
 
   .winner-player .show-card {
     z-index: 9;
-    left: 0;
-    top: 40px;
-    transform: rotate(-5deg);
   }
 
   .game-msg p {
-    text-shadow: 0px 3px 10px #000;
+    text-shadow: none!important;
     font-size: 13px !important;
   }
 
@@ -2845,9 +2660,9 @@ ul.btn-list > li > button > img {
   }
 
   .player-chip span {
-    max-width: 70px;
-    font-size: 11px;
-    padding-left: 5px;
+    font-size: 12px;
+    max-width: 78px;
+    height: 26px;
   }
 
   .play-pause-button .pause-btn .btn,
@@ -2868,18 +2683,6 @@ ul.btn-list > li > button > img {
     object-fit: cover;
   } */
 
-  .player1 .player-info {
-    width: 130px;
-    height: 52px;
-  }
-
-  .player1 .player-info h4 {
-    padding-top: 7px;
-  }
-
-  .player1 .player-info p {
-    font-size: 11px;
-  }
 
   .footer-btn {
     width: 110px;
@@ -2910,7 +2713,22 @@ ul.btn-list > li > button > img {
   }
   .player-box .cam-tool {
     height: 52px;
-}
+  }
+  .players.player1 .player-chip, .players.player2 .player-chip, .players.player10 .player-chip {
+    top: -80px;
+  }
+  .players.player6 .player-chip, .players.player5 .player-chip, .players.player7 .player-chip {
+    bottom: -25px;
+  }
+
+  .players.player8 .player-chip, .players.player9 .player-chip {
+    left: -80px;
+  }
+
+  .players.player4 .player-chip, .players.player3 .player-chip {
+    right: -80px;
+  }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -2965,18 +2783,6 @@ ul.btn-list > li > button > img {
   }
 }
 
-/* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-} */
 
 /************************************************************ Landscape ***********************************************************/
 
@@ -3347,19 +3153,6 @@ ul.btn-list > li > button > img {
     height: 275px !important;
   }
 
-  /******************* Player Size according to Landscape Screen Start ********************/
-
-  /*  Players initial sizes */
-
-  .count-1 .players,
-  .count-2 .players,
-  .count-3 .players,
-  .count-4 .players,
-  .count-5 .players,
-  .count-6 .players {
-    width: 175px;
-    height: 175px;
-  }
 
   .logo--bottom-image {
     display: none;
@@ -3376,337 +3169,7 @@ ul.btn-list > li > button > img {
     left: 0px;
   }
 
-  .count-1 .players .player-pic,
-  .count-2 .players .player-pic,
-  .count-3 .players .player-pic,
-  .count-4 .players .player-pic,
-  .count-5 .players .player-pic,
-  .count-6 .players .player-pic {
-    height: 175px;
-    width: 175px;
-  }
-
-  .count-1 .players .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .players .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .players .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .players .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery,
-  .count-5 .players .player-pic img,
-  .count-5 .players .player-pic video,
-  .count-5 .players .battery,
-  .count-6 .players .player-pic img,
-  .count-6 .players .player-pic video,
-  .count-6 .players .battery {
-    width: 105px;
-    height: 105px;
-  }
-
-  .count-1 .players.player1,
-  .count-2 .players.player1,
-  .count-3 .players.player1,
-  .count-4 .players.player1,
-  .count-5 .players.player1,
-  .count-6 .players.player1 {
-    width: 195px;
-    height: 195px;
-  }
-
-  .count-1 .players.player1 .player-pic,
-  .count-2 .players.player1 .player-pic,
-  .count-3 .players.player1 .player-pic,
-  .count-4 .players.player1 .player-pic,
-  .count-5 .players.player1 .player-pic,
-  .count-6 .players.player1 .player-pic {
-    height: 195px;
-    width: 195px;
-  }
-
-  .count-1 .player1 .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .player1 .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .player1 .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .player1 .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery,
-  .count-5 .player1 .player-pic img,
-  .count-5 .players .player-pic video,
-  .count-5 .players .battery,
-  .count-6 .player1 .player-pic img,
-  .count-6 .players .player-pic video,
-  .count-6 .players .battery {
-    width: 110px !important;
-    height: 110px !important;
-  }
-
-  .count-1 .player-info h4,
-  .count-2 .player-info h4,
-  .count-3 .player-info h4,
-  .count-4 .player-info h4,
-  .count-5 .player-info h4,
-  .count-6 .player-info h4 {
-    font-size: 16px;
-    padding-top: 2px;
-  }
-
-  .count-1 .player-info,
-  .count-2 .player-info,
-  .count-3 .player-info,
-  .count-4 .player-info,
-  .count-5 .player-info,
-  .count-6 .player-info {
-    width: 150px;
-    height: 45px;
-  }
-
-  .count-1 .player-info p,
-  .count-2 .player-info p,
-  .count-3 .player-info p,
-  .count-4 .player-info p,
-  .count-5 .player-info p,
-  .count-6 .player-info p {
-    font-size: 12px;
-  }
-
-  .count-1 .player6,
-  .count-2 .player6,
-  .count-3 .player6,
-  .count-4 .player6,
-  .count-5 .player6,
-  .count-6 .player6 {
-    top: -100px;
-  }
-
-  .count-1 .start-game-btn p,
-  .count-2 .start-game-btn p,
-  .count-3 .start-game-btn p,
-  .count-4 .start-game-btn p,
-  .count-5 .start-game-btn p,
-  .count-6 .start-game-btn p {
-    margin-bottom: 0px;
-  }
-
-  .count-1 .bar,
-  .count-2 .bar,
-  .count-3 .bar,
-  .count-4 .bar,
-  .count-5 .bar,
-  .count-6 .bar {
-    height: 45px;
-  }
-
-  .count-1 .player-badge,
-  .count-2 .player-badge,
-  .count-3 .player-badge,
-  .count-4 .player-badge,
-  .count-5 .player-badge,
-  .count-6 .player-badge {
-    bottom: 0;
-    z-index: 9;
-    right: 0px;
-    top: inherit;
-  }
-
-  .count-1 .player1 .player-badge,
-  .count-2 .player1 .player-badge,
-  .count-3 .player1 .player-badge,
-  .count-4 .player1 .player-badge,
-  .count-5 .player1 .player-badge,
-  .count-6 .player1 .player-badge {
-    right: 12px;
-  }
-
-  .count-1 .player-card,
-  .count-2 .player-card,
-  .count-3 .player-card,
-  .count-4 .player-card,
-  .count-5 .player-card,
-  .count-6 .player-card {
-    left: 0;
-    top: 40px;
-  }
-
-  .count-1 .player1 .show-card,
-  .count-2 .player1 .show-card,
-  .count-3 .player1 .show-card,
-  .count-4 .player1 .show-card,
-  .count-5 .player1 .show-card,
-  .count-6 .player1 .show-card {
-    left: -10px;
-    top: 70px;
-  }
-
-  .count-1 .show-card img,
-  .count-1 .player-card img,
-  .count-2 .show-card img,
-  .count-2 .player-card img,
-  .count-3 .show-card img,
-  .count-3 .player-card img,
-  .count-4 .show-card img,
-  .count-4 .player-card img,
-  .count-5 .show-card img,
-  .count-5 .player-card img,
-  .count-6 .show-card img,
-  .count-6 .player-card img {
-    width: 50px;
-  }
-
-  .count-1 .player-card img,
-  .count-2 .player-card img,
-  .count-3 .player-card img,
-  .count-4 .player-card img,
-  .count-5 .player-card img,
-  .count-6 .player-card img {
-    margin-left: -25px;
-  }
-
-  .count-1 .total-pot-money,
-  .count-2 .total-pot-money,
-  .count-3 .total-pot-money,
-  .count-4 .total-pot-money,
-  .count-5 .total-pot-money,
-  .count-6 .total-pot-money {
-    top: 110px;
-    left: calc(50% - -150px);
-  }
-
-  .count-1 .table-card,
-  .count-2 .table-card,
-  .count-3 .table-card,
-  .count-4 .table-card,
-  .count-5 .table-card,
-  .count-6 .table-card {
-    margin-top: -10px;
-  }
-
-  .count-1 .table-card img,
-  .count-2 .table-card img,
-  .count-3 .table-card img,
-  .count-4 .table-card img,
-  .count-5 .table-card img,
-  .count-6 .table-card img {
-    width: 55px;
-  }
-
-  .count-1 .player-chip span,
-  .count-2 .player-chip span,
-  .count-3 .player-chip span,
-  .count-4 .player-chip span,
-  .count-5 .player-chip span,
-  .count-6 .player-chip span {
-    max-width: 80px;
-    font-size: 14px;
-  }
-
-  .count-1 .player-chip span::before,
-  .count-2 .player-chip span::before,
-  .count-3 .player-chip span::before,
-  .count-4 .player-chip span::before,
-  .count-5 .player-chip span::before,
-  .count-6 .player-chip span::before {
-    width: 35px;
-    height: 27px;
-  }
-
-  .count-1 .start-game-btn,
-  .count-2 .start-game-btn,
-  .count-3 .start-game-btn,
-  .count-4 .start-game-btn,
-  .count-5 .start-game-btn,
-  .count-6 .start-game-btn {
-    width: 100%;
-    margin-top: -15px;
-  }
-
-  .count-1 .start-game-btn p.joined-player,
-  .count-2 .start-game-btn p.joined-player,
-  .count-3 .start-game-btn p.joined-player,
-  .count-4 .start-game-btn p.joined-player,
-  .count-5 .start-game-btn p.joined-player,
-  .count-6 .start-game-btn p.joined-player {
-    font-size: 10px;
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-  }
-
-  /*  When 3 Players in the Game */
-
-  .count-3 .player5,
-  .count-4 .player5,
-  .count-5 .player5,
-  .count-6 .player5 {
-    top: -100px;
-    transform: translateX(0%) scale(0.7);
-    left: 0;
-  }
-
-  .count-3 .player7,
-  .count-4 .player7,
-  .count-5 .player7,
-  .count-6 .player7 {
-    top: -100px;
-    left: 100%;
-    transform: translateX(-100%) scale(0.7);
-  }
-
-  /*  When 5 Players in the Game */
-
-  .count-5 .player8 {
-    top: 90px;
-    transform: translateX(-100%) scale(0.7);
-  }
-
-  .count-5 .player4 {
-    top: 90px;
-    transform: scale(0.7);
-    left: 0;
-  }
-
-  .count-5 .players.player4 .player-chip {
-    bottom: inherit;
-    right: 0;
-    top: 0;
-  }
-
-  .count-5 .players.player8 .player-chip {
-    bottom: inherit;
-    left: 0;
-    top: 0;
-  }
-
-  /*  When 6 Players in the Game */
-
-  .count-6 .player2 {
-    transform: translateX(100%) scale(0.7);
-    bottom: -40px;
-    right: 100%;
-  }
-
-  .count-6 .player10 {
-    bottom: -40px;
-    transform: translateX(0%) scale(0.7);
-    right: 0;
-  }
-
-  .count-6 .players.player10 .player-chip,
-  .count-6 .players.player2 .player-chip {
-    top: 0px;
-  }
-
+  
   /******************* Player Size according to Screen Landscape End ********************/
   .player-with-icons {
     max-width: 150px;
@@ -3728,35 +3191,7 @@ ul.btn-list > li > button > img {
   }
 }
 
-/* @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
-  .game-page .poker {
-    display: none !important;
-  }
-  .game-page .App:before {
-    content: "";
-    background: #000;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999999;
-    display: block;
-  }
-
-  .game-page .App:after {
-    content: "For a better experience please switch to landscape mode";
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: block;
-    z-index: 99999999;
-    width: 100%;
-    text-align: center;
-  }
-} */
+/************************************************************ Portrait ***********************************************************/
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .player-with-icons .cam-tool .dropdown-menu {
@@ -3840,7 +3275,13 @@ ul.btn-list > li > button > img {
     bottom: 10px !important;
   }
   .start-game-btn {
-    margin-top: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: inherit;
+    max-width: 300px;
+    background: transparent;
+    border: none;
   }
   .start-game-btn p {
     font-size: 12px;
@@ -3895,63 +3336,63 @@ ul.btn-list > li > button > img {
   }
 
   .player1 {
-    bottom: -25px;
-    transform: translateX(-50%) scale(0.7);
+    bottom: 0px;
+    transform: translateX(-50%) scale(0.8);
   }
 
   .player2 {
     bottom: 10%;
     right: inherit;
-    transform: translateY(10%) scale(0.7);
+    transform: translateY(10%) scale(0.8);
     left: 0;
   }
 
   .player3 {
     bottom: 22%;
-    transform: translateY(-22%) scale(0.7);
+    transform: translateY(-22%) scale(0.8);
     left: 0;
   }
 
   .player4 {
     top: 30%;
-    transform: translateY(-30%) scale(0.7);
+    transform: translateY(-30%) scale(0.8);
     left: 0px;
   }
 
   .player5 {
     top: 0;
     left: 0;
-    transform: translateY(0) scale(0.7);
+    transform: translateY(0) scale(0.8);
   }
 
   .player6 {
-    top: -75px;
-    transform: translateX(-50%) scale(0.7);
+    top: 0;
+    transform: translateX(-50%) scale(0.8);
   }
 
   .player7 {
     top: 0;
     left: auto;
-    transform: translate(0, 0%) scale(0.7);
+    transform: translate(0, 0%) scale(0.8);
     right: 0;
   }
 
   .player8 {
     top: 30%;
-    transform: translateY(-30%) scale(0.7);
+    transform: translateY(-30%) scale(0.8);
     left: auto;
     right: 0;
   }
 
   .player9 {
     bottom: 22%;
-    transform: translate(0, -22%) scale(0.7);
+    transform: translate(0, -22%) scale(0.8);
     right: 0;
   }
 
   .player10 {
     bottom: 10%;
-    transform: translate(0, 10%) scale(0.7);
+    transform: translate(0, 10%) scale(0.8);
     right: 0;
   }
 
@@ -4001,23 +3442,6 @@ ul.btn-list > li > button > img {
     display: none !important;
   }
 
-  .player1 .player-info {
-    width: 110px;
-    height: 40px;
-  }
-  /* .player1 .player-info {
-    margin-top: -35px;
-  } */
-  .player1 .player-info h4 {
-    padding-top: 4px;
-  }
-  .player-badge {
-    right: 10px;
-    top: 40px;
-  }
-  .player1 .player-badge {
-    right: 10px;
-  }
   ul.btn-list > li > button {
     width: 30px;
     height: 30px !important;
@@ -4058,13 +3482,7 @@ ul.btn-list > li > button > img {
     width: 85px !important;
     height: 85px !important;
   }
-  .player1 .show-card {
-    left: 20px;
-    top: 40px;
-  }
-  .show-card {
-    left: 20px;
-  }
+
   .logo--bottom-image {
     display: block;
     bottom: 10px;
@@ -4073,9 +3491,6 @@ ul.btn-list > li > button > img {
   }
   .logo--bottom-image img {
     width: 80px;
-  }
-  .players.player1 .player-chip {
-    top: 0px;
   }
   .players.player2 .player-chip {
     position: absolute;
@@ -4100,9 +3515,6 @@ ul.btn-list > li > button > img {
     left: 20px;
     transform: inherit;
     top: 5px;
-  }
-  .players.player6 .player-chip {
-    bottom: -25px;
   }
   .players.player7 .player-chip {
     bottom: inherit;
@@ -4140,700 +3552,12 @@ ul.btn-list > li > button > img {
 
   .start-game-btn p {
     font-size: 18px;
-    max-width: 200px;
     margin: 0px auto;
     margin-bottom: 10px;
   }
 
-  .count-1 .show-card img,
-  .count-2 .show-card img,
-  .count-3 .show-card img,
-  .count-4 .show-card img,
-  .count-5 .show-card img,
-  .count-6 .show-card img {
-    margin-left: -35px;
-  }
 
-  .count-1 .show-card img:last-child,
-  .count-2 .show-card img:last-child,
-  .count-3 .show-card img:last-child,
-  .count-4 .show-card img:last-child,
-  .count-5 .show-card img:last-child,
-  .count-6 .show-card img:last-child {
-    transform: rotate(-25deg) translateY(-18px);
-  }
-
-  .count-1 .player-card img:last-child,
-  .count-2 .player-card img:last-child,
-  .count-3 .player-card img:last-child,
-  .count-4 .player-card img:last-child,
-  .count-5 .player-card img:last-child,
-  .count-6 .player-card img:last-child {
-    transform: rotate(-25deg) translateY(-18px);
-  }
-
-  .count-1 .winner-player .show-card img,
-  .count-2 .winner-player .show-card img,
-  .count-3 .winner-player .show-card img,
-  .count-4 .winner-player .show-card img,
-  .count-5 .winner-player .show-card img,
-  .count-6 .winner-player .show-card img {
-    transform: rotate(-25deg) translateY(10px);
-  }
-
-  .count-1 .winner-player .show-card,
-  .count-2 .winner-player .show-card,
-  .count-3 .winner-player .show-card,
-  .count-4 .winner-player .show-card,
-  .count-5 .winner-player .show-card,
-  .count-6 .winner-player .show-card {
-    left: 0;
-  }
-  /******************* Player Size according to Screen Portrait Start ********************/
-
-  /*  Players initial sizes */
-
-  .count-1 .players,
-  .count-2 .players,
-  .count-3 .players,
-  .count-4 .players,
-  .count-5 .players,
-  .count-6 .players {
-    width: 175px;
-    height: 175px;
-  }
-
-  .count-1 .players .player-pic,
-  .count-2 .players .player-pic,
-  .count-3 .players .player-pic,
-  .count-4 .players .player-pic,
-  .count-5 .players .player-pic,
-  .count-6 .players .player-pic {
-    height: 175px;
-    width: 175px;
-  }
-
-  .count-1 .players .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .players .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .players .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .players .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery,
-  .count-5 .players .player-pic img,
-  .count-5 .players .player-pic video,
-  .count-5 .players .battery,
-  .count-6 .players .player-pic img,
-  .count-6 .players .player-pic video,
-  .count-6 .players .battery {
-    width: 105px !important;
-    height: 105px !important;
-  }
-
-  .count-1 .players.player1,
-  .count-2 .players.player1,
-  .count-3 .players.player1,
-  .count-4 .players.player1,
-  .count-5 .players.player1,
-  .count-6 .players.player1 {
-    width: 195px;
-    height: 195px;
-  }
-
-  .count-1 .players.player1 .player-pic,
-  .count-2 .players.player1 .player-pic,
-  .count-3 .players.player1 .player-pic,
-  .count-4 .players.player1 .player-pic,
-  .count-5 .players.player1 .player-pic,
-  .count-6 .players.player1 .player-pic {
-    height: 195px;
-    width: 195px;
-  }
-
-  .count-1 .player1 .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .player1 .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .player1 .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery,
-  .count-4 .player1 .player-pic img,
-  .count-4 .players .player-pic video,
-  .count-4 .players .battery,
-  .count-5 .player1 .player-pic img,
-  .count-5 .players .player-pic video,
-  .count-5 .players .battery,
-  .count-6 .player1 .player-pic img,
-  .count-6 .players .player-pic video,
-  .count-6 .players .battery {
-    width: 110px !important;
-    height: 110px !important;
-  }
-
-  .count-1 .player-info h4,
-  .count-2 .player-info h4,
-  .count-3 .player-info h4,
-  .count-4 .player-info h4,
-  .count-5 .player-info h4,
-  .count-6 .player-info h4 {
-    font-size: 16px;
-    padding-top: 2px;
-  }
-
-  .count-1 .player-info,
-  .count-2 .player-info,
-  .count-3 .player-info,
-  .count-4 .player-info,
-  .count-5 .player-info,
-  .count-6 .player-info {
-    width: 150px;
-    height: 45px;
-  }
-
-  .count-1 .player-info p,
-  .count-2 .player-info p,
-  .count-3 .player-info p,
-  .count-4 .player-info p,
-  .count-5 .player-info p,
-  .count-6 .player-info p {
-    font-size: 12px;
-  }
-
-  .count-1 .player6,
-  .count-2 .player6,
-  .count-3 .player6,
-  .count-4 .player6,
-  .count-5 .player6,
-  .count-6 .player6 {
-    top: -75px;
-  }
-
-  .count-1 .start-game-btn p,
-  .count-2 .start-game-btn p,
-  .count-3 .start-game-btn p,
-  .count-4 .start-game-btn p,
-  .count-5 .start-game-btn p,
-  .count-6 .start-game-btn p {
-    margin-bottom: 0px;
-  }
-
-  .count-1 .bar,
-  .count-2 .bar,
-  .count-3 .bar,
-  .count-4 .bar,
-  .count-5 .bar,
-  .count-6 .bar {
-    height: 45px;
-  }
-
-  .count-1 .player-badge,
-  .count-2 .player-badge,
-  .count-3 .player-badge,
-  .count-4 .player-badge,
-  .count-5 .player-badge,
-  .count-6 .player-badge {
-    bottom: 0;
-    z-index: 9;
-    right: 0px;
-    top: inherit;
-  }
-
-  .count-1 .player1 .player-badge,
-  .count-2 .player1 .player-badge,
-  .count-3 .player1 .player-badge,
-  .count-4 .player1 .player-badge,
-  .count-5 .player1 .player-badge,
-  .count-6 .player1 .player-badge {
-    right: 12px;
-  }
-
-  .count-1 .player-card,
-  .count-2 .player-card,
-  .count-3 .player-card,
-  .count-4 .player-card,
-  .count-5 .player-card,
-  .count-6 .player-card {
-    left: 20px;
-    top: 40px;
-  }
-
-  .count-1 .player1 .show-card,
-  .count-2 .player1 .show-card,
-  .count-3 .player1 .show-card,
-  .count-4 .player1 .show-card,
-  .count-5 .player1 .show-card,
-  .count-6 .player1 .show-card {
-    left: -10px;
-    top: 70px;
-  }
-
-  .count-1 .show-card img,
-  .count-1 .player-card img,
-  .count-2 .show-card img,
-  .count-2 .player-card img,
-  .count-3 .show-card img,
-  .count-3 .player-card img,
-  .count-4 .show-card img,
-  .count-4 .player-card img,
-  .count-5 .show-card img,
-  .count-5 .player-card img,
-  .count-6 .show-card img,
-  .count-6 .player-card img {
-    width: 80px;
-  }
-
-  .count-1 .player-card img,
-  .count-2 .player-card img,
-  .count-3 .player-card img,
-  .count-4 .player-card img,
-  .count-5 .player-card img,
-  .count-6 .player-card img {
-    margin-left: -25px;
-  }
-
-  .count-1 .total-pot-money,
-  .count-3 .total-pot-money,
-  .count-4 .total-pot-money,
-  .count-5 .total-pot-money,
-  .count-6 .total-pot-money {
-    top: 135px;
-    left: calc(50% - 50px);
-  }
-
-  .count-1 .table-card,
-  .count-3 .table-card {
-    margin-top: 10px;
-  }
-
-  .count-1 .table-card img,
-  .count-3 .table-card img,
-  .count-4 .table-card img,
-  .count-5 .table-card img {
-    width: 40px;
-  }
-
-  .count-1 .player-chip span,
-  .count-2 .player-chip span,
-  .count-3 .player-chip span,
-  .count-4 .player-chip span,
-  .count-5 .player-chip span,
-  .count-6 .player-chip span {
-    max-width: 80px;
-    font-size: 14px;
-  }
-
-  .count-1 .player-chip span::before,
-  .count-2 .player-chip span::before,
-  .count-3 .player-chip span::before,
-  .count-4 .player-chip span::before,
-  .count-5 .player-chip span::before,
-  .count-6 .player-chip span::before {
-    width: 35px;
-    height: 27px;
-  }
-
-  .count-1 .start-game-btn,
-  .count-2 .start-game-btn,
-  .count-3 .start-game-btn,
-  .count-4 .start-game-btn,
-  .count-5 .start-game-btn,
-  .count-6 .start-game-btn {
-    width: 100%;
-    margin-top: -15px;
-  }
-
-  .count-1 .start-game-btn p.joined-player,
-  .count-2 .start-game-btn p.joined-player,
-  .count-3 .start-game-btn p.joined-player,
-  .count-4 .start-game-btn p.joined-player,
-  .count-5 .start-game-btn p.joined-player,
-  .count-6 .start-game-btn p.joined-player {
-    font-size: 10px;
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-  }
-
-  .count-1 .players.player6 .player-chip,
-  .count-2 .players.player6 .player-chip,
-  .count-3 .players.player6 .player-chip,
-  .count-4 .players.player6 .player-chip,
-  .count-5 .players.player6 .player-chip,
-  .count-6 .players.player6 .player-chip {
-    bottom: -32px;
-  }
-
-  /*  When 1 Players in the Game */
-
-  .count-1 .players,
-  .count-2 .players,
-  .count-3 .players {
-    width: 230px;
-    height: 230px;
-  }
-
-  .count-1 .players .player-pic,
-  .count-2 .players .player-pic,
-  .count-3 .players .player-pic {
-    height: 230px;
-    width: 230px;
-  }
-
-  .count-1 .players .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .players .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .players .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery {
-    width: 135px !important;
-    height: 135px !important;
-  }
-
-  .count-1 .players.player1,
-  .count-2 .players.player1,
-  .count-3 .players.player1 {
-    width: 250px;
-    height: 250px;
-  }
-
-  .count-1 .players.player1 .player-pic,
-  .count-2 .players.player1 .player-pic,
-  .count-3 .players.player1 .player-pic {
-    height: 250px;
-    width: 250px;
-  }
-
-  .count-1 .player1 .player-pic img,
-  .count-1 .players .player-pic video,
-  .count-1 .players .battery,
-  .count-2 .player1 .player-pic img,
-  .count-2 .players .player-pic video,
-  .count-2 .players .battery,
-  .count-3 .player1 .player-pic img,
-  .count-3 .players .player-pic video,
-  .count-3 .players .battery {
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .count-1 .player-info,
-  .count-2 .player-info,
-  .count-3 .player-info {
-    margin-top: -50px;
-  }
-
-  .count-1 .player1 .player-badge,
-  .count-2 .player1 .player-badge,
-  .count-3 .player1 .player-badge {
-    right: 25px;
-  }
-
-  .count-1 .player-badge,
-  .count-2 .player-badge,
-  .count-3 .player-badge {
-    right: 15px;
-  }
-
-  .count-1 .table-card img,
-  .count-2 .table-card img,
-  .count-3 .table-card img,
-  .count-4 .table-card img {
-    width: 55px;
-  }
-
-  .count-1 .table-card {
-    margin-top: 10px;
-  }
-
-  .count-1 .total-pot-money {
-    top: 145px;
-  }
-
-  .count-1 .player1 .show-card,
-  .count-2 .player1 .show-card,
-  .count-3 .player1 .show-card {
-    left: 25px;
-  }
-
-  .count-1 .show-card,
-  .count-2 .show-card,
-  .count-3 .show-card {
-    left: 35px;
-  }
-
-  .count-1 .players.player1 .player-chip,
-  .count-2 .players.player1 .player-chip,
-  .count-3 .players.player1 .player-chip {
-    top: 10px;
-  }
-
-  .count-1 .game-msg,
-  .count-2 .game-msg,
-  .count-3 .game-msg {
-    z-index: 99999;
-  }
-
-  .count-3 .player5,
-  .count-3 .player7 {
-    top: -50px;
-  }
-
-  .count-1 .show-card img,
-  .count-2 .show-card img,
-  .count-3 .show-card img {
-    width: 80px;
-  }
-
-  .count-1 .player-card img,
-  .count-2 .player-card img,
-  .count-3 .player-card img {
-    width: 80px;
-  }
-
-  /*  When 2 Players in the Game */
-
-  .count-2 .table-card img {
-    width: 55px;
-    height: auto;
-  }
-  .count-2 .table-card {
-    margin-top: 10px;
-  }
-
-  .count-2 .total-pot-money {
-    top: 145px;
-  }
-
-  /*  When 3 Players in the Game */
-
-  .count-3 .player7 {
-    right: -40px;
-  }
-
-  .count-3 .player5 {
-    left: -40px;
-  }
-
-  .count-3 .total-pot-money {
-    top: 145px;
-  }
-
-  /*  When 4 Players in the Game */
-
-  .count-4 .player5 {
-    top: 12%;
-  }
-
-  .count-4 .player7 {
-    top: 12%;
-  }
-
-  .count-4 .player7 {
-    right: -20px;
-  }
-
-  .count-4 .player5 {
-    left: -20px;
-  }
-
-  .count-4 .table-card {
-    margin-top: 30px;
-  }
-
-  /*  When 5 Players in the Game */
-
-  .count-5 .player4 {
-    top: 50%;
-    transform: translateY(0%) scale(0.7);
-    left: -20px;
-  }
-
-  .count-5 .player8 {
-    top: 50%;
-    transform: translateY(0%) scale(0.7);
-    right: -20px;
-  }
-
-  .count-5 .player7 {
-    right: -20px;
-  }
-
-  .count-5 .player5 {
-    left: -20px;
-  }
-
-  .count-5 .table-card {
-    margin-top: 10px;
-  }
-
-  /*  When 6 Players in the Game */
-
-  .count-6 .player2 {
-    transform: translateX(0%) scale(0.7);
-    bottom: 25%;
-    left: -20px;
-  }
-
-  .count-6 .player10 {
-    bottom: 25%;
-    transform: translateX(0%) scale(0.7);
-    right: -30px;
-  }
-  .count-6 .player5 {
-    top: 12%;
-    left: -20px;
-  }
-
-  .count-6 .player7 {
-    top: 12%;
-    right: -30px;
-  }
-
-  .count-6 .players.player10 .player-chip,
-  .count-6 .players.player2 .player-chip,
-  .count-6 .players.player5 .player-chip {
-    top: 0px;
-    left: 0;
-  }
-  .count-6 .players.player7 .player-chip {
-    right: 0;
-  }
-
-  .count-6 .table-card img {
-    width: 35px;
-    height: auto;
-  }
-
-  .count-6 .table-card {
-    margin-top: 20px;
-  }
-
-  /******************* Player Size according to Screen Portrait End ********************/
-
-  .count-7 .player-card img,
-  .count-8 .player-card img,
-  .count-9 .player-card img,
-  .count-10 .player-card img {
-    margin-left: -18px;
-  }
-
-  .count-7 .player-card,
-  .count-8 .player-card,
-  .count-9 .player-card,
-  .count-10 .player-card {
-    left: 10px;
-  }
-
-  .count-7 .player7 .player-card,
-  .count-7 .player8 .player-card,
-  .count-7 .player9 .player-card,
-  .count-7 .player10 .player-card,
-  .count-8 .player7 .player-card,
-  .count-8 .player8 .player-card,
-  .count-8 .player9 .player-card,
-  .count-8 .player10 .player-card,
-  .count-9 .player7 .player-card,
-  .count-9 .player8 .player-card,
-  .count-9 .player9 .player-card,
-  .count-9 .player10 .player-card,
-  .count-10 .player7 .player-card,
-  .count-10 .player8 .player-card,
-  .count-10 .player9 .player-card,
-  .count-10 .player10 .player-card {
-    left: auto;
-    right: -5px;
-  }
-
-  .count-7 .player7 .player-badge,
-  .count-7 .player8 .player-badge,
-  .count-7 .player9 .player-badge,
-  .count-7 .player10 .player-badge,
-  .count-8 .player7 .player-badge,
-  .count-8 .player8 .player-badge,
-  .count-8 .player9 .player-badge,
-  .count-8 .player10 .player-badge,
-  .count-9 .player7 .player-badge,
-  .count-9 .player8 .player-badge,
-  .count-9 .player9 .player-badge,
-  .count-9 .player10 .player-badge,
-  .count-10 .player7 .player-badge,
-  .count-10 .player8 .player-badge,
-  .count-10 .player9 .player-badge,
-  .count-10 .player10 .player-badge {
-    right: auto;
-    left: 10px;
-  }
-
-  .count-7 .player7 .player-card img,
-  .count-7 .player8 .player-card img,
-  .count-7 .player9 .player-card img,
-  .count-7 .player10 .player-card img,
-  .count-8 .player7 .player-card img,
-  .count-8 .player8 .player-card img,
-  .count-8 .player9 .player-card img,
-  .count-8 .player10 .player-card img,
-  .count-9 .player7 .player-card img,
-  .count-9 .player8 .player-card img,
-  .count-9 .player9 .player-card img,
-  .count-9 .player10 .player-card img,
-  .count-10 .player7 .player-card img,
-  .count-10 .player8 .player-card img,
-  .count-10 .player9 .player-card img,
-  .count-10 .player10 .player-card img {
-    transform: rotate(30deg) translateY(-15px);
-  }
-
-  .count-7 .player7 .player-card img:last-child,
-  .count-7 .player8 .player-card img:last-child,
-  .count-7 .player9 .player-card img:last-child,
-  .count-7 .player10 .player-card img:last-child,
-  .count-8 .player7 .player-card img:last-child,
-  .count-8 .player8 .player-card img:last-child,
-  .count-8 .player9 .player-card img:last-child,
-  .count-8 .player10 .player-card img:last-child,
-  .count-9 .player7 .player-card img:last-child,
-  .count-9 .player8 .player-card img:last-child,
-  .count-9 .player9 .player-card img:last-child,
-  .count-9 .player10 .player-card img:last-child,
-  .count-10 .player7 .player-card img:last-child,
-  .count-10 .player8 .player-card img:last-child,
-  .count-10 .player9 .player-card img:last-child,
-  .count-10 .player10 .player-card img:last-child {
-    transform: rotate(40deg) translateY(-3px);
-  }
-
-  .count-7 .player1 .show-card img:last-child,
-  .count-8 .player1 .show-card img:last-child,
-  .count-9 .player1 .show-card img:last-child,
-  .count-10 .player1 .show-card img:last-child {
-    transform: rotate(-25deg) translateY(-6px);
-  }
-  .count-7 .player1 .show-card img,
-  .count-8 .player1 .show-card img,
-  .count-9 .player1 .show-card img,
-  .count-10 .player1 .show-card img {
-    margin-left: -20px;
-    width: 55px;
-  }
-  .count-7 .player1 .show-card,
-  .count-8 .player1 .show-card,
-  .count-9 .player1 .show-card,
-  .count-10 .player1 .show-card {
-    left: -10px;
-  }
-
+  
   /******* center tooltip**********/
   .player-tooltip {
     position: absolute;
