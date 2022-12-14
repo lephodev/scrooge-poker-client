@@ -11,4 +11,4 @@ const env = {
   },
 };
 
-export default env.production;
+export default env.dev;
