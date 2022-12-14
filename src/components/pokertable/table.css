@@ -2075,7 +2075,7 @@ ul.btn-list > li > button {
   width: 40px;
   border-radius: 50%;
   font-weight: 200;
-  background: #282c37;
+  background: #181818;
   height: 40px !important;
   color: #fff;
   line-height: 20px;
@@ -2762,12 +2762,12 @@ ul.btn-list > li > button > img {
 
   .player3,
   .player9 {
-    bottom: 10px;
+    bottom: 30px;
   }
 
   .player4,
   .player8 {
-    top: -10px;
+    top: 30px;
   }
 
   .table-card img {
@@ -2794,6 +2794,8 @@ ul.btn-list > li > button > img {
     width: 90%;
     height: 65vh;
     margin: 0px auto;
+    background-size: contain;
+    background-position: center;
   }
   .logo--bottom-image {
     position: absolute;
@@ -2968,94 +2970,70 @@ ul.btn-list > li > button > img {
     display: none !important;
   }
 
-  .player1 .player-info {
-    width: 110px;
-    height: 40px;
-  }
-  /* .player1 .player-info {
-    margin-top: -35px;
-  } */
-
-  .players.player1 .player-pic {
-    height: 145px;
-    width: 145px;
-  }
-  .player1 .player-pic img,
-  .player1 .player-pic video {
-    z-index: -1;
-    width: 85px !important;
-    height: 85px !important;
-  }
-
   .player1 .battery {
     width: 85px;
     height: 85px;
   }
-  .player1 .player-info h4 {
-    padding-top: 4px;
-  }
 
+  .start-game-btn {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: inherit;
+    max-width: 300px;
+    background: transparent;
+    border: none;
+}
   .player1 {
-    bottom: -50px;
+    bottom: -25px;
     transform: translateX(-50%) scale(0.7);
   }
 
   .player2 {
     transform: translateX(75%) scale(0.7);
-    bottom: -50px;
+    bottom: -25px;
   }
 
   .player3 {
-    bottom: -15px;
     left: -30px;
     transform: translateY(0) scale(0.7);
   }
 
   .player4 {
-    top: -20px;
     transform: scale(0.7);
     left: -30px;
   }
 
   .player5 {
-    top: -82px;
+    top: -25px;
     transform: translateX(-25%) scale(0.7);
   }
 
   .player6 {
-    top: -82px;
+    top: -25px;
     transform: translateX(-50%) scale(0.7);
   }
 
   .player7 {
-    top: -82px;
+    top: -25px;
     left: 75%;
     transform: translateX(-75%) scale(0.7);
   }
   .player8 {
-    top: -20px;
     transform: translateX(-70%) scale(0.7);
   }
 
   .player9 {
-    bottom: -15px;
     transform: scale(0.7);
     right: -30px;
   }
 
   .player10 {
-    bottom: -50px;
+    bottom: -25px;
     transform: translateX(25%) scale(0.7);
   }
 
-  .players.player1 .player-chip {
-    top: 5px;
-  }
 
-  .players.player10 .player-chip,
-  .players.player2 .player-chip {
-    top: -15px;
-  }
 
   /* .players.player2 .player-chip {
     position: relative;
@@ -3131,17 +3109,6 @@ ul.btn-list > li > button > img {
   .player-badge {
     top: 20px;
   }
-  .player1 .player-badge {
-    right: 18px;
-  }
-  .player1 .show-card {
-    left: 10px;
-    top: 70px;
-  }
-  .player-card {
-    left: 10px;
-    top: 55px;
-  }
   .winner-player:after {
     opacity: 0.5;
     filter: blur(8vw);
@@ -3169,8 +3136,6 @@ ul.btn-list > li > button > img {
     left: 0px;
   }
 
-  
-  /******************* Player Size according to Screen Landscape End ********************/
   .player-with-icons {
     max-width: 150px;
 }
@@ -3222,6 +3187,20 @@ ul.btn-list > li > button > img {
     background-repeat: no-repeat;
     background-position: center;
     top: 0;
+  }
+
+  .poker-table-bg:before{
+    content: "";
+    background: url(../../assets/game/logo-poker.png);
+    width: 80px;
+    height: 61px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.12;
   }
   .chat-header .close-icon i {
     font-size: 16px;
@@ -3290,7 +3269,7 @@ ul.btn-list > li > button > img {
     bottom: 15px;
   }
   .poker .container {
-    max-width: calc(100% - 25px);
+    max-width: calc(100% - 10px);
     padding: 0;
   }
 
@@ -3315,7 +3294,7 @@ ul.btn-list > li > button > img {
   }
 
   .game-msg {
-    top: 200px;
+    top: 60px;
     text-align: center;
   }
 
@@ -3343,26 +3322,26 @@ ul.btn-list > li > button > img {
   .player2 {
     bottom: 10%;
     right: inherit;
-    transform: translateY(10%) scale(0.8);
+    transform: translateY(-10%) scale(0.8);
     left: 0;
   }
 
   .player3 {
-    bottom: 22%;
-    transform: translateY(-22%) scale(0.8);
+    bottom: 32%;
+    transform: translateY(-32%) scale(0.8);
     left: 0;
   }
 
   .player4 {
-    top: 30%;
-    transform: translateY(-30%) scale(0.8);
+    top: 32%;
+    transform: translateY(-32%) scale(0.8);
     left: 0px;
   }
 
   .player5 {
-    top: 0;
+    top: 10%;
     left: 0;
-    transform: translateY(0) scale(0.8);
+    transform: translateY(-10%) scale(0.8);
   }
 
   .player6 {
@@ -3371,30 +3350,36 @@ ul.btn-list > li > button > img {
   }
 
   .player7 {
-    top: 0;
+    top: 10%;
     left: auto;
-    transform: translate(0, 0%) scale(0.8);
+    transform: translateY(-10%) scale(0.8);
     right: 0;
   }
 
   .player8 {
-    top: 30%;
-    transform: translateY(-30%) scale(0.8);
+    top: 32%;
+    transform: translateY(-32%) scale(0.8);
     left: auto;
     right: 0;
   }
 
   .player9 {
-    bottom: 22%;
-    transform: translate(0, -22%) scale(0.8);
+    bottom: 32%;
+    transform: translateY(-32%) scale(0.8);
     right: 0;
   }
 
   .player10 {
     bottom: 10%;
-    transform: translate(0, 10%) scale(0.8);
+    transform: translateY(-10%) scale(0.8);
     right: 0;
   }
+
+  .player-badge {
+    right: 0px;
+    top: -20px;
+    bottom: auto;
+}
 
   button.sign-in.btn.btn-primary {
     height: 28px;
@@ -3492,54 +3477,46 @@ ul.btn-list > li > button > img {
   .logo--bottom-image img {
     width: 80px;
   }
-  .players.player2 .player-chip {
-    position: absolute;
-    width: 100%;
-    top: 5px;
-    left: 20px;
-    transform: inherit;
-  }
   .players.player3 .player-chip {
     right: inherit;
-    top: 5px;
-    left: 20px;
+    top: -80px;
+    left: inherit;
   }
   .players.player4 .player-chip {
     bottom: inherit;
     right: inherit;
-    left: 20px;
-    top: 5px;
+    left: inherit;
+    top: -80px;
   }
   .players.player5 .player-chip {
     bottom: inherit;
-    left: 20px;
+    left: inherit;
     transform: inherit;
-    top: 5px;
+    top: -80px;
   }
   .players.player7 .player-chip {
     bottom: inherit;
     left: inherit;
     transform: inherit;
-    right: 20px;
-    top: 5px;
+    right: inherit;
+    top: -80px;
   }
   .players.player8 .player-chip {
     bottom: inherit;
-    top: 5px;
-    width: 100%;
+    top: -80px;
     left: inherit;
-    right: 20px;
+    right: inherit;
   }
   .players.player9 .player-chip {
     left: inherit;
-    top: 5px;
-    right: 20px;
+    top: -80px;
+    right: inherit;
   }
   .players.player10 .player-chip {
-    top: 5px;
+    top: -80px;
     left: inherit;
     transform: inherit;
-    right: 20px;
+    right: inherit;
   }
   .start-game-btn .footer-btn {
     width: 110px;
