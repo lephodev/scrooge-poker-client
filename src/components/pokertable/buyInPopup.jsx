@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { Modal } from "react-bootstrap";
-import toast from "react-hot-toast";
-import StripePayment from "../stripe/stripe";
-import { socket } from "../../config/socketConnection";
+import React, { useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+import StripePayment from '../stripe/stripe';
+import { socket } from '../../config/socketConnection';
 
 const BuyInPopup = ({
   setModalShow,
@@ -13,17 +13,17 @@ const BuyInPopup = ({
   newJoinlowBalance,
   gameType,
   setBuyinPopup,
-  exchangeRate
+  exchangeRate,
 }) => {
   useEffect(() => {
-    socket.on("CoinsAdded", (data) => {
+    socket.on('CoinsAdded', (data) => {
       if (data.userId === userId) {
-        toast.success("Coins Added, wallet will update in new Hand", {
-          id: "A",
+        toast.success('Coins Added, wallet will update in new Hand', {
+          id: 'A',
         });
       } else {
         toast.success(`${data.name} is Added ${data.amt} coins in his wallet`, {
-          id: "A",
+          id: 'A',
         });
       }
     });
@@ -35,15 +35,14 @@ const BuyInPopup = ({
       onHide={() => {
         if (newJoinlowBalance) setBuyinPopup(true);
         setModalShow(false);
-        if (newJoinlowBalance === "fail")
-          window.location.href = window.location.origin + "/profile";
+        if (newJoinlowBalance === 'fail')
+          window.location.href = window.location.origin;
       }}
       centered
-      className="buy-coins-modal friends-popup stripe-confirmation-popup"
-    >
+      className='buy-coins-modal friends-popup stripe-confirmation-popup'>
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <div className="block">
+        <div className='block'>
           <StripePayment
             userId={userId}
             tableId={tableId}
@@ -51,9 +50,9 @@ const BuyInPopup = ({
             setNewJoinLowBalance={setNewJoinLowBalance}
             newJoinlowBalance={newJoinlowBalance}
             gameType={gameType}
-			exchangeRate={exchangeRate}
+            exchangeRate={exchangeRate}
           />
-          <div id="StripeApp"></div>
+          <div id='StripeApp'></div>
         </div>
       </Modal.Body>
     </Modal>
