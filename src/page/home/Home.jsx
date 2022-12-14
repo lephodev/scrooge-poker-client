@@ -156,7 +156,7 @@ const Home = () => {
             </a>
           </div>
           
-          {pokerRooms.length > 0 ? (
+          {pokerRooms?.length > 0 ? (
             <>
             <h3>Open Tables</h3>
             <div className="home-poker-card-grid">
