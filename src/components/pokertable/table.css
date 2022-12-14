@@ -2762,12 +2762,12 @@ ul.btn-list > li > button > img {
 
   .player3,
   .player9 {
-    bottom: 10px;
+    bottom: 30px;
   }
 
   .player4,
   .player8 {
-    top: -10px;
+    top: 30px;
   }
 
   .table-card img {
@@ -2794,6 +2794,8 @@ ul.btn-list > li > button > img {
     width: 90%;
     height: 65vh;
     margin: 0px auto;
+    background-size: contain;
+    background-position: center;
   }
   .logo--bottom-image {
     position: absolute;
@@ -2968,94 +2970,70 @@ ul.btn-list > li > button > img {
     display: none !important;
   }
 
-  .player1 .player-info {
-    width: 110px;
-    height: 40px;
-  }
-  /* .player1 .player-info {
-    margin-top: -35px;
-  } */
-
-  .players.player1 .player-pic {
-    height: 145px;
-    width: 145px;
-  }
-  .player1 .player-pic img,
-  .player1 .player-pic video {
-    z-index: -1;
-    width: 85px !important;
-    height: 85px !important;
-  }
-
   .player1 .battery {
     width: 85px;
     height: 85px;
   }
-  .player1 .player-info h4 {
-    padding-top: 4px;
-  }
 
+  .start-game-btn {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: inherit;
+    max-width: 300px;
+    background: transparent;
+    border: none;
+}
   .player1 {
-    bottom: -50px;
+    bottom: -25px;
     transform: translateX(-50%) scale(0.7);
   }
 
   .player2 {
     transform: translateX(75%) scale(0.7);
-    bottom: -50px;
+    bottom: -25px;
   }
 
   .player3 {
-    bottom: -15px;
     left: -30px;
     transform: translateY(0) scale(0.7);
   }
 
   .player4 {
-    top: -20px;
     transform: scale(0.7);
     left: -30px;
   }
 
   .player5 {
-    top: -82px;
+    top: -25px;
     transform: translateX(-25%) scale(0.7);
   }
 
   .player6 {
-    top: -82px;
+    top: -25px;
     transform: translateX(-50%) scale(0.7);
   }
 
   .player7 {
-    top: -82px;
+    top: -25px;
     left: 75%;
     transform: translateX(-75%) scale(0.7);
   }
   .player8 {
-    top: -20px;
     transform: translateX(-70%) scale(0.7);
   }
 
   .player9 {
-    bottom: -15px;
     transform: scale(0.7);
     right: -30px;
   }
 
   .player10 {
-    bottom: -50px;
+    bottom: -25px;
     transform: translateX(25%) scale(0.7);
   }
 
-  .players.player1 .player-chip {
-    top: 5px;
-  }
 
-  .players.player10 .player-chip,
-  .players.player2 .player-chip {
-    top: -15px;
-  }
 
   /* .players.player2 .player-chip {
     position: relative;
@@ -3131,17 +3109,6 @@ ul.btn-list > li > button > img {
   .player-badge {
     top: 20px;
   }
-  .player1 .player-badge {
-    right: 18px;
-  }
-  .player1 .show-card {
-    left: 10px;
-    top: 70px;
-  }
-  .player-card {
-    left: 10px;
-    top: 55px;
-  }
   .winner-player:after {
     opacity: 0.5;
     filter: blur(8vw);
@@ -3169,8 +3136,6 @@ ul.btn-list > li > button > img {
     left: 0px;
   }
 
-  
-  /******************* Player Size according to Screen Landscape End ********************/
   .player-with-icons {
     max-width: 150px;
 }
