@@ -282,7 +282,8 @@ const customStyles = {
   }),
   input: (provided) => ({
     ...provided,
-    height: '38px',
+    height: "38px",
+    color: "fff",
   }),
 };
 
