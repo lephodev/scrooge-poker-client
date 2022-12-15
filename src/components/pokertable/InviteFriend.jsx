@@ -140,7 +140,7 @@ const customStyles = {
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <div className="block">
-          <p>Select friend to invite</p>
+          <p>Select friends to invite</p>
           <div className="sub-btn text-center">
             <Select
               isMulti
@@ -156,7 +156,7 @@ const customStyles = {
                 handleInvitationSend();
               }}
             >
-              Invite Friend
+              Invite Friends
             </Button>
           </div>
         </div>
