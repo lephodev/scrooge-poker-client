@@ -68,31 +68,65 @@ const InviteFriend = ({
       userId: userId,
     });
   };
-  const customStyles = {
-    option: (provided) => ({
-      ...provided,
-      borderBottom: "1px solid #2d2d32",
-      color: "#ddd",
-      backgroundColor: "#191b25",
-    }),
-    control: () => ({
-      border: "1px solid #51525f",
-      borderRadius: ".25rem",
-      display: "flex",
-      padding: "2px 10px",
-      backgroundColor: "transparent",
-      color: "#fff",
-    }),
-
-    multiValueRemove: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-      ":hover": {
-        backgroundColor: "#b9a11e",
-        color: "#fff",
-      },
-    }),
-  };
+ 
+const customStyles = {
+  option: (provided) => ({
+    ...provided,
+    background: '#333333',
+    color: '#fff',
+    fontWeight: '400',
+    fontSize: '16px',
+    padding: '12px',
+    lineHeight: '16px',
+    cursor: 'pointer',
+    ':hover': {
+      background: '#2a2a2a',
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    background: '#333333',
+    padding: '0px',
+    border: '2px solid transparent',
+  }),
+  control: () => ({
+    background: '#333333',
+    border: '2px solid transparent',
+    borderRadius: '4px',
+    color: '#fff',
+    display: 'flex',
+    alignItem: 'center',
+    height: '38px',
+    margin: '10px 0',
+    ':hover': {
+      background: '#333333',
+      // border: "2px solid #306CFE",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#fff',
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: 'none',
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#fff',
+  }),
+  input: (provided) => ({
+    ...provided,
+    height: "38px",
+    color: "fff",
+  }),
+};
 
   return (
     <Modal
@@ -106,7 +140,7 @@ const InviteFriend = ({
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <div className="block">
-          <p>Select friend to invite</p>
+          <p>Select friends to invite</p>
           <div className="sub-btn text-center">
             <Select
               isMulti
@@ -122,7 +156,7 @@ const InviteFriend = ({
                 handleInvitationSend();
               }}
             >
-              Invite Friend
+              Invite Friends
             </Button>
           </div>
         </div>

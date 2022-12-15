@@ -36,13 +36,13 @@
 }
 
 .buy-coins-box:hover {
-  border: 1px solid #b9a11e;
+  border: 1px solid #f9ff00;
   box-shadow: 0px 0px 30px rgb(185 161 30 / 50%);
 }
 
 .buy-coins-list .buy-coins-box:hover button{
-  background: #b9a11e;
-  border: 1px solid #b9a11e;
+  background: #f9ff00;
+  border: 1px solid #f9ff00;
 }
 
 .buy-coins-list .lv-coins-box:hover {
@@ -67,8 +67,8 @@
 }
 
 .buy-coins-list .buy-coins-box button:hover, .buy-coins-list .buy-coins-box button:focus{
-  background: #b9a11e;
-  border: 1px solid #b9a11e;
+  background: #f9ff00;
+  border: 1px solid #f9ff00;
   box-shadow: none;
 }
 

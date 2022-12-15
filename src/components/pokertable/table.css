@@ -1,9 +1,25 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css";
 
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #525252;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: rgb(29, 29, 29);
+}
 .poker {
   position: relative;
 }
-
+.text-danger {
+  color: #dc3545!important;
+  font-size: 12px !important;
+}
 .poker-bg {
   background: url(../../assets/game/poker-bg.jpg);
   background-repeat: no-repeat;
@@ -1463,9 +1479,8 @@ p.joined-player {
 }
 
 .triangle-isosceles.left:after {
-  top: 10px;
   left: -20px;
-  bottom: auto;
+  bottom: 5px;
   border-width: 10px 30px 10px 0;
   border-color: transparent #222837;
 }
@@ -2088,7 +2103,7 @@ ul.btn-list > li span.close-icon {
   position: absolute;
   right: 10px;
   top: -30px;
-  background: #b9a11e;
+  background: #f9ff00;
   border-radius: 50%;
   height: 30px;
   width: 30px;
@@ -2124,7 +2139,7 @@ ul.btn-list > li > button > img {
 }
 
 .leave-confirm.modal.invite-friend .sub-btn .btn {
-  margin-top: 40px;
+  margin-top: 12px;
 }
 .modal.invite-friend .css-xb97g8 {
   background-color: #a89319;
@@ -2381,10 +2396,10 @@ ul.btn-list > li > button > img {
 }
 .btn-gold {
   font-size: 12px !important;
-  background: #b9a11e !important;
+  background: #f9ff00 !important;
   border-radius: 20px !important;
   height: 21px;
-  border-color: #b9a11e !important;
+  border-color: #f9ff00 !important;
   padding: 0px 5px !important;
 }
 .btn-dark {
@@ -2403,11 +2418,11 @@ ul.btn-list > li > button > img {
 }
 .btn-gold:hover,
 .btn-gold:focus {
-  background: #b9a11e !important;
+  background: #f9ff00 !important;
   color: #fff;
-  border: 1px solid #b9a11e !important;
+  border: 1px solid #f9ff00 !important;
   box-shadow: 0 0 50px 0 hsl(0deg 0% 100% / 30%) !important;
-  border-color: #b9a11e !important;
+  border-color: #f9ff00 !important;
 }
 
 /********* progress bar *********/

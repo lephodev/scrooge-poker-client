@@ -203,19 +203,23 @@
   margin-bottom: 25px;
 }
 
-.modal-footer .btn {
+.modal-footer .btn,
+.modal-footer .btn:focus,
+.modal-footer .btn:active
+ {
   padding: 8px 20px;
-  background: #f9ff00;
-  border-color: #f9ff00;
+  background: #f9ff00 !important;
+  border-color: #f9ff00 !important;
   border-radius: 8px;
   font-weight: 500;
-  color: #000;
+  color: #000 !important;
+  box-shadow: none !important;
 }
 
 .modal-footer .btn.btn-secondary {
-  background-color: #545b62;
-  border-color: #4e555b;
-  color: #fff;
+  background-color: #545b62 !important;
+  border-color: #4e555b !important;
+  color: #fff !important; 
 }
 .blindpopupField {
   display: flex;
@@ -290,4 +294,10 @@ input[type="number"] {
   justify-content: space-between;
   padding: 10px 0px;
 }
+}
+.css-1rhbuit-multiValue {
+  padding-bottom: 6px !important;
+}
+.css-12jo7m5 {
+  font-size: 14px !important;
 }
