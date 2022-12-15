@@ -69,13 +69,13 @@ const Home = () => {
       valid = false;
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
-        'Minimum bet cant be less then or equal to ' + mimimumBet + '.';
+        `Minimum bet can't be less then or equal to ` + mimimumBet + '.';
       valid = false;
     } else if (!gameState.maxchips) {
-      err.maxchips = 'Please enter amount for big bling.';
+      err.maxchips = 'Please enter amount for big blind.';
       valid = false;
     } else if (gameState.maxchips < gameState.minchips) {
-      err.maxchips = 'Big blind amount cant be less then small blind';
+      err.maxchips = `Big blind amount can't be less then small blind`;
       valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
       err.invitedPlayer = 'Please invite some player if table is private.';
@@ -347,14 +347,13 @@ const CreateTable = ({
           </div>
         </Form.Group>
         <div className='searchSelectDropdown'>
-          <Form.Label>Invite User</Form.Label>
+          <Form.Label>Invite Users</Form.Label>
           <Select
             isMulti
             onChange={handleChnageInviteUsers}
             options={options}
             styles={customStyles}
           />
-
           {!!errors?.invitedPlayer && (
             <p className='text-danger'>{errors?.invitedPlayer}</p>
           )}
