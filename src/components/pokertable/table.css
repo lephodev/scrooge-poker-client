@@ -1417,6 +1417,8 @@
   font-size: 13px;
   font-weight: 600;
   margin-top: -3px;
+  width: 90%;
+  height: 70%;
 }
 
 .footer-btn .btn-primary:disabled {
