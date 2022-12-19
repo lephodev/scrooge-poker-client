@@ -93,7 +93,7 @@ const InviteFriend = ({
       color: '#fff',
       display: 'flex',
       alignItem: 'center',
-      height: '38px',
+      height: 'inherit',
       margin: '10px 0',
       ':hover': {
         background: '#333333',
@@ -120,11 +120,10 @@ const InviteFriend = ({
     }),
     input: (provided) => ({
       ...provided,
-      height: '38px',
+      // height: "38px",
       color: 'fff',
     }),
   };
-
   return (
     <Modal
       show={showInvite}
