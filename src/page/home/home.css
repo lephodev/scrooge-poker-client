@@ -205,8 +205,7 @@
 
 .modal-footer .btn,
 .modal-footer .btn:focus,
-.modal-footer .btn:active
- {
+.modal-footer .btn:active {
   padding: 8px 20px;
   background: #f9ff00 !important;
   border-color: #f9ff00 !important;
@@ -219,7 +218,7 @@
 .modal-footer .btn.btn-secondary {
   background-color: #545b62 !important;
   border-color: #4e555b !important;
-  color: #fff !important; 
+  color: #fff !important;
 }
 .blindpopupField {
   display: flex;
@@ -258,7 +257,7 @@ input[type="number"] {
   flex-direction: row;
   gap: 20px;
 }
-.createGameCheckHand .form-check-input{
+.createGameCheckHand .form-check-input {
   background-color: yellow !important;
 }
 
@@ -280,24 +279,30 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 767px) {
-.home-poker-card-grid {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+  .home-poker-card-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .user-header-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .create-game-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
 }
 
-.user-header-grid {
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.create-game-box {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 10px 0px;
-}
-}
-.css-1rhbuit-multiValue {
-  padding-bottom: 6px !important;
-}
 .css-12jo7m5 {
   font-size: 14px !important;
+}
+@media screen and (max-width: 480px) {
+  .no-room-available h4 {
+    font-size: 20px;
+  }
+  .create-game-box button {
+    font-size: 14px;
+  }
 }

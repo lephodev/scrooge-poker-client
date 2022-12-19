@@ -17,7 +17,7 @@
   position: relative;
 }
 .text-danger {
-  color: #dc3545!important;
+  color: #dc3545 !important;
   font-size: 12px !important;
 }
 .poker-bg {
@@ -348,17 +348,40 @@
 }
 
 .players.player4 .player-chip {
-  bottom: 40px;
   position: absolute;
   width: 100%;
+  bottom: 40px;
   right: -125px;
+  animation: slideLeft4 1s;
+}
+
+@keyframes slideLeft4 {
+  from {
+    bottom: 0px;
+    right: 20px;
+  }
+  to {
+    bottom: 40px;
+    right: -125px;
+  }
 }
 
 .players.player8 .player-chip {
-  bottom: 40px;
   position: absolute;
   width: 100%;
+  bottom: 40px;
   left: -125px;
+  animation: slideRight8 1s;
+}
+@keyframes slideRight8 {
+  from {
+    bottom: 0px;
+    left: -20px;
+  }
+  to {
+    bottom: 40px;
+    left: -125px;
+  }
 }
 
 .players.player9 .player-chip {
@@ -366,6 +389,17 @@
   width: 100%;
   left: -125px;
   top: -50px;
+  animation: slideRight9 1s;
+}
+@keyframes slideRight9 {
+  from {
+    left: -20px;
+    top: 4px;
+  }
+  to {
+    left: -125px;
+    top: -50px;
+  }
 }
 
 .players.player3 .player-chip {
@@ -373,55 +407,107 @@
   width: 100%;
   right: -125px;
   top: -50px;
+  animation: slideLeft3 1s;
 }
-
+@keyframes slideLeft3 {
+  from {
+    right: 0px;
+    top: 10px;
+  }
+  to {
+    right: initial;
+    top: initial;
+  }
+}
 .players.player10 .player-chip {
   position: absolute;
   width: 100%;
   top: -125px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-23%);
+  animation: travelUp 1s;
 }
 
 .players.player2 .player-chip {
   position: absolute;
   width: 100%;
   top: -125px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-23%);
+  animation: travelUp 1s;
 }
 
 .players.player1 .player-chip {
   position: absolute;
   width: 100%;
   top: -125px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-50%);
+  animation: travelUpCenter 1s;
 }
 
 .players.player5 .player-chip {
   position: absolute;
   width: 100%;
   bottom: -70px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-25%);
+  animation: travelDown 1s;
 }
 
 .players.player6 .player-chip {
   position: absolute;
   width: 100%;
   bottom: -70px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-50%);
+  animation: travelDownCenter 1s;
 }
 
 .players.player7 .player-chip {
   position: absolute;
   width: 100%;
   bottom: -70px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
+  transform: translateY(-25%);
+  animation: travelDown 1s;
 }
+/* player chips animation  */
+
+@keyframes travelDown {
+  from {
+    transform: translateY(-150%);
+  }
+  to {
+    transform: translateY(-25%);
+  }
+}
+@keyframes travelDownCenter {
+  from {
+    transform: translateY(-150%);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes travelUp {
+  from {
+    transform: translateY(280%);
+  }
+  to {
+    transform: translateY(-23%);
+  }
+}
+@keyframes travelUpCenter {
+  from {
+    transform: translateY(280%);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+
 .animate__animated.animate__delay-01s {
   -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
@@ -579,9 +665,10 @@
 .total-pot-money {
   position: absolute;
   top: 108px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 42%;
+  /* transform: translateX(-50%) !important; */
 }
+
 
 .total-pot-money span {
   background: url(../../assets/game/total-pot.png);
@@ -757,7 +844,6 @@
   transform: rotate(-25deg) translateY(-3px);
 } */
 
-
 .show-card {
   display: flex;
   position: absolute;
@@ -931,8 +1017,8 @@
   text-align: center;
   border-radius: 50px;
   border: 1px solid #e2e71a;
-  color: #000!important;
-  text-shadow: none!important;
+  color: #000 !important;
+  text-shadow: none !important;
 }
 /**** Winner Animation *******/
 
@@ -1387,19 +1473,24 @@
 }
 
 @keyframes shake {
-  10%, 90% {
+  10%,
+  90% {
     transform: translate3d(-1px, 0, 0);
   }
-  
-  20%, 80% {
+
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
@@ -1426,7 +1517,6 @@
   background-color: transparent;
   border-color: transparent;
 }
-
 
 .start-game-btn p {
   font-size: 20px;
@@ -1714,10 +1804,11 @@ p.joined-player {
   background-color: #282c37 !important;
 }
 
-.bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+.bs-tooltip-auto[x-placement^="left"] .arrow::before,
+.bs-tooltip-left .arrow::before {
   left: 0;
   border-width: 0.4rem 0 0.4rem 0.4rem;
-  border-left-color: #282c37!important;
+  border-left-color: #282c37 !important;
 }
 .tooltip-content img {
   height: 55px;
@@ -2278,23 +2369,25 @@ ul.btn-list > li > button > img {
   right: 0;
 }
 
-.cam-tool .dropdown, .cam-tool .dropdown button {
+.cam-tool .dropdown,
+.cam-tool .dropdown button {
   width: 100%;
 }
-.player-pic{
+.player-pic {
   position: relative;
 }
-.player-box .cam-tool i{
+.player-box .cam-tool i {
   text-align: center;
 }
-.player-box .cam-tool button{
+.player-box .cam-tool button {
   text-align: right;
 }
-.cam-tool .dropdown-item.active, .cam-tool .dropdown-item:active {
+.cam-tool .dropdown-item.active,
+.cam-tool .dropdown-item:active {
   color: #16181b;
 }
-.cam-tool .show>.btn-success.dropdown-toggle{
-  background: transparent  !important;
+.cam-tool .show > .btn-success.dropdown-toggle {
+  background: transparent !important;
 }
 .player-with-icons {
   position: relative;
@@ -2315,7 +2408,6 @@ ul.btn-list > li > button > img {
   outline: none;
   padding: 0;
   height: 100%;
-
 }
 
 .cam-tool .dropdown button::after {
@@ -2339,15 +2431,13 @@ ul.btn-list > li > button > img {
   align-items: center;
   color: white;
 }
-.player-with-icons .cam-tool  .dropdown-menu{
+.player-with-icons .cam-tool .dropdown-menu {
   min-width: 8rem;
 }
 .battery {
   margin-left: 4px;
   margin-top: -1px;
 }
-
-
 
 /* ***************************** waiting text show for join player ************************/
 .game-started-join:before {
@@ -2372,7 +2462,7 @@ ul.btn-list > li > button > img {
   transform: translate(-50%, -50%);
   font-size: 24px;
   text-shadow: 2px 4px 6px #000;
-  
+
   font-weight: 300;
   line-height: 1.4;
   max-width: 400px;
@@ -2442,24 +2532,22 @@ ul.btn-list > li > button > img {
 
 .player-info .progress-bar .progress-bar-rect-wrapper {
   height: 100% !important;
-  border: none!important;
-  border-radius: 50px!important;
+  border: none !important;
+  border-radius: 50px !important;
 }
-.inner-rect-bar{
-  border-radius: 50px!important;
+.inner-rect-bar {
+  border-radius: 50px !important;
 }
-.player-info .rect-progress-bar-percent{
+.player-info .rect-progress-bar-percent {
   display: none !important;
 }
-.player-info .progress-bar-rect-wrap-container{
+.player-info .progress-bar-rect-wrap-container {
   height: 100%;
 }
 
 .inner-rect-bar {
-  transition:  2s ease 0s;
+  transition: 2s ease 0s;
 }
-
-
 
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
@@ -2468,7 +2556,6 @@ ul.btn-list > li > button > img {
   .poker .container {
     max-width: 1200px;
   }
-
 }
 
 @media all and (max-width: 1366px) and (min-width: 768px) {
@@ -2522,7 +2609,6 @@ ul.btn-list > li > button > img {
   .player-tooltip {
     left: -7px !important;
   }
-
 }
 
 @media all and (max-width: 1009px) and (min-width: 767px) {
@@ -2541,22 +2627,23 @@ ul.btn-list > li > button > img {
   .poker-table-bg {
     height: 400px;
   }
-  .player4, .player8 {
+  .player4,
+  .player8 {
     top: 60px;
   }
-  .player3, .player9 {
+  .player3,
+  .player9 {
     bottom: 60px;
   }
-
 }
 
 @media screen and (max-width: 1199px) {
-.poker-table-bg {
-  height: 335px;
-}
-.total-pot-money {
-  top: 70px;
-}
+  .poker-table-bg {
+    height: 335px;
+  }
+  .total-pot-money {
+    top: 70px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -2571,7 +2658,6 @@ ul.btn-list > li > button > img {
     height: 100px !important;
   }
 
-  
   .poker .container {
     max-width: calc(100% - 150px);
   }
@@ -2592,7 +2678,8 @@ ul.btn-list > li > button > img {
     font-size: 14px;
   }
 
-  .player-card, .show-card{
+  .player-card,
+  .show-card {
     top: -50px;
   }
   .total-pot-money span::before {
@@ -2600,8 +2687,6 @@ ul.btn-list > li > button > img {
     height: 38px;
     right: -10px;
   }
-
-
 
   .player-pic {
     height: 110px;
@@ -2656,18 +2741,17 @@ ul.btn-list > li > button > img {
     margin-top: 0;
   }
 
-
-  .show-card img, .player-card img {
-    width: 40px;
+  .show-card img,
+  .player-card img {
+    width: 50px;
   }
-
 
   .winner-player .show-card {
     z-index: 9;
   }
 
   .game-msg p {
-    text-shadow: none!important;
+    text-shadow: none !important;
     font-size: 13px !important;
   }
 
@@ -2700,7 +2784,6 @@ ul.btn-list > li > button > img {
     object-fit: cover;
   } */
 
-
   .footer-btn {
     width: 110px;
     height: 43px;
@@ -2731,21 +2814,26 @@ ul.btn-list > li > button > img {
   .player-box .cam-tool {
     height: 52px;
   }
-  .players.player1 .player-chip, .players.player2 .player-chip, .players.player10 .player-chip {
-    top: -80px;
+  .players.player1 .player-chip,
+  .players.player2 .player-chip,
+  .players.player10 .player-chip {
+    top: -78px;
   }
-  .players.player6 .player-chip, .players.player5 .player-chip, .players.player7 .player-chip {
-    bottom: -25px;
+  .players.player6 .player-chip,
+  .players.player5 .player-chip,
+  .players.player7 .player-chip {
+    bottom: -45px;
   }
 
-  .players.player8 .player-chip, .players.player9 .player-chip {
+  .players.player8 .player-chip,
+  .players.player9 .player-chip {
     left: -80px;
   }
 
-  .players.player4 .player-chip, .players.player3 .player-chip {
+  .players.player4 .player-chip,
+  .players.player3 .player-chip {
     right: -80px;
   }
-
 }
 
 @media screen and (max-width: 768px) {
@@ -2799,7 +2887,6 @@ ul.btn-list > li > button > img {
     top: 100px;
   }
 }
-
 
 /************************************************************ Landscape ***********************************************************/
 
@@ -3000,7 +3087,7 @@ ul.btn-list > li > button > img {
     max-width: 300px;
     background: transparent;
     border: none;
-}
+  }
   .player1 {
     bottom: -25px;
     transform: translateX(-50%) scale(0.7);
@@ -3049,8 +3136,6 @@ ul.btn-list > li > button > img {
     bottom: -25px;
     transform: translateX(25%) scale(0.7);
   }
-
-
 
   /* .players.player2 .player-chip {
     position: relative;
@@ -3137,7 +3222,6 @@ ul.btn-list > li > button > img {
     height: 275px !important;
   }
 
-
   .logo--bottom-image {
     display: none;
   }
@@ -3155,14 +3239,14 @@ ul.btn-list > li > button > img {
 
   .player-with-icons {
     max-width: 150px;
-}
-.player-box .cam-tool {
-  height: 45px;
-  max-width: 150px;
-}
-.player-with-icons .cam-tool .dropdown-menu {
-  min-width: 9rem;
-}
+  }
+  .player-box .cam-tool {
+    height: 45px;
+    max-width: 150px;
+  }
+  .player-with-icons .cam-tool .dropdown-menu {
+    min-width: 9rem;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
@@ -3179,14 +3263,14 @@ ul.btn-list > li > button > img {
   .player-with-icons .cam-tool .dropdown-menu {
     min-width: 9rem;
     margin-top: 10px !important;
-}
+  }
   .player-with-icons {
     max-width: 150px;
-}
-.player-box .cam-tool {
-  height: 45px;
-  max-width: 150px;
-}
+  }
+  .player-box .cam-tool {
+    height: 45px;
+    max-width: 150px;
+  }
   .poker-bg {
     height: 100vh;
   }
@@ -3206,7 +3290,7 @@ ul.btn-list > li > button > img {
     top: 0;
   }
 
-  .poker-table-bg:before{
+  .poker-table-bg:before {
     content: "";
     background: url(../../assets/game/logo-poker.png);
     width: 80px;
@@ -3305,6 +3389,7 @@ ul.btn-list > li > button > img {
   }
   .total-pot-money {
     top: 136px;
+    left: 36%;
   }
   button.not-allowed.btn.btn-primary {
     cursor: not-allowed;
@@ -3396,7 +3481,7 @@ ul.btn-list > li > button > img {
     right: 0px;
     top: -20px;
     bottom: auto;
-}
+  }
 
   button.sign-in.btn.btn-primary {
     height: 28px;
@@ -3550,8 +3635,6 @@ ul.btn-list > li > button > img {
     margin-bottom: 10px;
   }
 
-
-  
   /******* center tooltip**********/
   .player-tooltip {
     position: absolute;
@@ -3564,4 +3647,3 @@ ul.btn-list > li > button > img {
     width: 100%;
   }
 }
-
