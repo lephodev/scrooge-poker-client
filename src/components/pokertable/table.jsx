@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
+import 'animate.css';
 // import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import ProgressBar from 'react-animated-progress-bar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -2402,7 +2403,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
 
 const TablePotMoney = ({ tablePot }) => {
   return (
-    <div className='total-pot-money'>
+    <div className='total-pot-money animate__animated animate__backInUp'>
       <span>{numFormatter(tablePot && tablePot)}</span>
     </div>
   );

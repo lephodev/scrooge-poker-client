@@ -69,65 +69,64 @@ const InviteFriend = ({
     });
   };
  
-const customStyles = {
-  option: (provided) => ({
-    ...provided,
-    background: '#333333',
-    color: '#fff',
-    fontWeight: '400',
-    fontSize: '16px',
-    padding: '12px',
-    lineHeight: '16px',
-    cursor: 'pointer',
-    ':hover': {
-      background: '#2a2a2a',
-    },
-  }),
-  menu: (provided) => ({
-    ...provided,
-    background: '#333333',
-    padding: '0px',
-    border: '2px solid transparent',
-  }),
-  control: () => ({
-    background: '#333333',
-    border: '2px solid transparent',
-    borderRadius: '4px',
-    color: '#fff',
-    display: 'flex',
-    alignItem: 'center',
-    height: '38px',
-    margin: '10px 0',
-    ':hover': {
+  const customStyles = {
+    option: (provided) => ({
+      ...provided,
       background: '#333333',
-      // border: "2px solid #306CFE",
-    },
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: '#fff',
-    fontWeight: '400',
-    fontSize: '14px',
-    lineHeight: '16px',
-  }),
-  indicatorSeparator: (provided) => ({
-    ...provided,
-    display: 'none',
-  }),
-  placeholder: (provided) => ({
-    ...provided,
-    fontWeight: '400',
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: '#fff',
-  }),
-  input: (provided) => ({
-    ...provided,
-    height: "38px",
-    color: "fff",
-  }),
-};
-
+      color: '#fff',
+      fontWeight: '400',
+      fontSize: '16px',
+      padding: '12px',
+      lineHeight: '16px',
+      cursor: 'pointer',
+      ':hover': {
+        background: '#2a2a2a',
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      background: '#333333',
+      padding: '0px',
+      border: '2px solid transparent',
+    }),
+    control: () => ({
+      background: '#333333',
+      border: '2px solid transparent',
+      borderRadius: '4px',
+      color: '#fff',
+      display: 'flex',
+      alignItem: 'center',
+      height: 'inherit',
+      margin: '10px 0',
+      ':hover': {
+        background: '#333333',
+        // border: "2px solid #306CFE",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#fff',
+      fontWeight: '400',
+      fontSize: '14px',
+      lineHeight: '16px',
+    }),
+    indicatorSeparator: (provided) => ({
+      ...provided,
+      display: 'none',
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      fontWeight: '400',
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#fff',
+    }),
+    input: (provided) => ({
+      ...provided,
+      // height: "38px",
+      color: "fff",
+    }),
+  };
   return (
     <Modal
       show={showInvite}
