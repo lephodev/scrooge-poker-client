@@ -74,7 +74,9 @@ const Home = () => {
     } else if (!gameState.maxchips) {
       err.maxchips = 'Please enter amount for big bling.';
       valid = false;
-    } else if (gameState.maxchips < gameState.minchips) {
+    } else if (
+      parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)
+    ) {
       err.maxchips = 'Big blind amount cant be less then small blind';
       valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
