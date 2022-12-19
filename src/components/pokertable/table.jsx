@@ -1713,17 +1713,6 @@ const PokerTable = (props) => {
                 </OverlayTrigger>
               </li>
             )}
-            {gameCollection !== 'pokerTournament_Tables' && (
-              <li>
-                <OverlayTrigger
-                  placement='left'
-                  overlay={<Tooltip id='tooltip-disabled'>Add coins</Tooltip>}>
-                  <button onClick={() => setShowCoin(true)}>
-                    <img src={addcoin} alt='Add-coin' />
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== 'poker1vs1_Tables')) && (
               <li>

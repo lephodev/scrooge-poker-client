@@ -54,15 +54,15 @@
   font-size: 25px;
   color: #fff !important;
   text-align: center;
-  text-shadow: 0 0 5px rgb(44, 42, 42), 0 0 5px rgb(44, 42, 42), 0 0 5px #b9a11e,
-    0 0 5px #b9a11e;
+  text-shadow: 0 0 5px rgb(44, 42, 42), 0 0 5px rgb(44, 42, 42), 0 0 5px #f9ff00,
+    0 0 5px #f9ff00;
 }
 
 .glowingtd {
   color: #fff;
   text-align: center;
   text-shadow: 0 0 10px rgb(44, 42, 42), 0 0 10px rgb(44, 42, 42),
-    0 0 10px #b9a11e, 0 0 10px #b9a11e;
+    0 0 10px #f9ff00, 0 0 10px #f9ff00;
 }
 
 .stripe-btn {
@@ -147,13 +147,13 @@
 .sc-btn button {
   border-radius: 10px;
   min-width: 100px;
-  background: #b9a11e;
+  background: #f9ff00;
   border: none;
 }
 .sub-btn button {
   border-radius: 10px;
   min-width: 100px;
-  background: #b9a11e;
+  background: #f9ff00;
   border: none;
 }
 

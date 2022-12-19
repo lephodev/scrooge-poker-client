@@ -69,10 +69,10 @@ const Home = () => {
       valid = false;
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
-        'Minimum bet cant be less then or equal to ' + mimimumBet + '.';
+        `Minimum bet can't be less then or equal to ` + mimimumBet + '.';
       valid = false;
     } else if (!gameState.maxchips) {
-      err.maxchips = 'Please enter amount for big bling.';
+      err.maxchips = 'Please enter amount for big blind.';
       valid = false;
     } else if (
       parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)
@@ -285,6 +285,7 @@ const customStyles = {
   input: (provided) => ({
     ...provided,
     height: '38px',
+    color: 'fff',
   }),
 };
 
@@ -348,14 +349,13 @@ const CreateTable = ({
           </div>
         </Form.Group>
         <div className='searchSelectDropdown'>
-          <Form.Label>Invite User</Form.Label>
+          <Form.Label>Invite Users</Form.Label>
           <Select
             isMulti
             onChange={handleChnageInviteUsers}
             options={options}
             styles={customStyles}
           />
-
           {!!errors?.invitedPlayer && (
             <p className='text-danger'>{errors?.invitedPlayer}</p>
           )}
