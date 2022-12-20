@@ -74,8 +74,10 @@ const Home = () => {
     } else if (!gameState.maxchips) {
       err.maxchips = 'Please enter amount for big blind.';
       valid = false;
-    } else if (gameState.maxchips < gameState.minchips) {
-      err.maxchips = `Big blind amount can't be less then small blind`;
+    } else if (
+      parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)
+    ) {
+      err.maxchips = 'Big blind amount cant be less then small blind';
       valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
       err.invitedPlayer = 'Please invite some player if table is private.';
@@ -283,7 +285,7 @@ const customStyles = {
   input: (provided) => ({
     ...provided,
     // height: "38px",
-    color: "fff",
+    color: 'fff',
   }),
 };
 

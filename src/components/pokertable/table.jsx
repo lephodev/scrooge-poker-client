@@ -196,7 +196,6 @@ const PokerTable = (props) => {
       }
 
       user = await userUtils.getAuthUserData();
-      console.log('USER DATA HERE -------', { user });
 
       if (!user.success) {
         return (window.location.href = `${CONSTANTS.landingClient}`);
@@ -1365,94 +1364,100 @@ const PokerTable = (props) => {
             isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
-                <div className='start-game'>
-                  <div className='start-game-btn'>
-                    {isAdmin && roomData && !roomData.gamestart ? (
-                      <>
-                        <p>Click to start game</p>
-                        {/* disabled={players && players.length <2} */}
-                        <div className='footer-btn '>
-                          {players && players.length >= 2 && (
-                            <Button
-                              onClick={() => {
-                                setStart(true);
-                                startGame();
-                              }}
-                              disabled={start}>
-                              Start Game
-                            </Button>
-                          )}
-                          {players && players.length < 2 && (
-                            <OverlayTrigger
-                              placement='bottom'
-                              overlay={
-                                <Tooltip id='tooltip-disabled'>
-                                  Please wait for the other friends to join
-                                </Tooltip>
-                              }>
-                              <Button className='not-allowed'>
+                {!roomData.gamestart && !newUser && (
+                  <div className='start-game'>
+                    <div className='start-game-btn'>
+                      {isAdmin && roomData && !roomData.gamestart ? (
+                        <>
+                          <p>Click to start game</p>
+                          {/* disabled={players && players.length <2} */}
+                          <div className='footer-btn '>
+                            {players && players.length >= 2 && (
+                              <Button
+                                onClick={() => {
+                                  setStart(true);
+                                  startGame();
+                                }}
+                                disabled={start}>
                                 Start Game
                               </Button>
-                            </OverlayTrigger>
-                          )}
-                        </div>
-                      </>
-                    ) : newUser ? (
-                      <>
-                        <p>Join table</p>
-                        <div className='footer-btn '>
-                          <Button onClick={() => joinGame()}>Join Game</Button>
-                        </div>
-                      </>
-                    ) : allowWatcher ? (
-                      <>
-                        <p>Join as</p>
-                        <div className='d-flex'>
-                          <div className='footer-btn '>
-                            <Button onClick={() => joinGame()}>Player</Button>
+                            )}
+                            {players && players.length < 2 && (
+                              <OverlayTrigger
+                                placement='bottom'
+                                overlay={
+                                  <Tooltip id='tooltip-disabled'>
+                                    Please wait for the other friends to join
+                                  </Tooltip>
+                                }>
+                                <Button className='not-allowed'>
+                                  Start Game
+                                </Button>
+                              </OverlayTrigger>
+                            )}
                           </div>
+                        </>
+                      ) : newUser ? (
+                        <>
+                          <p>Join table</p>
+                          <div className='footer-btn '>
+                            <Button onClick={() => joinGame()}>
+                              Join Game
+                            </Button>
+                          </div>
+                        </>
+                      ) : allowWatcher ? (
+                        <>
+                          <p>Join as</p>
+                          <div className='d-flex'>
+                            <div className='footer-btn '>
+                              <Button onClick={() => joinGame()}>Player</Button>
+                            </div>
+                            <div className='footer-btn '>
+                              <Button onClick={() => joinWatcher()}>
+                                Watcher
+                              </Button>
+                            </div>
+                          </div>
+                        </>
+                      ) : onlywatcher ? (
+                        <>
+                          <p>Game started, Join as -</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
-                        </div>
-                      </>
-                    ) : onlywatcher ? (
-                      <>
-                        <p>Game started, Join as -</p>
-                        <div className='footer-btn '>
-                          <Button onClick={() => joinWatcher()}>Watcher</Button>
-                        </div>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {roomData &&
-                      roomData.runninground === 0 &&
-                      !roomData.gamestart &&
-                      !isAdmin && (
-                        <>
-                          <p>Please wait for the Admin to Start the game</p>
                         </>
+                      ) : (
+                        ''
                       )}
-                    {roomData &&
-                    roomData.handWinner.length === 0 &&
-                    !roomData?.gamestart ? (
-                      <>
-                        <p className='joined-player'>
-                          Invited Players joined -{' '}
-                          {roomData.players.filter((ele) =>
-                            roomData.invPlayers.includes(ele.userid)
-                          ).length + 1}
-                          /{roomData.invPlayers.length + 1}
-                        </p>
-                      </>
-                    ) : (
-                      ''
-                    )}
+                      {roomData &&
+                        roomData.runninground === 0 &&
+                        !roomData.gamestart &&
+                        !isAdmin && (
+                          <>
+                            <p>Please wait for the Admin to Start the game</p>
+                          </>
+                        )}
+                      {roomData &&
+                      roomData.handWinner.length === 0 &&
+                      !roomData?.gamestart ? (
+                        <>
+                          <p className='joined-player'>
+                            Invited Players joined -{' '}
+                            {roomData.players.filter((ele) =>
+                              roomData.invPlayers.includes(ele.userid)
+                            ).length + 1}
+                            /{roomData.invPlayers.length + 1}
+                          </p>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ''}
                 <GameMessage winnerText={winnerText} />
 
