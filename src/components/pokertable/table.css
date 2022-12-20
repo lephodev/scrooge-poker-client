@@ -46,6 +46,9 @@
   align-items: center;
   height: 100vh;
 }
+.modal.invite-friend .css-xb97g8 {
+  background-color: #303030 !important;
+}
 
 .poker-table-bg {
   background: url(../../assets/game/poker-table.png);

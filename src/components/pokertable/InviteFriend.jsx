@@ -76,6 +76,7 @@ const InviteFriend = ({
       padding: '12px',
       lineHeight: '16px',
       cursor: 'pointer',
+      textAlign: "left",
       ':hover': {
         background: '#2a2a2a',
       },
