@@ -665,7 +665,7 @@
 .total-pot-money {
   position: absolute;
   top: 108px;
-  left: 42%;
+  left: 43%;
   /* transform: translateX(-50%) !important; */
 }
 
@@ -948,7 +948,7 @@
   top: 10%;
   left: 50%;
   transform: translate(-50%, 0%);
-  z-index: 99;
+  z-index: 999999;
 }
 
 .game-msg p {
@@ -2462,7 +2462,7 @@ ul.btn-list > li > button > img {
   transform: translate(-50%, -50%);
   font-size: 24px;
   text-shadow: 2px 4px 6px #000;
-
+  font-family: "Poppins",sans-serif !important;
   font-weight: 300;
   line-height: 1.4;
   max-width: 400px;
@@ -2752,7 +2752,7 @@ ul.btn-list > li > button > img {
 
   .game-msg p {
     text-shadow: none !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
 
   .player-chip span::before {
@@ -2928,6 +2928,7 @@ ul.btn-list > li > button > img {
   }
   .chat-wrapper {
     right: 10px;
+    bottom: -42px;
   }
   .bet-view {
     top: -40px;
@@ -2994,7 +2995,8 @@ ul.btn-list > li > button > img {
 
   .total-pot-money {
     top: 135px;
-  }
+    left: 42%;
+}
   button.not-allowed.btn.btn-primary {
     cursor: not-allowed;
   }
@@ -3002,7 +3004,7 @@ ul.btn-list > li > button > img {
   .game-msg {
     top: 115px;
     text-align: center;
-    z-index: 9;
+    z-index: 999999;
   }
 
   .footer-btn {
@@ -3219,7 +3221,7 @@ ul.btn-list > li > button > img {
     height: 200px !important;
   }
   .chat-content {
-    height: 275px !important;
+    height: 155px !important;
   }
 
   .logo--bottom-image {
@@ -3271,6 +3273,12 @@ ul.btn-list > li > button > img {
     height: 45px;
     max-width: 150px;
   }
+  .chat-logo img {
+    max-width: 82px;
+}
+.chat-content {
+  padding: 15px 12px;
+}
   .poker-bg {
     height: 100vh;
   }
@@ -3577,7 +3585,7 @@ ul.btn-list > li > button > img {
     transform: inherit;
   }
   .logo--bottom-image img {
-    width: 80px;
+    width: 63px;
   }
   .players.player3 .player-chip {
     right: inherit;
