@@ -288,6 +288,17 @@ const PokerTable = (props) => {
       }, 1000);
       console.log('dfdfdfdfdfdf');
     });
+
+    socket.on('notFound', (data) => {
+      toast.error('Table not Found');
+      if (
+        data?.message === 'Game not found. Either game is finished or not exist'
+      ) {
+        setTimeout(() => {
+          window.location.href = window.location.origin;
+        }, 500);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -418,26 +429,6 @@ const PokerTable = (props) => {
     });
     socket.on('hostApproval', () => {
       toast.success('Request send for Approval', { id: 'A', duration: 1000 });
-    });
-
-    socket.emit('roomFull', () => {
-      setLoader(false);
-      toast.error('Room is Full.', { id: 'full' });
-      console.log('dfdfdfdf');
-      setTimeout(() => {
-        window.location.href = window.location.origin;
-      }, 1000);
-    });
-
-    socket.emit('notFound', (data) => {
-      toast.error('Table not Found');
-      if (
-        data?.message === 'Game not found. Either game is finished or not exist'
-      ) {
-        setTimeout(() => {
-          window.location.href = window.location.origin;
-        }, 500);
-      }
     });
 
     socket.on('newUser', (data) => {
@@ -1330,26 +1321,25 @@ const PokerTable = (props) => {
     };
   }, [history]);
 
+  //   const toggleFullscreen = () => {
+  //     let ele = document.getElementsByClassName("poker")[0]
+  //     if (ele.requestFullscreen) {
+  //       ele.requestFullscreen();
+  //     } else if (ele.webkitRequestFullscreen) { /* Safari */
+  //     ele.webkitRequestFullscreen();
+  //     } else if (ele.msRequestFullscreen) { /* IE11 */
+  //     ele.msRequestFullscreen();
+  //     }
+  //     // window?.requestFullscreen().then(console.log).catch(console.log);
+  //    }
 
-//   const toggleFullscreen = () => {
-//     let ele = document.getElementsByClassName("poker")[0]
-//     if (ele.requestFullscreen) {
-//       ele.requestFullscreen();
-//     } else if (ele.webkitRequestFullscreen) { /* Safari */
-//     ele.webkitRequestFullscreen();
-//     } else if (ele.msRequestFullscreen) { /* IE11 */
-//     ele.msRequestFullscreen();
-//     }
-//     // window?.requestFullscreen().then(console.log).catch(console.log);  
-//    }
-  
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       toggleFullscreen()
-//     }, 1000);
-//     return () => clearTimeout(timer);
-// }, []);
-  
+  //   useEffect(() => {
+  //     const timer = setTimeout(() => {
+  //       toggleFullscreen()
+  //     }, 1000);
+  //     return () => clearTimeout(timer);
+  // }, []);
+
   return (
     <div className='poker' id={players.length}>
       <Helmet>
