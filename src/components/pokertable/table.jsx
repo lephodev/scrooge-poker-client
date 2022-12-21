@@ -1319,21 +1319,24 @@ const PokerTable = (props) => {
   }, [history]);
 
 
-  const toggleFullscreen = () => {
-    let ele = document.getElementsByClassName("poker")[0]
-    if (ele.requestFullscreen) {
-      ele.requestFullscreen();
-    } else if (ele.webkitRequestFullscreen) { /* Safari */
-    ele.webkitRequestFullscreen();
-    } else if (ele.msRequestFullscreen) { /* IE11 */
-    ele.msRequestFullscreen();
-    }
-    // window?.requestFullscreen().then(console.log).catch(console.log);  
-   }
+//   const toggleFullscreen = () => {
+//     let ele = document.getElementsByClassName("poker")[0]
+//     if (ele.requestFullscreen) {
+//       ele.requestFullscreen();
+//     } else if (ele.webkitRequestFullscreen) { /* Safari */
+//     ele.webkitRequestFullscreen();
+//     } else if (ele.msRequestFullscreen) { /* IE11 */
+//     ele.msRequestFullscreen();
+//     }
+//     // window?.requestFullscreen().then(console.log).catch(console.log);  
+//    }
   
-   useEffect(() => {
-  toggleFullscreen()
-  }, []);
+//   useEffect(() => {
+//     const timer = setTimeout(() => {
+//       toggleFullscreen()
+//     }, 1000);
+//     return () => clearTimeout(timer);
+// }, []);
   
   return (
     <div className='poker' id={players.length}>
