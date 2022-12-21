@@ -174,6 +174,7 @@ const PokerTable = (props) => {
               gameId: table,
               userId,
               gameType: type,
+              dataFrom: 'reconnect',
             });
             setLoader(true);
           }
@@ -428,8 +429,15 @@ const PokerTable = (props) => {
       }, 1000);
     });
 
-    socket.emit('notFound', () => {
+    socket.emit('notFound', (data) => {
       toast.error('Table not Found');
+      if (
+        data?.message === 'Game not found. Either game is finished or not exist'
+      ) {
+        setTimeout(() => {
+          window.location.href = window.location.origin;
+        }, 500);
+      }
     });
 
     socket.on('newUser', (data) => {
@@ -778,6 +786,10 @@ const PokerTable = (props) => {
       console.log({ roomData });
       updatePlayer(roomData.players);
       setStart(false);
+      toast.success(
+        'Only one player is eligible to play and poker needs atleast two player to play',
+        { id: 'onlyOnePlayingPlayer' }
+      );
     });
     socket.on('roomResume', () => {
       toast.success('Game is resumed for next hand', { id: 'A' });
@@ -1364,10 +1376,10 @@ const PokerTable = (props) => {
             isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
-                {!roomData.gamestart && !newUser && (
+                {!roomData?.gamestart && !newUser && (
                   <div className='start-game'>
                     <div className='start-game-btn'>
-                      {isAdmin && roomData && !roomData.gamestart ? (
+                      {isAdmin && roomData && !roomData?.gamestart ? (
                         <>
                           <p>Click to start game</p>
                           {/* disabled={players && players.length <2} */}
@@ -1433,8 +1445,8 @@ const PokerTable = (props) => {
                         ''
                       )}
                       {roomData &&
-                        roomData.runninground === 0 &&
-                        !roomData.gamestart &&
+                        roomData?.runninground === 0 &&
+                        !roomData?.gamestart &&
                         !isAdmin && (
                           <>
                             <p>Please wait for the Admin to Start the game</p>
@@ -1508,7 +1520,7 @@ const PokerTable = (props) => {
               <div className='poker-table-bg wow animate__animated animate__fadeIn'>
                 <div className='start-game-btn'>
                   {roomData ? (
-                    !roomData.gamestart ? (
+                    !roomData?.gamestart ? (
                       newUser ? (
                         <>
                           <p>Join table</p>
@@ -1564,7 +1576,7 @@ const PokerTable = (props) => {
                       </>
                     ) : roomData &&
                       roomData.allowWatcher &&
-                      roomData.gamestart ? (
+                      roomData?.gamestart ? (
                       <>
                         <p>Game started, Join as -</p>
                         <div className='footer-btn '>
