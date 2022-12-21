@@ -44,15 +44,24 @@ const Home = () => {
     const { name, value } = e.target;
     if (name === 'public' || name === 'autohand') {
       setGameState({ ...gameState, [name]: e.target.checked });
+    } else if (name === 'gameName') {
+      if (value.length <= 20) {
+        setGameState({ ...gameState, [name]: value.trim() });
+        setErrors({
+          ...errors,
+          gameName: '',
+        });
+      } else {
+        setErrors({
+          ...errors,
+          gameName: 'Maximum 20 character is allowed for game name.',
+        });
+      }
     } else {
       setGameState({ ...gameState, [name]: value.trim() });
     }
   };
   const handleChnageInviteUsers = (selectedOptions) => {
-    if (selectedOptions.length > 8) {
-      toast.error('Maximum 8 people can be invited');
-      return;
-    }
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
   };
 
