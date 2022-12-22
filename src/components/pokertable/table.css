@@ -510,7 +510,6 @@
   }
 }
 
-
 .animate__animated.animate__delay-01s {
   -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
@@ -668,10 +667,9 @@
 .total-pot-money {
   position: absolute;
   top: 108px;
-  left: 43%;
+  left: calc(50% - 75px);
   /* transform: translateX(-50%) !important; */
 }
-
 
 .total-pot-money span {
   background: url(../../assets/game/total-pot.png);
@@ -2465,7 +2463,7 @@ ul.btn-list > li > button > img {
   transform: translate(-50%, -50%);
   font-size: 24px;
   text-shadow: 2px 4px 6px #000;
-  font-family: "Poppins",sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
   font-weight: 300;
   line-height: 1.4;
   max-width: 400px;
@@ -2999,7 +2997,7 @@ ul.btn-list > li > button > img {
   .total-pot-money {
     top: 135px;
     left: 42%;
-}
+  }
   button.not-allowed.btn.btn-primary {
     cursor: not-allowed;
   }
@@ -3278,10 +3276,10 @@ ul.btn-list > li > button > img {
   }
   .chat-logo img {
     max-width: 82px;
-}
-.chat-content {
-  padding: 15px 12px;
-}
+  }
+  .chat-content {
+    padding: 15px 12px;
+  }
   .poker-bg {
     height: 100vh;
   }
@@ -3428,7 +3426,7 @@ ul.btn-list > li > button > img {
   }
 
   .player1 {
-    bottom: -6px;
+    bottom: 0px;
     transform: translateX(-50%) scale(0.8);
   }
 
@@ -3656,5 +3654,29 @@ ul.btn-list > li > button > img {
     z-index: 999999 !important;
     max-width: 185px !important;
     width: 100%;
+  }
+
+  /***************** When 4 players in Game ******************/
+  .player-count-4 .player5 {
+    top: 30%;
+    left: -2%;
+  }
+  .player-count-4 .player7 {
+    top: 30%;
+    right: -2%;
+  }
+  /***************** When 6 players in Game ******************/
+
+  .player-count-6 .player2 {
+    bottom: 45%;
+  }
+  .player-count-6 .player10 {
+    bottom: 45%;
+  }
+  .player-count-6 .player5 {
+    top: 15%;
+  }
+  .player-count-6 .player7 {
+    top: 15%;
   }
 }
