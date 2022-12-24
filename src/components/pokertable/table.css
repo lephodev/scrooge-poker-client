@@ -415,7 +415,7 @@
 @keyframes slideLeft3 {
   from {
     right: 0px;
-    top: 10px;
+    top: 4px;
   }
   to {
     right: initial;
@@ -3250,6 +3250,64 @@ ul.btn-list > li > button > img {
   .player-with-icons .cam-tool .dropdown-menu {
     min-width: 9rem;
   }
+
+  .players.player3 .player-chip {
+    right: -80px;
+    animation: slideLeft3 1s;
+  }
+  @keyframes slideLeft3 {
+    from {
+      right: 0px;
+      bottom: 8px;
+    }
+    to {
+      right: -80px;
+      bottom: 40px;
+    }
+  }
+  .players.player4 .player-chip {
+    right: -80px;
+    animation: slideLeft4 1s;
+  }
+
+  @keyframes slideLeft4 {
+    from {
+      right: 0px;
+      top: 8px;
+    }
+    to {
+      right: -80px;
+      top: inherit;
+    }
+  }
+  .players.player8 .player-chip {
+    left: -80px;
+    animation: slideRight8 1s;
+  }
+  @keyframes slideRight8 {
+    from {
+      bottom: 8px;
+      left: -4px;
+    }
+    to {
+      left: -80px;
+      bottom: 40px;
+    }
+  }
+  .players.player9 .player-chip {
+    left: -80px;
+    animation: slideRight9 1s;
+  }
+  @keyframes slideRight9 {
+    from {
+      left: -4px;
+      top: 4px;
+    }
+    to {
+      left: -80px;
+      top: inherit;
+    }
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
@@ -3592,12 +3650,36 @@ ul.btn-list > li > button > img {
     right: inherit;
     top: -80px;
     left: inherit;
+    animation: slideLeft3 1s;
+  }
+  @keyframes slideLeft3 {
+    from {
+      top: 8px;
+      right: inherit;
+    }
+    to {
+      top: -80px;
+      right: inherit;
+    }
   }
   .players.player4 .player-chip {
     bottom: inherit;
     right: inherit;
     left: inherit;
     top: -80px;
+    animation: slideLeft4 1s;
+  }
+  @keyframes slideLeft4 {
+    from {
+      top: 20px;
+      bottom: inherit;
+      right: inherit;
+    }
+    to {
+      top: -80px;
+      bottom: inherit;
+      right: inherit;
+    }
   }
   .players.player5 .player-chip {
     bottom: inherit;
@@ -3605,6 +3687,7 @@ ul.btn-list > li > button > img {
     transform: inherit;
     top: -80px;
   }
+
   .players.player7 .player-chip {
     bottom: inherit;
     left: inherit;
@@ -3613,21 +3696,56 @@ ul.btn-list > li > button > img {
     top: -80px;
   }
   .players.player8 .player-chip {
-    bottom: inherit;
     top: -80px;
+    bottom: inherit;
     left: inherit;
     right: inherit;
+    animation: slideRight8 1s;
+  }
+  @keyframes slideRight8 {
+    from {
+      bottom: inherit;
+      left: inherit;
+      top: 4px;
+    }
+    to {
+      bottom: inherit;
+      left: inherit;
+      top: -80px;
+    }
   }
   .players.player9 .player-chip {
     left: inherit;
     top: -80px;
     right: inherit;
+    animation: slideRight9 1s;
+  }
+  @keyframes slideRight9 {
+    from {
+      left: inherit;
+      top: 4px;
+    }
+    to {
+      left: inherit;
+      top: -80px;
+    }
   }
   .players.player10 .player-chip {
     top: -80px;
     left: inherit;
     transform: inherit;
     right: inherit;
+    animation: travelUp 1s;
+  }
+  @keyframes travelUp {
+    from {
+      top: 4px;
+      transform: inherit;
+    }
+    to {
+      top: -80px;
+      transform: inherit;
+    }
   }
   .start-game-btn .footer-btn {
     width: 110px;
