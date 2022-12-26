@@ -108,6 +108,7 @@ const PokerTable = (props) => {
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
   const [start, setStart] = useState(false);
+  const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [openAction, setOpenAction] = useState({
     bet: false,
@@ -549,30 +550,45 @@ const PokerTable = (props) => {
     });
 
     socket.on('flopround', (data) => {
-      playAudio('collect');
-      roomData = data;
-      setTablePot(roomData.pot);
-
-      setCommunityCards(data.communityCard);
-      updatePlayer(data.flopround);
+      setMergeAnimationState(true)
+      setTimeout(() => {
+        setMergeAnimationState(false)
+        playAudio('collect');
+        roomData = data;
+        setTablePot(roomData.pot);
+  
+        setCommunityCards(data.communityCard);
+        updatePlayer(data.flopround);
+      },400)
+     
     });
 
     socket.on('turnround', (data) => {
-      playAudio('collect');
-      roomData = data;
-      setCommunityCards(data.communityCard);
-
-      setTablePot(roomData.pot);
-      updatePlayer(data.turnround);
+      setMergeAnimationState(true)
+      setTimeout(() => {
+        setMergeAnimationState(false)
+        playAudio('collect');
+        roomData = data;
+        setCommunityCards(data.communityCard);
+  
+        setTablePot(roomData.pot);
+        updatePlayer(data.turnround);
+      },400)
+     
     });
 
     socket.on('riverround', (data) => {
-      playAudio('collect');
+      setMergeAnimationState(true)
+      setTimeout(() => {
+        setMergeAnimationState(false)
+        playAudio('collect');
       roomData = data;
       setCommunityCards(data.communityCard);
 
       setTablePot(roomData.pot);
       updatePlayer(data.riverround);
+      },400)
+      
     });
 
     socket.on('winner', (data) => {
@@ -1494,6 +1510,7 @@ const PokerTable = (props) => {
                   userId &&
                   players.map((player, i) => (
                     <Players
+                    mergeAnimationState={mergeAnimationState}
                       key={`item-${player.userid ? player.userid : player.id}`}
                       followingList={followingList}
                       friendList={friendList}
@@ -1523,6 +1540,7 @@ const PokerTable = (props) => {
                       setShowFollowMe={setShowFollowMe}
                       setFriendList={setFriendList}
                       setFollowingList={setFollowingList}
+                      tablePot={tablePot}
                     />
                   ))}
               </div>
@@ -1874,9 +1892,11 @@ const Players = ({
   handleShowStore,
   winAnimationType,
   friendList,
+  mergeAnimationState,
   followingList,
   setFriendList,
   setFollowingList,
+  tablePot
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
@@ -2151,7 +2171,7 @@ const Players = ({
           winner && playerData && winner.id === playerData.id
             ? `winner-player`
             : ``
-        } ${playerData && playerData.playing ? '' : 'not-playing'}`}>
+        } ${playerData && playerData.playing ? '' : 'not-playing'} ${mergeAnimationState ? 'animateMerge-chips' : ''}`}>
         {/* start win or lose animation */}
         {/* {winner &&
       playerData &&
@@ -2279,7 +2299,7 @@ const Players = ({
             roomData.runninground !== 0 &&
             playerData &&
             (playerData.isBigBlind ||
-              playerData.isSmallBlind ||
+              playerData.isSmallBlind ||          
               playerData.isDealer) && (
               <div className='player-badge'>
                 {playerData.isSmallBlind
@@ -2291,6 +2311,7 @@ const Players = ({
                   : ''}
               </div>
             )}
+            {console.log("sgsdg", playerData)}
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className='player-chip'>
               <span>{numFormatter(playerData && playerData.pot)}</span>
@@ -2430,7 +2451,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
 
 const TablePotMoney = ({ tablePot }) => {
   return (
-    <div className='total-pot-money animate__animated animate__backInUp'>
+    <div className='total-pot-money animate__animated animate__fadeIn'>
       <span>{numFormatter(tablePot && tablePot)}</span>
     </div>
   );

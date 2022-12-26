@@ -357,6 +357,22 @@
   right: -125px;
   animation: slideLeft4 0.4s;
 }
+.animateMerge-chips.players.player4 .player-chip {
+  animation: mergeP4 0.4s;
+}
+
+@keyframes mergeP4 {
+  from {
+    bottom: 40px;
+    right: -125px;
+    opacity: 1;
+  }
+  to {
+    bottom: -38%;
+    right: -328%;
+    opacity: 0;
+  }
+}
 
 @keyframes slideLeft4 {
   from {
@@ -376,6 +392,22 @@
   left: -125px;
   animation: slideRight8 0.4s;
 }
+.animateMerge-chips.players.player8 .player-chip {
+  animation: mergeP8 0.4s;
+}
+
+@keyframes mergeP8 {
+  from {
+    bottom: 40px;
+    left: -125px;
+    opacity: 1;
+  }
+  to {
+    bottom: -38%;
+    left: -328%;
+    opacity: 0;
+  }
+}
 @keyframes slideRight8 {
   from {
     bottom: 0px;
@@ -393,6 +425,21 @@
   left: -125px;
   top: -50px;
   animation: slideRight9 0.4s;
+}
+.animateMerge-chips.players.player9 .player-chip {
+  animation: mergeP9 0.4s;
+}
+@keyframes mergeP9 {
+  from {
+    left: -125px;
+    top: -50px;
+    opacity: 1;
+  }
+  to {
+    left: -328%;
+    top: -334%;
+    opacity: 0;
+  }
 }
 @keyframes slideRight9 {
   from {
@@ -412,6 +459,21 @@
   top: -50px;
   animation: slideLeft3 0.4s;
 }
+.animateMerge-chips.players.player3 .player-chip {
+  animation: mergeP3 0.4s;
+}
+@keyframes mergeP3 {
+  from {
+    right: -125px;
+    top: -50px;
+    opacity: 1;
+  }
+  to {
+    right: -328%;
+    top: -334%;
+    opacity: 0;
+  }
+}
 @keyframes slideLeft3 {
   from {
     right: 0px;
@@ -430,6 +492,22 @@
   transform: translateY(-23%);
   animation: travelUp 0.4s;
 }
+.animateMerge-chips.players.player10 .player-chip {
+  animation: mergeP10 0.4s;
+}
+
+@keyframes mergeP10 {
+  from {
+    top: -125px;
+    left: 0%;
+    opacity: 1;
+  }
+  to {
+    top: -592%;
+    left: -164%;
+    opacity: 0;
+  }
+}
 
 .players.player2 .player-chip {
   position: absolute;
@@ -438,6 +516,22 @@
   left: 0%;
   transform: translateY(-23%);
   animation: travelUp 0.4s;
+}
+.animateMerge-chips.players.player2 .player-chip {
+  animation: mergeP2 0.4s;
+}
+
+@keyframes mergeP2 {
+  from {
+    top: -125px;
+    left: 0%;
+    opacity: 1;
+  }
+  to {
+    top: -592%;
+    left: 164%;
+    opacity: 0;
+  }
 }
 
 .players.player1 .player-chip {
@@ -448,6 +542,20 @@
   transform: translateY(-50%);
   animation: travelUpCenter 0.4s;
 }
+.animateMerge-chips.players.player1 .player-chip {
+  animation: mergeP1 0.4s;
+}
+
+@keyframes mergeP1 {
+  from {
+    top: -125px;
+    opacity: 1;
+  }
+  to {
+    top: -568%;
+    opacity: 0;
+  }
+}
 
 .players.player5 .player-chip {
   position: absolute;
@@ -456,6 +564,22 @@
   left: 0%;
   transform: translateY(-25%);
   animation: travelDown 0.4s;
+}
+.animateMerge-chips.players.player5 .player-chip {
+  animation: mergeP5 0.4s;
+}
+
+@keyframes mergeP5 {
+  from {
+    bottom: -70px;
+    left: 0%;
+    opacity: 1;
+  }
+  to {
+    bottom: -320%;
+    left: 164%;
+    opacity: 0;
+  }
 }
 
 .players.player6 .player-chip {
@@ -466,6 +590,20 @@
   transform: translateY(-50%);
   animation: travelDownCenter 0.4s;
 }
+.animateMerge-chips.players.player6 .player-chip {
+  animation: mergeP6 0.4s;
+}
+
+@keyframes mergeP6 {
+  from {
+    bottom: -70px;
+    opacity: 1;
+  }
+  to {
+    bottom: -342%;
+    opacity: 0;
+  }
+}
 
 .players.player7 .player-chip {
   position: absolute;
@@ -475,6 +613,23 @@
   transform: translateY(-25%);
   animation: travelDown 0.4s;
 }
+.animateMerge-chips.players.player7 .player-chip {
+  animation: mergeP7 0.4s;
+}
+
+@keyframes mergeP7 {
+  from {
+    bottom: -70px;
+    left: 0%;
+    opacity: 1;
+  }
+  to {
+    bottom: -320%;
+    left: -164%;
+    opacity: 0;
+  }
+}
+
 /* player chips animation  */
 
 @keyframes travelDown {
@@ -3255,6 +3410,21 @@ ul.btn-list > li > button > img {
     right: -80px;
     animation: slideLeft3 0.4s;
   }
+  .animateMerge-chips.players.player3 .player-chip {
+    animation: mergeP3 0.4s;
+  }
+  @keyframes mergeP3 {
+    from {
+      right: -80px;
+      top: inherit;
+      opacity: 1;
+    }
+    to {
+      right: -295%;
+      top: -116%;
+      opacity: 0;
+    }
+  }
   @keyframes slideLeft3 {
     from {
       right: 0px;
@@ -3268,6 +3438,22 @@ ul.btn-list > li > button > img {
   .players.player4 .player-chip {
     right: -80px;
     animation: slideLeft4 0.4s;
+  }
+  .animateMerge-chips.players.player4 .player-chip {
+    animation: mergeP4 0.4s;
+  }
+  
+  @keyframes mergeP4 {
+    from {
+      bottom: 40px;
+      right: -80px;
+      opacity: 1;
+    }
+    to {
+      bottom: -280%;
+      right: -295%;
+      opacity: 0;
+    }
   }
 
   @keyframes slideLeft4 {
@@ -3284,6 +3470,22 @@ ul.btn-list > li > button > img {
     left: -80px;
     animation: slideRight8 0.4s;
   }
+  .animateMerge-chips.players.player8 .player-chip {
+    animation: mergeP8 0.4s;
+  }
+  
+  @keyframes mergeP8 {
+    from {
+      bottom: 40px;
+      left: -80px;
+      opacity: 1;
+    }
+    to {
+      bottom: -280%;
+      left: -305%;
+      opacity: 0;
+    }
+  }
   @keyframes slideRight8 {
     from {
       bottom: 8px;
@@ -3298,6 +3500,21 @@ ul.btn-list > li > button > img {
     left: -80px;
     animation: slideRight9 0.4s;
   }
+  .animateMerge-chips.players.player9 .player-chip {
+    animation: mergeP9 0.4s;
+  }
+  @keyframes mergeP9 {
+    from {
+      left: -80px;
+      top: -50px;
+      opacity: 1;
+    }
+    to {
+      left: -298%;
+      top: -118%;
+      opacity: 0;
+    }
+  }
   @keyframes slideRight9 {
     from {
       left: -4px;
@@ -3306,6 +3523,102 @@ ul.btn-list > li > button > img {
     to {
       left: -80px;
       top: inherit;
+    }
+  }
+  .animateMerge-chips.players.player10 .player-chip {
+    animation: mergeP10 0.4s;
+  }
+  
+  @keyframes mergeP10 {
+    from {
+      top: -78px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      top: -278%;
+      left: -132%;
+      opacity: 0;
+    }
+  }
+  .animateMerge-chips.players.player1 .player-chip {
+    animation: mergeP1 0.4s;
+  }
+  
+  @keyframes mergeP1 {
+    from {
+      top: -78px;
+      opacity: 1;
+    }
+    to {
+      top: -264%;
+      opacity: 0;
+    }
+  }
+  .animateMerge-chips.players.player2 .player-chip {
+    animation: mergeP2 0.4s;
+  }
+  
+  @keyframes mergeP2 {
+    from {
+      top: -78px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      top: -278%;
+      left: 132%;
+      opacity: 0;
+    }
+  }
+  /* .players.player6 .player-chip,
+  .players.player5 .player-chip,
+  .players.player7 .player-chip {
+    bottom: -45px;
+  } */
+  .animateMerge-chips.players.player7 .player-chip {
+    animation: mergeP7 0.4s;
+  }
+  
+  @keyframes mergeP7 {
+    from {
+      bottom: -45px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      bottom: -468%;    left: -129%;
+      opacity: 0;
+    }
+  }
+  
+  .animateMerge-chips.players.player6 .player-chip {
+    animation: mergeP6 0.4s;
+  }
+  
+  @keyframes mergeP6 {
+    from {
+      bottom: -45px;
+      opacity: 1;
+    }
+    to {
+      bottom: -482%;
+      opacity: 0;
+    }
+  }
+  .animateMerge-chips.players.player5 .player-chip {
+    animation: mergeP5 0.4s;
+  }
+  
+  @keyframes mergeP5 {
+    from {
+      bottom: -45px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      bottom: -468%;    left: 129%;
+      opacity: 0;
     }
   }
 }
@@ -3646,11 +3959,61 @@ ul.btn-list > li > button > img {
   .logo--bottom-image img {
     width: 63px;
   }
+
+  /* portrait chip animation */
+
+  .animateMerge-chips.players.player1 .player-chip {
+    animation: mergeP1 0.4s;
+  }
+
+  @keyframes mergeP1 {
+    from {
+      top: -78px;
+      opacity: 1;
+    }
+    to {
+      top: -948%;
+      opacity: 0;
+    }
+  }
+  .animateMerge-chips.players.player2 .player-chip {
+    animation: mergeP2 0.4s;
+  }
+
+  @keyframes mergeP2 {
+    from {
+      top: -78px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      left: 130%;
+      top: -802%;
+      opacity: 0;
+    }
+  }
+
   .players.player3 .player-chip {
     right: inherit;
     top: -80px;
     left: inherit;
     animation: slideLeft3 0.4s;
+  }
+  .animateMerge-chips.players.player3 .player-chip {
+    animation: mergeP3 0.4s;
+  }
+
+  @keyframes mergeP3 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      top: -460%;
+      left: 122%;
+      opacity: 0;
+    }
   }
   @keyframes slideLeft3 {
     from {
@@ -3668,6 +4031,21 @@ ul.btn-list > li > button > img {
     left: inherit;
     top: -80px;
     animation: slideLeft4 0.4s;
+  }
+  .animateMerge-chips.players.player4 .player-chip {
+    animation: mergeP4 0.4s;
+  }
+  @keyframes mergeP4 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: 115%;
+      top: -98%;
+      opacity: 0;
+    }
   }
   @keyframes slideLeft4 {
     from {
@@ -3687,7 +4065,35 @@ ul.btn-list > li > button > img {
     transform: inherit;
     top: -80px;
   }
+  .animateMerge-chips.players.player5 .player-chip {
+    animation: mergeP5 0.4s;
+  }
+  @keyframes mergeP5 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: 108%;
+      top: 244%;
+      opacity: 0;
+    }
+  }
 
+  .animateMerge-chips.players.player6 .player-chip {
+    animation: mergeP6 0.4s;
+  }
+  @keyframes mergeP6 {
+    from {
+      bottom: -45px;
+      opacity: 1;
+    }
+    to {
+      bottom: -395%;
+      opacity: 0;
+    }
+  }
   .players.player7 .player-chip {
     bottom: inherit;
     left: inherit;
@@ -3695,12 +4101,42 @@ ul.btn-list > li > button > img {
     right: inherit;
     top: -80px;
   }
+  .animateMerge-chips.players.player7 .player-chip {
+    animation: mergeP7 0.4s;
+  }
+  @keyframes mergeP7 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: -107%;
+      top: 245%;
+      opacity: 0;
+    }
+  }
   .players.player8 .player-chip {
     top: -80px;
     bottom: inherit;
     left: inherit;
     right: inherit;
     animation: slideRight8 0.4s;
+  }
+  .animateMerge-chips.players.player8 .player-chip {
+    animation: mergeP8 0.4s;
+  }
+  @keyframes mergeP8 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      top: -94%;
+      left: -116%;
+      opacity: 0;
+    }
   }
   @keyframes slideRight8 {
     from {
@@ -3720,6 +4156,21 @@ ul.btn-list > li > button > img {
     right: inherit;
     animation: slideRight9 0.4s;
   }
+  .animateMerge-chips.players.player9 .player-chip {
+    animation: mergeP9 0.4s;
+  }
+  @keyframes mergeP9 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: -122%;
+      top: -464%;
+      opacity: 0;
+    }
+  }
   @keyframes slideRight9 {
     from {
       left: inherit;
@@ -3736,6 +4187,22 @@ ul.btn-list > li > button > img {
     transform: inherit;
     right: inherit;
     animation: travelUp 0.4s;
+  }
+  .animateMerge-chips.players.player10 .player-chip {
+    animation: mergeP10 0.4s;
+  }
+
+  @keyframes mergeP10 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      top: -815%;
+      left: -130%;
+      opacity: 0;
+    }
   }
   @keyframes travelUp {
     from {
@@ -3779,22 +4246,120 @@ ul.btn-list > li > button > img {
     top: 30%;
     left: -2%;
   }
+  .player-count-4 .animateMerge-chips.players.player5 .player-chip {
+    animation: mergeC4P5 0.4s;
+  }
+
+  @keyframes mergeC4P5 {
+    from {
+      top: 30%;
+      left: -2%;
+      opacity: 1;
+    }
+    to {
+      left: 130%;
+      top: -49%;
+      opacity: 0;
+    }
+  }
   .player-count-4 .player7 {
     top: 30%;
     right: -2%;
   }
+  .player-count-4 .animateMerge-chips.players.player7 .player-chip {
+    animation: mergeC4P7 0.4s;
+  }
+
+  @keyframes mergeC4P7 {
+    from {
+      top: 30%;
+      right: -2%;
+      opacity: 1;
+    }
+    to {
+      right: 130%;
+      top: -47%;
+      opacity: 0;
+    }
+  }
+
   /***************** When 6 players in Game ******************/
 
   .player-count-6 .player2 {
     bottom: 45%;
   }
+  .player-count-6 .animateMerge-chips.players.player2 .player-chip {
+    animation: mergeC6P2 0.4s;
+  }
+
+  @keyframes mergeC6P2 {
+    from {
+      top: -78px;
+      left: 0%;
+      opacity: 1;
+    }
+    to {
+      left: 128%;
+      top: -282%;
+      opacity: 0;
+    }
+  }
+
   .player-count-6 .player10 {
     bottom: 45%;
+  }
+  .player-count-6 .animateMerge-chips.players.player10 .player-chip {
+    animation: mergeC6P10 0.4s;
+  }
+
+  @keyframes mergeC6P10 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      top: -296%;
+      left: -130%;
+      opacity: 0;
+    }
   }
   .player-count-6 .player5 {
     top: 15%;
   }
+  .player-count-6 .animateMerge-chips.players.player5 .player-chip {
+    animation: mergeC6P5 0.4s;
+  }
+
+  @keyframes mergeC6P5 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: 107%;
+      top: 174%;
+      opacity: 0;
+    }
+  }
   .player-count-6 .player7 {
     top: 15%;
+  }
+  .player-count-6 .animateMerge-chips.players.player7 .player-chip {
+    animation: mergeC6P7 0.4s;
+  }
+
+  @keyframes mergeC6P7 {
+    from {
+      top: -80px;
+      left: inherit;
+      opacity: 1;
+    }
+    to {
+      left: -109%;
+      top: 174%;
+      opacity: 0;
+    }
   }
 }
