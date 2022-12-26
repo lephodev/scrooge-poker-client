@@ -355,7 +355,7 @@
   width: 100%;
   bottom: 40px;
   right: -125px;
-  animation: slideLeft4 1s;
+  animation: slideLeft4 0.4s;
 }
 
 @keyframes slideLeft4 {
@@ -374,7 +374,7 @@
   width: 100%;
   bottom: 40px;
   left: -125px;
-  animation: slideRight8 1s;
+  animation: slideRight8 0.4s;
 }
 @keyframes slideRight8 {
   from {
@@ -392,7 +392,7 @@
   width: 100%;
   left: -125px;
   top: -50px;
-  animation: slideRight9 1s;
+  animation: slideRight9 0.4s;
 }
 @keyframes slideRight9 {
   from {
@@ -410,7 +410,7 @@
   width: 100%;
   right: -125px;
   top: -50px;
-  animation: slideLeft3 1s;
+  animation: slideLeft3 0.4s;
 }
 @keyframes slideLeft3 {
   from {
@@ -428,7 +428,7 @@
   top: -125px;
   left: 0%;
   transform: translateY(-23%);
-  animation: travelUp 1s;
+  animation: travelUp 0.4s;
 }
 
 .players.player2 .player-chip {
@@ -437,7 +437,7 @@
   top: -125px;
   left: 0%;
   transform: translateY(-23%);
-  animation: travelUp 1s;
+  animation: travelUp 0.4s;
 }
 
 .players.player1 .player-chip {
@@ -446,7 +446,7 @@
   top: -125px;
   left: 0%;
   transform: translateY(-50%);
-  animation: travelUpCenter 1s;
+  animation: travelUpCenter 0.4s;
 }
 
 .players.player5 .player-chip {
@@ -455,7 +455,7 @@
   bottom: -70px;
   left: 0%;
   transform: translateY(-25%);
-  animation: travelDown 1s;
+  animation: travelDown 0.4s;
 }
 
 .players.player6 .player-chip {
@@ -464,7 +464,7 @@
   bottom: -70px;
   left: 0%;
   transform: translateY(-50%);
-  animation: travelDownCenter 1s;
+  animation: travelDownCenter 0.4s;
 }
 
 .players.player7 .player-chip {
@@ -473,7 +473,7 @@
   bottom: -70px;
   left: 0%;
   transform: translateY(-25%);
-  animation: travelDown 1s;
+  animation: travelDown 0.4s;
 }
 /* player chips animation  */
 
@@ -3253,7 +3253,7 @@ ul.btn-list > li > button > img {
 
   .players.player3 .player-chip {
     right: -80px;
-    animation: slideLeft3 1s;
+    animation: slideLeft3 0.4s;
   }
   @keyframes slideLeft3 {
     from {
@@ -3267,7 +3267,7 @@ ul.btn-list > li > button > img {
   }
   .players.player4 .player-chip {
     right: -80px;
-    animation: slideLeft4 1s;
+    animation: slideLeft4 0.4s;
   }
 
   @keyframes slideLeft4 {
@@ -3282,7 +3282,7 @@ ul.btn-list > li > button > img {
   }
   .players.player8 .player-chip {
     left: -80px;
-    animation: slideRight8 1s;
+    animation: slideRight8 0.4s;
   }
   @keyframes slideRight8 {
     from {
@@ -3296,7 +3296,7 @@ ul.btn-list > li > button > img {
   }
   .players.player9 .player-chip {
     left: -80px;
-    animation: slideRight9 1s;
+    animation: slideRight9 0.4s;
   }
   @keyframes slideRight9 {
     from {
@@ -3650,7 +3650,7 @@ ul.btn-list > li > button > img {
     right: inherit;
     top: -80px;
     left: inherit;
-    animation: slideLeft3 1s;
+    animation: slideLeft3 0.4s;
   }
   @keyframes slideLeft3 {
     from {
@@ -3667,7 +3667,7 @@ ul.btn-list > li > button > img {
     right: inherit;
     left: inherit;
     top: -80px;
-    animation: slideLeft4 1s;
+    animation: slideLeft4 0.4s;
   }
   @keyframes slideLeft4 {
     from {
@@ -3700,7 +3700,7 @@ ul.btn-list > li > button > img {
     bottom: inherit;
     left: inherit;
     right: inherit;
-    animation: slideRight8 1s;
+    animation: slideRight8 0.4s;
   }
   @keyframes slideRight8 {
     from {
@@ -3718,7 +3718,7 @@ ul.btn-list > li > button > img {
     left: inherit;
     top: -80px;
     right: inherit;
-    animation: slideRight9 1s;
+    animation: slideRight9 0.4s;
   }
   @keyframes slideRight9 {
     from {
@@ -3735,7 +3735,7 @@ ul.btn-list > li > button > img {
     left: inherit;
     transform: inherit;
     right: inherit;
-    animation: travelUp 1s;
+    animation: travelUp 0.4s;
   }
   @keyframes travelUp {
     from {
