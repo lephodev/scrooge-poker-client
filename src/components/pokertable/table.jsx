@@ -131,8 +131,6 @@ const PokerTable = (props) => {
     setOpen(e);
   };
 
-  console.log("Players Data ------------- ", { players });
-
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);

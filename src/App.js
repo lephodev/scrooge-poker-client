@@ -10,7 +10,6 @@ import PokerTable from './components/pokertable/table';
 import 'animate.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './page/home/Home';
-import CONSTANTS from './config/contants';
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +19,6 @@ const App = () => {
       window.height = w;
     }
   }, []);
-  console.log('PROJECT CONSTANTS ', { CONSTANSTS: CONSTANTS });
 
   return (
     <div className='App'>

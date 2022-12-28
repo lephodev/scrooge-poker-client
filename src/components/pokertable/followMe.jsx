@@ -22,7 +22,6 @@ const FollowMe = ({ modalShow, setModalShow }) => {
 export default FollowMe;
 
 const RenderTooltip = ({ playerData }) => {
-  console.log("playerdata =>", playerData);
   const {
     photoURI: playerImage,
     name,
