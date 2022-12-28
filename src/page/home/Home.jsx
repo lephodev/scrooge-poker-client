@@ -80,10 +80,12 @@ const Home = () => {
       err.minchips =
         `Minimum bet can't be less then or equal to ` + mimimumBet + '.';
       valid = false;
-    } else if (!gameState.maxchips) {
-      err.maxchips = 'Please enter amount for big blind.';
-      valid = false;
-    } else if (
+    }
+    //  else if (!gameState.maxchips) {
+    //   err.maxchips = 'Please enter amount for big blind.';
+    //   valid = false;
+    // }
+     else if (
       parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)
     ) {
       err.maxchips = 'Big blind amount cant be less then small blind';
@@ -347,7 +349,8 @@ const CreateTable = ({
             <Form.Label>Big Blind</Form.Label>
             <Form.Control
               name='maxchips'
-              defaultValue={values.minchips * 2}
+              onChange={handleChange}
+              value={values.minchips * 2}
               type='number'
               placeholder='Ex : 1000'
               disabled
