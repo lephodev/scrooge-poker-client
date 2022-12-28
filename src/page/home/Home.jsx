@@ -349,7 +349,7 @@ const CreateTable = ({
               name='maxchips'
               defaultValue={values.minchips * 2}
               type='number'
-              // placeholder='Ex : 1000'
+              placeholder='Ex : 1000'
               disabled
             />
             {/* {!!errors?.maxchips && (
