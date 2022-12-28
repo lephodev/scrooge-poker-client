@@ -909,13 +909,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+}
+.player-chip .chipNumber-img {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.player-chip .chipNumber-img p {
+  font-size: 12px;
   color: rgb(255, 255, 255);
   padding: 2px 0px;
   letter-spacing: 1px;
   font-weight: 500;
+  margin-bottom: 0px !important;
+  width: 100%;
 }
-
 /* .player-chip span::before {
   content: "";
   background: url(../../assets/chips.png);
@@ -3442,7 +3451,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player4 .player-chip {
     animation: mergeP4 0.4s;
   }
-  
+
   @keyframes mergeP4 {
     from {
       bottom: 40px;
@@ -3473,7 +3482,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player8 .player-chip {
     animation: mergeP8 0.4s;
   }
-  
+
   @keyframes mergeP8 {
     from {
       bottom: 40px;
@@ -3528,7 +3537,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player10 .player-chip {
     animation: mergeP10 0.4s;
   }
-  
+
   @keyframes mergeP10 {
     from {
       top: -78px;
@@ -3544,7 +3553,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player1 .player-chip {
     animation: mergeP1 0.4s;
   }
-  
+
   @keyframes mergeP1 {
     from {
       top: -78px;
@@ -3558,7 +3567,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player2 .player-chip {
     animation: mergeP2 0.4s;
   }
-  
+
   @keyframes mergeP2 {
     from {
       top: -78px;
@@ -3579,7 +3588,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player7 .player-chip {
     animation: mergeP7 0.4s;
   }
-  
+
   @keyframes mergeP7 {
     from {
       bottom: -45px;
@@ -3587,15 +3596,16 @@ ul.btn-list > li > button > img {
       opacity: 1;
     }
     to {
-      bottom: -468%;    left: -129%;
+      bottom: -468%;
+      left: -129%;
       opacity: 0;
     }
   }
-  
+
   .animateMerge-chips.players.player6 .player-chip {
     animation: mergeP6 0.4s;
   }
-  
+
   @keyframes mergeP6 {
     from {
       bottom: -45px;
@@ -3609,7 +3619,7 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
-  
+
   @keyframes mergeP5 {
     from {
       bottom: -45px;
@@ -3617,7 +3627,8 @@ ul.btn-list > li > button > img {
       opacity: 1;
     }
     to {
-      bottom: -468%;    left: 129%;
+      bottom: -468%;
+      left: 129%;
       opacity: 0;
     }
   }
@@ -4362,4 +4373,15 @@ ul.btn-list > li > button > img {
       opacity: 0;
     }
   }
+}
+.chips-images img {
+  height: 30px;
+}
+.chips-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -2px;
+  left: -6px;
 }
