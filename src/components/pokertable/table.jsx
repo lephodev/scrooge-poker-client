@@ -2779,8 +2779,8 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
 const HideCard = () => {
   return (
     <div className="player-card">
-      <img src={front} alt="card" />
-      <img src={back} alt="card" />
+      <img src={front} alt="card" className="animate__animated animate__rollIn duration-0" />
+      <img src={back} alt="card" className="animate__animated animate__rollIn duration-1" />
     </div>
   );
 };
@@ -2796,7 +2796,7 @@ const ShowCard = ({ cards, handMatch }) => {
               require(`../../assets/cards/${card.toUpperCase()}.svg`).default
             }
             alt="card"
-            className={`${
+            className={`animate__animated animate__rollIn duration-${i} ${
               handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
                 : `winner-card`

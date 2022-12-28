@@ -347,14 +347,14 @@ const CreateTable = ({
             <Form.Label>Big Blind</Form.Label>
             <Form.Control
               name='maxchips'
-              onChange={handleChange}
-              value={values.maxchips}
+              defaultValue={values.minchips * 2}
               type='number'
-              placeholder='Ex : 500000'
+              // placeholder='Ex : 1000'
+              disabled
             />
-            {!!errors?.maxchips && (
+            {/* {!!errors?.maxchips && (
               <p className='text-danger'>{errors?.maxchips}</p>
-            )}
+            )} */}
           </div>
         </Form.Group>
         <div className='searchSelectDropdown'>

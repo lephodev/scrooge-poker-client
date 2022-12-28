@@ -15,7 +15,6 @@
   text-align: left; /* Now need to explitly align left */
   padding-left: 15px; /* Same value as the negative margin */
 }
-
 .poker-loader {
   position: absolute;
   background: #000000f5;
