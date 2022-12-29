@@ -20,10 +20,12 @@ const InviteFriend = ({
   useEffect(() => {
     socket.on('invitationSend', (data) => {
       toast.success('Invitation Send Successfully', { id: 'A' });
+      setShowInvite(false);
     });
     socket.on('noInvitationSend', () => {
       toast.success('Unable to send Invitation', { id: 'A' });
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFriendList = useCallback(async () => {
