@@ -740,8 +740,8 @@ const PokerTable = (props) => {
     socket.on("updateGame", (data) => {
       setLoader(false);
       roomData = data.game;
-      console.log("room =>", roomData);
-      console.log({ userId });
+      // console.log("room =>", roomData);
+      // console.log({ userId });
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
         !roomData.preflopround.find((ele) => ele.id === userId) &&
@@ -1331,7 +1331,6 @@ const PokerTable = (props) => {
       alert("This is a private table");
       history.push("/");
     });
-
     return () => {
       socket.off("notInvited");
     };
@@ -2278,21 +2277,24 @@ const Players = ({
           ) : (
             <HideCard />
           )}
-          {/* <div
-            className='player-pic'
+
+          {/************ player PIC avtaar  **********/}
+
+          <div
+            className="player-pic"
             style={{
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}>
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          >
             {currentPlayer &&
               playerData &&
               currentPlayer.id === playerData.id && (
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
-            <img src={playerData?.photoURI} alt='' />
-          </div> */}
-
+            <img src={playerData?.photoURI} alt="" />
+          </div>
           <div className="player-info">
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -2328,11 +2330,13 @@ const Players = ({
                   : ""}
               </div>
             )}
-          {console.log("sgsdg", playerData)}
+
+          {/*  {console.log("sgsdg", playerData)} */}
+
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className="player-chip">
               <span>
-              {numFormatter(playerData && playerData.pot)}
+                {numFormatter(playerData && playerData.pot)}
                 {/* <div className="chipNumber-img">
                   <p>{numFormatter(playerData && playerData.pot)}</p>
 
@@ -2468,23 +2472,26 @@ const Players = ({
 };
 
 const TableCard = ({ winner, communityCards, matchCards }) => {
+
+  
+
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
-        communityCards.map((card, i) => (
+        communityCards.map((card, i) =>{
+          const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
+        return (
           <img
             key={`item-${i}`}
-            src={
-              require(`../../assets/cards/${card.toUpperCase()}.svg`).default
-            }
+            src={cards ? cards : back }
             alt="card"
             className={`${
               winner && matchCards.findIndex((ele) => ele === i) !== -1
                 ? `winner-card`
                 : ``
             } flip-vertical-left duration-${i}`}
-          />
-        ))}
+          />)}
+        )}
     </div>
   );
 };
@@ -2777,8 +2784,16 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
 const HideCard = () => {
   return (
     <div className="player-card">
-      <img src={front} alt="card" className="animate__animated animate__rollIn duration-0" />
-      <img src={back} alt="card" className="animate__animated animate__rollIn duration-1" />
+      <img
+        src={front}
+        alt="card"
+        className="animate__animated animate__rollIn duration-0"
+      />
+      <img
+        src={back}
+        alt="card"
+        className="animate__animated animate__rollIn duration-1"
+      />
     </div>
   );
 };
@@ -2986,6 +3001,7 @@ const TimerSeparator = ({ time, remainingTime }) => {
     <ProgressBar
       width="100%"
       height="100%"
+      // height="80%"
       rect
       fontColor="gray"
       percentage={activeTime}
