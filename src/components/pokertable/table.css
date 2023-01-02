@@ -545,7 +545,7 @@
 .players.player2 .player-chip {
   position: absolute;
   width: 100%;
- top: -34%;
+  top: -34%;
   left: 0%;
   transform: translateY(-23%);
   animation: travelUp 0.4s;
@@ -556,7 +556,7 @@
 
 @keyframes mergeP2 {
   from {
-   top: -34%;
+    top: -34%;
     left: 0%;
     opacity: 1;
   }
@@ -897,7 +897,8 @@
   letter-spacing: 1px;
   position: absolute;
   left: 50%;
-  bottom: 250%;
+  /* bottom: 250%; */
+  bottom: 124%;
   transform: translateX(-50%);
   opacity: 0;
   color: #fff;
@@ -918,7 +919,7 @@
 
   75% {
     position: absolute;
-    bottom: 250%;
+    bottom: 124%;
     opacity: 1;
     font-size: 18px;
   }
@@ -2905,7 +2906,8 @@ ul.btn-list > li > button > img {
 
   .player-card,
   .show-card {
-    top: -50px;
+    top: 14px;
+    grid-template-columns: repeat(2, minmax(36px, 1fr));
   }
   .total-pot-money span::before {
     width: 36px;
@@ -2936,10 +2938,11 @@ ul.btn-list > li > button > img {
   }
 
   .player-info {
-    width: 125px;
-    height: 45px;
+    /* width: 125px;
+    height: 45px; */
+    width: 110px;
+    height: 35px;
   }
-
   .player-badge {
     width: 20px;
     height: 22px;
@@ -3042,7 +3045,8 @@ ul.btn-list > li > button > img {
   .players.player1 .player-chip,
   .players.player2 .player-chip,
   .players.player10 .player-chip {
-    top: -78px;
+    /* top: -78px; */
+    top: -12%;
   }
   .players.player6 .player-chip,
   .players.player5 .player-chip,
@@ -3740,6 +3744,10 @@ ul.btn-list > li > button > img {
     background-position: center;
     top: 0;
   }
+  .players .player-pic {
+    height: 95px;
+    width: 95px;
+  }
 
   .poker-table-bg:before {
     content: "";
@@ -3833,7 +3841,8 @@ ul.btn-list > li > button > img {
   .table-card {
     width: 100%;
     text-align: center;
-    max-width: 150px;
+    /* max-width: 150px; */
+    max-width: 175px;
   }
   .table-card {
     margin-top: 30px;
@@ -3866,71 +3875,84 @@ ul.btn-list > li > button > img {
     right: 10px;
     top: 10px;
   }
+  .player1 .player-info {
+    width: 120px;
+    height: 36px;
+  }
 
   .player1 {
-    bottom: 0px;
+    /* bottom: 0px; */
+    bottom: -30px;
     transform: translateX(-50%) scale(0.8);
   }
 
   .player2 {
-    bottom: 10%;
+    /* bottom: 10%; */
+    bottom: 8%;
     right: inherit;
     transform: translateY(-10%) scale(0.8);
-    left: -2%;
+    left: -4%;
   }
 
   .player3 {
-    bottom: 32%;
+    /* bottom: 32%; */
+    bottom: 27%;
     transform: translateY(-32%) scale(0.8);
-    left: 0;
+    left: -3%;
   }
 
   .player4 {
-    top: 35%;
+    /* top: 35%; */
+    top: 25%;
     transform: translateY(-32%) scale(0.8);
-    left: 2%;
+    left: -1%;
   }
 
   .player5 {
-    top: 10%;
-    left: 4%;
+    /* top: 10%; */
+    top: -4%;
+    left: 3%;
     transform: translateY(-10%) scale(0.8);
   }
 
   .player6 {
-    top: -10px;
+    /* top: -10px; */
+    top: -74px;
     transform: translateX(-50%) scale(0.8);
   }
 
   .player7 {
-    top: 10%;
+    /* top: 10%; */
     left: auto;
+    top: -4%;
     transform: translateY(-10%) scale(0.8);
-    right: 4%;
+    right: 3%;
   }
 
   .player8 {
-    top: 35%;
+    /* top: 35%; */
+    top: 25%;
     transform: translateY(-32%) scale(0.8);
     left: auto;
-    right: 2%;
+    right: -1%;
   }
 
   .player9 {
-    bottom: 32%;
+    bottom: 27%;
     transform: translateY(-32%) scale(0.8);
-    right: 0;
+    right: -3%;
   }
 
   .player10 {
-    bottom: 10%;
+    /* bottom: 8%; */
+    bottom: 8%;
     transform: translateY(-10%) scale(0.8);
-    right: -2%;
+    right: -4%;
   }
 
   .player-badge {
     right: 0px;
-    top: -20px;
+    top: 100px;
     bottom: auto;
   }
 
@@ -3944,9 +3966,14 @@ ul.btn-list > li > button > img {
     height: 28px;
     padding: 4px 8px;
   }
+  .player1 .player-badge {
+    right: -5px;
+    top: 107px;
+  }
   .table-card img {
-    width: 40px;
+    /* width: 40px; */
     height: 60px;
+    width: 30px;
     margin-bottom: 5px;
   }
   .tooltip-inner {
@@ -4011,8 +4038,10 @@ ul.btn-list > li > button > img {
   }
 
   .players.player1 .player-pic {
-    height: 145px;
-    width: 145px;
+    /* height: 145px;
+    width: 145px; */
+    height: 100px;
+    width: 100px;
   }
   .players .player-pic img,
   .players .player-pic video,
@@ -4039,11 +4068,11 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeP1 {
     from {
-      top: -78px;
+      top: -12%;
       opacity: 1;
     }
     to {
-      top: -948%;
+      top: -266%;
       opacity: 0;
     }
   }
@@ -4053,20 +4082,21 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeP2 {
     from {
-      top: -78px;
+      top: -12%;
       left: 0%;
       opacity: 1;
     }
     to {
-      left: 130%;
-      top: -802%;
+      top: -212%;
+      left: 157%;
       opacity: 0;
     }
   }
 
   .players.player3 .player-chip {
     right: inherit;
-    top: -80px;
+    /* top: -80px; */
+    top: -14%;
     left: inherit;
     animation: slideLeft3 0.4s;
   }
@@ -4076,23 +4106,23 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeP3 {
     from {
-      top: -80px;
+      top: -14%;
       left: inherit;
       opacity: 1;
     }
     to {
-      top: -460%;
-      left: 122%;
+      top: -87%;
+      left: 153%;
       opacity: 0;
     }
   }
   @keyframes slideLeft3 {
     from {
-      top: 8px;
+      top: 75%;
       right: inherit;
     }
     to {
-      top: -80px;
+      top: -14%;
       right: inherit;
     }
   }
@@ -4100,7 +4130,7 @@ ul.btn-list > li > button > img {
     bottom: inherit;
     right: inherit;
     left: inherit;
-    top: -80px;
+    top: -12%;
     animation: slideLeft4 0.4s;
   }
   .animateMerge-chips.players.player4 .player-chip {
@@ -4108,24 +4138,24 @@ ul.btn-list > li > button > img {
   }
   @keyframes mergeP4 {
     from {
-      top: -80px;
+      top: -12%;
       left: inherit;
       opacity: 1;
     }
     to {
-      left: 115%;
-      top: -98%;
+      left: 144%;
+      top: 35%;
       opacity: 0;
     }
   }
   @keyframes slideLeft4 {
     from {
-      top: 20px;
+      top: 75%;
       bottom: inherit;
       right: inherit;
     }
     to {
-      top: -80px;
+      top: -12%;
       bottom: inherit;
       right: inherit;
     }
@@ -4133,21 +4163,21 @@ ul.btn-list > li > button > img {
   .players.player5 .player-chip {
     bottom: inherit;
     left: inherit;
-    transform: inherit;
-    top: -80px;
+    top: -10%;
+    transform: translateY(-25%);
   }
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
   @keyframes mergeP5 {
     from {
-      top: -80px;
+      top: -10%;
       left: inherit;
       opacity: 1;
     }
     to {
-      left: 108%;
-      top: 244%;
+      left: 128%;
+      top: 161%;
       opacity: 0;
     }
   }
@@ -4161,34 +4191,36 @@ ul.btn-list > li > button > img {
       opacity: 1;
     }
     to {
-      bottom: -395%;
+      bottom: -124%;
       opacity: 0;
     }
   }
   .players.player7 .player-chip {
     bottom: inherit;
     left: inherit;
-    transform: inherit;
     right: inherit;
-    top: -80px;
+    /* transform: inherit;
+    top: -80px; */
+    top: -10%;
+    transform: translateY(-25%);
   }
   .animateMerge-chips.players.player7 .player-chip {
     animation: mergeP7 0.4s;
   }
   @keyframes mergeP7 {
     from {
-      top: -80px;
+      top: -10%;
       left: inherit;
       opacity: 1;
     }
     to {
-      left: -107%;
-      top: 245%;
+      right: 125%;
+      top: 161%;
       opacity: 0;
     }
   }
   .players.player8 .player-chip {
-    top: -80px;
+    top: -12%;
     bottom: inherit;
     left: inherit;
     right: inherit;
@@ -4199,13 +4231,13 @@ ul.btn-list > li > button > img {
   }
   @keyframes mergeP8 {
     from {
-      top: -80px;
+      top: -12%;
       left: inherit;
       opacity: 1;
     }
     to {
-      top: -94%;
-      left: -116%;
+      top: 35%;
+      left: -142%;
       opacity: 0;
     }
   }
@@ -4213,48 +4245,45 @@ ul.btn-list > li > button > img {
     from {
       bottom: inherit;
       left: inherit;
-      top: 4px;
+      top: 75%;
     }
     to {
       bottom: inherit;
       left: inherit;
-      top: -80px;
+      top: -12%;
     }
   }
   .players.player9 .player-chip {
     left: inherit;
-    top: -80px;
+    top: -12%;
     right: inherit;
-    animation: slideRight9 0.4s;
+    animation: slideLeft3 0.4s;
   }
   .animateMerge-chips.players.player9 .player-chip {
     animation: mergeP9 0.4s;
   }
   @keyframes mergeP9 {
     from {
-      top: -80px;
+      top: -12%;
       left: inherit;
       opacity: 1;
     }
     to {
-      left: -122%;
-      top: -464%;
+      top: -87%;
+      left: -150%;
       opacity: 0;
     }
   }
-  @keyframes slideRight9 {
-    from {
-      left: inherit;
-      top: 4px;
-    }
-    to {
-      left: inherit;
-      top: -80px;
-    }
+
+  .players.player2 .player-chip {
+    top: -12%;
+    transform: inherit;
+    animation: travelUp 0.4s;
   }
   .players.player10 .player-chip {
-    top: -80px;
+    /* top: -80px; */
     left: inherit;
+    top: -12%;
     transform: inherit;
     right: inherit;
     animation: travelUp 0.4s;
@@ -4265,23 +4294,23 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeP10 {
     from {
-      top: -80px;
+      top: -12%;
       left: inherit;
       opacity: 1;
     }
     to {
-      top: -815%;
-      left: -130%;
+      left: -153%;
+      top: -212%;
       opacity: 0;
     }
   }
   @keyframes travelUp {
     from {
-      top: 4px;
+      top: 75%;
       transform: inherit;
     }
     to {
-      top: -80px;
+      top: -12%;
       transform: inherit;
     }
   }
@@ -4298,6 +4327,7 @@ ul.btn-list > li > button > img {
     font-size: 18px;
     margin: 0px auto;
     margin-bottom: 10px;
+    width: 150px;
   }
 
   /******* center tooltip**********/
@@ -4314,7 +4344,8 @@ ul.btn-list > li > button > img {
 
   /***************** When 4 players in Game ******************/
   .player-count-4 .player5 {
-    top: 30%;
+    /* top: 30%; */
+    top: 24%;
     left: -2%;
   }
   .player-count-4 .animateMerge-chips.players.player5 .player-chip {
@@ -4323,18 +4354,18 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC4P5 {
     from {
-      top: 30%;
-      left: -2%;
+      left: inherit;
+      top: -10%;
       opacity: 1;
     }
     to {
-      left: 130%;
-      top: -49%;
+      left: 150%;
+      top: 18%;
       opacity: 0;
     }
   }
   .player-count-4 .player7 {
-    top: 30%;
+    top: 24%;
     right: -2%;
   }
   .player-count-4 .animateMerge-chips.players.player7 .player-chip {
@@ -4343,21 +4374,24 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC4P7 {
     from {
-      top: 30%;
-      right: -2%;
+      right: inherit;
+      top: -10%;
       opacity: 1;
     }
     to {
-      right: 130%;
-      top: -47%;
+      right: 146%;
+      top: 18%;
       opacity: 0;
     }
   }
 
   /***************** When 6 players in Game ******************/
-
+  .player-action {
+    bottom: 122%;
+  }
   .player-count-6 .player2 {
-    bottom: 45%;
+    /* bottom: 45%; */
+    bottom: 18%;
   }
   .player-count-6 .animateMerge-chips.players.player2 .player-chip {
     animation: mergeC6P2 0.4s;
@@ -4365,19 +4399,20 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC6P2 {
     from {
-      top: -78px;
+      top: -12%;
       left: 0%;
       opacity: 1;
     }
     to {
-      left: 128%;
-      top: -282%;
+      top: -160%;
+      left: 158%;
       opacity: 0;
     }
   }
 
   .player-count-6 .player10 {
-    bottom: 45%;
+    /* bottom: 45%; */
+    bottom: 18%;
   }
   .player-count-6 .animateMerge-chips.players.player10 .player-chip {
     animation: mergeC6P10 0.4s;
@@ -4385,13 +4420,13 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC6P10 {
     from {
-      top: -80px;
       left: inherit;
+      top: -12%;
       opacity: 1;
     }
     to {
-      top: -296%;
-      left: -130%;
+      left: -155%;
+      top: -160%;
       opacity: 0;
     }
   }
@@ -4404,13 +4439,13 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC6P5 {
     from {
-      top: -80px;
       left: inherit;
+      top: -10%;
       opacity: 1;
     }
     to {
-      left: 107%;
-      top: 174%;
+      left: 128%;
+      top: 64%;
       opacity: 0;
     }
   }
@@ -4423,17 +4458,18 @@ ul.btn-list > li > button > img {
 
   @keyframes mergeC6P7 {
     from {
-      top: -80px;
       left: inherit;
+      top: -10%;
       opacity: 1;
     }
     to {
-      left: -109%;
-      top: 174%;
+      left: -128%;
+      top: 65%;
       opacity: 0;
     }
   }
 }
+
 .chips-images img {
   height: 30px;
 }
