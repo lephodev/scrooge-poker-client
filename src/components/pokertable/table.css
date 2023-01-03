@@ -13,13 +13,16 @@
 *::-webkit-scrollbar-thumb {
   background: rgb(29, 29, 29);
 }
+
 .poker {
   position: relative;
 }
+
 .text-danger {
   color: #dc3545 !important;
   font-size: 12px !important;
 }
+
 .poker-bg {
   background: url(../../assets/game/poker-bg.jpg);
   background-repeat: no-repeat;
@@ -37,15 +40,18 @@
   left: 0;
   right: 0;
 }
+
 .poker-bg.loaderactive::before {
   z-index: 99;
 }
+
 .poker-table {
   position: relative;
   display: flex;
   align-items: center;
   height: 100vh;
 }
+
 .modal.invite-friend .css-xb97g8 {
   background-color: #303030 !important;
 }
@@ -68,11 +74,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .table-card img {
-  width: 60px;
+  /* width: 60px; */
+  width: 50px;
   margin: 0px 2px;
   transition: all 0.5s;
   /* box-shadow: 0px 10px 10px 0px #00000075; */
@@ -97,6 +104,7 @@
   stroke: #eade3acc;
   transition: stroke-dashoffset 2s ease 0s;
 }
+
 .table-card .winner-card {
   width: 65px;
 }
@@ -131,15 +139,18 @@
   flex-wrap: wrap;
   /* z-index: 99999999999999; */
 }
+
 .winner-player .winner-card {
   filter: brightness(0.5);
 }
+
 .player1 {
   /* bottom: -50px; */
-  bottom: -22%;
+  bottom: -16%;
   left: 50%;
   transform: translateX(-50%);
 }
+
 .player4 {
   /* top: 90px; */
   left: 0;
@@ -233,6 +244,7 @@
 .hide {
   display: none;
 }
+
 .player-box {
   text-align: center;
   position: relative;
@@ -252,6 +264,7 @@
   z-index: -1;
   top: 40px;
 }
+
 .player1 .player-info {
   text-align: center;
   padding: 2px 8px;
@@ -266,6 +279,7 @@
   box-shadow: 0px 4px 4px #000000a8;
   margin: 0px auto;
 }
+
 .player-info {
   text-align: center;
   padding: 0px 8px;
@@ -310,30 +324,38 @@
   width: 150px;
   /* z-index: 9; */
 }
+
 .players.player2 {
   z-index: 99;
 }
+
 .players.player3 {
   z-index: 999;
 }
+
 .players.player4 {
   z-index: 9999;
 }
+
 .players.player5 {
   z-index: 99999;
 }
+
 .players.player6 {
   z-index: 99;
 }
+
 .players.player7 {
   z-index: 9;
 }
+
 /* .players.player8{
   z-index: 99999999;
 } */
 .players.player9 {
   z-index: 999999999;
 }
+
 .player1 .player-pic {
   width: 145px;
   height: 145px;
@@ -351,6 +373,7 @@
 .player1 .player-badge {
   right: -24px;
 }
+
 /* .player1 .player-info {
   width: 150px;
   height: 59px;
@@ -373,8 +396,8 @@
 .players.player1 .player-pic {
   /* height: 200px;
   width: 200px; */
-  height: 140px;
-  width: 140px;
+  height: 130px;
+  width: 130px;
 }
 
 .players.player4 .player-chip {
@@ -386,6 +409,7 @@
   right: -110%;
   animation: slideLeft4 0.4s;
 }
+
 .animateMerge-chips.players.player4 .player-chip {
   animation: mergeP4 0.4s;
 }
@@ -396,6 +420,7 @@
     right: -110%;
     opacity: 1;
   }
+
   to {
     bottom: -26%;
     right: -405%;
@@ -408,6 +433,7 @@
     bottom: 0%;
     right: 0%;
   }
+
   to {
     bottom: -14%;
     right: -110%;
@@ -423,6 +449,7 @@
   left: -100%;
   animation: slideRight8 0.4s;
 }
+
 .animateMerge-chips.players.player8 .player-chip {
   animation: mergeP8 0.4s;
 }
@@ -433,17 +460,20 @@
     left: -100%;
     opacity: 1;
   }
+
   to {
     bottom: -31%;
     left: -404%;
     opacity: 0;
   }
 }
+
 @keyframes slideRight8 {
   from {
     bottom: 0%;
     left: 0%;
   }
+
   to {
     bottom: -20%;
     left: -100%;
@@ -457,26 +487,31 @@
   top: -10%;
   animation: slideRight9 0.4s;
 }
+
 .animateMerge-chips.players.player9 .player-chip {
   animation: mergeP9 0.4s;
 }
+
 @keyframes mergeP9 {
   from {
     left: -100%;
     top: -10%;
     opacity: 1;
   }
+
   to {
     left: -404%;
     top: -66%;
     opacity: 0;
   }
 }
+
 @keyframes slideRight9 {
   from {
     left: 0%;
     top: 75%;
   }
+
   to {
     left: -100%;
     top: -10%;
@@ -492,31 +527,37 @@
   top: -8%;
   animation: slideLeft3 0.4s;
 }
+
 .animateMerge-chips.players.player3 .player-chip {
   animation: mergeP3 0.4s;
 }
+
 @keyframes mergeP3 {
   from {
     right: -100%;
     top: -8%;
     opacity: 1;
   }
+
   to {
     right: -404%;
     top: -65%;
     opacity: 0;
   }
 }
+
 @keyframes slideLeft3 {
   from {
     right: 0%;
     top: 75%;
   }
+
   to {
     right: -100%;
     top: -8%;
   }
 }
+
 .players.player10 .player-chip {
   position: absolute;
   width: 100%;
@@ -525,6 +566,7 @@
   transform: translateY(-23%);
   animation: travelUp 0.4s;
 }
+
 .animateMerge-chips.players.player10 .player-chip {
   animation: mergeP10 0.4s;
 }
@@ -535,6 +577,7 @@
     left: 0%;
     opacity: 1;
   }
+
   to {
     top: -116%;
     left: -202%;
@@ -550,6 +593,7 @@
   transform: translateY(-23%);
   animation: travelUp 0.4s;
 }
+
 .animateMerge-chips.players.player2 .player-chip {
   animation: mergeP2 0.4s;
 }
@@ -560,6 +604,7 @@
     left: 0%;
     opacity: 1;
   }
+
   to {
     top: -116%;
     left: 202%;
@@ -571,11 +616,12 @@
   position: absolute;
   width: 100%;
   /* top: -125px; */
-  top: -15%;
+  top: -12%;
   left: 0%;
   transform: translateY(-50%);
   animation: travelUpCenter 0.4s;
 }
+
 .animateMerge-chips.players.player1 .player-chip {
   animation: mergeP1 0.4s;
 }
@@ -585,6 +631,7 @@
     top: -15%;
     opacity: 1;
   }
+
   to {
     top: -104%;
     opacity: 0;
@@ -600,6 +647,7 @@
   transform: translateY(-25%);
   animation: travelDown 0.4s;
 }
+
 .animateMerge-chips.players.player5 .player-chip {
   animation: mergeP5 0.4s;
 }
@@ -610,6 +658,7 @@
     left: 0%;
     opacity: 1;
   }
+
   to {
     bottom: -102%;
     left: 202%;
@@ -626,6 +675,7 @@
   transform: translateY(-50%);
   animation: travelDownCenter 0.4s;
 }
+
 .animateMerge-chips.players.player6 .player-chip {
   animation: mergeP6 0.4s;
 }
@@ -635,6 +685,7 @@
     bottom: -50%;
     opacity: 1;
   }
+
   to {
     bottom: -92%;
     opacity: 0;
@@ -649,6 +700,7 @@
   transform: translateY(-25%);
   animation: travelDown 0.4s;
 }
+
 .animateMerge-chips.players.player7 .player-chip {
   animation: mergeP7 0.4s;
 }
@@ -659,6 +711,7 @@
     left: 0%;
     opacity: 1;
   }
+
   to {
     bottom: -101%;
     left: -202%;
@@ -672,30 +725,37 @@
   from {
     transform: translateY(-150%);
   }
+
   to {
     transform: translateY(-25%);
   }
 }
+
 @keyframes travelDownCenter {
   from {
     transform: translateY(-150%);
   }
+
   to {
     transform: translateY(-50%);
   }
 }
+
 @keyframes travelUp {
   from {
     transform: translateY(280%);
   }
+
   to {
     transform: translateY(-23%);
   }
 }
+
 @keyframes travelUpCenter {
   from {
     transform: translateY(280%);
   }
+
   to {
     transform: translateY(-50%);
   }
@@ -932,6 +992,7 @@
 .player-chip {
   text-align: center;
 }
+
 .player-chip span {
   background: url(../../assets/game/btn-bg.png);
   text-align: center;
@@ -947,12 +1008,14 @@
   align-items: center;
   justify-content: center;
 }
+
 .player-chip .chipNumber-img {
   display: flex;
   align-items: center;
   position: relative;
   width: 100%;
 }
+
 .player-chip .chipNumber-img p {
   font-size: 12px;
   color: rgb(255, 255, 255);
@@ -962,6 +1025,7 @@
   margin-bottom: 0px !important;
   width: 100%;
 }
+
 /* .player-chip span::before {
   content: "";
   background: url(../../assets/chips.png);
@@ -1037,7 +1101,8 @@
 }
 
 .show-card img {
-  width: 65px;
+  /* width: 65px; */
+  width: 50px;
   margin: 0px 2px;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
@@ -1049,53 +1114,61 @@
 
 .show-card {
   display: grid;
-  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-template-columns: repeat(2, minmax(40px, 1fr));
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   /* top: -70px; */
-  top: 4px;
-  padding-right: 18px;
+  top: 14px;
+  padding-right: 12px;
   z-index: -1;
 }
+
 .show-card img:first-child {
   transform: rotateZ(-15deg) !important;
 }
+
 .show-card img:last-child {
   transform: rotateZ(15deg) !important;
 }
+
 /* .player-card img:last-child {
   transform: rotate(-25deg) translateY(-3px);
 } */
 
 .player-card {
   display: grid;
-  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-template-columns: repeat(2, minmax(40px, 1fr));
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   /* top: -70px; */
-  top: 4px;
-  padding-right: 18px;
+  top: 14px;
+  padding-right: 12px;
   z-index: -1;
 }
+
 .player-card img {
-  width: 65px;
+  width: 50px;
   margin: 0px auto;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
 }
+
 .player-card img:first-child {
   transform: rotateZ(-15deg) !important;
 }
+
 .player-card img:last-child {
   transform: rotateZ(15deg) !important;
 }
+
 .player-timer div {
   position: absolute !important;
   top: 0;
   left: 1px;
 }
+
 .player1 .player-timer div {
   left: 4px;
   top: 1px;
@@ -1104,6 +1177,7 @@
 .player-timer div div {
   display: none !important;
 }
+
 .player1.winner-player .player-pic img,
 .player1.winner-player .player-pic video {
   /* width: 120px;
@@ -1145,6 +1219,7 @@
   transition: all 0.5s;
   font-weight: 600;
 }
+
 .bet-view span:hover {
   background: #f9ff00;
 }
@@ -1238,10 +1313,11 @@
   color: #000 !important;
   text-shadow: none !important;
 }
+
 /**** Winner Animation *******/
 
-.pyro > .before,
-.pyro > .after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1266,7 +1342,7 @@
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro > .after {
+.pyro>.after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -1309,6 +1385,7 @@
       -16px -87.6666666667px #33ff00;
   }
 }
+
 @-moz-keyframes bang {
   to {
     box-shadow: -155px -107.6666666667px #ff001a, -95px -12.6666666667px #ff0040,
@@ -1339,6 +1416,7 @@
       -16px -87.6666666667px #33ff00;
   }
 }
+
 @-o-keyframes bang {
   to {
     box-shadow: -155px -107.6666666667px #ff001a, -95px -12.6666666667px #ff0040,
@@ -1369,6 +1447,7 @@
       -16px -87.6666666667px #33ff00;
   }
 }
+
 @-ms-keyframes bang {
   to {
     box-shadow: -155px -107.6666666667px #ff001a, -95px -12.6666666667px #ff0040,
@@ -1399,6 +1478,7 @@
       -16px -87.6666666667px #33ff00;
   }
 }
+
 @keyframes bang {
   to {
     box-shadow: -155px -107.6666666667px #ff001a, -95px -12.6666666667px #ff0040,
@@ -1429,6 +1509,7 @@
       -16px -87.6666666667px #33ff00;
   }
 }
+
 @-webkit-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1439,6 +1520,7 @@
     opacity: 0;
   }
 }
+
 @-moz-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1449,6 +1531,7 @@
     opacity: 0;
   }
 }
+
 @-o-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1459,6 +1542,7 @@
     opacity: 0;
   }
 }
+
 @-ms-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1469,6 +1553,7 @@
     opacity: 0;
   }
 }
+
 @keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1479,135 +1564,165 @@
     opacity: 0;
   }
 }
+
 @-webkit-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
+
   20%,
   39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
+
   40%,
   59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
+
   60%,
   79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
+
   80%,
   99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
+
 @-moz-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
+
   20%,
   39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
+
   40%,
   59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
+
   60%,
   79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
+
   80%,
   99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
+
 @-o-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
+
   20%,
   39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
+
   40%,
   59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
+
   60%,
   79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
+
   80%,
   99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
+
 @-ms-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
+
   20%,
   39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
+
   40%,
   59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
+
   60%,
   79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
+
   80%,
   99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
+
 @keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
+
   20%,
   39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
+
   40%,
   59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
+
   60%,
   79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
+
   80%,
   99.9% {
     margin-top: 30%;
@@ -1655,15 +1770,17 @@
 
 .custom-toaster .btn-primary:not(:disabled):not(.disabled).active,
 .custom-toaster .btn-primary:not(:disabled):not(.disabled):active,
-.custom-toaster .show > .btn-primary.dropdown-toggle {
+.custom-toaster .show>.btn-primary.dropdown-toggle {
   background-color: transparent;
   border-color: transparent;
 }
+
 .custom-toaster {
   padding: 0px;
   padding-right: 0;
   text-align: center;
 }
+
 .custom-toaster button img {
   height: 30px;
   width: 30px;
@@ -1673,6 +1790,7 @@
   margin-bottom: 0px;
   font-size: 15px;
 }
+
 .start-game-btn {
   position: fixed;
   top: 10px;
@@ -1691,6 +1809,7 @@
 }
 
 @keyframes shake {
+
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
@@ -1742,6 +1861,7 @@
   margin-bottom: 5px;
   color: #ffffff;
 }
+
 p.joined-player {
   font-size: 12px;
   text-shadow: 1px 0px 2px #000;
@@ -1751,13 +1871,16 @@ p.joined-player {
   letter-spacing: 0.5px;
   font-weight: 300;
 }
+
 @keyframes animateGlow {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -1843,6 +1966,7 @@ p.joined-player {
 #lid {
   animation: blink 2s infinite;
 }
+
 #eye {
   animation: squeeze 2s infinite;
 }
@@ -1852,21 +1976,26 @@ p.joined-player {
     transform: none;
     animation-timing-function: ease-in;
   }
+
   93% {
     transform: translateY(15px) scaleY(0);
   }
+
   100% {
     animation-timing-function: ease-out;
   }
 }
+
 @keyframes squeeze {
   90% {
     transform: none;
     animation-timing-function: ease-in;
   }
+
   93% {
     transform: translateY(3px) scaleY(0.8);
   }
+
   100% {
     animation-timing-function: ease-out;
   }
@@ -1907,10 +2036,8 @@ p.joined-player {
 }
 
 .flip-vertical-left {
-  -webkit-animation: flip-vertical-left 0.8s
-    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
-    both;
+  -webkit-animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 @-webkit-keyframes flip-vertical-left {
@@ -1918,16 +2045,19 @@ p.joined-player {
     -webkit-transform: rotateY(0);
     transform: rotateY(0);
   }
+
   100% {
     -webkit-transform: rotateY(-360deg);
     transform: rotateY(-360deg);
   }
 }
+
 @keyframes flip-vertical-left {
   0% {
     -webkit-transform: rotateY(0);
     transform: rotateY(0);
   }
+
   100% {
     -webkit-transform: rotateY(-360deg);
     transform: rotateY(-360deg);
@@ -1936,17 +2066,19 @@ p.joined-player {
 
 /************* Flip *******************/
 
-.flip > .front,
-.flip > .back {
+.flip>.front,
+.flip>.back {
   display: block;
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-duration: 0.5s;
   transition-property: transform, opacity;
 }
-.flip > .front {
+
+.flip>.front {
   transform: rotateY(0deg);
 }
-.flip > .back {
+
+.flip>.back {
   position: absolute;
   opacity: 0;
   top: 0px;
@@ -1955,11 +2087,13 @@ p.joined-player {
   height: 100%;
   transform: rotateY(-180deg);
 }
-.flip.active > .front {
+
+.flip.active>.front {
   transform: rotateY(180deg);
   opacity: 0;
 }
-.flip.active > .back {
+
+.flip.active>.back {
   opacity: 1;
   transform: rotateY(0deg);
 }
@@ -1969,17 +2103,19 @@ p.joined-player {
   display: inline-block;
   width: 60px;
 }
-.flip > .front,
-.flip > .back {
+
+.flip>.front,
+.flip>.back {
   display: block;
   width: 60px;
   height: 84px;
 }
 
-.tooltip-box > p {
+.tooltip-box>p {
   margin-bottom: 5px;
 }
-.tooltip-box > p:last-child {
+
+.tooltip-box>p:last-child {
   margin-bottom: 0;
 }
 
@@ -1987,6 +2123,7 @@ p.joined-player {
   width: 100px;
   height: 64px;
 }
+
 .winner-icon img {
   width: 100%;
   height: 100%;
@@ -2001,9 +2138,11 @@ p.joined-player {
   margin-bottom: 12px;
   margin-top: 10px;
 }
+
 .tooltip-content img {
   height: 55px;
 }
+
 .tooltip-box p {
   margin-bottom: 0px;
   font-size: 11px;
@@ -2011,11 +2150,13 @@ p.joined-player {
   display: flex;
   justify-content: space-between;
 }
+
 .tooltip-box span {
   font-weight: 600;
   font-size: 13px;
   margin-left: 10px;
 }
+
 .tooltip-inner {
   max-width: 200px !important;
   padding: 6px 15px !important;
@@ -2028,6 +2169,7 @@ p.joined-player {
   border-width: 0.4rem 0 0.4rem 0.4rem;
   border-left-color: #282c37 !important;
 }
+
 .tooltip-content img {
   height: 55px;
   margin-right: 15px;
@@ -2035,22 +2177,27 @@ p.joined-player {
   border-radius: 5px;
   object-fit: cover;
 }
+
 .player-details-content {
   width: calc(100% - 60px);
 }
+
 .tooltip.show {
   opacity: 1 !important;
 }
+
 .player-tooltip {
   position: absolute;
   left: -10px !important;
   z-index: 99999999;
 }
+
 .watcher-count i {
   color: white;
   margin-right: 8px;
   cursor: pointer;
 }
+
 .watcher-count {
   font-size: 15px;
   padding: 10px;
@@ -2059,21 +2206,25 @@ p.joined-player {
   top: 0px;
   left: 0px;
 }
+
 .bs-tooltip-auto[x-placement^="right"] .arrow::before,
 .bs-tooltip-right .arrow::before {
   right: 0;
   border-width: 0.4rem 0.4rem 0.4rem 0;
   border-right-color: #131417 !important;
 }
+
 .tooltip-box h5 {
   text-align: left;
   font-size: 15px;
 }
+
 .stats-popup .modal-content {
   background-color: #1c1f27;
   padding: 10px 20px;
   /* background: url(../../assets//black.png); */
 }
+
 .stats-popup .modal-content::before {
   content: "";
   background: #0c0f15bf;
@@ -2104,6 +2255,7 @@ p.joined-player {
 .stats-popup .table-striped tbody tr:nth-of-type(even) {
   background-color: rgb(21 25 33);
 }
+
 .stats-popup .table-striped tbody tr:nth-of-type(odd) {
   background-color: rgb(25 29 37);
 }
@@ -2127,18 +2279,22 @@ p.joined-player {
 .stats-popup .modal-header {
   border: none;
 }
+
 .stats-popup table tr img {
   height: 32px;
   margin-right: 5px;
 }
+
 .stats-heading .close-icon img {
   height: 20px;
 }
+
 .stats-heading .close-icon img {
   height: 20px;
   filter: grayscale(1);
   cursor: pointer;
 }
+
 .stats-heading {
   display: flex;
   justify-content: center;
@@ -2146,6 +2302,7 @@ p.joined-player {
   margin-bottom: 20px;
   position: relative;
 }
+
 .stats-heading .close-icon {
   position: absolute;
   right: 0;
@@ -2178,27 +2335,33 @@ p.joined-player {
   top: -35px;
   right: -30px;
 }
+
 .buy-popup .buy-btn {
   display: flex;
   justify-content: center;
   margin-top: 40px;
 }
+
 .buy-popup .modal-body {
   padding-bottom: 0px;
 }
+
 .buy-popup input.form-control {
   background: transparent;
   color: white;
 }
+
 .buy-popup .buy-btn button {
   border: 1px solid #b0860a;
   background-color: #b0860a;
 }
+
 .buy-popup .stats-heading {
   position: absolute;
   top: -14px;
   right: -10px;
 }
+
 .players button,
 .players button:hover,
 .players button:focus {
@@ -2222,6 +2385,7 @@ p.joined-player {
   display: inline-block;
   top: auto;
 }
+
 .play-pause-button.leave-btn .pause-btn .btn {
   height: 40px;
   background-position: top center;
@@ -2237,16 +2401,19 @@ button.sign-in.btn.btn-primary {
   filter: none;
   cursor: pointer;
 }
+
 button.sign-in.btn.btn-primary:focus {
   border-color: #444444;
   box-shadow: none;
   background: #444444;
 }
+
 button.sign-in.btn.btn-primary:focus {
   border-color: #444444;
   box-shadow: none;
   background: #444444;
 }
+
 .friends-popup .modal-content {
   background: #21232c;
 }
@@ -2315,6 +2482,7 @@ button.sign-in.btn.btn-primary:focus {
 .friends-popup .modal-header .close {
   padding: 0 !important;
 }
+
 .friends-popup .close {
   color: #c7c7c7;
   text-shadow: none;
@@ -2322,6 +2490,7 @@ button.sign-in.btn.btn-primary:focus {
   font-size: 30px;
   font-family: "Poppins";
 }
+
 .modal-backdrop {
   background-color: #4e4e4e !important;
   opacity: 0.8 !important;
@@ -2330,6 +2499,7 @@ button.sign-in.btn.btn-primary:focus {
 .timer-circle svg {
   transform: rotate(-90deg);
 }
+
 .timer-circle {
   position: relative;
   height: 100%;
@@ -2343,6 +2513,7 @@ button.sign-in.btn.btn-primary:focus {
   left: -40px;
   top: -30px;
 }
+
 .players .circle_animation {
   stroke-dasharray: 420;
   /* stroke-dashoffset: inherit; */
@@ -2350,6 +2521,7 @@ button.sign-in.btn.btn-primary:focus {
   stroke-width: 8px;
   stroke: #ff0000;
 }
+
 .players.player1 .timer-circle svg {
   height: 188px;
   width: 188px;
@@ -2357,10 +2529,12 @@ button.sign-in.btn.btn-primary:focus {
   left: -25px;
   top: -17px;
 }
+
 .players .circle_animation {
   r: 60 !important;
   stroke-dasharray: 420 !important;
 }
+
 .player1 .circle_animation {
   r: 73 !important;
   stroke-dasharray: 450 !important;
@@ -2380,6 +2554,7 @@ button.sign-in.btn.btn-primary:focus {
   height: 100%;
   object-fit: cover;
 }
+
 ul.btn-list {
   position: absolute;
   right: 10px;
@@ -2389,13 +2564,16 @@ ul.btn-list {
   padding: 0;
   margin: 0;
 }
-ul.btn-list > li:first-child {
+
+ul.btn-list>li:first-child {
   display: none;
 }
-ul.btn-list > li {
+
+ul.btn-list>li {
   padding: 2px 0;
 }
-ul.btn-list > li > button {
+
+ul.btn-list>li>button {
   border-radius: 20px;
   padding: 5px 10px;
   width: 40px;
@@ -2410,7 +2588,8 @@ ul.btn-list > li > button {
   margin-top: 0;
   border: none;
 }
-ul.btn-list > li span.close-icon {
+
+ul.btn-list>li span.close-icon {
   position: absolute;
   right: 10px;
   top: -30px;
@@ -2422,6 +2601,7 @@ ul.btn-list > li span.close-icon {
   text-align: center;
   cursor: pointer;
 }
+
 .modal-backdrop {
   z-index: 999999 !important;
 }
@@ -2429,7 +2609,8 @@ ul.btn-list > li span.close-icon {
 .modal {
   z-index: 999999 !important;
 }
-ul.btn-list > li > button > img {
+
+ul.btn-list>li>button>img {
   width: 18px;
   height: 18px;
   object-fit: cover;
@@ -2443,7 +2624,8 @@ ul.btn-list > li > button > img {
   z-index: 999999;
   background: transparent;
 }
-.poker-bg .poker-loader > img {
+
+.poker-bg .poker-loader>img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -2452,10 +2634,12 @@ ul.btn-list > li > button > img {
 .leave-confirm.modal.invite-friend .sub-btn .btn {
   margin-top: 12px;
 }
+
 .modal.invite-friend .css-xb97g8 {
   background-color: #a89319;
 }
-.abc > div {
+
+.abc>div {
   z-index: 99999999 !important;
 }
 
@@ -2493,20 +2677,22 @@ ul.btn-list > li > button > img {
 .players .player-pic {
   /* height: 145px;
   width: 145px; */
-  height: 120px;
-  width: 120px;
+  height: 110px;
+  width: 110px;
 }
+
 .player-pic img,
 .player-pic video {
   /* z-index: -1; */
   transform: translate(-50%, -50%);
 }
+
 .players .player-pic img,
 .players .player-pic video {
   /* width: 85px;
   height: 85px; */
-  width: 106px;
-  height: 106px;
+  width: 100px;
+  height: 100px;
   background: #0c111d;
 }
 
@@ -2514,12 +2700,14 @@ ul.btn-list > li > button > img {
   width: 85px;
   height: 85px;
 }
+
 .player1 .player-pic img,
 .player1 .player-pic video {
-  width: 120px !important;
-  height: 120px !important;
+  width: 115px !important;
+  height: 115px !important;
   /* z-index: -1; */
 }
+
 .player1 .battery {
   width: 120px !important;
   height: 120px !important;
@@ -2534,6 +2722,7 @@ ul.btn-list > li > button > img {
   border-bottom: 4px solid #7f6243;
   transition: all 0.5s;
 }
+
 .bar.active {
   background: #d51a2e;
 }
@@ -2549,15 +2738,17 @@ ul.btn-list > li > button > img {
 .stripe-confirmation-popup .modal-dialog {
   max-width: 650px !important;
 }
+
 .stripe-confirmation-popup .imgIconCoin {
   width: 20%;
   margin-left: 10px;
 }
+
 .stripe-confirmation-popup .CoinsHeader {
   margin-bottom: 15px;
 }
 
-.player-box .pyro > div {
+.player-box .pyro>div {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -2565,19 +2756,23 @@ ul.btn-list > li > button > img {
   left: 50%;
   margin-top: 40px !important;
 }
+
 .cam-tool a.dropdown-item {
   padding: 6px 15px;
   display: flex;
   justify-content: space-between;
 }
+
 .cam-tool a.dropdown-item {
   background-color: transparent;
 }
+
 .cam-tool .dropdown-menu.show {
   background: rgb(27 31 46);
   border-radius: 50px;
   padding: 0px 1px;
 }
+
 .player-box .cam-tool {
   max-width: 120px;
   width: 100%;
@@ -2595,22 +2790,28 @@ ul.btn-list > li > button > img {
 .cam-tool .dropdown button {
   width: 100%;
 }
+
 .player-pic {
   position: relative;
 }
+
 .player-box .cam-tool i {
   text-align: center;
 }
+
 .player-box .cam-tool button {
   text-align: right;
 }
+
 .cam-tool .dropdown-item.active,
 .cam-tool .dropdown-item:active {
   color: #16181b;
 }
-.cam-tool .show > .btn-success.dropdown-toggle {
+
+.cam-tool .show>.btn-success.dropdown-toggle {
   background: transparent !important;
 }
+
 .player-with-icons {
   position: relative;
   max-width: 120px;
@@ -2639,6 +2840,7 @@ ul.btn-list > li > button > img {
 .cam-tool .dropdown button i {
   position: initial;
 }
+
 .player-with-icons .cam-tool .dropdown-menu i {
   background: #000000;
   border: 1px solid #e9ad1e;
@@ -2653,9 +2855,11 @@ ul.btn-list > li > button > img {
   align-items: center;
   color: white;
 }
+
 .player-with-icons .cam-tool .dropdown-menu {
   min-width: 8rem;
 }
+
 .battery {
   margin-left: 4px;
   margin-top: -1px;
@@ -2690,6 +2894,7 @@ ul.btn-list > li > button > img {
   max-width: 400px;
   text-align: center;
 }
+
 .tooltip-box {
   padding: 10px;
   background: #000;
@@ -2700,14 +2905,17 @@ ul.btn-list > li > button > img {
   width: 20px;
   margin-left: 20px;
 }
+
 .action-tooltip {
   display: flex;
   justify-content: space-around;
 }
+
 .action-tooltip .spinner-border {
   width: 1rem;
   height: 1rem;
 }
+
 .btn-gold {
   font-size: 12px !important;
   background: #f9ff00 !important;
@@ -2716,6 +2924,7 @@ ul.btn-list > li > button > img {
   border-color: #f9ff00 !important;
   padding: 0px 5px !important;
 }
+
 .btn-dark {
   border-radius: 20px !important;
   font-size: 14px !important;
@@ -2723,6 +2932,7 @@ ul.btn-list > li > button > img {
   font-size: 12px !important;
   padding: 0px 5px !important;
 }
+
 .btn-dark:hover,
 .btn-dark:focus {
   box-shadow: 0 0 50px 0 hsl(0deg 0% 100% / 30%) !important;
@@ -2730,6 +2940,7 @@ ul.btn-list > li > button > img {
   background-color: #343a40 !important;
   border-color: #343a40 !important;
 }
+
 .btn-gold:hover,
 .btn-gold:focus {
   background: #f9ff00 !important;
@@ -2761,12 +2972,15 @@ ul.btn-list > li > button > img {
   border: none !important;
   border-radius: 50px !important;
 }
+
 .inner-rect-bar {
   border-radius: 50px !important;
 }
+
 .player-info .rect-progress-bar-percent {
   display: none !important;
 }
+
 .player-info .progress-bar-rect-wrap-container {
   height: 100%;
 }
@@ -2789,16 +3003,20 @@ ul.btn-list > li > button > img {
     left: -40px;
     top: -39px;
   }
+
   .players .circle_animation {
     r: 50 !important;
   }
+
   .players.player1 .circle_animation {
     r: 62 !important;
   }
+
   .players.player1 .timer-circle svg {
     left: -25px;
     top: -30px;
   }
+
   .player-pic img,
   .player-pic video,
   .battery {
@@ -2823,15 +3041,19 @@ ul.btn-list > li > button > img {
   .total-pot-money {
     top: 90px;
   }
+
   .game-msg {
     top: 112px;
   }
+
   .table-card {
     margin-top: 11px;
   }
+
   .table-card img {
     width: 50px;
   }
+
   .player-tooltip {
     left: -7px !important;
   }
@@ -2841,9 +3063,11 @@ ul.btn-list > li > button > img {
   .poker .container {
     max-width: 100%;
   }
+
   .poker-table-bg {
     background-size: contain;
   }
+
   .poker-table {
     max-width: 100%;
   }
@@ -2853,10 +3077,12 @@ ul.btn-list > li > button > img {
   .poker-table-bg {
     height: 400px;
   }
+
   .player4,
   .player8 {
     top: 60px;
   }
+
   .player3,
   .player9 {
     bottom: 60px;
@@ -2867,19 +3093,25 @@ ul.btn-list > li > button > img {
   .poker-table-bg {
     height: 335px;
   }
+
   .total-pot-money {
     top: 70px;
   }
 }
 
 @media screen and (max-width: 1024px) {
+  .pyro {
+    scale: 0.8;
+  }
+
   .player1 .player-timer div {
     width: 120px !important;
     height: 120px !important;
     left: -33px;
     top: 1px;
   }
-  .player-timer div > svg {
+
+  .player-timer div>svg {
     width: 100px !important;
     height: 100px !important;
   }
@@ -2895,20 +3127,29 @@ ul.btn-list > li > button > img {
   .table-card .winner-card {
     width: 45px;
   }
+
   .table-card img {
     width: 50px;
   }
+
   .total-pot-money span {
     width: 100px;
     height: 32px;
     font-size: 14px;
   }
 
-  .player-card,
   .show-card {
-    top: 14px;
+    /* top: 14px; */
+    top: 18px;
     grid-template-columns: repeat(2, minmax(36px, 1fr));
   }
+
+  .player-card {
+    /* top: 14px; */
+    top: 18px;
+    grid-template-columns: repeat(2, minmax(30px, 1fr));
+  }
+
   .total-pot-money span::before {
     width: 36px;
     height: 38px;
@@ -2943,6 +3184,7 @@ ul.btn-list > li > button > img {
     width: 110px;
     height: 35px;
   }
+
   .player-badge {
     width: 20px;
     height: 22px;
@@ -3027,27 +3269,33 @@ ul.btn-list > li > button > img {
     left: -45px;
     top: -39px;
   }
+
   .players .circle_animation {
     r: 50 !important;
     stroke-width: 6px;
   }
+
   .players.player1 .circle_animation {
     r: 61 !important;
     stroke-width: 6px;
   }
+
   .players.player1 .timer-circle svg {
     left: -35px;
     top: -30px;
   }
+
   .player-box .cam-tool {
     height: 52px;
   }
+
   .players.player1 .player-chip,
   .players.player2 .player-chip,
   .players.player10 .player-chip {
     /* top: -78px; */
-    top: -12%;
+    top: -6%;
   }
+
   .players.player6 .player-chip,
   .players.player5 .player-chip,
   .players.player7 .player-chip {
@@ -3066,26 +3314,32 @@ ul.btn-list > li > button > img {
 }
 
 @media screen and (max-width: 768px) {
-  input:checked + .slider:before {
+  input:checked+.slider:before {
     transform: translateX(115px);
   }
+
   .switch {
     position: relative;
     display: inline-block;
     width: 150px;
     height: 34px;
   }
+
   .switch-title {
     width: 150px;
   }
+
   .logo--bottom-image {
     display: none;
   }
+
   .winner-text {
-    padding: 6px 10px !important;
+    /* padding: 6px 10px !important; */
+    padding: 3px 12px !important;
     font-size: 12px !important;
     text-shadow: 0px 3px 5px #0e0e0e !important;
   }
+
   .poker .container {
     max-width: calc(100% - 25px);
   }
@@ -3096,12 +3350,14 @@ ul.btn-list > li > button > img {
 
   .player3,
   .player9 {
-    bottom: 30px;
+    /* bottom: 30px; */
+    bottom: 20%;
   }
 
   .player4,
   .player8 {
-    top: 30px;
+    /* top: 30px; */
+    top: -18%;
   }
 
   .table-card img {
@@ -3109,7 +3365,8 @@ ul.btn-list > li > button > img {
   }
 
   .table-card .winner-card {
-    width: 40px;
+    /* width: 40px; */
+    width: 32px;
   }
 
   .game-msg {
@@ -3120,9 +3377,40 @@ ul.btn-list > li > button > img {
 /************************************************************ Landscape ***********************************************************/
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
+
   .poker-bg {
     height: 100vh;
   }
+
+  .player-action {
+    bottom: 108%;
+    animation-name: bottomFadeOut;
+    animation-delay: 5ms;
+    animation-duration: 3s;
+    text-transform: capitalize;
+    z-index: 9999999;
+  }
+
+  @keyframes bottomFadeOut {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      bottom: 108%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
   .poker-table-bg {
     width: 90%;
     height: 65vh;
@@ -3130,6 +3418,7 @@ ul.btn-list > li > button > img {
     background-size: contain;
     background-position: center;
   }
+
   .logo--bottom-image {
     position: absolute;
     bottom: 10px;
@@ -3137,28 +3426,35 @@ ul.btn-list > li > button > img {
     transform: inherit;
     display: block;
   }
+
   .logo--bottom-image img {
     width: 100px;
   }
+
   .chat-header .close-icon i {
     font-size: 16px;
   }
-  .leave-confirm.modal .block > p {
+
+  .leave-confirm.modal .block>p {
     padding-bottom: 10px;
   }
+
   .player-timer div {
     width: 120px !important;
     height: 120px !important;
   }
+
   .total-pot-money span::before {
     width: 30px;
     height: 30px;
     right: 0;
   }
+
   .chat-wrapper {
     right: 10px;
     bottom: -42px;
   }
+
   .bet-view {
     top: -40px;
     left: -135px;
@@ -3167,38 +3463,47 @@ ul.btn-list > li > button > img {
     /* transform: translateX(-50%);*/
     z-index: 99999999;
   }
+
   .bet-view::before {
     left: 166px;
   }
+
   .bet-view span {
     min-width: 40px;
     padding: 0 5px;
     margin: 0 4px;
     font-size: 10px;
   }
+
   .poker-logo img {
     width: 90px;
   }
+
   .chat-header .close-icon {
     width: 30px;
     height: 30px;
     line-height: 30px;
     bottom: 10px;
   }
+
   .play-pause-button.leave-btn .pause-btn .btn {
     height: 30px !important;
   }
+
   .play-pause-button.leave-btn {
     right: 50px !important;
     bottom: 10px !important;
   }
+
   .start-game-btn p {
     font-size: 14px;
   }
+
   .footer-button {
     bottom: 0px;
     padding: 5px 10px;
   }
+
   .poker .container {
     max-width: calc(100% - 25px);
     padding: 0;
@@ -3213,9 +3518,11 @@ ul.btn-list > li > button > img {
     width: 100%;
     text-align: center;
   }
+
   .table-card {
     margin-top: -38px;
   }
+
   .total-pot-money span {
     width: 90px;
     height: 25px;
@@ -3223,15 +3530,18 @@ ul.btn-list > li > button > img {
   }
 
   .total-pot-money {
-    top: 135px;
+    /* top: 135px; */
+    top: 46%;
     left: 42%;
   }
+
   button.not-allowed.btn.btn-primary {
     cursor: not-allowed;
   }
 
   .game-msg {
-    top: 115px;
+    /* top: 115px; */
+    top: 58%;
     text-align: center;
     z-index: 999999;
   }
@@ -3270,26 +3580,33 @@ ul.btn-list > li > button > img {
     height: 28px;
     padding: 4px 8px;
   }
+
   .table-card img {
-    width: 40px;
+    /* width: 40px; */
+    width: 30px;
     margin: 0px 1px;
   }
+
   .tooltip-inner {
     width: 100%;
     max-width: 100% !important;
     padding: 5px !important;
   }
+
   .tooltip-box h5 {
     font-size: 12px;
   }
+
   .tooltip-content img {
     height: 35px;
     margin-right: 8px;
     width: 35px;
   }
+
   .tooltip-box p {
     font-size: 9px;
   }
+
   .tooltip-box span {
     font-size: 10px;
     margin-left: 8px;
@@ -3301,6 +3618,7 @@ ul.btn-list > li > button > img {
     left: 50% !important;
     transition: none !important;
   }
+
   .player-tooltip.tooltip.tool .arrow {
     display: none !important;
   }
@@ -3319,8 +3637,48 @@ ul.btn-list > li > button > img {
     background: transparent;
     border: none;
   }
+
+  .players.player1 .player-pic {
+    height: 100px;
+    width: 100px;
+  }
+
+  .player1 .player-pic img,
+  .player1 .player-pic video {
+    width: 90px !important;
+    height: 90px !important;
+    /* z-index: -1; */
+  }
+
+  .player1 .player-info {
+    width: 120px;
+    height: 35px;
+  }
+
+  .players .player-pic {
+    height: 90px;
+    width: 90px;
+  }
+
+  .players .player-pic img,
+  .players .player-pic video {
+    width: 80px;
+    height: 80px;
+  }
+
+  .show-card img,
+  .player-card img {
+    width: 45px;
+  }
+
+  .players.player1 .player-chip {
+    /* top: -78px; */
+    top: -2%;
+  }
+
   .player1 {
-    bottom: -25px;
+    /* bottom: -25px; */
+    bottom: -30px;
     transform: translateX(-50%) scale(0.7);
   }
 
@@ -3330,32 +3688,37 @@ ul.btn-list > li > button > img {
   }
 
   .player3 {
-    left: -30px;
+    /* left: -30px; */
+    left: -4%;
     transform: translateY(0) scale(0.7);
   }
 
   .player4 {
     transform: scale(0.7);
-    left: -30px;
+    transform: translateX(-5%) scale(0.7);
   }
 
   .player5 {
-    top: -25px;
+    /* top: -25px; */
+    top: -33%;
     transform: translateX(-25%) scale(0.7);
   }
 
   .player6 {
-    top: -25px;
+    /* top: -25px; */
     transform: translateX(-50%) scale(0.7);
+    top: -30%;
   }
 
   .player7 {
-    top: -25px;
+    /* top: -25px; */
+    top: -33%;
     left: 75%;
     transform: translateX(-75%) scale(0.7);
   }
+
   .player8 {
-    transform: translateX(-70%) scale(0.7);
+    transform: translateX(-95%) scale(0.7);
   }
 
   .player9 {
@@ -3416,7 +3779,7 @@ ul.btn-list > li > button > img {
     top: inherit;
   } */
 
-  ul.btn-list > li > button {
+  ul.btn-list>li>button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -3425,30 +3788,37 @@ ul.btn-list > li > button > img {
     line-height: 32px;
   }
 
-  ul.btn-list > li > button i {
+  ul.btn-list>li>button i {
     font-size: 14px;
   }
+
   ul.btn-list {
     bottom: 42px;
   }
+
   .btn-toggler {
     height: 30px;
     width: 30px;
   }
-  ul.btn-list > li > button > img {
+
+  ul.btn-list>li>button>img {
     width: 20px;
     height: 20px;
   }
+
   .player-badge {
     top: 20px;
   }
+
   .winner-player:after {
     opacity: 0.5;
     filter: blur(8vw);
   }
+
   .chat-users {
     height: 200px !important;
   }
+
   .chat-content {
     height: 155px !important;
   }
@@ -3471,179 +3841,214 @@ ul.btn-list > li > button > img {
   .player-with-icons {
     max-width: 150px;
   }
+
   .player-box .cam-tool {
     height: 45px;
     max-width: 150px;
   }
+
   .player-with-icons .cam-tool .dropdown-menu {
     min-width: 9rem;
   }
 
   .players.player3 .player-chip {
-    right: -80px;
+    /* right: -80px; */
+    right: -90%;
+    top: 43%;
     animation: slideLeft3 0.4s;
   }
+
   .animateMerge-chips.players.player3 .player-chip {
     animation: mergeP3 0.4s;
   }
+
   @keyframes mergeP3 {
     from {
-      right: -80px;
-      top: inherit;
+      /* right: -80px; */
+      right: -90%;
+      top: 43%;
       opacity: 1;
     }
+
     to {
-      right: -295%;
-      top: -116%;
+      right: -327%;
+      top: 30%;
       opacity: 0;
     }
   }
+
   @keyframes slideLeft3 {
     from {
-      right: 0px;
-      bottom: 8px;
+      right: 0%;
+      top: 75%;
     }
+
     to {
-      right: -80px;
-      bottom: 40px;
+      right: -90%;
+      top: 43%;
     }
   }
+
   .players.player4 .player-chip {
     right: -80px;
     animation: slideLeft4 0.4s;
   }
+
   .animateMerge-chips.players.player4 .player-chip {
     animation: mergeP4 0.4s;
   }
 
   @keyframes mergeP4 {
     from {
-      bottom: 40px;
       right: -80px;
+      bottom: -14%;
       opacity: 1;
     }
+
     to {
-      bottom: -280%;
-      right: -295%;
+      right: -305%;
+      bottom: -82%;
       opacity: 0;
     }
   }
 
   @keyframes slideLeft4 {
     from {
-      right: 0px;
-      top: 8px;
+      right: 0%;
+      bottom: 0%;
     }
+
     to {
       right: -80px;
-      top: inherit;
+      bottom: -14%;
     }
   }
+
   .players.player8 .player-chip {
     left: -80px;
     animation: slideRight8 0.4s;
   }
+
   .animateMerge-chips.players.player8 .player-chip {
     animation: mergeP8 0.4s;
   }
 
   @keyframes mergeP8 {
     from {
-      bottom: 40px;
       left: -80px;
+      bottom: -20%;
       opacity: 1;
     }
+
     to {
-      bottom: -280%;
       left: -305%;
+      bottom: -82%;
       opacity: 0;
     }
   }
+
   @keyframes slideRight8 {
     from {
-      bottom: 8px;
-      left: -4px;
+      bottom: 0%;
+      left: 0%;
     }
+
     to {
       left: -80px;
-      bottom: 40px;
+      bottom: -20%;
     }
   }
+
   .players.player9 .player-chip {
-    left: -80px;
+    /* left: -80px; */
+    left: -90%;
+    top: 43%;
     animation: slideRight9 0.4s;
   }
+
   .animateMerge-chips.players.player9 .player-chip {
     animation: mergeP9 0.4s;
   }
+
   @keyframes mergeP9 {
     from {
-      left: -80px;
-      top: -50px;
+      left: -90%;
+      top: 43%;
       opacity: 1;
     }
+
     to {
-      left: -298%;
-      top: -118%;
+      left: -337%;
+      top: 30%;
       opacity: 0;
     }
   }
+
   @keyframes slideRight9 {
     from {
-      left: -4px;
-      top: 4px;
+      left: 0%;
+      top: 75%;
+
     }
+
     to {
-      left: -80px;
-      top: inherit;
+      left: -90%;
+      top: 43%;
     }
   }
+
   .animateMerge-chips.players.player10 .player-chip {
     animation: mergeP10 0.4s;
   }
 
   @keyframes mergeP10 {
     from {
-      top: -78px;
+      top: -6%;
       left: 0%;
       opacity: 1;
     }
+
     to {
-      top: -278%;
-      left: -132%;
+      top: -49%;
+      left: -150%;
       opacity: 0;
     }
   }
+
   .animateMerge-chips.players.player1 .player-chip {
     animation: mergeP1 0.4s;
   }
 
   @keyframes mergeP1 {
     from {
-      top: -78px;
+      top: -2%;
       opacity: 1;
     }
+
     to {
-      top: -264%;
+      top: -36%;
       opacity: 0;
     }
   }
+
   .animateMerge-chips.players.player2 .player-chip {
     animation: mergeP2 0.4s;
   }
 
   @keyframes mergeP2 {
     from {
-      top: -78px;
+      top: -6%;
       left: 0%;
       opacity: 1;
     }
+
     to {
-      top: -278%;
-      left: 132%;
+      top: -49%;
+      left: 148%;
       opacity: 0;
     }
   }
+
   /* .players.player6 .player-chip,
   .players.player5 .player-chip,
   .players.player7 .player-chip {
@@ -3659,9 +4064,10 @@ ul.btn-list > li > button > img {
       left: 0%;
       opacity: 1;
     }
+
     to {
-      bottom: -468%;
-      left: -129%;
+      bottom: -130%;
+      left: -150%;
       opacity: 0;
     }
   }
@@ -3675,11 +4081,13 @@ ul.btn-list > li > button > img {
       bottom: -45px;
       opacity: 1;
     }
+
     to {
-      bottom: -482%;
+      bottom: -125%;
       opacity: 0;
     }
   }
+
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
@@ -3690,9 +4098,10 @@ ul.btn-list > li > button > img {
       left: 0%;
       opacity: 1;
     }
+
     to {
-      bottom: -468%;
-      left: 129%;
+      bottom: -130%;
+      left: 150%;
       opacity: 0;
     }
   }
@@ -3713,27 +4122,34 @@ ul.btn-list > li > button > img {
     min-width: 9rem;
     margin-top: 10px !important;
   }
+
   .player-with-icons {
     max-width: 150px;
   }
+
   .player-box .cam-tool {
     height: 45px;
     max-width: 150px;
   }
+
   .chat-logo img {
     max-width: 82px;
   }
+
   .chat-content {
     padding: 15px 12px;
   }
+
   .poker-bg {
     height: 100vh;
   }
+
   .poker-table {
     max-width: 400px;
     margin: 0 auto;
     padding-top: 0;
   }
+
   .poker-table-bg {
     background: url(../../assets/new/poker-tilt.png);
     width: 100%;
@@ -3744,6 +4160,7 @@ ul.btn-list > li > button > img {
     background-position: center;
     top: 0;
   }
+
   .players .player-pic {
     height: 95px;
     width: 95px;
@@ -3762,24 +4179,30 @@ ul.btn-list > li > button > img {
     transform: translate(-50%, -50%);
     opacity: 0.12;
   }
+
   .chat-header .close-icon i {
     font-size: 16px;
   }
-  .leave-confirm.modal .block > p {
+
+  .leave-confirm.modal .block>p {
     padding-bottom: 10px;
   }
+
   .player-timer div {
     width: 120px !important;
     height: 120px !important;
   }
+
   .total-pot-money span::before {
     width: 30px;
     height: 30px;
     right: 0;
   }
+
   .chat-wrapper {
     right: 10px;
   }
+
   .bet-view {
     top: -40px;
     left: -135px;
@@ -3788,31 +4211,38 @@ ul.btn-list > li > button > img {
     /* transform: translateX(-50%);*/
     z-index: 99999999;
   }
+
   .bet-view::before {
     left: 166px;
   }
+
   .bet-view span {
     min-width: 40px;
     padding: 0 5px;
     margin: 0 4px;
     font-size: 10px;
   }
+
   .poker-logo img {
     width: 90px;
   }
+
   .chat-header .close-icon {
     width: 30px;
     height: 30px;
     line-height: 30px;
     bottom: 10px;
   }
+
   .play-pause-button.leave-btn .pause-btn .btn {
     height: 30px !important;
   }
+
   .play-pause-button.leave-btn {
     right: 50px !important;
     bottom: 10px !important;
   }
+
   .start-game-btn {
     top: 50%;
     left: 50%;
@@ -3822,12 +4252,15 @@ ul.btn-list > li > button > img {
     background: transparent;
     border: none;
   }
+
   .start-game-btn p {
     font-size: 12px;
   }
+
   .footer-button {
     bottom: 15px;
   }
+
   .poker .container {
     max-width: calc(100% - 10px);
     padding: 0;
@@ -3843,20 +4276,24 @@ ul.btn-list > li > button > img {
     text-align: center;
     /* max-width: 150px; */
     max-width: 175px;
-  }
-  .table-card {
     margin-top: 30px;
   }
+
+  .table-card .winner-show {
+    max-width: 186px;
+  }
+
   .total-pot-money {
     top: 136px;
     left: 36%;
   }
+
   button.not-allowed.btn.btn-primary {
     cursor: not-allowed;
   }
 
   .game-msg {
-    top: 60px;
+    top: 36%;
     text-align: center;
   }
 
@@ -3875,6 +4312,7 @@ ul.btn-list > li > button > img {
     right: 10px;
     top: 10px;
   }
+
   .player1 .player-info {
     width: 120px;
     height: 36px;
@@ -3960,38 +4398,46 @@ ul.btn-list > li > button > img {
     height: 28px;
     padding: 4px 8px;
   }
+
   .players button,
   .players button:hover,
   .players button:focus {
     height: 28px;
     padding: 4px 8px;
   }
+
   .player1 .player-badge {
     right: -5px;
     top: 107px;
   }
+
   .table-card img {
     /* width: 40px; */
     height: 60px;
     width: 30px;
     margin-bottom: 5px;
   }
+
   .tooltip-inner {
     width: 100%;
     max-width: 100% !important;
     padding: 5px !important;
   }
+
   .tooltip-box h5 {
     font-size: 12px;
   }
+
   .tooltip-content img {
     height: 35px;
     margin-right: 8px;
     width: 35px;
   }
+
   .tooltip-box p {
     font-size: 9px;
   }
+
   .tooltip-box span {
     font-size: 10px;
     margin-left: 8px;
@@ -4003,11 +4449,12 @@ ul.btn-list > li > button > img {
     left: 50% !important;
     transition: none !important;
   }
+
   .player-tooltip.tooltip.tool .arrow {
     display: none !important;
   }
 
-  ul.btn-list > li > button {
+  ul.btn-list>li>button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -4016,20 +4463,24 @@ ul.btn-list > li > button > img {
     line-height: 32px;
   }
 
-  ul.btn-list > li > button i {
+  ul.btn-list>li>button i {
     font-size: 14px;
   }
+
   ul.btn-list {
     bottom: 42px;
   }
+
   .btn-toggler {
     height: 30px;
     width: 30px;
   }
-  ul.btn-list > li > button > img {
+
+  ul.btn-list>li>button>img {
     width: 20px;
     height: 20px;
   }
+
   .play-pause-button .pause-btn .btn,
   .play-pause-button .play-btn .btn {
     min-width: 70px;
@@ -4043,6 +4494,7 @@ ul.btn-list > li > button > img {
     height: 100px;
     width: 100px;
   }
+
   .players .player-pic img,
   .players .player-pic video,
   .players .battery {
@@ -4056,6 +4508,7 @@ ul.btn-list > li > button > img {
     left: 10px;
     transform: inherit;
   }
+
   .logo--bottom-image img {
     width: 63px;
   }
@@ -4071,11 +4524,13 @@ ul.btn-list > li > button > img {
       top: -12%;
       opacity: 1;
     }
+
     to {
       top: -266%;
       opacity: 0;
     }
   }
+
   .animateMerge-chips.players.player2 .player-chip {
     animation: mergeP2 0.4s;
   }
@@ -4086,6 +4541,7 @@ ul.btn-list > li > button > img {
       left: 0%;
       opacity: 1;
     }
+
     to {
       top: -212%;
       left: 157%;
@@ -4100,6 +4556,7 @@ ul.btn-list > li > button > img {
     left: inherit;
     animation: slideLeft3 0.4s;
   }
+
   .animateMerge-chips.players.player3 .player-chip {
     animation: mergeP3 0.4s;
   }
@@ -4110,22 +4567,26 @@ ul.btn-list > li > button > img {
       left: inherit;
       opacity: 1;
     }
+
     to {
       top: -87%;
       left: 153%;
       opacity: 0;
     }
   }
+
   @keyframes slideLeft3 {
     from {
       top: 75%;
       right: inherit;
     }
+
     to {
       top: -14%;
       right: inherit;
     }
   }
+
   .players.player4 .player-chip {
     bottom: inherit;
     right: inherit;
@@ -4133,48 +4594,57 @@ ul.btn-list > li > button > img {
     top: -12%;
     animation: slideLeft4 0.4s;
   }
+
   .animateMerge-chips.players.player4 .player-chip {
     animation: mergeP4 0.4s;
   }
+
   @keyframes mergeP4 {
     from {
       top: -12%;
       left: inherit;
       opacity: 1;
     }
+
     to {
       left: 144%;
       top: 35%;
       opacity: 0;
     }
   }
+
   @keyframes slideLeft4 {
     from {
       top: 75%;
       bottom: inherit;
       right: inherit;
     }
+
     to {
       top: -12%;
       bottom: inherit;
       right: inherit;
     }
   }
+
   .players.player5 .player-chip {
     bottom: inherit;
     left: inherit;
     top: -10%;
     transform: translateY(-25%);
   }
+
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
+
   @keyframes mergeP5 {
     from {
       top: -10%;
       left: inherit;
       opacity: 1;
     }
+
     to {
       left: 128%;
       top: 161%;
@@ -4185,16 +4655,19 @@ ul.btn-list > li > button > img {
   .animateMerge-chips.players.player6 .player-chip {
     animation: mergeP6 0.4s;
   }
+
   @keyframes mergeP6 {
     from {
       bottom: -45px;
       opacity: 1;
     }
+
     to {
       bottom: -124%;
       opacity: 0;
     }
   }
+
   .players.player7 .player-chip {
     bottom: inherit;
     left: inherit;
@@ -4204,21 +4677,25 @@ ul.btn-list > li > button > img {
     top: -10%;
     transform: translateY(-25%);
   }
+
   .animateMerge-chips.players.player7 .player-chip {
     animation: mergeP7 0.4s;
   }
+
   @keyframes mergeP7 {
     from {
       top: -10%;
       left: inherit;
       opacity: 1;
     }
+
     to {
       right: 125%;
       top: 161%;
       opacity: 0;
     }
   }
+
   .players.player8 .player-chip {
     top: -12%;
     bottom: inherit;
@@ -4226,48 +4703,57 @@ ul.btn-list > li > button > img {
     right: inherit;
     animation: slideRight8 0.4s;
   }
+
   .animateMerge-chips.players.player8 .player-chip {
     animation: mergeP8 0.4s;
   }
+
   @keyframes mergeP8 {
     from {
       top: -12%;
       left: inherit;
       opacity: 1;
     }
+
     to {
       top: 35%;
       left: -142%;
       opacity: 0;
     }
   }
+
   @keyframes slideRight8 {
     from {
       bottom: inherit;
       left: inherit;
       top: 75%;
     }
+
     to {
       bottom: inherit;
       left: inherit;
       top: -12%;
     }
   }
+
   .players.player9 .player-chip {
     left: inherit;
     top: -12%;
     right: inherit;
     animation: slideLeft3 0.4s;
   }
+
   .animateMerge-chips.players.player9 .player-chip {
     animation: mergeP9 0.4s;
   }
+
   @keyframes mergeP9 {
     from {
       top: -12%;
       left: inherit;
       opacity: 1;
     }
+
     to {
       top: -87%;
       left: -150%;
@@ -4280,6 +4766,7 @@ ul.btn-list > li > button > img {
     transform: inherit;
     animation: travelUp 0.4s;
   }
+
   .players.player10 .player-chip {
     /* top: -80px; */
     left: inherit;
@@ -4288,6 +4775,7 @@ ul.btn-list > li > button > img {
     right: inherit;
     animation: travelUp 0.4s;
   }
+
   .animateMerge-chips.players.player10 .player-chip {
     animation: mergeP10 0.4s;
   }
@@ -4298,26 +4786,31 @@ ul.btn-list > li > button > img {
       left: inherit;
       opacity: 1;
     }
+
     to {
       left: -153%;
       top: -212%;
       opacity: 0;
     }
   }
+
   @keyframes travelUp {
     from {
       top: 75%;
       transform: inherit;
     }
+
     to {
       top: -12%;
       transform: inherit;
     }
   }
+
   .start-game-btn .footer-btn {
     width: 110px;
     height: 43px;
   }
+
   .winner-player:after {
     opacity: 0.5;
     filter: blur(8vw);
@@ -4348,6 +4841,7 @@ ul.btn-list > li > button > img {
     top: 24%;
     left: -2%;
   }
+
   .player-count-4 .animateMerge-chips.players.player5 .player-chip {
     animation: mergeC4P5 0.4s;
   }
@@ -4358,16 +4852,19 @@ ul.btn-list > li > button > img {
       top: -10%;
       opacity: 1;
     }
+
     to {
       left: 150%;
       top: 18%;
       opacity: 0;
     }
   }
+
   .player-count-4 .player7 {
     top: 24%;
     right: -2%;
   }
+
   .player-count-4 .animateMerge-chips.players.player7 .player-chip {
     animation: mergeC4P7 0.4s;
   }
@@ -4378,6 +4875,7 @@ ul.btn-list > li > button > img {
       top: -10%;
       opacity: 1;
     }
+
     to {
       right: 146%;
       top: 18%;
@@ -4388,11 +4886,38 @@ ul.btn-list > li > button > img {
   /***************** When 6 players in Game ******************/
   .player-action {
     bottom: 122%;
+    animation-name: bottomFadeOut;
+    animation-delay: 5ms;
+    animation-duration: 3s;
+    text-transform: capitalize;
+    z-index: 9999999;
   }
+
+  @keyframes bottomFadeOut {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      bottom: 122%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
   .player-count-6 .player2 {
     /* bottom: 45%; */
     bottom: 18%;
   }
+
   .player-count-6 .animateMerge-chips.players.player2 .player-chip {
     animation: mergeC6P2 0.4s;
   }
@@ -4403,6 +4928,7 @@ ul.btn-list > li > button > img {
       left: 0%;
       opacity: 1;
     }
+
     to {
       top: -160%;
       left: 158%;
@@ -4414,6 +4940,7 @@ ul.btn-list > li > button > img {
     /* bottom: 45%; */
     bottom: 18%;
   }
+
   .player-count-6 .animateMerge-chips.players.player10 .player-chip {
     animation: mergeC6P10 0.4s;
   }
@@ -4424,15 +4951,18 @@ ul.btn-list > li > button > img {
       top: -12%;
       opacity: 1;
     }
+
     to {
       left: -155%;
       top: -160%;
       opacity: 0;
     }
   }
+
   .player-count-6 .player5 {
     top: 15%;
   }
+
   .player-count-6 .animateMerge-chips.players.player5 .player-chip {
     animation: mergeC6P5 0.4s;
   }
@@ -4443,15 +4973,18 @@ ul.btn-list > li > button > img {
       top: -10%;
       opacity: 1;
     }
+
     to {
       left: 128%;
       top: 64%;
       opacity: 0;
     }
   }
+
   .player-count-6 .player7 {
     top: 15%;
   }
+
   .player-count-6 .animateMerge-chips.players.player7 .player-chip {
     animation: mergeC6P7 0.4s;
   }
@@ -4462,6 +4995,7 @@ ul.btn-list > li > button > img {
       top: -10%;
       opacity: 1;
     }
+
     to {
       left: -128%;
       top: 65%;
@@ -4473,6 +5007,7 @@ ul.btn-list > li > button > img {
 .chips-images img {
   height: 30px;
 }
+
 .chips-images {
   display: flex;
   justify-content: center;
