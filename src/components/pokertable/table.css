@@ -1,17 +1,17 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css";
 
 *::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 
 /* Track */
 *::-webkit-scrollbar-track {
-  background: #525252;
+  background: rgb(29, 29, 29);
 }
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: rgb(29, 29, 29);
+  background: #424242;
 }
 
 .poker {
@@ -106,7 +106,8 @@
 }
 
 .table-card .winner-card {
-  width: 65px;
+  /* width: 65px; */
+  width: 58px;
 }
 
 /* .table-card .winner-card {
@@ -874,7 +875,7 @@
 .footer-btn .btn:focus {
   background: transparent;
   color: #fff;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 15px;
   border: none;
   outline: none;
@@ -1185,57 +1186,6 @@
   z-index: -1;
 }
 
-.bet-view {
-  display: flex;
-  position: absolute;
-  top: -55px;
-  left: 32%;
-  background: #1f2432;
-  padding: 10px;
-  border-radius: 30px;
-  padding-right: 25px;
-  z-index: 99999999;
-}
-
-.close-bet {
-  position: absolute;
-  right: 13px;
-  color: #c8c8c8;
-  cursor: pointer;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.bet-view span {
-  background: #f9ff00;
-  border-radius: 30px;
-  min-width: 55px;
-  padding: 1px 5px;
-  margin: 0px 5px;
-  color: #361302;
-  border-top: 2px solid #ffff42;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.5s;
-  font-weight: 600;
-}
-
-.bet-view span:hover {
-  background: #f9ff00;
-}
-
-.bet-view::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 15px solid #1f2432;
-  position: absolute;
-  bottom: -10px;
-  left: 15px;
-}
-
 .game-msg {
   position: absolute;
   top: 10%;
@@ -1316,8 +1266,8 @@
 
 /**** Winner Animation *******/
 
-.pyro>.before,
-.pyro>.after {
+.pyro > .before,
+.pyro > .after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1342,7 +1292,7 @@
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro>.after {
+.pyro > .after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -1566,7 +1516,6 @@
 }
 
 @-webkit-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1599,7 +1548,6 @@
 }
 
 @-moz-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1632,7 +1580,6 @@
 }
 
 @-o-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1665,7 +1612,6 @@
 }
 
 @-ms-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1698,7 +1644,6 @@
 }
 
 @keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1770,7 +1715,7 @@
 
 .custom-toaster .btn-primary:not(:disabled):not(.disabled).active,
 .custom-toaster .btn-primary:not(:disabled):not(.disabled):active,
-.custom-toaster .show>.btn-primary.dropdown-toggle {
+.custom-toaster .show > .btn-primary.dropdown-toggle {
   background-color: transparent;
   border-color: transparent;
 }
@@ -1809,7 +1754,6 @@
 }
 
 @keyframes shake {
-
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
@@ -2036,8 +1980,10 @@ p.joined-player {
 }
 
 .flip-vertical-left {
-  -webkit-animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  -webkit-animation: flip-vertical-left 0.8s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
 }
 
 @-webkit-keyframes flip-vertical-left {
@@ -2066,19 +2012,19 @@ p.joined-player {
 
 /************* Flip *******************/
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-duration: 0.5s;
   transition-property: transform, opacity;
 }
 
-.flip>.front {
+.flip > .front {
   transform: rotateY(0deg);
 }
 
-.flip>.back {
+.flip > .back {
   position: absolute;
   opacity: 0;
   top: 0px;
@@ -2088,12 +2034,12 @@ p.joined-player {
   transform: rotateY(-180deg);
 }
 
-.flip.active>.front {
+.flip.active > .front {
   transform: rotateY(180deg);
   opacity: 0;
 }
 
-.flip.active>.back {
+.flip.active > .back {
   opacity: 1;
   transform: rotateY(0deg);
 }
@@ -2104,18 +2050,18 @@ p.joined-player {
   width: 60px;
 }
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   width: 60px;
   height: 84px;
 }
 
-.tooltip-box>p {
+.tooltip-box > p {
   margin-bottom: 5px;
 }
 
-.tooltip-box>p:last-child {
+.tooltip-box > p:last-child {
   margin-bottom: 0;
 }
 
@@ -2565,15 +2511,15 @@ ul.btn-list {
   margin: 0;
 }
 
-ul.btn-list>li:first-child {
+ul.btn-list > li:first-child {
   display: none;
 }
 
-ul.btn-list>li {
+ul.btn-list > li {
   padding: 2px 0;
 }
 
-ul.btn-list>li>button {
+ul.btn-list > li > button {
   border-radius: 20px;
   padding: 5px 10px;
   width: 40px;
@@ -2589,7 +2535,7 @@ ul.btn-list>li>button {
   border: none;
 }
 
-ul.btn-list>li span.close-icon {
+ul.btn-list > li span.close-icon {
   position: absolute;
   right: 10px;
   top: -30px;
@@ -2610,7 +2556,7 @@ ul.btn-list>li span.close-icon {
   z-index: 999999 !important;
 }
 
-ul.btn-list>li>button>img {
+ul.btn-list > li > button > img {
   width: 18px;
   height: 18px;
   object-fit: cover;
@@ -2625,7 +2571,7 @@ ul.btn-list>li>button>img {
   background: transparent;
 }
 
-.poker-bg .poker-loader>img {
+.poker-bg .poker-loader > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -2639,7 +2585,7 @@ ul.btn-list>li>button>img {
   background-color: #a89319;
 }
 
-.abc>div {
+.abc > div {
   z-index: 99999999 !important;
 }
 
@@ -2748,7 +2694,7 @@ ul.btn-list>li>button>img {
   margin-bottom: 15px;
 }
 
-.player-box .pyro>div {
+.player-box .pyro > div {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -2808,7 +2754,7 @@ ul.btn-list>li>button>img {
   color: #16181b;
 }
 
-.cam-tool .show>.btn-success.dropdown-toggle {
+.cam-tool .show > .btn-success.dropdown-toggle {
   background: transparent !important;
 }
 
@@ -2989,6 +2935,17 @@ ul.btn-list>li>button>img {
   transition: 2s ease 0s;
 }
 
+/* coin Winning animation */
+
+img.coinWinning-animation {
+  position: absolute;
+  width: 175px;
+  transform: translate(-50%, -50%);
+  /* top: 50%; */
+  top: 60%;
+  z-index: 9999;
+}
+
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -3103,6 +3060,10 @@ ul.btn-list>li>button>img {
   .pyro {
     scale: 0.8;
   }
+  img.coinWinning-animation {
+    position: absolute;
+    width: 140px;
+  }
 
   .player1 .player-timer div {
     width: 120px !important;
@@ -3111,7 +3072,7 @@ ul.btn-list>li>button>img {
     top: 1px;
   }
 
-  .player-timer div>svg {
+  .player-timer div > svg {
     width: 100px !important;
     height: 100px !important;
   }
@@ -3314,7 +3275,7 @@ ul.btn-list>li>button>img {
 }
 
 @media screen and (max-width: 768px) {
-  input:checked+.slider:before {
+  input:checked + .slider:before {
     transform: translateX(115px);
   }
 
@@ -3377,11 +3338,13 @@ ul.btn-list>li>button>img {
 /************************************************************ Landscape ***********************************************************/
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
-
   .poker-bg {
     height: 100vh;
   }
-
+  img.coinWinning-animation {
+    position: absolute;
+    width: 120px;
+  }
   .player-action {
     bottom: 108%;
     animation-name: bottomFadeOut;
@@ -3435,7 +3398,7 @@ ul.btn-list>li>button>img {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -3453,26 +3416,6 @@ ul.btn-list>li>button>img {
   .chat-wrapper {
     right: 10px;
     bottom: -42px;
-  }
-
-  .bet-view {
-    top: -40px;
-    left: -135px;
-    padding: 6px 2px;
-    padding-right: 25px;
-    /* transform: translateX(-50%);*/
-    z-index: 99999999;
-  }
-
-  .bet-view::before {
-    left: 166px;
-  }
-
-  .bet-view span {
-    min-width: 40px;
-    padding: 0 5px;
-    margin: 0 4px;
-    font-size: 10px;
   }
 
   .poker-logo img {
@@ -3779,7 +3722,7 @@ ul.btn-list>li>button>img {
     top: inherit;
   } */
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -3788,7 +3731,7 @@ ul.btn-list>li>button>img {
     line-height: 32px;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -3801,7 +3744,7 @@ ul.btn-list>li>button>img {
     width: 30px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -3988,7 +3931,6 @@ ul.btn-list>li>button>img {
     from {
       left: 0%;
       top: 75%;
-
     }
 
     to {
@@ -4122,6 +4064,10 @@ ul.btn-list>li>button>img {
     min-width: 9rem;
     margin-top: 10px !important;
   }
+  img.coinWinning-animation {
+    position: absolute;
+    width: 120px;
+  }
 
   .player-with-icons {
     max-width: 150px;
@@ -4184,7 +4130,7 @@ ul.btn-list>li>button>img {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -4201,26 +4147,6 @@ ul.btn-list>li>button>img {
 
   .chat-wrapper {
     right: 10px;
-  }
-
-  .bet-view {
-    top: -40px;
-    left: -135px;
-    padding: 6px 2px;
-    padding-right: 25px;
-    /* transform: translateX(-50%);*/
-    z-index: 99999999;
-  }
-
-  .bet-view::before {
-    left: 166px;
-  }
-
-  .bet-view span {
-    min-width: 40px;
-    padding: 0 5px;
-    margin: 0 4px;
-    font-size: 10px;
   }
 
   .poker-logo img {
@@ -4258,7 +4184,8 @@ ul.btn-list>li>button>img {
   }
 
   .footer-button {
-    bottom: 15px;
+    /* bottom: 5px; */
+    bottom: 0px;
   }
 
   .poker .container {
@@ -4454,7 +4381,7 @@ ul.btn-list>li>button>img {
     display: none !important;
   }
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -4463,7 +4390,7 @@ ul.btn-list>li>button>img {
     line-height: 32px;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -4476,7 +4403,7 @@ ul.btn-list>li>button>img {
     width: 30px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -5015,4 +4942,15 @@ ul.btn-list>li>button>img {
   position: absolute;
   bottom: -2px;
   left: -6px;
+}
+.player-pic .fa-commenting {
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  font-family: "FontAwesome";
+}
+.players.player1 .player-pic .fa-commenting {
+  position: absolute;
+  right: 5%;
+  top: 56%;
 }
