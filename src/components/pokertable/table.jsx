@@ -2308,30 +2308,29 @@ const Players = ({
           {/************ player PIC avtaar  **********/}
 
           <div
-            className="player-pic"
+            className='player-pic'
             style={{
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          >
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+            }}>
             {currentPlayer &&
               playerData &&
               currentPlayer.id === playerData.id && (
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
             <img src={playerData?.photoURI} alt="" />
-            <div
-              className="comment-btn"
-              // onClick={() => {
-              //   handleClick(!open);
-              //   setBtnToggle(!btnToggle);
-              // }}
+           {/* <div
+              className="comment-btn" 
+             onClick={() => { 
+               handleClick(!open);
+                setBtnToggle(!btnToggle);
+              }}
             >
-              {/* <i className="fa fa-commenting" aria-hidden="true" /> */}
-            </div>
+           <i className="fa fa-commenting" aria-hidden="true" /> 
+            </div> */}
           </div>
-          <div className="player-info">
+          <div className='player-info'>
             <h4>
               {playerData && playerData?.name?.length > 8
                 ? playerData?.name?.substring(0, 8) + ".."
@@ -2512,13 +2511,13 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
-          const cards =
-            require(`../../assets/cards/${card.toUpperCase()}.svg`).default;
+          // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
             <img
               key={`item-${i}`}
-              src={cards ? cards : back}
-              alt="card"
+              // src={cards ? cards : back }
+              src={card ? `/cards/${card.toUpperCase()}.svg` : back}
+              alt='card'
               className={`${
                 winner && matchCards.findIndex((ele) => ele === i) !== -1
                   ? `winner-card`
@@ -2819,16 +2818,16 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
 
 const HideCard = () => {
   return (
-    <div className="player-card">
+    <div className='player-card'>
       <img
         src={front}
-        alt="card"
-        className="animate__animated animate__rollIn duration-0"
+        alt='card'
+        className='animate__animated animate__rollIn duration-0'
       />
       <img
         src={back}
-        alt="card"
-        className="animate__animated animate__rollIn duration-1"
+        alt='card'
+        className='animate__animated animate__rollIn duration-1'
       />
     </div>
   );
@@ -2841,10 +2840,11 @@ const ShowCard = ({ cards, handMatch }) => {
         cards.map((card, i) => (
           <img
             key={`item-${card}`}
-            src={
-              require(`../../assets/cards/${card.toUpperCase()}.svg`).default
-            }
-            alt="card"
+            // src={
+            //   require(`../../assets/cards/${card.toUpperCase()}.svg`).default
+            // }
+            src={`/cards/${card.toUpperCase()}.svg`}
+            alt='card'
             className={`animate__animated animate__rollIn duration-${i} ${
               handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
@@ -3035,8 +3035,8 @@ const TimerSeparator = ({ time, remainingTime }) => {
     //   />
     // </div>
     <ProgressBar
-      width="100%"
-      height="100%"
+      width='100%'
+      height='100%'
       // height="80%"
       rect
       fontColor="gray"
