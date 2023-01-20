@@ -11,10 +11,14 @@
 }
 
 .avatars {
-  direction: rtl; /* This is to get the stack with left on top */
-  text-align: left; /* Now need to explitly align left */
-  padding-left: 15px; /* Same value as the negative margin */
+  direction: rtl;
+  /* This is to get the stack with left on top */
+  text-align: left;
+  /* Now need to explitly align left */
+  padding-left: 15px;
+  /* Same value as the negative margin */
 }
+
 .poker-loader {
   position: absolute;
   background: #000000f5;
@@ -107,7 +111,7 @@
   justify-content: space-between;
 }
 
-.user-info-box p {
+.user-info-box .pokerWallet-box {
   margin: 0;
   font-weight: 100;
   color: #bcbcbc;
@@ -120,11 +124,15 @@
   border-radius: 8px;
   font-weight: 500;
   border: 1px solid #f9ff00;
+  height: 42px;
+  width: 152px;
 }
+
 .backtoHome {
   position: absolute;
   top: -45px;
 }
+
 .backtoHome a {
   font-size: 18px;
   color: #ffffff;
@@ -132,6 +140,7 @@
   align-items: center;
   gap: 6px;
 }
+
 .backtoHome a img {
   width: 22px;
   height: 22px;
@@ -144,10 +153,17 @@
 
 .create-game-box {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 .user-info-box {
+  display: flex;
+  flex-direction: row;
   padding-right: 20px;
+  gap: 15px;
+  align-items: center;
 }
 
 .user-info-box h5 {
@@ -156,6 +172,7 @@
   margin: 0;
   padding-bottom: 3px;
 }
+
 .user-info-box p i {
   color: #f9ff00;
 }
@@ -174,6 +191,7 @@
   border-top: 1px solid #363636;
   align-items: center;
 }
+
 .casino-popup .modal-header .modal-title.h4 {
   color: #fff !important;
 }
@@ -198,6 +216,7 @@
 .casino-popup .form-control::placeholder {
   color: #ddd;
 }
+
 .casino-popup .form-group {
   margin-bottom: 25px;
 }
@@ -219,11 +238,13 @@
   border-color: #4e555b !important;
   color: #fff !important;
 }
+
 .blindpopupField {
   display: flex;
   flex-direction: row;
   gap: 30px;
 }
+
 .css-1rhbuit-multiValue {
   background-color: hsl(0deg 0% 16%) !important;
   border-radius: 2px;
@@ -236,9 +257,11 @@
   color: #fff;
   box-sizing: border-box;
 }
+
 .css-12jo7m5 {
   color: #fff !important;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -250,12 +273,14 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 .createGameCheckHand {
   margin-top: 8px;
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
+
 .createGameCheckHand .form-check-input {
   background-color: yellow !important;
 }
@@ -277,30 +302,67 @@ input[type="number"] {
   font-size: 30px;
 }
 
+.walletTicket-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.walletTicket-box .pokerWallet {
+  width: 38px;
+  height: 26px;
+  object-fit: contain;
+  margin: 0px 5px;
+}
+
+.pokerWallet-box button {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0px 0px 4px 4px;
+  padding: 0 !important;
+  font-size: 12px;
+}
+
 @media screen and (max-width: 767px) {
   .home-poker-card-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .user-header-grid {
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
   }
+
   .create-game-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    grid-row-gap: 12px;
+    row-gap: 12px;
+    align-items: center;
     width: 100%;
-    justify-content: space-between;
-    padding: 10px 0px;
+  }
+
+  .create-game-box h5 {
+    display: grid;
+    grid-column-end: 3;
+    grid-column-start: 1;
+    text-align: center;
   }
 }
 
 .css-12jo7m5 {
   font-size: 14px !important;
 }
+
 @media screen and (max-width: 480px) {
   .no-room-available h4 {
     font-size: 20px;
   }
+
   .create-game-box button {
     font-size: 14px;
   }
