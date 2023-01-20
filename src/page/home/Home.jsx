@@ -16,6 +16,12 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { useMemo } from 'react';
+import numFormatter from '../../utils/utils';
+import token from "../../assets/coin.png"
+import tickets from "../../assets/tickets.png"
+import { OverlayTrigger } from 'react-bootstrap';
+import { Tooltip } from 'react-bootstrap';
+import { FaQuestionCircle } from 'react-icons/fa';
 
 const Home = () => {
   // inital state
@@ -85,7 +91,7 @@ const Home = () => {
     //   err.maxchips = 'Please enter amount for big blind.';
     //   valid = false;
     // }
-     else if (
+    else if (
       parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)
     ) {
       err.maxchips = 'Big blind amount cant be less then small blind';
@@ -142,7 +148,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get('/rooms');
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -153,7 +159,16 @@ const Home = () => {
       }),
     [allUsers]
   );
-
+  const renderWallet = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      This is your token balance, and can be used for betting.
+    </Tooltip>
+  );
+  const renderTicket = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      This is your ticket balance and can be redeemed for prizes.
+    </Tooltip>
+  );
   return (
     <div className='poker-home'>
       {loader && (
@@ -181,12 +196,34 @@ const Home = () => {
               </a>
             </div>
             <div className='create-game-box'>
-              <div className='user-info-box'>
-                <h5>{userData?.username}</h5>
-                <p>
-                  <i className='fa fa-wallet' />{' '}
-                  <span>{userData?.wallet || 0}</span>
-                </p>
+              <h5>{userData?.username}</h5>
+              <div className="walletTicket-box">
+                <div className='pokerWallet-box'>
+                  <img src={token} alt="" className='pokerWallet' />
+                  <span>{numFormatter(userData?.wallet || 0)}</span>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderWallet}
+                  >
+                    <Button variant="success">
+                      <FaQuestionCircle />
+                    </Button>
+                  </OverlayTrigger>
+                </div>
+                <div className='pokerWallet-box'>
+                  <img src={tickets} alt="" className='pokerWallet' />
+                  <span>{numFormatter(userData?.wallet || 0)}</span>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTicket}
+                  >
+                    <Button variant="success">
+                      <FaQuestionCircle />
+                    </Button>
+                  </OverlayTrigger>
+                </div>
               </div>
               <button type='button' onClick={handleShow}>
                 Create Game
