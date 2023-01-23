@@ -1779,7 +1779,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sit out</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Stood up</Tooltip>}
                 >
                   <button onClick={() => sitout()}>
                     <img src={situp} alt="sit-in" />
@@ -1790,7 +1790,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sit in</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Sat down</Tooltip>}
                 >
                   <button onClick={() => sitin()}>
                     <img src={sitdown} alt="sit-out" />

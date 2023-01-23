@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import userUtils from '../../utils/user';
 import loaderImg from '../../assets/chat/loader1.webp';
 import casino from '../../assets/game/placeholder.png';
-import logo from '../../assets/game/logo-poker.png';
+import logo from '../../assets/game/logo.png';
 import { pokerInstance } from '../../utils/axios.config';
 import CONSTANTS from '../../config/contants';
 import Homesvg from '../../assets/home.svg';
