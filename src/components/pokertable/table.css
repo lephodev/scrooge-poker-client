@@ -5016,6 +5016,9 @@ img.coinWinning-animation {
   .start-game-btn button {
     color: rgb(255, 255, 255) !important;
   }
+  .walletTicket-box button{
+    color: rgb(255, 255, 255) !important;
+  }
 
   .create-game-box button {
     color: rgb(0, 0, 0) !important;
