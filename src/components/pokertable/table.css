@@ -5032,4 +5032,8 @@ img.coinWinning-animation {
   .home-poker-info button {
     color: rgb(0, 0, 0) !important;
   }
+
+  .no-room-available button {
+    color: rgb(0, 0, 0) !important;
+  }
 }
