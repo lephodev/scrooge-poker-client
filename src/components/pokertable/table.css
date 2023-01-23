@@ -4971,20 +4971,31 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
-  button {
-    color: #000 !important;
-  }
-
   .show-card {
     display: grid;
     grid-template-columns: repeat(2, minmax(40px, 1fr));
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    /* top: -70px; */
-    top: 14px;
+    top: 10px;
     padding-right: 12px;
     z-index: -1;
+  }
+
+  .player-card img:first-child {
+    transform: rotateZ(-15deg) !important;
+  }
+
+  .player-card img:last-child {
+    transform: rotateZ(15deg) !important;
+  }
+
+  .show-card img:first-child {
+    transform: rotateZ(-15deg) !important;
+  }
+
+  .show-card img:last-child {
+    transform: rotateZ(15deg) !important;
   }
 
   .player-card {
@@ -4993,9 +5004,18 @@ img.coinWinning-animation {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    /* top: -70px; */
-    top: 14px;
+    top: 10px;
     padding-right: 12px;
     z-index: -1;
+  }
+
+  .start-game-btn button {
+    color: rgb(255, 255, 255) !important;
+  }
+  .create-game-box button {
+    color: rgb(0, 0, 0) !important;
+  }
+  .home-poker-infobutton {
+    color: rgb(0, 0, 0) !important;
   }
 }
