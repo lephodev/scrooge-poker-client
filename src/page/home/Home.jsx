@@ -225,7 +225,7 @@ const Home = () => {
                   </OverlayTrigger>
                 </div>
               </div>
-              <button type='button' onClick={handleShow}>
+              <button type='button' className='create-game-boxBtn' onClick={handleShow}>
                 Create Game
               </button>
             </div>
