@@ -22,6 +22,7 @@
 .chat-header .close-icon i {
   font-size: 20px;
 }
+
 .chat-header .close-icon {
   width: 40px;
   height: 40px;
@@ -114,6 +115,7 @@ i.fa.fa-sign-out {
   margin: 0px auto;
   display: block;
 }
+
 .chat-search.chat-input {
   border-bottom: none;
   padding: 5px 0px 10px;
@@ -168,9 +170,11 @@ span.msg-limit {
   transition: all 0.3s ease;
   /* animation: expandHistory 0.3s ease; */
 }
+
 .chatHistory-Container.expand {
   left: 0%;
 }
+
 .chatHistory-header {
   position: relative;
   padding: 8px 10px;
@@ -180,9 +184,11 @@ span.msg-limit {
   justify-content: space-between;
   border-bottom: 1px solid #525252;
 }
+
 .chatHistory-header .Chatgame-logo {
   width: 66px;
 }
+
 .Chatgame-title {
   /* margin-top: 10px; */
   /* box-shadow: 0px 2px 6px rgb(165 165 0); */
@@ -191,6 +197,7 @@ span.msg-limit {
   font-size: 18px;
   font-weight: 700;
 }
+
 .Gameplayer-count {
   display: flex;
   gap: 5px;
@@ -198,12 +205,14 @@ span.msg-limit {
   align-items: center;
   margin-top: 10px;
 }
+
 .Gameplayer-count .greendot {
   background-color: rgb(0, 220, 0);
   width: 10px;
   height: 10px;
   border-radius: 50%;
 }
+
 .Gameplayer-count h4 {
   display: flex;
   gap: 5px;
@@ -212,6 +221,7 @@ span.msg-limit {
   margin-bottom: 0px;
   color: rgb(141, 141, 141);
 }
+
 .Gameplayer-count h3 {
   font-size: 12px;
   color: #fff;
@@ -228,24 +238,29 @@ span.msg-limit {
   border-bottom: 1px solid #525252;
   background-color: rgba(34, 34, 34, 0.773);
 }
+
 .playerComment-box.playerSelfMssg {
   background: #0a0808;
   /* flex-direction: row-reverse; */
 }
+
 .chatHistory-comments {
   height: calc(100% - 54px);
   overflow-y: auto;
 }
+
 .playerAvtar img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+
 .playerName {
   margin-top: 4px;
   font-size: 14px;
   font-weight: 600;
 }
+
 .playerMssgtoDisplay p {
   font-size: 11px;
   font-weight: 400;
@@ -254,9 +269,11 @@ span.msg-limit {
   word-break: break-all;
   margin-top: 4px;
 }
+
 .chatHistory-header .hamburger {
   height: 30px;
 }
+
 .chatHistory-header .hamburger .line {
   width: 20px;
   height: 2px;
@@ -264,13 +281,16 @@ span.msg-limit {
   margin: 5px auto;
   transition: all 0.3s ease;
 }
+
 .chatHistory-header .hamburger:hover {
   cursor: pointer;
 }
+
 .hamburger .line:nth-child(1),
 .hamburger .line:nth-child(2) {
   width: 14px;
 }
+
 .hamburger .line:nth-child(1) {
   transform: translateY(10px) rotate(45deg);
 }
@@ -278,10 +298,12 @@ span.msg-limit {
 .hamburger .line:nth-child(2) {
   transform: translateY(3px) rotate(-45deg);
 }
+
 .chatHistory-icon img {
   width: 40px;
   height: 40px;
 }
+
 .containerFor-chatHistory {
   position: fixed;
   bottom: 2%;
@@ -292,52 +314,63 @@ span.msg-limit {
   border-radius: 50%;
 }
 
-@media screen and ((max-width: 1024px)) {
+@media screen and (max-width: 1024px) {
   .advaceActionBtn-container .form-check-input {
     width: 10px;
     height: 10px;
   }
+
   .advaceActionBtn-container .form-check-label {
     margin-top: 4px;
     font-size: 10px;
   }
+
   .advaceActionBtn-container .form-check-input:checked {
     background-color: #c05454 !important;
     border: 2px solid #ddd;
   }
+
   .playerMssgtoDisplay p {
     font-size: 10px;
     font-weight: 300;
   }
+
   .playerName {
     margin-top: 4px;
     font-size: 12px;
     font-weight: 500;
   }
+
   .playerAvtar img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
   }
+
   .Chatgame-title {
     font-size: 14px;
     font-weight: 600;
   }
+
   .Chatgame-title {
     scale: 0.9;
   }
+
   .chatHistory-Container {
     position: fixed;
     top: 0%;
     left: calc(0% - 250px);
     width: 250px;
   }
+
   .playerComment-box {
     gap: 6px;
   }
+
   .Gameplayer-count {
     margin-top: 8px;
   }
+
   .chatHistory-comments {
     height: calc(100% - 48px);
     overflow-y: auto;

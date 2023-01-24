@@ -52,7 +52,7 @@ const Home = () => {
       setGameState({ ...gameState, [name]: e.target.checked });
     } else if (name === 'gameName') {
       if (value.length <= 20) {
-        setGameState({ ...gameState, [name]: value.trim() });
+        setGameState({ ...gameState, [name]: value});
         setErrors({
           ...errors,
           gameName: '',
@@ -64,7 +64,7 @@ const Home = () => {
         });
       }
     } else {
-      setGameState({ ...gameState, [name]: value.trim() });
+      setGameState({ ...gameState, [name]: value });
     }
   };
   const handleChnageInviteUsers = (selectedOptions) => {
@@ -354,7 +354,7 @@ const CreateTable = ({
       </Modal.Header>
       <Modal.Body>
         <Form.Group className='form-group' controlId='formPlaintextPassword'>
-          <Form.Label>Enter Host name</Form.Label>
+          <Form.Label>Enter Table name</Form.Label>
           <Form.Control
             name='gameName'
             type='text'
