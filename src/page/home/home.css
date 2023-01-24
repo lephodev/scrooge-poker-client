@@ -38,9 +38,9 @@
 
 .home-poker-card-grid {
   display: grid;
-  grid-gap: 30px;
-  gap: 30px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 20px;
+  row-gap: 30px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .home-poker-content {
@@ -56,7 +56,7 @@
 }
 
 .home-poker-info {
-  padding: 20px;
+  padding: 10px 15px;
 }
 
 .home-poker-info h4 {
@@ -68,7 +68,7 @@
 
 .home-poker-info button {
   width: 100%;
-  padding: 10px 20px;
+  padding: 6px 15px;
   background: #f9ff00;
   border-radius: 8px;
   font-weight: 500;
@@ -148,7 +148,7 @@
 }
 
 .casino-logo img {
-    width: 150px;
+  width: 150px;
 }
 
 .create-game-box {
@@ -326,9 +326,23 @@ input[type="number"] {
   font-size: 12px;
 }
 
+@media screen and (max-width: 1200px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-poker-card-grid {
+    display: grid;
+    column-gap: 15px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+}
+
 @media screen and (max-width: 767px) {
   .home-poker-card-grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .user-header-grid {
@@ -356,6 +370,12 @@ input[type="number"] {
 
 .css-12jo7m5 {
   font-size: 14px !important;
+}
+
+@media screen and (max-width: 530px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media screen and (max-width: 480px) {
