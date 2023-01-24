@@ -31,6 +31,7 @@ const Home = () => {
     minchips: '',
     maxchips: '',
     autohand: false,
+    sitInAmount: '',
     invitedUsers: [],
   };
 
@@ -87,6 +88,22 @@ const Home = () => {
         `Minimum bet can't be less then or equal to ` + mimimumBet + '.';
       valid = false;
     }
+
+    if (!gameState.sitInAmount) {
+      err.sitInAmount = `Sit in amount is required.`;
+      valid = false;
+    }
+
+    if (parseFloat(gameState.sitInAmount) < 100) {
+      err.sitInAmount = `Minimum sit in amount is 100.`;
+      valid = false;
+    }
+
+    if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
+      err.sitInAmount = `You don't have enough balance.`;
+      valid = false;
+    }
+
     //  else if (!gameState.maxchips) {
     //   err.maxchips = 'Please enter amount for big blind.';
     //   valid = false;
@@ -111,7 +128,7 @@ const Home = () => {
       return;
     }
     try {
-      const resp = await pokerInstance().post('/createTable', gameState);
+      const resp = await pokerInstance().post('/createTable', { ...gameState, sitInAmount: parseInt(gameState.sitInAmount) });
       setGameState({ ...gameInit });
       history.push({
         pathname: '/table',
@@ -136,7 +153,7 @@ const Home = () => {
     (async () => {
       const data = await userUtils.getAuthUserData();
       if (!data.success) {
-        return (window.location.href = `${CONSTANTS.landingClient}`);
+        return (window.location.href = `${ CONSTANTS.landingClient }`);
       }
       setLoader(false);
       setUserData({ ...data.data.user });
@@ -370,6 +387,20 @@ const CreateTable = ({
           className='form-group blindpopupField'
           controlId='formPlaintextPassword'>
           <div>
+            <Form.Label>Sit in amount</Form.Label>
+            <Form.Control
+              name='sitInAmount'
+              onChange={handleChange}
+              value={values.sitInAmount}
+              type='number'
+              placeholder='Ex : 50'
+            />
+            {!!errors?.sitInAmount && (
+              <p className='text-danger'>{errors?.sitInAmount}</p>
+            )}
+          </div>
+
+          <div>
             <Form.Label>Small Blind</Form.Label>
             <Form.Control
               name='minchips'
@@ -382,6 +413,7 @@ const CreateTable = ({
               <p className='text-danger'>{errors?.minchips}</p>
             )}
           </div>
+
           <div>
             <Form.Label>Big Blind</Form.Label>
             <Form.Control
