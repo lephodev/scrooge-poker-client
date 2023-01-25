@@ -72,6 +72,7 @@
   background: #f9ff00;
   border-radius: 8px;
   font-weight: 500;
+  font-size: 14px;
   border: 1px solid #f9ff00;
 }
 
@@ -344,7 +345,14 @@ input[type="number"] {
   .home-poker-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
+  .blindpopupField {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+  }
+  .casino-popup label {
+    font-size: 14px !important;
+  }
   .user-header-grid {
     flex-direction: column;
     justify-content: center;
