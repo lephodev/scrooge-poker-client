@@ -3140,7 +3140,7 @@ img.coinWinning-animation {
   .battery {
     width: 96px;
     height: 96px;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .player-info h4 {
