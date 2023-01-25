@@ -214,7 +214,7 @@
 .player-pic video {
   width: 106px;
   height: 106px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 100%;
   position: absolute;
   top: 50%;
@@ -238,8 +238,6 @@
   left: 50%;
   transform: translate(-50%, -51%);
   background-color: black;
-  position: absolute;
-  object-fit: cover;
 }
 
 .hide {
@@ -2217,8 +2215,9 @@ p.joined-player {
 .close-btn .btn,
 .close-btn .btn:hover,
 .close-btn .btn:focus {
-  background: #c73d3d;
-  border-color: #c73d3d;
+  background: #f9ff00;
+  color: #000 !important;
+  border-color: #f9ff00;
   font-weight: 400 !important;
   letter-spacing: 0.5px;
   font-size: 14px;
@@ -3140,7 +3139,7 @@ img.coinWinning-animation {
   .battery {
     width: 96px;
     height: 96px;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .player-info h4 {

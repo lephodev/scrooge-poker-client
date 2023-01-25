@@ -8,6 +8,7 @@
   left: -5px;
   margin-left: -15px;
   z-index: 1;
+  object-fit: cover;
 }
 
 .avatars {
@@ -98,6 +99,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 15px;
+  flex-wrap: wrap;
 }
 
 .user-header {
