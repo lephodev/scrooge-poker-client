@@ -261,7 +261,7 @@ const Home = () => {
 
           {pokerRooms.length > 0 ? (
             <>
-              <h3>Open Tables</h3>
+              <h3>Poker Open Tables</h3>
               <div className='home-poker-card-grid'>
                 {pokerRooms.map((el) => (
                   <GameTable data={el} />
