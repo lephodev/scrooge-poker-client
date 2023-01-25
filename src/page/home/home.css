@@ -9,6 +9,8 @@
   margin-left: -15px;
   z-index: 1;
   object-fit: cover;
+  width: 22px;
+  height: 22px;
 }
 
 .avatars {
@@ -340,21 +342,24 @@ input[type="number"] {
     display: grid;
     column-gap: 15px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-}
+  }
 }
 
 @media screen and (max-width: 767px) {
   .home-poker-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
   .blindpopupField {
     display: flex;
     flex-direction: row;
     gap: 18px;
   }
+
   .casino-popup label {
     font-size: 14px !important;
   }
+
   .user-header-grid {
     flex-direction: column;
     justify-content: center;
