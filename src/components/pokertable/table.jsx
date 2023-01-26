@@ -14,7 +14,7 @@ import { socket } from "../../config/socketConnection";
 import accept from "../../assets/checked.png";
 import reject from "../../assets/close.png";
 import Chat from "../chat/chat";
-import winnerSound from "../../assets/Poker Sfx/winSoundPoker.aac";
+import winnerSound from "../../assets/Poker Sfx/winSoundPoker.mp3";
 import call from "../../assets/Poker Sfx/Chip Bet/bet.wav";
 import collect from "../../assets/Poker Sfx/Collect Chips/collect.wav";
 import check from "../../assets/Poker Sfx/Check/check.mp3";
