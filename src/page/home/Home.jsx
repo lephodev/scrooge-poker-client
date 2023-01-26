@@ -21,7 +21,7 @@ import token from "../../assets/coin.png"
 import tickets from "../../assets/tickets.png"
 import { OverlayTrigger } from 'react-bootstrap';
 import { Tooltip } from 'react-bootstrap';
-import { FaQuestionCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaSearch } from 'react-icons/fa';
 
 const Home = () => {
   // inital state
@@ -44,6 +44,7 @@ const Home = () => {
   const [pokerRooms, setPokerRooms] = useState([]);
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
+  const [search, setSearch] = useState("");
 
   // utils function
   const handleShow = () => setShow(!show);
@@ -53,7 +54,7 @@ const Home = () => {
       setGameState({ ...gameState, [name]: e.target.checked });
     } else if (name === 'gameName') {
       if (value.length <= 20) {
-        setGameState({ ...gameState, [name]: value});
+        setGameState({ ...gameState, [name]: value });
         setErrors({
           ...errors,
           gameName: '',
@@ -153,7 +154,7 @@ const Home = () => {
     (async () => {
       const data = await userUtils.getAuthUserData();
       if (!data.success) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       setLoader(false);
       setUserData({ ...data.data.user });
@@ -176,6 +177,10 @@ const Home = () => {
       }),
     [allUsers]
   );
+  const handleSearchChange = async (e) => {
+    setSearch(e.target.value);
+  };
+
   const renderWallet = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       This is your token balance, and can be used for betting.
@@ -190,7 +195,7 @@ const Home = () => {
     <div className='poker-home'>
       {loader && (
         <div className='poker-loader'>
-          <img src={loaderImg} alt='loader-Las vegas' />{' '}
+          <img src={loaderImg} alt='loader-Las vegas' />
         </div>
       )}
       <CreateTable
@@ -203,7 +208,6 @@ const Home = () => {
         options={options}
         handleChnageInviteUsers={handleChnageInviteUsers}
       />
-
       <div className='user-header'>
         <div className='container'>
           <div className='user-header-grid'>
@@ -213,7 +217,8 @@ const Home = () => {
               </a>
             </div>
             <div className='create-game-box'>
-              <h5>{userData?.username}</h5>
+              <div className='create-game-box-avtar'><img src={userData?.profile} alt="" />
+                <h5>{userData?.username}</h5></div>
               <div className="walletTicket-box">
                 <div className='pokerWallet-box'>
                   <img src={token} alt="" className='pokerWallet' />
@@ -258,10 +263,29 @@ const Home = () => {
               Home
             </a>
           </div>
-
           {pokerRooms.length > 0 ? (
             <>
-              <h3>Poker Open Tables</h3>
+              <div className='poker-table-header'>
+                <h3>Poker Open Tables</h3>
+                <div className="poker-tableSearch-box">
+                  <div className="poker-tableSearch">
+                    <input
+                      id="mySearchInput"
+                      className="form-control"
+                      type="text"
+                      name={search === "" ? "search" : ""}
+                      autoComplete="off"
+                      placeholder="Search in Tables.."
+                      onChange={handleSearchChange}
+                    />
+                    <button
+                    >
+                      <FaSearch />
+                    </button>
+                  </div>
+
+                </div>
+              </div>
               <div className='home-poker-card-grid'>
                 {pokerRooms.map((el) => (
                   <GameTable data={el} />
