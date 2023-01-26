@@ -273,7 +273,7 @@ const Home = () => {
                       id="mySearchInput"
                       className="form-control"
                       type="text"
-                      name="search"
+                      name={search === "" ? "search" : ""}
                       autoComplete="off"
                       placeholder="Search in Tables.."
                       onChange={handleSearchChange}
