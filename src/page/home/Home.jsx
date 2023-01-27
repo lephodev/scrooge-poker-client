@@ -155,7 +155,7 @@ const Home = () => {
     (async () => {
       const data = await userUtils.getAuthUserData();
       if (!data.success) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       setLoader(false);
       setUserData({ ...data.data.user });
@@ -266,19 +266,28 @@ const Home = () => {
 
       <div className="home-poker-card">
         <div className="container">
-          <div className="backtoHome">
-            <a href="https://scrooge.casino/">
-              <img src={Homesvg} alt="home" />
-              Home
-            </a>
-          </div>
+          <div className="poker-table-header">
+            <div className="backtoHome">
+              <a href="https://scrooge.casino/">
+                <img src={Homesvg} alt="home" />
+                Home
+              </a>
+            </div>
 
-          <div>
-            <input
-              value={searchText}
-              placeholder="Search your desire room"
-              onChange={(e) => setSearchText(e.target.value)}
-            />
+            <div className="poker-tableSearch-box">
+              <div className="poker-tableSearch">
+                <input
+                  id="mySearchInput"
+                  className="form-control"
+                  value={searchText}
+                  placeholder="Search tables . . . ."
+                  onChange={(e) => setSearchText(e.target.value)}
+                  autoComplete="off" />
+                {/* <button>
+                  <FaSearch />
+                </button> */}
+              </div>
+            </div>
           </div>
 
           {filterRoom.length > 0 ? (
