@@ -21,7 +21,7 @@ import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
-import { FaQuestionCircle, FaSearch } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
 
 const Home = () => {
   // inital state
@@ -45,7 +45,6 @@ const Home = () => {
   const [pokerRooms, setPokerRooms] = useState([]);
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
-  const [search, setSearch] = useState("");
 
   // utils function
   const handleShow = () => setShow(!show);
@@ -156,7 +155,7 @@ const Home = () => {
     (async () => {
       const data = await userUtils.getAuthUserData();
       if (!data.success) {
-        return (window.location.href = `${CONSTANTS.landingClient}`);
+        return (window.location.href = `${ CONSTANTS.landingClient }`);
       }
       setLoader(false);
       setUserData({ ...data.data.user });
@@ -168,7 +167,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -179,9 +178,6 @@ const Home = () => {
       }),
     [allUsers]
   );
-  const handleSearchChange = async (e) => {
-    setSearch(e.target.value);
-  };
 
   const renderWallet = (props) => (
     <Tooltip id="button-tooltip" {...props}>
