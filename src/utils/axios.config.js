@@ -3,7 +3,7 @@ import CONSTANTS from '../config/contants';
 import { getCookie } from './cookieUtil';
 
 const getAuthorizationHeader = () =>
-  `Bearer ${localStorage.getItem('token') || getCookie('token')}`;
+  `Bearer ${getCookie('token')}`;
 
 export const userInstance = () =>
   axios.create({

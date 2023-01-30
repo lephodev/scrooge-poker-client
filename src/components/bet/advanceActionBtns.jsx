@@ -8,21 +8,6 @@ const AdvanceActionBtns = () => {
   return (
     <div className="advaceActionBtn-container">
       <div className="footer-btn ">
-        <Button>
-          <Form.Check
-            name="bet"
-            type="radio"
-            label="Check/Fold"
-            id="checkNfold"
-          />
-        </Button>
-      </div>
-      <div className="footer-btn ">
-        <Button>
-          <Form.Check name="bet" type="radio" label="Call any" id="call" />
-        </Button>
-      </div>
-      <div className="footer-btn ">
         {/* {raise && ( */}
         {/* <div className="raiseBet-container">
             <RaiseSlider />
@@ -40,9 +25,25 @@ const AdvanceActionBtns = () => {
         //     setRaise(true);
         //   }}
         >
-          <Form.Check name="bet" type="radio" label="Raise" id="Raise" />
+          <Form.Check name="bet" type="radio" label="Check" id="Check" />
         </Button>
       </div>
+      <div className="footer-btn ">
+        <Button>
+          <Form.Check
+            name="bet"
+            type="radio"
+            label="Check/Fold"
+            id="checkNfold"
+          />
+        </Button>
+      </div>
+      <div className="footer-btn ">
+        <Button>
+          <Form.Check name="bet" type="radio" label="Call any" id="call" />
+        </Button>
+      </div>
+
     </div>
   );
 };
