@@ -53,10 +53,10 @@ import BetView from "../bet/betView";
 import RaiseView from "../bet/raiseView";
 import coinWinning from "../../assets/animation/22.gif";
 import { pokerInstance } from "../../utils/axios.config";
-// import RaiseSlider from "../bet/raiseSlider";
-// import AdvanceActionBtns from "../bet/advanceActionBtns";
-// import ChatHistory from "../chat/chatHistory";
-// import UsersComments from "../../assets/comenting.svg";
+import RaiseSlider from "../bet/raiseSlider";
+import AdvanceActionBtns from "../bet/advanceActionBtns";
+import ChatHistory from "../chat/chatHistory";
+import UsersComments from "../../assets/comenting.svg";
 
 const winImageanim = {
   loop: true,
@@ -1406,7 +1406,7 @@ const PokerTable = (props) => {
           )}
 
           <div className={`poker-table ${ winner ? "winner-show" : "" }`}>
-            {/* <div className="containerFor-chatHistory">
+            <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
                 <img src={UsersComments} alt="" />
               </div>
@@ -1416,7 +1416,7 @@ const PokerTable = (props) => {
                 openChatHistory={openChatHistory}
                 handleOpenChatHistory={handleOpenChatHistory}
               />
-            </div> */}
+            </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
               (roomData &&
@@ -2575,7 +2575,7 @@ const FooterButton = ({
                 <div className="footer-btn ">
                   {raise && (
                     <div className="raiseBet-container">
-                      {/* <RaiseSlider /> */}
+                      <RaiseSlider />
                       <RaiseView
                         currentPlayer={currentPlayer}
                         setRaise={setRaise}
@@ -2606,7 +2606,7 @@ const FooterButton = ({
                 <div className="footer-btn ">
                   {bet && (
                     <div className="raiseBet-container">
-                      {/* <RaiseSlider /> */}
+                      <RaiseSlider />
                       <BetView
                         currentPlayer={currentPlayer}
                         setBet={setBet}
@@ -2639,8 +2639,8 @@ const FooterButton = ({
               )}
             </>
           ) : (
-            ""
-            // <AdvanceActionBtns />
+            // ""
+            <AdvanceActionBtns />
           )}
         </div>
       </div>
