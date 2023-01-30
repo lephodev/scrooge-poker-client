@@ -7,6 +7,17 @@ import "./bet.css";
 const AdvanceActionBtns = () => {
   return (
     <div className="advaceActionBtn-container">
+
+      <div className="footer-btn ">
+        <Button>
+          <Form.Check
+            name="bet"
+            type="radio"
+            label="Check/Fold"
+            id="checkNfold"
+          />
+        </Button>
+      </div>
       <div className="footer-btn ">
         {/* {raise && ( */}
         {/* <div className="raiseBet-container">
@@ -26,16 +37,6 @@ const AdvanceActionBtns = () => {
         //   }}
         >
           <Form.Check name="bet" type="radio" label="Check" id="Check" />
-        </Button>
-      </div>
-      <div className="footer-btn ">
-        <Button>
-          <Form.Check
-            name="bet"
-            type="radio"
-            label="Check/Fold"
-            id="checkNfold"
-          />
         </Button>
       </div>
       <div className="footer-btn ">
