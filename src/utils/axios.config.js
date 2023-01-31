@@ -1,9 +1,8 @@
-import axios from 'axios';
-import CONSTANTS from '../config/contants';
-import { getCookie } from './cookieUtil';
+import axios from "axios";
+import CONSTANTS from "../config/contants";
+import { getCookie } from "./cookieUtil";
 
-const getAuthorizationHeader = () =>
-  `Bearer ${getCookie('token')}`;
+const getAuthorizationHeader = () => `Bearer ${getCookie("token")}`;
 
 export const userInstance = () =>
   axios.create({
