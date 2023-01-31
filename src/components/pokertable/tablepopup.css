@@ -3,7 +3,9 @@
   font-size: 14px;
   box-shadow: none;
   color: black;
+  border-radius: 4px;
 }
+
 .leave-confirm.modal .sub-btn .btn.btn-primary:hover,
 .leave-confirm.modal .sub-btn .btn.btn-primary:focus {
   border-color: #f9ff00;
@@ -11,22 +13,96 @@
   box-shadow: none;
   color: black;
 }
+
 .leave-confirm.modal .sub-btn {
   margin-bottom: 30px;
 }
 
-.leave-confirm.modal .sub-btn .btn + .btn {
+.block .sub-btn {
+  margin-bottom: 10px !important;
+}
+
+.leave-confirm.modal .sub-btn .btn+.btn {
   margin-left: 15px;
 }
-.leave-confirm.modal .block > p {
+
+.leave-confirm.modal .block>p {
   text-align: center;
   padding-bottom: 10px;
   color: #fff;
   font-size: 18px;
 }
 
+.sitinPopup-div {
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.modal-content .block {
+  text-align: center;
+}
+
+.sitinPopup label.form-label {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.sitinPopup .form-control,
+.sitinPopup .form-control:active,
+.sitinPopup .form-control:focus {
+  background-color: #1b1b1b;
+  border: 1px solid #3f3f3f;
+  box-shadow: none !important;
+  color: #fff;
+  font-size: 14px;
+  height: 44px;
+}
+
+.sub-btn.text-center {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.exit-btn.btn,
+.grey-btn.btn {
+  height: 42px;
+  transition: all .5s;
+  width: 144px;
+}
+
+.exit-btn.btn {
+  background: #f9ff00;
+  border-color: #f9ff00;
+  color: #010101;
+  font-weight: 500;
+}
+
+.grey-btn.btn,
+.grey-btn.btn:active,
+.grey-btn.btn:hover,
+.grey-btn.btn:focus {
+  background: #414141 !important;
+  border-color: #414141 !important;
+  color: #fff !important;
+}
+
+.errorMssg {
+  text-align: left;
+  color: red;
+  font-size: 12px;
+  margin: 2px;
+}
+
 @media screen and (max-width: 767px) {
-  .leave-confirm.modal .block > p {
+  .leave-confirm.modal .block>p {
     padding-bottom: 10px;
   }
 }
