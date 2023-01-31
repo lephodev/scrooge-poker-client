@@ -65,13 +65,13 @@ const RaiseView = ({
       >
         All in
       </span>
-      <div
+      {/* <div
         className="close-bet"
         role="presentation"
         onClick={() => setRaise(false)}
       >
         x
-      </div>
+      </div> */}
     </div>
   );
 };

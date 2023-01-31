@@ -142,7 +142,7 @@
 }
 
 .winner-player .winner-card {
-  filter: brightness(0.5);
+  filter: brightness(1);
 }
 
 .player1 {
@@ -3489,7 +3489,7 @@ img.coinWinning-animation {
   .total-pot-money {
     /* top: 135px; */
     top: 46%;
-    left: 42%;
+    left: 43.5%;
   }
 
   button.not-allowed.btn.btn-primary {

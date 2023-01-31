@@ -389,7 +389,7 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("actionError", (data) => {});
+    socket.on("actionError", (data) => { });
     socket.on("sitInOut", (data) => {
       roomData = data.updatedRoom;
       if (roomData.runninground === 0) {
@@ -1529,13 +1529,12 @@ const PokerTable = (props) => {
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${
-            !(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-              ? "game-started-join"
-              : ""
-          }`}
+            ? "game-started-join"
+            : ""
+            }`}
         />
       </Helmet>
 
@@ -1578,9 +1577,9 @@ const PokerTable = (props) => {
             </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
-            (roomData &&
-              roomData.players.find((ele) => ele.userid === userId)) ||
-            isWatcher ? (
+              (roomData &&
+                roomData.players.find((ele) => ele.userid === userId)) ||
+              isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1663,8 +1662,8 @@ const PokerTable = (props) => {
                           </>
                         )}
                       {roomData &&
-                      roomData.handWinner.length === 0 &&
-                      !roomData?.gamestart ? (
+                        roomData.handWinner.length === 0 &&
+                        !roomData?.gamestart ? (
                         <>
                           <p className="joined-player">
                             Invited Players joined -{" "}
@@ -1960,20 +1959,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                  }
-                >
-                  <button onClick={() => setShowInvite(true)}>
-                    {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className="fa fa-envelope"></i>
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
+                <li>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                    }
+                  >
+                    <button onClick={() => setShowInvite(true)}>
+                      {/* <img src={addcoin} alt="Invite friend" /> */}
+                      <i className="fa fa-envelope"></i>
+                    </button>
+                  </OverlayTrigger>
+                </li>
+              )}
             <li>
               <OverlayTrigger
                 placement="left"
@@ -2211,12 +2210,12 @@ const Players = ({
             response.data.error === "no error" &&
             response.data.success === true &&
             response.data.special ===
-              "You have removed this follower in the past"
+            "You have removed this follower in the past"
           ) {
             toast.success(
               "You are now following @" +
-                nickname +
-                ", notice that you removed him from following you",
+              nickname +
+              ", notice that you removed him from following you",
               {
                 id: "follow-request",
                 icon: "✔️",
@@ -2321,10 +2320,10 @@ const Players = ({
           if (response.data.error === "already sent friend request") {
             toast.success(
               "Friend request already sent to @" +
-                Fname +
-                " please wait " +
-                response.data.hours +
-                " hours before you can try again.",
+              Fname +
+              " please wait " +
+              response.data.hours +
+              " hours before you can try again.",
               {
                 duration: 6000,
                 id: "frined-already-sent",
@@ -2397,13 +2396,11 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
-        } ${playerData && playerData.playing ? "" : "not-playing"} ${
-          mergeAnimationState ? "animateMerge-chips" : ""
-        }`}
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
+          ? `winner-player`
+          : ``
+          } ${playerData && playerData.playing ? "" : "not-playing"} ${mergeAnimationState ? "animateMerge-chips" : ""
+          }`}
       >
         {/* start win or lose animation */}
         {/* {winner &&
@@ -2551,10 +2548,10 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                  ? "B"
-                  : playerData.isDealer
-                  ? "D"
-                  : ""}
+                    ? "B"
+                    : playerData.isDealer
+                      ? "D"
+                      : ""}
               </div>
             )}
 
@@ -2710,11 +2707,10 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
               // src={cards ? cards : back }
               src={card ? `/cards/${card.toUpperCase()}.svg` : back}
               alt="card"
-              className={`${
-                winner && matchCards.findIndex((ele) => ele === i) !== -1
-                  ? `winner-card`
-                  : ``
-              } flip-vertical-left duration-${i}`}
+              className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
+                ? `winner-card`
+                : ``
+                } flip-vertical-left duration-${i}`}
             />
           );
         })}
@@ -2741,6 +2737,8 @@ const TablePotMoney = ({ tablePot }) => {
 //   );
 // };
 
+
+
 const FooterButton = ({
   bet,
   setBet,
@@ -2759,6 +2757,22 @@ const FooterButton = ({
   tentativeAction,
   loader,
 }) => {
+  const wrapperRef = useRef();
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setRaise(false)
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  useOutsideAlerter(wrapperRef);
   return (
     <div className="footer-button">
       <div className="container">
@@ -2784,7 +2798,7 @@ const FooterButton = ({
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
-                    <div className="raiseBet-container">
+                    <div className="raiseBet-container" ref={wrapperRef}>
                       <RaiseSlider />
                       <RaiseView
                         currentPlayer={currentPlayer}
@@ -2832,7 +2846,7 @@ const FooterButton = ({
               {openAction.bet && (
                 <div className="footer-btn ">
                   {bet && (
-                    <div className="raiseBet-container">
+                    <div className="raiseBet-container" ref={wrapperRef}>
                       <RaiseSlider />
                       <BetView
                         currentPlayer={currentPlayer}
@@ -3105,11 +3119,10 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
+            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
+              ? ``
+              : `winner-card`
+              } `}
           />
         ))}
     </div>
