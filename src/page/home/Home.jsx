@@ -425,7 +425,7 @@ const CreateTable = ({
               onChange={handleChange}
               value={values.sitInAmount}
               type="number"
-              placeholder="Ex : 50"
+              placeholder="Ex : 100"
             />
             {!!errors?.sitInAmount && (
               <p className="text-danger">{errors?.sitInAmount}</p>

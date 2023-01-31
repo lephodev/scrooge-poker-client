@@ -53,10 +53,13 @@ import BetView from "../bet/betView";
 import RaiseView from "../bet/raiseView";
 import coinWinning from "../../assets/animation/22.gif";
 import { pokerInstance } from "../../utils/axios.config";
-// import RaiseSlider from "../bet/raiseSlider";
+import RaiseSlider from "../bet/raiseSlider";
 import AdvanceActionBtn from "../bet/advanceActionBtns";
-// import ChatHistory from "../chat/chatHistory";
-// import UsersComments from "../../assets/comenting.svg";
+import ChatHistory from "../chat/chatHistory";
+import UsersComments from "../../assets/comenting.svg";
+import AddCoinIcon from "../SVGfiles/coinSVG";
+import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
+import EnterAmountPopup from "./enterAmountPopup";
 
 const winImageanim = {
   loop: true,
@@ -121,6 +124,7 @@ const PokerTable = (props) => {
   const [start, setStart] = useState(false);
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
+  const [volume, setVolume] = useState(true);
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -132,6 +136,8 @@ const PokerTable = (props) => {
   const history = useHistory();
   const [open, setOpen] = useState();
   const [modalShow, setModalShow] = useState(false);
+  const [refillSitInAmount, setRefillSitInAmount] = useState(false);
+  const [showEnterAmountPopup, setShowEnterAmountPopup] = useState(false);
   const [leaveConfirmShow, setLeaveConfirm] = useState(false);
   const [buyinPopup, setBuyinPopup] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
@@ -1502,6 +1508,23 @@ const PokerTable = (props) => {
   // }, [currentPlayer]);
 
   console.log({ tentativeAction });
+  const wrapperRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setBtnToggle(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperRef);
+
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -1542,7 +1565,7 @@ const PokerTable = (props) => {
           )}
 
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
-            {/* <div className="containerFor-chatHistory">
+            <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
                 <img src={UsersComments} alt="" />
               </div>
@@ -1552,7 +1575,7 @@ const PokerTable = (props) => {
                 openChatHistory={openChatHistory}
                 handleOpenChatHistory={handleOpenChatHistory}
               />
-            </div> */}
+            </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
             (roomData &&
@@ -1866,7 +1889,7 @@ const PokerTable = (props) => {
         players.find((ele) => ele.id === userId)) ||
         isWatcher) &&
         btnToggle && (
-          <ul className="btn-list">
+          <ul className="btn-list" ref={wrapperRef}>
             <li>
               <span
                 className="close-icon"
@@ -1951,6 +1974,30 @@ const PokerTable = (props) => {
                 </OverlayTrigger>
               </li>
             )}
+            <li>
+              <OverlayTrigger
+                placement="left"
+                overlay={<Tooltip id="tooltip-disabled">Fill Tokens</Tooltip>}
+              >
+                <button onClick={() => setRefillSitInAmount(true)}>
+                  <AddCoinIcon />
+                </button>
+              </OverlayTrigger>
+            </li>
+            <li>
+              <OverlayTrigger
+                placement="left"
+                overlay={
+                  <Tooltip id="tooltip-disabled">
+                    {volume ? "Speaker" : "Mute"}
+                  </Tooltip>
+                }
+              >
+                <button onClick={() => setVolume(!volume)}>
+                  {volume ? <VolumeIcon /> : <MuteIcon />}
+                </button>
+              </OverlayTrigger>
+            </li>
           </ul>
         )}
       <Chat
@@ -1967,7 +2014,14 @@ const PokerTable = (props) => {
           </span>
         </div>
       )}
-
+      <EnterAmountPopup
+        // handleSitin={handleSitInAmount}
+        showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
+        submitButtonText={refillSitInAmount ? "Refill Tokens" : "Join"}
+        setShow={
+          refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
+        }
+      />
       <Bet
         handleBetClick={handleBetClick}
         view={view}
@@ -2731,7 +2785,7 @@ const FooterButton = ({
                 <div className="footer-btn ">
                   {raise && (
                     <div className="raiseBet-container">
-                      {/* <RaiseSlider /> */}
+                      <RaiseSlider />
                       <RaiseView
                         currentPlayer={currentPlayer}
                         setRaise={setRaise}
@@ -2779,7 +2833,7 @@ const FooterButton = ({
                 <div className="footer-btn ">
                   {bet && (
                     <div className="raiseBet-container">
-                      {/* <RaiseSlider /> */}
+                      <RaiseSlider />
                       <BetView
                         currentPlayer={currentPlayer}
                         setBet={setBet}

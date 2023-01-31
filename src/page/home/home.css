@@ -105,7 +105,7 @@
 }
 
 .user-header {
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   padding: 5px 0px 5px;
   background: #141414;
 }
@@ -140,7 +140,7 @@
 
 .backtoHome a {
   font-size: 18px;
-  color: #ffffff;
+  color: #f9ff00;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -373,7 +373,7 @@ input[type="number"] {
   }
 
   .poker-tableSearch-box {
-      /* position: absolute;
+    /* position: absolute;
       right: 0px;
       top: -52px; */
   }
