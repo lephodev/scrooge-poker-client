@@ -61,6 +61,13 @@ import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 
+const getQueryParams = () => {
+  const url = new URLSearchParams(window.location.search);
+  return {
+    tableid: url.get("tableid") || "",
+    gameCollection: url.get("gameCollection") || url.get("gamecollection"),
+  };
+};
 const winImageanim = {
   loop: true,
   autoplay: true,
@@ -125,6 +132,8 @@ const PokerTable = (props) => {
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
+  const [userData, setUserData] = useState(null);
+
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -222,15 +231,42 @@ const PokerTable = (props) => {
       let table = urlParams.get("tableid");
       let type =
         urlParams.get("gameCollection") || urlParams.get("gamecollection");
+      userId = user?.data.user?.id;
+      setUserData(user.data.user);
 
-      // const checkIfAlreadyInTable = await pokerInstance().get('/checkUserInTable/' + table)
-      // console.log({ checkIfAlreadyInTable: checkIfAlreadyInTable.data })
-      // socket.emit("checkTable", {
-      //   gameId: table,
-      //   userId: user?.data.user?.id,
-      //   gameType: type,
-      // });
-      setLoader(true);
+      try {
+        if (table) {
+          const playerInTable = await pokerInstance().get(
+            `/checkUserInTable/${table}`
+          );
+          console.log("playerInTable", playerInTable);
+          if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
+            socket.emit("checkTable", {
+              gameId: table,
+              userId: user?.data.user?.id,
+              gameType: type,
+              sitInAmount: 0,
+            });
+
+            setLoader(true);
+            // Ask user to type wallet amount
+          } else {
+            // Enter sit in amount popup
+            setShowEnterAmountPopup(true);
+          }
+        }
+        // const checkIfAlreadyInTable = await pokerInstance().get('/checkUserInTable/' + table)
+        // console.log({ checkIfAlreadyInTable: checkIfAlreadyInTable.data })
+        // socket.emit("checkTable", {
+        // socket.emit("checkTable", {
+        //   gameId: table,
+        //   userId: user?.data.user?.id,
+        //   gameType: type,
+        // });
+        setLoader(true);
+      } catch (error) {
+        console.log("error", error);
+      }
     };
     isLoggedIn();
   }, []);
@@ -240,59 +276,55 @@ const PokerTable = (props) => {
   // player are on the table or not
   // if not for waiting a limited time
   // We should reload the page
-  useEffect(() => {
-    if (!Array.isArray(players) || !players.length) {
-      interval = setInterval(async () => {
-        console.log({ retryCount });
-        if (retryCount === 1) {
-          window.location.reload();
-          return;
-        }
+  // useEffect(() => {
+  //   if (!Array.isArray(players) || !players.length) {
+  //     interval = setInterval(async () => {
+  //       console.log({ retryCount });
+  //       if (retryCount === 1) {
+  //         window.location.reload();
+  //         return;
+  //       }
 
-        retryCount = +1;
-        let urlParams = new URLSearchParams(window.location.search);
-        let user;
-        if (
-          !localStorage.getItem("token") &&
-          !urlParams.get("token") &&
-          !getCookie("token")
-        ) {
-          // return (window.location.href = `${CONSTANTS.landingClient}`);
-        }
+  //       retryCount = +1;
+  //       let urlParams = new URLSearchParams(window.location.search);
+  //       let user;
+  //       if (
+  //         !localStorage.getItem("token") &&
+  //         !urlParams.get("token") &&
+  //         !getCookie("token")
+  //       ) {
+  //         // return (window.location.href = `${CONSTANTS.landingClient}`);
+  //       }
 
-        user = await userUtils.getAuthUserData();
-        console.log("USER DATA HERE -------", { user });
+  //       user = await userUtils.getAuthUserData();
+  //       console.log("USER DATA HERE -------", { user });
 
-        if (!user.success) {
-          // return (window.location.href = `${CONSTANTS.landingClient}`);
-        }
-        userId = user?.data.user?.id;
-        let table = urlParams.get("tableid");
-        let type =
-          urlParams.get("gameCollection") || urlParams.get("gamecollection");
-        console.log({ userId, table, type, socket });
-        // const users = await getDoc('users', user?.uid);
-        // setExchangeRate(users.exchangeRate);
-        // fetchFriendList();
-        // getFollowing(idToken);
-        // alert(`HERE ${table} ${JSON.stringify(user)}`)
-        socket.emit("checkTable", {
-          gameId: table,
-          userId: user?.data.user?.id,
-          gameType: type,
-        });
-        setLoader(true);
-      }, 8000);
-    } else if (interval) {
-      clearInterval();
-    }
+  //       if (!user.success) {
+  //         // return (window.location.href = `${CONSTANTS.landingClient}`);
+  //       }
+  //       userId = user?.data.user?.id;
+  //       let table = urlParams.get("tableid");
+  //       let type =
+  //         urlParams.get("gameCollection") || urlParams.get("gamecollection");
+  //       console.log({ userId, table, type, socket });
 
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [players]);
+  //       socket.emit("checkTable", {
+  //         gameId: table,
+  //         userId: user?.data.user?.id,
+  //         gameType: type,
+  //       });
+  //       setLoader(true);
+  //     }, 8000);
+  //   } else if (interval) {
+  //     clearInterval();
+  //   }
+
+  //   return () => {
+  //     if (interval) {
+  //       clearInterval(interval);
+  //     }
+  //   };
+  // }, [players]);
 
   useEffect(() => {
     socket.on("roomFull", () => {
@@ -1525,6 +1557,61 @@ const PokerTable = (props) => {
   };
   useOutsideAlerter(wrapperRef);
 
+  const handleSitInAmount = async (amount) => {
+    handleSitin(amount);
+  };
+
+  const handleSitin = (sitInAmount) => {
+    let urlParams = getQueryParams();
+    let table = urlParams["tableid"];
+    let type = urlParams["gameCollection"] || urlParams["gamecollection"];
+
+    if (!tableId) {
+      setTableId(table);
+    }
+
+    if (!userData) {
+      return (window.location.href = window.location.origin);
+    }
+
+    if (parseFloat(sitInAmount) > userData.wallet) {
+      toast.error("You don't have enough balance.", {
+        id: "notEnoughSitIn",
+      });
+      // setTimeout(() => {
+      //   window.location.href = window.location.origin;
+      // }, 1000);
+      return;
+    } else if (parseFloat(sitInAmount) < 0) {
+      toast.error("Amount is not valid.", {
+        id: "notEnoughSitIn",
+      });
+      setTimeout(() => {
+        window.location.href = window.location.origin;
+      }, 1000);
+      return;
+    } else if (/\d/.test(sitInAmount)) {
+      socket.emit("checkTable", {
+        gameId: table,
+        userId: userId,
+        gameType: type,
+        sitInAmount: parseFloat(sitInAmount),
+      });
+      setShowEnterAmountPopup(false);
+      // setRetryIfUserNotJoin(true);
+
+      setLoader(true);
+    } else {
+      toast.error("Not valid amount.", {
+        id: "notEnoughSitIn",
+      });
+      setTimeout(() => {
+        window.location.href = window.location.origin;
+      }, 1000);
+      return;
+    }
+  };
+
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -2015,7 +2102,7 @@ const PokerTable = (props) => {
         </div>
       )}
       <EnterAmountPopup
-        // handleSitin={handleSitInAmount}
+        handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
         submitButtonText={refillSitInAmount ? "Refill Tokens" : "Join"}
         setShow={
