@@ -12,7 +12,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              1x
+              1%
             </span>
           )}
         {roomData &&
@@ -24,7 +24,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              2x
+              2%
             </span>
           )}
         {roomData &&
@@ -36,7 +36,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              4x
+              4%
             </span>
           )}
         {roomData &&
@@ -48,7 +48,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              6x
+              6%
             </span>
           )}
         <span
