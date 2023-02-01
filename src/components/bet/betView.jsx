@@ -59,13 +59,13 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
         >
           All in
         </span>
-        <div
+        {/* <div
           className="close-bet"
           role="presentation"
           onClick={() => setBet(false)}
         >
           x
-        </div>
+        </div> */}
       </div>
     );
   };
