@@ -60,6 +60,7 @@ import UsersComments from "../../assets/comenting.svg";
 import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
+import { logDOM } from "@testing-library/react";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -1561,7 +1562,11 @@ const PokerTable = (props) => {
   useOutsideAlerter(wrapperRef);
 
   const handleSitInAmount = async (amount) => {
-    handleSitin(amount);
+    if (refillSitInAmount) {
+      return handleReffill(amount);
+    } else {
+      handleSitin(amount);
+    }
   };
 
   const handleSitin = (sitInAmount) => {
@@ -1612,6 +1617,32 @@ const PokerTable = (props) => {
         window.location.href = window.location.origin;
       }, 1000);
       return;
+    }
+  };
+
+  const handleReffill = async (amount) => {
+    console.log("RefelAmount", amount);
+    try {
+      if (parseFloat(amount) > userData.wallet) {
+        toast.error("You don't have enough balance.", {
+          id: "notEnoughSitIn",
+        });
+        return;
+      } else {
+        const data = await pokerInstance().post("/refillWallet", {
+          tableId,
+          amount,
+        });
+        setRefillSitInAmount(false);
+        console.log({ data });
+        updatePlayer(data?.data?.roomData.players);
+        return "success";
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return error.response.data.msg || "Some error occured";
+      }
+      return "Failed to refill";
     }
   };
 
