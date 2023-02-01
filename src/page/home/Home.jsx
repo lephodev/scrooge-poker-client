@@ -167,7 +167,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -240,7 +240,7 @@ const Home = () => {
                 </div>
                 <div className="pokerWallet-box">
                   <img src={tickets} alt="" className="pokerWallet" />
-                  <span>{numFormatter(userData?.wallet || 0)}</span>
+                  <span>{numFormatter(userData?.ticket || 0)}</span>
                   <OverlayTrigger
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
@@ -282,7 +282,8 @@ const Home = () => {
                   value={searchText}
                   placeholder="Search tables . . . ."
                   onChange={(e) => setSearchText(e.target.value)}
-                  autoComplete="off" />
+                  autoComplete="off"
+                />
                 {/* <button>
                   <FaSearch />
                 </button> */}

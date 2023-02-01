@@ -143,15 +143,15 @@
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: #07974f;
 }
 
-input:focus+.slider {
+input:focus + .slider {
   box-shadow: 0 0 1px #07974f;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(100px);
   -ms-transform: translateX(100px);
   transform: translateX(100px);
@@ -586,10 +586,9 @@ form.customBet-amount .form-control:focus {
 
 .customBet-amount button.btn.btn-primary,
 .customBet-amount button.btn.btn-primary:active,
-.customBet-amount button.btn.btn-primary:focus
- {
+.customBet-amount button.btn.btn-primary:focus {
   background-color: #f9ff00 !important;
-  border-color: #f9ff00 !important; 
+  border-color: #f9ff00 !important;
   border-radius: 4px;
   color: black !important;
   font-weight: 600;
