@@ -1662,7 +1662,16 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
-
+      <div className={!(players && players.find((ele) => ele.id === userId)) &&
+        roomData &&
+        roomData.players.find((ele) => ele.userid === userId)
+        ? "backToHome"
+        : "notShow"
+      }>
+        <button onClick={() => setLeaveConfirm(true)}>
+          <i class="fa fa-sign-out" aria-hidden="true" />
+        </button>
+      </div>
       <div className={`poker-bg ${loader ? "loaderactive" : ""} `}>
         {loader && (
           <div className="poker-loader">

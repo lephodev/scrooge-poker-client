@@ -607,7 +607,12 @@ form.customBet-amount .form-control:focus {
   align-items: center;
   gap: 28px;
 }
-
+.form-check-inline {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0;
+    margin-right: 1px;
+}
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .raiseBet-container {
     top: -160px;

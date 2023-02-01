@@ -18,7 +18,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            2x
+            2%
           </span>
         )}
       {roomData &&
@@ -30,7 +30,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            4x
+            4%
           </span>
         )}
       {roomData &&
@@ -42,7 +42,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            6x
+            6%
           </span>
         )}
       {roomData &&
@@ -54,7 +54,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            8x
+            8%
           </span>
         )}
       <span
