@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 
 const EnterAmountPopup = ({
-  // handleSitin,
+  handleSitin,
   showEnterAmountPopup,
   submitButtonText,
   setShow,
@@ -15,9 +15,9 @@ const EnterAmountPopup = ({
   const joinGame = async () => {
     if (parseInt(amount) >= 100) {
       setLoading(true);
-      // const msg = await handleSitin(amount);
+      const msg = await handleSitin(amount);
       setLoading(false);
-      // console.log(msg);
+      console.log(msg);
       // if (msg) {
       //   setError(msg);
       // }
