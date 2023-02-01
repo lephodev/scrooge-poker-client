@@ -1662,12 +1662,15 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
-      <div className={!(players && players.find((ele) => ele.id === userId)) &&
-        roomData &&
-        roomData.players.find((ele) => ele.userid === userId)
-        ? "backToHome"
-        : "notShow"
-      }>
+      <div
+        className={
+          !(players && players.find((ele) => ele.id === userId)) &&
+          roomData &&
+          roomData.players.find((ele) => ele.userid === userId)
+            ? "backToHome"
+            : "notShow"
+        }
+      >
         <button onClick={() => setLeaveConfirm(true)}>
           <i class="fa fa-sign-out" aria-hidden="true" />
         </button>
@@ -2168,25 +2171,25 @@ const PokerTable = (props) => {
       />
 
       <LogoImage />
-      <audio className="audio-winner">
+      <audio className="audio-winner" muted={!volume}>
         <source src={winnerSound}></source>
       </audio>
-      <audio className="audio-bet">
+      <audio className="audio-bet" muted={!volume}>
         <source src={call}></source>
       </audio>
-      <audio className="audio-turn">
+      <audio className="audio-turn" muted={!volume}>
         <source src={myTurn}></source>
       </audio>
-      <audio className="audio-bet">
+      <audio className="audio-bet" muted={!volume}>
         <source src={fold}></source>
       </audio>
-      <audio className="audio-collect">
+      <audio className="audio-collect" muted={!volume}>
         <source src={collect}></source>
       </audio>
-      <audio className="audio-check">
+      <audio className="audio-check" muted={!volume}>
         <source src={check}></source>
       </audio>
-      <audio className="audio-chat">
+      <audio className="audio-chat" muted={!volume}>
         <source src={chatBubble}></source>
       </audio>
       <StatsPopup
