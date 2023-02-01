@@ -221,7 +221,8 @@ const Home = () => {
             </div>
             <div className="create-game-box">
               <div className="create-game-box-avtar">
-                <img src={userData?.profile} alt="" />
+                <img src={userData?.profile || "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
+                } alt="" />
                 <h5>{userData?.username}</h5>
               </div>
               <div className="walletTicket-box">
