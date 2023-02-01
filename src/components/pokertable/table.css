@@ -865,7 +865,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px 2px;
+  margin: 0px;
 }
 
 .footer-btn .btn,
@@ -881,6 +881,7 @@
   width: 100%;
   transition: all 0.5s;
   margin-top: -4px;
+  padding: 0px 5px;
 }
 
 .footer-btn .btn:hover {
@@ -2194,6 +2195,12 @@ p.joined-player {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
 }
+.form-check-inline {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0;
+  margin-right: 2px !important;
+}
 
 .stats-popup table tr td,
 .stats-popup table tr th {
@@ -3504,8 +3511,8 @@ img.coinWinning-animation {
   }
 
   .footer-btn {
-    width: 82px;
-    height: 29px;
+    width: 105px;
+    height: 46px;
   }
 
   .footer-btn .btn,
@@ -4240,8 +4247,12 @@ img.coinWinning-animation {
   }
 
   .footer-btn {
-    width: 82px;
-    height: 29px;
+    width: 94px;
+    height: 42px;
+  }
+
+  .footer-btn input {
+    width: 10px;
   }
 
   .footer-btn .btn,
