@@ -59,7 +59,7 @@
   height: 44px;
 }
 
-.sub-btn.text-center {
+.sitinPopup .sub-btn.text-center {
   align-items: center;
   display: flex;
   flex-direction: row;
