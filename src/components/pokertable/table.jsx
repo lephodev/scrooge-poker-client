@@ -3006,7 +3006,7 @@ const FooterButton = ({
 
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>Call { (roomData?.bigBlind === roomData?.raiseAmount) ? roomData?.raiseAmount / 2 : roomData.raiseAmount}</Button>
+                  <Button onClick={() => callAction()}>Call<span className="callBtn-amount">({numFormatter(roomData.raiseAmount - currentPlayer?.pot)})</span></Button>
                   {/* <Form.Check
                     inline
                     name="Call"

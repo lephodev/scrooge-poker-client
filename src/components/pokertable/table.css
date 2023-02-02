@@ -293,6 +293,7 @@
   border: 3px solid #101010;
   box-shadow: 0px 4px 4px #000000a8;
   margin: 0px auto;
+  top: 10px;
 }
 
 .player-info h4 {
@@ -883,6 +884,7 @@
   transition: all 0.5s;
   margin-top: -4px;
   padding: 0px 5px;
+  height: 40px;
 }
 
 .footer-btn .btn:hover {
@@ -3160,8 +3162,7 @@ img.coinWinning-animation {
   }
 
   .player-info {
-    /* width: 125px;
-    height: 45px; */
+    top: 16px;
     width: 110px;
     height: 35px;
   }

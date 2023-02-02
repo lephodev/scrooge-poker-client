@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
   const [rangeBetValue, setRangeBetValue] = useState(0);
-  console.log("currentPlayer===jggh", roomData);
   const { wallet } = currentPlayer || {};
   console.log("wallet===", wallet);
   const handleRaiseAmount = (e) => {
@@ -32,12 +31,6 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
         currentPlayer.wallet >= roomData.raiseAmount * 2 
             } */}
 
-          {console.log(
-            "gshjgsh",
-            roomData &&
-              currentPlayer &&
-              currentPlayer.wallet >= roomData.raiseAmount * 2
-          )}
           <InputRange
             maxValue={currentPlayer?.wallet}
             minValue={roomData?.raiseAmount}
