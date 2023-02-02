@@ -604,7 +604,9 @@ form.customBet-amount .form-control:focus {
   font-size: 14px;
   font-weight: 500;
 }
-
+.callBtn-amount-none{
+  display: none;
+}
 .input-range__label--max .input-range__label-container {
   left: 15% !important;
 }
