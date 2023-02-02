@@ -140,7 +140,7 @@ i.fa.fa-sign-out {
 }
 
 .triangle-isosceles.left {
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .start-game-btn p {

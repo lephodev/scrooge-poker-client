@@ -2604,7 +2604,7 @@ const Players = ({
               currentPlayer.id === playerData.id && (
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
-            <img src={playerData?.photoURI} alt="" />
+            <img src={playerData?.photoURI || "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"} alt="" />
             {/* <div
               className="comment-btn" 
              onClick={() => { 
@@ -2873,7 +2873,7 @@ const FooterButton = ({
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
-          {console.log("currentPlayer", currentPlayer)}
+          {console.log("roomData",roomData)}
           {currentPlayer && currentPlayer?.id === userId ? (
             <>
               {openAction.fold && (
@@ -2927,7 +2927,7 @@ const FooterButton = ({
 
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>Call</Button>
+                  <Button onClick={() => callAction()}>Call { (roomData?.bigBlind === roomData?.raiseAmount) ? roomData?.raiseAmount / 2 : roomData.raiseAmount}</Button>
                   {/* <Form.Check
                     inline
                     name="Call"

@@ -171,6 +171,11 @@
   align-items: center;
 }
 
+.form-check .form-check-input:checked {
+  background-color: #f9ff00 !important;
+  border-color: #f9ff00 !important;
+}
+
 .user-info-box h5 {
   text-transform: capitalize;
   font-size: 18px;

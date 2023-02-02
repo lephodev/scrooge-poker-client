@@ -215,6 +215,7 @@
   width: 106px;
   height: 106px;
   object-fit: cover;
+  object-position: bottom;
   border-radius: 100%;
   position: absolute;
   top: 50%;
