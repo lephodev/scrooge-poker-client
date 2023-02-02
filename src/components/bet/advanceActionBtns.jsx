@@ -9,8 +9,9 @@ const AdvanceActionBtns = ({
   tentativeAction,
   roomData,
   currentPlayer,
+  player,
 }) => {
-  console.log("tentativeAction IN Advance", tentativeAction);
+  console.log("tentativeAction jivan", player);
   const FOLD_BTN = (
     <div className="footer-btn ">
       <Button>
@@ -136,9 +137,10 @@ const AdvanceActionBtns = ({
     </div>
   );
 
+  console.log("currentPlayer?.potcurrentPlayer?.pot", player?.pot);
   let btn = "";
   if (
-    roomData?.raiseAmount === currentPlayer?.pot ||
+    roomData?.raiseAmount === player?.pot ||
     roomData?.lastAction === "check"
   ) {
     btn = (
@@ -148,8 +150,8 @@ const AdvanceActionBtns = ({
         {CHECK_FOLD_BTN}
       </>
     );
-  } else if (roomData?.raiseAmount > currentPlayer?.pot) {
-    if (currentPlayer?.wallet >= roomData?.raiseAmount) {
+  } else if (roomData?.raiseAmount > player?.pot) {
+    if (player?.wallet >= roomData?.raiseAmount) {
       btn = (
         <>
           {CALL_ANY_BTN}
