@@ -60,6 +60,7 @@ import UsersComments from "../../assets/comenting.svg";
 import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
+import { logDOM } from "@testing-library/react";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -133,7 +134,8 @@ const PokerTable = (props) => {
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
   const [userData, setUserData] = useState(null);
-
+  const [playersLeft, setPlayerLeft] = useState([]);
+  const [playersRight, setPlayersRight] = useState([]);
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -421,7 +423,9 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("actionError", (data) => { });
+    socket.on("actionError", (data) => {
+      console.log("actionErroractionError", data);
+    });
     socket.on("sitInOut", (data) => {
       roomData = data.updatedRoom;
       if (roomData.runninground === 0) {
@@ -1023,6 +1027,16 @@ const PokerTable = (props) => {
 
   const updatePlayer = (data) => {
     let availablePosition = [];
+    const pl = [...data];
+    let players = [...pl];
+    console.log("playersOOOO", players);
+    const pRight = pl.slice(0, Math.ceil(pl.length / 2));
+    console.log("pRight", pRight);
+    const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
+    console.log("Pleft", pleft);
+    setPlayerLeft(pleft);
+    setPlayersRight(pRight);
+
     switch (data.length) {
       case 1:
         availablePosition = [0];
@@ -1217,6 +1231,7 @@ const PokerTable = (props) => {
   };
 
   const raiseAction = (x) => {
+    console.log("xxxxx", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1558,7 +1573,11 @@ const PokerTable = (props) => {
   useOutsideAlerter(wrapperRef);
 
   const handleSitInAmount = async (amount) => {
-    handleSitin(amount);
+    if (refillSitInAmount) {
+      return handleReffill(amount);
+    } else {
+      handleSitin(amount);
+    }
   };
 
   const handleSitin = (sitInAmount) => {
@@ -1612,24 +1631,87 @@ const PokerTable = (props) => {
     }
   };
 
+  const handleReffill = async (amount) => {
+    console.log("RefelAmount", amount);
+    try {
+      if (parseFloat(amount) > userData.wallet) {
+        toast.error("You don't have enough balance.", {
+          id: "notEnoughSitIn",
+        });
+        return;
+      } else {
+        const data = await pokerInstance().post("/refillWallet", {
+          tableId,
+          amount,
+        });
+        setRefillSitInAmount(false);
+        updatePlayer(data?.data?.roomData.players);
+        return "success";
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return error.response.data.msg || "Some error occured";
+      }
+      return "Failed to refill";
+    }
+  };
+
+  const raiseInSliderAction = (x) => {
+    console.log("BetAmount", x);
+    setOpenAction({
+      bet: false,
+      call: false,
+      raise: false,
+      check: false,
+      allin: false,
+      fold: false,
+    });
+
+    socket.emit("doraise", {
+      userid: userId,
+      roomid: tableId,
+      amount: roomData.raiseAmount + x,
+    });
+  };
+  const betInSliderAction = (x) => {
+    console.log("BetAmount", x);
+    setOpenAction({
+      bet: false,
+      call: false,
+      raise: false,
+      check: false,
+      allin: false,
+      fold: false,
+    });
+
+    socket.emit("dobet", {
+      userid: userId,
+      roomid: tableId,
+      amount: roomData.raiseAmount + x,
+    });
+  };
   return (
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${
+            !(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-            ? "game-started-join"
-            : ""
-            }`}
+              ? "game-started-join"
+              : ""
+          }`}
         />
       </Helmet>
-      <div className={!(players && players.find((ele) => ele.id === userId)) &&
-        roomData &&
-        roomData.players.find((ele) => ele.userid === userId)
-        ? "backToHome"
-        : "notShow"
-      }>
+      <div
+        className={
+          !(players && players.find((ele) => ele.id === userId)) &&
+          roomData &&
+          roomData.players.find((ele) => ele.userid === userId)
+            ? "backToHome"
+            : "notShow"
+        }
+      >
         <button onClick={() => setLeaveConfirm(true)}>
           <i class="fa fa-sign-out" aria-hidden="true" />
         </button>
@@ -1673,9 +1755,9 @@ const PokerTable = (props) => {
             </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
-              (roomData &&
-                roomData.players.find((ele) => ele.userid === userId)) ||
-              isWatcher ? (
+            (roomData &&
+              roomData.players.find((ele) => ele.userid === userId)) ||
+            isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1758,8 +1840,8 @@ const PokerTable = (props) => {
                           </>
                         )}
                       {roomData &&
-                        roomData.handWinner.length === 0 &&
-                        !roomData?.gamestart ? (
+                      roomData.handWinner.length === 0 &&
+                      !roomData?.gamestart ? (
                         <>
                           <p className="joined-player">
                             Invited Players joined -{" "}
@@ -1972,6 +2054,10 @@ const PokerTable = (props) => {
             handleTentativeAction={handleTentativeAction}
             tentativeAction={tentativeAction}
             loader={loader}
+            raiseInSliderAction={raiseInSliderAction}
+            betInSliderAction={betInSliderAction}
+            playersRight={playersRight}
+            playersLeft={playersLeft}
           />
         </div>
       </div>
@@ -2055,20 +2141,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-                <li>
-                  <OverlayTrigger
-                    placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                    }
-                  >
-                    <button onClick={() => setShowInvite(true)}>
-                      {/* <img src={addcoin} alt="Invite friend" /> */}
-                      <i className="fa fa-envelope"></i>
-                    </button>
-                  </OverlayTrigger>
-                </li>
-              )}
+              <li>
+                <OverlayTrigger
+                  placement="left"
+                  overlay={
+                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                  }
+                >
+                  <button onClick={() => setShowInvite(true)}>
+                    {/* <img src={addcoin} alt="Invite friend" /> */}
+                    <i className="fa fa-envelope"></i>
+                  </button>
+                </OverlayTrigger>
+              </li>
+            )}
             <li>
               <OverlayTrigger
                 placement="left"
@@ -2128,25 +2214,25 @@ const PokerTable = (props) => {
       />
 
       <LogoImage />
-      <audio className="audio-winner">
+      <audio className="audio-winner" muted={!volume}>
         <source src={winnerSound}></source>
       </audio>
-      <audio className="audio-bet">
+      <audio className="audio-bet" muted={!volume}>
         <source src={call}></source>
       </audio>
-      <audio className="audio-turn">
+      <audio className="audio-turn" muted={!volume}>
         <source src={myTurn}></source>
       </audio>
-      <audio className="audio-bet">
+      <audio className="audio-bet" muted={!volume}>
         <source src={fold}></source>
       </audio>
-      <audio className="audio-collect">
+      <audio className="audio-collect" muted={!volume}>
         <source src={collect}></source>
       </audio>
-      <audio className="audio-check">
+      <audio className="audio-check" muted={!volume}>
         <source src={check}></source>
       </audio>
-      <audio className="audio-chat">
+      <audio className="audio-chat" muted={!volume}>
         <source src={chatBubble}></source>
       </audio>
       <StatsPopup
@@ -2306,12 +2392,12 @@ const Players = ({
             response.data.error === "no error" &&
             response.data.success === true &&
             response.data.special ===
-            "You have removed this follower in the past"
+              "You have removed this follower in the past"
           ) {
             toast.success(
               "You are now following @" +
-              nickname +
-              ", notice that you removed him from following you",
+                nickname +
+                ", notice that you removed him from following you",
               {
                 id: "follow-request",
                 icon: "✔️",
@@ -2416,10 +2502,10 @@ const Players = ({
           if (response.data.error === "already sent friend request") {
             toast.success(
               "Friend request already sent to @" +
-              Fname +
-              " please wait " +
-              response.data.hours +
-              " hours before you can try again.",
+                Fname +
+                " please wait " +
+                response.data.hours +
+                " hours before you can try again.",
               {
                 duration: 6000,
                 id: "frined-already-sent",
@@ -2492,11 +2578,13 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
-          ? `winner-player`
-          : ``
-          } ${playerData && playerData.playing ? "" : "not-playing"} ${mergeAnimationState ? "animateMerge-chips" : ""
-          }`}
+        className={`players ${playerclass} ${
+          winner && playerData && winner.id === playerData.id
+            ? `winner-player`
+            : ``
+        } ${playerData && playerData.playing ? "" : "not-playing"} ${
+          mergeAnimationState ? "animateMerge-chips" : ""
+        }`}
       >
         {/* start win or lose animation */}
         {/* {winner &&
@@ -2644,10 +2732,10 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                    ? "B"
-                    : playerData.isDealer
-                      ? "D"
-                      : ""}
+                  ? "B"
+                  : playerData.isDealer
+                  ? "D"
+                  : ""}
               </div>
             )}
 
@@ -2803,10 +2891,11 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
               // src={cards ? cards : back }
               src={card ? `/cards/${card.toUpperCase()}.svg` : back}
               alt="card"
-              className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
-                ? `winner-card`
-                : ``
-                } flip-vertical-left duration-${i}`}
+              className={`${
+                winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+              } flip-vertical-left duration-${i}`}
             />
           );
         })}
@@ -2833,8 +2922,6 @@ const TablePotMoney = ({ tablePot }) => {
 //   );
 // };
 
-
-
 const FooterButton = ({
   bet,
   setBet,
@@ -2852,23 +2939,11 @@ const FooterButton = ({
   handleTentativeAction,
   tentativeAction,
   loader,
+  raiseInSliderAction,
+  betInSliderAction,
+  playersLeft,
+  playersRight,
 }) => {
-  const wrapperRef = useRef();
-  const useOutsideAlerter = (ref) => {
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setRaise(false)
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  };
-
-  useOutsideAlerter(wrapperRef);
   return (
     <div className="footer-button">
       <div className="container">
@@ -2894,8 +2969,12 @@ const FooterButton = ({
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
-                    <div className="raiseBet-container" ref={wrapperRef}>
-                      <RaiseSlider />
+                    <div className="raiseBet-container">
+                      <RaiseSlider
+                        currentPlayer={currentPlayer}
+                        SliderAction={raiseInSliderAction}
+                        roomData={roomData}
+                      />
                       <RaiseView
                         currentPlayer={currentPlayer}
                         setRaise={setRaise}
@@ -2942,8 +3021,12 @@ const FooterButton = ({
               {openAction.bet && (
                 <div className="footer-btn ">
                   {bet && (
-                    <div className="raiseBet-container" ref={wrapperRef}>
-                      <RaiseSlider />
+                    <div className="raiseBet-container">
+                      <RaiseSlider
+                        currentPlayer={currentPlayer}
+                        SliderAction={betInSliderAction}
+                        roomData={roomData}
+                      />
                       <BetView
                         currentPlayer={currentPlayer}
                         setBet={setBet}
@@ -3013,6 +3096,9 @@ const FooterButton = ({
                   handleTentativeAction={handleTentativeAction}
                   roomData={roomData}
                   currentPlayer={currentPlayer}
+                  player={playersLeft
+                    .concat(playersRight)
+                    .find((el) => el.id === userId)}
                 />
               )}
             </>
@@ -3215,10 +3301,11 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
-              ? ``
-              : `winner-card`
-              } `}
+            className={`animate__animated animate__rollIn duration-${i} ${
+              handMatch.findIndex((ele) => ele === i) !== -1
+                ? ``
+                : `winner-card`
+            } `}
           />
         ))}
     </div>
