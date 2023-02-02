@@ -134,7 +134,8 @@ const PokerTable = (props) => {
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
   const [userData, setUserData] = useState(null);
-
+  const [playersLeft, setPlayerLeft] = useState([]);
+  const [playersRight, setPlayersRight] = useState([]);
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -1026,6 +1027,16 @@ const PokerTable = (props) => {
 
   const updatePlayer = (data) => {
     let availablePosition = [];
+    const pl = [...data];
+    let players = [...pl];
+    console.log("playersOOOO", players);
+    const pRight = pl.slice(0, Math.ceil(pl.length / 2));
+    console.log("pRight", pRight);
+    const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
+    console.log("Pleft", pleft);
+    setPlayerLeft(pleft);
+    setPlayersRight(pRight);
+
     switch (data.length) {
       case 1:
         availablePosition = [0];
@@ -1634,7 +1645,6 @@ const PokerTable = (props) => {
           amount,
         });
         setRefillSitInAmount(false);
-        console.log({ data });
         updatePlayer(data?.data?.roomData.players);
         return "success";
       }
@@ -2046,6 +2056,8 @@ const PokerTable = (props) => {
             loader={loader}
             raiseInSliderAction={raiseInSliderAction}
             betInSliderAction={betInSliderAction}
+            playersRight={playersRight}
+            playersLeft={playersLeft}
           />
         </div>
       </div>
@@ -2929,6 +2941,8 @@ const FooterButton = ({
   loader,
   raiseInSliderAction,
   betInSliderAction,
+  playersLeft,
+  playersRight,
 }) => {
   return (
     <div className="footer-button">
@@ -3082,6 +3096,9 @@ const FooterButton = ({
                   handleTentativeAction={handleTentativeAction}
                   roomData={roomData}
                   currentPlayer={currentPlayer}
+                  player={playersLeft
+                    .concat(playersRight)
+                    .find((el) => el.id === userId)}
                 />
               )}
             </>
