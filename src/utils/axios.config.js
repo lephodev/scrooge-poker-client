@@ -21,3 +21,8 @@ export const pokerInstance = () =>
     baseURL: `${CONSTANTS.serverUrl}/poker`,
     headers: { Authorization: getAuthorizationHeader() },
   });
+export const tournamentInstance = () =>
+  axios.create({
+    baseURL: `${CONSTANTS.serverUrl}/tournament`,
+    headers: { Authorization: getAuthorizationHeader() },
+  });
