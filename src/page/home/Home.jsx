@@ -9,7 +9,7 @@ import userUtils from "../../utils/user";
 import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
 import logo from "../../assets/game/logo.png";
-import { pokerInstance } from "../../utils/axios.config";
+import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
 import axios from "axios";
@@ -43,6 +43,8 @@ const Home = () => {
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({});
   const [pokerRooms, setPokerRooms] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
+
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
 
@@ -171,6 +173,21 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await tournamentInstance().get("/tournaments");
+        console.log("response", response);
+        const { status } = response;
+        console.log("status", status);
+        if (status === 200) {
+          const { tournaments } = response.data;
+          setTournaments(tournaments);
+        }
+      } catch (error) {}
+    })();
+  }, []);
+
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -194,6 +211,7 @@ const Home = () => {
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  console.log("Tournaments", tournaments);
   return (
     <div className="poker-home">
       {loader && (
@@ -221,8 +239,13 @@ const Home = () => {
             </div>
             <div className="create-game-box">
               <div className="create-game-box-avtar">
-                <img src={userData?.profile || "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
-                } alt="" />
+                <img
+                  src={
+                    userData?.profile ||
+                    "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
+                  }
+                  alt=""
+                />
                 <h5>{userData?.username}</h5>
               </div>
               <div className="walletTicket-box">
@@ -297,7 +320,7 @@ const Home = () => {
               <h3>Poker Open Tables</h3>
               <div className="home-poker-card-grid">
                 {filterRoom.map((el) => (
-                  <GameTable data={el} />
+                  <GameTable data={el} gameType="Poker" />
                 ))}
               </div>
             </>
@@ -316,11 +339,11 @@ const Home = () => {
 
       <div className="home-poker-card">
         <div className="container">
-          {/* <h3>Open Tournaments</h3> */}
+          <h3>Open Tournaments</h3>
           <div className="home-poker-card-grid">
-            {/* <GameTable />
-            <GameTable />
-            <GameTable /> */}
+            {tournaments.map((el) => (
+              <GameTable data={el} gameType="Tournament" />
+            ))}
           </div>
         </div>
       </div>
@@ -508,7 +531,7 @@ const CreateTable = ({
   );
 };
 
-const GameTable = ({ data }) => {
+const GameTable = ({ data, gameType }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -523,9 +546,9 @@ const GameTable = ({ data }) => {
         <img alt="" src={casino} />
       </div>
       <div className="home-poker-info">
-        <h4>{data.gameName}</h4>
+        <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
 
-        <AvatarGroup imgArr={data.players} />
+        <AvatarGroup imgArr={data?.players} />
         <button onClick={redirectToTable} type="submit">
           Join Game
         </button>

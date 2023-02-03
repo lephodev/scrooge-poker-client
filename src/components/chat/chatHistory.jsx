@@ -2,14 +2,18 @@ import React, { useEffect, useRef } from "react";
 // import logo from "../../assets/game/logo-poker.png";
 import avtar from "../../assets/profile_user.jpg";
 
-const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory }) => {
+const ChatHistory = ({
+  openChatHistory,
+  handleOpenChatHistory,
+  setOpenChatHistory,
+}) => {
   const wrapperRef = useRef(null);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
-          setOpenChatHistory(false)
+          setOpenChatHistory(false);
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
