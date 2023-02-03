@@ -549,7 +549,10 @@ const GameTable = ({ data, gameType }) => {
         <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
 
         <AvatarGroup imgArr={data?.players} />
-        <button onClick={redirectToTable} type="submit">
+        <button
+          onClick={gameType === "Poker" ? redirectToTable : ""}
+          type="submit"
+        >
           Join Game
         </button>
       </div>
