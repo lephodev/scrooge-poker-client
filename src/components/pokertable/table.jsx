@@ -197,14 +197,14 @@ const PokerTable = (props) => {
       setTimeout(() => {
         console.log("reconnect");
         socket.io.open((err) => {
-          console.log("Socket open");
+          // console.log("Socket open");
           if (err) {
             console.log("reconnect err => ", err);
             tryReconnect();
           } else {
             let urlParams = new URLSearchParams(window.location.search);
             let table = urlParams.get("tableid");
-            console.log({ table });
+            // console.log({ table });
             let type =
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
@@ -655,6 +655,9 @@ const PokerTable = (props) => {
       updatePlayer(roomData.showdown);
       setCurrentPlayer(false);
       showWinner(roomData.winnerPlayer, roomData.players);
+      setTimeout(() => {
+        setModalShow(true);
+      }, 3000);
     });
 
     socket.on("gameStarted", () => {
@@ -843,14 +846,13 @@ const PokerTable = (props) => {
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
       if (data.roomdata.runninground === 0) {
+        console.log("data.roomdata.handWinner", data.roomdata.handWinner);
         setHandWinner(data.roomdata.handWinner);
-        setModalShow(true);
       }
     });
 
     socket.on("onlyOnePlayingPlayer", (data) => {
       roomData = data.roomdata;
-      console.log({ roomData });
       updatePlayer(roomData.players);
       setStart(false);
       toast.success(
@@ -932,17 +934,17 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
-    console.log("handleTentativeAction1player", player);
+    // console.log("handleTentativeAction1player", player);
     let event;
     const { tentativeAction } = player;
-    console.log("tentativeAction", tentativeAction);
+    // console.log("tentativeAction", tentativeAction);
     if (player.tentativeAction.includes(" ")) {
       const [event1] = tentativeAction.split(" ");
       event = event1;
     } else {
       event = tentativeAction;
     }
-    console.log("eventeventevent", event);
+    // console.log("eventeventevent", event);
     switch (event) {
       case "check":
         socket.emit("docheck", { userid: player.id, roomid: tableId });
@@ -1059,11 +1061,11 @@ const PokerTable = (props) => {
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
-    console.log("playersOOOO", players);
+    // console.log("playersOOOO", players);
     const pRight = pl.slice(0, Math.ceil(pl.length / 2));
-    console.log("pRight", pRight);
+    // console.log("pRight", pRight);
     const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
-    console.log("Pleft", pleft);
+    // console.log("Pleft", pleft);
     setPlayerLeft(pleft);
     setPlayersRight(pRight);
 
@@ -1131,7 +1133,6 @@ const PokerTable = (props) => {
     });
     setPlayers(playerDetails);
   };
-
   const showWinner = (data, players) => {
     data.forEach((item, i) => {
       if (i === 0) {
@@ -1261,7 +1262,7 @@ const PokerTable = (props) => {
   };
 
   const raiseAction = (x) => {
-    console.log("xxxxx", x);
+    // console.log("xxxxx", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1533,7 +1534,7 @@ const PokerTable = (props) => {
   };
 
   const handleTentativeAction = (e) => {
-    console.log("e", e);
+    // console.log("e", e);
     const {
       target: { value, checked },
     } = e;
@@ -1565,7 +1566,7 @@ const PokerTable = (props) => {
 
   useEffect(() => {
     if (currentPlayer?.tentativeAction && currentPlayer?.id === userId) {
-      console.log("currentPlayer", currentPlayer);
+      // console.log("currentPlayer", currentPlayer);
       handleTentativeActionAuto(currentPlayer);
     }
     setTentativeAction("");
@@ -1586,7 +1587,7 @@ const PokerTable = (props) => {
   //   );
   // }, [currentPlayer]);
 
-  console.log({ tentativeAction });
+  // console.log({ tentativeAction });
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -1664,7 +1665,7 @@ const PokerTable = (props) => {
   };
 
   const handleReffill = async (amount) => {
-    console.log("RefelAmount", amount);
+    // console.log("RefelAmount", amount);
     try {
       if (parseFloat(amount) > userData.wallet) {
         toast.error("You don't have enough balance.", {
@@ -1689,7 +1690,7 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    console.log("BetAmount", x);
+    // console.log("BetAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1706,7 +1707,7 @@ const PokerTable = (props) => {
     });
   };
   const betInSliderAction = (x) => {
-    console.log("BetAmount", x);
+    // console.log("BetAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1722,6 +1723,7 @@ const PokerTable = (props) => {
       amount: roomData.raiseAmount + x,
     });
   };
+
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -2095,16 +2097,19 @@ const PokerTable = (props) => {
             playersRight={playersRight}
             playersLeft={playersLeft}
           />
+
         </div>
       </div>
 
       <div className="btn-toggler" onClick={handleBtnClick} role="presentation">
         <img src={btntoggle} alt="" />
       </div>
-      {((players &&
-        players.length > 0 &&
-        players.find((ele) => ele.id === userId)) ||
-        isWatcher) &&
+
+      {
+        ((players &&
+          players.length > 0 &&
+          players.find((ele) => ele.id === userId)) ||
+          isWatcher) &&
         btnToggle && (
           <ul className="btn-list" ref={wrapperRef}>
             <li>
@@ -2216,7 +2221,8 @@ const PokerTable = (props) => {
               </OverlayTrigger>
             </li>
           </ul>
-        )}
+        )
+      }
       <Chat
         handleClick={handleClick}
         open={open}
@@ -2224,13 +2230,15 @@ const PokerTable = (props) => {
         tableId={tableId}
       />
       {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
-      {isWatcher && (
-        <div className="bet-button">
-          <span onClick={() => handleBetClick(!view)} role="presentation">
-            Place Bet <img src={arrow} alt="arrow" />
-          </span>
-        </div>
-      )}
+      {
+        isWatcher && (
+          <div className="bet-button">
+            <span onClick={() => handleBetClick(!view)} role="presentation">
+              Place Bet <img src={arrow} alt="arrow" />
+            </span>
+          </div>
+        )
+      }
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2315,7 +2323,7 @@ const PokerTable = (props) => {
         userid={selectedUser}
         tableId={tableId}
       />
-    </div>
+    </div >
   );
 };
 
@@ -2348,6 +2356,7 @@ const Players = ({
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followClick, setFollowClick] = useState("");
+  const [foldShowCard, setFoldShowCard] = useState(false)
   const target = useRef(null);
   useEffect(() => {
     const showBuyIn = () => {
@@ -2533,7 +2542,7 @@ const Players = ({
         headers: { idtoken: IdTokenConst },
       })
       .then((response) => {
-        console.log("Executing friend-request:");
+        // console.log("Executing friend-request:");
         if (response.data) {
           if (response.data.error === "already sent friend request") {
             toast.success(
@@ -2601,8 +2610,12 @@ const Players = ({
       .catch((error) => {
         console.log("Error req", error);
       });
-    console.log("It works my friend-request!!!");
+    // console.log("It works my friend-request!!!");
   };
+
+  const handleChangeFold = () => {
+    setFoldShowCard(!foldShowCard)
+  }
 
   return (
     <>
@@ -2691,26 +2704,45 @@ const Players = ({
             //    <Lottie options={winImageanim} width={600} height={500} />
             // </div>
           )}
-          {playerData && (playerData.fold || !playerData.playing) ? (
-            ""
-          ) : roomData && roomData.runninground === 5 ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData &&
-            roomData.runninground >= 1 &&
-            playerData.id === userId ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData && roomData.runninground === 0 ? (
-            ""
-          ) : (
-            <HideCard />
-          )}
+          {playerData?.availablePosition === 0 && playerData?.fold &&
+            <div className="showCardIn-fold">
+              <Form.Check
+                inline
+                label="Show your cards to opponents !"
+                name="group1"
+                type="checkbox"
+                id="inlinecheckbox"
+                onChange={handleChangeFold}
+              />
+            </div>
+          }
 
+          {(playerData.fold || !playerData.playing) && foldShowCard ?
+            <ShowCard
+              cards={playerData.cards ? playerData.cards : []}
+              handMatch={handMatch}
+            />
+            :
+            playerData && (playerData.fold || !playerData.playing) ? (
+              ""
+            )
+              : roomData && roomData.runninground === 5 ? (
+                <ShowCard
+                  cards={playerData.cards ? playerData.cards : []}
+                  handMatch={handMatch}
+                />
+              ) : roomData &&
+                roomData.runninground >= 1 &&
+                playerData.id === userId ? (
+                <ShowCard
+                  cards={playerData.cards ? playerData.cards : []}
+                  handMatch={handMatch}
+                />
+              ) : roomData && roomData.runninground === 0 ? (
+                ""
+              ) : (
+                <HideCard />
+              )}
           {/************ player PIC avtaar  **********/}
 
           <div
@@ -2981,7 +3013,6 @@ const FooterButton = ({
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
-          {console.log("roomData", roomData)}
           {currentPlayer && currentPlayer?.id === userId ? (
             <>
               {openAction.fold && (
@@ -2995,6 +3026,19 @@ const FooterButton = ({
                     id={"fold"}
                     onChange={() => handleCheck("Fold")}
                     checked={selectedbets === "Fold"}
+                  /> */}
+                </div>
+              )}
+              {openAction.check && (
+                <div className="footer-btn ">
+                  <Button onClick={() => checkAction()}>Check</Button>
+                  {/* <Form.Check
+                    inline
+                    name="Check"
+                    type="checkbox"
+                    id={"Check"}
+                    onChange={() => handleCheck("Check")}
+                    checked={selectedbets === "Check"}
                   /> */}
                 </div>
               )}
@@ -3039,7 +3083,7 @@ const FooterButton = ({
 
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>Call <span className={(roomData.raiseAmount - currentPlayer?.pot) > 0 ? "callBtn-amount" :
+                  <Button onClick={() => callAction()}>Call{" "}<span className={(roomData.raiseAmount - currentPlayer?.pot) > 0 ? "callBtn-amount" :
                     "callBtn-amount-none"}>({numFormatter(roomData.raiseAmount - currentPlayer?.pot)})</span></Button>
                   {/* <Form.Check
                     inline
@@ -3103,20 +3147,6 @@ const FooterButton = ({
                     /> */}
                     All In
                   </Button>
-                </div>
-              )}
-
-              {openAction.check && (
-                <div className="footer-btn ">
-                  <Button onClick={() => checkAction()}>Check</Button>
-                  {/* <Form.Check
-                    inline
-                    name="Check"
-                    type="checkbox"
-                    id={"Check"}
-                    onChange={() => handleCheck("Check")}
-                    checked={selectedbets === "Check"}
-                  /> */}
                 </div>
               )}
             </>
