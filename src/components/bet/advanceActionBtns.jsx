@@ -11,7 +11,6 @@ const AdvanceActionBtns = ({
   currentPlayer,
   player,
 }) => {
-  console.log("tentativeAction jivan", player);
   const FOLD_BTN = (
     <div className="footer-btn ">
       <Button>
@@ -137,7 +136,6 @@ const AdvanceActionBtns = ({
     </div>
   );
 
-  console.log("currentPlayer?.potcurrentPlayer?.pot", player?.pot);
   let btn = "";
   if (
     roomData?.raiseAmount === player?.pot ||

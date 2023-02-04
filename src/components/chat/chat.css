@@ -309,7 +309,7 @@ span.msg-limit {
   bottom: 2%;
   left: 2%;
   cursor: pointer;
-  z-index: 99;
+  z-index: 999;
   padding: 5px;
   border-radius: 50%;
 }
