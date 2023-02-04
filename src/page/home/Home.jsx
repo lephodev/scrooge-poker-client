@@ -336,17 +336,18 @@ const Home = () => {
           )}
         </div>
       </div>
-
-      <div className="home-poker-card">
-        <div className="container">
-          <h3>Open Tournaments</h3>
-          <div className="home-poker-card-grid">
-            {tournaments.map((el) => (
-              <GameTable data={el} gameType="Tournament" />
-            ))}
+      {tournaments.length > 0 && (
+        <div className="home-poker-card">
+          <div className="container">
+            <h3>Open Tournaments</h3>
+            <div className="home-poker-card-grid">
+              {tournaments.map((el) => (
+                <GameTable data={el} gameType="Tournament" />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -540,6 +541,30 @@ const GameTable = ({ data, gameType }) => {
     });
   };
 
+  const joinTournament = async (tournamentId) => {
+    const res = await tournamentInstance().post("/jointournament", {
+      tournamentId,
+    });
+    console.log("res", res);
+    if (res.data.status === 200) {
+      toast.success(res.data.msg, { id: "A" });
+    } else {
+      toast.error(res.data.msg, { id: "A" });
+    }
+  };
+
+  const getTime = (time) => {
+    let d = new Date(time);
+    let pm = d.getHours() >= 12;
+    let hour12 = d.getHours() % 12;
+    if (!hour12) hour12 += 12;
+    let minute = d.getMinutes();
+    let date = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  };
+
   return (
     <div className="home-poker-content">
       <div className="home-poker-cover">
@@ -547,10 +572,28 @@ const GameTable = ({ data, gameType }) => {
       </div>
       <div className="home-poker-info">
         <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+        {console.log("data", data)}
+        <AvatarGroup
+          imgArr={
+            gameType === "Poker" ? data?.players : data?.rooms[0]?.players
+          }
+        />
+        <h4>
+          {" "}
+          {gameType === "Tournament" && "Fee-"}
+          {gameType === "Tournament" && data?.tournamentFee}
+        </h4>
+        <h4>
+          {gameType === "Tournament" && "Start-"}
+          {gameType === "Tournament" && getTime(data?.startDate)}
+        </h4>
 
-        <AvatarGroup imgArr={data?.players} />
         <button
-          onClick={gameType === "Poker" ? redirectToTable : ""}
+          onClick={
+            gameType === "Poker"
+              ? redirectToTable
+              : () => joinTournament(data?._id)
+          }
           type="submit"
         >
           Join Game
