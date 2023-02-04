@@ -8,7 +8,9 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-
+.chat-section {
+  position: relative;
+}
 .chat-header {
   padding: 0;
   display: flex;
@@ -17,6 +19,10 @@
   border-bottom: transparent;
   background: transparent;
   position: relative;
+  position: absolute;
+  top: -35px;
+  right: 0;
+  z-index: 999;
 }
 
 .chat-header .close-icon i {
@@ -120,6 +126,15 @@ i.fa.fa-sign-out {
   border-bottom: none;
   padding: 5px 0px 10px;
 }
+.chat-search.chat-input .form-inline {
+  display: flex;
+  flex-wrap: unset;
+gap: 8px;
+
+}
+
+
+
 
 .chat-back {
   width: 25px;
@@ -312,6 +327,27 @@ span.msg-limit {
   z-index: 99;
   padding: 5px;
   border-radius: 50%;
+}
+.chatHistory-icon{
+  position: relative;
+}
+.ChatHistory-count{
+position: absolute;
+width: 25px;
+height: 25px;
+background-color: #f9ff00;
+border-radius: 50%;
+color: black;
+top: -8px;
+left: 22px;
+text-align: center;
+vertical-align: middle;
+display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 1024px) {

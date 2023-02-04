@@ -1,10 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 // import logo from "../../assets/game/logo-poker.png";
+import { socket } from '../../config/socketConnection';
 import avtar from "../../assets/profile_user.jpg";
 
-const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory }) => {
-  const wrapperRef = useRef(null);
 
+const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, chatMessages, scrollToBottom, scrollDownRef }) => {
+  // const [message, setMessages] = useState([]);
+  const [typingOnChat, setTypingOnChat] = useState(false);
+  const wrapperRef = useRef(null);
+  console.log("user id at chat history =>", userId)
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
@@ -19,36 +24,67 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     }, [ref]);
   };
 
+  useEffect(() => {
+    socket.on('typingOnChat', (data) => {
+      console.log("data -->", data);
+      const { crrTypingUserId, typing } = data;
+      console.log("on typing ");
+      if (userId !== crrTypingUserId) {
+        console.log(crrTypingUserId, typing);
+        setTypingOnChat(typing);
+      }
+    });
+  })
+
+
+
+  useEffect(() => {
+    if (openChatHistory) {
+      console.log("openChatHistory--", openChatHistory);
+      scrollToBottom();
+    }
+  })
+
+
+
   useOutsideAlerter(wrapperRef);
 
   return (
     <div
-      className={`chatHistory-Container ${!openChatHistory ? "" : "expand"}`}
+      className={`chatHistory-Container ${ !openChatHistory ? "" : "expand" }`}
       ref={wrapperRef}
     >
       <div className="chatHistory-header">
         {/* <img className="Chatgame-logo " src={logo} alt="" /> */}
         <div className="Chatgame-title"> Chat History</div>
-        <div className="Gameplayer-count">
+        {typingOnChat ? "Typing..." : null}
+        {/* <div className="Gameplayer-count">
           <div className="greendot" /> <h4>Players</h4>
           <h3>5</h3>
-        </div>
+        </div> */}
         <div className="hamburger" onClick={handleOpenChatHistory}>
           <div className="line"></div>
           <div className="line"></div>
         </div>
       </div>
       <div className="chatHistory-comments">
-        <div className="playerComment-box">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>hi this chat history</p>
-          </div>
-        </div>
-        <div className="playerComment-box playerSelfMssg">
+        {chatMessages?.map((msg) => {
+          return (
+            <>
+              <div className={`playerComment-box ${ userId === msg.userId ? "playerSelfMssg" : "" }`}>
+                <div className="playerAvtar">
+                  <img src={msg.profile ? msg.profile : avtar} alt="" />
+                </div>
+                <div className="playerMssgtoDisplay">
+                  <div className="playerName">{msg.firstName}</div>
+                  <p>{msg.message}</p>
+                </div>
+              </div>
+            </>
+          )
+        })
+        }
+        {/* <div className="playerComment-box playerSelfMssg">
           <div className="playerAvtar">
             <img src={avtar} alt="" />
           </div>
@@ -64,123 +100,10 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
               content .... content ....
             </p>
           </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
-        </div>
-        <div className="playerComment-box ">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content ....
-            </p>
-          </div>
+        </div> */}
+
+        <div style={{ float: "left", clear: "both" }}
+          ref={scrollDownRef}>
         </div>
       </div>
     </div>
