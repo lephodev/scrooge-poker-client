@@ -553,6 +553,23 @@ const GameTable = ({ data, gameType }) => {
     }
   };
 
+  const enterRoom = async (tournamentId) => {
+    const res = await tournamentInstance().post("/enterroom", {
+      tournamentId: tournamentId,
+    });
+    console.log("enterRoom", res);
+    if (res.data.code === 200) {
+      console.log(res.data);
+      let roomid = res.data.roomId;
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
+    } else {
+      // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
+    }
+  };
+
   const getTime = (time) => {
     let d = new Date(time);
     let pm = d.getHours() >= 12;
@@ -573,11 +590,11 @@ const GameTable = ({ data, gameType }) => {
       <div className="home-poker-info">
         <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
         {console.log("data", data)}
-        <AvatarGroup
-          imgArr={
-            gameType === "Poker" ? data?.players : data?.rooms[0]?.players
-          }
-        />
+        {gameType === "Poker" ? (
+          <AvatarGroup imgArr={data?.players} />
+        ) : (
+          <TournamentGroup players={data?.havePlayers} />
+        )}
         <h4>
           {" "}
           {gameType === "Tournament" && "Fee-"}
@@ -587,17 +604,21 @@ const GameTable = ({ data, gameType }) => {
           {gameType === "Tournament" && "Start-"}
           {gameType === "Tournament" && getTime(data?.startDate)}
         </h4>
-
-        <button
-          onClick={
-            gameType === "Poker"
-              ? redirectToTable
-              : () => joinTournament(data?._id)
-          }
-          type="submit"
-        >
-          Join Game
-        </button>
+        {gameType === "Poker" ? (
+          <button onClick={redirectToTable} type="submit">
+            Join Game
+          </button>
+        ) : (
+          <>
+            {" "}
+            <button onClick={() => joinTournament(data?._id)} type="submit">
+              Join Game
+            </button>
+            <button onClick={() => enterRoom(data?._id)} type="submit">
+              Enter Game
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -623,6 +644,14 @@ const AvatarGroup = ({ imgArr }) => {
           ))}
       </div>
       <p>{imgArr?.length || 0} people</p>
+    </div>
+  );
+};
+
+const TournamentGroup = ({ players }) => {
+  return (
+    <div className="poker-avatar-box">
+      <p>{players || 0} people joined</p>
     </div>
   );
 };
