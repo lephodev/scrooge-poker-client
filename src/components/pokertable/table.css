@@ -3116,11 +3116,23 @@ img.coinWinning-animation {
     top: 70px;
   }
 }
-@media screen and (max-width: 1024px) and (min-width:768px){
-  .players{
-    scale: 0.9;
+
+@media screen and (max-width: 1024px) and (min-width:768px) {
+  .players {
+    scale: 0.8;
+  }
+
+  .players.player1 {
+    left: 48%;
+  }
+
+  .player1 .player-info {
+    padding: 2px 8px;
+    width: 140px;
+    height: 38px;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .pyro {
     scale: 0.8;
@@ -4131,6 +4143,13 @@ img.coinWinning-animation {
   .player-with-icons .cam-tool .dropdown-menu {
     min-width: 9rem;
     margin-top: 10px !important;
+  }
+
+  .home-poker-card a {
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   img.coinWinning-animation {
@@ -5153,6 +5172,8 @@ img.coinWinning-animation {
   flex-direction: row;
   align-items: center;
   width: 100%;
+  white-space: nowrap;
+
 }
 
 .cummunityCards img {
@@ -5180,11 +5201,13 @@ img.coinWinning-animation {
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
-.tablePlayerNames-span{
+
+.tablePlayerNames-span {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
+
 @media screen and (max-width: 768px) {
   .roomDetails {
     display: grid;

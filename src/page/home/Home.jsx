@@ -625,11 +625,11 @@ const GameTable = ({ data, gameType }) => {
         <p>
           {" "}
           {gameType === "Tournament" && "Fee : "}
-          {gameType === "Tournament" && data?.tournamentFee}
+         <span> {gameType === "Tournament" && data?.tournamentFee}</span>
         </p>
         <p>
           {gameType === "Tournament" && "Start : "}
-          {gameType === "Tournament" && getTime(data?.startDate)}
+          <span>{gameType === "Tournament" && getTime(data?.startDate)}</span>
         </p>
 
         <button
