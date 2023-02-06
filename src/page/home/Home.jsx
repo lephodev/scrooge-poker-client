@@ -171,7 +171,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -186,7 +186,7 @@ const Home = () => {
           const { tournaments } = response.data;
           setTournaments(tournaments);
         }
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -598,6 +598,23 @@ const GameTable = ({ data, gameType }) => {
     }
   };
 
+  const enterRoom = async (tournamentId) => {
+    const res = await tournamentInstance().post("/enterroom", {
+      tournamentId: tournamentId,
+    });
+    console.log("enterRoom", res);
+    if (res.data.code === 200) {
+      console.log(res.data);
+      let roomid = res.data.roomId;
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
+    } else {
+      // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
+    }
+  };
+
   const getTime = (time) => {
     let d = new Date(time);
     let pm = d.getHours() >= 12;
@@ -616,32 +633,37 @@ const GameTable = ({ data, gameType }) => {
         <img alt="" src={casino} />
       </div>
       <div className="home-poker-info">
-        <h4 title={gameType === "Poker" ? data?.gameName : data.name}>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-        <AvatarGroup
-          imgArr={
-            gameType === "Poker" ? data?.players : data?.rooms[0]?.players
-          }
-        />
-        <p>
+        <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+        {console.log("data", data)}
+        {gameType === "Poker" ? (
+          <AvatarGroup imgArr={data?.players} />
+        ) : (
+          <TournamentGroup players={data?.havePlayers} />
+        )}
+        <h4>
           {" "}
-          {gameType === "Tournament" && "Fee : "}
-         <span> {gameType === "Tournament" && data?.tournamentFee}</span>
-        </p>
-        <p>
-          {gameType === "Tournament" && "Start : "}
-          <span>{gameType === "Tournament" && getTime(data?.startDate)}</span>
-        </p>
-
-        <button
-          onClick={
-            gameType === "Poker"
-              ? redirectToTable
-              : () => joinTournament(data?._id)
-          }
-          type="submit"
-        >
-          Join Game
-        </button>
+          {gameType === "Tournament" && "Fee-"}
+          {gameType === "Tournament" && data?.tournamentFee}
+        </h4>
+        <h4>
+          {gameType === "Tournament" && "Start-"}
+          {gameType === "Tournament" && getTime(data?.startDate)}
+        </h4>
+        {gameType === "Poker" ? (
+          <button onClick={redirectToTable} type="submit">
+            Join Game
+          </button>
+        ) : (
+          <>
+            {" "}
+            <button onClick={() => joinTournament(data?._id)} type="submit">
+              Join Game
+            </button>
+            <button onClick={() => enterRoom(data?._id)} type="submit">
+              Enter Game
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -667,6 +689,14 @@ const AvatarGroup = ({ imgArr }) => {
           ))}
       </div>
       <p>{imgArr?.length || 0} people</p>
+    </div>
+  );
+};
+
+const TournamentGroup = ({ players }) => {
+  return (
+    <div className="poker-avatar-box">
+      <p>{players || 0} people joined</p>
     </div>
   );
 };
