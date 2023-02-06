@@ -31,6 +31,11 @@
   position: relative;
 }
 
+input:checked {
+  background-color: #f9ff00 !important;
+  border-color: #f9ff00 !important;
+}
+
 .poker-bg::before {
   content: "";
   background: rgb(0 0 0 / 10%);
@@ -75,6 +80,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 2px;
+}
+
+.close-btn .btn:active {
+  background-color: #f9ff00 !important;
+  border-color: #f9ff00 !important;
 }
 
 .table-card img {
@@ -214,14 +224,13 @@
 .player-pic video {
   width: 106px;
   height: 106px;
-  object-fit: cover;
-  object-position: bottom;
+  object-position: center;
   border-radius: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -51%);
-  /* visibility: hidden; */
+  object-fit: cover;
 }
 
 .player1 .player-pic video {
@@ -293,7 +302,8 @@
   border: 3px solid #101010;
   box-shadow: 0px 4px 4px #000000a8;
   margin: 0px auto;
-  top: 10px;
+  top: 25px;
+  /* top: 10px; */
 }
 
 .player-info h4 {
@@ -837,6 +847,34 @@
   animation-delay: 0.1s !important;
 }
 
+.showCardIn-fold {
+  position: fixed;
+  bottom: -50%;
+  left: -16%;
+  background: #2e2e2e;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  align-items: center;
+  border: 1px solid #282828;
+  display: flex;
+  box-shadow: 7px 8px 18px 6px #323232c4;
+  width: 216px;
+  z-index: 99999 !important;
+}
+
+.showCardIn-fold .form-check-input:checked {
+  background-color: #f9ff00 !important;
+  border-color: #f9ff00 !important;
+  color: #f9ff00 !important;
+}
+
+.showCardIn-fold input {
+  width: 35px;
+  height: 35px;
+}
+
 .footer-button {
   position: fixed;
   bottom: 0;
@@ -994,6 +1032,7 @@
 
 .player-chip {
   text-align: center;
+  z-index: 9;
 }
 
 .player-chip span {
@@ -2198,6 +2237,7 @@ p.joined-player {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
 }
+
 .form-check-inline {
   display: inline-flex;
   align-items: center;
@@ -3076,7 +3116,11 @@ img.coinWinning-animation {
     top: 70px;
   }
 }
-
+@media screen and (max-width: 1024px) and (min-width:768px){
+  .players{
+    scale: 0.9;
+  }
+}
 @media screen and (max-width: 1024px) {
   .pyro {
     scale: 0.8;
@@ -3162,7 +3206,8 @@ img.coinWinning-animation {
   }
 
   .player-info {
-    top: 16px;
+    /* top: 16px; */
+    top: 28px;
     width: 110px;
     height: 35px;
   }
@@ -5052,10 +5097,11 @@ img.coinWinning-animation {
 
 /* back to home if game started already  */
 
-.notShow{
+.notShow {
   display: none;
 }
-.backToHome{
+
+.backToHome {
   position: fixed;
   bottom: 1%;
   right: 1%;
@@ -5074,4 +5120,80 @@ img.coinWinning-animation {
   border: 1px solid #f9ff00;
   border-radius: 50%;
   box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
+}
+
+.stats-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.stats-details h5 {
+  padding-top: 20px;
+  border-top: 1px solid rgb(72, 72, 72);
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+
+.stats-details .winningplayerDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.stats-details .roomDetails-titles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.cummunityCards img {
+  width: 30px;
+}
+
+.cummunityCards {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.stats-details span {
+  color: #f9ff00;
+  font-size: 18px;
+  max-width: 160px;
+  display: flex;
+  flex-wrap: wrap;
+  word-break: keep-all;
+  margin-left: 8px;
+}
+
+.roomDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.tablePlayerNames-span{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+@media screen and (max-width: 768px) {
+  .roomDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .stats-details .winningplayerDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
 }
