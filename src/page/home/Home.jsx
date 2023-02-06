@@ -22,6 +22,8 @@ import tickets from "../../assets/tickets.png";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import { FaQuestionCircle } from "react-icons/fa";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 const Home = () => {
   // inital state
@@ -44,7 +46,7 @@ const Home = () => {
   const [errors, setErrors] = useState({});
   const [pokerRooms, setPokerRooms] = useState([]);
   const [tournaments, setTournaments] = useState([]);
-
+  const [key, setKey] = useState("home");
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
 
@@ -169,7 +171,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -184,7 +186,7 @@ const Home = () => {
           const { tournaments } = response.data;
           setTournaments(tournaments);
         }
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -211,7 +213,10 @@ const Home = () => {
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  console.log("Tournaments", tournaments);
+  const filterTournaments = tournaments.filter((el) =>
+    el.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="poker-home">
       {loader && (
@@ -314,8 +319,48 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <Tabs
+            id="controlled-tab-example"
+            activeKey={key}
+            onSelect={(k) => setKey(k)}
+            className="mb-3"
+          >
+            <Tab eventKey="home" title="Poker Open Tables">
+              {filterRoom.length > 0 ? (
+                <>
+                  <div className="home-poker-card-grid">
+                    {filterRoom.map((el) => (
+                      <GameTable data={el} gameType="Poker" />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                  <div className="no-room-available">
+                    <h4>No Room Available</h4>
+                    <button type="button" onClick={handleShow}>
+                      Create Game
+                    </button>
+                  </div>
+                </div>
+              )}
+            </Tab>
+            <Tab eventKey="2" title="Poker Tournament Tables">
+              {filterTournaments.length > 0 && (
+                <div className="home-poker-card">
+                  <div className="container">
+                    <div className="home-poker-card-grid">
+                      {filterTournaments.map((el) => (
+                        <GameTable data={el} gameType="Tournament" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Tab>
+          </Tabs>
 
-          {filterRoom.length > 0 ? (
+          {/* {filterRoom.length > 0 ? (
             <>
               <h3>Poker Open Tables</h3>
               <div className="home-poker-card-grid">
@@ -333,10 +378,10 @@ const Home = () => {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
-      {tournaments.length > 0 && (
+      {/* {tournaments.length > 0 && (
         <div className="home-poker-card">
           <div className="container">
             <h3>Open Tournaments</h3>
@@ -347,7 +392,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
@@ -571,22 +616,21 @@ const GameTable = ({ data, gameType }) => {
         <img alt="" src={casino} />
       </div>
       <div className="home-poker-info">
-        <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-        {console.log("data", data)}
+        <h4 title={gameType === "Poker" ? data?.gameName : data.name}>{gameType === "Poker" ? data?.gameName : data.name}</h4>
         <AvatarGroup
           imgArr={
             gameType === "Poker" ? data?.players : data?.rooms[0]?.players
           }
         />
-        <h4>
+        <p>
           {" "}
-          {gameType === "Tournament" && "Fee-"}
+          {gameType === "Tournament" && "Fee : "}
           {gameType === "Tournament" && data?.tournamentFee}
-        </h4>
-        <h4>
-          {gameType === "Tournament" && "Start-"}
+        </p>
+        <p>
+          {gameType === "Tournament" && "Start : "}
           {gameType === "Tournament" && getTime(data?.startDate)}
-        </h4>
+        </p>
 
         <button
           onClick={
