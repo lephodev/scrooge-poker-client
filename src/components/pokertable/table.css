@@ -181,7 +181,7 @@ input:checked {
 
 .player6 {
   /* top: -40px; */
-  top: -30%;
+  top: -36%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -686,7 +686,7 @@ input:checked {
   width: 100%;
   /* bottom: -70px; */
   left: 0%;
-  bottom: -50%;
+  bottom: -66%;
   transform: translateY(-50%);
   animation: travelDownCenter 0.4s;
 }
