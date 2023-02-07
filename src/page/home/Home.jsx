@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -24,7 +25,9 @@ import { Tooltip } from "react-bootstrap";
 import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { socket } from "../../config/socketConnection";
 
+let userId;
 const Home = () => {
   // inital state
   const gameInit = {
@@ -154,6 +157,12 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    socket.on("updatePlayerList", (data) => {
+      setTournaments(data);
+    });
+  });
+
   // UseEffects
   useEffect(() => {
     (async () => {
@@ -171,23 +180,25 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
+  const getTournamentDetails = async () => {
+    try {
+      const response = await tournamentInstance().get("/tournaments");
+      console.log("response", response);
+      const { status } = response;
+      console.log("status", status);
+      if (status === 200) {
+        const { tournaments } = response.data;
+        setTournaments(tournaments);
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await tournamentInstance().get("/tournaments");
-        console.log("response", response);
-        const { status } = response;
-        console.log("status", status);
-        if (status === 200) {
-          const { tournaments } = response.data;
-          setTournaments(tournaments);
-        }
-      } catch (error) { }
-    })();
+    getTournamentDetails();
   }, []);
 
   const options = useMemo(
@@ -351,7 +362,11 @@ const Home = () => {
                   <div className="container">
                     <div className="home-poker-card-grid">
                       {filterTournaments.map((el) => (
-                        <GameTable data={el} gameType="Tournament" />
+                        <GameTable
+                          data={el}
+                          gameType="Tournament"
+                          getTournamentDetails={getTournamentDetails}
+                        />
                       ))}
                     </div>
                   </div>
@@ -545,7 +560,7 @@ const CreateTable = ({
   );
 };
 
-const GameTable = ({ data, gameType }) => {
+const GameTable = ({ data, gameType, getTournamentDetails }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -554,16 +569,31 @@ const GameTable = ({ data, gameType }) => {
     });
   };
 
-  const joinTournament = async (tournamentId) => {
-    const res = await tournamentInstance().post("/jointournament", {
-      tournamentId,
+  const getUser = async () => {
+    let user = await userUtils.getAuthUserData();
+    userId = user?.data.user?.id;
+    console.log("useruseruser", user);
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
+      if (code === 200) {
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
     });
-    console.log("res", res);
-    if (res.data.status === 200) {
-      toast.success(res.data.msg, { id: "A" });
-    } else {
-      toast.error(res.data.msg, { id: "A" });
-    }
+  }, []);
+
+  const joinTournament = async (tournamentId) => {
+    socket.emit("joinTournament", {
+      tournamentId: tournamentId,
+      userId: userId,
+    });
   };
 
   const enterRoom = async (tournamentId) => {
@@ -599,48 +629,69 @@ const GameTable = ({ data, gameType }) => {
 
   const handleFlip = () => {
     setCardFlip(!cardFlip);
-  }
+  };
 
   return (
     <>
-      <div className="tournamentCard" >
+      <div className="tournamentCard">
         <FaInfoCircle onClick={handleFlip} />
         <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
-          {!cardFlip ?
-            (
-              <div className="tournamentCard-front">
-                <img src={casino} alt="" />
-                <div className="tournamentFront-info">
-                  <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-                  {gameType === "Poker" ? (
-                    <button onClick={redirectToTable} type="submit">
+          {!cardFlip ? (
+            <div className="tournamentCard-front">
+              <img src={casino} alt="" />
+              <div className="tournamentFront-info">
+                <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+                {gameType === "Poker" ? (
+                  <button onClick={redirectToTable} type="submit">
+                    Join Game
+                  </button>
+                ) : (
+                  <>
+                    {" "}
+                    <button
+                      onClick={() => joinTournament(data?._id)}
+                      type="submit"
+                    >
                       Join Game
                     </button>
-                  ) : (
-                    <>
-                      {" "}
-                      <button onClick={() => joinTournament(data?._id)} type="submit">
-                        Join Game
-                      </button>
-                      <button onClick={() => enterRoom(data?._id)} type="submit">
-                        Enter Game
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="tournamentCard-back">
-                {gameType === "Poker" ? (
-                  <AvatarGroup imgArr={data?.players} />
-                ) : (
-                  ""
+                    <button onClick={() => enterRoom(data?._id)} type="submit">
+                      Enter Game
+                    </button>
+                  </>
                 )}
-                <h4>people joined: <span>{(gameType === "Tournament" ? data?.havePlayers : data?.players?.length) || 0}</span></h4>
-                {gameType === "Tournament" ? (<h4>Fee : <span>{data?.tournamentFee}</span></h4>) : ("")}
-                {gameType === "Tournament" ? (<h4>Date : <span>{getTime(data?.startDate)}</span></h4>) : ("")}
               </div>
-            )}
+            </div>
+          ) : (
+            <div className="tournamentCard-back">
+              {gameType === "Poker" ? (
+                <AvatarGroup imgArr={data?.players} />
+              ) : (
+                ""
+              )}
+              <h4>
+                people joined:{" "}
+                <span>
+                  {(gameType === "Tournament"
+                    ? data?.havePlayers
+                    : data?.players?.length) || 0}
+                </span>
+              </h4>
+              {gameType === "Tournament" ? (
+                <h4>
+                  Fee : <span>{data?.tournamentFee}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+              {gameType === "Tournament" ? (
+                <h4>
+                  Date : <span>{getTime(data?.startDate)}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>
