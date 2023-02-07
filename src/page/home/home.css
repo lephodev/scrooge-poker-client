@@ -81,6 +81,7 @@
   font-weight: 500;
   font-size: 14px;
   border: 1px solid #f9ff00;
+  margin: 8px auto;
 }
 
 .home-poker-card {
@@ -100,18 +101,28 @@
   margin: 0;
 }
 
+.home-poker-info p {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
 .poker-avatar-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 15px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .user-header {
   margin-bottom: 50px;
   padding: 5px 0px 5px;
   background: #141414;
+}
+
+.home-poker-info span {
+  color: #ffffff;
 }
 
 .user-header-grid {
@@ -478,6 +489,36 @@ input[type="number"] {
   position: absolute;
   top: 3.5px;
   right: 4px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #ececec;
+  background-color: #202020;
+  border-color: #4e555b;
+}
+
+.nav-item.nav-link.active {
+  border-bottom-color: #202020 !important;
+}
+
+.home-poker-card a {
+  color: #bcbcbc;
+}
+
+.nav-tabs .nav-link,
+.nav-tabs .nav-link {
+  border-color: #242424;
+}
+
+.nav-tabs {
+  margin-top: 12px;
+  border-bottom: 1px solid #4e555b;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-color: #4e555b;
 }
 
 @media screen and (max-width: 530px) {

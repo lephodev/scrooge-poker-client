@@ -8,9 +8,11 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
 .chat-section {
   position: relative;
 }
+
 .chat-header {
   padding: 0;
   display: flex;
@@ -126,15 +128,13 @@ i.fa.fa-sign-out {
   border-bottom: none;
   padding: 5px 0px 10px;
 }
+
 .chat-search.chat-input .form-inline {
   display: flex;
   flex-wrap: unset;
-gap: 8px;
+  gap: 8px;
 
 }
-
-
-
 
 .chat-back {
   width: 25px;
@@ -328,26 +328,28 @@ span.msg-limit {
   padding: 5px;
   border-radius: 50%;
 }
-.chatHistory-icon{
+
+.chatHistory-icon {
   position: relative;
 }
-.ChatHistory-count{
-position: absolute;
-width: 25px;
-height: 25px;
-background-color: #f9ff00;
-border-radius: 50%;
-color: black;
-top: -8px;
-left: 22px;
-text-align: center;
-vertical-align: middle;
-display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    font-size: 12px;
-    font-weight: 600;
+
+.ChatHistory-count {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #f9ff00;
+  border-radius: 50%;
+  color: black;
+  top: -8px;
+  left: 22px;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1024px) {
@@ -410,5 +412,15 @@ display: flex;
   .chatHistory-comments {
     height: calc(100% - 48px);
     overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .ChatHistory-count {
+    width: 20px;
+    height: 20px;
+    left: 22px;
+    font-size: 12px;
+    font-weight: 600;
   }
 }
