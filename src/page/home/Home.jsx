@@ -671,12 +671,12 @@ const AvatarGroup = ({ imgArr }) => {
   );
 };
 
-const TournamentGroup = ({ players }) => {
-  return (
-    <div className="poker-avatar-box">
-      <p>{players || 0} people joined</p>
-    </div>
-  );
-};
+// const TournamentGroup = ({ players }) => {
+//   return (
+//     <div className="poker-avatar-box">
+//       <p>{players || 0} people joined</p>
+//     </div>
+//   );
+// };
 
 export default Home;
