@@ -22,7 +22,7 @@ import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
@@ -374,40 +374,8 @@ const Home = () => {
               )}
             </Tab>
           </Tabs>
-
-          {/* {filterRoom.length > 0 ? (
-            <>
-              <h3>Poker Open Tables</h3>
-              <div className="home-poker-card-grid">
-                {filterRoom.map((el) => (
-                  <GameTable data={el} gameType="Poker" />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-              <div className="no-room-available">
-                <h4>No Room Available</h4>
-                <button type="button" onClick={handleShow}>
-                  Create Game
-                </button>
-              </div>
-            </div>
-          )} */}
         </div>
       </div>
-      {/* {tournaments.length > 0 && (
-        <div className="home-poker-card">
-          <div className="container">
-            <h3>Open Tournaments</h3>
-            <div className="home-poker-card-grid">
-              {tournaments.map((el) => (
-                <GameTable data={el} gameType="Tournament" />
-              ))}
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };
@@ -657,45 +625,76 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
     return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
   };
 
+  const [cardFlip, setCardFlip] = useState(false);
+
+  const handleFlip = () => {
+    setCardFlip(!cardFlip);
+  };
+
   return (
-    <div className="home-poker-content">
-      <div className="home-poker-cover">
-        <img alt="" src={casino} />
+    <>
+      <div className="tournamentCard">
+        <FaInfoCircle onClick={handleFlip} />
+        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
+          {!cardFlip ? (
+            <div className="tournamentCard-front">
+              <img src={casino} alt="" />
+              <div className="tournamentFront-info">
+                <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+                {gameType === "Poker" ? (
+                  <button onClick={redirectToTable} type="submit">
+                    Join Game
+                  </button>
+                ) : (
+                  <>
+                    {" "}
+                    <button
+                      onClick={() => joinTournament(data?._id)}
+                      type="submit"
+                    >
+                      Join Game
+                    </button>
+                    <button onClick={() => enterRoom(data?._id)} type="submit">
+                      Enter Game
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="tournamentCard-back">
+              {gameType === "Poker" ? (
+                <AvatarGroup imgArr={data?.players} />
+              ) : (
+                ""
+              )}
+              <h4>
+                people joined:{" "}
+                <span>
+                  {(gameType === "Tournament"
+                    ? data?.havePlayers
+                    : data?.players?.length) || 0}
+                </span>
+              </h4>
+              {gameType === "Tournament" ? (
+                <h4>
+                  Fee : <span>{data?.tournamentFee}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+              {gameType === "Tournament" ? (
+                <h4>
+                  Date : <span>{getTime(data?.startDate)}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+        </div>
       </div>
-      <div className="home-poker-info">
-        <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-        {console.log("data", data)}
-        {gameType === "Poker" ? (
-          <AvatarGroup imgArr={data?.players} />
-        ) : (
-          <TournamentGroup players={data?.havePlayers} />
-        )}
-        <h4>
-          {" "}
-          {gameType === "Tournament" && "Fee-"}
-          {gameType === "Tournament" && data?.tournamentFee}
-        </h4>
-        <h4>
-          {gameType === "Tournament" && "Start-"}
-          {gameType === "Tournament" && getTime(data?.startDate)}
-        </h4>
-        {gameType === "Poker" ? (
-          <button onClick={redirectToTable} type="submit">
-            Join Game
-          </button>
-        ) : (
-          <>
-            {" "}
-            <button onClick={() => joinTournament(data?._id)} type="submit">
-              Join Game
-            </button>
-            <button onClick={() => enterRoom(data?._id)} type="submit">
-              Enter Game
-            </button>
-          </>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
@@ -718,17 +717,17 @@ const AvatarGroup = ({ imgArr }) => {
             </span>
           ))}
       </div>
-      <p>{imgArr?.length || 0} people</p>
+      {/* <p>{imgArr?.length || 0} people</p> */}
     </div>
   );
 };
 
-const TournamentGroup = ({ players }) => {
-  return (
-    <div className="poker-avatar-box">
-      <p>{players || 0} people joined</p>
-    </div>
-  );
-};
+// const TournamentGroup = ({ players }) => {
+//   return (
+//     <div className="poker-avatar-box">
+//       <p>{players || 0} people joined</p>
+//     </div>
+//   );
+// };
 
 export default Home;

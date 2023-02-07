@@ -9,7 +9,6 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   // const [message, setMessages] = useState([]);
   const [typingOnChat, setTypingOnChat] = useState(false);
   const wrapperRef = useRef(null);
-  console.log("user id at chat history =>", userId)
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
@@ -26,11 +25,9 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
 
   useEffect(() => {
     socket.on('typingOnChat', (data) => {
-      console.log("data -->", data);
       const { crrTypingUserId, typing } = data;
       console.log("on typing ");
       if (userId !== crrTypingUserId) {
-        console.log(crrTypingUserId, typing);
         setTypingOnChat(typing);
       }
     });
@@ -40,7 +37,6 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
 
   useEffect(() => {
     if (openChatHistory) {
-      console.log("openChatHistory--", openChatHistory);
       scrollToBottom();
     }
   })
@@ -84,24 +80,6 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
           )
         })
         }
-        {/* <div className="playerComment-box playerSelfMssg">
-          <div className="playerAvtar">
-            <img src={avtar} alt="" />
-          </div>
-          <div className="playerMssgtoDisplay">
-            <div className="playerName">Admin</div>
-            <p>
-              hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg hi
-              this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content .... hi this chat history
-              dklfjklgjdfklgjdfjgdfjgkljdflgjkldfjgldfjgljdfklgjkldfj mssg
-              content .... content ....
-            </p>
-          </div>
-        </div> */}
-
         <div style={{ float: "left", clear: "both" }}
           ref={scrollDownRef}>
         </div>
