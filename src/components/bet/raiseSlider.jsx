@@ -32,7 +32,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
             } */}
 
           <InputRange
-            maxValue={currentPlayer?.wallet}
+            maxValue={currentPlayer?.wallet?.toFixed(2)}
             minValue={roomData?.raiseAmount}
             value={rangeBetValue}
             onChange={(e) => setRangeBetValue(e)}

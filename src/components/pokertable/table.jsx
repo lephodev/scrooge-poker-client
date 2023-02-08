@@ -1271,7 +1271,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: currentPlayer.wallet * x * 0.01,
     });
     setTimer(0);
   };
@@ -1304,7 +1304,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: currentPlayer.wallet * x * 0.01,
     });
     setTimer(0);
   };
@@ -2807,7 +2807,7 @@ const Players = ({
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className="player-chip">
               <span>
-                {numFormatter(playerData && playerData.pot)}
+                {numFormatter(playerData && playerData.pot).toFixed(0)}
                 {/* <div className="chipNumber-img">
                   <p>{numFormatter(playerData && playerData.pot)}</p>
 
