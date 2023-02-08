@@ -7,54 +7,67 @@ const RaiseView = ({
   allinAction,
   roomData,
 }) => {
+
   return (
     <div className="bet-view">
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet >= roomData.raiseAmount * 2 && (
+        currentPlayer.wallet * 0.25 && (
           <span
             onClick={() => {
-              raiseAction(2);
+              raiseAction(25);
               setRaise(false);
             }}
           >
-            2%
+            25%
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet >= roomData.raiseAmount * 4 && (
+        currentPlayer.wallet * 0.33 && (
           <span
             onClick={() => {
-              raiseAction(4);
+              raiseAction(33);
               setRaise(false);
             }}
           >
-            4%
+            33%
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet >= roomData.raiseAmount * 6 && (
+        currentPlayer.wallet * 0.50 && (
           <span
             onClick={() => {
-              raiseAction(6);
+              raiseAction(50);
               setRaise(false);
             }}
           >
-            6%
+            50%
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet >= roomData.raiseAmount * 8 && (
+        currentPlayer.wallet *  0.67 && (
           <span
             onClick={() => {
-              raiseAction(8);
+              raiseAction(67);
               setRaise(false);
             }}
           >
-            8%
+             67%
+          </span>
+        )}
+        {roomData &&
+        currentPlayer &&
+        currentPlayer.wallet *  0.75 && (
+          <span
+            onClick={() => {
+              raiseAction(75);
+              setRaise(false);
+            }}
+          >
+             75%
           </span>
         )}
       <span
