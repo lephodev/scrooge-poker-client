@@ -655,9 +655,6 @@ const PokerTable = (props) => {
       updatePlayer(roomData.showdown);
       setCurrentPlayer(false);
       showWinner(roomData.winnerPlayer, roomData.players);
-      setTimeout(() => {
-        setModalShow(true);
-      }, 3000);
     });
 
     socket.on("gameStarted", () => {
@@ -846,8 +843,8 @@ const PokerTable = (props) => {
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
       if (data.roomdata.runninground === 0) {
-        console.log("data.roomdata.handWinner", data.roomdata.handWinner);
         setHandWinner(data.roomdata.handWinner);
+        setModalShow(true);
       }
     });
 
@@ -1780,12 +1777,12 @@ const PokerTable = (props) => {
                 {unReadMessages > 0 && <p className="ChatHistory-count">{unReadMessages}</p>}
                 <img src={UsersComments} alt="" />
               </div>
-
               <ChatHistory
                 setOpenChatHistory={setOpenChatHistory}
                 openChatHistory={openChatHistory}
                 handleOpenChatHistory={handleOpenChatHistory}
                 userId={userId}
+                roomData={roomData}
                 chatMessages={chatMessages}
                 scrollToBottom={scrollToBottom}
                 scrollDownRef={scrollDownRef}
