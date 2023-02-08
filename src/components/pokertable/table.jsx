@@ -97,7 +97,7 @@ const numFormatter = (num) => {
     return (num / 100000000).toFixed(2) + "B";
   } else if (num >= 1000000000000)
     return (num / 1000000000000).toFixed(2) + "T";
-  else return num; // if value < 1000, nothing to do
+  else return num.toFixed(0); // if value < 1000, nothing to do
 };
 
 const PokerTable = (props) => {
@@ -2807,7 +2807,7 @@ const Players = ({
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className="player-chip">
               <span>
-                {numFormatter(playerData && playerData.pot)}
+                {numFormatter(playerData && playerData?.pot)}
                 {/* <div className="chipNumber-img">
                   <p>{numFormatter(playerData && playerData.pot)}</p>
 
