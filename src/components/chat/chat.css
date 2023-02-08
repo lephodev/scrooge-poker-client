@@ -323,8 +323,7 @@ span.msg-limit {
   position: fixed;
   bottom: 2%;
   left: 2%;
-
-  z-index: 999;
+  z-index: 999999;
   padding: 5px;
   border-radius: 50%;
 }
