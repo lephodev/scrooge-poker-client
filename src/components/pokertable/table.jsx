@@ -2954,19 +2954,19 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
+          // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
-            <div className={`flip-vertical-left duration-${i}`}>
-              <img
-                key={`item-${i}`}
-                src={`/cards/${card.toUpperCase()}.svg`}
-                alt="card"
-                className={`${
-                  winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
-                } `}
-              />
-            </div>
+            <img
+              key={`item-${i}`}
+              // src={cards ? cards : back }
+              src={card ? `/cards/${card.toUpperCase()}.svg` : back}
+              alt="card"
+              className={`${
+                winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+              } flip-vertical-left duration-${i}`}
+            />
           );
         })}
     </div>
