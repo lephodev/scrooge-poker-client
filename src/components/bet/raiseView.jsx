@@ -48,26 +48,26 @@ const RaiseView = ({
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet *  0.67 && (
+        currentPlayer.wallet * 0.67 && (
           <span
             onClick={() => {
               raiseAction(67);
               setRaise(false);
             }}
           >
-             67%
+            67%
           </span>
         )}
-        {roomData &&
+      {roomData &&
         currentPlayer &&
-        currentPlayer.wallet *  0.75 && (
+        currentPlayer.wallet * 0.75 && (
           <span
             onClick={() => {
               raiseAction(75);
               setRaise(false);
             }}
           >
-             75%
+            75%
           </span>
         )}
       <span
