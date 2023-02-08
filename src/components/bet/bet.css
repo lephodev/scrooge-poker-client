@@ -627,9 +627,9 @@ form.customBet-amount .form-control:focus {
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .raiseBet-container {
-    top: -160px;
+    top: -165px;
     left: -190%;
-    scale: 0.7;
+    scale: 0.9;
   }
 
   .raiseBet-container .bet-view::before {
