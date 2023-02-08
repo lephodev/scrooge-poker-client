@@ -1274,7 +1274,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: currentPlayer.wallet * x,
     });
     setTimer(0);
   };
@@ -1307,7 +1307,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: currentPlayer.wallet * x / 100,
     });
     setTimer(0);
   };

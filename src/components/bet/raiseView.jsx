@@ -14,11 +14,11 @@ const RaiseView = ({
         currentPlayer.wallet >= roomData.raiseAmount * 2 && (
           <span
             onClick={() => {
-              raiseAction(2);
+              raiseAction(25);
               setRaise(false);
             }}
           >
-            2%
+            25%
           </span>
         )}
       {roomData &&
@@ -26,11 +26,11 @@ const RaiseView = ({
         currentPlayer.wallet >= roomData.raiseAmount * 4 && (
           <span
             onClick={() => {
-              raiseAction(4);
+              raiseAction(33);
               setRaise(false);
             }}
           >
-            4%
+            33%
           </span>
         )}
       {roomData &&
@@ -38,11 +38,11 @@ const RaiseView = ({
         currentPlayer.wallet >= roomData.raiseAmount * 6 && (
           <span
             onClick={() => {
-              raiseAction(6);
+              raiseAction(50);
               setRaise(false);
             }}
           >
-            6%
+            50%
           </span>
         )}
       {roomData &&
@@ -50,11 +50,35 @@ const RaiseView = ({
         currentPlayer.wallet >= roomData.raiseAmount * 8 && (
           <span
             onClick={() => {
-              raiseAction(8);
+              raiseAction(67);
               setRaise(false);
             }}
           >
-            8%
+            67%
+          </span>
+        )}
+      {roomData &&
+        currentPlayer &&
+        currentPlayer.wallet >= roomData.raiseAmount * 8 && (
+          <span
+            onClick={() => {
+              raiseAction(75);
+              setRaise(false);
+            }}
+          >
+            75%
+          </span>
+        )}
+      {roomData &&
+        currentPlayer &&
+        currentPlayer.wallet >= roomData.raiseAmount * 8 && (
+          <span
+            onClick={() => {
+              raiseAction(100);
+              setRaise(false);
+            }}
+          >
+            100%
           </span>
         )}
       <span
