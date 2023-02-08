@@ -7,67 +7,54 @@ const RaiseView = ({
   allinAction,
   roomData,
 }) => {
-
   return (
     <div className="bet-view">
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet * 0.25 && (
+        currentPlayer.wallet >= roomData.raiseAmount * 2 && (
           <span
             onClick={() => {
-              raiseAction(25);
+              raiseAction(2);
               setRaise(false);
             }}
           >
-            25%
+            2x
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet * 0.33 && (
+        currentPlayer.wallet >= roomData.raiseAmount * 4 && (
           <span
             onClick={() => {
-              raiseAction(33);
+              raiseAction(4);
               setRaise(false);
             }}
           >
-            33%
+            4x
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet * 0.50 && (
+        currentPlayer.wallet >= roomData.raiseAmount * 6 && (
           <span
             onClick={() => {
-              raiseAction(50);
+              raiseAction(6);
               setRaise(false);
             }}
           >
-            50%
+            6x
           </span>
         )}
       {roomData &&
         currentPlayer &&
-        currentPlayer.wallet * 0.67 && (
+        currentPlayer.wallet >= roomData.raiseAmount * 8 && (
           <span
             onClick={() => {
-              raiseAction(67);
+              raiseAction(8);
               setRaise(false);
             }}
           >
-            67%
-          </span>
-        )}
-      {roomData &&
-        currentPlayer &&
-        currentPlayer.wallet * 0.75 && (
-          <span
-            onClick={() => {
-              raiseAction(75);
-              setRaise(false);
-            }}
-          >
-            75%
+            8x
           </span>
         )}
       <span
@@ -78,13 +65,13 @@ const RaiseView = ({
       >
         All in
       </span>
-      {/* <div
+      <div
         className="close-bet"
         role="presentation"
         onClick={() => setRaise(false)}
       >
         x
-      </div> */}
+      </div>
     </div>
   );
 };
