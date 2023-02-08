@@ -147,8 +147,6 @@
   align-items: center;
 }
 
-
-
 .user-info-box h5 {
   text-transform: capitalize;
   font-size: 18px;
@@ -429,7 +427,7 @@ input[type="number"] {
   background-clip: padding-box;
   /* border: 1px solid #ced4da; */
   border-radius: 8px;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .poker-table-header .form-control:active,
@@ -489,8 +487,9 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 165px;
-  height: 180px;
+  max-width: 150px;
+  /* height: 170px; */
+  height: 200px;
   flex-direction: column;
   border-radius: 8px;
   overflow: hidden;
