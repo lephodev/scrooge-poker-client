@@ -323,7 +323,7 @@ span.msg-limit {
   position: fixed;
   bottom: 2%;
   left: 2%;
-  cursor: pointer;
+
   z-index: 999;
   padding: 5px;
   border-radius: 50%;
@@ -331,6 +331,7 @@ span.msg-limit {
 
 .chatHistory-icon {
   position: relative;
+  cursor: pointer;
 }
 
 .ChatHistory-count {
@@ -350,6 +351,15 @@ span.msg-limit {
   border: 1px solid black;
   font-size: 12px;
   font-weight: 600;
+}
+.everyRoundData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 12px;
+  cursor: pointer;
+  color: #f9ff00;
 }
 
 @media screen and (max-width: 1024px) {

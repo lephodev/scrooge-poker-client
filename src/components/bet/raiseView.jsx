@@ -18,7 +18,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            2%
+            2x
           </span>
         )}
       {roomData &&
@@ -30,7 +30,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            4%
+            4x
           </span>
         )}
       {roomData &&
@@ -42,7 +42,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            6%
+            6x
           </span>
         )}
       {roomData &&
@@ -54,7 +54,7 @@ const RaiseView = ({
               setRaise(false);
             }}
           >
-            8%
+            8x
           </span>
         )}
       <span
@@ -65,13 +65,13 @@ const RaiseView = ({
       >
         All in
       </span>
-      {/* <div
+      <div
         className="close-bet"
         role="presentation"
         onClick={() => setRaise(false)}
       >
         x
-      </div> */}
+      </div>
     </div>
   );
 };

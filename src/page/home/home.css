@@ -463,6 +463,7 @@ input[type="number"] {
 
 .home-poker-card a {
   color: #bcbcbc;
+  font-weight: 600;
 }
 
 .nav-tabs .nav-link,
@@ -516,7 +517,7 @@ input[type="number"] {
 }
 
 .tournamentCard-front {
-  max-width: 150px;
+  max-width: 165px;
 }
 
 .tournamentCard-front h4 {

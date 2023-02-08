@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
@@ -630,10 +630,26 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
   const handleFlip = () => {
     setCardFlip(!cardFlip);
   };
+  const wrapperRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setCardFlip(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperRef);
 
   return (
     <>
-      <div className="tournamentCard">
+      <div className="tournamentCard" ref={wrapperRef}>
         <FaInfoCircle onClick={handleFlip} />
         <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
           {!cardFlip ? (

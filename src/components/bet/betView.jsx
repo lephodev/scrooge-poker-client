@@ -12,7 +12,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              1%
+              1x
             </span>
           )}
         {roomData &&
@@ -24,7 +24,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              2%
+              2x
             </span>
           )}
         {roomData &&
@@ -36,7 +36,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              4%
+              4x
             </span>
           )}
         {roomData &&
@@ -48,7 +48,7 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
                 setBet(false);
               }}
             >
-              6%
+              6x
             </span>
           )}
         <span
@@ -59,13 +59,13 @@ const BetView = ({ currentPlayer, setBet, betAction, allinAction,roomData }) => 
         >
           All in
         </span>
-        {/* <div
+        <div
           className="close-bet"
           role="presentation"
           onClick={() => setBet(false)}
         >
           x
-        </div> */}
+        </div>
       </div>
     );
   };

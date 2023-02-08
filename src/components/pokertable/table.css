@@ -3130,8 +3130,18 @@ img.coinWinning-animation {
     scale: 0.8;
   }
 
+  .table-card img {
+    scale: 0.9;
+  }
+
+  .total-pot-money {
+    top: 65px;
+    left: calc(54% - 75px);
+    scale: 0.9;
+  }
+
   .players.player1 {
-    left: 48%;
+    left: 50%;
   }
 
   .player1 .player-info {
@@ -3144,6 +3154,12 @@ img.coinWinning-animation {
 @media screen and (max-width: 1024px) {
   .pyro {
     scale: 0.8;
+  }
+
+  .footer-btn .callBtn-amount {
+    color: #f9ff00;
+    font-size: 12px;
+    font-weight: 500;
   }
 
   img.coinWinning-animation {
@@ -4158,6 +4174,7 @@ img.coinWinning-animation {
     width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 12px;
   }
 
   img.coinWinning-animation {
