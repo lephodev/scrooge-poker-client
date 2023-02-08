@@ -1258,9 +1258,8 @@ const PokerTable = (props) => {
     setTimer(0);
   };
 
+
   const raiseAction = (x) => {
-    // console.log("xxxxx", x);
-    console.log(":raise action called");
     setOpenAction({
       bet: false,
       call: false,
@@ -1272,7 +1271,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: currentPlayer.wallet * x * 0.01,
+      amount: roomData.raiseAmount * x,
     });
     setTimer(0);
   };
@@ -1305,7 +1304,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: currentPlayer.wallet * x * 0.01,
+      amount: roomData.raiseAmount * x,
     });
     setTimer(0);
   };
