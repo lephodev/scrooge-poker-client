@@ -3156,6 +3156,12 @@ img.coinWinning-animation {
     scale: 0.8;
   }
 
+  .footer-btn .callBtn-amount {
+    color: #f9ff00;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
   img.coinWinning-animation {
     position: absolute;
     width: 140px;

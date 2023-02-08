@@ -2807,7 +2807,7 @@ const Players = ({
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className="player-chip">
               <span>
-                {numFormatter(playerData && playerData.pot).toFixed(0)}
+                {numFormatter(playerData && playerData.pot)}
                 {/* <div className="chipNumber-img">
                   <p>{numFormatter(playerData && playerData.pot)}</p>
 
