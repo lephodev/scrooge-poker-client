@@ -425,8 +425,8 @@ input:checked+.slider:before {
 .raiseBet-container .bet-view span {
   background: #f9ff00;
   border-radius: 30px;
-  min-width: 55px;
-  padding: 1px 5px;
+  min-width: 43px;
+  padding: 1px 0px;
   margin: 0px 5px;
   color: #361302;
   border-top: 2px solid #ffff42;
