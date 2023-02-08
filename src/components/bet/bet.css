@@ -615,6 +615,7 @@ form.customBet-amount .form-control:focus {
   display: flex;
   align-items: center;
   gap: 28px;
+  min-width: 200px;
 }
 
 .form-check-inline {
