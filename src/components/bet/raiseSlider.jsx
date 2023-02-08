@@ -2,7 +2,6 @@ import { useState } from "react";
 import InputRange from "react-input-range";
 import { Form, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
-import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
   const [rangeBetValue, setRangeBetValue] = useState(0);
@@ -33,7 +32,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
             } */}
 
           <InputRange
-            maxValue={numFormatter(currentPlayer?.wallet)}
+            maxValue={currentPlayer?.wallet}
             minValue={roomData?.raiseAmount}
             value={rangeBetValue}
             onChange={(e) => setRangeBetValue(e)}
