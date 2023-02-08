@@ -3127,7 +3127,7 @@ img.coinWinning-animation {
 
 @media screen and (max-width: 1024px) and (min-width:768px) {
   .players {
-    scale: 0.8;
+    scale: 0.9;
   }
 
   .table-card img {
@@ -3562,7 +3562,6 @@ img.coinWinning-animation {
   }
 
   .table-card {
-    width: 100%;
     text-align: center;
   }
 
@@ -3579,7 +3578,7 @@ img.coinWinning-animation {
   .total-pot-money {
     /* top: 135px; */
     top: 46%;
-    left: 43.5%;
+    left: 44%;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -3726,34 +3725,33 @@ img.coinWinning-animation {
   .player1 {
     /* bottom: -25px; */
     bottom: -30px;
-    transform: translateX(-50%) scale(0.7);
+    transform: translateX(-50%) scale(0.9);
   }
 
   .player2 {
-    transform: translateX(75%) scale(0.7);
+    transform: translateX(75%) scale(0.9);
     bottom: -25px;
   }
 
   .player3 {
     /* left: -30px; */
     left: -4%;
-    transform: translateY(0) scale(0.7);
+    transform: translateY(0) scale(0.9);
   }
 
   .player4 {
-    transform: scale(0.7);
-    transform: translateX(-5%) scale(0.7);
+    transform: translateX(-5%) scale(0.9);
   }
 
   .player5 {
     /* top: -25px; */
     top: -33%;
-    transform: translateX(-25%) scale(0.7);
+    transform: translateX(-25%) scale(0.9);
   }
 
   .player6 {
     /* top: -25px; */
-    transform: translateX(-50%) scale(0.7);
+    transform: translateX(-50%) scale(0.9);
     top: -30%;
   }
 
@@ -3761,21 +3759,21 @@ img.coinWinning-animation {
     /* top: -25px; */
     top: -33%;
     left: 75%;
-    transform: translateX(-75%) scale(0.7);
+    transform: translateX(-75%) scale(0.9);
   }
 
   .player8 {
-    transform: translateX(-95%) scale(0.7);
+    transform: translateX(-95%) scale(0.9);
   }
 
   .player9 {
-    transform: scale(0.7);
+    transform: scale(0.9);
     right: -30px;
   }
 
   .player10 {
     bottom: -25px;
-    transform: translateX(25%) scale(0.7);
+    transform: translateX(25%) scale(0.9);
   }
 
   /* .players.player2 .player-chip {
@@ -4365,28 +4363,28 @@ img.coinWinning-animation {
   .player1 {
     /* bottom: 0px; */
     bottom: -30px;
-    transform: translateX(-50%) scale(0.8);
+    transform: translateX(-50%) scale(0.9);
   }
 
   .player2 {
     /* bottom: 10%; */
-    bottom: 8%;
+    bottom: 9%;
     right: inherit;
-    transform: translateY(-10%) scale(0.8);
+    transform: translateY(-10%) scale(0.9);
     left: -4%;
   }
 
   .player3 {
     /* bottom: 32%; */
     bottom: 27%;
-    transform: translateY(-32%) scale(0.8);
+    transform: translateY(-32%) scale(0.9);
     left: -3%;
   }
 
   .player4 {
     /* top: 35%; */
     top: 25%;
-    transform: translateY(-32%) scale(0.8);
+    transform: translateY(-32%) scale(0.9);
     left: -1%;
   }
 
@@ -4394,41 +4392,41 @@ img.coinWinning-animation {
     /* top: 10%; */
     top: -4%;
     left: 3%;
-    transform: translateY(-10%) scale(0.8);
+    transform: translateY(-10%) scale(0.9);
   }
 
   .player6 {
     /* top: -10px; */
     top: -74px;
-    transform: translateX(-50%) scale(0.8);
+    transform: translateX(-50%) scale(0.9);
   }
 
   .player7 {
     /* top: 10%; */
     left: auto;
     top: -4%;
-    transform: translateY(-10%) scale(0.8);
+    transform: translateY(-10%) scale(0.9);
     right: 3%;
   }
 
-  .player8 {
+  .player9 {
     /* top: 35%; */
     top: 25%;
-    transform: translateY(-32%) scale(0.8);
+    transform: translateY(-32%) scale(0.9);
     left: auto;
     right: -1%;
   }
 
   .player9 {
     bottom: 27%;
-    transform: translateY(-32%) scale(0.8);
+    transform: translateY(-32%) scale(0.9);
     right: -3%;
   }
 
   .player10 {
     /* bottom: 8%; */
     bottom: 8%;
-    transform: translateY(-10%) scale(0.8);
+    transform: translateY(-10%) scale(0.9);
     right: -4%;
   }
 
