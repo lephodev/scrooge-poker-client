@@ -46,7 +46,7 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
     }
 
     const handleChatClose = () => {
-        console.log("close icon clicked");
+        // console.log("close icon clicked");
         handleClick(!open);
         setOpenEMoji(false);
     }
