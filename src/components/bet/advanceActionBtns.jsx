@@ -23,7 +23,7 @@ const AdvanceActionBtns = ({
           type="checkbox"
           key="fold"
           onChange={handleTentativeAction}
-          // defaultChecked={player?.tentativeAction?.startsWith("check")}
+          defaultChecked={player?.tentativeAction?.startsWith("fold")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-checkbox-3"
           checked={tentativeAction === "fold"}
@@ -43,7 +43,7 @@ const AdvanceActionBtns = ({
           type="checkbox"
           key="check/fold"
           onChange={handleTentativeAction}
-          //  defaultChecked={player?.tentativeAction?.startsWith("check/fold")}
+          defaultChecked={player?.tentativeAction?.startsWith("check/fold")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-checkbox-2"
           checked={tentativeAction === "check/fold"}
@@ -64,7 +64,7 @@ const AdvanceActionBtns = ({
           type="checkbox"
           key="check"
           onChange={handleTentativeAction}
-          // defaultChecked={player?.tentativeAction?.startsWith("check")}
+          defaultChecked={player?.tentativeAction?.startsWith("check")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-checkbox-3"
           checked={tentativeAction === "check"}
@@ -79,7 +79,7 @@ const AdvanceActionBtns = ({
         <Form.Check
           className="tentative-action-btn"
           inline
-          // defaultChecked={player?.tentativeAction?.startsWith("call")}
+          defaultChecked={player?.tentativeAction?.startsWith("call")}
           label="Call Any"
           value="callAny"
           name="group1"
@@ -100,16 +100,16 @@ const AdvanceActionBtns = ({
         <Form.Check
           className="tentative-action-btn"
           inline
-          //defaultChecked={player?.tentativeAction?.startsWith("allin")}
+          defaultChecked={player?.tentativeAction?.startsWith("allin")}
           label="All-in"
-          value={`all-in`}
+          value={`allin ${player?.wallet}`}
           name="group1"
           type="checkbox"
           key="allin"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-checkbox-6"
-          checked={tentativeAction === `all-In`}
+          checked={tentativeAction?.includes("allin")}
         />
       </Button>
     </div>
@@ -121,16 +121,18 @@ const AdvanceActionBtns = ({
         <Form.Check
           className="tentative-action-btn"
           inline
-          // defaultChecked={player?.tentativeAction?.startsWith("call")}
-          label={`Call`}
-          value={`call`}
+          defaultChecked={player?.tentativeAction?.startsWith("call")}
+          label={`Call ${roomData?.raiseAmount - player?.pot}`}
+          value={`call ${roomData?.raiseAmount - player?.pot}`}
           name="group1"
           type="checkbox"
           key="call"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-checkbox-4"
-          checked={tentativeAction === `call`}
+          checked={
+            tentativeAction === `call ${roomData?.raiseAmount - player?.pot}`
+          }
         />
       </Button>
     </div>
