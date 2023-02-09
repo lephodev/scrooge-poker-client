@@ -91,16 +91,15 @@ let retryCount = 0;
 const numFormatter = (num) => {
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
-  } else
-    if (num > 999 && num < 1000000) {
-      return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
-    } else if (num >= 1000000 && num < 1000000000) {
-      return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
-    } else if (num >= 100000000 && num < 1000000000000) {
-      return (num / 100000000).toFixed(2) + "B";
-    } else if (num >= 1000000000000)
-      return (num / 1000000000000).toFixed(2) + "T";
-    else return num; // if value < 1000, nothing to do
+  } else if (num > 999 && num < 1000000) {
+    return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
+  } else if (num >= 1000000 && num < 1000000000) {
+    return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
+  } else if (num >= 100000000 && num < 1000000000000) {
+    return (num / 100000000).toFixed(2) + "B";
+  } else if (num >= 1000000000000)
+    return (num / 1000000000000).toFixed(2) + "T";
+  else return num; // if value < 1000, nothing to do
 };
 
 const PokerTable = (props) => {
@@ -935,10 +934,8 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
-    // console.log("handleTentativeAction1player", player);
     let event;
     const { tentativeAction } = player;
-    // console.log("tentativeAction", tentativeAction);
     if (player.tentativeAction.includes(" ")) {
       const [event1] = tentativeAction.split(" ");
       event = event1;
@@ -1509,6 +1506,18 @@ const PokerTable = (props) => {
     };
   }, [history]);
 
+  useEffect(() => {
+    socket.on("tablefull", (data) => {
+      toast.error(data?.message);
+      setTimeout(() => {
+        history.push("/");
+      }, 2000);
+    });
+    return () => {
+      socket.off("tablefull");
+    };
+  }, [history]);
+
   //   const toggleFullscreen = () => {
   //     let ele = document.getElementsByClassName("poker")[0]
   //     if (ele.requestFullscreen) {
@@ -1616,6 +1625,7 @@ const PokerTable = (props) => {
   };
 
   const handleSitin = (sitInAmount) => {
+    console.log("sitInAmount", sitInAmount);
     let urlParams = getQueryParams();
     let table = urlParams["tableid"];
     let type = urlParams["gameCollection"] || urlParams["gamecollection"];
@@ -1730,19 +1740,20 @@ const PokerTable = (props) => {
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${
+            !(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-            ? "game-started-join"
-            : ""
-            }`}
+              ? "game-started-join"
+              : ""
+          }`}
         />
       </Helmet>
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
+          roomData &&
+          roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1797,9 +1808,9 @@ const PokerTable = (props) => {
             </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
-              (roomData &&
-                roomData.players.find((ele) => ele.userid === userId)) ||
-              isWatcher ? (
+            (roomData &&
+              roomData.players.find((ele) => ele.userid === userId)) ||
+            isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1882,8 +1893,8 @@ const PokerTable = (props) => {
                           </>
                         )}
                       {roomData &&
-                        roomData.handWinner.length === 0 &&
-                        !roomData?.gamestart ? (
+                      roomData.handWinner.length === 0 &&
+                      !roomData?.gamestart ? (
                         <>
                           <p className="joined-player">
                             Invited Players joined -{" "}
@@ -2184,20 +2195,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-                <li>
-                  <OverlayTrigger
-                    placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                    }
-                  >
-                    <button onClick={() => setShowInvite(true)}>
-                      {/* <img src={addcoin} alt="Invite friend" /> */}
-                      <i className="fa fa-envelope"></i>
-                    </button>
-                  </OverlayTrigger>
-                </li>
-              )}
+              <li>
+                <OverlayTrigger
+                  placement="left"
+                  overlay={
+                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                  }
+                >
+                  <button onClick={() => setShowInvite(true)}>
+                    {/* <img src={addcoin} alt="Invite friend" /> */}
+                    <i className="fa fa-envelope"></i>
+                  </button>
+                </OverlayTrigger>
+              </li>
+            )}
             <li>
               <OverlayTrigger
                 placement="left"
@@ -2436,12 +2447,12 @@ const Players = ({
             response.data.error === "no error" &&
             response.data.success === true &&
             response.data.special ===
-            "You have removed this follower in the past"
+              "You have removed this follower in the past"
           ) {
             toast.success(
               "You are now following @" +
-              nickname +
-              ", notice that you removed him from following you",
+                nickname +
+                ", notice that you removed him from following you",
               {
                 id: "follow-request",
                 icon: "✔️",
@@ -2546,10 +2557,10 @@ const Players = ({
           if (response.data.error === "already sent friend request") {
             toast.success(
               "Friend request already sent to @" +
-              Fname +
-              " please wait " +
-              response.data.hours +
-              " hours before you can try again.",
+                Fname +
+                " please wait " +
+                response.data.hours +
+                " hours before you can try again.",
               {
                 duration: 6000,
                 id: "frined-already-sent",
@@ -2626,11 +2637,13 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
-          ? `winner-player`
-          : ``
-          } ${playerData && playerData.playing ? "" : "not-playing"} ${mergeAnimationState ? "animateMerge-chips" : ""
-          }`}
+        className={`players ${playerclass} ${
+          winner && playerData && winner.id === playerData.id
+            ? `winner-player`
+            : ``
+        } ${playerData && playerData.playing ? "" : "not-playing"} ${
+          mergeAnimationState ? "animateMerge-chips" : ""
+        }`}
       >
         {/* start win or lose animation */}
         {/* {winner &&
@@ -2801,10 +2814,10 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                    ? "B"
-                    : playerData.isDealer
-                      ? "D"
-                      : ""}
+                  ? "B"
+                  : playerData.isDealer
+                  ? "D"
+                  : ""}
               </div>
             )}
 
@@ -2961,10 +2974,11 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
               // src={cards ? cards : back }
               src={card ? `/cards/${card.toUpperCase()}.svg` : back}
               alt="card"
-              className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
-                ? `winner-card`
-                : ``
-                } flip-vertical-left duration-${i}`}
+              className={`${
+                winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+              } flip-vertical-left duration-${i}`}
             />
           );
         })}
@@ -3380,10 +3394,11 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
-              ? ``
-              : `winner-card`
-              } `}
+            className={`animate__animated animate__rollIn duration-${i} ${
+              handMatch.findIndex((ele) => ele === i) !== -1
+                ? ``
+                : `winner-card`
+            } `}
           />
         ))}
     </div>
