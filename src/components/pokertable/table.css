@@ -152,7 +152,6 @@ input:checked {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  /* z-index: 99999999999999; */
 }
 
 .winner-player .winner-card {
@@ -337,38 +336,38 @@ input:checked {
 
 .players.player1 {
   width: 150px;
-  /* z-index: 9; */
+  z-index: 5;
 }
 
 .players.player2 {
-  z-index: 99;
+  z-index: 6;
 }
 
 .players.player3 {
-  z-index: 999;
+  z-index: 7;
 }
 
 .players.player4 {
-  z-index: 9999;
+  z-index: 8;
 }
 
 .players.player5 {
-  z-index: 99999;
-}
-
-.players.player6 {
-  z-index: 99;
-}
-
-.players.player7 {
   z-index: 9;
 }
 
-/* .players.player8{
-  z-index: 99999999;
-} */
+.players.player6 {
+  z-index: 10;
+}
+
+.players.player7 {
+  z-index: 11;
+}
+
+.players.player8{
+  z-index: 12;
+}
 .players.player9 {
-  z-index: 999999999;
+  z-index: 13;
 }
 
 .player1 .player-pic {
@@ -3734,8 +3733,8 @@ img.coinWinning-animation {
   }
 
   .player3 {
-    /* left: -30px; */
-    left: -4%;
+    top: -70%;
+    left: -2%;
     transform: translateY(0) scale(0.9);
   }
 
@@ -3767,8 +3766,9 @@ img.coinWinning-animation {
   }
 
   .player9 {
+    top: -70%;
     transform: scale(0.9);
-    right: -30px;
+    right: -2%;
   }
 
   .player10 {
@@ -4401,6 +4401,7 @@ img.coinWinning-animation {
     transform: translateX(-50%) scale(0.9);
   }
 
+
   .player7 {
     /* top: 10%; */
     left: auto;
@@ -4409,12 +4410,10 @@ img.coinWinning-animation {
     right: 3%;
   }
 
-  .player9 {
-    /* top: 35%; */
-    top: 25%;
-    transform: translateY(-32%) scale(0.9);
-    left: auto;
+  .player8 {
+    top: 18%;
     right: -1%;
+    scale: 0.9;
   }
 
   .player9 {
