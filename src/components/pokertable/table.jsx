@@ -89,7 +89,9 @@ let interval;
 let retryCount = 0;
 
 const numFormatter = (num) => {
-  if (num > 999 && num < 1000000) {
+  if (num > 1 && num < 999) {
+    return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
+  } else if (num > 999 && num < 1000000) {
     return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
   } else if (num >= 1000000 && num < 1000000000) {
     return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
