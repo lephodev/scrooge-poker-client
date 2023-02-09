@@ -2,22 +2,26 @@ import React, { useEffect, useRef, useState } from "react";
 import { socket } from '../../config/socketConnection';
 import avtar from "../../assets/profile_user.jpg";
 import WinHistoryPopup from "./winHistorypopup";
-
+import { useMediaQuery } from "react-responsive";
 
 const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, scrollToBottom, scrollDownRef }) => {
   // const [message, setMessages] = useState([]);
   const [typingOnChat, setTypingOnChat] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [winHistoryData, setWinHistoryData] = useState([])
-
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
   // const isRoomData = roomData?.showdown?.length;
   const winPlayerData = roomData?.winnerPlayer[roomData?.winnerPlayer?.length - 1];
 
   const wrapperRef = useRef(null);
+
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
+        console.log("isDesktop",!isDesktop)
+        if (!isDesktop && ref.current && !ref.current.contains(event.target) ) {
           setOpenChatHistory(false);
         }
       };
