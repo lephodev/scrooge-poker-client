@@ -934,15 +934,16 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
+    console.log("eventeventevent", player?.tentativeAction);
     let event;
     const { tentativeAction } = player;
-    if (player.tentativeAction.includes(" ")) {
+    if (player?.tentativeAction.includes(" ")) {
       const [event1] = tentativeAction.split(" ");
       event = event1;
     } else {
       event = tentativeAction;
     }
-    // console.log("eventeventevent", event);
+    console.log("eventeventevent", event);
     switch (event) {
       case "check":
         socket.emit("docheck", { userid: player.id, roomid: tableId });
@@ -1545,15 +1546,16 @@ const PokerTable = (props) => {
   };
 
   const handleTentativeAction = (e) => {
-    // console.log("e", e);
     const {
       target: { value, checked },
     } = e;
+
     if (tentativeAction === value) {
       setTentativeAction("");
     } else {
       setTentativeAction(value);
     }
+    console.log("evhhhfgh", value, checked);
     socket.emit("playerTentativeAction", {
       gameId: tableId,
       userId,
@@ -1576,8 +1578,13 @@ const PokerTable = (props) => {
   // };
 
   useEffect(() => {
+    // console.log("currentPlayer", currentPlayer);
+
     if (currentPlayer?.tentativeAction && currentPlayer?.id === userId) {
-      // console.log("currentPlayer", currentPlayer);
+      console.log(
+        "currentPlayer.tentitive action",
+        currentPlayer?.tentativeAction
+      );
       handleTentativeActionAuto(currentPlayer);
     }
     setTentativeAction("");
@@ -1887,7 +1894,8 @@ const PokerTable = (props) => {
                       {roomData &&
                         roomData?.runninground === 0 &&
                         !roomData?.gamestart &&
-                        !isAdmin && (
+                        !isAdmin &&
+                        !roomData?.tournament && (
                           <>
                             <p>Please wait for the Admin to Start the game</p>
                           </>
