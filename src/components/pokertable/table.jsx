@@ -934,10 +934,8 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
-    // console.log("handleTentativeAction1player", player);
     let event;
     const { tentativeAction } = player;
-    // console.log("tentativeAction", tentativeAction);
     if (player.tentativeAction.includes(" ")) {
       const [event1] = tentativeAction.split(" ");
       event = event1;
