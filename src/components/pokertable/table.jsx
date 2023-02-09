@@ -97,7 +97,7 @@ const numFormatter = (num) => {
     return (num / 100000000).toFixed(2) + "B";
   } else if (num >= 1000000000000)
     return (num / 1000000000000).toFixed(2) + "T";
-  else return num.toFixed(0); // if value < 1000, nothing to do
+  else return num; // if value < 1000, nothing to do
 };
 
 const PokerTable = (props) => {
@@ -1506,6 +1506,18 @@ const PokerTable = (props) => {
     };
   }, [history]);
 
+  useEffect(() => {
+    socket.on("tablefull", (data) => {
+      toast.error(data?.message);
+      setTimeout(() => {
+        history.push("/");
+      }, 2000);
+    });
+    return () => {
+      socket.off("tablefull");
+    };
+  }, [history]);
+
   //   const toggleFullscreen = () => {
   //     let ele = document.getElementsByClassName("poker")[0]
   //     if (ele.requestFullscreen) {
@@ -1613,6 +1625,7 @@ const PokerTable = (props) => {
   };
 
   const handleSitin = (sitInAmount) => {
+    console.log("sitInAmount", sitInAmount);
     let urlParams = getQueryParams();
     let table = urlParams["tableid"];
     let type = urlParams["gameCollection"] || urlParams["gamecollection"];
