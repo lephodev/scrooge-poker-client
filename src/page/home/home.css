@@ -9,16 +9,15 @@
   margin-left: -15px;
   z-index: 1;
   object-fit: cover;
-  width: 22px;
-  height: 22px;
-}
+  width: 30px;
+  height: 30px;}
 
 .avatars {
   direction: rtl;
   /* This is to get the stack with left on top */
   text-align: left;
   /* Now need to explitly align left */
-  padding-left: 15px;
+  padding-left: 20px;
   /* Same value as the negative margin */
 }
 
