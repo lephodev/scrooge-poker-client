@@ -1088,13 +1088,13 @@ const PokerTable = (props) => {
         availablePosition = [0, 2, 3, 6, 7];
         break;
       case 6:
-        availablePosition = [0, 2, 3, 5, 6, 7];
+        availablePosition = [0, 2, 3, 4, 6, 7];
         break;
       case 7:
-        availablePosition = [0, 1, 2, 3, 5, 6, 7];
+        availablePosition = [0, 1, 2, 3, 6, 7, 8];
         break;
       case 8:
-        availablePosition = [0, 1, 2, 3, 4, 5, 6, 8];
+        availablePosition = [0, 1, 2, 3, 4, 6, 7, 8];
         break;
       case 9:
         availablePosition = [0, 1, 2, 3, 4, 5, 6, 7, 8];
