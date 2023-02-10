@@ -714,8 +714,8 @@ input:checked {
   }
 
   to {
-    bottom: -101%;
-    left: -202%;
+    bottom: -58%;
+    left: -404%;
     opacity: 0;
   }
 }
@@ -3998,7 +3998,7 @@ img.coinWinning-animation {
 
   .players.player7 .player-chip {
     left: -102px;
-    bottom: 50%;
+    bottom: -50%;
     animation: slideRight8 0.4s;
   }
 
@@ -4009,7 +4009,7 @@ img.coinWinning-animation {
   @keyframes mergeP8 {
     from {
       left: -102px;
-      bottom: 50%;
+      bottom: -50%;
       opacity: 1;
     }
 
@@ -4028,12 +4028,13 @@ img.coinWinning-animation {
 
     to {
       left: -102px;
-      bottom: 50%;
+      bottom: -50%;
     }
   }
 
   .players.player8 .player-chip {
-    top: -10%;
+    top: 18%;
+    left: -88%;
     animation: slideRight9 0.4s;
   }
 
@@ -4043,8 +4044,8 @@ img.coinWinning-animation {
 
   @keyframes mergeP9 {
     from {
-      left: 0%;
-      top: -10%;
+      top: 18%;
+      left: -88%;
       opacity: 1;
     }
 
@@ -4057,13 +4058,13 @@ img.coinWinning-animation {
 
   @keyframes slideRight9 {
     from {
+      top: 95%;
       left: 0%;
-      top: 75%;
     }
 
     to {
-      left: 0%;
-      top: -10%;
+      top: 18%;
+      left: -88%;
     }
   }
 
