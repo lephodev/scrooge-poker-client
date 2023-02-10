@@ -20,7 +20,6 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
-        console.log("isDesktop",!isDesktop)
         if (!isDesktop && ref.current && !ref.current.contains(event.target) ) {
           setOpenChatHistory(false);
         }

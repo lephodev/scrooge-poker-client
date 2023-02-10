@@ -94,7 +94,7 @@ input:checked {
 
 .table-card img {
   width: 50px;
-  margin: 0;
+  margin: 0px 4px;
   transition: all 0.5s;
 }
 
@@ -120,7 +120,7 @@ input:checked {
 
 .table-card .winner-card {
   /* width: 65px; */
-  width: 58px;
+  width: 52px;
 }
 
 /* .table-card .winner-card {
@@ -713,8 +713,8 @@ input:checked {
   }
 
   to {
-    bottom: -101%;
-    left: -202%;
+    bottom: -58%;
+    left: -404%;
     opacity: 0;
   }
 }
@@ -3230,6 +3230,9 @@ img.coinWinning-animation {
   .players {
     scale: 0.9;
   }
+  .card-animate{
+    scale: 0.9;
+  }
 
   .table-card img {
     scale: 0.9;
@@ -3522,6 +3525,9 @@ img.coinWinning-animation {
     /* top: 30px; */
     top: -18%;
   }
+  .card-animate{
+    width: 40px;
+  }
 
   .table-card img {
     width: 40px;
@@ -3728,11 +3734,13 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    /* width: 40px; */
-    width: 30px;
-    margin: 0px 1px;
+    width: 40px;
+    margin: 0px 2px;
   }
-
+  .card-animate{
+    width: 40px;
+    margin: 0px 2px;
+  }
   .tooltip-inner {
     width: 100%;
     max-width: 100% !important;
@@ -4081,7 +4089,7 @@ img.coinWinning-animation {
 
   .players.player7 .player-chip {
     left: -102px;
-    bottom: 50%;
+    bottom: -50%;
     animation: slideRight8 0.4s;
   }
 
@@ -4092,7 +4100,7 @@ img.coinWinning-animation {
   @keyframes mergeP8 {
     from {
       left: -102px;
-      bottom: 50%;
+      bottom: -50%;
       opacity: 1;
     }
 
@@ -4111,12 +4119,13 @@ img.coinWinning-animation {
 
     to {
       left: -102px;
-      bottom: 50%;
+      bottom: -50%;
     }
   }
 
   .players.player8 .player-chip {
-    top: -10%;
+    top: 18%;
+    left: -88%;
     animation: slideRight9 0.4s;
   }
 
@@ -4126,8 +4135,8 @@ img.coinWinning-animation {
 
   @keyframes mergeP9 {
     from {
-      left: 0%;
-      top: -10%;
+      top: 18%;
+      left: -88%;
       opacity: 1;
     }
 
@@ -4140,13 +4149,13 @@ img.coinWinning-animation {
 
   @keyframes slideRight9 {
     from {
+      top: 95%;
       left: 0%;
-      top: 75%;
     }
 
     to {
-      left: 0%;
-      top: -10%;
+      top: 18%;
+      left: -88%;
     }
   }
 
@@ -4594,6 +4603,9 @@ img.coinWinning-animation {
     height: 60px;
     width: 30px;
     margin-bottom: 5px;
+  }
+  .card-animate{
+    width: 30px;
   }
 
   .tooltip-inner {
