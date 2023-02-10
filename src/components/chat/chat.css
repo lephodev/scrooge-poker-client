@@ -321,8 +321,8 @@ span.msg-limit {
 
 .containerFor-chatHistory {
   position: fixed;
-  bottom: 2%;
-  left: 2%;
+  bottom: 10px;
+  left: 10px;
   z-index: 999999;
   padding: 5px;
   border-radius: 50%;
