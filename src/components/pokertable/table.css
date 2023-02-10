@@ -83,6 +83,7 @@ input:checked {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 4px;
 }
 
 
@@ -92,11 +93,9 @@ input:checked {
 }
 
 .table-card img {
-  /* width: 60px; */
   width: 50px;
-  margin: 0px 2px;
+  margin: 0;
   transition: all 0.5s;
-  /* box-shadow: 0px 10px 10px 0px #00000075; */
 }
 
 .battery {
@@ -3042,6 +3041,90 @@ img.coinWinning-animation {
   top: 60%;
   z-index: 9999;
 }
+
+/******************************** Card Flip Animation ********************/
+
+
+
+.card-animate{
+  perspective: 1000px;	
+  width: 50px;
+  height: 70px;
+  position:relative;
+}
+
+.card-animate .back-card{
+	position:absolute;
+  transform:  rotateY(0deg);
+	backface-visibility:hidden;
+	transition: transform .4s linear;	
+}
+
+.card-animate .front-card{
+	position:absolute;
+	transform: rotateY(180deg);
+	backface-visibility:hidden;
+	transition: transform .4s linear;
+}
+
+.card-animate.active .back-card{
+  -webkit-animation-name: flipAnimationBack;
+  animation-name: flipAnimationBack;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.card-animate.active .front-card{
+  -webkit-animation-name: flipAnimationFront;
+  animation-name: flipAnimationFront;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+@keyframes flipAnimationBack {
+  0% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+
+
+@keyframes flipAnimationFront {
+  0% {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+
+
+/* @-webkit-keyframes flipAnimation {
+  0% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  100% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+} */
+
 
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/

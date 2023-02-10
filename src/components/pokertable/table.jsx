@@ -10,6 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 // import Lottie from "react-lottie";
 import front from "../../assets/game/Black-Card.png";
 import back from "../../assets/game/Black-Card.png";
+import back2 from "../../assets/game/Black-Card2.png";
 import { socket } from "../../config/socketConnection";
 import accept from "../../assets/checked.png";
 import reject from "../../assets/close.png";
@@ -2977,17 +2978,20 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
+            <div className={`card-animate active duration-${i}`}>
             <img
               key={`item-${i}`}
               // src={cards ? cards : back }
-              src={card ? `/cards/${card.toUpperCase()}.svg` : back}
+              src={`/cards/${card.toUpperCase()}.svg`}
               alt="card"
               className={`${
                 winner && matchCards.findIndex((ele) => ele === i) !== -1
                   ? `winner-card`
                   : ``
-              } flip-vertical-left duration-${i}`}
+              } front-card duration-${i}`}
             />
+            <img key={`item-${i}`} src={back2} alt="back" className={`back-card duration-${i}`}/>
+            </div>
           );
         })}
     </div>
