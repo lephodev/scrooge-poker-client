@@ -3191,17 +3191,26 @@ const FooterButton = ({
             // ""
 
             <>
-              {!loader && (
-                <AdvanceActionBtn
-                  tentativeAction={tentativeAction}
-                  handleTentativeAction={handleTentativeAction}
-                  roomData={roomData}
-                  currentPlayer={currentPlayer}
-                  player={playersLeft
-                    .concat(playersRight)
-                    .find((el) => el.id === userId)}
-                />
-              )}
+              {roomData?.gamestart &&
+                roomData.runninground >= 1 &&
+                roomData.runninground < 5 &&
+                currentPlayer?.cards?.length === 2 &&
+                !currentPlayer?.fold &&
+                !(
+                  roomData.lastAction === "check" &&
+                  currentPlayer?.action === true
+                ) &&
+                currentPlayer.actionType !== "all-in" && (
+                  <AdvanceActionBtn
+                    tentativeAction={tentativeAction}
+                    handleTentativeAction={handleTentativeAction}
+                    roomData={roomData}
+                    currentPlayer={currentPlayer}
+                    player={playersLeft
+                      .concat(playersRight)
+                      .find((el) => el.id === userId)}
+                  />
+                )}
             </>
           )}
         </div>
