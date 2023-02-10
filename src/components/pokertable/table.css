@@ -94,7 +94,7 @@ input:checked {
 
 .table-card img {
   width: 50px;
-  margin: 0;
+  margin: 0px 4px;
   transition: all 0.5s;
 }
 
@@ -120,7 +120,7 @@ input:checked {
 
 .table-card .winner-card {
   /* width: 65px; */
-  width: 58px;
+  width: 52px;
 }
 
 /* .table-card .winner-card {
@@ -3230,6 +3230,9 @@ img.coinWinning-animation {
   .players {
     scale: 0.9;
   }
+  .card-animate{
+    scale: 0.9;
+  }
 
   .table-card img {
     scale: 0.9;
@@ -3522,6 +3525,9 @@ img.coinWinning-animation {
     /* top: 30px; */
     top: -18%;
   }
+  .card-animate{
+    width: 40px;
+  }
 
   .table-card img {
     width: 40px;
@@ -3728,11 +3734,13 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    /* width: 40px; */
-    width: 30px;
-    margin: 0px 1px;
+    width: 40px;
+    margin: 0px 2px;
   }
-
+  .card-animate{
+    width: 40px;
+    margin: 0px 2px;
+  }
   .tooltip-inner {
     width: 100%;
     max-width: 100% !important;
@@ -4595,6 +4603,9 @@ img.coinWinning-animation {
     height: 60px;
     width: 30px;
     margin-bottom: 5px;
+  }
+  .card-animate{
+    width: 30px;
   }
 
   .tooltip-inner {

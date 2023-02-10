@@ -813,7 +813,6 @@ const PokerTable = (props) => {
         joinInRunningRound = true;
       }
       setCommunityCards(data.communityCard);
-      console.log("Cummunity cards", data.communityCard);
       if (roomData.hostId === userId) {
         setisAdmin(true);
         admin = true;
@@ -935,7 +934,6 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
-    console.log("eventeventevent", player?.tentativeAction);
     let event;
     const { tentativeAction } = player;
     if (player?.tentativeAction.includes(" ")) {
@@ -944,7 +942,6 @@ const PokerTable = (props) => {
     } else {
       event = tentativeAction;
     }
-    console.log("eventeventevent", event);
     switch (event) {
       case "check":
         socket.emit("docheck", { userid: player.id, roomid: tableId });
@@ -1040,7 +1037,6 @@ const PokerTable = (props) => {
 
   useEffect(() => {
     socket.on("updateChat", (data) => {
-      console.log("updateChat -->", data);
       setChatMessages(data.chat);
       let nesMsgCount = 0;
       data.chat.forEach((chatObj, i) => {
@@ -1056,7 +1052,6 @@ const PokerTable = (props) => {
         nesMsgCount = 0;
       }
       setUnReadMessages(nesMsgCount);
-      console.log("unread message count", unReadMessages);
     });
   });
 
@@ -1140,7 +1135,6 @@ const PokerTable = (props) => {
     data.forEach((item, i) => {
       if (i === 0) {
         let type = players.find((el) => el.userid === item.id);
-        console.log("ietm  =>", type, players, item);
         setWinAnimationType(type.items);
         setWinner(item);
         playAudio("winner");
@@ -1556,7 +1550,6 @@ const PokerTable = (props) => {
     } else {
       setTentativeAction(value);
     }
-    console.log("evhhhfgh", value, checked);
     socket.emit("playerTentativeAction", {
       gameId: tableId,
       userId,
@@ -1582,10 +1575,6 @@ const PokerTable = (props) => {
     // console.log("currentPlayer", currentPlayer);
 
     if (currentPlayer?.tentativeAction && currentPlayer?.id === userId) {
-      console.log(
-        "currentPlayer.tentitive action",
-        currentPlayer?.tentativeAction
-      );
       handleTentativeActionAuto(currentPlayer);
     }
     setTentativeAction("");
@@ -1633,7 +1622,6 @@ const PokerTable = (props) => {
   };
 
   const handleSitin = (sitInAmount) => {
-    console.log("sitInAmount", sitInAmount);
     let urlParams = getQueryParams();
     let table = urlParams["tableid"];
     let type = urlParams["gameCollection"] || urlParams["gamecollection"];
@@ -1743,7 +1731,6 @@ const PokerTable = (props) => {
       amount: roomData.raiseAmount + x,
     });
   };
-  console.log({ communityCards });
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -2971,7 +2958,6 @@ const Players = ({
 };
 
 const TableCard = ({ winner, communityCards, matchCards }) => {
-  console.log("communityCards Table", communityCards);
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
@@ -2990,7 +2976,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                   : ``
               } front-card duration-${i}`}
             />
-            <img key={`item-${i}`} src={back2} alt="back" className={`back-card duration-${i}`}/>
+            <img key={`item1-${i}`} src={back2} alt="back" className={`back-card duration-${i}`}/>
             </div>
           );
         })}
