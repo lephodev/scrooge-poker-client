@@ -10,7 +10,8 @@
   z-index: 1;
   object-fit: cover;
   width: 30px;
-  height: 30px;}
+  height: 30px;
+}
 
 .avatars {
   direction: rtl;
@@ -44,6 +45,7 @@
   row-gap: 30px;
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
+
 .home-poker-card {
   margin-bottom: 80px;
   position: relative;
@@ -452,8 +454,8 @@ input[type="number"] {
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   color: #ececec;
-  background-color: #202020;
-  border-color: #4e555b;
+  background-color: #141414;
+  border-color: #3e3e3e;
 }
 
 .nav-item.nav-link.active {
@@ -477,7 +479,7 @@ input[type="number"] {
 
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
-  border-color: #4e555b;
+  border-color: #3e3e3e;
 }
 
 /***************** tournament card  **************/
@@ -493,6 +495,7 @@ input[type="number"] {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.4s;
+  border: 1px solid #323232;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -557,7 +560,6 @@ input[type="number"] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background: #141414;
-  border: 1px solid #323232;
 }
 
 .tournamentCard-back {
