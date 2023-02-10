@@ -159,13 +159,13 @@ input:checked {
 }
 
 .player1 {
-  bottom: -12%;
+  bottom: -4%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .player2 {
-  bottom: -50px;
+  bottom: -20px;
   right: 75%;
   transform: translateX(75%);
 }
@@ -208,7 +208,7 @@ input:checked {
 }
 
 .player9 {
-  bottom: -50px;
+  bottom: -20px;
   right: 25%;
   transform: translateX(25%);
 }
@@ -426,7 +426,7 @@ input:checked {
   }
 
   to {
-    bottom: -26%;
+    bottom: -50%;
     right: -405%;
     opacity: 0;
   }
@@ -439,8 +439,8 @@ input:checked {
   }
 
   to {
-    bottom: -14%;
-    right: -110%;
+    bottom: -40%;
+    right: -100%;
   }
 }
 
@@ -464,7 +464,7 @@ input:checked {
   }
 
   to {
-    bottom: -31%;
+    bottom: 119%;
     left: -404%;
     opacity: 0;
   }
@@ -477,7 +477,7 @@ input:checked {
   }
 
   to {
-    bottom: -20%;
+    bottom: 60%;
     left: -100%;
   }
 }
@@ -502,8 +502,8 @@ input:checked {
   }
 
   to {
-    left: -404%;
-    top: -66%;
+    left: -202%;
+    top: -120%;
     opacity: 0;
   }
 }
@@ -515,8 +515,8 @@ input:checked {
   }
 
   to {
-    left: -100%;
-    top: -10%;
+    left: -2%;
+    top: -25%;
   }
 }
 
@@ -541,7 +541,7 @@ input:checked {
 
   to {
     right: -404%;
-    top: -65%;
+    top: -50%;
     opacity: 0;
   }
 }
@@ -554,10 +554,11 @@ input:checked {
 
   to {
     right: -100%;
-    top: -8%;
+    top: 8%;
   }
 }
 
+/* 
 .players.player10 .player-chip {
   position: absolute;
   width: 100%;
@@ -583,7 +584,7 @@ input:checked {
     left: -202%;
     opacity: 0;
   }
-}
+} */
 
 .players.player2 .player-chip {
   position: absolute;
@@ -606,7 +607,7 @@ input:checked {
   }
 
   to {
-    top: -116%;
+    top: -112%;
     left: 202%;
     opacity: 0;
   }
@@ -615,7 +616,6 @@ input:checked {
 .players.player1 .player-chip {
   position: absolute;
   width: 100%;
-  /* top: -125px; */
   top: -12%;
   left: 0%;
   transform: translateY(-50%);
@@ -628,12 +628,12 @@ input:checked {
 
 @keyframes mergeP1 {
   from {
-    top: -15%;
+    top: -12%;
     opacity: 1;
   }
 
   to {
-    top: -104%;
+    top: -88%;
     opacity: 0;
   }
 }
@@ -660,7 +660,7 @@ input:checked {
   }
 
   to {
-    bottom: -102%;
+    bottom: -114%;
     left: 202%;
     opacity: 0;
   }
@@ -671,7 +671,7 @@ input:checked {
   width: 100%;
   /* bottom: -70px; */
   left: 0%;
-  bottom: -56%;
+  bottom: -65%;
   transform: translateY(-50%);
   animation: travelDownCenter 0.4s;
 }
@@ -682,12 +682,13 @@ input:checked {
 
 @keyframes mergeP6 {
   from {
-    bottom: -56%;
+    bottom: -65%;
     opacity: 1;
   }
 
   to {
-    bottom: -92%;
+    bottom: -121%;
+    left: -200%;
     opacity: 0;
   }
 }
@@ -698,7 +699,7 @@ input:checked {
   bottom: -52%;
   left: -100%;
   transform: translateY(-25%);
-  animation: travelDown 0.4s;
+  animation: slideRight7 0.4s;
 }
 
 .animateMerge-chips.players.player7 .player-chip {
@@ -716,6 +717,18 @@ input:checked {
     bottom: -101%;
     left: -202%;
     opacity: 0;
+  }
+}
+
+@keyframes slideRight7 {
+  from {
+    bottom: 0%;
+    left: 0%;
+  }
+
+  to {
+    bottom: -52%;
+    left: -100%;
   }
 }
 
@@ -2440,7 +2453,7 @@ button.sign-in.btn.btn-primary:focus {
 }
 
 .friends-popup .modal-content {
-  background: #21232c;
+  background: #141414;
 }
 
 .friends-popup .modal-header {
@@ -3146,7 +3159,7 @@ img.coinWinning-animation {
   }
 
   .players.player1 {
-    left: 50%;
+    left: 49%;
   }
 
   .player1 .player-info {
@@ -3598,7 +3611,7 @@ img.coinWinning-animation {
 
   .footer-btn {
     width: 105px;
-    height: 46px;
+    height: 36px;
   }
 
   .footer-btn .btn,
@@ -3748,15 +3761,13 @@ img.coinWinning-animation {
   }
 
   .player5 {
-    /* top: -25px; */
-    top: -33%;
-    transform: translateX(-50%) scale(0.9);
+    top: -38%;
+    transform: translateX(-35%) scale(0.9);
   }
 
   .player6 {
-    /* top: -25px; */
-    transform: translateX(-50%) scale(0.9);
-    top: -30%;
+    top: -36%;
+    transform: translateX(-68%) scale(0.9);
   }
 
   .player7 {
@@ -3765,12 +3776,12 @@ img.coinWinning-animation {
   }
 
   .player8 {
-    transform: translateX(20%) scale(0.9);
+    transform: translateX(14%) scale(0.9);
     bottom: 4%;
   }
 
   .player9 {
-    transform: translateX(45%) scale(0.9);
+    transform: translateX(25%) scale(0.9);
     bottom: -25px;
   }
 
@@ -3835,6 +3846,7 @@ img.coinWinning-animation {
     text-align: center;
     font-size: 14px;
     line-height: 32px;
+    scale: 1.1;
   }
 
   ul.btn-list>li>button i {
@@ -3901,10 +3913,21 @@ img.coinWinning-animation {
   }
 
   .players.player3 .player-chip {
-    /* right: -80px; */
     right: -90%;
-    top: 43%;
+    top: 22%;
     animation: slideLeft3 0.4s;
+  }
+
+  .players.player5 .player-chip {
+    bottom: -68px;
+  }
+
+  .players.player6 .player-chip {
+    bottom: -74px;
+  }
+
+  .players.player7 .player-chip {
+    left: -100%;
   }
 
   .animateMerge-chips.players.player3 .player-chip {
@@ -3913,15 +3936,14 @@ img.coinWinning-animation {
 
   @keyframes mergeP3 {
     from {
-      /* right: -80px; */
       right: -90%;
-      top: 43%;
+      top: 22%;
       opacity: 1;
     }
 
     to {
-      right: -327%;
-      top: 30%;
+      right: -372%;
+      top: 0%;
       opacity: 0;
     }
   }
@@ -3934,12 +3956,13 @@ img.coinWinning-animation {
 
     to {
       right: -90%;
-      top: 43%;
+      top: 22%;
     }
   }
 
   .players.player4 .player-chip {
-    right: -80px;
+    right: -100px;
+    bottom: -40%;
     animation: slideLeft4 0.4s;
   }
 
@@ -3949,14 +3972,14 @@ img.coinWinning-animation {
 
   @keyframes mergeP4 {
     from {
-      right: -80px;
-      bottom: -14%;
+      right: -100px;
+      bottom: -40%;
       opacity: 1;
     }
 
     to {
-      right: -305%;
-      bottom: -82%;
+      right: -372%;
+      bottom: -68%;
       opacity: 0;
     }
   }
@@ -3968,30 +3991,31 @@ img.coinWinning-animation {
     }
 
     to {
-      right: -80px;
-      bottom: -14%;
+      right: -100px;
+      bottom: -40%;
     }
   }
 
-  .players.player8 .player-chip {
-    left: -80px;
+  .players.player7 .player-chip {
+    left: -102px;
+    bottom: 50%;
     animation: slideRight8 0.4s;
   }
 
-  .animateMerge-chips.players.player8 .player-chip {
+  .animateMerge-chips.players.player7 .player-chip {
     animation: mergeP8 0.4s;
   }
 
   @keyframes mergeP8 {
     from {
-      left: -80px;
-      bottom: -20%;
+      left: -102px;
+      bottom: 50%;
       opacity: 1;
     }
 
     to {
-      left: -305%;
-      bottom: -82%;
+      left: -365%;
+      bottom: -74%;
       opacity: 0;
     }
   }
@@ -4003,26 +4027,24 @@ img.coinWinning-animation {
     }
 
     to {
-      left: -80px;
-      bottom: -20%;
+      left: -102px;
+      bottom: 50%;
     }
   }
 
-  .players.player9 .player-chip {
-    /* left: -80px; */
-    left: -90%;
-    top: 43%;
+  .players.player8 .player-chip {
+    top: -10%;
     animation: slideRight9 0.4s;
   }
 
-  .animateMerge-chips.players.player9 .player-chip {
+  .animateMerge-chips.players.player8 .player-chip {
     animation: mergeP9 0.4s;
   }
 
   @keyframes mergeP9 {
     from {
-      left: -90%;
-      top: 43%;
+      left: 0%;
+      top: -10%;
       opacity: 1;
     }
 
@@ -4040,12 +4062,12 @@ img.coinWinning-animation {
     }
 
     to {
-      left: -90%;
-      top: 43%;
+      left: 0%;
+      top: -10%;
     }
   }
 
-  .animateMerge-chips.players.player10 .player-chip {
+  .animateMerge-chips.players.player9 .player-chip {
     animation: mergeP10 0.4s;
   }
 
@@ -4091,8 +4113,8 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -49%;
-      left: 148%;
+      top: -30%;
+      left: 185%;
       opacity: 0;
     }
   }
@@ -4102,7 +4124,7 @@ img.coinWinning-animation {
   .players.player7 .player-chip {
     bottom: -45px;
   } */
-  .animateMerge-chips.players.player7 .player-chip {
+  .animateMerge-chips.players.player6 .player-chip {
     animation: mergeP7 0.4s;
   }
 
@@ -4114,13 +4136,13 @@ img.coinWinning-animation {
     }
 
     to {
-      bottom: -130%;
-      left: -150%;
+      bottom: -115%;
+      left: -190%;
       opacity: 0;
     }
   }
 
-  .animateMerge-chips.players.player6 .player-chip {
+  /* .animateMerge-chips.players.player6 .player-chip {
     animation: mergeP6 0.4s;
   }
 
@@ -4134,7 +4156,7 @@ img.coinWinning-animation {
       bottom: -125%;
       opacity: 0;
     }
-  }
+  } */
 
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
@@ -4148,8 +4170,8 @@ img.coinWinning-animation {
     }
 
     to {
-      bottom: -130%;
-      left: 150%;
+      bottom: -114%;
+      left: 184%;
       opacity: 0;
     }
   }
@@ -4396,14 +4418,12 @@ img.coinWinning-animation {
   }
 
   .player1 {
-    /* bottom: 0px; */
-    bottom: -30px;
+    bottom: 22px;
     transform: translateX(-50%) scale(0.9);
   }
 
   .player2 {
-    /* bottom: 10%; */
-    bottom: 9%;
+    bottom: 8%;
     right: inherit;
     transform: translateY(-10%) scale(0.9);
     left: -4%;
@@ -4535,6 +4555,7 @@ img.coinWinning-animation {
     text-align: center;
     font-size: 16px;
     line-height: 32px;
+    scale: 1.1;
   }
 
   ul.btn-list>li>button i {
@@ -4600,7 +4621,7 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -266%;
+      top: -299%;
       opacity: 0;
     }
   }
@@ -4617,8 +4638,8 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -212%;
-      left: 157%;
+      top: -284%;
+      left: 146%;
       opacity: 0;
     }
   }
@@ -4643,8 +4664,8 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -87%;
-      left: 153%;
+      top: -146%;
+      left: 140%;
       opacity: 0;
     }
   }
@@ -4681,8 +4702,8 @@ img.coinWinning-animation {
     }
 
     to {
-      left: 144%;
-      top: 35%;
+      left: 133%;
+      top: 3%;
       opacity: 0;
     }
   }
@@ -4720,8 +4741,8 @@ img.coinWinning-animation {
     }
 
     to {
-      left: 128%;
-      top: 161%;
+      left: 117%;
+      top: 146%;
       opacity: 0;
     }
   }
@@ -4765,13 +4786,13 @@ img.coinWinning-animation {
 
     to {
       right: 125%;
-      top: 161%;
+      top: 147%;
       opacity: 0;
     }
   }
 
   .players.player7 .player-chip {
-    top: -12%;
+    top: -8%;
     bottom: inherit;
     left: inherit;
     right: inherit;
@@ -4784,14 +4805,14 @@ img.coinWinning-animation {
 
   @keyframes mergeP8 {
     from {
-      top: -12%;
+      top: -8%;
       left: inherit;
       opacity: 1;
     }
 
     to {
-      top: 35%;
-      left: -142%;
+      top: 8%;
+      left: -146%;
       opacity: 0;
     }
   }
@@ -4806,7 +4827,7 @@ img.coinWinning-animation {
     to {
       bottom: inherit;
       left: inherit;
-      top: -12%;
+      top: -8%;
     }
   }
 
@@ -4829,8 +4850,8 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -87%;
-      left: -150%;
+      top: -145%;
+      left: -146%;
       opacity: 0;
     }
   }
@@ -4862,15 +4883,15 @@ img.coinWinning-animation {
     }
 
     to {
-      left: -153%;
-      top: -212%;
+      left: -150%;
+      top: -284%;
       opacity: 0;
     }
   }
 
   @keyframes travelUp {
     from {
-      top: 75%;
+      top: 85%;
       transform: inherit;
     }
 
@@ -4909,55 +4930,6 @@ img.coinWinning-animation {
     width: 100%;
   }
 
-  /***************** When 4 players in Game ******************/
-  .player-count-4 .player5 {
-    /* top: 30%; */
-    top: 24%;
-    left: -2%;
-  }
-
-  .player-count-4 .animateMerge-chips.players.player5 .player-chip {
-    animation: mergeC4P5 0.4s;
-  }
-
-  @keyframes mergeC4P5 {
-    from {
-      left: inherit;
-      top: -10%;
-      opacity: 1;
-    }
-
-    to {
-      left: 150%;
-      top: 18%;
-      opacity: 0;
-    }
-  }
-
-  .player-count-4 .player7 {
-    top: 22%;
-    right: -2%;
-  }
-
-  .player-count-4 .animateMerge-chips.players.player7 .player-chip {
-    animation: mergeC4P7 0.4s;
-  }
-
-  @keyframes mergeC4P7 {
-    from {
-      right: inherit;
-      top: -10%;
-      opacity: 1;
-    }
-
-    to {
-      right: 146%;
-      top: 18%;
-      opacity: 0;
-    }
-  }
-
-  /***************** When 6 players in Game ******************/
   .player-action {
     bottom: 122%;
     animation-name: bottomFadeOut;
@@ -4987,95 +4959,6 @@ img.coinWinning-animation {
     }
   }
 
-  .player-count-6 .player2 {
-    /* bottom: 45%; */
-    bottom: 18%;
-  }
-
-  .player-count-6 .animateMerge-chips.players.player2 .player-chip {
-    animation: mergeC6P2 0.4s;
-  }
-
-  @keyframes mergeC6P2 {
-    from {
-      top: -12%;
-      left: 0%;
-      opacity: 1;
-    }
-
-    to {
-      top: -160%;
-      left: 158%;
-      opacity: 0;
-    }
-  }
-
-  .player-count-6 .player10 {
-    /* bottom: 45%; */
-    bottom: 18%;
-  }
-
-  .player-count-6 .animateMerge-chips.players.player10 .player-chip {
-    animation: mergeC6P10 0.4s;
-  }
-
-  @keyframes mergeC6P10 {
-    from {
-      left: inherit;
-      top: -12%;
-      opacity: 1;
-    }
-
-    to {
-      left: -155%;
-      top: -160%;
-      opacity: 0;
-    }
-  }
-
-  .player-count-6 .player5 {
-    top: 15%;
-  }
-
-  .player-count-6 .animateMerge-chips.players.player5 .player-chip {
-    animation: mergeC6P5 0.4s;
-  }
-
-  @keyframes mergeC6P5 {
-    from {
-      left: inherit;
-      top: -10%;
-      opacity: 1;
-    }
-
-    to {
-      left: 128%;
-      top: 64%;
-      opacity: 0;
-    }
-  }
-
-  .player-count-6 .player7 {
-    top: 15%;
-  }
-
-  .player-count-6 .animateMerge-chips.players.player7 .player-chip {
-    animation: mergeC6P7 0.4s;
-  }
-
-  @keyframes mergeC6P7 {
-    from {
-      left: inherit;
-      top: -10%;
-      opacity: 1;
-    }
-
-    to {
-      left: -128%;
-      top: 65%;
-      opacity: 0;
-    }
-  }
 }
 
 .chips-images img {

@@ -68,7 +68,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     >
       <div className="chatHistory-header">
         <div className="Chatgame-title"> Chat History</div>
-        {typingOnChat ? "Typing..." : null}
+        <div className="chatBubble-typing">{typingOnChat ? "Typing..." : null}</div>
         <div className="Gameplayer-count">
           <div className="greendot" /> <h4>Players</h4>
           <h3>{roomData?.players?.length}</h3>

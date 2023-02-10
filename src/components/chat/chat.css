@@ -360,6 +360,13 @@ span.msg-limit {
   cursor: pointer;
   color: #f9ff00;
 }
+.chatBubble-typing{
+  position: absolute;
+  top: 33px;
+  left: 64%;
+  font-size: 12px;
+  color: #bfbfbf;
+}
 
 @media screen and (max-width: 1024px) {
   .advaceActionBtn-container .form-check-input {
