@@ -306,6 +306,8 @@ const Home = () => {
 
       <div className="home-poker-card">
         <div className="container">
+
+        
           <div className="poker-table-header">
             <div className="backtoHome">
               <a href="https://scrooge.casino/">
@@ -330,6 +332,9 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+
+          <div className="poker-table-content">
           <Tabs
             id="controlled-tab-example"
             activeKey={key}
@@ -374,6 +379,9 @@ const Home = () => {
               )}
             </Tab>
           </Tabs>
+
+
+          </div>
         </div>
       </div>
     </div>
@@ -662,7 +670,7 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
                     Join Game
                   </button>
                 ) : (
-                  <>
+                  <div className="btn-grid">
                     {" "}
                     <button
                       onClick={() => joinTournament(data?._id)}
@@ -673,7 +681,7 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
                     <button onClick={() => enterRoom(data?._id)} type="submit">
                       Enter Game
                     </button>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
