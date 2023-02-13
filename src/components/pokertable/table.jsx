@@ -89,6 +89,7 @@ let interval;
 let retryCount = 0;
 
 const numFormatter = (num) => {
+  console.log("numnumnum", num);
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
   } else if (num > 999 && num < 1000000) {
@@ -1264,6 +1265,7 @@ const PokerTable = (props) => {
   };
 
   const raiseAction = (x) => {
+    console.log("RaiseAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1275,7 +1277,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: x,
     });
     setTimer(0);
   };
@@ -1308,7 +1310,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount * x,
+      amount: x,
     });
     setTimer(0);
   };
@@ -1742,7 +1744,8 @@ const PokerTable = (props) => {
       amount: roomData.raiseAmount + x,
     });
   };
-  console.log({ communityCards });
+
+  console.log("roomData====", roomData?.pot);
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -2119,6 +2122,7 @@ const PokerTable = (props) => {
             betInSliderAction={betInSliderAction}
             playersRight={playersRight}
             playersLeft={playersLeft}
+            players={players}
           />
         </div>
       </div>
@@ -3034,6 +3038,7 @@ const FooterButton = ({
   betInSliderAction,
   playersLeft,
   playersRight,
+  players,
 }) => {
   return (
     <div className="footer-button">
@@ -3084,6 +3089,7 @@ const FooterButton = ({
                         raiseAction={raiseAction}
                         allinAction={allinAction}
                         roomData={roomData}
+                        players={players}
                       />
                     </div>
                   )}
@@ -3148,6 +3154,7 @@ const FooterButton = ({
                         betAction={betAction}
                         allinAction={allinAction}
                         roomData={roomData}
+                        players={players}
                       />
                     </div>
                   )}
