@@ -10,6 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 // import Lottie from "react-lottie";
 import front from "../../assets/game/Black-Card.png";
 import back from "../../assets/game/Black-Card.png";
+import back2 from "../../assets/game/Black-Card2.png";
 import { socket } from "../../config/socketConnection";
 import accept from "../../assets/checked.png";
 import reject from "../../assets/close.png";
@@ -813,7 +814,6 @@ const PokerTable = (props) => {
         joinInRunningRound = true;
       }
       setCommunityCards(data.communityCard);
-      console.log("Cummunity cards", data.communityCard);
       if (roomData.hostId === userId) {
         setisAdmin(true);
         admin = true;
@@ -935,7 +935,6 @@ const PokerTable = (props) => {
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
-    console.log("eventeventevent", player?.tentativeAction);
     let event;
     const { tentativeAction } = player;
     if (player?.tentativeAction.includes(" ")) {
@@ -944,7 +943,6 @@ const PokerTable = (props) => {
     } else {
       event = tentativeAction;
     }
-    console.log("eventeventevent", event);
     switch (event) {
       case "check":
         socket.emit("docheck", { userid: player.id, roomid: tableId });
@@ -1040,7 +1038,6 @@ const PokerTable = (props) => {
 
   useEffect(() => {
     socket.on("updateChat", (data) => {
-      console.log("updateChat -->", data);
       setChatMessages(data.chat);
       let nesMsgCount = 0;
       data.chat.forEach((chatObj, i) => {
@@ -1056,7 +1053,6 @@ const PokerTable = (props) => {
         nesMsgCount = 0;
       }
       setUnReadMessages(nesMsgCount);
-      console.log("unread message count", unReadMessages);
     });
   });
 
@@ -1083,19 +1079,19 @@ const PokerTable = (props) => {
         availablePosition = [0, 4, 5];
         break;
       case 4:
-        availablePosition = [0, 4, 5, 6];
+        availablePosition = [0, 2, 3, 7];
         break;
       case 5:
         availablePosition = [0, 2, 3, 6, 7];
         break;
       case 6:
-        availablePosition = [0, 1, 4, 5, 6, 7];
+        availablePosition = [0, 2, 3, 4, 6, 7];
         break;
       case 7:
-        availablePosition = [0, 1, 2, 3, 5, 6, 7];
+        availablePosition = [0, 1, 2, 3, 6, 7, 8];
         break;
       case 8:
-        availablePosition = [0, 1, 2, 3, 4, 5, 6, 8];
+        availablePosition = [0, 1, 2, 3, 4, 6, 7, 8];
         break;
       case 9:
         availablePosition = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -1140,7 +1136,6 @@ const PokerTable = (props) => {
     data.forEach((item, i) => {
       if (i === 0) {
         let type = players.find((el) => el.userid === item.id);
-        console.log("ietm  =>", type, players, item);
         setWinAnimationType(type.items);
         setWinner(item);
         playAudio("winner");
@@ -1557,7 +1552,6 @@ const PokerTable = (props) => {
     } else {
       setTentativeAction(value);
     }
-    console.log("evhhhfgh", value, checked);
     socket.emit("playerTentativeAction", {
       gameId: tableId,
       userId,
@@ -1583,10 +1577,6 @@ const PokerTable = (props) => {
     // console.log("currentPlayer", currentPlayer);
 
     if (currentPlayer?.tentativeAction && currentPlayer?.id === userId) {
-      console.log(
-        "currentPlayer.tentitive action",
-        currentPlayer?.tentativeAction
-      );
       handleTentativeActionAuto(currentPlayer);
     }
     setTentativeAction("");
@@ -1634,7 +1624,6 @@ const PokerTable = (props) => {
   };
 
   const handleSitin = (sitInAmount) => {
-    console.log("sitInAmount", sitInAmount);
     let urlParams = getQueryParams();
     let table = urlParams["tableid"];
     let type = urlParams["gameCollection"] || urlParams["gamecollection"];
@@ -2974,24 +2963,31 @@ const Players = ({
 };
 
 const TableCard = ({ winner, communityCards, matchCards }) => {
-  console.log("communityCards Table", communityCards);
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
-            <img
-              key={`item-${i}`}
-              // src={cards ? cards : back }
-              src={card ? `/cards/${card.toUpperCase()}.svg` : back}
-              alt="card"
-              className={`${
-                winner && matchCards.findIndex((ele) => ele === i) !== -1
-                  ? `winner-card`
-                  : ``
-              } flip-vertical-left duration-${i}`}
-            />
+            <div className={`card-animate active duration-${i}`}>
+              <img
+                key={`item-${i}`}
+                // src={cards ? cards : back }
+                src={`/cards/${card.toUpperCase()}.svg`}
+                alt="card"
+                className={`${
+                  winner && matchCards.findIndex((ele) => ele === i) !== -1
+                    ? `winner-card`
+                    : ``
+                } front-card duration-${i}`}
+              />
+              <img
+                key={`item1-${i}`}
+                src={back2}
+                alt="back"
+                className={`back-card duration-${i}`}
+              />
+            </div>
           );
         })}
     </div>
