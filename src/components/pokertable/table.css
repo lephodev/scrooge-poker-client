@@ -83,6 +83,7 @@ input:checked {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -3046,28 +3047,30 @@ img.coinWinning-animation {
 
 
 
-.card-animate{
-  perspective: 1000px;	
+.card-animate {
+  perspective: 1000px;
   width: 50px;
   height: 70px;
-  position:relative;
+  position: relative;
 }
 
-.card-animate .back-card{
-	position:absolute;
-  transform:  rotateY(0deg);
-	backface-visibility:hidden;
-	transition: transform .4s linear;	
+.card-animate .back-card {
+  position: absolute;
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
+  transition: transform .4s linear;
+  left: 0;
 }
 
-.card-animate .front-card{
-	position:absolute;
-	transform: rotateY(180deg);
-	backface-visibility:hidden;
-	transition: transform .4s linear;
+.card-animate .front-card {
+  position: absolute;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  transition: transform .4s linear;
+  left: 0;
 }
 
-.card-animate.active .back-card{
+.card-animate.active .back-card {
   -webkit-animation-name: flipAnimationBack;
   animation-name: flipAnimationBack;
   -webkit-animation-duration: 1s;
@@ -3076,7 +3079,7 @@ img.coinWinning-animation {
   animation-fill-mode: both;
 }
 
-.card-animate.active .front-card{
+.card-animate.active .front-card {
   -webkit-animation-name: flipAnimationFront;
   animation-name: flipAnimationFront;
   -webkit-animation-duration: 1s;
@@ -3189,6 +3192,7 @@ img.coinWinning-animation {
 
   .table-card img {
     width: 50px;
+    margin: 0px 2px;
   }
 
   .player-tooltip {
@@ -3226,16 +3230,18 @@ img.coinWinning-animation {
   }
 }
 
-@media screen and (max-width: 1024px) and (min-width:768px) {
+@media screen and (max-width: 1200px) and (min-width:768px) and (orientation: landscape) {
   .players {
     scale: 0.9;
   }
-  .card-animate{
+
+  .card-animate {
     scale: 0.9;
   }
 
   .table-card img {
     scale: 0.9;
+    margin: 0px 2px;
   }
 
   .total-pot-money {
@@ -3245,7 +3251,114 @@ img.coinWinning-animation {
   }
 
   .players.player1 {
-    left: 49%;
+    left: 50%;
+    bottom: -16%;
+  }
+
+  .player4 {
+    top: -26%;
+    left: 0%;
+  }
+
+  .player7 {
+    left: 99%;
+    top: -26%;
+  }
+
+  .player3 {
+    left: 0%;
+    bottom: 18%;
+  }
+
+  .player8 {
+    right: 0;
+    bottom: 18%;
+  }
+
+
+  .player5 {
+    top: -42%;
+  }
+
+  .player6 {
+    top: -41%;
+  }
+
+  .players.player6 .player-chip {
+    bottom: -76px !important;
+  }
+
+  .players.player5 .player-chip {
+    bottom: -67px !important;
+  }
+
+  .player1 .player-info {
+    padding: 2px 8px;
+    width: 140px;
+    height: 38px;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width:769px) and (orientation: portrait) {
+  .players {
+    scale: 0.9;
+  }
+
+  .card-animate {
+    scale: 0.9;
+  }
+
+  .table-card img {
+    scale: 0.9;
+    margin: 0px 2px;
+  }
+
+  .total-pot-money {
+    top: 65px;
+    left: calc(54% - 75px);
+    scale: 0.9;
+  }
+
+  .players.player1 {
+    left: 50%;
+    bottom: -16%;
+  }
+
+  .player4 {
+    top: -32% !important;
+    left: 0%;
+  }
+
+  .player7 {
+    left: 99%;
+    top: -26%;
+  }
+
+  .player3 {
+    left: 0%;
+    bottom: 8%;
+  }
+
+  .player8 {
+    right: 0;
+    bottom: 8%;
+  }
+
+
+  .player5 {
+    top: -42%;
+  }
+
+  .player6 {
+    top: -41%;
+  }
+
+  .players.player6 .player-chip {
+    bottom: -76px !important;
+  }
+
+  .players.player5 .player-chip {
+    bottom: -67px !important;
   }
 
   .player1 .player-info {
@@ -3517,25 +3630,38 @@ img.coinWinning-animation {
   .player3,
   .player8 {
     /* bottom: 30px; */
-    bottom: 20%;
+    bottom: 14%;
   }
 
   .player4,
   .player7 {
     /* top: 30px; */
-    top: -18%;
+    top: -32%;
   }
-  .card-animate{
+
+  .player1 {
+    bottom: -19%;
+  }
+
+  .player2 {
+    bottom: -38px;
+  }
+
+  .player9 {
+    bottom: -36px;
+  }
+
+  .card-animate {
     width: 40px;
   }
 
   .table-card img {
     width: 40px;
+    margin: 0px 2px;
   }
 
   .table-card .winner-card {
-    /* width: 40px; */
-    width: 32px;
+    width: 36px;
   }
 
   .game-msg {
@@ -3684,7 +3810,7 @@ img.coinWinning-animation {
   .total-pot-money {
     /* top: 135px; */
     top: 46%;
-    left: 44%;
+    left: 42%;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -3734,13 +3860,21 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    width: 40px;
+    width: 35px;
+    height: 50px;
     margin: 0px 2px;
   }
-  .card-animate{
-    width: 40px;
+
+  .table-card {
+    gap: 2px;
+  }
+
+  .card-animate {
+    width: 35px;
+    height: 50px;
     margin: 0px 2px;
   }
+
   .tooltip-inner {
     width: 100%;
     max-width: 100% !important;
@@ -3862,7 +3996,7 @@ img.coinWinning-animation {
   }
 
   .player7 {
-    transform: translateX(-94%) scale(0.9);
+    transform: translateX(-90%) scale(0.9);
     top: -22%;
   }
 
@@ -4328,7 +4462,7 @@ img.coinWinning-animation {
   .poker-table-bg {
     background: url(../../assets/new/poker-tilt.png);
     width: 100%;
-    height: 80vh;
+    height: 88vh;
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
@@ -4599,13 +4733,16 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    /* width: 40px; */
-    height: 60px;
+    height: 42px;
     width: 30px;
+    margin: 0px 2px;
     margin-bottom: 5px;
   }
-  .card-animate{
+
+  .card-animate {
     width: 30px;
+    height: 42px;
+    ;
   }
 
   .tooltip-inner {
