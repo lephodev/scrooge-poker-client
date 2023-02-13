@@ -3810,7 +3810,7 @@ img.coinWinning-animation {
   .total-pot-money {
     /* top: 135px; */
     top: 46%;
-    left: 42%;
+    left: 45%;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -3967,53 +3967,51 @@ img.coinWinning-animation {
   .player1 {
     /* bottom: -25px; */
     bottom: -30px;
-    transform: translateX(-50%) scale(0.9);
+    transform: translateX(-50%);
   }
 
   .player2 {
-    transform: translateX(75%) scale(0.9);
+    transform: translateX(75%);
     bottom: -25px;
   }
-
   .player3 {
-    transform: translateX(-20%) scale(0.9);
-    bottom: 4%;
-  }
-
+    transform: translateX(-20%);
+    bottom: 8%;
+}
   .player4 {
-    transform: translateX(-20%) scale(0.9);
-    top: -22%;
-  }
+    transform: translateX(-20%);
+    top: -29%;
+}
 
   .player5 {
     top: -38%;
-    transform: translateX(-35%) scale(0.9);
+    transform: translateX(-35%);
   }
 
   .player6 {
     top: -36%;
-    transform: translateX(-68%) scale(0.9);
-  }
+    transform: translateX(-86%);
+}
 
-  .player7 {
-    transform: translateX(-90%) scale(0.9);
-    top: -22%;
-  }
+.player7 {
+  transform: translateX(-90%);
+  top: -28%;
+}
 
   .player8 {
-    transform: translateX(14%) scale(0.9);
+    transform: translateX(14%);
     bottom: 4%;
   }
 
   .player9 {
-    transform: translateX(25%) scale(0.9);
+    transform: translateX(25%);
     bottom: -25px;
   }
 
   /* 
   .player10 {
     bottom: -25px;
-    transform: translateX(25%) scale(0.9);
+    transform: translateX(25%);
   } */
 
   /* .players.player2 .player-chip {
@@ -4462,7 +4460,7 @@ img.coinWinning-animation {
   .poker-table-bg {
     background: url(../../assets/new/poker-tilt.png);
     width: 100%;
-    height: 88vh;
+    height: 82vh;
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
@@ -4638,6 +4636,10 @@ img.coinWinning-animation {
     top: 10px;
   }
 
+  .players {
+    scale: 0.9;
+  }
+
   .player1 .player-info {
     width: 120px;
     height: 36px;
@@ -4645,67 +4647,64 @@ img.coinWinning-animation {
 
   .player1 {
     bottom: 22px;
-    transform: translateX(-50%) scale(0.9);
+    transform: translateX(-50%);
   }
 
   .player2 {
     bottom: 8%;
     right: inherit;
-    transform: translateY(-10%) scale(0.9);
+    transform: translateY(-10%);
     left: -4%;
   }
 
   .player3 {
-    /* bottom: 32%; */
-    bottom: 27%;
-    transform: translateY(-32%) scale(0.9);
+    bottom: 28%;
+    transform: translateY(-32%);
     left: -3%;
   }
 
   .player4 {
     /* top: 35%; */
-    top: 25%;
-    transform: translateY(-32%) scale(0.9);
-    left: -1%;
+    top: 26%;
+    transform: translateY(-32%);
+    left: 0%;
   }
 
   .player5 {
-    /* top: 10%; */
-    top: -4%;
+    top: -2%;
     left: 3%;
-    transform: translateY(-10%) scale(0.9);
+    transform: translateY(-10%);
   }
 
   /* .player6 {
     top: -46px;
-    transform: translateX(-32%) scale(0.9);
+    transform: translateX(-32%);
   } */
 
 
   .player6 {
     /* top: 10%; */
     left: auto;
-    top: -4%;
-    transform: translateY(-10%) scale(0.9);
+    top: -2%;
+    transform: translateY(-10%);
     right: 3%;
   }
 
   .player7 {
-    top: 18%;
-    right: -1%;
-    scale: 0.9;
+    top: 20%;
+    left: 96%;
   }
 
   .player8 {
-    bottom: 27%;
-    transform: translateY(-32%) scale(0.9);
+    bottom: 28%;
+    transform: translateY(-32%);
     right: -3%;
   }
 
   .player9 {
     /* bottom: 8%; */
     bottom: 8%;
-    transform: translateY(-10%) scale(0.9);
+    transform: translateY(-10%);
     right: -4%;
   }
 
@@ -5192,6 +5191,82 @@ img.coinWinning-animation {
   }
 
 }
+
+@media only screen and (max-width: 385px) and (orientation: portrait) {
+  .players {
+    scale: 0.75;
+  }
+
+  .poker-table-bg {
+    height: 84vh;
+  }
+
+  .player1 {
+    bottom: 2px;
+    transform: translateX(-58%);
+  }
+
+  .player3 {
+    bottom: 24%;
+  }
+
+  .player8 {
+    bottom: 24%;
+  }
+
+  .player9 {
+    bottom: 4%;
+  }
+
+  .player7 {
+    transform: translateX(-120%);
+  }
+
+  .player2 {
+    bottom: 4%;
+  }
+
+}
+
+@media only screen and (max-width: 769px) and (orientation: landscape) {
+  .players {
+    scale: 0.8;
+  }
+
+  .total-pot-money {
+    left: 44%;
+  }
+
+  .player4 {
+    transform: translateX(-32%);
+    top: -26%;
+  }
+
+  .player3 {
+    transform: translateX(-40%);
+    bottom: 10%;
+  }
+
+  .player2 {
+    transform: translateX(94%);
+  }
+
+  .player1 {
+    bottom: -38px;
+    transform: translateX(-56%);
+  }
+
+  .player8 {
+    transform: translateX(30%);
+    bottom: 4%;
+  }
+
+  .player7 {
+    transform: translateX(-90%);
+    top: -24%;
+  }
+}
+
 
 .chips-images img {
   height: 30px;
