@@ -210,7 +210,6 @@ input:checked {
   transform: translateX(25%);
 }
 
-
 .player-pic img,
 .player-pic video {
   width: 106px;
@@ -3231,10 +3230,12 @@ img.coinWinning-animation {
   .players {
     scale: 0.9;
   }
+
   .table-card img {
     margin: 0px 0px;
     scale: 0.9;
-    margin: 0px 2px;}
+    margin: 0px 2px;
+  }
 
   .total-pot-money {
     top: 65px;
@@ -3965,14 +3966,16 @@ img.coinWinning-animation {
     transform: translateX(75%);
     bottom: -25px;
   }
+
   .player3 {
     transform: translateX(-20%);
     bottom: 8%;
-}
+  }
+
   .player4 {
     transform: translateX(-20%);
     top: -29%;
-}
+  }
 
   .player5 {
     top: -38%;
@@ -3982,12 +3985,12 @@ img.coinWinning-animation {
   .player6 {
     top: -36%;
     transform: translateX(-86%);
-}
+  }
 
-.player7 {
-  transform: translateX(-90%);
-  top: -28%;
-}
+  .player7 {
+    transform: translateX(-90%);
+    top: -28%;
+  }
 
   .player8 {
     transform: translateX(14%);
@@ -4415,7 +4418,8 @@ img.coinWinning-animation {
     text-overflow: ellipsis;
     font-size: 12px;
   }
-  .poker-home .nav-tabs a{
+
+  .poker-home .nav-tabs a {
     width: 130px;
   }
 
