@@ -64,7 +64,7 @@ input:checked {
 .poker-table-bg {
   background: url(../../assets/game/poker-table.png);
   width: 100%;
-  height: 421px;
+  height: 460px;
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
@@ -172,38 +172,35 @@ input:checked {
 
 .player3 {
   /* bottom: 90px; */
-  left: 0;
+  left: 2%;
   bottom: 20%;
 }
 
 .player4 {
-  top: -16%;
-  left: 0;
+  top: -12%;
+  left: 2%;
 }
 
 .player5 {
-  /* top: -40px; */
-  top: -36%;
+  top: -25%;
   left: 25%;
   transform: translateX(-25%);
 }
 
 .player6 {
-  /* top: -40px; */
-  top: -36%;
+  top: -25%;
   left: 75%;
   transform: translateX(-75%);
 }
 
 .player7 {
-  left: 100%;
-  top: -16%;
+  left: 97%;
+  top: -12%;
   transform: translateX(-100%);
 }
 
 .player8 {
-  /* bottom: 20%; */
-  right: 0;
+  right: 2%;
   bottom: 20%;
 }
 
@@ -3234,15 +3231,10 @@ img.coinWinning-animation {
   .players {
     scale: 0.9;
   }
-
-  .card-animate {
-    scale: 0.9;
-  }
-
   .table-card img {
+    margin: 0px 0px;
     scale: 0.9;
-    margin: 0px 2px;
-  }
+    margin: 0px 2px;}
 
   .total-pot-money {
     top: 65px;
@@ -3251,7 +3243,7 @@ img.coinWinning-animation {
   }
 
   .players.player1 {
-    left: 50%;
+    left: 49%;
     bottom: -16%;
   }
 
@@ -3872,7 +3864,6 @@ img.coinWinning-animation {
   .card-animate {
     width: 35px;
     height: 50px;
-    margin: 0px 2px;
   }
 
   .tooltip-inner {
@@ -4650,7 +4641,7 @@ img.coinWinning-animation {
 
   .player1 {
     bottom: 22px;
-    transform: translateX(-50%);
+    transform: translateX(-54%);
   }
 
   .player2 {
