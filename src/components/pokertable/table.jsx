@@ -623,7 +623,7 @@ const PokerTable = (props) => {
         roomData = data;
         setTablePot(roomData.pot);
 
-        setCommunityCards(data.communityCard);
+        setCommunityCards(data?.communityCard);
         updatePlayer(data.flopround);
       }, 400);
     });
@@ -634,7 +634,7 @@ const PokerTable = (props) => {
         setMergeAnimationState(false);
         playAudio("collect");
         roomData = data;
-        setCommunityCards(data.communityCard);
+        setCommunityCards(data?.communityCard);
 
         setTablePot(roomData.pot);
         updatePlayer(data.turnround);
@@ -647,7 +647,7 @@ const PokerTable = (props) => {
         setMergeAnimationState(false);
         playAudio("collect");
         roomData = data;
-        setCommunityCards(data.communityCard);
+        setCommunityCards(data?.communityCard);
 
         setTablePot(roomData.pot);
         updatePlayer(data.riverround);
@@ -801,6 +801,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("updateGame", (data) => {
+      console.log("updateGameupdateGame", data);
       setLoader(false);
       roomData = data.game;
       setChatMessages(data.game.chats);
@@ -813,7 +814,7 @@ const PokerTable = (props) => {
       ) {
         joinInRunningRound = true;
       }
-      setCommunityCards(data.communityCard);
+      setCommunityCards(data?.communityCard);
       if (roomData.hostId === userId) {
         setisAdmin(true);
         admin = true;
@@ -901,7 +902,7 @@ const PokerTable = (props) => {
       if (data.playerId === userId) {
         joinInRunningRound = true;
         roomData = data.updatedRoom;
-        setCommunityCards(data.communityCard);
+        setCommunityCards(data?.communityCard);
         if (roomData.hostId === userId) {
           setisAdmin(true);
           admin = true;
@@ -1734,7 +1735,7 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log("roomData====", roomData?.pot);
+  console.log("communityCards====", communityCards);
   return (
     <div className="poker" id={players.length}>
       <Helmet>
