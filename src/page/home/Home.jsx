@@ -342,7 +342,7 @@ const Home = () => {
             className="mb-3"
           >
             <Tab eventKey="home" title="Poker Open Tables">
-              {!filterRoom.length > 0 ? (
+              {filterRoom.length > 0 ? (
                 <>
                   <div className="home-poker-card-grid">
                     {filterRoom.map((el) => (
