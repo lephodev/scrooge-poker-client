@@ -288,7 +288,7 @@ input[type="number"] {
   flex-direction: column;
   background: #141414;
   border-radius: 12px;
-  padding: 50px;
+  padding: 20px 0px 50px 0px;
   width: 100%;
 }
 
@@ -296,6 +296,7 @@ input[type="number"] {
   margin: 0;
   padding-bottom: 20px;
   font-size: 24px;
+  text-align: center;
 }
 
 .walletTicket-box {
@@ -332,15 +333,15 @@ input[type="number"] {
 
 .create-game-box-avtar h5 {
   margin-bottom: 0px !important;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 2px;
 }
 
 .create-game-box-avtar img {
-  width: 50px;
+  width: 40px;
   border-radius: 50%;
-  height: 50px;
+  height: 40px;
   object-fit: cover;
 }
 

@@ -342,7 +342,7 @@ const Home = () => {
             className="mb-3"
           >
             <Tab eventKey="home" title="Poker Open Tables">
-              {filterRoom.length > 0 ? (
+              {!filterRoom.length > 0 ? (
                 <>
                   <div className="home-poker-card-grid">
                     {filterRoom.map((el) => (
@@ -580,7 +580,6 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data.user?.id;
-    console.log("useruseruser", user);
   };
   useEffect(() => {
     getUser();
