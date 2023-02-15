@@ -17,6 +17,9 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
       setRangeBetValue(value);
     }
   };
+
+  console.log("valuevaluevalue", rangeBetValue);
+
   return (
     // Bet slider for custom bets needed
 
