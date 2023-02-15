@@ -11,11 +11,28 @@ const RaiseView = ({
   console.log("Players", players);
   return (
     <div className="bet-view">
+      {console.log(
+        "ggg",
+        roomData.pot ||
+          players.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)
+      )}
+      {console.log("gggfppppp", roomData.pot)}{" "}
+      {console.log(
+        "gggrrrrrr",
+        players.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0)
+      )}
       {roomData &&
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData?.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               25) /
               100 && (
           <span
@@ -23,7 +40,9 @@ const RaiseView = ({
               raiseAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     25) /
                     100
               );
@@ -37,7 +56,10 @@ const RaiseView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               33) /
               100 && (
           <span
@@ -45,7 +67,9 @@ const RaiseView = ({
               raiseAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     33) /
                     100
               );
@@ -59,7 +83,10 @@ const RaiseView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               50) /
               100 && (
           <span
@@ -67,7 +94,9 @@ const RaiseView = ({
               raiseAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     50) /
                     100
               );
@@ -81,7 +110,10 @@ const RaiseView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               67) /
               100 && (
           <span
@@ -89,7 +121,9 @@ const RaiseView = ({
               raiseAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     67) /
                     100
               );
@@ -99,12 +133,14 @@ const RaiseView = ({
             67%
           </span>
         )}
-
       {roomData &&
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               75) /
               100 && (
           <span
@@ -112,7 +148,9 @@ const RaiseView = ({
               raiseAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     75) /
                     100
               );

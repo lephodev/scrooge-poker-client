@@ -14,7 +14,10 @@ const BetView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               25) /
               100 && (
           <span
@@ -22,7 +25,9 @@ const BetView = ({
               betAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     25) /
                     100
               );
@@ -36,7 +41,10 @@ const BetView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               33) /
               100 && (
           <span
@@ -44,7 +52,9 @@ const BetView = ({
               betAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     33) /
                     100
               );
@@ -58,7 +68,10 @@ const BetView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               50) /
               100 && (
           <span
@@ -66,7 +79,9 @@ const BetView = ({
               betAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     50) /
                     100
               );
@@ -80,7 +95,10 @@ const BetView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               67) /
               100 && (
           <span
@@ -88,7 +106,9 @@ const BetView = ({
               betAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     67) /
                     100
               );
@@ -103,7 +123,10 @@ const BetView = ({
         currentPlayer &&
         currentPlayer.wallet >=
           roomData.raiseAmount +
-            ((roomData.pot || players.reduce((aa, el) => aa.pot + el.pot)) *
+            ((roomData.pot ||
+              players?.reduce((acc, obj) => {
+                return acc + obj.pot;
+              }, 0)) *
               75) /
               100 && (
           <span
@@ -111,7 +134,9 @@ const BetView = ({
               betAction(
                 roomData.raiseAmount +
                   ((roomData.pot ||
-                    players.reduce((aa, el) => aa.pot + el.pot)) *
+                    players?.reduce((acc, obj) => {
+                      return acc + obj.pot;
+                    }, 0)) *
                     75) /
                     100
               );

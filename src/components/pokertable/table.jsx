@@ -1688,7 +1688,7 @@ const PokerTable = (props) => {
     socket.emit('doraise', {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount + x,
+      amount: x,
     });
   };
   const betInSliderAction = (x) => {
@@ -1705,7 +1705,7 @@ const PokerTable = (props) => {
     socket.emit('dobet', {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount + x,
+      amount: x,
     });
   };
 
@@ -3166,13 +3166,18 @@ const FooterButton = ({
               {roomData?.gamestart &&
                 roomData.runninground >= 1 &&
                 roomData.runninground < 5 &&
-                currentPlayer?.cards?.length === 2 &&
-                !currentPlayer?.fold &&
+                playersLeft.concat(playersRight).find((el) => el.id === userId)
+                  ?.cards?.length === 2 &&
+                !playersLeft.concat(playersRight).find((el) => el.id === userId)
+                  ?.fold &&
                 !(
                   roomData.lastAction === 'check' &&
-                  currentPlayer?.action === true
+                  playersLeft
+                    .concat(playersRight)
+                    .find((el) => el.id === userId)?.action === true
                 ) &&
-                currentPlayer.actionType !== 'all-in' && (
+                playersLeft.concat(playersRight).find((el) => el.id === userId)
+                  .actionType !== 'all-in' && (
                   <AdvanceActionBtn
                     setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
