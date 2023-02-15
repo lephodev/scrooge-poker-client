@@ -702,10 +702,10 @@ form.customBet-amount .form-control:focus {
 }
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
-  .chatHistory-icon img {
+  /* .chatHistory-icon img {
     width: 30px;
     height: 30px;
-  }
+  } */
 
   .advaceActionBtn-container button {
     padding: 0px 1px;

@@ -372,9 +372,12 @@ input[type="number"] {
 
   .create-game-box-avtar {
     position: absolute;
-    top: -134%;
+    top: -95%;
     right: 20%;
   }
+  .casino-logo img {
+    width: 120px;
+}
 
   .blindpopupField {
     display: flex;
@@ -401,7 +404,7 @@ input[type="number"] {
     row-gap: 12px;
     align-items: center;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .create-game-box h5 {
