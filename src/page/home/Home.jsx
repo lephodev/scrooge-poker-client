@@ -76,6 +76,12 @@ const Home = () => {
       setGameState({ ...gameState, [name]: value });
     }
   };
+
+  const getUser = async () => {
+    console.count("hi----------");
+    let user = await userUtils.getAuthUserData();
+    userId = user?.data.user?.id;
+  };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
   };
@@ -161,18 +167,23 @@ const Home = () => {
     socket.on("updatePlayerList", (data) => {
       setTournaments(data);
     });
-  });
+  }, []);
 
+  const checkAuth = async () => {
+    console.log("GGGGGG");
+    const data = await userUtils.getAuthUserData();
+    if (!data.success) {
+      console.log("ABBBB");
+      return (window.location.href = `${CONSTANTS.landingClient}`);
+    }
+    console.log("CCCCCC");
+    setLoader(false);
+    setUserData({ ...data.data.user });
+  };
   // UseEffects
   useEffect(() => {
-    (async () => {
-      const data = await userUtils.getAuthUserData();
-      if (!data.success) {
-        return (window.location.href = `${CONSTANTS.landingClient}`);
-      }
-      setLoader(false);
-      setUserData({ ...data.data.user });
-    })();
+    checkAuth();
+    getUser();
   }, []);
 
   useEffect(() => {
@@ -306,8 +317,6 @@ const Home = () => {
 
       <div className="home-poker-card">
         <div className="container">
-
-        
           <div className="poker-table-header">
             <div className="backtoHome">
               <a href="https://scrooge.casino/">
@@ -333,54 +342,51 @@ const Home = () => {
             </div>
           </div>
 
-
           <div className="poker-table-content">
-          <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-            className="mb-3"
-          >
-            <Tab eventKey="home" title="Poker Open Tables">
-              {filterRoom.length > 0 ? (
-                <>
-                  <div className="home-poker-card-grid">
-                    {filterRoom.map((el) => (
-                      <GameTable data={el} gameType="Poker" />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                  <div className="no-room-available">
-                    <h4>No Room Available</h4>
-                    <button type="button" onClick={handleShow}>
-                      Create Game
-                    </button>
-                  </div>
-                </div>
-              )}
-            </Tab>
-            <Tab eventKey="2" title="Poker Tournament Tables">
-              {filterTournaments.length > 0 && (
-                <div className="home-poker-card">
-                  <div className="container">
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+            >
+              <Tab eventKey="home" title="Poker Open Tables">
+                {filterRoom.length > 0 ? (
+                  <>
                     <div className="home-poker-card-grid">
-                      {filterTournaments.map((el) => (
-                        <GameTable
-                          data={el}
-                          gameType="Tournament"
-                          getTournamentDetails={getTournamentDetails}
-                        />
+                      {filterRoom.map((el) => (
+                        <GameTable data={el} gameType="Poker" />
                       ))}
                     </div>
+                  </>
+                ) : (
+                  <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                    <div className="no-room-available">
+                      <h4>No Room Available</h4>
+                      <button type="button" onClick={handleShow}>
+                        Create Game
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </Tab>
-          </Tabs>
-
-
+                )}
+              </Tab>
+              <Tab eventKey="2" title="Poker Tournament Tables">
+                {filterTournaments.length > 0 && (
+                  <div className="home-poker-card">
+                    <div className="container">
+                      <div className="home-poker-card-grid">
+                        {filterTournaments.map((el) => (
+                          <GameTable
+                            data={el}
+                            gameType="Tournament"
+                            getTournamentDetails={getTournamentDetails}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </Tab>
+            </Tabs>
           </div>
         </div>
       </div>
@@ -576,14 +582,6 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
       search: "?gamecollection=poker&tableid=" + data?._id,
     });
   };
-
-  const getUser = async () => {
-    let user = await userUtils.getAuthUserData();
-    userId = user?.data.user?.id;
-  };
-  useEffect(() => {
-    getUser();
-  }, []);
 
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
