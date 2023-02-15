@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 // import RaiseView from "./raiseView";
 // import RaiseSlider from "./raiseSlider";
@@ -7,10 +8,18 @@ import "./bet.css";
 const AdvanceActionBtns = ({
   handleTentativeAction,
   tentativeAction,
+  setTentativeAction,
   roomData,
   currentPlayer,
   player,
 }) => {
+  useEffect(() => {
+    if (player?.tentativeAction === null) {
+      setTentativeAction();
+    } else {
+      setTentativeAction(player?.tentativeAction);
+    }
+  }, [currentPlayer, player]);
   console.log("player0", player);
   const FOLD_BTN = (
     <div className="footer-btn ">

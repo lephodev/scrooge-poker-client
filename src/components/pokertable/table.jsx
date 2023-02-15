@@ -156,7 +156,7 @@ const PokerTable = (props) => {
   const [leaveConfirmShow, setLeaveConfirm] = useState(false);
   const [buyinPopup, setBuyinPopup] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
-  const [tentativeAction, setTentativeAction] = useState("");
+  const [tentativeAction, setTentativeAction] = useState();
   const handleClick = (e) => {
     setOpen(e);
   };
@@ -1560,45 +1560,17 @@ const PokerTable = (props) => {
     });
   };
 
-  // useEffect(() => {
-  //   if (player.tentativeAction === null) {
-  //     setTentativeAction();
-  //   }
-  // }, [currentPlayer])
-
-  // const handleTentativeAction = (action) => {
-  //   if (tentativeAction === action) {
-  //     setTentativeAction("");
-  //   } else {
-  //     setTentativeAction(action);
-  //   }
-  // };
-
   useEffect(() => {
     // console.log("currentPlayer", currentPlayer);
 
     if (currentPlayer?.tentativeAction && currentPlayer?.id === userId) {
       handleTentativeActionAuto(currentPlayer);
     }
-    setTentativeAction("");
+    // setTentativeAction("");
   }, [currentPlayer, userId]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     "currentPlayer?.tentativeAction",
-  //     currentPlayer?.tentativeAction
-  //   );
-  //   if (currentPlayer?.tentativeAction === null) {
-  //     console.log("currentPlayer====+++", currentPlayer);
-  //     setTentativeAction("");
-  //   }
-  //   console.log(
-  //     "currentPlayer?.tentativeAction",
-  //     currentPlayer?.tentativeAction
-  //   );
-  // }, [currentPlayer]);
+  console.log("players0", players);
 
-  // console.log({ tentativeAction });
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -2107,6 +2079,7 @@ const PokerTable = (props) => {
             roomData={roomData}
             handleTentativeAction={handleTentativeAction}
             tentativeAction={tentativeAction}
+            setTentativeAction={setTentativeAction}
             loader={loader}
             raiseInSliderAction={raiseInSliderAction}
             betInSliderAction={betInSliderAction}
@@ -3030,6 +3003,7 @@ const FooterButton = ({
   roomData,
   handleTentativeAction,
   tentativeAction,
+  setTentativeAction,
   loader,
   raiseInSliderAction,
   betInSliderAction,
@@ -3206,6 +3180,7 @@ const FooterButton = ({
                 ) &&
                 currentPlayer.actionType !== "all-in" && (
                   <AdvanceActionBtn
+                    setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
                     handleTentativeAction={handleTentativeAction}
                     roomData={roomData}
