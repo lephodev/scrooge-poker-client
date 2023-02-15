@@ -4664,14 +4664,14 @@ img.coinWinning-animation {
   .player4 {
     /* top: 35%; */
     top: 26%;
-    transform: translateY(-32%);
+    transform: translateY(-35%);
     left: 0%;
   }
 
   .player5 {
     top: -2%;
     left: 3%;
-    transform: translateY(-10%);
+    transform: translateY(-18%);
   }
 
   /* .player6 {
@@ -4684,12 +4684,12 @@ img.coinWinning-animation {
     /* top: 10%; */
     left: auto;
     top: -2%;
-    transform: translateY(-10%);
+    transform: translateY(-18%);
     right: 3%;
   }
 
   .player7 {
-    top: 20%;
+    top: 19%;
     left: 96%;
   }
 
@@ -4875,8 +4875,7 @@ img.coinWinning-animation {
 
   .players.player3 .player-chip {
     right: inherit;
-    /* top: -80px; */
-    top: -14%;
+    top: -10%;
     left: inherit;
     animation: slideLeft3 0.4s;
   }
@@ -4887,7 +4886,7 @@ img.coinWinning-animation {
 
   @keyframes mergeP3 {
     from {
-      top: -14%;
+      top: -10%;
       left: inherit;
       opacity: 1;
     }
@@ -4906,7 +4905,7 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -14%;
+      top: -10%;
       right: inherit;
     }
   }
@@ -4915,7 +4914,7 @@ img.coinWinning-animation {
     bottom: inherit;
     right: inherit;
     left: inherit;
-    top: -12%;
+    top: -10%;
     animation: slideLeft4 0.4s;
   }
 
@@ -4925,7 +4924,7 @@ img.coinWinning-animation {
 
   @keyframes mergeP4 {
     from {
-      top: -12%;
+      top: -10%;
       left: inherit;
       opacity: 1;
     }
@@ -4945,7 +4944,7 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -12%;
+      top: -10%;
       bottom: inherit;
       right: inherit;
     }
@@ -4954,7 +4953,7 @@ img.coinWinning-animation {
   .players.player5 .player-chip {
     bottom: inherit;
     left: inherit;
-    top: -10%;
+    top: -5%;
     transform: translateY(-25%);
   }
 
@@ -4964,7 +4963,7 @@ img.coinWinning-animation {
 
   @keyframes mergeP5 {
     from {
-      top: -10%;
+      top: -5%;
       left: inherit;
       opacity: 1;
     }
@@ -4996,9 +4995,7 @@ img.coinWinning-animation {
     bottom: inherit;
     left: inherit;
     right: inherit;
-    /* transform: inherit;
-    top: -80px; */
-    top: -10%;
+    top: -5%;
     transform: translateY(-25%);
   }
 
@@ -5008,7 +5005,7 @@ img.coinWinning-animation {
 
   @keyframes mergeP7 {
     from {
-      top: -10%;
+      top: -5%;
       left: inherit;
       opacity: 1;
     }
@@ -5021,7 +5018,7 @@ img.coinWinning-animation {
   }
 
   .players.player7 .player-chip {
-    top: -8%;
+    top: -5%;
     bottom: inherit;
     left: inherit;
     right: inherit;
@@ -5034,7 +5031,7 @@ img.coinWinning-animation {
 
   @keyframes mergeP8 {
     from {
-      top: -8%;
+      top: -5%;
       left: inherit;
       opacity: 1;
     }
@@ -5056,13 +5053,13 @@ img.coinWinning-animation {
     to {
       bottom: inherit;
       left: inherit;
-      top: -8%;
+      top: -5%;
     }
   }
 
   .players.player8 .player-chip {
     left: inherit;
-    top: -12%;
+    top: -10%;
     right: inherit;
     animation: slideLeft3 0.4s;
   }
@@ -5086,7 +5083,7 @@ img.coinWinning-animation {
   }
 
   .players.player2 .player-chip {
-    top: -12%;
+    top: -10%;
     transform: inherit;
     animation: travelUp 0.4s;
   }
@@ -5094,7 +5091,7 @@ img.coinWinning-animation {
   .players.player9 .player-chip {
     /* top: -80px; */
     left: inherit;
-    top: -12%;
+    top: -10%;
     transform: inherit;
     right: inherit;
     animation: travelUp 0.4s;
@@ -5125,7 +5122,7 @@ img.coinWinning-animation {
     }
 
     to {
-      top: -12%;
+      top: -10%;
       transform: inherit;
     }
   }
