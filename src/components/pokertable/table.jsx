@@ -1686,7 +1686,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount + x,
+      amount: x,
     });
   };
   const betInSliderAction = (x) => {
@@ -1703,7 +1703,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: roomData.raiseAmount + x,
+      amount: x,
     });
   };
 
