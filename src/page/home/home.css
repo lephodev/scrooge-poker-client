@@ -2,6 +2,15 @@
   position: relative;
 }
 
+.poker-table-content {
+  background: #141414;
+  padding: 30px;
+  border-radius: 12px;
+  margin-top: 20px;
+  border: 1px solid #1f1e1e;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
 .avatar img {
   border-radius: 50%;
   position: relative;
@@ -9,8 +18,8 @@
   margin-left: -15px;
   z-index: 1;
   object-fit: cover;
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
 }
 
 .avatars {
@@ -18,12 +27,12 @@
   /* This is to get the stack with left on top */
   text-align: left;
   /* Now need to explitly align left */
-  padding-left: 15px;
+  padding-left: 20px;
   /* Same value as the negative margin */
 }
 
 .poker-loader {
-  position: absolute;
+  position: fixed;
   background: #000000f5;
   top: 0;
   bottom: 0;
@@ -41,47 +50,8 @@
 
 .home-poker-card-grid {
   display: grid;
-  column-gap: 20px;
-  row-gap: 30px;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.home-poker-content {
-  position: relative;
-  background: #141414;
-  border: 1px solid #111;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.home-poker-cover img {
-  width: 100%;
-}
-
-.home-poker-info {
-  padding: 10px 15px;
-}
-
-.home-poker-info h4 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  padding-bottom: 15px;
-  white-space: nowrap;
-  width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.home-poker-info button {
-  width: 100%;
-  padding: 6px 15px;
-  background: #f9ff00;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  border: 1px solid #f9ff00;
-  margin: 8px auto;
+  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .home-poker-card {
@@ -119,6 +89,8 @@
   margin-bottom: 50px;
   padding: 5px 0px 5px;
   background: #141414;
+  border-bottom: 1px solid #1f1e1e;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
 .home-poker-info span {
@@ -141,7 +113,7 @@
 .create-game-box button {
   padding: 8px 20px;
   background: #f9ff00;
-  border-radius: 8px;
+  border-radius: 30px;
   font-weight: 500;
   border: 1px solid #f9ff00;
   height: 42px;
@@ -153,12 +125,16 @@
   top: -45px; */
 }
 
-.backtoHome a {
+.poker-table-header .backtoHome a {
   font-size: 18px;
-  color: #f9ff00;
+  color: #bcbcbc;
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.poker-table-header .backtoHome a:hover {
+  text-decoration: none;
 }
 
 .backtoHome a img {
@@ -185,8 +161,6 @@
   gap: 15px;
   align-items: center;
 }
-
-
 
 .user-info-box h5 {
   text-transform: capitalize;
@@ -314,14 +288,15 @@ input[type="number"] {
   flex-direction: column;
   background: #141414;
   border-radius: 12px;
-  padding: 50px;
+  padding: 20px 0px 50px 0px;
   width: 100%;
 }
 
 .no-room-available h4 {
   margin: 0;
   padding-bottom: 20px;
-  font-size: 30px;
+  font-size: 24px;
+  text-align: center;
 }
 
 .walletTicket-box {
@@ -358,15 +333,15 @@ input[type="number"] {
 
 .create-game-box-avtar h5 {
   margin-bottom: 0px !important;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 2px;
 }
 
 .create-game-box-avtar img {
-  width: 50px;
+  width: 40px;
   border-radius: 50%;
-  height: 50px;
+  height: 40px;
   object-fit: cover;
 }
 
@@ -397,9 +372,12 @@ input[type="number"] {
 
   .create-game-box-avtar {
     position: absolute;
-    top: -134%;
+    top: -95%;
     right: 20%;
   }
+  .casino-logo img {
+    width: 120px;
+}
 
   .blindpopupField {
     display: flex;
@@ -426,7 +404,7 @@ input[type="number"] {
     row-gap: 12px;
     align-items: center;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .create-game-box h5 {
@@ -457,23 +435,20 @@ input[type="number"] {
 .poker-table-header .form-control {
   display: block;
   width: 100%;
-  height: 42px;
   padding: 6px 22px;
-  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #eaeaea !important;
-  border: 1px solid #35373f !important;
-  background: #35373f !important;
-  background-clip: padding-box;
-  /* border: 1px solid #ced4da; */
-  border-radius: 8px;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  background: #141414;
+  border: 1px solid #1f1e1e;
+  border-radius: 30px;
+  font-size: 14px;
+  height: 42px;
 }
 
 .poker-table-header .form-control:active,
 .poker-table-header .form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(75, 75, 75, 0.25) !important;
+  box-shadow: none !important;
 }
 
 .poker-tableSearch button {
@@ -491,37 +466,201 @@ input[type="number"] {
   right: 4px;
 }
 
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-  color: #ececec;
-  background-color: #202020;
-  border-color: #4e555b;
+.poker-home .nav-tabs .nav-item.show .nav-link,
+.poker-home .nav-tabs .nav-link.active {
+  color: #000;
+  background-color: #f9ff00;
+  border: 1px solid #f9ff00;
 }
 
-.nav-item.nav-link.active {
-  border-bottom-color: #202020 !important;
-}
 
 .home-poker-card a {
   color: #bcbcbc;
+  font-weight: 600;
 }
 
-.nav-tabs .nav-link,
-.nav-tabs .nav-link {
-  border-color: #242424;
+.poker-home .nav-tabs .nav-link,
+.poker-home .nav-tabs .nav-link {
+  border-color: #1b1b1b;
+  padding: 10px 20px;
+  background: #1b1b1b;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  margin: 0;
 }
 
-.nav-tabs {
-  margin-top: 12px;
-  border-bottom: 1px solid #4e555b;
+.poker-home .nav-tabs {
+  margin-top: 0;
+  margin-bottom: 30px !important;
+  border-bottom: none;
+  border: none;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 470px;
+  padding: 5px 6px 6px;
+  background: #1b1b1b;
+  gap: 10px;
+  border: 1px solid #232323;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
-  border-color: #4e555b;
+.poker-home .nav-tabs .nav-link:focus,
+.poker-home .nav-tabs .nav-link:hover {
+  border-color: transparent;
+}
+
+.poker-home .nav-tabs .nav-link.active:focus,
+.poker-home .nav-tabs .nav-link.active:hover {
+  border-color: #f9ff00;
+}
+
+/***************** tournament card  **************/
+.tournamentCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 225px;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tournamentCard-inner.rotate {
+  transform: rotateY(180deg);
+}
+
+.tournamentCard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tournamentCard h4 {
+  margin-bottom: 0px;
+}
+
+.tournamentCard-front h4 {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 400;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+.btn-grid {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tournamentCard-front .btn-grid button:last-child {
+  color: #fff;
+  background: #2a2929;
+}
+
+.tournamentFront-info {
+  text-align: center;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tournamentCard svg {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill: #f9ff00;
+  cursor: pointer;
+  z-index: 9;
+}
+
+.tournamentCard-front img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.tournamentCard-front,
+.tournamentCard-back {
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: #141414;
+  border: 1px solid #242424;
+}
+
+.tournamentCard-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 30px 10px 10px 10px;
+}
+
+.tournamentCard-back h4 {
+  font-size: 12px;
+}
+
+.tournamentCard-back h4 span {
+  font-size: 12px;
+  color: #f9ff00;
+}
+
+.tournamentCard-front button {
+  background-color: #f9ff00;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 30px;
+  width: 100%;
+  height: 35px;
+  border: none;
+}
+
+#controlled-tab-example-tabpane-2 .home-poker-card-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+#controlled-tab-example-tabpane-2 .tournamentCard {
+  max-height: 280px;
+  height: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .btn-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media screen and (max-width: 530px) {
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .home-poker-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

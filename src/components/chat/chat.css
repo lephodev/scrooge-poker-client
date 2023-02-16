@@ -321,16 +321,16 @@ span.msg-limit {
 
 .containerFor-chatHistory {
   position: fixed;
-  bottom: 2%;
-  left: 2%;
-  cursor: pointer;
-  z-index: 999;
+  bottom: 10px;
+  left: 10px;
+  z-index: 999999;
   padding: 5px;
   border-radius: 50%;
 }
 
 .chatHistory-icon {
   position: relative;
+  cursor: pointer;
 }
 
 .ChatHistory-count {
@@ -350,6 +350,22 @@ span.msg-limit {
   border: 1px solid black;
   font-size: 12px;
   font-weight: 600;
+}
+.everyRoundData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 12px;
+  cursor: pointer;
+  color: #f9ff00;
+}
+.chatBubble-typing{
+  position: absolute;
+  top: 33px;
+  left: 64%;
+  font-size: 12px;
+  color: #bfbfbf;
 }
 
 @media screen and (max-width: 1024px) {

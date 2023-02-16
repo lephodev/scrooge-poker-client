@@ -425,8 +425,8 @@ input:checked+.slider:before {
 .raiseBet-container .bet-view span {
   background: #f9ff00;
   border-radius: 30px;
-  min-width: 55px;
-  padding: 1px 5px;
+  min-width: 43px;
+  padding: 1px 0px;
   margin: 0px 5px;
   color: #361302;
   border-top: 2px solid #ffff42;
@@ -449,7 +449,7 @@ input:checked+.slider:before {
   border-top: 15px solid #151515;
   position: absolute;
   bottom: -10px;
-  left: 15px;
+  left: 70%;
 }
 
 .raiseBet-container {
@@ -458,7 +458,7 @@ input:checked+.slider:before {
   align-items: center;
   position: absolute;
   top: -174px;
-  left: 32%;
+  left: -150%;
   background: #151515;
   padding: 15px;
   border-radius: 20px;
@@ -615,6 +615,7 @@ form.customBet-amount .form-control:focus {
   display: flex;
   align-items: center;
   gap: 28px;
+  min-width: 200px;
 }
 
 .form-check-inline {
@@ -626,14 +627,14 @@ form.customBet-amount .form-control:focus {
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .raiseBet-container {
-    top: -160px;
-    left: -190%;
-    scale: 0.7;
+    top: -165px;
+    left: -248%;
+    scale: 0.9;
   }
 
   .raiseBet-container .bet-view::before {
     bottom: -10px;
-    left: 180px;
+    left: 275px;
   }
 
   /* .bet-view {
@@ -701,10 +702,10 @@ form.customBet-amount .form-control:focus {
 }
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
-  .chatHistory-icon img {
+  /* .chatHistory-icon img {
     width: 30px;
     height: 30px;
-  }
+  } */
 
   .advaceActionBtn-container button {
     padding: 0px 1px;

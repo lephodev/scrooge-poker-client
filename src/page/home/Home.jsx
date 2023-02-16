@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-expressions */
+import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
@@ -21,10 +22,12 @@ import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { socket } from "../../config/socketConnection";
 
+let userId;
 const Home = () => {
   // inital state
   const gameInit = {
@@ -72,6 +75,12 @@ const Home = () => {
     } else {
       setGameState({ ...gameState, [name]: value });
     }
+  };
+
+  const getUser = async () => {
+    console.count("hi----------");
+    let user = await userUtils.getAuthUserData();
+    userId = user?.data.user?.id;
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -154,16 +163,27 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    socket.on("updatePlayerList", (data) => {
+      setTournaments(data);
+    });
+  }, []);
+
+  const checkAuth = async () => {
+    console.log("GGGGGG");
+    const data = await userUtils.getAuthUserData();
+    if (!data.success) {
+      console.log("ABBBB");
+      return (window.location.href = `${CONSTANTS.landingClient}`);
+    }
+    console.log("CCCCCC");
+    setLoader(false);
+    setUserData({ ...data.data.user });
+  };
   // UseEffects
   useEffect(() => {
-    (async () => {
-      const data = await userUtils.getAuthUserData();
-      if (!data.success) {
-        return (window.location.href = `${CONSTANTS.landingClient}`);
-      }
-      setLoader(false);
-      setUserData({ ...data.data.user });
-    })();
+    checkAuth();
+    getUser();
   }, []);
 
   useEffect(() => {
@@ -175,19 +195,21 @@ const Home = () => {
     })();
   }, []);
 
+  const getTournamentDetails = async () => {
+    try {
+      const response = await tournamentInstance().get("/tournaments");
+      console.log("response", response);
+      const { status } = response;
+      console.log("status", status);
+      if (status === 200) {
+        const { tournaments } = response.data;
+        setTournaments(tournaments);
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await tournamentInstance().get("/tournaments");
-        console.log("response", response);
-        const { status } = response;
-        console.log("status", status);
-        if (status === 200) {
-          const { tournaments } = response.data;
-          setTournaments(tournaments);
-        }
-      } catch (error) {}
-    })();
+    getTournamentDetails();
   }, []);
 
   const options = useMemo(
@@ -319,80 +341,55 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-            className="mb-3"
-          >
-            <Tab eventKey="home" title="Poker Open Tables">
-              {filterRoom.length > 0 ? (
-                <>
-                  <div className="home-poker-card-grid">
-                    {filterRoom.map((el) => (
-                      <GameTable data={el} gameType="Poker" />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                  <div className="no-room-available">
-                    <h4>No Room Available</h4>
-                    <button type="button" onClick={handleShow}>
-                      Create Game
-                    </button>
-                  </div>
-                </div>
-              )}
-            </Tab>
-            <Tab eventKey="2" title="Poker Tournament Tables">
-              {filterTournaments.length > 0 && (
-                <div className="home-poker-card">
-                  <div className="container">
+
+          <div className="poker-table-content">
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+            >
+              <Tab eventKey="home" title="Poker Open Tables">
+                {filterRoom.length > 0 ? (
+                  <>
                     <div className="home-poker-card-grid">
-                      {filterTournaments.map((el) => (
-                        <GameTable data={el} gameType="Tournament" />
+                      {filterRoom.map((el) => (
+                        <GameTable data={el} gameType="Poker" />
                       ))}
                     </div>
+                  </>
+                ) : (
+                  <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                    <div className="no-room-available">
+                      <h4>No Room Available</h4>
+                      <button type="button" onClick={handleShow}>
+                        Create Game
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </Tab>
-          </Tabs>
-
-          {/* {filterRoom.length > 0 ? (
-            <>
-              <h3>Poker Open Tables</h3>
-              <div className="home-poker-card-grid">
-                {filterRoom.map((el) => (
-                  <GameTable data={el} gameType="Poker" />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-              <div className="no-room-available">
-                <h4>No Room Available</h4>
-                <button type="button" onClick={handleShow}>
-                  Create Game
-                </button>
-              </div>
-            </div>
-          )} */}
-        </div>
-      </div>
-      {/* {tournaments.length > 0 && (
-        <div className="home-poker-card">
-          <div className="container">
-            <h3>Open Tournaments</h3>
-            <div className="home-poker-card-grid">
-              {tournaments.map((el) => (
-                <GameTable data={el} gameType="Tournament" />
-              ))}
-            </div>
+                )}
+              </Tab>
+              <Tab eventKey="2" title="Poker Tournament Tables">
+                {filterTournaments.length > 0 && (
+                  <div className="home-poker-card">
+                    <div className="container">
+                      <div className="home-poker-card-grid">
+                        {filterTournaments.map((el) => (
+                          <GameTable
+                            data={el}
+                            gameType="Tournament"
+                            getTournamentDetails={getTournamentDetails}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </Tab>
+            </Tabs>
           </div>
         </div>
-      )} */}
+      </div>
     </div>
   );
 };
@@ -577,7 +574,7 @@ const CreateTable = ({
   );
 };
 
-const GameTable = ({ data, gameType }) => {
+const GameTable = ({ data, gameType, getTournamentDetails }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -586,16 +583,22 @@ const GameTable = ({ data, gameType }) => {
     });
   };
 
-  const joinTournament = async (tournamentId) => {
-    const res = await tournamentInstance().post("/jointournament", {
-      tournamentId,
+  useEffect(() => {
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
+      if (code === 200) {
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
     });
-    console.log("res", res);
-    if (res.data.status === 200) {
-      toast.success(res.data.msg, { id: "A" });
-    } else {
-      toast.error(res.data.msg, { id: "A" });
-    }
+  }, []);
+
+  const joinTournament = async (tournamentId) => {
+    socket.emit("joinTournament", {
+      tournamentId: tournamentId,
+      userId: userId,
+    });
   };
 
   const enterRoom = async (tournamentId) => {
@@ -627,45 +630,92 @@ const GameTable = ({ data, gameType }) => {
     return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
   };
 
+  const [cardFlip, setCardFlip] = useState(false);
+
+  const handleFlip = () => {
+    setCardFlip(!cardFlip);
+  };
+  const wrapperRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setCardFlip(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperRef);
+
   return (
-    <div className="home-poker-content">
-      <div className="home-poker-cover">
-        <img alt="" src={casino} />
+    <>
+      <div className="tournamentCard" ref={wrapperRef}>
+        <FaInfoCircle onClick={handleFlip} />
+        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
+          {!cardFlip ? (
+            <div className="tournamentCard-front">
+              <img src={casino} alt="" />
+              <div className="tournamentFront-info">
+                <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+                {gameType === "Poker" ? (
+                  <button onClick={redirectToTable} type="submit">
+                    Join Game
+                  </button>
+                ) : (
+                  <div className="btn-grid">
+                    {" "}
+                    <button
+                      onClick={() => joinTournament(data?._id)}
+                      type="submit"
+                    >
+                      Join Game
+                    </button>
+                    <button onClick={() => enterRoom(data?._id)} type="submit">
+                      Enter Game
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="tournamentCard-back">
+              {gameType === "Poker" ? (
+                <AvatarGroup imgArr={data?.players} />
+              ) : (
+                ""
+              )}
+              <h4>
+                people joined:{" "}
+                <span>
+                  {(gameType === "Tournament"
+                    ? data?.havePlayers
+                    : data?.players?.length) || 0}
+                </span>
+              </h4>
+              {gameType === "Tournament" ? (
+                <h4>
+                  Fee : <span>{data?.tournamentFee}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+              {gameType === "Tournament" ? (
+                <h4>
+                  Date : <span>{getTime(data?.startDate)}</span>
+                </h4>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+        </div>
       </div>
-      <div className="home-poker-info">
-        <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-        {console.log("data", data)}
-        {gameType === "Poker" ? (
-          <AvatarGroup imgArr={data?.players} />
-        ) : (
-          <TournamentGroup players={data?.havePlayers} />
-        )}
-        <h4>
-          {" "}
-          {gameType === "Tournament" && "Fee-"}
-          {gameType === "Tournament" && data?.tournamentFee}
-        </h4>
-        <h4>
-          {gameType === "Tournament" && "Start-"}
-          {gameType === "Tournament" && getTime(data?.startDate)}
-        </h4>
-        {gameType === "Poker" ? (
-          <button onClick={redirectToTable} type="submit">
-            Join Game
-          </button>
-        ) : (
-          <>
-            {" "}
-            <button onClick={() => joinTournament(data?._id)} type="submit">
-              Join Game
-            </button>
-            <button onClick={() => enterRoom(data?._id)} type="submit">
-              Enter Game
-            </button>
-          </>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
@@ -688,17 +738,17 @@ const AvatarGroup = ({ imgArr }) => {
             </span>
           ))}
       </div>
-      <p>{imgArr?.length || 0} people</p>
+      {/* <p>{imgArr?.length || 0} people</p> */}
     </div>
   );
 };
 
-const TournamentGroup = ({ players }) => {
-  return (
-    <div className="poker-avatar-box">
-      <p>{players || 0} people joined</p>
-    </div>
-  );
-};
+// const TournamentGroup = ({ players }) => {
+//   return (
+//     <div className="poker-avatar-box">
+//       <p>{players || 0} people joined</p>
+//     </div>
+//   );
+// };
 
 export default Home;
