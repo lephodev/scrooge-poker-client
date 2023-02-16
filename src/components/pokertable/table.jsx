@@ -90,7 +90,6 @@ let interval;
 let retryCount = 0;
 
 const numFormatter = (num) => {
-  console.log("numnumnum", num);
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
   } else if (num > 999 && num < 1000000) {
@@ -255,7 +254,6 @@ const PokerTable = (props) => {
           const playerInTable = await pokerInstance().get(
             `/checkUserInTable/${table}`
           );
-          console.log("playerInTable", playerInTable);
           if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
             socket.emit("checkTable", {
               gameId: table,
@@ -349,7 +347,6 @@ const PokerTable = (props) => {
       setTimeout(() => {
         window.location.href = window.location.origin + "/";
       }, 1000);
-      console.log("dfdfdfdfdfdf");
     });
 
     socket.on("notFound", (data) => {
@@ -804,7 +801,6 @@ const PokerTable = (props) => {
     });
 
     socket.on("updateGame", (data) => {
-      console.log("updateGameupdateGame", data);
       setLoader(false);
       roomData = data.game;
       setChatMessages(data.game.chats);
@@ -1064,11 +1060,8 @@ const PokerTable = (props) => {
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
-    // console.log("playersOOOO", players);
     const pRight = pl.slice(0, Math.ceil(pl.length / 2));
-    // console.log("pRight", pRight);
     const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
-    // console.log("Pleft", pleft);
     setPlayerLeft(pleft);
     setPlayersRight(pRight);
 
@@ -1265,7 +1258,6 @@ const PokerTable = (props) => {
   };
 
   const raiseAction = (x) => {
-    console.log("RaiseAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1573,7 +1565,6 @@ const PokerTable = (props) => {
     // setTentativeAction("");
   }, [currentPlayer, userId]);
 
-  console.log("players0", players);
 
   const wrapperRef = useRef();
 
@@ -1677,7 +1668,7 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    // console.log("BetAmount", x);
+    console.log("BetAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1711,25 +1702,23 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log("communityCards====", communityCards);
   return (
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${
-            !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
+          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
+              roomData &&
+              roomData.players.find((ele) => ele.userid === userId)
               ? "game-started-join"
               : ""
-          }`}
+            }`}
         />
       </Helmet>
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-          roomData &&
-          roomData.players.find((ele) => ele.userid === userId)
+            roomData &&
+            roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1784,9 +1773,9 @@ const PokerTable = (props) => {
             </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
-            (roomData &&
-              roomData.players.find((ele) => ele.userid === userId)) ||
-            isWatcher ? (
+              (roomData &&
+                roomData.players.find((ele) => ele.userid === userId)) ||
+              isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1870,8 +1859,8 @@ const PokerTable = (props) => {
                           </>
                         )}
                       {roomData &&
-                      roomData.handWinner.length === 0 &&
-                      !roomData?.gamestart ? (
+                        roomData.handWinner.length === 0 &&
+                        !roomData?.gamestart ? (
                         <>
                           <p className="joined-player">
                             Invited Players joined -{" "}
@@ -2174,20 +2163,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                  }
-                >
-                  <button onClick={() => setShowInvite(true)}>
-                    {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className="fa fa-envelope"></i>
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
+                <li>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                    }
+                  >
+                    <button onClick={() => setShowInvite(true)}>
+                      {/* <img src={addcoin} alt="Invite friend" /> */}
+                      <i className="fa fa-envelope"></i>
+                    </button>
+                  </OverlayTrigger>
+                </li>
+              )}
             <li>
               <OverlayTrigger
                 placement="left"
@@ -2436,12 +2425,12 @@ const Players = ({
             response.data.error === "no error" &&
             response.data.success === true &&
             response.data.special ===
-              "You have removed this follower in the past"
+            "You have removed this follower in the past"
           ) {
             toast.success(
               "You are now following @" +
-                nickname +
-                ", notice that you removed him from following you",
+              nickname +
+              ", notice that you removed him from following you",
               {
                 id: "follow-request",
                 icon: "✔️",
@@ -2546,10 +2535,10 @@ const Players = ({
           if (response.data.error === "already sent friend request") {
             toast.success(
               "Friend request already sent to @" +
-                Fname +
-                " please wait " +
-                response.data.hours +
-                " hours before you can try again.",
+              Fname +
+              " please wait " +
+              response.data.hours +
+              " hours before you can try again.",
               {
                 duration: 6000,
                 id: "frined-already-sent",
@@ -2630,13 +2619,11 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
             ? `winner-player`
             : ``
-        } ${playerData && playerData.playing ? "" : "not-playing"} ${
-          mergeAnimationState ? "animateMerge-chips" : ""
-        }`}
+          } ${playerData && playerData.playing ? "" : "not-playing"} ${mergeAnimationState ? "animateMerge-chips" : ""
+          }`}
       >
         {/* start win or lose animation */}
         {/* {winner &&
@@ -2807,10 +2794,10 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                  ? "B"
-                  : playerData.isDealer
-                  ? "D"
-                  : ""}
+                    ? "B"
+                    : playerData.isDealer
+                      ? "D"
+                      : ""}
               </div>
             )}
 
@@ -2967,11 +2954,10 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                 // src={cards ? cards : back }
                 src={`/cards/${card.toUpperCase()}.svg`}
                 alt="card"
-                className={`${
-                  winner && matchCards.findIndex((ele) => ele === i) !== -1
+                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
                     ? `winner-card`
                     : ``
-                } front-card duration-${i}`}
+                  } front-card duration-${i}`}
               />
               <img
                 key={`item1-${i}`}
@@ -3062,6 +3048,31 @@ const FooterButton = ({
                   /> */}
                 </div>
               )}
+              {openAction.call && (
+                <div className="footer-btn ">
+                  <Button onClick={() => callAction()}>
+                    Call{" "}
+                    <span
+                      className={
+                        roomData.raiseAmount - currentPlayer?.pot > 0
+                          ? "callBtn-amount"
+                          : "callBtn-amount-none"
+                      }
+                    >
+                      ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
+                      )
+                    </span>
+                  </Button>
+                  {/* <Form.Check
+                    inline
+                    name="Call"
+                    type="checkbox"
+                    id={"Call"}
+                    onChange={() => handleCheck("Call")}
+                    checked={selectedbets === "Call"}
+                  /> */}
+                </div>
+              )}
 
               {openAction.raise && (
                 <div className="footer-btn ">
@@ -3102,31 +3113,6 @@ const FooterButton = ({
                 </div>
               )}
 
-              {openAction.call && (
-                <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>
-                    Call{" "}
-                    <span
-                      className={
-                        roomData.raiseAmount - currentPlayer?.pot > 0
-                          ? "callBtn-amount"
-                          : "callBtn-amount-none"
-                      }
-                    >
-                      ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
-                      )
-                    </span>
-                  </Button>
-                  {/* <Form.Check
-                    inline
-                    name="Call"
-                    type="checkbox"
-                    id={"Call"}
-                    onChange={() => handleCheck("Call")}
-                    checked={selectedbets === "Call"}
-                  /> */}
-                </div>
-              )}
 
               {openAction.bet && (
                 <div className="footer-btn ">
@@ -3413,11 +3399,10 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
+            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
                 : `winner-card`
-            } `}
+              } `}
           />
         ))}
     </div>
