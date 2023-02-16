@@ -2608,7 +2608,7 @@ const Players = ({
     // console.log("It works my friend-request!!!");
   };
 
-  const handleChangeFold = () => {
+  const handleChangeFold = (e) => {
     setFoldShowCard(!foldShowCard);
     socket.emit("showCard", {
       userId,

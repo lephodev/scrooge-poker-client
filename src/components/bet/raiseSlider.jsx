@@ -2,16 +2,16 @@ import { useState } from "react";
 import InputRange from "react-input-range";
 import { Form, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
-import numFormatter from '../../utils/utils'
+import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
   const [rangeBetValue, setRangeBetValue] = useState(0);
   const { wallet } = currentPlayer || {};
-  console.log("wallet===", wallet);
 
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
-    if (value > 100) {
+
+    if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
     } else {
