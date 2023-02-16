@@ -2374,6 +2374,11 @@ const Players = ({
         setShowCard(true);
       }
     });
+    socket.on('hideCard', (data) => {
+      if (playerData.id === data.userId) {
+        setShowCard(false);
+      }
+    });
   }, []);
   const { name, photoURI: playerImage } = playerData;
 
@@ -2595,10 +2600,17 @@ const Players = ({
 
   const handleChangeFold = () => {
     setFoldShowCard(!foldShowCard);
-    socket.emit('showCard', {
-      userId,
-      gameId: roomData?._id,
-    });
+    if (foldShowCard) {
+      socket.emit('hideCard', {
+        userId,
+        gameId: roomData?._id,
+      });
+    } else {
+      socket.emit('showCard', {
+        userId,
+        gameId: roomData?._id,
+      });
+    }
   };
 
   return (
