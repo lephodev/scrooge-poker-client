@@ -1327,7 +1327,7 @@ const PokerTable = (props) => {
     socket.emit("doallin", {
       userid: userId,
       roomid: tableId,
-      amount: currentPlayer.wallet,
+      amount: currentPlayer?.wallet,
     });
     setTimer(0);
   };
