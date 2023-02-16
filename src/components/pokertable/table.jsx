@@ -781,6 +781,9 @@ const PokerTable = (props) => {
     socket.on("fold", (data) => {
       playAudio("fold");
       roomData = data.updatedRoom;
+      console.log("data.updatedRoom");
+      console.log(data.updatedRoom);
+      console.log("data.updatedRoom");
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -1124,6 +1127,7 @@ const PokerTable = (props) => {
         id: el.userid ? el.userid : el.id,
       });
     });
+    console.log(playerDetails);
     setPlayers(playerDetails);
   };
   const showWinner = (data, players) => {
@@ -1315,7 +1319,7 @@ const PokerTable = (props) => {
     socket.emit("doallin", {
       userid: userId,
       roomid: tableId,
-      amount: currentPlayer.wallet,
+      amount: currentPlayer?.wallet,
     });
     setTimer(0);
   };
@@ -2331,7 +2335,9 @@ const Players = ({
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followClick, setFollowClick] = useState("");
   const [foldShowCard, setFoldShowCard] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const target = useRef(null);
+  console.log("playerdata===>" + playerData.fold);
   useEffect(() => {
     const showBuyIn = () => {
       if (
@@ -2369,6 +2375,14 @@ const Players = ({
       setNewPurchase(false);
     }
   }, [playerData, setBuyinPopup]);
+
+  useEffect(() => {
+    socket.on("showCard", (data) => {
+      if (playerData.id === data.userId) {
+        setShowCard(true);
+      }
+    });
+  }, []);
   const { name, photoURI: playerImage } = playerData;
 
   const handleFollow = async (followerId, nickname) => {
@@ -2589,6 +2603,10 @@ const Players = ({
 
   const handleChangeFold = () => {
     setFoldShowCard(!foldShowCard);
+    socket.emit("showCard", {
+      userId,
+      gameId: roomData?._id,
+    });
   };
 
   return (
@@ -2691,7 +2709,7 @@ const Players = ({
             </div>
           )}
 
-          {(playerData.fold || !playerData.playing) && foldShowCard ? (
+          {showCard ? (
             <ShowCard
               cards={playerData.cards ? playerData.cards : []}
               handMatch={handMatch}
@@ -3134,7 +3152,7 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
-              {openAction.allin && (
+              {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
                   <Button onClick={() => allinAction()}>
                     {/* <Form.Check

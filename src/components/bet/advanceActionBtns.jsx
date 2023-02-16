@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
+import numFormatter from "../../utils/utils";
 // import RaiseView from "./raiseView";
 // import RaiseSlider from "./raiseSlider";
 import "./bet.css";
@@ -131,7 +132,7 @@ const AdvanceActionBtns = ({
           className="tentative-action-btn"
           inline
           defaultChecked={player?.tentativeAction?.startsWith("call")}
-          label={`Call ${roomData?.raiseAmount - player?.pot}`}
+          label={`Call ${numFormatter(roomData?.raiseAmount - player?.pot)}`}
           value={`call ${roomData?.raiseAmount - player?.pot}`}
           name="group1"
           type="checkbox"
