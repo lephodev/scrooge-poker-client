@@ -284,6 +284,7 @@ const PokerTable = (props) => {
         console.log("error", error);
       }
     };
+
     isLoggedIn();
   }, []);
 
@@ -407,6 +408,7 @@ const PokerTable = (props) => {
       toast.error("Only One player, please wait for othe to join", { id: "A" });
       setStart(false);
       setTablePot(data.tablePot);
+
       updatePlayer(data.players);
       if (data.hostId === userId) {
         setisAdmin(true);
@@ -616,6 +618,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("flopround", (data) => {
+      console.log("flopround=====?????", data);
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
@@ -1014,12 +1017,14 @@ const PokerTable = (props) => {
   };
 
   useEffect(() => {
+    setCommunityCards(roomData?.communityCard);
     socket.on("timer", (data) => {
       setRemainingTime(data.playerchance);
       if (tPlayer !== data.id || tRound !== data.runninground) {
         if (timer === 0) {
           setTimer(roomData && roomData.timer);
         }
+
         setAction(false);
         setActionText(false);
 
@@ -1061,6 +1066,7 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
+    console.log("datadata", data);
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1711,7 +1717,7 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log("communityCards====", communityCards);
+  console.log("communityCards====", roomData?.communityCard);
   return (
     <div className="poker" id={players.length}>
       <Helmet>
