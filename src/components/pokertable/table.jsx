@@ -1,73 +1,73 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import toast from "react-hot-toast";
-import "animate.css";
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+import 'animate.css';
 // import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import ProgressBar from "react-animated-progress-bar";
-import "react-circular-progressbar/dist/styles.css";
+import ProgressBar from 'react-animated-progress-bar';
+import 'react-circular-progressbar/dist/styles.css';
 // import Lottie from "react-lottie";
-import front from "../../assets/game/Black-Card.png";
-import back from "../../assets/game/Black-Card.png";
-import back2 from "../../assets/game/Black-Card2.png";
-import { socket } from "../../config/socketConnection";
-import accept from "../../assets/checked.png";
-import reject from "../../assets/close.png";
-import Chat from "../chat/chat";
-import winnerSound from "../../assets/Poker Sfx/winSoundPoker.mp3";
-import call from "../../assets/Poker Sfx/Chip Bet/bet.wav";
-import collect from "../../assets/Poker Sfx/Collect Chips/collect.wav";
-import check from "../../assets/Poker Sfx/Check/check.mp3";
-import chatBubble from "../../assets/Poker Sfx/ChatBubble.wav";
-import fold from "../../assets/Poker Sfx/Fold.mp3";
-import myTurn from "../../assets/Poker Sfx/MyTurn.wav";
-import arrow from "../../assets/left-arrow.png";
-import Bet from "../bet/bet";
-import "./table.css";
-import footerlogo from "../../assets/game/logo-poker.png";
-import { Tooltip, OverlayTrigger } from "react-bootstrap";
-import winnericon from "../../assets/win-icon.png";
-import loseicon from "../../assets/loss-icon.png";
-import StatsPopup from "./statsPopup";
-import BuyInPopup from "./buyInPopup";
-import LeaveConfirmPopup from "./leaveConfirmPopup";
-import "./tablepopup.css";
-import btntoggle from "../../assets/btnmenu.png";
-import sitdown from "../../assets/sit-in.png";
-import situp from "../../assets/sit-out.png";
+import front from '../../assets/game/Black-Card.png';
+import back from '../../assets/game/Black-Card.png';
+import back2 from '../../assets/game/Black-Card2.png';
+import { socket } from '../../config/socketConnection';
+import accept from '../../assets/checked.png';
+import reject from '../../assets/close.png';
+import Chat from '../chat/chat';
+import winnerSound from '../../assets/Poker Sfx/winSoundPoker.mp3';
+import call from '../../assets/Poker Sfx/Chip Bet/bet.wav';
+import collect from '../../assets/Poker Sfx/Collect Chips/collect.wav';
+import check from '../../assets/Poker Sfx/Check/check.mp3';
+import chatBubble from '../../assets/Poker Sfx/ChatBubble.wav';
+import fold from '../../assets/Poker Sfx/Fold.mp3';
+import myTurn from '../../assets/Poker Sfx/MyTurn.wav';
+import arrow from '../../assets/left-arrow.png';
+import Bet from '../bet/bet';
+import './table.css';
+import footerlogo from '../../assets/game/logo-poker.png';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import winnericon from '../../assets/win-icon.png';
+import loseicon from '../../assets/loss-icon.png';
+import StatsPopup from './statsPopup';
+import BuyInPopup from './buyInPopup';
+import LeaveConfirmPopup from './leaveConfirmPopup';
+import './tablepopup.css';
+import btntoggle from '../../assets/btnmenu.png';
+import sitdown from '../../assets/sit-in.png';
+import situp from '../../assets/sit-out.png';
 // import addcoin from "../../assets/add-coin.png";
-import loaderImg from "../../assets/chat/loader1.webp";
-import InviteFriend from "./InviteFriend";
-import Helmet from "react-helmet";
-import MarketStore from "../MarketPlace/marketStore";
-import axios from "axios";
-import winImage from "../../assets/animation/win.json";
-import userUtils from "./../../utils/user";
-import { useHistory } from "react-router-dom";
-import CONSTANTS from "../../config/contants";
-import { getCookie } from "../../utils/cookieUtil";
+import loaderImg from '../../assets/chat/loader1.webp';
+import InviteFriend from './InviteFriend';
+import Helmet from 'react-helmet';
+import MarketStore from '../MarketPlace/marketStore';
+import axios from 'axios';
+import winImage from '../../assets/animation/win.json';
+import userUtils from './../../utils/user';
+import { useHistory } from 'react-router-dom';
+import CONSTANTS from '../../config/contants';
+import { getCookie } from '../../utils/cookieUtil';
 // import bluechip from "../../assets/chips/blue.png";
 // import blackchip from "../../assets/chips/black.png";
 // import redchip from "../../assets/chips/red.png";
-import BetView from "../bet/betView";
-import RaiseView from "../bet/raiseView";
-import coinWinning from "../../assets/animation/22.gif";
-import { pokerInstance } from "../../utils/axios.config";
-import RaiseSlider from "../bet/raiseSlider";
-import AdvanceActionBtn from "../bet/advanceActionBtns";
-import ChatHistory from "../chat/chatHistory";
-import UsersComments from "../../assets/comenting.svg";
-import AddCoinIcon from "../SVGfiles/coinSVG";
-import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
-import EnterAmountPopup from "./enterAmountPopup";
-import { logDOM } from "@testing-library/react";
+import BetView from '../bet/betView';
+import RaiseView from '../bet/raiseView';
+import coinWinning from '../../assets/animation/22.gif';
+import { pokerInstance } from '../../utils/axios.config';
+import RaiseSlider from '../bet/raiseSlider';
+import AdvanceActionBtn from '../bet/advanceActionBtns';
+import ChatHistory from '../chat/chatHistory';
+import UsersComments from '../../assets/comenting.svg';
+import AddCoinIcon from '../SVGfiles/coinSVG';
+import { MuteIcon, VolumeIcon } from '../SVGfiles/soundSVG';
+import EnterAmountPopup from './enterAmountPopup';
+import { logDOM } from '@testing-library/react';
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
   return {
-    tableid: url.get("tableid") || "",
-    gameCollection: url.get("gameCollection") || url.get("gamecollection"),
+    tableid: url.get('tableid') || '',
+    gameCollection: url.get('gameCollection') || url.get('gamecollection'),
   };
 };
 const winImageanim = {
@@ -93,42 +93,42 @@ const numFormatter = (num) => {
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
   } else if (num > 999 && num < 1000000) {
-    return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
+    return (num / 1000).toFixed(2) + 'K'; // convert to K for number from > 1000 < 1 million
   } else if (num >= 1000000 && num < 1000000000) {
-    return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
+    return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million
   } else if (num >= 100000000 && num < 1000000000000) {
-    return (num / 100000000).toFixed(2) + "B";
+    return (num / 100000000).toFixed(2) + 'B';
   } else if (num >= 1000000000000)
-    return (num / 1000000000000).toFixed(2) + "T";
+    return (num / 1000000000000).toFixed(2) + 'T';
   else return num; // if value < 1000, nothing to do
 };
 
 const PokerTable = (props) => {
   const [currentPlayer, setCurrentPlayer] = useState();
   const [action, setAction] = useState(false);
-  const [actionText, setActionText] = useState("");
+  const [actionText, setActionText] = useState('');
   const [winner, setWinner] = useState(false);
   const [bet, setBet] = useState();
   const [raise, setRaise] = useState();
   const [tableId, setTableId] = useState();
   const [players, setPlayers] = useState([]);
-  const [tablePot, setTablePot] = useState("");
+  const [tablePot, setTablePot] = useState('');
   const [isAdmin, setisAdmin] = useState(false);
   const [timer, setTimer] = useState(0);
   const [communityCards, setCommunityCards] = useState([]);
   const [newUser, setNewUser] = useState(false);
-  const [winnerText, setWinnerText] = useState("");
+  const [winnerText, setWinnerText] = useState('');
   const [remainingTime, setRemainingTime] = useState();
   const [handMatch, setHandMatch] = useState([]);
   const [matchCards, setMatchCards] = useState([]);
   const [messageBy, setMessageBy] = useState();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [allowWatcher, setAllowWatcher] = useState(false);
   const [watchers, setWatchers] = useState([]);
-  const [betOn, setBetOn] = useState("");
+  const [betOn, setBetOn] = useState('');
   const [betWin, setBetWin] = useState(false);
   const [onlywatcher, setOnlywatcher] = useState(false);
-  const [gameCollection, setGameCollection] = useState("");
+  const [gameCollection, setGameCollection] = useState('');
   const [handWinner, setHandWinner] = useState([]);
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -164,7 +164,7 @@ const PokerTable = (props) => {
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
   const [selectedUser, setSelectedUser] = useState();
-  const [winAnimationType, setWinAnimationType] = useState("");
+  const [winAnimationType, setWinAnimationType] = useState('');
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followingList, setFollowingList] = useState([]);
   const [friendList, setFriendList] = useState([]);
@@ -184,45 +184,45 @@ const PokerTable = (props) => {
   const scrollDownRef = useRef(null);
 
   const scrollToBottom = () => {
-    scrollDownRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     let urlParams = new URLSearchParams(window.location.search);
-    setTableId(urlParams.get("tableid"));
+    setTableId(urlParams.get('tableid'));
     setGameCollection(
-      urlParams.get("gameCollection") || urlParams.get("gamecollection")
+      urlParams.get('gameCollection') || urlParams.get('gamecollection')
     );
   }, []);
 
   useEffect(() => {
     const tryReconnect = () => {
       setTimeout(() => {
-        console.log("reconnect");
+        console.log('reconnect');
         socket.io.open((err) => {
           // console.log("Socket open");
           if (err) {
-            console.log("reconnect err => ", err);
+            console.log('reconnect err => ', err);
             tryReconnect();
           } else {
             let urlParams = new URLSearchParams(window.location.search);
-            let table = urlParams.get("tableid");
+            let table = urlParams.get('tableid');
             // console.log({ table });
             let type =
-              urlParams.get("gameCollection") ||
-              urlParams.get("gamecollection");
-            socket.emit("checkTable", {
+              urlParams.get('gameCollection') ||
+              urlParams.get('gamecollection');
+            socket.emit('checkTable', {
               gameId: table,
               userId,
               gameType: type,
-              dataFrom: "reconnect",
+              dataFrom: 'reconnect',
             });
             setLoader(true);
           }
         });
       }, 2000);
     };
-    socket.io.on("close", tryReconnect);
+    socket.io.on('close', tryReconnect);
   }, []);
 
   useEffect(() => {
@@ -230,9 +230,9 @@ const PokerTable = (props) => {
       let urlParams = new URLSearchParams(window.location.search);
       let user;
       if (
-        !localStorage.getItem("token") &&
-        !urlParams.get("token") &&
-        !getCookie("token")
+        !localStorage.getItem('token') &&
+        !urlParams.get('token') &&
+        !getCookie('token')
       ) {
         return (window.location.href = `${CONSTANTS.landingClient}`);
       }
@@ -243,9 +243,9 @@ const PokerTable = (props) => {
         return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       userId = user?.data.user?.id;
-      let table = urlParams.get("tableid");
+      let table = urlParams.get('tableid');
       let type =
-        urlParams.get("gameCollection") || urlParams.get("gamecollection");
+        urlParams.get('gameCollection') || urlParams.get('gamecollection');
       userId = user?.data.user?.id;
       setUserData(user.data.user);
 
@@ -255,7 +255,7 @@ const PokerTable = (props) => {
             `/checkUserInTable/${table}`
           );
           if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
-            socket.emit("checkTable", {
+            socket.emit('checkTable', {
               gameId: table,
               userId: user?.data.user?.id,
               gameType: type,
@@ -279,7 +279,7 @@ const PokerTable = (props) => {
         // });
         setLoader(true);
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
       }
     };
 
@@ -342,18 +342,18 @@ const PokerTable = (props) => {
   // }, [players]);
 
   useEffect(() => {
-    socket.on("roomFull", () => {
+    socket.on('roomFull', () => {
       setLoader(false);
-      toast.error("Room already full", { id: "full" });
+      toast.error('Room already full', { id: 'full' });
       setTimeout(() => {
-        window.location.href = window.location.origin + "/";
+        window.location.href = window.location.origin + '/';
       }, 1000);
     });
 
-    socket.on("notFound", (data) => {
-      toast.error("Table not Found");
+    socket.on('notFound', (data) => {
+      toast.error('Table not Found');
       if (
-        data?.message === "Game not found. Either game is finished or not exist"
+        data?.message === 'Game not found. Either game is finished or not exist'
       ) {
         setTimeout(() => {
           window.location.href = window.location.origin;
@@ -363,11 +363,11 @@ const PokerTable = (props) => {
   }, []);
 
   useEffect(() => {
-    socket.on("userId", async (data) => {
+    socket.on('userId', async (data) => {
       userId = data;
     });
-    socket.on("newMessage", (data) => {
-      playAudio("chat");
+    socket.on('newMessage', (data) => {
+      playAudio('chat');
       setMessage(() => {
         return data.message;
       });
@@ -376,33 +376,33 @@ const PokerTable = (props) => {
       });
 
       setTimeout(() => {
-        setMessage("");
+        setMessage('');
         setMessageBy(null);
       }, 10000);
     });
-    socket.on("lowBalance", (data) => {
+    socket.on('lowBalance', (data) => {
       setLoader(false);
       if (data.userid === userId) {
         toast(
           (toaster) => (
-            <div className="custom-toaster low-balance">
+            <div className='custom-toaster low-balance'>
               <p>Wallet has low balance, Unable to join</p>
             </div>
           ),
-          { id: "A", duration: 2000 }
+          { id: 'A', duration: 2000 }
         );
         setNewJoinLowBalance(true);
         setBuyinPopup(true);
       }
     });
 
-    socket.on("watcherbet", (data) => {
+    socket.on('watcherbet', (data) => {
       setBetOn(data.player.id);
       setBetWin(data.betType);
     });
 
-    socket.on("OnlyOne", (data) => {
-      toast.error("Only One player, please wait for othe to join", { id: "A" });
+    socket.on('OnlyOne', (data) => {
+      toast.error('Only One player, please wait for othe to join', { id: 'A' });
       setStart(false);
       setTablePot(data.tablePot);
 
@@ -413,10 +413,10 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("newWatcherJoin", (data) => {
+    socket.on('newWatcherJoin', (data) => {
       setLoader(false);
       if (data.watcherId === userId) {
-        toast.success("Joined as Watcher", { id: "A" });
+        toast.success('Joined as Watcher', { id: 'A' });
         isWatcher = true;
       }
       roomData = data.roomData;
@@ -436,10 +436,10 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("actionError", (data) => {
-      console.log("actionErroractionError", data);
+    socket.on('actionError', (data) => {
+      console.log('actionErroractionError', data);
     });
-    socket.on("sitInOut", (data) => {
+    socket.on('sitInOut', (data) => {
       roomData = data.updatedRoom;
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -455,88 +455,86 @@ const PokerTable = (props) => {
         updatePlayer(roomData.showdown);
       }
     });
-    socket.on("privateTable", () => {
+    socket.on('privateTable', () => {
       setLoader(false);
-      toast.error("Unable to join Private table", { id: "A" });
+      toast.error('Unable to join Private table', { id: 'A' });
     });
-    socket.on("noAdmin", () => {
+    socket.on('noAdmin', () => {
       setLoader(false);
-      toast.error("Table host is not Available", { id: "A" });
+      toast.error('Table host is not Available', { id: 'A' });
     });
-    socket.on("tableOwner", (data) => {
+    socket.on('tableOwner', (data) => {
       setLoader(false);
       setisAdmin(true);
       admin = true;
       roomData = data;
     });
 
-    socket.on("noTable", () => {
-      toast.error("No such table found", { id: "A" });
+    socket.on('noTable', () => {
+      toast.error('No such table found', { id: 'A' });
       setLoader(false);
     });
-    socket.on("alreadyStarted", () => {
-      toast.error("Game already Started, Please comeback after some time", {
-        id: "alreadyStarted",
+    socket.on('alreadyStarted', () => {
+      toast.error('Game already Started, Please comeback after some time', {
+        id: 'alreadyStarted',
       });
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
     });
 
-    socket.on("newWatcher", () => {
+    socket.on('newWatcher', () => {
       setLoader(false);
       setOnlywatcher(true);
     });
 
-    socket.on("alreadyJoin", () => {
-      toast.error("You are already in room", { id: "A", duration: 1000 });
+    socket.on('alreadyJoin', () => {
+      toast.error('You are already in room', { id: 'A', duration: 1000 });
     });
-    socket.on("hostApproval", () => {
-      toast.success("Request send for Approval", { id: "A", duration: 1000 });
+    socket.on('hostApproval', () => {
+      toast.success('Request send for Approval', { id: 'A', duration: 1000 });
     });
 
-    socket.on("newUser", (data) => {
+    socket.on('newUser', (data) => {
       setLoader(false);
       if (data.allowWatcher) {
         setAllowWatcher(true);
       } else setNewUser(true);
     });
 
-    socket.on("playerleft", (data) => {
-      toast.success(data.msg, { id: "A" });
+    socket.on('playerleft', (data) => {
+      toast.success(data.msg, { id: 'A' });
     });
 
-    socket.on("notAuthorized", () => {
-      toast.error("Not Authorized", { id: "A" });
+    socket.on('notAuthorized', () => {
+      toast.error('Not Authorized', { id: 'A' });
       setLoader(false);
     });
 
-    socket.on("noUser", () => {
-      toast.error("No user found", { id: "A" });
+    socket.on('noUser', () => {
+      toast.error('No user found', { id: 'A' });
     });
 
-    socket.on("joinrequest", (data) => {
+    socket.on('joinrequest', (data) => {
       if (isAdmin) {
         toast(
           (toaster) => (
-            <div className="custom-toaster">
+            <div className='custom-toaster'>
               <p>{data.player.name} is want to join table</p>
               <Button
                 onClick={() => {
                   approveRequest(data);
                   toast.dismiss(toaster.id);
-                }}
-              >
-                <img src={accept} alt="accept" />
+                }}>
+                <img src={accept} alt='accept' />
               </Button>
               <Button
                 onClick={() => {
                   cancelRequest(data);
                   toast.dismiss(toaster.id);
                 }}
-                className="reject-btn"
-              >
-                <img src={reject} alt="reject" />
+                className='reject-btn'>
+                <img src={reject} alt='reject' />
               </Button>
             </div>
           ),
@@ -545,49 +543,49 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("actionperformed", (data) => {
+    socket.on('actionperformed', (data) => {
       setActionText(data.action);
       setAction(true);
       // setCurrentPlayer(false)
     });
 
-    socket.on("notification", (data) => {
+    socket.on('notification', (data) => {
       let pl =
         roomData &&
         roomData.players.find(
           (ele) => (ele.id ? ele.id : ele.userid) === data.id
         );
-      toast.success(`${pl.name} made ${data.action}`, { id: "info" });
+      toast.success(`${pl.name} made ${data.action}`, { id: 'info' });
     });
 
-    socket.on("cancelJoinRequest", (data) => {
+    socket.on('cancelJoinRequest', (data) => {
       // toast cancel join request
       // open join action panel
     });
 
-    socket.on("approved", (data) => {
+    socket.on('approved', (data) => {
       if (data.playerid === userId) {
-        toast.success("Join request is approved", { id: "A" });
+        toast.success('Join request is approved', { id: 'A' });
         setNewUser(false);
       } else {
-        toast.success(`${data.name} join the table`, { id: "B" });
+        toast.success(`${data.name} join the table`, { id: 'B' });
       }
     });
 
-    socket.on("rejected", (data) => {
+    socket.on('rejected', (data) => {
       if (data.playerid === userId) {
-        toast.error("Your join request is rejected", { id: "A" });
+        toast.error('Your join request is rejected', { id: 'A' });
         if (data.allowWatcher) {
           setAllowWatcher(true);
         } else setNewUser(true);
       }
     });
 
-    socket.on("notEnoughPlayer", (data) => {
-      toast.error("Atleast 3 player required to start the game", { id: "A" });
+    socket.on('notEnoughPlayer', (data) => {
+      toast.error('Atleast 3 player required to start the game', { id: 'A' });
     });
 
-    socket.on("newhand", (data) => {
+    socket.on('newhand', (data) => {
       roomData = data.updatedRoom;
       setStart(false);
       joinInRunningRound = false;
@@ -596,9 +594,9 @@ const PokerTable = (props) => {
       setCommunityCards([]);
       setCurrentPlayer(false);
       setWinner(false);
-      setWinnerText("");
+      setWinnerText('');
       setAction(false);
-      setActionText("");
+      setActionText('');
       setHandMatch([]);
       if (roomData.hostId === userId) {
         setisAdmin(true);
@@ -606,7 +604,7 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("preflopround", (data) => {
+    socket.on('preflopround', (data) => {
       roomData = data;
       setTablePot(roomData.pot);
       setTimer(roomData.timer);
@@ -614,12 +612,12 @@ const PokerTable = (props) => {
       updatePlayer(data.preflopround);
     });
 
-    socket.on("flopround", (data) => {
-      console.log("flopround=====?????", data);
+    socket.on('flopround', (data) => {
+      console.log('flopround=====?????', data);
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
-        playAudio("collect");
+        playAudio('collect');
         roomData = data;
         setTablePot(roomData.pot);
 
@@ -628,11 +626,11 @@ const PokerTable = (props) => {
       }, 400);
     });
 
-    socket.on("turnround", (data) => {
+    socket.on('turnround', (data) => {
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
-        playAudio("collect");
+        playAudio('collect');
         roomData = data;
         setCommunityCards(data?.communityCard);
 
@@ -641,11 +639,11 @@ const PokerTable = (props) => {
       }, 400);
     });
 
-    socket.on("riverround", (data) => {
+    socket.on('riverround', (data) => {
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
-        playAudio("collect");
+        playAudio('collect');
         roomData = data;
         setCommunityCards(data?.communityCard);
 
@@ -654,21 +652,21 @@ const PokerTable = (props) => {
       }, 400);
     });
 
-    socket.on("winner", (data) => {
+    socket.on('winner', (data) => {
       roomData = data.updatedRoom;
       updatePlayer(roomData.showdown);
       setCurrentPlayer(false);
       showWinner(roomData.winnerPlayer, roomData.players);
     });
 
-    socket.on("gameStarted", () => {
-      toast.error("Game already started", { id: "A" });
+    socket.on('gameStarted', () => {
+      toast.error('Game already started', { id: 'A' });
     });
 
-    socket.on("gameFinished", () => {
-      toast.error("Game already finished", { id: "A" });
+    socket.on('gameFinished', () => {
+      toast.error('Game already finished', { id: 'A' });
       setLoader(false);
-      socket.emit("clearData", {
+      socket.emit('clearData', {
         tableId,
         gameType: gameCollection,
       });
@@ -677,17 +675,17 @@ const PokerTable = (props) => {
       }, 100);
     });
 
-    socket.on("beingtimeout", (data) => {
-      toast.error("being Timeout");
+    socket.on('beingtimeout', (data) => {
+      toast.error('being Timeout');
     });
 
-    socket.on("automaticFold", (data) => {
-      playAudio("fold");
-      toast.error(data.msg, { id: "A" });
+    socket.on('automaticFold', (data) => {
+      playAudio('fold');
+      toast.error(data.msg, { id: 'A' });
     });
 
-    socket.on("raise", (data) => {
-      playAudio("bet");
+    socket.on('raise', (data) => {
+      playAudio('bet');
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
@@ -705,8 +703,8 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("allin", (data) => {
-      playAudio("bet");
+    socket.on('allin', (data) => {
+      playAudio('bet');
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
@@ -724,8 +722,8 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("bet", (data) => {
-      playAudio("bet");
+    socket.on('bet', (data) => {
+      playAudio('bet');
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
@@ -743,8 +741,8 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("call", (data) => {
-      playAudio("bet");
+    socket.on('call', (data) => {
+      playAudio('bet');
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
@@ -762,8 +760,8 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("check", (data) => {
-      playAudio("check");
+    socket.on('check', (data) => {
+      playAudio('check');
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
@@ -781,12 +779,12 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("fold", (data) => {
-      playAudio("fold");
+    socket.on('fold', (data) => {
+      playAudio('fold');
       roomData = data.updatedRoom;
-      console.log("data.updatedRoom");
+      console.log('data.updatedRoom');
       console.log(data.updatedRoom);
-      console.log("data.updatedRoom");
+      console.log('data.updatedRoom');
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -803,7 +801,7 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("updateGame", (data) => {
+    socket.on('updateGame', (data) => {
       setLoader(false);
       roomData = data.game;
       setChatMessages(data.game.chats);
@@ -826,9 +824,9 @@ const PokerTable = (props) => {
         setCommunityCards([]);
         setCurrentPlayer(false);
         setWinner(false);
-        setWinnerText("");
+        setWinnerText('');
         setAction(false);
-        setActionText("");
+        setActionText('');
         setHandMatch([]);
       } else if (roomData.runninground === 1) {
         updatePlayer(roomData.preflopround);
@@ -843,63 +841,63 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("roomPaused", () => {
-      toast.success("Game is Pause for Next Hand", { id: "A" });
+    socket.on('roomPaused', () => {
+      toast.success('Game is Pause for Next Hand', { id: 'A' });
     });
 
-    socket.on("roomFinished", (data) => {
-      toast.success(data.msg, { id: "A" });
+    socket.on('roomFinished', (data) => {
+      toast.success(data.msg, { id: 'A' });
       if (data.roomdata.runninground === 0) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
       }
     });
 
-    socket.on("onlyOnePlayingPlayer", (data) => {
+    socket.on('onlyOnePlayingPlayer', (data) => {
       roomData = data.roomdata;
       updatePlayer(roomData.players);
       setStart(false);
       toast.success(
-        "Only one player is eligible to play and poker needs atleast two player to play",
-        { id: "onlyOnePlayingPlayer" }
+        'Only one player is eligible to play and poker needs atleast two player to play',
+        { id: 'onlyOnePlayingPlayer' }
       );
     });
-    socket.on("roomResume", () => {
-      toast.success("Game is resumed for next hand", { id: "A" });
+    socket.on('roomResume', () => {
+      toast.success('Game is resumed for next hand', { id: 'A' });
     });
 
-    socket.on("joinAndLeave", () => {
+    socket.on('joinAndLeave', () => {
       window.location.reload();
     });
 
-    socket.on("adminLeave", (data) => {
+    socket.on('adminLeave', (data) => {
       if (userId === data.userId) {
-        toast.success("Admin left the game, Now you are the Game Admin", {
-          id: "GameAdmin",
+        toast.success('Admin left the game, Now you are the Game Admin', {
+          id: 'GameAdmin',
         });
       } else {
         toast.success(
           `Admin left the game, Now ${data.name} is the Game Admin`,
-          { id: "GameAdmin" }
+          { id: 'GameAdmin' }
         );
       }
     });
 
-    socket.on("notEnoughBalance", (data) => {
+    socket.on('notEnoughBalance', (data) => {
       toast.error(data.message);
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
     });
 
-    socket.on("inOtherGame", (data) => {
+    socket.on('inOtherGame', (data) => {
       toast.error(data.message);
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
     });
 
-    socket.on("joinInRunningGame", (data) => {
+    socket.on('joinInRunningGame', (data) => {
       setLoader(false);
       if (data.playerId === userId) {
         joinInRunningRound = true;
@@ -914,9 +912,9 @@ const PokerTable = (props) => {
           setCommunityCards([]);
           setCurrentPlayer(false);
           setWinner(false);
-          setWinnerText("");
+          setWinnerText('');
           setAction(false);
-          setActionText("");
+          setActionText('');
           setHandMatch([]);
         } else if (roomData.runninground === 1) {
           updatePlayer(roomData.preflopround);
@@ -932,7 +930,7 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("reload", () => {
+    socket.on('reload', () => {
       window.location.reload();
     });
   }, [isAdmin]);
@@ -940,51 +938,51 @@ const PokerTable = (props) => {
   const handleTentativeActionAuto = (player) => {
     let event;
     const { tentativeAction } = player;
-    if (player?.tentativeAction.includes(" ")) {
-      const [event1] = tentativeAction.split(" ");
+    if (player?.tentativeAction.includes(' ')) {
+      const [event1] = tentativeAction.split(' ');
       event = event1;
     } else {
       event = tentativeAction;
     }
     switch (event) {
-      case "check":
-        socket.emit("docheck", { userid: player.id, roomid: tableId });
+      case 'check':
+        socket.emit('docheck', { userid: player.id, roomid: tableId });
         break;
-      case "fold":
-        socket.emit("dofold", { userid: player.id, roomid: tableId });
+      case 'fold':
+        socket.emit('dofold', { userid: player.id, roomid: tableId });
         break;
-      case "check/fold":
+      case 'check/fold':
         if (
-          roomData.lastAction === "check" ||
+          roomData.lastAction === 'check' ||
           roomData.raiseAmount === player.pot
         ) {
-          socket.emit("docheck", { userid: player.id, roomid: tableId });
+          socket.emit('docheck', { userid: player.id, roomid: tableId });
         } else {
-          socket.emit("dofold", { userid: player.id, roomid: tableId });
+          socket.emit('dofold', { userid: player.id, roomid: tableId });
         }
         break;
-      case "call":
+      case 'call':
         if (
-          roomData.lastAction === "check" ||
+          roomData.lastAction === 'check' ||
           roomData.raiseAmount === player.pot
         ) {
-          socket.emit("docheck", { userid: player.id, roomid: tableId });
+          socket.emit('docheck', { userid: player.id, roomid: tableId });
         } else {
-          socket.emit("docall", {
+          socket.emit('docall', {
             userid: player.id,
             roomid: tableId,
             amount: roomData.raiseAmount,
           });
         }
         break;
-      case "callAny":
+      case 'callAny':
         if (
-          roomData.lastAction === "check" ||
+          roomData.lastAction === 'check' ||
           roomData.raiseAmount === player.pot
         ) {
-          socket.emit("docheck", { userid: player.id, roomid: tableId });
+          socket.emit('docheck', { userid: player.id, roomid: tableId });
         } else {
-          socket.emit("docall", {
+          socket.emit('docall', {
             userid: player.id,
             roomid: tableId,
             amount: roomData.raiseAmount,
@@ -992,14 +990,14 @@ const PokerTable = (props) => {
         }
 
         break;
-      case "allin":
+      case 'allin':
         if (
-          roomData?.lastAction === "check" ||
+          roomData?.lastAction === 'check' ||
           roomData?.raiseAmount === player?.pot
         ) {
-          socket.emit("docheck", { userid: player?.id, roomid: tableId });
+          socket.emit('docheck', { userid: player?.id, roomid: tableId });
         } else {
-          socket.emit("doallin", {
+          socket.emit('doallin', {
             userid: player?.id,
             roomid: tableId,
             amount: player?.wallet,
@@ -1008,13 +1006,13 @@ const PokerTable = (props) => {
         break;
 
       default:
-        return "";
+        return '';
     }
   };
 
   useEffect(() => {
     setCommunityCards(roomData?.communityCard);
-    socket.on("timer", (data) => {
+    socket.on('timer', (data) => {
       setRemainingTime(data.playerchance);
       if (tPlayer !== data.id || tRound !== data.runninground) {
         if (timer === 0) {
@@ -1037,12 +1035,12 @@ const PokerTable = (props) => {
 
   useEffect(() => {
     if (currentPlayer && currentPlayer.id === userId) {
-      playAudio("turn");
+      playAudio('turn');
     }
   }, [currentPlayer]);
 
   useEffect(() => {
-    socket.on("updateChat", (data) => {
+    socket.on('updateChat', (data) => {
       setChatMessages(data.chat);
       let nesMsgCount = 0;
       data.chat.forEach((chatObj, i) => {
@@ -1050,7 +1048,7 @@ const PokerTable = (props) => {
           nesMsgCount++;
       });
       if (openChatHistory) {
-        socket.emit("updateChatIsReadWhileChatHistoryOpen", {
+        socket.emit('updateChatIsReadWhileChatHistoryOpen', {
           userId,
           tableId,
           openChatHistory,
@@ -1062,7 +1060,7 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
-    console.log("datadata", data);
+    console.log('datadata', data);
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1142,7 +1140,7 @@ const PokerTable = (props) => {
         let type = players.find((el) => el.userid === item.id);
         setWinAnimationType(type.items);
         setWinner(item);
-        playAudio("winner");
+        playAudio('winner');
         if (item.handName) {
           setWinnerText(`${item.name} wins with ${item.handName}`);
           let newMatch = [];
@@ -1200,14 +1198,14 @@ const PokerTable = (props) => {
   };
 
   const startGame = () => {
-    socket.emit("startPreflopRound", {
+    socket.emit('startPreflopRound', {
       tableId,
       userId,
     });
   };
 
   const joinGame = () => {
-    socket.emit("joinGame", {
+    socket.emit('joinGame', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1217,7 +1215,7 @@ const PokerTable = (props) => {
   };
 
   const leaveWatcherJoinPlayer = () => {
-    socket.emit("leaveWatcherJoinPlayer", {
+    socket.emit('leaveWatcherJoinPlayer', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1227,7 +1225,7 @@ const PokerTable = (props) => {
   };
 
   const joinWatcher = () => {
-    socket.emit("joinWatcher", {
+    socket.emit('joinWatcher', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1238,12 +1236,12 @@ const PokerTable = (props) => {
   };
 
   const approveRequest = (data) => {
-    socket.emit("approveRequest", data);
+    socket.emit('approveRequest', data);
     setNewUser(false);
   };
 
   const cancelRequest = (data) => {
-    socket.emit("cancelRequest", data);
+    socket.emit('cancelRequest', data);
   };
 
   const callAction = () => {
@@ -1255,7 +1253,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("docall", {
+    socket.emit('docall', {
       userid: userId,
       roomid: tableId,
       amount: roomData.raiseAmount,
@@ -1272,7 +1270,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("doraise", {
+    socket.emit('doraise', {
       userid: userId,
       roomid: tableId,
       amount: x,
@@ -1289,7 +1287,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("docheck", {
+    socket.emit('docheck', {
       userid: userId,
       roomid: tableId,
     });
@@ -1305,7 +1303,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("dobet", {
+    socket.emit('dobet', {
       userid: userId,
       roomid: tableId,
       amount: x,
@@ -1322,7 +1320,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("doallin", {
+    socket.emit('doallin', {
       userid: userId,
       roomid: tableId,
       amount: currentPlayer?.wallet,
@@ -1339,7 +1337,7 @@ const PokerTable = (props) => {
       allin: false,
       fold: false,
     });
-    socket.emit("dofold", {
+    socket.emit('dofold', {
       userid: userId,
       roomid: tableId,
     });
@@ -1347,21 +1345,21 @@ const PokerTable = (props) => {
   };
 
   const finishGame = () => {
-    socket.emit("dofinishgame", {
+    socket.emit('dofinishgame', {
       userid: userId,
       roomid: tableId,
     });
   };
 
   const pauseGame = () => {
-    socket.emit("dopausegame", {
+    socket.emit('dopausegame', {
       userid: userId,
       roomid: tableId,
     });
   };
 
   const resumeGame = () => {
-    socket.emit("doresumegame", {
+    socket.emit('doresumegame', {
       userid: userId,
       roomid: tableId,
     });
@@ -1400,11 +1398,11 @@ const PokerTable = (props) => {
     }
 
     if (round >= 2) {
-      if (lastAction === "check") {
+      if (lastAction === 'check') {
         currentAction.check = true;
       }
 
-      if (lastAction === "check") {
+      if (lastAction === 'check') {
         if (raiseAmount > wallet) {
           currentAction.allin = true;
           currentAction.raise = false;
@@ -1433,7 +1431,7 @@ const PokerTable = (props) => {
         currentAction.allin = true;
         currentAction.raise = false;
       }
-      if (lastAction !== "check" && pot !== raiseAmount) {
+      if (lastAction !== 'check' && pot !== raiseAmount) {
         currentAction.check = false;
       }
     }
@@ -1449,7 +1447,7 @@ const PokerTable = (props) => {
         audioEl.play();
       }
     }
-    if (type === "winner") {
+    if (type === 'winner') {
       setTimeout(() => {
         setWinner(false);
       }, 10000);
@@ -1457,7 +1455,7 @@ const PokerTable = (props) => {
   };
 
   const sitout = () => {
-    socket.emit("dositout", {
+    socket.emit('dositout', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1465,7 +1463,7 @@ const PokerTable = (props) => {
   };
 
   const sitin = () => {
-    socket.emit("dositin", {
+    socket.emit('dositin', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1473,7 +1471,7 @@ const PokerTable = (props) => {
   };
 
   const leaveTable = () => {
-    socket.emit("doleavetable", {
+    socket.emit('doleavetable', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1483,7 +1481,7 @@ const PokerTable = (props) => {
   };
 
   const leaveAndJoinAsWatcher = () => {
-    socket.emit("leaveJoinWatcher", {
+    socket.emit('leaveJoinWatcher', {
       tableId,
       userId,
       gameType: gameCollection,
@@ -1498,24 +1496,24 @@ const PokerTable = (props) => {
   };
 
   useEffect(() => {
-    socket.on("notInvited", () => {
-      alert("This is a private table");
-      history.push("/");
+    socket.on('notInvited', () => {
+      alert('This is a private table');
+      history.push('/');
     });
     return () => {
-      socket.off("notInvited");
+      socket.off('notInvited');
     };
   }, [history]);
 
   useEffect(() => {
-    socket.on("tablefull", (data) => {
+    socket.on('tablefull', (data) => {
       toast.error(data?.message);
       setTimeout(() => {
-        history.push("/");
+        history.push('/');
       }, 2000);
     });
     return () => {
-      socket.off("tablefull");
+      socket.off('tablefull');
     };
   }, [history]);
 
@@ -1539,7 +1537,7 @@ const PokerTable = (props) => {
   // }, []);
 
   const handleOpenChatHistory = () => {
-    socket.emit("updateChatIsRead", { userId, tableId });
+    socket.emit('updateChatIsRead', { userId, tableId });
     setNoOfPrevMessages(chatMessages.length);
     setUnReadMessages(0);
     setOpenChatHistory(!openChatHistory);
@@ -1551,11 +1549,11 @@ const PokerTable = (props) => {
     } = e;
 
     if (tentativeAction === value) {
-      setTentativeAction("");
+      setTentativeAction('');
     } else {
       setTentativeAction(value);
     }
-    socket.emit("playerTentativeAction", {
+    socket.emit('playerTentativeAction', {
       gameId: tableId,
       userId,
       playerAction: checked ? value : null,
@@ -1580,9 +1578,9 @@ const PokerTable = (props) => {
           setBtnToggle(false);
         }
       };
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener('mousedown', handleClickOutside);
       };
     }, [ref]);
   };
@@ -1598,8 +1596,8 @@ const PokerTable = (props) => {
 
   const handleSitin = (sitInAmount) => {
     let urlParams = getQueryParams();
-    let table = urlParams["tableid"];
-    let type = urlParams["gameCollection"] || urlParams["gamecollection"];
+    let table = urlParams['tableid'];
+    let type = urlParams['gameCollection'] || urlParams['gamecollection'];
 
     if (!tableId) {
       setTableId(table);
@@ -1611,22 +1609,22 @@ const PokerTable = (props) => {
 
     if (parseFloat(sitInAmount) > userData.wallet) {
       toast.error("You don't have enough balance.", {
-        id: "notEnoughSitIn",
+        id: 'notEnoughSitIn',
       });
       // setTimeout(() => {
       //   window.location.href = window.location.origin;
       // }, 1000);
       return;
     } else if (parseFloat(sitInAmount) < 0) {
-      toast.error("Amount is not valid.", {
-        id: "notEnoughSitIn",
+      toast.error('Amount is not valid.', {
+        id: 'notEnoughSitIn',
       });
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
       return;
     } else if (/\d/.test(sitInAmount)) {
-      socket.emit("checkTable", {
+      socket.emit('checkTable', {
         gameId: table,
         userId: userId,
         gameType: type,
@@ -1637,8 +1635,8 @@ const PokerTable = (props) => {
 
       setLoader(true);
     } else {
-      toast.error("Not valid amount.", {
-        id: "notEnoughSitIn",
+      toast.error('Not valid amount.', {
+        id: 'notEnoughSitIn',
       });
       setTimeout(() => {
         window.location.href = window.location.origin;
@@ -1652,28 +1650,28 @@ const PokerTable = (props) => {
     try {
       if (parseFloat(amount) > userData.wallet) {
         toast.error("You don't have enough balance.", {
-          id: "notEnoughSitIn",
+          id: 'notEnoughSitIn',
         });
         return;
       } else {
-        const data = await pokerInstance().post("/refillWallet", {
+        const data = await pokerInstance().post('/refillWallet', {
           tableId,
           amount,
         });
         setRefillSitInAmount(false);
         updatePlayer(data?.data?.roomData.players);
-        return "success";
+        return 'success';
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return error.response.data.msg || "Some error occured";
+        return error.response.data.msg || 'Some error occured';
       }
-      return "Failed to refill";
+      return 'Failed to refill';
     }
   };
 
   const raiseInSliderAction = (x) => {
-    console.log("BetAmount", x);
+    console.log('BetAmount', x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1683,7 +1681,7 @@ const PokerTable = (props) => {
       fold: false,
     });
 
-    socket.emit("doraise", {
+    socket.emit('doraise', {
       userid: userId,
       roomid: tableId,
       amount: x,
@@ -1700,24 +1698,24 @@ const PokerTable = (props) => {
       fold: false,
     });
 
-    socket.emit("dobet", {
+    socket.emit('dobet', {
       userid: userId,
       roomid: tableId,
       amount: x,
     });
   };
 
-  console.log("communityCards====", roomData?.communityCard);
+  console.log('communityCards====', roomData?.communityCard);
   return (
-    <div className="poker" id={players.length}>
+    <div className='poker' id={players.length}>
       <Helmet>
         <html
           className={`game-page ${
             !(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-              ? "game-started-join"
-              : ""
+              ? 'game-started-join'
+              : ''
           }`}
         />
       </Helmet>
@@ -1726,18 +1724,17 @@ const PokerTable = (props) => {
           !(players && players.find((ele) => ele.id === userId)) &&
           roomData &&
           roomData.players.find((ele) => ele.userid === userId)
-            ? "backToHome"
-            : "notShow"
-        }
-      >
+            ? 'backToHome'
+            : 'notShow'
+        }>
         <button onClick={() => setLeaveConfirm(true)}>
-          <i class="fa fa-sign-out" aria-hidden="true" />
+          <i class='fa fa-sign-out' aria-hidden='true' />
         </button>
       </div>
-      <div className={`poker-bg ${loader ? "loaderactive" : ""} `}>
+      <div className={`poker-bg ${loader ? 'loaderactive' : ''} `}>
         {loader && (
-          <div className="poker-loader">
-            <img src={loaderImg} alt="loader-Las vegas" />{" "}
+          <div className='poker-loader'>
+            <img src={loaderImg} alt='loader-Las vegas' />{' '}
           </div>
         )}
         {roomData && roomData.watchers && roomData.watchers.length ? (
@@ -1745,10 +1742,10 @@ const PokerTable = (props) => {
             count={roomData && roomData.watchers && roomData.watchers.length}
           />
         ) : (
-          ""
+          ''
         )}
 
-        <div className="container">
+        <div className='container'>
           {isAdmin && !roomData?.public ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
@@ -1756,16 +1753,16 @@ const PokerTable = (props) => {
               resumeGame={resumeGame}
             />
           ) : (
-            ""
+            ''
           )}
 
-          <div className={`poker-table ${winner ? "winner-show" : ""}`}>
-            <div className="containerFor-chatHistory">
-              <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
+          <div className={`poker-table ${winner ? 'winner-show' : ''}`}>
+            <div className='containerFor-chatHistory'>
+              <div className='chatHistory-icon' onClick={handleOpenChatHistory}>
                 {unReadMessages > 0 && (
-                  <p className="ChatHistory-count">{unReadMessages}</p>
+                  <p className='ChatHistory-count'>{unReadMessages}</p>
                 )}
-                <img src={UsersComments} alt="" />
+                <img src={UsersComments} alt='' />
               </div>
               <ChatHistory
                 setOpenChatHistory={setOpenChatHistory}
@@ -1784,37 +1781,34 @@ const PokerTable = (props) => {
               roomData.players.find((ele) => ele.userid === userId)) ||
             isWatcher ? (
               <div
-                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
-              >
+                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
                 {!roomData?.gamestart && !newUser && (
-                  <div className="start-game">
-                    <div className="start-game-btn">
+                  <div className='start-game'>
+                    <div className='start-game-btn'>
                       {isAdmin && roomData && !roomData?.gamestart ? (
                         <>
                           <p>Click to start game</p>
                           {/* disabled={players && players.length <2} */}
-                          <div className="footer-btn ">
+                          <div className='footer-btn '>
                             {players && players.length >= 2 && (
                               <Button
                                 onClick={() => {
                                   setStart(true);
                                   startGame();
                                 }}
-                                disabled={start}
-                              >
+                                disabled={start}>
                                 Start Game
                               </Button>
                             )}
                             {players && players.length < 2 && (
                               <OverlayTrigger
-                                placement="bottom"
+                                placement='bottom'
                                 overlay={
-                                  <Tooltip id="tooltip-disabled">
+                                  <Tooltip id='tooltip-disabled'>
                                     Please wait for the other friends to join
                                   </Tooltip>
-                                }
-                              >
-                                <Button className="not-allowed">
+                                }>
+                                <Button className='not-allowed'>
                                   Start Game
                                 </Button>
                               </OverlayTrigger>
@@ -1824,7 +1818,7 @@ const PokerTable = (props) => {
                       ) : newUser ? (
                         <>
                           <p>Join table</p>
-                          <div className="footer-btn ">
+                          <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
@@ -1833,11 +1827,11 @@ const PokerTable = (props) => {
                       ) : allowWatcher ? (
                         <>
                           <p>Join as</p>
-                          <div className="d-flex">
-                            <div className="footer-btn ">
+                          <div className='d-flex'>
+                            <div className='footer-btn '>
                               <Button onClick={() => joinGame()}>Player</Button>
                             </div>
-                            <div className="footer-btn ">
+                            <div className='footer-btn '>
                               <Button onClick={() => joinWatcher()}>
                                 Watcher
                               </Button>
@@ -1847,14 +1841,14 @@ const PokerTable = (props) => {
                       ) : onlywatcher ? (
                         <>
                           <p>Game started, Join as -</p>
-                          <div className="footer-btn ">
+                          <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
                         </>
                       ) : (
-                        ""
+                        ''
                       )}
                       {roomData &&
                         roomData?.runninground === 0 &&
@@ -1869,8 +1863,8 @@ const PokerTable = (props) => {
                       roomData.handWinner.length === 0 &&
                       !roomData?.gamestart ? (
                         <>
-                          <p className="joined-player">
-                            Invited Players joined -{" "}
+                          <p className='joined-player'>
+                            Invited Players joined -{' '}
                             {roomData.players.filter((ele) =>
                               roomData.invPlayers.includes(ele.userid)
                             ).length + 1}
@@ -1878,12 +1872,12 @@ const PokerTable = (props) => {
                           </p>
                         </>
                       ) : (
-                        ""
+                        ''
                       )}
                     </div>
                   </div>
                 )}
-                {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
+                {tablePot ? <TablePotMoney tablePot={tablePot} /> : ''}
                 <GameMessage winnerText={winnerText} />
 
                 <TableCard
@@ -1932,14 +1926,14 @@ const PokerTable = (props) => {
                   ))}
               </div>
             ) : (
-              <div className="poker-table-bg wow animate__animated animate__fadeIn">
-                <div className="start-game-btn">
+              <div className='poker-table-bg wow animate__animated animate__fadeIn'>
+                <div className='start-game-btn'>
                   {roomData ? (
                     !roomData?.gamestart ? (
                       newUser ? (
                         <>
                           <p>Join table</p>
-                          <div className="footer-btn">
+                          <div className='footer-btn'>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
@@ -1948,11 +1942,11 @@ const PokerTable = (props) => {
                       ) : allowWatcher ? (
                         <>
                           <p>Join as</p>
-                          <div className="d-flex">
-                            <div className="footer-btn ">
+                          <div className='d-flex'>
+                            <div className='footer-btn '>
                               <Button onClick={() => joinGame()}>Player</Button>
                             </div>
-                            <div className="footer-btn ">
+                            <div className='footer-btn '>
                               <Button onClick={() => joinWatcher()}>
                                 Watcher
                               </Button>
@@ -1962,27 +1956,27 @@ const PokerTable = (props) => {
                       ) : onlywatcher ? (
                         <>
                           <p>Game started, Join as -</p>
-                          <div className="footer-btn ">
+                          <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
                         </>
                       ) : (
-                        ""
+                        ''
                       )
-                    ) : gameCollection !== "" &&
-                      gameCollection !== "poker1vs1_Tables" &&
+                    ) : gameCollection !== '' &&
+                      gameCollection !== 'poker1vs1_Tables' &&
                       players.length < 10 &&
                       roomData &&
                       roomData.public ? (
                       <>
                         <p>Join as</p>
-                        <div className="d-flex">
-                          <div className="footer-btn ">
+                        <div className='d-flex'>
+                          <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>Player</Button>
                           </div>
-                          <div className="footer-btn ">
+                          <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
@@ -1994,28 +1988,26 @@ const PokerTable = (props) => {
                       roomData?.gamestart ? (
                       <>
                         <p>Game started, Join as -</p>
-                        <div className="footer-btn ">
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinWatcher();
-                            }}
-                          >
+                            }}>
                             Watcher
                           </Button>
                         </div>
                       </>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : newUser ? (
                     <>
                       <p>Join table</p>
-                      <div className="footer-btn ">
+                      <div className='footer-btn '>
                         <Button
                           onClick={() => {
                             joinGame();
-                          }}
-                        >
+                          }}>
                           Join Game
                         </Button>
                       </div>
@@ -2023,22 +2015,20 @@ const PokerTable = (props) => {
                   ) : allowWatcher ? (
                     <>
                       <p>Join as</p>
-                      <div className="d-flex">
-                        <div className="footer-btn ">
+                      <div className='d-flex'>
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinGame();
-                            }}
-                          >
+                            }}>
                             Player
                           </Button>
                         </div>
-                        <div className="footer-btn ">
+                        <div className='footer-btn '>
                           <Button
                             onClick={() => {
                               joinWatcher();
-                            }}
-                          >
+                            }}>
                             Watcher
                           </Button>
                         </div>
@@ -2047,12 +2037,12 @@ const PokerTable = (props) => {
                   ) : onlywatcher ? (
                     <>
                       <p>Game started, Join as -</p>
-                      <div className="footer-btn ">
+                      <div className='footer-btn '>
                         <Button onClick={() => joinWatcher()}>Watcher</Button>
                       </div>
                     </>
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               </div>
@@ -2090,8 +2080,8 @@ const PokerTable = (props) => {
         </div>
       </div>
 
-      <div className="btn-toggler" onClick={handleBtnClick} role="presentation">
-        <img src={btntoggle} alt="" />
+      <div className='btn-toggler' onClick={handleBtnClick} role='presentation'>
+        <img src={btntoggle} alt='' />
       </div>
 
       {((players &&
@@ -2099,96 +2089,88 @@ const PokerTable = (props) => {
         players.find((ele) => ele.id === userId)) ||
         isWatcher) &&
         btnToggle && (
-          <ul className="btn-list" ref={wrapperRef}>
+          <ul className='btn-list' ref={wrapperRef}>
             <li>
               <span
-                className="close-icon"
+                className='close-icon'
                 onClick={() => handleBtnClick()}
-                role="presentation"
-              >
-                <i className="fa fa-close" />
+                role='presentation'>
+                <i className='fa fa-close' />
               </span>
             </li>
             <li>
               <OverlayTrigger
-                placement="left"
-                overlay={<Tooltip id="tooltip-disabled">Leave</Tooltip>}
-              >
+                placement='left'
+                overlay={<Tooltip id='tooltip-disabled'>Leave</Tooltip>}>
                 <button onClick={() => setLeaveConfirm(true)}>
-                  <i class="fa fa-sign-out" aria-hidden="true" />
+                  <i class='fa fa-sign-out' aria-hidden='true' />
                 </button>
               </OverlayTrigger>
             </li>
             {players &&
               players.length > 0 &&
               players.find((ele) => ele.id === userId) && (
-                <li className="">
+                <li className=''>
                   <OverlayTrigger
-                    placement="left"
+                    placement='left'
                     overlay={
-                      <Tooltip id="tooltip-disabled">Chat History</Tooltip>
-                    }
-                  >
+                      <Tooltip id='tooltip-disabled'>Chat History</Tooltip>
+                    }>
                     <button
                       onClick={() => {
                         handleClick(!open);
                         setBtnToggle(!btnToggle);
-                      }}
-                    >
-                      <i className="fa fa-comment" aria-hidden="true" />
+                      }}>
+                      <i className='fa fa-comment' aria-hidden='true' />
                     </button>
                   </OverlayTrigger>
                 </li>
               )}
             {isWatcher ? (
-              ""
+              ''
             ) : players &&
               players.length &&
               players.find((ele) => (ele.id ? ele.id : ele.userid) === userId)
                 .playing ? (
               <li>
                 <OverlayTrigger
-                  placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Stood up</Tooltip>}
-                >
+                  placement='left'
+                  overlay={<Tooltip id='tooltip-disabled'>Stood up</Tooltip>}>
                   <button onClick={() => sitout()}>
-                    <img src={situp} alt="sit-in" />
+                    <img src={situp} alt='sit-in' />
                   </button>
                 </OverlayTrigger>
               </li>
             ) : (
               <li>
                 <OverlayTrigger
-                  placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sat down</Tooltip>}
-                >
+                  placement='left'
+                  overlay={<Tooltip id='tooltip-disabled'>Sat down</Tooltip>}>
                   <button onClick={() => sitin()}>
-                    <img src={sitdown} alt="sit-out" />
+                    <img src={sitdown} alt='sit-out' />
                   </button>
                 </OverlayTrigger>
               </li>
             )}
             {((roomData && roomData.public) ||
-              (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
+              (isAdmin && roomData.gameType !== 'poker1vs1_Tables')) && (
               <li>
                 <OverlayTrigger
-                  placement="left"
+                  placement='left'
                   overlay={
-                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                  }
-                >
+                    <Tooltip id='tooltip-disabled'>Invite Friends</Tooltip>
+                  }>
                   <button onClick={() => setShowInvite(true)}>
                     {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className="fa fa-envelope"></i>
+                    <i className='fa fa-envelope'></i>
                   </button>
                 </OverlayTrigger>
               </li>
             )}
             <li>
               <OverlayTrigger
-                placement="left"
-                overlay={<Tooltip id="tooltip-disabled">Fill Tokens</Tooltip>}
-              >
+                placement='left'
+                overlay={<Tooltip id='tooltip-disabled'>Fill Tokens</Tooltip>}>
                 <button onClick={() => setRefillSitInAmount(true)}>
                   <AddCoinIcon />
                 </button>
@@ -2196,13 +2178,12 @@ const PokerTable = (props) => {
             </li>
             <li>
               <OverlayTrigger
-                placement="left"
+                placement='left'
                 overlay={
-                  <Tooltip id="tooltip-disabled">
-                    {volume ? "Speaker" : "Mute"}
+                  <Tooltip id='tooltip-disabled'>
+                    {volume ? 'Speaker' : 'Mute'}
                   </Tooltip>
-                }
-              >
+                }>
                 <button onClick={() => setVolume(!volume)}>
                   {volume ? <VolumeIcon /> : <MuteIcon />}
                 </button>
@@ -2218,16 +2199,16 @@ const PokerTable = (props) => {
       />
       {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
       {isWatcher && (
-        <div className="bet-button">
-          <span onClick={() => handleBetClick(!view)} role="presentation">
-            Place Bet <img src={arrow} alt="arrow" />
+        <div className='bet-button'>
+          <span onClick={() => handleBetClick(!view)} role='presentation'>
+            Place Bet <img src={arrow} alt='arrow' />
           </span>
         </div>
       )}
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
-        submitButtonText={refillSitInAmount ? "Refill Tokens" : "Join"}
+        submitButtonText={refillSitInAmount ? 'Refill Tokens' : 'Join'}
         setShow={
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
@@ -2243,25 +2224,25 @@ const PokerTable = (props) => {
       />
 
       <LogoImage />
-      <audio className="audio-winner" muted={!volume}>
+      <audio className='audio-winner' muted={!volume}>
         <source src={winnerSound}></source>
       </audio>
-      <audio className="audio-bet" muted={!volume}>
+      <audio className='audio-bet' muted={!volume}>
         <source src={call}></source>
       </audio>
-      <audio className="audio-turn" muted={!volume}>
+      <audio className='audio-turn' muted={!volume}>
         <source src={myTurn}></source>
       </audio>
-      <audio className="audio-bet" muted={!volume}>
+      <audio className='audio-bet' muted={!volume}>
         <source src={fold}></source>
       </audio>
-      <audio className="audio-collect" muted={!volume}>
+      <audio className='audio-collect' muted={!volume}>
         <source src={collect}></source>
       </audio>
-      <audio className="audio-check" muted={!volume}>
+      <audio className='audio-check' muted={!volume}>
         <source src={check}></source>
       </audio>
-      <audio className="audio-chat" muted={!volume}>
+      <audio className='audio-chat' muted={!volume}>
         <source src={chatBubble}></source>
       </audio>
       <StatsPopup
@@ -2340,11 +2321,11 @@ const Players = ({
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
-  const [followClick, setFollowClick] = useState("");
+  const [followClick, setFollowClick] = useState('');
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const target = useRef(null);
-  console.log("playerdata===>" + playerData.fold);
+  console.log('playerdata===>' + playerData.fold);
   useEffect(() => {
     const showBuyIn = () => {
       if (
@@ -2356,7 +2337,7 @@ const Players = ({
         !roomData.buyin.find(
           (ele) => ele.userid === userId && ele.redeem === 0
         ) &&
-        roomData.gameType !== "pokerTournament_Tables"
+        roomData.gameType !== 'pokerTournament_Tables'
       ) {
         setBuyinPopup(true);
       } else {
@@ -2369,7 +2350,7 @@ const Players = ({
         roomData.buyin.find(
           (ele) => ele.userid === userId && ele.redeem === 0
         ) &&
-        roomData.gameType !== "pokerTournament_Tables"
+        roomData.gameType !== 'pokerTournament_Tables'
       ) {
         setBuyinPopup(false);
         setNewPurchase(true);
@@ -2384,9 +2365,14 @@ const Players = ({
   }, [playerData, setBuyinPopup]);
 
   useEffect(() => {
-    socket.on("showCard", (data) => {
+    socket.on('showCard', (data) => {
       if (playerData.id === data.userId) {
         setShowCard(true);
+      }
+    });
+    socket.on('hideCard', (data) => {
+      if (playerData.id === data.userId) {
+        setShowCard(false);
       }
     });
   }, []);
@@ -2394,136 +2380,136 @@ const Players = ({
 
   const handleFollow = async (followerId, nickname) => {
     const Uid = followerId;
-    toast.success("Following..", {
-      id: "please-wait",
-      icon: "♠️",
+    toast.success('Following..', {
+      id: 'please-wait',
+      icon: '♠️',
       style: {
-        borderRadius: "5px",
-        background: "#333",
-        color: "#fff",
+        borderRadius: '5px',
+        background: '#333',
+        color: '#fff',
       },
     });
 
     axios
-      .get("https://follow-t3e66zpola-lz.a.run.app", {
+      .get('https://follow-t3e66zpola-lz.a.run.app', {
         params: { frId: Uid },
         headers: { idtoken: idToken },
       })
       .then((response) => {
-        setFollowClick("");
+        setFollowClick('');
         if (response.data) {
           if (
-            response.data.error === "no error" &&
+            response.data.error === 'no error' &&
             response.data.success === true
           ) {
             setFollowingList((old) => [...old, followerId]);
-            toast.success("You are now following @" + nickname, {
-              id: "follow-request",
-              icon: "✔️",
+            toast.success('You are now following @' + nickname, {
+              id: 'follow-request',
+              icon: '✔️',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
 
           if (
-            response.data.error === "no error" &&
+            response.data.error === 'no error' &&
             response.data.success === true &&
             response.data.special ===
-              "You have removed this follower in the past"
+              'You have removed this follower in the past'
           ) {
             toast.success(
-              "You are now following @" +
+              'You are now following @' +
                 nickname +
-                ", notice that you removed him from following you",
+                ', notice that you removed him from following you',
               {
-                id: "follow-request",
-                icon: "✔️",
+                id: 'follow-request',
+                icon: '✔️',
                 style: {
-                  borderRadius: "5px",
-                  background: "#333",
-                  color: "#fff",
+                  borderRadius: '5px',
+                  background: '#333',
+                  color: '#fff',
                 },
               }
             );
           }
 
-          if (response.data.error === "already following him") {
-            toast.success("You are aleady following @" + nickname, {
-              id: "follow-aleady",
-              icon: "❌",
+          if (response.data.error === 'already following him') {
+            toast.success('You are aleady following @' + nickname, {
+              id: 'follow-aleady',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
 
-          if (response.data.error === "You are rejected follower") {
-            toast.success("Request rejected by @" + nickname, {
-              id: "follow-rejected",
-              icon: "❌",
+          if (response.data.error === 'You are rejected follower') {
+            toast.success('Request rejected by @' + nickname, {
+              id: 'follow-rejected',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
 
-          if (response.data.error === "You are rejected follower") {
-            toast.success("You rejected @" + nickname + "from following", {
-              id: "follow-aleady",
-              icon: "❌",
+          if (response.data.error === 'You are rejected follower') {
+            toast.success('You rejected @' + nickname + 'from following', {
+              id: 'follow-aleady',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
 
-          if (response.data.error === "you can not follow yourself") {
-            toast.success("You can not follow yourself", {
-              id: "follow-yourself",
-              icon: "❌",
+          if (response.data.error === 'you can not follow yourself') {
+            toast.success('You can not follow yourself', {
+              id: 'follow-yourself',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
-          } else if (response.data.error !== "no error") {
+          } else if (response.data.error !== 'no error') {
             toast.success(response.data.eror, {
               duration: 6000,
-              id: "frined-already-sent",
-              icon: "❌",
+              id: 'frined-already-sent',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
         } else {
-          console.log("backend response failed: ", response.statusText);
+          console.log('backend response failed: ', response.statusText);
         }
       })
       .catch((error) => {
-        console.log("Error req", error);
+        console.log('Error req', error);
       });
   };
   const handleConnect = async (friendId, nickname) => {
-    toast.success("Send friend request..", {
-      id: "please-wait",
-      icon: "♠️",
+    toast.success('Send friend request..', {
+      id: 'please-wait',
+      icon: '♠️',
       style: {
-        borderRadius: "5px",
-        background: "#333",
-        color: "#fff",
+        borderRadius: '5px',
+        background: '#333',
+        color: '#fff',
       },
     });
     const FUid = friendId;
@@ -2532,88 +2518,95 @@ const Players = ({
     const IdTokenConst = idToken;
     const Uid = userId;
     axios
-      .get("https://friend-reqest-t3e66zpola-uc.a.run.app", {
+      .get('https://friend-reqest-t3e66zpola-uc.a.run.app', {
         params: { usid: Uid, frId: FUid },
         headers: { idtoken: IdTokenConst },
       })
       .then((response) => {
         // console.log("Executing friend-request:");
         if (response.data) {
-          if (response.data.error === "already sent friend request") {
+          if (response.data.error === 'already sent friend request') {
             toast.success(
-              "Friend request already sent to @" +
+              'Friend request already sent to @' +
                 Fname +
-                " please wait " +
+                ' please wait ' +
                 response.data.hours +
-                " hours before you can try again.",
+                ' hours before you can try again.',
               {
                 duration: 6000,
-                id: "frined-already-sent",
-                icon: "❌",
+                id: 'frined-already-sent',
+                icon: '❌',
                 style: {
-                  borderRadius: "5px",
-                  background: "#333",
-                  color: "#fff",
+                  borderRadius: '5px',
+                  background: '#333',
+                  color: '#fff',
                 },
               }
             );
           }
-          if (response.data.error === "already friends") {
-            toast.success("You and @" + Fname + " already friends", {
+          if (response.data.error === 'already friends') {
+            toast.success('You and @' + Fname + ' already friends', {
               duration: 4000,
-              id: "frined-already-sent",
-              icon: "❌",
+              id: 'frined-already-sent',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
           if (
-            response.data.error === "no error" &&
+            response.data.error === 'no error' &&
             response.data.success === true
           ) {
             setFriendList((old) => [...old, friendId]);
-            toast.success("Friend request successfully sent to @" + Fname, {
+            toast.success('Friend request successfully sent to @' + Fname, {
               duration: 4000,
-              id: "frined-request",
-              icon: "✔️",
+              id: 'frined-request',
+              icon: '✔️',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
-          } else if (response.data.error !== "no error") {
+          } else if (response.data.error !== 'no error') {
             toast.success(response.data.eror, {
               duration: 6000,
-              id: "frined-already-sent",
-              icon: "❌",
+              id: 'frined-already-sent',
+              icon: '❌',
               style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
+                borderRadius: '5px',
+                background: '#333',
+                color: '#fff',
               },
             });
           }
-          setFollowClick("");
+          setFollowClick('');
         } else {
-          console.log("Backend response failed: ", response.statusText);
+          console.log('Backend response failed: ', response.statusText);
         }
       })
       .catch((error) => {
-        console.log("Error req", error);
+        console.log('Error req', error);
       });
     // console.log("It works my friend-request!!!");
   };
 
   const handleChangeFold = (e) => {
     setFoldShowCard(!foldShowCard);
-    socket.emit("showCard", {
-      userId,
-      gameId: roomData?._id,
-    });
+    if (foldShowCard) {
+      socket.emit('hideCard', {
+        userId,
+        gameId: roomData?._id,
+      });
+    } else {
+      socket.emit('showCard', {
+        userId,
+        gameId: roomData?._id,
+      });
+    }
   };
 
   return (
@@ -2630,10 +2623,9 @@ const Players = ({
           winner && playerData && winner.id === playerData.id
             ? `winner-player`
             : ``
-        } ${playerData && playerData.playing ? "" : "not-playing"} ${
-          mergeAnimationState ? "animateMerge-chips" : ""
-        }`}
-      >
+        } ${playerData && playerData.playing ? '' : 'not-playing'} ${
+          mergeAnimationState ? 'animateMerge-chips' : ''
+        }`}>
         {/* start win or lose animation */}
         {/* {winner &&
       playerData &&
@@ -2685,7 +2677,7 @@ const Players = ({
         {currentPlayer &&
           playerData &&
           currentPlayer.id === playerData.id &&
-          action && <span className="player-action">{actionText}</span>}
+          action && <span className='player-action'>{actionText}</span>}
         {/* {playerData.id !== userId && (
         <>
           <div className="store-btn">
@@ -2696,9 +2688,9 @@ const Players = ({
         </>
       )} */}
         <div id={`store-item-${playerData.id}`}></div>
-        <div className="player-box">
+        <div className='player-box'>
           {winner && playerData && winner.id === playerData.id && (
-            <img className="coinWinning-animation" src={coinWinning} alt="" />
+            <img className='coinWinning-animation' src={coinWinning} alt='' />
             // <div className="pyro">
             //   <div className="before"></div>
             //   <div className="after"></div> */}
@@ -2706,13 +2698,13 @@ const Players = ({
             // </div>
           )}
           {playerData?.availablePosition === 0 && playerData?.fold && (
-            <div className="showCardIn-fold">
+            <div className='showCardIn-fold'>
               <Form.Check
                 inline
-                label="Show your cards to opponents !"
-                name="group1"
-                type="checkbox"
-                id="inlinecheckbox"
+                label='Show your cards to opponents !'
+                name='group1'
+                type='checkbox'
+                id='inlinecheckbox'
                 onChange={handleChangeFold}
               />
             </div>
@@ -2724,7 +2716,7 @@ const Players = ({
               handMatch={handMatch}
             />
           ) : playerData && (playerData.fold || !playerData.playing) ? (
-            ""
+            ''
           ) : roomData && roomData.runninground === 5 ? (
             <ShowCard
               cards={playerData.cards ? playerData.cards : []}
@@ -2738,20 +2730,19 @@ const Players = ({
               handMatch={handMatch}
             />
           ) : roomData && roomData.runninground === 0 ? (
-            ""
+            ''
           ) : (
             <HideCard />
           )}
           {/************ player PIC avtaar  **********/}
 
           <div
-            className="player-pic"
+            className='player-pic'
             style={{
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          >
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+            }}>
             {currentPlayer &&
               playerData &&
               currentPlayer.id === playerData.id && (
@@ -2760,9 +2751,9 @@ const Players = ({
             <img
               src={
                 playerData?.photoURI ||
-                "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
+                'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
               }
-              alt=""
+              alt=''
             />
             {/* <div
               className="comment-btn" 
@@ -2774,15 +2765,15 @@ const Players = ({
            <i className="fa fa-commenting" aria-hidden="true" /> 
             </div> */}
           </div>
-          <div className="player-info">
+          <div className='player-info'>
             <h4>
               {playerData && playerData?.name?.length > 8
-                ? playerData?.name?.substring(0, 8) + ".."
+                ? playerData?.name?.substring(0, 8) + '..'
                 : playerData?.name}
             </h4>
             <p>
               {newPurchase
-                ? "Purchase"
+                ? 'Purchase'
                 : numFormatter(playerData && playerData.wallet)}
             </p>
             {/* {userId === playerData.id && gameCollection !== 'pokerTournament_Tables' && } */}
@@ -2799,21 +2790,21 @@ const Players = ({
             (playerData.isBigBlind ||
               playerData.isSmallBlind ||
               playerData.isDealer) && (
-              <div className="player-badge">
+              <div className='player-badge'>
                 {playerData.isSmallBlind
-                  ? "S"
+                  ? 'S'
                   : playerData.isBigBlind
-                  ? "B"
+                  ? 'B'
                   : playerData.isDealer
-                  ? "D"
-                  : ""}
+                  ? 'D'
+                  : ''}
               </div>
             )}
 
           {/*  {console.log("sgsdg", playerData)} */}
 
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
-            <div className="player-chip">
+            <div className='player-chip'>
               <span>
                 {numFormatter(playerData && playerData?.pot)}
                 {/* <div className="chipNumber-img">
@@ -2840,19 +2831,19 @@ const Players = ({
               </span>
             </div>
           ) : (
-            ""
+            ''
           )}
 
           {betOn && playerData && betOn === playerData.id ? (
             <WatcherResult betWin={betWin} />
           ) : (
-            ""
+            ''
           )}
 
           {betOn && playerData && betOn === playerData.id ? (
             <WatcherResult betWin={betWin} />
           ) : (
-            ""
+            ''
           )}
         </div>
         {playerData && playerData.id === messageBy && (
@@ -2952,7 +2943,7 @@ const Players = ({
 
 const TableCard = ({ winner, communityCards, matchCards }) => {
   return (
-    <div className={`table-card ${winner ? "winner-show" : ""}`}>
+    <div className={`table-card ${winner ? 'winner-show' : ''}`}>
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
@@ -2962,7 +2953,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                 key={`item-${i}`}
                 // src={cards ? cards : back }
                 src={`/cards/${card.toUpperCase()}.svg`}
-                alt="card"
+                alt='card'
                 className={`${
                   winner && matchCards.findIndex((ele) => ele === i) !== -1
                     ? `winner-card`
@@ -2972,7 +2963,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
               <img
                 key={`item1-${i}`}
                 src={back2}
-                alt="back"
+                alt='back'
                 className={`back-card duration-${i}`}
               />
             </div>
@@ -2984,7 +2975,7 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
 
 const TablePotMoney = ({ tablePot }) => {
   return (
-    <div className="total-pot-money animate__animated animate__fadeIn">
+    <div className='total-pot-money animate__animated animate__fadeIn'>
       <span>{numFormatter(tablePot && tablePot)}</span>
     </div>
   );
@@ -3026,13 +3017,13 @@ const FooterButton = ({
   players,
 }) => {
   return (
-    <div className="footer-button">
-      <div className="container">
-        <div className="footer-container">
+    <div className='footer-button'>
+      <div className='container'>
+        <div className='footer-container'>
           {currentPlayer && currentPlayer?.id === userId ? (
             <>
               {openAction.fold && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   <Button onClick={() => foldAction()}> Fold</Button>
                   {/* <Form.Check
                     inline
@@ -3046,7 +3037,7 @@ const FooterButton = ({
                 </div>
               )}
               {openAction.check && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   <Button onClick={() => checkAction()}>Check</Button>
                   {/* <Form.Check
                     inline
@@ -3059,16 +3050,15 @@ const FooterButton = ({
                 </div>
               )}
               {openAction.call && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   <Button onClick={() => callAction()}>
-                    Call{" "}
+                    Call{' '}
                     <span
                       className={
                         roomData.raiseAmount - currentPlayer?.pot > 0
-                          ? "callBtn-amount"
-                          : "callBtn-amount-none"
-                      }
-                    >
+                          ? 'callBtn-amount'
+                          : 'callBtn-amount-none'
+                      }>
                       ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
                       )
                     </span>
@@ -3085,9 +3075,9 @@ const FooterButton = ({
               )}
 
               {openAction.raise && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   {raise && (
-                    <div className="raiseBet-container">
+                    <div className='raiseBet-container'>
                       <RaiseSlider
                         currentPlayer={currentPlayer}
                         SliderAction={raiseInSliderAction}
@@ -3107,8 +3097,7 @@ const FooterButton = ({
                     onClick={() => {
                       setBet(false);
                       setRaise(true);
-                    }}
-                  >
+                    }}>
                     {/* <Form.Check
                       inline
                       label="Raise"
@@ -3124,9 +3113,9 @@ const FooterButton = ({
               )}
 
               {openAction.bet && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   {bet && (
-                    <div className="raiseBet-container">
+                    <div className='raiseBet-container'>
                       <RaiseSlider
                         currentPlayer={currentPlayer}
                         SliderAction={betInSliderAction}
@@ -3146,8 +3135,7 @@ const FooterButton = ({
                     onClick={() => {
                       setBet(true);
                       setRaise(false);
-                    }}
-                  >
+                    }}>
                     {/* <Form.Check
                       inline
                       label="Bet"
@@ -3162,7 +3150,7 @@ const FooterButton = ({
                 </div>
               )}
               {!openAction.raise && !openAction.bet && openAction.allin && (
-                <div className="footer-btn ">
+                <div className='footer-btn '>
                   <Button onClick={() => allinAction()}>
                     {/* <Form.Check
                       inline
@@ -3190,13 +3178,13 @@ const FooterButton = ({
                 !playersLeft.concat(playersRight).find((el) => el.id === userId)
                   ?.fold &&
                 !(
-                  roomData.lastAction === "check" &&
+                  roomData.lastAction === 'check' &&
                   playersLeft
                     .concat(playersRight)
                     .find((el) => el.id === userId)?.action === true
                 ) &&
                 playersLeft.concat(playersRight).find((el) => el.id === userId)
-                  .actionType !== "all-in" && (
+                  .actionType !== 'all-in' && (
                   <AdvanceActionBtn
                     setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
@@ -3347,30 +3335,29 @@ const FooterButton = ({
 const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
   const [isFinishClick, setisFinishClick] = useState(false);
   return (
-    <div className="play-pause-button">
+    <div className='play-pause-button'>
       {roomData && roomData.autoNextHand ? (
         roomData.pause ? (
-          <div className="play-btn">
+          <div className='play-btn'>
             <Button onClick={() => resumeGame()}>Resume</Button>
           </div>
         ) : (
-          <div className="play-btn">
+          <div className='play-btn'>
             <Button onClick={() => pauseGame()}>Pause</Button>
           </div>
         )
       ) : (
-        ""
+        ''
       )}
 
       {!showFinish && (
-        <div className="pause-btn">
+        <div className='pause-btn'>
           <Button
             onClick={() => {
               finishGame();
               setisFinishClick(true);
             }}
-            disabled={isFinishClick}
-          >
+            disabled={isFinishClick}>
             Finish
           </Button>
         </div>
@@ -3381,16 +3368,16 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
 
 const HideCard = () => {
   return (
-    <div className="player-card">
+    <div className='player-card'>
       <img
         src={front}
-        alt="card"
-        className="animate__animated animate__rollIn duration-0"
+        alt='card'
+        className='animate__animated animate__rollIn duration-0'
       />
       <img
         src={back}
-        alt="card"
-        className="animate__animated animate__rollIn duration-1"
+        alt='card'
+        className='animate__animated animate__rollIn duration-1'
       />
     </div>
   );
@@ -3398,7 +3385,7 @@ const HideCard = () => {
 
 const ShowCard = ({ cards, handMatch }) => {
   return (
-    <div className="show-card">
+    <div className='show-card'>
       {cards &&
         cards.map((card, i) => (
           <img
@@ -3407,7 +3394,7 @@ const ShowCard = ({ cards, handMatch }) => {
             //   require(`../../assets/cards/${card.toUpperCase()}.svg`).default
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
-            alt="card"
+            alt='card'
             className={`animate__animated animate__rollIn duration-${i} ${
               handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
@@ -3421,8 +3408,8 @@ const ShowCard = ({ cards, handMatch }) => {
 
 const GameMessage = ({ winnerText }) => {
   return (
-    <div className="game-msg">
-      <p className={winnerText !== "" ? "winner-text" : ""}>{winnerText}</p>
+    <div className='game-msg'>
+      <p className={winnerText !== '' ? 'winner-text' : ''}>{winnerText}</p>
     </div>
   );
 };
@@ -3464,16 +3451,16 @@ const GameMessage = ({ winnerText }) => {
 
 const BubbleMessage = ({ message }) => {
   return (
-    <div className="bubble-msg">
-      <div className="triangle-isosceles left">{message}</div>
+    <div className='bubble-msg'>
+      <div className='triangle-isosceles left'>{message}</div>
     </div>
   );
 };
 
 const LogoImage = () => {
   return (
-    <div className="logo--bottom-image">
-      <img src={footerlogo} alt="footer-logo" />
+    <div className='logo--bottom-image'>
+      <img src={footerlogo} alt='footer-logo' />
     </div>
   );
 };
@@ -3486,12 +3473,12 @@ const RenderTooltip = ({ playerData }) => {
   } = playerData;
 
   return (
-    <div id="button-tooltip" className="tootltip player-tooltip">
-      <div className="tooltip-box">
+    <div id='button-tooltip' className='tootltip player-tooltip'>
+      <div className='tooltip-box'>
         <h5>{name}</h5>
-        <div className="tooltip-content">
-          <img src={playerImage} alt="las-vegas-player" />
-          <div className="player-details-content">
+        <div className='tooltip-content'>
+          <img src={playerImage} alt='las-vegas-player' />
+          <div className='player-details-content'>
             <p>
               Level - <span>{Level}</span>
             </p>
@@ -3518,31 +3505,28 @@ const RenderTooltip = ({ playerData }) => {
 const WatcherCount = ({ count }) => {
   return (
     <OverlayTrigger
-      placement="right"
+      placement='right'
       delay={{ show: 250, hide: 200 }}
       overlay={WatcherTooltip(
         roomData && roomData.watchers && roomData.watchers.length
-      )}
-    >
-      <div className="watcher-count">
-        <div className="watcher-icon">
-          <svg width="25" height="25" viewBox="0 0 30 30" version="1.1">
+      )}>
+      <div className='watcher-count'>
+        <div className='watcher-icon'>
+          <svg width='25' height='25' viewBox='0 0 30 30' version='1.1'>
             <defs>
               <path
-                d="M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679 C24.7325019,24.1788679 29.8697917,16.3335929 29.8697917,15.089434 C29.8697917,13.8456167 24.7325019,6 14.9348958,6 C5.13666091,6 0,13.8456167 0,15.089434 Z"
-                id="outline"
-              ></path>
-              <mask id="mask">
-                <rect width="100%" height="100%" fill="#000000"></rect>
-                <use id="lid" fill="black" />
+                d='M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679 C24.7325019,24.1788679 29.8697917,16.3335929 29.8697917,15.089434 C29.8697917,13.8456167 24.7325019,6 14.9348958,6 C5.13666091,6 0,13.8456167 0,15.089434 Z'
+                id='outline'></path>
+              <mask id='mask'>
+                <rect width='100%' height='100%' fill='#000000'></rect>
+                <use id='lid' fill='black' />
               </mask>
             </defs>
-            <g id="eye">
+            <g id='eye'>
               <path
-                d="M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679 C24.7325019,24.1788679 29.8697917,16.3335929 29.8697917,15.089434 C29.8697917,13.8456167 24.7325019,6 14.9348958,6 C5.13666091,6 0,13.8456167 0,15.089434 Z M14.9348958,22.081464 C11.2690863,22.081464 8.29688487,18.9510766 8.29688487,15.089434 C8.29688487,11.2277914 11.2690863,8.09740397 14.9348958,8.09740397 C18.6007053,8.09740397 21.5725924,11.2277914 21.5725924,15.089434 C21.5725924,18.9510766 18.6007053,22.081464 14.9348958,22.081464 L14.9348958,22.081464 Z M18.2535869,15.089434 C18.2535869,17.0200844 16.7673289,18.5857907 14.9348958,18.5857907 C13.1018339,18.5857907 11.6162048,17.0200844 11.6162048,15.089434 C11.6162048,13.1587835 13.1018339,11.593419 14.9348958,11.593419 C15.9253152,11.593419 14.3271242,14.3639878 14.9348958,15.089434 C15.451486,15.7055336 18.2535869,14.2027016 18.2535869,15.089434 L18.2535869,15.089434 Z"
-                fill="#000000"
-              ></path>
-              <use mask="url(#mask)" fill="#000000" />
+                d='M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679 C24.7325019,24.1788679 29.8697917,16.3335929 29.8697917,15.089434 C29.8697917,13.8456167 24.7325019,6 14.9348958,6 C5.13666091,6 0,13.8456167 0,15.089434 Z M14.9348958,22.081464 C11.2690863,22.081464 8.29688487,18.9510766 8.29688487,15.089434 C8.29688487,11.2277914 11.2690863,8.09740397 14.9348958,8.09740397 C18.6007053,8.09740397 21.5725924,11.2277914 21.5725924,15.089434 C21.5725924,18.9510766 18.6007053,22.081464 14.9348958,22.081464 L14.9348958,22.081464 Z M18.2535869,15.089434 C18.2535869,17.0200844 16.7673289,18.5857907 14.9348958,18.5857907 C13.1018339,18.5857907 11.6162048,17.0200844 11.6162048,15.089434 C11.6162048,13.1587835 13.1018339,11.593419 14.9348958,11.593419 C15.9253152,11.593419 14.3271242,14.3639878 14.9348958,15.089434 C15.451486,15.7055336 18.2535869,14.2027016 18.2535869,15.089434 L18.2535869,15.089434 Z'
+                fill='#000000'></path>
+              <use mask='url(#mask)' fill='#000000' />
             </g>
           </svg>
         </div>
@@ -3554,8 +3538,8 @@ const WatcherCount = ({ count }) => {
 
 const WatcherTooltip = (props) => {
   return (
-    <Tooltip id="button-tooltip" className="tootltip player-tooltip" {...props}>
-      <div className="tooltip-box">
+    <Tooltip id='button-tooltip' className='tootltip player-tooltip' {...props}>
+      <div className='tooltip-box'>
         <p>{props} watchers</p>
       </div>
     </Tooltip>
@@ -3564,14 +3548,14 @@ const WatcherTooltip = (props) => {
 
 const WatcherResult = ({ betWin }) => {
   return (
-    <div className="watcher-results">
+    <div className='watcher-results'>
       {betWin ? (
-        <div className="watcher-win showing">
-          <img src={winnericon} alt="" />
+        <div className='watcher-win showing'>
+          <img src={winnericon} alt='' />
         </div>
       ) : (
-        <div className="watcher-loss showing">
-          <img src={loseicon} alt="" />
+        <div className='watcher-loss showing'>
+          <img src={loseicon} alt='' />
         </div>
       )}
     </div>
@@ -3598,17 +3582,17 @@ const TimerSeparator = ({ time, remainingTime }) => {
     //   />
     // </div>
     <ProgressBar
-      width="100%"
-      height="100%"
+      width='100%'
+      height='100%'
       // height="80%"
       rect
-      fontColor="gray"
+      fontColor='gray'
       percentage={activeTime}
-      rectPadding="1px"
-      rectBorderRadius="20px"
-      trackPathColor="transparent"
-      bgColor="#333333"
-      trackBorderColor="grey"
+      rectPadding='1px'
+      rectBorderRadius='20px'
+      trackPathColor='transparent'
+      bgColor='#333333'
+      trackBorderColor='grey'
     />
   );
 };
