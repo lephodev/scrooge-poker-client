@@ -21,7 +21,6 @@ const AdvanceActionBtns = ({
       setTentativeAction(player?.tentativeAction);
     }
   }, [currentPlayer, player]);
-  console.log("player0", player);
   const FOLD_BTN = (
     <div className="footer-btn ">
       <Button>

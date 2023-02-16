@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import close from '../../assets/close.png';
 import { socket } from '../../config/socketConnection';
+import numFormatter from '../../utils/utils';
 
-const WinHistoryPopup = ({ setModalShow, modalShow, handWinner }) => {
+const WinHistoryPopup = ({ setModalShow, modalShow }) => {
 
   const [winnData, setWinnData] = useState([])
 
@@ -47,7 +48,7 @@ const WinHistoryPopup = ({ setModalShow, modalShow, handWinner }) => {
                   <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
                 ))}
               </div>
-              <div className="roomDetails-titles">Total Pot Amount : <span>{winnData?.pot}</span></div>
+              <div className="roomDetails-titles">Total Pot Amount : <span>{numFormatter(winnData?.pot)}</span></div>
               <div className="tablePlayerNames">Players Name. : <span className='tablePlayerNames-span'>{winnData?.players?.map((name, i) => (
                 <div key={i} className={`tablePlaye${i}`}>{i + 1}.{" "}{name?.name}</div>
               ))}</span></div>
@@ -57,7 +58,7 @@ const WinHistoryPopup = ({ setModalShow, modalShow, handWinner }) => {
 
               {winnData?.winnerPlayer?.map((data, i) => (<>    <div className="roomDetails-titles">Player Name: <span>{data?.name}</span></div>
                 <div className="roomDetails-titles">Hand Name : <span>{data?.handName || "opponent folded"}</span></div>
-                <div className="roomDetails-titles">Winning Amount: <span>{data?.winningAmount}</span></div>
+                <div className="roomDetails-titles">Winning Amount: <span>{numFormatter(data?.winningAmount)}</span></div>
                 <div className="cummunityCards">
                   <div>Player Cards :</div>
                   {data?.winnerCards?.map((card, i) => (

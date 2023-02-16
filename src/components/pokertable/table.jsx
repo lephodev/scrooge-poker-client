@@ -90,7 +90,6 @@ let interval;
 let retryCount = 0;
 
 const numFormatter = (num) => {
-  console.log("numnumnum", num);
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
   } else if (num > 999 && num < 1000000) {
@@ -255,7 +254,6 @@ const PokerTable = (props) => {
           const playerInTable = await pokerInstance().get(
             `/checkUserInTable/${table}`
           );
-          console.log("playerInTable", playerInTable);
           if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
             socket.emit("checkTable", {
               gameId: table,
@@ -350,7 +348,6 @@ const PokerTable = (props) => {
       setTimeout(() => {
         window.location.href = window.location.origin + "/";
       }, 1000);
-      console.log("dfdfdfdfdfdf");
     });
 
     socket.on("notFound", (data) => {
@@ -807,7 +804,6 @@ const PokerTable = (props) => {
     });
 
     socket.on("updateGame", (data) => {
-      console.log("updateGameupdateGame", data);
       setLoader(false);
       roomData = data.game;
       setChatMessages(data.game.chats);
@@ -1070,11 +1066,8 @@ const PokerTable = (props) => {
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
-    // console.log("playersOOOO", players);
     const pRight = pl.slice(0, Math.ceil(pl.length / 2));
-    // console.log("pRight", pRight);
     const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
-    // console.log("Pleft", pleft);
     setPlayerLeft(pleft);
     setPlayersRight(pRight);
 
@@ -1271,7 +1264,6 @@ const PokerTable = (props) => {
   };
 
   const raiseAction = (x) => {
-    console.log("RaiseAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1579,8 +1571,6 @@ const PokerTable = (props) => {
     // setTentativeAction("");
   }, [currentPlayer, userId]);
 
-  console.log("players0", players);
-
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -1683,7 +1673,7 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    // console.log("BetAmount", x);
+    console.log("BetAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -3068,6 +3058,31 @@ const FooterButton = ({
                   /> */}
                 </div>
               )}
+              {openAction.call && (
+                <div className="footer-btn ">
+                  <Button onClick={() => callAction()}>
+                    Call{" "}
+                    <span
+                      className={
+                        roomData.raiseAmount - currentPlayer?.pot > 0
+                          ? "callBtn-amount"
+                          : "callBtn-amount-none"
+                      }
+                    >
+                      ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
+                      )
+                    </span>
+                  </Button>
+                  {/* <Form.Check
+                    inline
+                    name="Call"
+                    type="checkbox"
+                    id={"Call"}
+                    onChange={() => handleCheck("Call")}
+                    checked={selectedbets === "Call"}
+                  /> */}
+                </div>
+              )}
 
               {openAction.raise && (
                 <div className="footer-btn ">
@@ -3105,32 +3120,6 @@ const FooterButton = ({
                     /> */}
                     Raise
                   </Button>
-                </div>
-              )}
-
-              {openAction.call && (
-                <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>
-                    Call{" "}
-                    <span
-                      className={
-                        roomData.raiseAmount - currentPlayer?.pot > 0
-                          ? "callBtn-amount"
-                          : "callBtn-amount-none"
-                      }
-                    >
-                      ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
-                      )
-                    </span>
-                  </Button>
-                  {/* <Form.Check
-                    inline
-                    name="Call"
-                    type="checkbox"
-                    id={"Call"}
-                    onChange={() => handleCheck("Call")}
-                    checked={selectedbets === "Call"}
-                  /> */}
                 </div>
               )}
 
