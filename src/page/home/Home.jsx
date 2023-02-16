@@ -191,7 +191,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get('/rooms');
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -205,7 +205,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -238,6 +238,21 @@ const Home = () => {
   const filterTournaments = tournaments.filter((el) =>
     el.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const [openCardHeight, setOpenCardHeight] = useState(0)
+  const [tournamentCardHeight, setTournamentCardHeight] = useState(0)
+  const pokerCard = useRef(null)
+  const tourCard = useRef(null)
+  useEffect(() => {
+    if (pokerCard?.current?.clientHeight) {
+      setOpenCardHeight(pokerCard.current.clientHeight)
+    }
+    if (tourCard?.current?.clientHeight) {
+      setTournamentCardHeight(tourCard.current.clientHeight)
+    }
+  }, [pokerCard, tourCard])
+
+  console.log("height", openCardHeight, tournamentCardHeight)
 
   return (
     <div className='poker-home'>
@@ -348,9 +363,9 @@ const Home = () => {
               <Tab eventKey='home' title='Poker Open Tables'>
                 {filterRoom.length > 0 ? (
                   <>
-                    <div className='home-poker-card-grid'>
+                    <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
-                        <GameTable data={el} gameType='Poker' />
+                        <GameTable data={el} gameType="Poker" height={openCardHeight} />
                       ))}
                     </div>
                   </>
@@ -367,14 +382,15 @@ const Home = () => {
               </Tab>
               <Tab eventKey='2' title='Poker Tournament Tables'>
                 {filterTournaments.length > 0 && (
-                  <div className='home-poker-card'>
-                    <div className='container'>
-                      <div className='home-poker-card-grid'>
+                  <div className="home-poker-card">
+                    <div className="container">
+                      <div className="home-poker-card-grid" ref={tourCard}>
                         {filterTournaments.map((el) => (
                           <GameTable
                             data={el}
                             gameType='Tournament'
                             getTournamentDetails={getTournamentDetails}
+                            height={tournamentCardHeight}
                           />
                         ))}
                       </div>
@@ -569,7 +585,7 @@ const CreateTable = ({
   );
 };
 
-const GameTable = ({ data, gameType, getTournamentDetails }) => {
+const GameTable = ({ data, gameType, getTournamentDetails, height }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -578,6 +594,7 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
     });
   };
 
+  console.log("heightnext", height)
   useEffect(() => {
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data;
@@ -632,6 +649,8 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
   };
   const wrapperRef = useRef();
 
+
+
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
@@ -651,14 +670,14 @@ const GameTable = ({ data, gameType, getTournamentDetails }) => {
     <>
       <div className='tournamentCard' ref={wrapperRef}>
         <FaInfoCircle onClick={handleFlip} />
-        <div className={`tournamentCard-inner ${cardFlip ? 'rotate' : ''}`}>
+        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}  >
           {!cardFlip ? (
-            <div className='tournamentCard-front'>
-              <img src={casino} alt='' />
-              <div className='tournamentFront-info'>
-                <h4>{gameType === 'Poker' ? data?.gameName : data.name}</h4>
-                {gameType === 'Poker' ? (
-                  <button onClick={redirectToTable} type='submit'>
+            <div className="tournamentCard-front" >
+              <img src={casino} alt="" />
+              <div className="tournamentFront-info">
+                <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+                {gameType === "Poker" ? (
+                  <button onClick={redirectToTable} type="submit">
                     Join Game
                   </button>
                 ) : (
