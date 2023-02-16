@@ -11,20 +11,6 @@ const RaiseView = ({
   console.log("Players", players);
   return (
     <div className="bet-view">
-      {console.log(
-        "ggg",
-        roomData.pot ||
-          players.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)
-      )}
-      {console.log("gggfppppp", roomData.pot)}{" "}
-      {console.log(
-        "gggrrrrrr",
-        players.reduce((acc, obj) => {
-          return acc + obj.pot;
-        }, 0)
-      )}
       {roomData &&
         currentPlayer &&
         currentPlayer.wallet >=
