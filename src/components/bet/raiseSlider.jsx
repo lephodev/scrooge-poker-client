@@ -2,15 +2,16 @@ import { useState } from "react";
 import InputRange from "react-input-range";
 import { Form, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
+import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
   const [rangeBetValue, setRangeBetValue] = useState(0);
   const { wallet } = currentPlayer || {};
-  console.log("wallet===", wallet);
+
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
 
-    if (value > 100) {
+    if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
     } else {
@@ -18,7 +19,8 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
     }
   };
 
-  console.log("valuevaluevalue", rangeBetValue);
+  const maxBetValue = numFormatter(currentPlayer?.wallet);
+  const minBetValue = numFormatter(roomData?.raiseAmount);
 
   return (
     // Bet slider for custom bets needed
@@ -28,21 +30,22 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
     <div className="raise-inputRange">
       <Form className="customBet-amount">
         <div className="raiseSliderCustom">
-          {/* maxValue={
-             roomData &&
-        currentPlayer &&
-        currentPlayer.wallet >= roomData.raiseAmount * 2 
-            } */}
+          <div className="inputRange-Box">
+            <InputRange
+              maxValue={currentPlayer?.wallet}
+              minValue={roomData?.raiseAmount}
+              value={rangeBetValue}
+              onChange={(e) => setRangeBetValue(e)}
+              onChangeComplete={(betAmt) => {
+                console.log({ betAmt: betAmt });
+              }}
+            />
+            <div className="inputRangeSlider">
+              <span className="minValueSpan">{minBetValue}</span>
+              <span className="maxValueSpan">{maxBetValue}</span>
+            </div>
+          </div>
 
-          <InputRange
-            maxValue={currentPlayer?.wallet}
-            minValue={roomData?.raiseAmount}
-            value={rangeBetValue}
-            onChange={(e) => setRangeBetValue(e)}
-            onChangeComplete={(betAmt) => {
-              console.log(betAmt);
-            }}
-          />
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Control
               type="number"
@@ -56,6 +59,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
           <Button
             variant="primary"
             onClick={() => SliderAction(parseInt(rangeBetValue))}
+            disabled={rangeBetValue <= 0}
           >
             Bet
           </Button>
