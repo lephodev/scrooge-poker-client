@@ -521,7 +521,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 225px;
+  max-height: 240px;
   flex-direction: column;
   overflow: hidden;
   transition: transform 0.4s;
@@ -540,6 +540,8 @@ input[type="number"] {
   text-align: center;
   transition: transform 0.4s;
   transform-style: preserve-3d;
+  background: #141414;
+  border: 1px solid #242424;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -601,8 +603,6 @@ input[type="number"] {
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  background: #141414;
-  border: 1px solid #242424;
 }
 
 .tournamentCard-back {
