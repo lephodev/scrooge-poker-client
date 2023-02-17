@@ -239,8 +239,8 @@ const Home = () => {
     el.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const [openCardHeight, setOpenCardHeight] = useState(0)
-  const [tournamentCardHeight, setTournamentCardHeight] = useState(0)
+  const [openCardHeight, setOpenCardHeight] = useState(150)
+  const [tournamentCardHeight, setTournamentCardHeight] = useState(190)
   const pokerCard = useRef(null)
   const tourCard = useRef(null)
   useEffect(() => {
@@ -251,8 +251,6 @@ const Home = () => {
       setTournamentCardHeight(tourCard.current.clientHeight)
     }
   }, [pokerCard, tourCard])
-
-  console.log("height", openCardHeight, tournamentCardHeight)
 
   return (
     <div className='poker-home'>
@@ -595,7 +593,6 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     });
   };
 
-  console.log("heightnext", height)
   useEffect(() => {
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data;
@@ -710,7 +707,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
               </div>
             </div>
           ) : (
-            <div className='tournamentCard-back'>
+            <div className='tournamentCard-back' style={{height: height}}>
               {gameType === 'Poker' ? (
                 <AvatarGroup imgArr={data?.players} />
               ) : (
