@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -78,9 +79,8 @@ const Home = () => {
   };
 
   const getUser = async () => {
-    console.count('hi----------');
     let user = await userUtils.getAuthUserData();
-    userId = user?.data.user?.id;
+    userId = user?.data?.user?.id;
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -178,7 +178,7 @@ const Home = () => {
     }
     console.log('CCCCCC');
     setLoader(false);
-    setUserData({ ...data.data.user });
+    setUserData({ ...data?.data?.user });
   };
   // UseEffects
   useEffect(() => {
@@ -363,7 +363,7 @@ const Home = () => {
                   <>
                     <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
-                        <GameTable data={el} gameType="Poker" height={openCardHeight} />
+                        <GameTable data={el} gameType="Poker" height={openCardHeight}  setUserData={setUserData}/>
                       ))}
                     </div>
                   </>
@@ -389,6 +389,7 @@ const Home = () => {
                             gameType='Tournament'
                             getTournamentDetails={getTournamentDetails}
                             height={tournamentCardHeight}
+                            setUserData={setUserData}
                           />
                         ))}
                       </div>
@@ -583,7 +584,7 @@ const CreateTable = ({
   );
 };
 
-const GameTable = ({ data, gameType, getTournamentDetails, height }) => {
+const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -596,17 +597,29 @@ const GameTable = ({ data, gameType, getTournamentDetails, height }) => {
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data;
       if (code === 200) {
-        toast.success(message, { id: 'Nofull' });
+        if(data?.user && Object.keys(data?.user)?.length >0){
+          setUserData(data?.user)
+        }
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
+    });
+    socket.on("notEnoughAmount", (data) => {
+      const { message, code } = data;
+      if (code === 200) {
+        toast.success(message, { id: "Nofull" });
       } else {
         toast.error(message, { id: 'full' });
       }
     });
   }, []);
 
-  const joinTournament = async (tournamentId) => {
-    socket.emit('joinTournament', {
+  const joinTournament = async (tournamentId,fees) => {
+    socket.emit("joinTournament", {
       tournamentId: tournamentId,
       userId: userId,
+      fees
     });
   };
 
@@ -681,8 +694,9 @@ const GameTable = ({ data, gameType, getTournamentDetails, height }) => {
                   <div className='btn-grid'>
                     {' '}
                     <button
-                      onClick={() => joinTournament(data?._id)}
-                      type='submit'>
+                      onClick={() => joinTournament(data?._id,data?.tournamentFee)}
+                      type="submit"
+                    >
                       Join Game
                     </button>
                     <button onClick={() => enterRoom(data?._id)} type='submit'>
@@ -716,7 +730,7 @@ const GameTable = ({ data, gameType, getTournamentDetails, height }) => {
               )}
               {gameType === 'Tournament' ? (
                 <h4>
-                  Date : <span>{getTime(data?.startDate)}</span>
+                  Date : <span>{getTime(data?.tournamentDate)}</span>
                 </h4>
               ) : (
                 ''
