@@ -449,7 +449,7 @@ input:checked+.slider:before {
   border-top: 15px solid #151515;
   position: absolute;
   bottom: -10px;
-  left: 15px;
+  left: 70%;
 }
 
 .raiseBet-container {
@@ -457,8 +457,8 @@ input:checked+.slider:before {
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: -174px;
-  left: 32%;
+  top: -190px;
+  left: -150%;
   background: #151515;
   padding: 15px;
   border-radius: 20px;
@@ -604,9 +604,11 @@ form.customBet-amount .form-control:focus {
   font-size: 14px;
   font-weight: 500;
 }
-.callBtn-amount-none{
+
+.callBtn-amount-none {
   display: none;
 }
+
 .input-range__label--max .input-range__label-container {
   left: 15% !important;
 }
@@ -616,6 +618,7 @@ form.customBet-amount .form-control:focus {
   align-items: center;
   gap: 28px;
   min-width: 200px;
+  margin-top: 12px;
 }
 
 .form-check-inline {
@@ -625,16 +628,44 @@ form.customBet-amount .form-control:focus {
   margin-right: 1px;
 }
 
+.inputRange-Box {
+  position: relative;
+  max-width: calc(100% - 110px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-range {
+  height: 1rem;
+  position: relative;
+  width: 94% !important;
+  margin-left: 8px;
+}
+
+.inputRangeSlider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+span.input-range__label.input-range__label--min,
+span.input-range__label.input-range__label--max {
+  display: none;
+}
+
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .raiseBet-container {
-    top: -165px;
-    left: -190%;
+    top: -176px;
+    left: -248%;
     scale: 0.9;
   }
 
   .raiseBet-container .bet-view::before {
     bottom: -10px;
-    left: 180px;
+    left: 275px;
   }
 
   /* .bet-view {
@@ -702,10 +733,10 @@ form.customBet-amount .form-control:focus {
 }
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
-  .chatHistory-icon img {
+  /* .chatHistory-icon img {
     width: 30px;
     height: 30px;
-  }
+  } */
 
   .advaceActionBtn-container button {
     padding: 0px 1px;

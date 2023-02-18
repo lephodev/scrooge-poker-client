@@ -1,6 +1,6 @@
 const env = {
   dev: {
-    landingServerUrl: "https://api.scrooge.casino/v1",
+    landingServerUrl: "http://localhost:3002",
     serverUrl: "http://localhost:3002",
     landingClient: "http://localhost:3000",
   },
