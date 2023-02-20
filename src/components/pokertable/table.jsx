@@ -2047,7 +2047,7 @@ const PokerTable = (props) => {
               </div>
             )}
           </div>
-          {start ? <FooterButton
+          <FooterButton
             bet={bet}
             setBet={setBet}
             raise={raise}
@@ -2619,8 +2619,8 @@ const Players = ({
         ref={target}
         key={playerData?.id}
         className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
+          ? `winner-player`
+          : ``
           } ${ playerData && playerData.playing ? '' : 'not-playing' } ${ mergeAnimationState ? 'animateMerge-chips' : ''
           }`}>
         {/* start win or lose animation */}
@@ -2952,8 +2952,8 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                 src={`/cards/${ card.toUpperCase() }.svg`}
                 alt='card'
                 className={`${ winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
+                  ? `winner-card`
+                  : ``
                   } front-card duration-${ i }`}
               />
               <img
@@ -3392,8 +3392,8 @@ const ShowCard = ({ cards, handMatch }) => {
             src={`/cards/${ card.toUpperCase() }.svg`}
             alt='card'
             className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
+              ? ``
+              : `winner-card`
               } `}
           />
         ))}
