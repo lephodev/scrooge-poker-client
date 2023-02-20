@@ -8,7 +8,6 @@ const RaiseView = ({
   roomData,
   players,
 }) => {
-  console.log("Players", players);
   return (
     <div className="bet-view">
       {roomData &&

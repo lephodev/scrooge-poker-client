@@ -846,7 +846,7 @@ input:checked {
 
 .showCardIn-fold {
   position: fixed;
-  bottom: -50%;
+  bottom: 10%;
   left: -16%;
   background: #2e2e2e;
   padding: 10px 20px;
@@ -3789,7 +3789,7 @@ img.coinWinning-animation {
   .total-pot-money {
     /* top: 135px; */
     top: 46%;
-    left: 45%;
+    left: 44%;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -4795,10 +4795,8 @@ img.coinWinning-animation {
   }
 
   .players.player1 .player-pic {
-    /* height: 145px;
-    width: 145px; */
-    height: 100px;
-    width: 100px;
+    height: 95px;
+    width: 95px;
   }
 
   .players .player-pic img,

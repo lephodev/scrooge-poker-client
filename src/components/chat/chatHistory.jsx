@@ -34,7 +34,6 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   useEffect(() => {
     socket.on('typingOnChat', (data) => {
       const { crrTypingUserId, typing } = data;
-      console.log("on typing ");
       if (userId !== crrTypingUserId) {
         setTypingOnChat(typing);
       }

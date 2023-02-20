@@ -170,13 +170,10 @@ const Home = () => {
   }, []);
 
   const checkAuth = async () => {
-    console.log('GGGGGG');
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      console.log('ABBBB');
       return (window.location.href = `${CONSTANTS.landingClient}`);
     }
-    console.log('CCCCCC');
     setLoader(false);
     setUserData({ ...data?.data?.user });
   };
@@ -198,9 +195,7 @@ const Home = () => {
   const getTournamentDetails = async () => {
     try {
       const response = await tournamentInstance().get('/tournaments');
-      console.log('response', response);
       const { status } = response;
-      console.log('status', status);
       if (status === 200) {
         const { tournaments } = response.data;
         setTournaments(tournaments);
@@ -627,9 +622,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     const res = await tournamentInstance().post('/enterroom', {
       tournamentId: tournamentId,
     });
-    console.log('enterRoom', res);
     if (res.data.code === 200) {
-      console.log(res.data);
       let roomid = res.data.roomId;
       history.push({
         pathname: '/table',

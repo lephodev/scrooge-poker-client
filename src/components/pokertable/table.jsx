@@ -198,7 +198,6 @@ const PokerTable = (props) => {
   useEffect(() => {
     const tryReconnect = () => {
       setTimeout(() => {
-        console.log('reconnect');
         socket.io.open((err) => {
           // console.log("Socket open");
           if (err) {
@@ -613,7 +612,6 @@ const PokerTable = (props) => {
     });
 
     socket.on('flopround', (data) => {
-      console.log('flopround=====?????', data);
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
@@ -782,9 +780,6 @@ const PokerTable = (props) => {
     socket.on('fold', (data) => {
       playAudio('fold');
       roomData = data.updatedRoom;
-      console.log('data.updatedRoom');
-      console.log(data.updatedRoom);
-      console.log('data.updatedRoom');
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -1060,7 +1055,6 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
-    console.log('datadata', data);
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1671,7 +1665,6 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    console.log('BetAmount', x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1705,7 +1698,6 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log('communityCards====', roomData?.communityCard);
   return (
     <div className='poker' id={players.length}>
       <Helmet>
