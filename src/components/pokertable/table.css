@@ -216,7 +216,7 @@ input:checked {
   object-position: center;
   border-radius: 100%;
   position: absolute;
-  top: 50%;
+  top: 49%;
   left: 50%;
   transform: translate(-50%, -51%);
   object-fit: cover;
@@ -2570,7 +2570,7 @@ button.sign-in.btn.btn-primary:focus {
 }
 
 .btn-toggler {
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 10px;
   height: 40px;
@@ -2585,7 +2585,7 @@ button.sign-in.btn.btn-primary:focus {
 }
 
 ul.btn-list {
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 52px;
   /* display: flex; */
@@ -5211,13 +5211,13 @@ img.coinWinning-animation {
   }
 
   .player4 {
-    transform: translateX(-32%);
-    top: -26%;
+    transform: translateX(-42%);
+    top: -32%;
   }
 
   .player3 {
-    transform: translateX(-40%);
-    bottom: 10%;
+    transform: translateX(-50%);
+    bottom: 5%;
   }
 
   .player2 {
@@ -5230,13 +5230,13 @@ img.coinWinning-animation {
   }
 
   .player8 {
-    transform: translateX(30%);
-    bottom: 4%;
+    transform: translateX(36%);
+    bottom: 2%;
   }
 
   .player7 {
-    transform: translateX(-90%);
-    top: -24%;
+    transform: translateX(-86%);
+    top: -32%;
   }
 }
 
