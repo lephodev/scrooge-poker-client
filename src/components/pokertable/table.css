@@ -3634,6 +3634,19 @@ img.coinWinning-animation {
   .players.player3 .player-chip {
     right: -80px;
   }
+
+  .showCardIn-fold {
+    width: 190px;
+  }
+
+  .showCardIn-fold label.form-check-label {
+    font-size: 12px;
+  }
+
+  .showCardIn-fold .form-check-inline .form-check-input {
+    width: 20px !important;
+    height: 20px !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
