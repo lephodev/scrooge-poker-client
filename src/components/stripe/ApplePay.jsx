@@ -80,8 +80,6 @@ const usePaymentRequest = ({
           // Report to the browser that the confirmation was successful, prompting
           // it to close the browser payment method collection interface.
           ev.complete('success');
-          console.log(' Payment =>', paymentIntent);
-
           const { id } = paymentIntent;
 
           if (paymentIntent.status === 'succeeded') {
@@ -101,10 +99,6 @@ const usePaymentRequest = ({
                   response.data.error === 'no error' &&
                   response.data.success === true
                 ) {
-                  console.log(
-                    'Complete response.data transactionLog: ',
-                    response.data
-                  );
                   handleSuccess();
                 } else {
                   console.log('backend response failed: ', response.statusText);
@@ -188,7 +182,6 @@ const ApplePay = ({
         className='PaymentRequestButton'
         options={options}
         onReady={() => {
-          console.log('PaymentRequestButton [ready]');
         }}
         onClick={(event) => {
           console.log('PaymentRequestButton [click]', event);

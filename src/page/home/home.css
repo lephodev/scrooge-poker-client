@@ -375,9 +375,10 @@ input[type="number"] {
     top: -68px;
     right: 20%;
   }
+
   .casino-logo img {
     width: 120px;
-}
+  }
 
   .blindpopupField {
     display: flex;
@@ -412,6 +413,10 @@ input[type="number"] {
     grid-column-end: 3;
     grid-column-start: 1;
     text-align: center;
+  }
+
+  .poker-table-content {
+    padding: 16px !important;
   }
 }
 
