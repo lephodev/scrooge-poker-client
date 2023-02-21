@@ -3236,7 +3236,7 @@ img.coinWinning-animation {
   }
 
   .players.player1 {
-    left: 49%;
+    left: 48%;
     bottom: -16%;
   }
 
@@ -3780,7 +3780,7 @@ img.coinWinning-animation {
   }
 
   .table-card {
-    margin-top: -38px;
+    margin-top: -50px;
   }
 
   .total-pot-money span {
@@ -3791,7 +3791,7 @@ img.coinWinning-animation {
 
   .total-pot-money {
     /* top: 135px; */
-    top: 46%;
+    top: 40%;
     left: 44%;
   }
 
@@ -5214,12 +5214,17 @@ img.coinWinning-animation {
 }
 
 @media only screen and (max-width: 769px) and (orientation: landscape) {
+  .table-card {
+    scale: 0.7;
+    left: 48%;
+}
   .players {
     scale: 0.7;
   }
 
   .total-pot-money {
-    left: 44%;
+    left: 43%;
+    scale: 0.7;
   }
 
   .player4 {
@@ -5233,13 +5238,13 @@ img.coinWinning-animation {
   }
 
   .player2 {
-    transform: translateX(110%);
+    transform: translateX(100%);
     bottom: -40px;
 }
 
   .player1 {
     bottom: -38px;
-    transform: translateX(-56%);
+    transform: translateX(-68%);
   }
 
   .player8 {
