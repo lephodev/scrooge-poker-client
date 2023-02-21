@@ -3200,6 +3200,63 @@ img.coinWinning-animation {
   .poker-table {
     max-width: 100%;
   }
+
+  .players .player-pic {
+    height: 95px;
+    width: 95px;
+  }
+
+  .players .player-pic img,
+  .players .player-pic video {
+    height: 85px;
+    width: 85px;
+  }
+
+  .players.player1 .player-pic {
+    height: 100px;
+    width: 100px;
+  }
+
+  .player1 .player-pic img,
+  .player1 .player-pic video {
+    width: 90px !important;
+    height: 90px !important;
+    /* z-index: -1; */
+  }
+
+  .player4,
+  .player7 {
+    /* top: 30px; */
+    top: -20% !important;
+
+  }
+
+  .player4 {
+    left: -2%;
+  }
+
+  .player7 {
+    right: -2%;
+  }
+
+  .player3,
+  .player8 {
+    /* bottom: 30px; */
+    bottom: 6% !important;
+  }
+
+  .player3 {
+    left: -2%;
+  }
+
+  .player8 {
+    right: -2%;
+  }
+
+  .total-pot-money {
+    left: calc(50% - 52px) !important;
+  }
+
 }
 
 @media screen and (max-width: 1366px) {
@@ -3304,27 +3361,27 @@ img.coinWinning-animation {
   }
 
   .players.player1 {
-    left: 50%;
+    left: 49%;
     bottom: -16%;
   }
 
   .player4 {
-    top: -32% !important;
-    left: 0%;
+    top: -16% !important;
+    left: -2%;
   }
 
   .player7 {
-    left: 99%;
-    top: -26%;
+    right: -2%;
+    top: -16% !important;
   }
 
   .player3 {
-    left: 0%;
+    left: -5%;
     bottom: 8%;
   }
 
   .player8 {
-    right: 0;
+    right: -5%;
     bottom: 8%;
   }
 
@@ -3384,7 +3441,11 @@ img.coinWinning-animation {
   }
 
   .poker-table-bg {
-    height: 300px;
+    height: 302px;
+  }
+
+  .table-card {
+    gap: 1px;
   }
 
   .table-card .winner-card {
@@ -3580,6 +3641,16 @@ img.coinWinning-animation {
     transform: translateX(115px);
   }
 
+  .roomDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .stats-details .winningplayerDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .switch {
     position: relative;
     display: inline-block;
@@ -3589,6 +3660,10 @@ img.coinWinning-animation {
 
   .switch-title {
     width: 150px;
+  }
+
+  .form-check-inline .form-check-input {
+    width: 10px;
   }
 
   .logo--bottom-image {
@@ -3663,6 +3738,7 @@ img.coinWinning-animation {
     position: absolute;
     width: 120px;
   }
+
   .player-action {
     bottom: 108%;
     animation-name: bottomFadeOut;
@@ -4278,7 +4354,7 @@ img.coinWinning-animation {
       left: -90%;
     }
   }
-  
+
   .players.player9 .player-chip {
     animation: travelUp 0.4s;
   }
@@ -5216,8 +5292,9 @@ img.coinWinning-animation {
 @media only screen and (max-width: 769px) and (orientation: landscape) {
   .table-card {
     scale: 0.7;
-    left: 48%;
-}
+    left: 46%;
+  }
+
   .players {
     scale: 0.7;
   }
@@ -5240,7 +5317,7 @@ img.coinWinning-animation {
   .player2 {
     transform: translateX(100%);
     bottom: -40px;
-}
+  }
 
   .player1 {
     bottom: -38px;
@@ -5251,19 +5328,21 @@ img.coinWinning-animation {
     transform: translateX(36%);
     bottom: 2%;
   }
+
   .player6 {
     top: -36%;
     transform: translateX(-100%);
-}
+  }
 
   .player7 {
     transform: translateX(-86%);
     top: -32%;
   }
+
   .player9 {
     transform: translateX(50%);
     bottom: -36px;
-}
+  }
 }
 
 .chips-images img {
@@ -5449,16 +5528,4 @@ img.coinWinning-animation {
   display: flex;
   flex-direction: column;
   gap: 6px;
-}
-
-@media screen and (max-width: 768px) {
-  .roomDetails {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .stats-details .winningplayerDetails {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
