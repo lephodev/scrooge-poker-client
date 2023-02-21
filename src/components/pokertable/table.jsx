@@ -1702,20 +1702,19 @@ const PokerTable = (props) => {
     <div className='poker' id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${
-            !(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-              ? 'game-started-join'
-              : ''
-          }`}
+            ? 'game-started-join'
+            : ''
+            }`}
         />
       </Helmet>
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-          roomData &&
-          roomData.players.find((ele) => ele.userid === userId)
+            roomData &&
+            roomData.players.find((ele) => ele.userid === userId)
             ? 'backToHome'
             : 'notShow'
         }>
@@ -1769,16 +1768,16 @@ const PokerTable = (props) => {
             </div>
 
             {(players && players.find((ele) => ele.id === userId)) ||
-            (roomData &&
-              roomData.players.find((ele) => ele.userid === userId)) ||
-            isWatcher ? (
+              (roomData &&
+                roomData.players.find((ele) => ele.userid === userId)) ||
+              isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
                 {!roomData?.gamestart && !newUser && (
                   <div className='start-game'>
-                    <div className='start-game-btn'>
+                    <>
                       {isAdmin && roomData && !roomData?.gamestart ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Click to start game</p>
                           {/* disabled={players && players.length <2} */}
                           <div className='footer-btn '>
@@ -1806,18 +1805,18 @@ const PokerTable = (props) => {
                               </OverlayTrigger>
                             )}
                           </div>
-                        </>
+                        </div>
                       ) : newUser ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Join table</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
                           </div>
-                        </>
+                        </div>
                       ) : allowWatcher ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Join as</p>
                           <div className='d-flex'>
                             <div className='footer-btn '>
@@ -1829,16 +1828,16 @@ const PokerTable = (props) => {
                               </Button>
                             </div>
                           </div>
-                        </>
+                        </div>
                       ) : onlywatcher ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Game started, Join as -</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
-                        </>
+                        </div>
                       ) : (
                         ''
                       )}
@@ -1847,14 +1846,14 @@ const PokerTable = (props) => {
                         !roomData?.gamestart &&
                         !isAdmin &&
                         !roomData?.tournament && (
-                          <>
+                          <div className='start-game-btn'>
                             <p>Please wait for the Admin to Start the game</p>
-                          </>
+                          </div>
                         )}
                       {roomData &&
-                      roomData.handWinner.length === 0 &&
-                      !roomData?.gamestart ? (
-                        <>
+                        roomData.handWinner.length === 0 &&
+                        !roomData?.gamestart ? (
+                        <div className='start-game-btn'>
                           <p className='joined-player'>
                             Invited Players joined -{' '}
                             {roomData.players.filter((ele) =>
@@ -1862,11 +1861,11 @@ const PokerTable = (props) => {
                             ).length + 1}
                             /{roomData.invPlayers.length + 1}
                           </p>
-                        </>
+                        </div>
                       ) : (
                         ''
                       )}
-                    </div>
+                    </>
                   </div>
                 )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ''}
@@ -2076,11 +2075,13 @@ const PokerTable = (props) => {
         <img src={btntoggle} alt='' />
       </div>
 
-      {((players &&
-        players.length > 0 &&
-        players.find((ele) => ele.id === userId)) ||
-        isWatcher) &&
+      {
+        ((players &&
+          players.length > 0 &&
+          players.find((ele) => ele.id === userId)) ||
+          isWatcher) &&
         btnToggle && (
+
           <ul className='btn-list' ref={wrapperRef}>
             <li>
               <span
@@ -2146,20 +2147,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== 'poker1vs1_Tables')) && (
-              <li>
-                <OverlayTrigger
-                  placement='left'
-                  overlay={
-                    <Tooltip id='tooltip-disabled'>Invite Friends</Tooltip>
-                  }>
-                  <button onClick={() => setShowInvite(true)}>
-                    {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className='fa fa-envelope'></i>
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
-            <li>
+                <li>
+                  <OverlayTrigger
+                    placement='left'
+                    overlay={
+                      <Tooltip id='tooltip-disabled'>Invite Friends</Tooltip>
+                    }>
+                    <button onClick={() => setShowInvite(true)}>
+                      {/* <img src={addcoin} alt="Invite friend" /> */}
+                      <i className='fa fa-envelope'></i>
+                    </button>
+                  </OverlayTrigger>
+                </li>
+              )}
+            {roomData?.tournament ? '' : <li>
               <OverlayTrigger
                 placement='left'
                 overlay={<Tooltip id='tooltip-disabled'>Fill Tokens</Tooltip>}>
@@ -2167,7 +2168,7 @@ const PokerTable = (props) => {
                   <AddCoinIcon />
                 </button>
               </OverlayTrigger>
-            </li>
+            </li>}
             <li>
               <OverlayTrigger
                 placement='left'
@@ -2182,7 +2183,8 @@ const PokerTable = (props) => {
               </OverlayTrigger>
             </li>
           </ul>
-        )}
+        )
+      }
       <Chat
         handleClick={handleClick}
         open={open}
@@ -2190,13 +2192,15 @@ const PokerTable = (props) => {
         tableId={tableId}
       />
       {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
-      {isWatcher && (
-        <div className='bet-button'>
-          <span onClick={() => handleBetClick(!view)} role='presentation'>
-            Place Bet <img src={arrow} alt='arrow' />
-          </span>
-        </div>
-      )}
+      {
+        isWatcher && (
+          <div className='bet-button'>
+            <span onClick={() => handleBetClick(!view)} role='presentation'>
+              Place Bet <img src={arrow} alt='arrow' />
+            </span>
+          </div>
+        )
+      }
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2281,7 +2285,7 @@ const PokerTable = (props) => {
         userid={selectedUser}
         tableId={tableId}
       />
-    </div>
+    </div >
   );
 };
 
@@ -2409,12 +2413,12 @@ const Players = ({
             response.data.error === 'no error' &&
             response.data.success === true &&
             response.data.special ===
-              'You have removed this follower in the past'
+            'You have removed this follower in the past'
           ) {
             toast.success(
               'You are now following @' +
-                nickname +
-                ', notice that you removed him from following you',
+              nickname +
+              ', notice that you removed him from following you',
               {
                 id: 'follow-request',
                 icon: '✔️',
@@ -2519,10 +2523,10 @@ const Players = ({
           if (response.data.error === 'already sent friend request') {
             toast.success(
               'Friend request already sent to @' +
-                Fname +
-                ' please wait ' +
-                response.data.hours +
-                ' hours before you can try again.',
+              Fname +
+              ' please wait ' +
+              response.data.hours +
+              ' hours before you can try again.',
               {
                 duration: 6000,
                 id: 'frined-already-sent',
@@ -2610,13 +2614,11 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
-        } ${playerData && playerData.playing ? '' : 'not-playing'} ${
-          mergeAnimationState ? 'animateMerge-chips' : ''
-        }`}>
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
+          ? `winner-player`
+          : ``
+          } ${playerData && playerData.playing ? '' : 'not-playing'} ${mergeAnimationState ? 'animateMerge-chips' : ''
+          }`}>
         {/* start win or lose animation */}
         {/* {winner &&
       playerData &&
@@ -2785,10 +2787,10 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? 'S'
                   : playerData.isBigBlind
-                  ? 'B'
-                  : playerData.isDealer
-                  ? 'D'
-                  : ''}
+                    ? 'B'
+                    : playerData.isDealer
+                      ? 'D'
+                      : ''}
               </div>
             )}
 
@@ -2945,11 +2947,10 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                 // src={cards ? cards : back }
                 src={`/cards/${card.toUpperCase()}.svg`}
                 alt='card'
-                className={`${
-                  winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
-                } front-card duration-${i}`}
+                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+                  } front-card duration-${i}`}
               />
               <img
                 key={`item1-${i}`}
@@ -3386,11 +3387,10 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt='card'
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
+            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
+              ? ``
+              : `winner-card`
+              } `}
           />
         ))}
     </div>
