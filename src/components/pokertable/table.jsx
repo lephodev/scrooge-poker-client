@@ -2317,7 +2317,6 @@ const Players = ({
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const target = useRef(null);
-  console.log('playerdata===>' + playerData.fold);
   useEffect(() => {
     const showBuyIn = () => {
       if (
