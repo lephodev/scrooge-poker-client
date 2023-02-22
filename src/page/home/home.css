@@ -154,6 +154,12 @@
   gap: 16px;
 }
 
+.create-game-box a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .user-info-box {
   display: flex;
   flex-direction: row;
@@ -370,7 +376,7 @@ input[type="number"] {
       top: -52px; */
   }
 
-  .create-game-box-avtar {
+  .create-game-box a {
     position: absolute;
     top: -68px;
     right: 20%;
