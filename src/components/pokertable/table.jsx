@@ -198,7 +198,6 @@ const PokerTable = (props) => {
   useEffect(() => {
     const tryReconnect = () => {
       setTimeout(() => {
-        console.log('reconnect');
         socket.io.open((err) => {
           // console.log("Socket open");
           if (err) {
@@ -613,7 +612,6 @@ const PokerTable = (props) => {
     });
 
     socket.on('flopround', (data) => {
-      console.log('flopround=====?????', data);
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
@@ -782,9 +780,6 @@ const PokerTable = (props) => {
     socket.on('fold', (data) => {
       playAudio('fold');
       roomData = data.updatedRoom;
-      console.log('data.updatedRoom');
-      console.log(data.updatedRoom);
-      console.log('data.updatedRoom');
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -1060,7 +1055,6 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
-    console.log('datadata', data);
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1671,7 +1665,6 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    console.log('BetAmount', x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1705,7 +1698,6 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log('communityCards====', roomData?.communityCard);
   return (
     <div className='poker' id={players.length}>
       <Helmet>
@@ -1783,9 +1775,9 @@ const PokerTable = (props) => {
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${ players?.length }`}>
                 {!roomData?.gamestart && !newUser && (
                   <div className='start-game'>
-                    <div className='start-game-btn'>
+                    <>
                       {isAdmin && roomData && !roomData?.gamestart ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Click to start game</p>
                           {/* disabled={players && players.length <2} */}
                           <div className='footer-btn '>
@@ -1813,18 +1805,18 @@ const PokerTable = (props) => {
                               </OverlayTrigger>
                             )}
                           </div>
-                        </>
+                        </div>
                       ) : newUser ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Join table</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
                           </div>
-                        </>
+                        </div>
                       ) : allowWatcher ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Join as</p>
                           <div className='d-flex'>
                             <div className='footer-btn '>
@@ -1836,16 +1828,16 @@ const PokerTable = (props) => {
                               </Button>
                             </div>
                           </div>
-                        </>
+                        </div>
                       ) : onlywatcher ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p>Game started, Join as -</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
-                        </>
+                        </div>
                       ) : (
                         ''
                       )}
@@ -1854,14 +1846,14 @@ const PokerTable = (props) => {
                         !roomData?.gamestart &&
                         !isAdmin &&
                         !roomData?.tournament && (
-                          <>
+                          <div className='start-game-btn'>
                             <p>Please wait for the Admin to Start the game</p>
-                          </>
+                          </div>
                         )}
                       {roomData &&
                         roomData.handWinner.length === 0 &&
                         !roomData?.gamestart ? (
-                        <>
+                        <div className='start-game-btn'>
                           <p className='joined-player'>
                             Invited Players joined -{' '}
                             {roomData.players.filter((ele) =>
@@ -1869,11 +1861,11 @@ const PokerTable = (props) => {
                             ).length + 1}
                             /{roomData.invPlayers.length + 1}
                           </p>
-                        </>
+                        </div>
                       ) : (
                         ''
                       )}
-                    </div>
+                    </>
                   </div>
                 )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ''}
@@ -2083,11 +2075,13 @@ const PokerTable = (props) => {
         <img src={btntoggle} alt='' />
       </div>
 
-      {((players &&
-        players.length > 0 &&
-        players.find((ele) => ele.id === userId)) ||
-        isWatcher) &&
+      {
+        ((players &&
+          players.length > 0 &&
+          players.find((ele) => ele.id === userId)) ||
+          isWatcher) &&
         btnToggle && (
+
           <ul className='btn-list' ref={wrapperRef}>
             <li>
               <span
@@ -2166,7 +2160,7 @@ const PokerTable = (props) => {
                   </OverlayTrigger>
                 </li>
               )}
-            <li>
+            {roomData?.tournament ? '' : <li>
               <OverlayTrigger
                 placement='left'
                 overlay={<Tooltip id='tooltip-disabled'>Fill Tokens</Tooltip>}>
@@ -2174,7 +2168,7 @@ const PokerTable = (props) => {
                   <AddCoinIcon />
                 </button>
               </OverlayTrigger>
-            </li>
+            </li>}
             <li>
               <OverlayTrigger
                 placement='left'
@@ -2189,7 +2183,8 @@ const PokerTable = (props) => {
               </OverlayTrigger>
             </li>
           </ul>
-        )}
+        )
+      }
       <Chat
         handleClick={handleClick}
         open={open}
@@ -2197,13 +2192,15 @@ const PokerTable = (props) => {
         tableId={tableId}
       />
       {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
-      {isWatcher && (
-        <div className='bet-button'>
-          <span onClick={() => handleBetClick(!view)} role='presentation'>
-            Place Bet <img src={arrow} alt='arrow' />
-          </span>
-        </div>
-      )}
+      {
+        isWatcher && (
+          <div className='bet-button'>
+            <span onClick={() => handleBetClick(!view)} role='presentation'>
+              Place Bet <img src={arrow} alt='arrow' />
+            </span>
+          </div>
+        )
+      }
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2288,7 +2285,7 @@ const PokerTable = (props) => {
         userid={selectedUser}
         tableId={tableId}
       />
-    </div>
+    </div >
   );
 };
 
@@ -2324,7 +2321,6 @@ const Players = ({
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const target = useRef(null);
-  console.log('playerdata===>' + playerData.fold);
   useEffect(() => {
     const showBuyIn = () => {
       if (
