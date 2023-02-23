@@ -4515,9 +4515,11 @@ img.coinWinning-animation {
     text-overflow: ellipsis;
     font-size: 12px;
   }
-
+  .poker-home .nav-tabs{
+    flex-wrap: inherit;
+  }
   .poker-home .nav-tabs a {
-    width: 130px;
+    width: 160px;
   }
 
   img.coinWinning-animation {

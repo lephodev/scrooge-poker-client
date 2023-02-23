@@ -49,9 +49,11 @@
 }
 
 .home-poker-card-grid {
-  display: grid;
+  display: flex;
+  justify-content: center;
   gap: 10px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  flex-wrap: wrap;
+
 }
 
 .home-poker-card {
@@ -359,8 +361,6 @@ input[type="number"] {
 
 @media screen and (max-width: 1024px) {
   .home-poker-card-grid {
-    display: grid;
-    column-gap: 15px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -509,6 +509,7 @@ input[type="number"] {
   display: flex;
   justify-content: space-between;
   max-width: 470px;
+  margin: 0px auto;
   padding: 5px 6px 6px;
   background: #1b1b1b;
   gap: 10px;
@@ -532,7 +533,8 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 240px;
+  height: 240px;
+  width: 236px;
   flex-direction: column;
   overflow: hidden;
   transition: transform 0.4s;
@@ -639,7 +641,7 @@ input[type="number"] {
   font-size: 12px;
   font-weight: 600;
   border-radius: 30px;
-  width: 100%;
+  width: 104px;
   height: 35px;
   border: none;
 }
@@ -648,10 +650,10 @@ input[type="number"] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-#controlled-tab-example-tabpane-2 .tournamentCard {
+/* #controlled-tab-example-tabpane-2 .tournamentCard {
   max-height: 280px;
   height: 100%;
-}
+} */
 
 @media screen and (max-width: 1024px) {
   .btn-grid {
