@@ -3117,6 +3117,16 @@ img.coinWinning-animation {
   }
 } */
 
+
+.start-game .start-game-btn:nth-child(1) {
+  z-index: 99;
+}
+
+.start-game .start-game-btn:nth-child(2) {
+  top: 30%;
+}
+
+
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -4505,9 +4515,11 @@ img.coinWinning-animation {
     text-overflow: ellipsis;
     font-size: 12px;
   }
-
+  .poker-home .nav-tabs{
+    flex-wrap: inherit;
+  }
   .poker-home .nav-tabs a {
-    width: 130px;
+    width: 160px;
   }
 
   img.coinWinning-animation {
@@ -5387,6 +5399,26 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
+
+  .addRectAnimate {
+    -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
+    animation: rectGrow 1.5s 0.5s forwards ease-out !important;
+  }
+
+  .inner-rect-bar {
+    border-radius: 50px !important;
+  }
+
+  .inner-rect-bar {
+    transition: 2s ease 0s !important;
+  }
+
+  @keyframes rectGrow {
+    100% {
+      width: var(--rectLevel, 50%) !important;
+    }
+  }
+
   .show-card {
     display: grid;
     grid-template-columns: repeat(2, minmax(40px, 1fr));

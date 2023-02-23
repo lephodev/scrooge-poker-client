@@ -49,9 +49,11 @@
 }
 
 .home-poker-card-grid {
-  display: grid;
+  display: flex;
+  justify-content: center;
   gap: 10px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  flex-wrap: wrap;
+
 }
 
 .home-poker-card {
@@ -152,6 +154,12 @@
   flex-direction: row;
   align-items: center;
   gap: 16px;
+}
+
+.create-game-box a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .user-info-box {
@@ -364,8 +372,6 @@ input[type="number"] {
 
 @media screen and (max-width: 1024px) {
   .home-poker-card-grid {
-    display: grid;
-    column-gap: 15px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -381,7 +387,7 @@ input[type="number"] {
       top: -52px; */
   }
 
-  .create-game-box-avtar {
+  .create-game-box a {
     position: absolute;
     top: -68px;
     right: 20%;
@@ -513,6 +519,7 @@ input[type="number"] {
   display: flex;
   justify-content: space-between;
   max-width: 470px;
+  margin: 0px auto;
   padding: 5px 6px 6px;
   background: #1b1b1b;
   gap: 10px;
@@ -536,12 +543,14 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 240px;
+  height: 240px;
+  width: 236px;
   flex-direction: column;
   overflow: hidden;
   transition: transform 0.4s;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #242424;
 }
 
 .tournamentCard-inner.rotate {
@@ -555,8 +564,6 @@ input[type="number"] {
   text-align: center;
   transition: transform 0.4s;
   transform-style: preserve-3d;
-  background: #141414;
-  border: 1px solid #242424;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -644,7 +651,7 @@ input[type="number"] {
   font-size: 12px;
   font-weight: 600;
   border-radius: 30px;
-  width: 100%;
+  width: 104px;
   height: 35px;
   border: none;
 }
@@ -653,10 +660,10 @@ input[type="number"] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-#controlled-tab-example-tabpane-2 .tournamentCard {
+/* #controlled-tab-example-tabpane-2 .tournamentCard {
   max-height: 280px;
   height: 100%;
-}
+} */
 
 @media screen and (max-width: 1024px) {
   .btn-grid {

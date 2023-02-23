@@ -10,8 +10,7 @@ body {
   /* overflow: hidden; */
 }
 
-@media (min-width: 1400px) {
-
+@media screen and (max-width: 1920px) {
   .container,
   .container-lg,
   .container-md,
