@@ -5399,6 +5399,26 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
+
+  .addRectAnimate {
+    -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
+    animation: rectGrow 1.5s 0.5s forwards ease-out !important;
+  }
+
+  .inner-rect-bar {
+    border-radius: 50px !important;
+  }
+
+  .inner-rect-bar {
+    transition: 2s ease 0s !important;
+  }
+
+  @keyframes rectGrow {
+    100% {
+      width: var(--rectLevel, 50%) !important;
+    }
+  }
+
   .show-card {
     display: grid;
     grid-template-columns: repeat(2, minmax(40px, 1fr));
@@ -5408,19 +5428,6 @@ img.coinWinning-animation {
     top: 10px;
     padding-right: 12px;
     z-index: -1;
-  }
-
-  .addRectAnimate {
-    -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out;
-    animation: rectGrow 1.5s 0.5s forwards ease-out;
-  }
-
-  .inner-rect-bar {
-    border-radius: 50px !important;
-  }
-
-  .inner-rect-bar {
-    transition: 2s ease 0s;
   }
 
   .player-card img:first-child {
