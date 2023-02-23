@@ -1746,7 +1746,6 @@ const PokerTable = (props) => {
           ) : (
             ''
           )}
-
           <div className={`poker-table ${winner ? 'winner-show' : ''}`}>
             <div className='containerFor-chatHistory'>
               <div className='chatHistory-icon' onClick={handleOpenChatHistory}>
@@ -1766,7 +1765,6 @@ const PokerTable = (props) => {
                 scrollDownRef={scrollDownRef}
               />
             </div>
-
             {(players && players.find((ele) => ele.id === userId)) ||
               (roomData &&
                 roomData.players.find((ele) => ele.userid === userId)) ||
@@ -1776,7 +1774,6 @@ const PokerTable = (props) => {
                 {!roomData?.gamestart && !newUser && (
                   <div className='start-game'>
                     <div className='start-game-btn'>
-
                       {isAdmin && roomData && !roomData?.gamestart ? (
                         <>
                           <p>Click to start game</p>
@@ -1866,7 +1863,6 @@ const PokerTable = (props) => {
                       ) : (
                         ''
                       )}
-
                     </div>
                   </div>
                 )}
@@ -2076,7 +2072,6 @@ const PokerTable = (props) => {
       <div className='btn-toggler' onClick={handleBtnClick} role='presentation'>
         <img src={btntoggle} alt='' />
       </div>
-
       {
         ((players &&
           players.length > 0 &&
@@ -2778,7 +2773,6 @@ const Players = ({
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
           </div>
-
           {roomData &&
             roomData.runninground !== 0 &&
             playerData &&
