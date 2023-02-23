@@ -693,6 +693,24 @@ input[type="number"] {
     font-size: 20px;
   }
 
+  div#controlled-tab-example-tabpane-home .tournamentCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    width: 150px;
+  }
+
+  div#controlled-tab-example-tabpane-2 .tournamentCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 210px;
+    width: 135px;
+  }
+
   .create-game-box button {
     font-size: 14px;
   }
