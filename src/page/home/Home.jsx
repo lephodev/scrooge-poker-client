@@ -27,6 +27,7 @@ import { FaQuestionCircle, FaInfoCircle } from 'react-icons/fa';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { socket } from '../../config/socketConnection';
+import Spinner from "react-bootstrap/Spinner";
 
 let userId;
 const Home = () => {
@@ -53,6 +54,7 @@ const Home = () => {
   const [key, setKey] = useState('home');
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   // utils function
   const handleShow = () => setShow(!show);
@@ -134,9 +136,14 @@ const Home = () => {
 
   const createTable = async () => {
     setErrors({});
+    setShowSpinner(true);
+    if (showSpinner) {
+      return false;
+    }
     const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
       setErrors({ ...tableValidation.err });
+      setShowSpinner(false);
       return;
     }
     try {
@@ -149,10 +156,13 @@ const Home = () => {
         pathname: '/table',
         search: '?gamecollection=poker&tableid=' + resp.data.roomData._id,
       });
+
+      setShowSpinner(false);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message, { id: 'create-table-error' });
       }
+      setShowSpinner(false);
     }
   };
 
@@ -172,7 +182,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${CONSTANTS.landingClient}`);
+      return (window.location.href = `${ CONSTANTS.landingClient }`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -263,6 +273,7 @@ const Home = () => {
         errors={errors}
         options={options}
         handleChnageInviteUsers={handleChnageInviteUsers}
+        showSpinner={showSpinner}
       />
       <div className='user-header'>
         <div className='container'>
@@ -358,7 +369,7 @@ const Home = () => {
                   <>
                     <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
-                        <GameTable data={el} gameType="Poker" height={openCardHeight}  setUserData={setUserData}/>
+                        <GameTable data={el} gameType="Poker" height={openCardHeight} setUserData={setUserData} />
                       ))}
                     </div>
                   </>
@@ -467,6 +478,7 @@ const CreateTable = ({
   createTable,
   errors,
   options,
+  showSpinner,
   handleChnageInviteUsers,
 }) => {
   return (
@@ -572,14 +584,14 @@ const CreateTable = ({
           Close
         </Button>
         <Button variant='primary' onClick={createTable}>
-          Create Table
+          {showSpinner ? <Spinner animation="border" /> : "Create Table"}
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) => {
+const GameTable = ({ data, gameType, getTournamentDetails, height, setUserData }) => {
   const history = useHistory();
   const redirectToTable = () => {
     history.push({
@@ -592,7 +604,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data;
       if (code === 200) {
-        if(data?.user && Object.keys(data?.user)?.length >0){
+        if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user)
         }
         toast.success(message, { id: "Nofull" });
@@ -610,7 +622,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     });
   }, []);
 
-  const joinTournament = async (tournamentId,fees) => {
+  const joinTournament = async (tournamentId, fees) => {
     socket.emit("joinTournament", {
       tournamentId: tournamentId,
       userId: userId,
@@ -642,7 +654,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? 'pm' : 'am'}`;
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? 'pm' : 'am' }`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
@@ -673,7 +685,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
     <>
       <div className='tournamentCard' ref={wrapperRef}>
         <FaInfoCircle onClick={handleFlip} />
-        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}  >
+        <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}  >
           {!cardFlip ? (
             <div className="tournamentCard-front" >
               <img src={casino} alt="" />
@@ -687,7 +699,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
                   <div className='btn-grid'>
                     {' '}
                     <button
-                      onClick={() => joinTournament(data?._id,data?.tournamentFee)}
+                      onClick={() => joinTournament(data?._id, data?.tournamentFee)}
                       type="submit"
                     >
                       Join Game
@@ -700,7 +712,7 @@ const GameTable = ({ data, gameType, getTournamentDetails,height,setUserData }) 
               </div>
             </div>
           ) : (
-            <div className='tournamentCard-back' style={{height: height}}>
+            <div className='tournamentCard-back' style={{ height: height }}>
               {gameType === 'Poker' ? (
                 <AvatarGroup imgArr={data?.players} />
               ) : (
