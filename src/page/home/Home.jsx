@@ -375,7 +375,7 @@ const Home = () => {
                 )}
               </Tab>
               <Tab eventKey='2' title='Poker Tournament Tables'>
-                {filterTournaments.length > 0 && (
+                {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
                       <div className="home-poker-card-grid" ref={tourCard}>
@@ -391,7 +391,17 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                ) : (
+                  <div className='d-flex flex-column justify-content-center align-items-center create-game-box'>
+                    <div className='no-room-available'>
+                      <h4>No Tournament Available</h4>
+                      <button type='button' onClick={handleShow}>
+                        Create Game
+                      </button>
+                    </div>
+                  </div>
+                )
+                }
               </Tab>
             </Tabs>
           </div>
