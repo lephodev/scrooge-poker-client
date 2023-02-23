@@ -1775,9 +1775,10 @@ const PokerTable = (props) => {
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}>
                 {!roomData?.gamestart && !newUser && (
                   <div className='start-game'>
-                    <>
+                    <div className='start-game-btn'>
+
                       {isAdmin && roomData && !roomData?.gamestart ? (
-                        <div className='start-game-btn'>
+                        <>
                           <p>Click to start game</p>
                           {/* disabled={players && players.length <2} */}
                           <div className='footer-btn '>
@@ -1805,18 +1806,18 @@ const PokerTable = (props) => {
                               </OverlayTrigger>
                             )}
                           </div>
-                        </div>
+                        </>
                       ) : newUser ? (
-                        <div className='start-game-btn'>
+                        <>
                           <p>Join table</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinGame()}>
                               Join Game
                             </Button>
                           </div>
-                        </div>
+                        </>
                       ) : allowWatcher ? (
-                        <div className='start-game-btn'>
+                        <>
                           <p>Join as</p>
                           <div className='d-flex'>
                             <div className='footer-btn '>
@@ -1828,16 +1829,16 @@ const PokerTable = (props) => {
                               </Button>
                             </div>
                           </div>
-                        </div>
+                        </>
                       ) : onlywatcher ? (
-                        <div className='start-game-btn'>
+                        <>
                           <p>Game started, Join as -</p>
                           <div className='footer-btn '>
                             <Button onClick={() => joinWatcher()}>
                               Watcher
                             </Button>
                           </div>
-                        </div>
+                        </>
                       ) : (
                         ''
                       )}
@@ -1846,14 +1847,14 @@ const PokerTable = (props) => {
                         !roomData?.gamestart &&
                         !isAdmin &&
                         !roomData?.tournament && (
-                          <div className='start-game-btn'>
+                          <>
                             <p>Please wait for the Admin to Start the game</p>
-                          </div>
+                          </>
                         )}
                       {roomData &&
                         roomData.handWinner.length === 0 &&
                         !roomData?.gamestart ? (
-                        <div className='start-game-btn'>
+                        <>
                           <p className='joined-player'>
                             Invited Players joined -{' '}
                             {roomData.players.filter((ele) =>
@@ -1861,11 +1862,12 @@ const PokerTable = (props) => {
                             ).length + 1}
                             /{roomData.invPlayers.length + 1}
                           </p>
-                        </div>
+                        </>
                       ) : (
                         ''
                       )}
-                    </>
+
+                    </div>
                   </div>
                 )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ''}
