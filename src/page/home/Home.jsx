@@ -170,13 +170,10 @@ const Home = () => {
   }, []);
 
   const checkAuth = async () => {
-    console.log("GGGGGG");
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      console.log("ABBBB");
       return (window.location.href = `${CONSTANTS.landingClient}`);
     }
-    console.log("CCCCCC");
     setLoader(false);
     setUserData({ ...data?.data?.user });
   };
@@ -198,9 +195,7 @@ const Home = () => {
   const getTournamentDetails = async () => {
     try {
       const response = await tournamentInstance().get("/tournaments");
-      console.log("response", response);
       const { status } = response;
-      console.log("status", status);
       if (status === 200) {
         const { tournaments } = response.data;
         setTournaments(tournaments);
@@ -256,7 +251,7 @@ const Home = () => {
     <div className="poker-home">
       {loader && (
         <div className="poker-loader">
-          <img src={loaderImg} alt="loader-Las vegas" />
+          <img src={loaderImg} alt="loader" />
         </div>
       )}
       <CreateTable
@@ -278,16 +273,18 @@ const Home = () => {
               </a>
             </div>
             <div className="create-game-box">
-              <div className="create-game-box-avtar">
-                <img
-                  src={
-                    userData?.profile ||
-                    "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
-                  }
-                  alt=""
-                />
-                <h5>{userData?.username}</h5>
-              </div>
+              <a href="https://scrooge.casino/profile">
+                <div className="create-game-box-avtar">
+                  <img
+                    src={
+                      userData?.profile ||
+                      "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
+                    }
+                    alt=""
+                  />
+                  <h5>{userData?.username}</h5>
+                </div>
+              </a>
               <div className="walletTicket-box">
                 <div className="pokerWallet-box">
                   <img src={token} alt="" className="pokerWallet" />
@@ -388,7 +385,7 @@ const Home = () => {
                 )}
               </Tab>
               <Tab eventKey="2" title="Poker Tournament Tables">
-                {filterTournaments.length > 0 && (
+                {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
                       <div className="home-poker-card-grid" ref={tourCard}>
@@ -402,6 +399,15 @@ const Home = () => {
                           />
                         ))}
                       </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                    <div className="no-room-available">
+                      <h4>No Tournament Available</h4>
+                      <button type="button" onClick={handleShow}>
+                        Create Game
+                      </button>
                     </div>
                   </div>
                 )}
@@ -643,9 +649,7 @@ const GameTable = ({
     const res = await tournamentInstance().post("/enterroom", {
       tournamentId: tournamentId,
     });
-    console.log("enterRoom", res);
     if (res.data.code === 200) {
-      console.log(res.data);
       let roomid = res.data.roomId;
       history.push({
         pathname: "/table",

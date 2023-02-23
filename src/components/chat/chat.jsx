@@ -13,7 +13,6 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
     const handleChange = (e) => {
         if (e.target.value.length <= 60) {
             setMessage(e.target.value);
-            console.log("typing......");
             socket.emit('typingOnChat', { userId, tableId, typing: true });
             setOpenEMoji(false);
         }
@@ -21,7 +20,6 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
     }
 
     const handleOnFocusOut = () => {
-        console.log("onfocus out exeuted");
         socket.emit('typingOnChat', { userId, tableId, typing: false });
         setOpenEMoji(false);
     }
@@ -41,8 +39,6 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
     }
 
     const handleOnEmojiClick = (emojiObject, e) => {
-        console.log(e, emojiObject);
-        console.log(message.length);
         if (message.length <= 59) {
             setMessage(message + emojiObject.emoji);
         }

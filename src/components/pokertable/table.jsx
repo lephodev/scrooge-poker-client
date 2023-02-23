@@ -198,7 +198,6 @@ const PokerTable = (props) => {
   useEffect(() => {
     const tryReconnect = () => {
       setTimeout(() => {
-        console.log("reconnect");
         socket.io.open((err) => {
           // console.log("Socket open");
           if (err) {
@@ -617,7 +616,6 @@ const PokerTable = (props) => {
     });
 
     socket.on("flopround", (data) => {
-      console.log("flopround=====?????", data);
       setMergeAnimationState(true);
       setTimeout(() => {
         setMergeAnimationState(false);
@@ -786,9 +784,6 @@ const PokerTable = (props) => {
     socket.on("fold", (data) => {
       playAudio("fold");
       roomData = data.updatedRoom;
-      console.log("data.updatedRoom");
-      console.log(data.updatedRoom);
-      console.log("data.updatedRoom");
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -1064,7 +1059,6 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
-    console.log("datadata", data);
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1135,7 +1129,6 @@ const PokerTable = (props) => {
         id: el.userid ? el.userid : el.id,
       });
     });
-    console.log(playerDetails);
     setPlayers(playerDetails);
   };
   const showWinner = (data, players) => {
@@ -1675,7 +1668,6 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    console.log("BetAmount", x);
     setOpenAction({
       bet: false,
       call: false,
@@ -1709,7 +1701,6 @@ const PokerTable = (props) => {
     });
   };
 
-  console.log("communityCards====", roomData?.communityCard);
   return (
     <div className="poker" id={players.length}>
       <Helmet>
@@ -1760,7 +1751,6 @@ const PokerTable = (props) => {
           ) : (
             ""
           )}
-
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
@@ -1780,7 +1770,6 @@ const PokerTable = (props) => {
                 scrollDownRef={scrollDownRef}
               />
             </div>
-
             {(players && players.find((ele) => ele.id === userId)) ||
             (roomData &&
               roomData.players.find((ele) => ele.userid === userId)) ||
@@ -2095,7 +2084,6 @@ const PokerTable = (props) => {
       <div className="btn-toggler" onClick={handleBtnClick} role="presentation">
         <img src={btntoggle} alt="" />
       </div>
-
       {((players &&
         players.length > 0 &&
         players.find((ele) => ele.id === userId)) ||
@@ -2186,16 +2174,20 @@ const PokerTable = (props) => {
                 </OverlayTrigger>
               </li>
             )}
-            <li>
-              <OverlayTrigger
-                placement="left"
-                overlay={<Tooltip id="tooltip-disabled">Fill Tokens</Tooltip>}
-              >
-                <button onClick={() => setRefillSitInAmount(true)}>
-                  <AddCoinIcon />
-                </button>
-              </OverlayTrigger>
-            </li>
+            {roomData?.tournament ? (
+              ""
+            ) : (
+              <li>
+                <OverlayTrigger
+                  placement="left"
+                  overlay={<Tooltip id="tooltip-disabled">Fill Tokens</Tooltip>}
+                >
+                  <button onClick={() => setRefillSitInAmount(true)}>
+                    <AddCoinIcon />
+                  </button>
+                </OverlayTrigger>
+              </li>
+            )}
             <li>
               <OverlayTrigger
                 placement="left"
@@ -2346,8 +2338,6 @@ const Players = ({
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const target = useRef(null);
-
-  console.log("playerdata===>" + playerData.fold);
   useEffect(() => {
     setShowCard(false);
     const showBuyIn = () => {
@@ -2808,7 +2798,6 @@ const Players = ({
                 <TimerSeparator time={timer} remainingTime={remainingTime} />
               )}
           </div>
-
           {roomData &&
             roomData.runninground !== 0 &&
             playerData &&
@@ -3625,6 +3614,7 @@ const TimerSeparator = ({ time, remainingTime }) => {
       trackPathColor="transparent"
       bgColor="#333333"
       trackBorderColor="grey"
+      style={{ "--rectLevel": activeTime }}
     />
   );
 };
