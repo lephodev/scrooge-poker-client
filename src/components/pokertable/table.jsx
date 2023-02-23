@@ -1125,7 +1125,6 @@ const PokerTable = (props) => {
         id: el.userid ? el.userid : el.id,
       });
     });
-    console.log(playerDetails);
     setPlayers(playerDetails);
   };
   const showWinner = (data, players) => {
@@ -3580,6 +3579,7 @@ const TimerSeparator = ({ time, remainingTime }) => {
       trackPathColor='transparent'
       bgColor='#333333'
       trackBorderColor='grey'
+      style={{ "--rectLevel": activeTime }}
     />
   );
 };
