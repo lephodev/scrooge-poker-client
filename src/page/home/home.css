@@ -538,6 +538,7 @@ input[type="number"] {
   transition: transform 0.4s;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #242424;
 }
 
 .tournamentCard-inner.rotate {
@@ -551,8 +552,6 @@ input[type="number"] {
   text-align: center;
   transition: transform 0.4s;
   transform-style: preserve-3d;
-  background: #141414;
-  border: 1px solid #242424;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
