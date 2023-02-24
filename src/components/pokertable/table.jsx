@@ -1706,10 +1706,10 @@ const PokerTable = (props) => {
       <Helmet>
         <html
           className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
-              roomData &&
-              roomData.players.find((ele) => ele.userid === userId)
-              ? "game-started-join"
-              : ""
+            roomData &&
+            roomData.players.find((ele) => ele.userid === userId)
+            ? "game-started-join"
+            : ""
             }`}
         />
       </Helmet>
@@ -2632,8 +2632,8 @@ const Players = ({
         ref={target}
         key={playerData?.id}
         className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
+          ? `winner-player`
+          : ``
           } ${ playerData && playerData.playing ? "" : "not-playing" } ${ mergeAnimationState ? "animateMerge-chips" : ""
           }`}
       >
@@ -2966,8 +2966,8 @@ const TableCard = ({ winner, communityCards, matchCards }) => {
                 src={`/cards/${ card.toUpperCase() }.svg`}
                 alt="card"
                 className={`${ winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
+                  ? `winner-card`
+                  : ``
                   } front-card duration-${ i }`}
               />
               <img
@@ -3410,8 +3410,8 @@ const ShowCard = ({ cards, handMatch }) => {
             src={`/cards/${ card.toUpperCase() }.svg`}
             alt="card"
             className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
+              ? ``
+              : `winner-card`
               } `}
           />
         ))}
