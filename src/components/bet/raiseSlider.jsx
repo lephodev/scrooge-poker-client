@@ -10,6 +10,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
 
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
+    console.log("value", value);
 
     if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
