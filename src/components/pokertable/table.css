@@ -3335,7 +3335,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    left: calc(50% - 52px) !important;
+    left: calc(50% - 52px);
   }
 
 }
@@ -3530,8 +3530,8 @@ img.coinWinning-animation {
     margin-top: -1px !important;
     margin-right: 2px !important;
     margin-left: 0;
-    width: 11px;
-    height: 11px;
+    width: 14px !important;
+    height: 14px !important;
   }
 
   .form-check-inline {
@@ -3822,7 +3822,8 @@ img.coinWinning-animation {
   }
 
   .form-check-inline .form-check-input {
-    width: 10px;
+    width: 12px !important;
+    height: 12px !important;
   }
 
   .logo--bottom-image {
@@ -4063,7 +4064,7 @@ img.coinWinning-animation {
   .footer-btn .btn,
   .footer-btn .btn:hover,
   .footer-btn .btn:focus {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .play-pause-button {
@@ -4899,7 +4900,7 @@ img.coinWinning-animation {
   .footer-btn .btn,
   .footer-btn .btn:hover,
   .footer-btn .btn:focus {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .play-pause-button {
@@ -5599,6 +5600,26 @@ img.coinWinning-animation {
   .addRectAnimate {
     -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
     animation: rectGrow 1.5s 0.5s forwards ease-out !important;
+  }
+
+  .winner-player:after {
+    position: absolute;
+    content: "";
+    top: 0vw;
+    left: 0;
+    right: 0;
+    z-index: -11;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(1.1);
+    -webkit-filter: blur(5vw);
+    -moz-filter: blur(5vw);
+    -ms-filter: blur(5vw);
+    filter: blur(5vw);
+    background: linear-gradient(270deg, #ffeb3b, #ffcc80);
+    background-size: 200% 200%;
+    animation: animateGlow 5s linear;
   }
 
   .inner-rect-bar {
