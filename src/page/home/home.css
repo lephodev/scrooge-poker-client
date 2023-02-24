@@ -228,15 +228,26 @@
 .modal-footer .btn,
 .modal-footer .btn:focus,
 .modal-footer .btn:active {
-  padding: 8px 20px;
+  padding: 7px 20px 8px 20px;
   background: #f9ff00 !important;
   border-color: #f9ff00 !important;
   border-radius: 8px;
   font-weight: 500;
   color: #000 !important;
   box-shadow: none !important;
+  width: 150px;
+  height: 42px;
 }
-
+.spinner-border {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: 0.75s linear infinite spinner-border;
+}
 .modal-footer .btn.btn-secondary {
   background-color: #545b62 !important;
   border-color: #4e555b !important;
@@ -484,7 +495,6 @@ input[type="number"] {
   border: 1px solid #f9ff00;
 }
 
-
 .home-poker-card a {
   color: #bcbcbc;
   font-weight: 600;
@@ -681,6 +691,24 @@ input[type="number"] {
 @media screen and (max-width: 480px) {
   .no-room-available h4 {
     font-size: 20px;
+  }
+
+  div#controlled-tab-example-tabpane-home .tournamentCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    width: 150px;
+  }
+
+  div#controlled-tab-example-tabpane-2 .tournamentCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 210px;
+    width: 135px;
   }
 
   .create-game-box button {

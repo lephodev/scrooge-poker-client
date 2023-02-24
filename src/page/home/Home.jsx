@@ -53,6 +53,7 @@ const Home = () => {
   const [key, setKey] = useState("home");
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   // utils function
   const handleShow = () => setShow(!show);
@@ -134,9 +135,14 @@ const Home = () => {
 
   const createTable = async () => {
     setErrors({});
+    setShowSpinner(true);
+    if (showSpinner) {
+      return false;
+    }
     const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
       setErrors({ ...tableValidation.err });
+      setShowSpinner(false);
       return;
     }
     try {
@@ -149,10 +155,13 @@ const Home = () => {
         pathname: "/table",
         search: "?gamecollection=poker&tableid=" + resp.data.roomData._id,
       });
+
+      setShowSpinner(false);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message, { id: "create-table-error" });
       }
+      setShowSpinner(false);
     }
   };
 
@@ -172,7 +181,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${CONSTANTS.landingClient}`);
+      return (window.location.href = `${ CONSTANTS.landingClient }`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -188,7 +197,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -200,7 +209,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -263,6 +272,7 @@ const Home = () => {
         errors={errors}
         options={options}
         handleChnageInviteUsers={handleChnageInviteUsers}
+        showSpinner={showSpinner}
       />
       <div className="user-header">
         <div className="container">
@@ -487,6 +497,7 @@ const CreateTable = ({
   createTable,
   errors,
   options,
+  showSpinner,
   handleChnageInviteUsers,
 }) => {
   return (
@@ -669,7 +680,7 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
@@ -698,7 +709,7 @@ const GameTable = ({
     <>
       <div className="tournamentCard" ref={wrapperRef}>
         <FaInfoCircle onClick={handleFlip} />
-        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
+        <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}>
           {!cardFlip ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
