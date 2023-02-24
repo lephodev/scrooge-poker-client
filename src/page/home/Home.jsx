@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import "./home.css";
 import { useEffect } from "react";
@@ -607,7 +607,7 @@ const CreateTable = ({
           Close
         </Button>
         <Button variant="primary" onClick={createTable}>
-          Create Table
+          {showSpinner ? <Spinner animation="border" /> : 'Create Table'}
         </Button>
       </Modal.Footer>
     </Modal>
