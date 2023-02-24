@@ -30,12 +30,12 @@ const AdvanceActionBtns = ({
           label="Fold"
           value="fold"
           name="group1"
-          type="checkbox"
+          type="radio"
           key="fold"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("fold")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-3"
+          id="inline-radio-3"
           checked={tentativeAction === "fold"}
         />
       </Button>
@@ -50,12 +50,12 @@ const AdvanceActionBtns = ({
           label="Check/Fold"
           value="check/fold"
           name="group1"
-          type="checkbox"
+          type="radio"
           key="check/fold"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("check/fold")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-2"
+          id="inline-radio-2"
           checked={tentativeAction === "check/fold"}
         />
       </Button>
@@ -71,12 +71,12 @@ const AdvanceActionBtns = ({
           label="Check"
           value="check"
           name="group1"
-          type="checkbox"
+          type="radio"
           key="check"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("check")}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-3"
+          id="inline-radio-3"
           checked={tentativeAction === "check"}
         />
       </Button>
@@ -93,11 +93,11 @@ const AdvanceActionBtns = ({
           label="Call Any"
           value="callAny"
           name="group1"
-          type="checkbox"
+          type="radio"
           key="callAny"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-5"
+          id="inline-radio-5"
           checked={tentativeAction === "callAny"}
         />
       </Button>
@@ -114,11 +114,11 @@ const AdvanceActionBtns = ({
           label="All-in"
           value={`allin ${player?.wallet}`}
           name="group1"
-          type="checkbox"
+          type="radio"
           key="allin"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-6"
+          id="inline-radio-6"
           checked={tentativeAction?.includes("allin")}
         />
       </Button>
@@ -135,11 +135,11 @@ const AdvanceActionBtns = ({
           label={`Call ${numFormatter(roomData?.raiseAmount - player?.pot)}`}
           value={`call ${roomData?.raiseAmount - player?.pot}`}
           name="group1"
-          type="checkbox"
+          type="radio"
           key="call"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
-          id="inline-checkbox-4"
+          id="inline-radio-4"
           checked={
             tentativeAction === `call ${roomData?.raiseAmount - player?.pot}`
           }
