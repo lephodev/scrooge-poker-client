@@ -34,6 +34,7 @@
 input:checked {
   background-color: #f9ff00 !important;
   border-color: #f9ff00 !important;
+  accent-color: #f9ff00 !important;
 }
 
 .poker-bg::before {
@@ -264,21 +265,24 @@ input:checked {
 }
 
 .player1 .player-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 2px 8px;
   position: relative;
-  background: #cbcbcb;
   width: 140px;
   height: 45px;
   z-index: 9;
-  border-radius: 60px;
-  overflow: hidden;
-  border: 3px solid #101010;
-  box-shadow: 0px 4px 4px #000000a8;
   margin: 0px auto;
 }
 
 .player-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 0px 8px;
   position: relative;
@@ -295,6 +299,18 @@ input:checked {
   /* top: 10px; */
 }
 
+.player-info.progressActive {
+  background: #cbcbcb00 !important;
+}
+
+.tentative-action-btn.form-check.form-check-inline {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .player-info h4 {
   font-size: 13px;
   text-transform: lowercase;
@@ -302,7 +318,6 @@ input:checked {
   font-weight: 600;
   color: #111111;
   width: 100%;
-  padding-top: 4px;
   letter-spacing: 0.5px;
   z-index: 9;
   position: relative;
@@ -314,7 +329,6 @@ input:checked {
   color: #111111;
   width: 100%;
   letter-spacing: 0.5px;
-  margin-top: -2px;
   z-index: 9;
   position: relative;
   font-weight: 600;
@@ -2990,9 +3004,66 @@ ul.btn-list>li>button>img {
 
 /********* progress bar *********/
 .player-pic .progress-bar {
-  display: none;
+  /* display: none; */
 }
 
+.progress {
+  height: 0rem !important;
+}
+
+.player1 .player-pic .progress {
+  display: flex;
+  overflow: hidden;
+  line-height: 0;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: 60px;
+  position: absolute !important;
+  bottom: -30px !important;
+  left: -4px !important;
+  width: 138px !important;
+  height: 45px !important;
+  z-index: 9;
+}
+
+/* .player1 .player-pic .progress {
+  bottom: -26px !important;
+  left: -18px !important;
+  width: 136% !important;
+  height: 38px !important;
+} */
+.player-pic .progress {
+  display: flex;
+  overflow: hidden;
+  line-height: 0;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: 60px;
+  position: absolute !important;
+  bottom: -25px !important;
+  left: -8px !important;
+  width: 128px !important;
+  height: 40px !important;
+  z-index: 9;
+}
+
+/* bottom: -25px !important;
+    left: -8px !important;
+    width: 115% !important;
+    height: 40px !important; */
+
+.player-pic .progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  transition: width .6s ease;
+}
+
+/* 
 .player-info .progress-bar {
   background: transparent;
 }
@@ -3009,8 +3080,8 @@ ul.btn-list>li>button>img {
   height: 100% !important;
   border: none !important;
   border-radius: 50px !important;
-}
-
+} */
+/* 
 .inner-rect-bar {
   border-radius: 50px !important;
 }
@@ -3025,7 +3096,7 @@ ul.btn-list>li>button>img {
 
 .inner-rect-bar {
   transition: 2s ease 0s;
-}
+} */
 
 /* coin Winning animation */
 
@@ -3271,7 +3342,7 @@ img.coinWinning-animation {
 
 @media screen and (max-width: 1366px) {
   .poker-table-bg {
-    height: 400px;
+    height: 450px;
   }
 }
 
@@ -3346,7 +3417,6 @@ img.coinWinning-animation {
   .player1 .player-info {
     padding: 2px 8px;
     width: 140px;
-    height: 38px;
   }
 }
 
@@ -3416,6 +3486,11 @@ img.coinWinning-animation {
     width: 140px;
     height: 38px;
   }
+
+  .player1 .player-pic .progress {
+    width: 138px;
+    height: 38px !important;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -3450,8 +3525,23 @@ img.coinWinning-animation {
     max-width: calc(100% - 150px);
   }
 
+  .form-check-inline .form-check-input {
+    position: static;
+    margin-top: -1px !important;
+    margin-right: 2px !important;
+    margin-left: 0;
+    width: 11px;
+    height: 11px;
+  }
+
+  .form-check-inline {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 2px;
+  }
+
   .poker-table-bg {
-    height: 302px;
+    height: 350px;
   }
 
   .table-card {
@@ -3517,6 +3607,20 @@ img.coinWinning-animation {
     top: 28px;
     width: 110px;
     height: 35px;
+  }
+
+  .player-pic .progress {
+    width: 110px !important;
+    height: 33px !important;
+    left: 0px !important;
+    bottom: -22px !important;
+  }
+
+  .player1 .player-pic .progress {
+    width: 138px !important;
+    height: 45px !important;
+    left: -4px !important;
+    bottom: -33px !important;
   }
 
   .player-badge {
@@ -3596,7 +3700,7 @@ img.coinWinning-animation {
   .footer-btn .btn,
   .footer-btn .btn:hover,
   .footer-btn .btn:focus {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .players .timer-circle svg {
@@ -3659,6 +3763,38 @@ img.coinWinning-animation {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .player1 .player-pic .progress {
+    width: 138px !important;
+    height: 42px !important;
+    left: -4px !important;
+    bottom: -31px !important;
+  }
+
+  .player-pic .progress {
+    width: 108px !important;
+    height: 32px !important;
+    left: 1px !important;
+    bottom: -22px !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .player1 .player-pic .progress {
+    width: 138px !important;
+    height: 38px !important;
+    left: -19px !important;
+    bottom: -26px !important;
+  }
+
+  .player-pic .progress {
+    width: 110px !important;
+    height: 33px !important;
+    left: -7px !important;
+    bottom: -21px !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   input:checked+.slider:before {
     transform: translateX(115px);
@@ -3666,12 +3802,12 @@ img.coinWinning-animation {
 
   .roomDetails {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr) !important;
   }
 
   .stats-details .winningplayerDetails {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr) !important;
   }
 
   .switch {
@@ -3747,6 +3883,20 @@ img.coinWinning-animation {
 
   .game-msg {
     top: 100px;
+  }
+
+  .player1 .player-pic .progress {
+    width: 138px !important;
+    height: 42px !important;
+    left: -19px !important;
+    bottom: -32px !important;
+  }
+
+  .player-pic .progress {
+    width: 108px !important;
+    height: 33px !important;
+    left: -7px !important;
+    bottom: -22px !important;
   }
 }
 
@@ -3951,6 +4101,20 @@ img.coinWinning-animation {
     top: 22px;
   }
 
+  .player1 .player-pic .progress {
+    width: 118px !important;
+    height: 34px !important;
+    left: -9px !important;
+    bottom: -16px !important;
+  }
+
+  .player-pic .progress {
+    width: 108px !important;
+    height: 33px !important;
+    left: -7px !important;
+    bottom: -16px !important;
+  }
+
   .table-card {
     gap: 2px;
   }
@@ -4028,9 +4192,9 @@ img.coinWinning-animation {
     height: 35px;
   }
 
-  .players .player-pic {
-    height: 90px;
-    width: 90px;
+  .player1 .players .player-pic {
+    height: 35px;
+    width: 118px;
   }
 
   .players .player-pic img,
@@ -4508,6 +4672,16 @@ img.coinWinning-animation {
     margin-top: 10px !important;
   }
 
+  .roomDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+
+  .stats-details .winningplayerDetails {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+
   .home-poker-card a {
     white-space: nowrap;
     width: 150px;
@@ -4515,9 +4689,11 @@ img.coinWinning-animation {
     text-overflow: ellipsis;
     font-size: 12px;
   }
-  .poker-home .nav-tabs{
+
+  .poker-home .nav-tabs {
     flex-wrap: inherit;
   }
+
   .poker-home .nav-tabs a {
     width: 160px;
   }
@@ -4738,6 +4914,20 @@ img.coinWinning-animation {
   .player1 .player-info {
     width: 120px;
     height: 36px;
+  }
+
+  .player1 .player-pic .progress {
+    width: 118px !important;
+    height: 35px !important;
+    left: -11px !important;
+    bottom: -23px !important;
+  }
+
+  .player-pic .progress {
+    width: 108px !important;
+    height: 33px !important;
+    left: -7px !important;
+    bottom: -22px !important;
   }
 
   .player1 {
@@ -5315,6 +5505,12 @@ img.coinWinning-animation {
 }
 
 @media only screen and (max-width: 769px) and (orientation: landscape) {
+  .player-pic .progress {
+    width: 108px !important;
+    height: 33px !important;
+    left: 0px !important;
+  }
+
   .table-card {
     scale: 0.7;
     left: 46%;
@@ -5533,6 +5729,7 @@ img.coinWinning-animation {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  padding-bottom: 10px;
 }
 
 .stats-details .roomDetails-titles {
