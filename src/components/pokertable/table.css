@@ -4200,8 +4200,8 @@ img.coinWinning-animation {
 
   .players .player-pic img,
   .players .player-pic video {
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    height: 85px;
   }
 
   .show-card img,
@@ -4221,43 +4221,43 @@ img.coinWinning-animation {
   }
 
   .player2 {
-    transform: translateX(76%);
-    bottom: -35px;
+    transform: translateX(106%);
+    bottom: -38px;
   }
 
   .player3 {
-    transform: translateX(-20%);
-    bottom: 0%;
+    transform: translateX(18%);
+    bottom: 4% !important;
   }
 
   .player4 {
-    transform: translateX(-20%);
-    top: -29%;
+    transform: translateX(16%);
+    top: -30% !important;
   }
 
   .player5 {
-    top: -38%;
-    transform: translateX(-35%);
+    top: -40%;
+    transform: translateX(-20%);
   }
 
   .player6 {
-    top: -36%;
-    transform: translateX(-96%);
+    top: -40%;
+    transform: translateX(-100%);
   }
 
   .player7 {
-    transform: translateX(-90%);
-    top: -28%;
+    transform: translateX(-128%);
+    top: -30% !important;
   }
 
   .player8 {
-    transform: translateX(14%);
-    bottom: 0%;
+    transform: translateX(-14%);
+    bottom: 1% !important;
   }
 
   .player9 {
     transform: translateX(26%);
-    bottom: -35px;
+    bottom: -38px;
   }
 
   /* 
