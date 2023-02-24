@@ -3071,7 +3071,7 @@ const FooterButton = ({
                           : "callBtn-amount-none"
                       }
                     >
-                      ({numFormatter(roomData.raiseAmount - currentPlayer?.pot)}
+                      ({(roomData.raiseAmount - currentPlayer?.pot)?.toFixed(2)}
                       )
                     </span>
                   </Button>

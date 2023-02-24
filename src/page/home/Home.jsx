@@ -239,6 +239,7 @@ const Home = () => {
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  console.log("filterRoom ====>", filterRoom);
   const filterTournaments = tournaments.filter((el) =>
     el.name.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -379,6 +380,7 @@ const Home = () => {
                           gameType="Poker"
                           height={openCardHeight}
                           setUserData={setUserData}
+                          tableId={el._id}
                         />
                       ))}
                     </div>
@@ -406,6 +408,7 @@ const Home = () => {
                             getTournamentDetails={getTournamentDetails}
                             height={tournamentCardHeight}
                             setUserData={setUserData}
+
                           />
                         ))}
                       </div>
@@ -617,13 +620,25 @@ const GameTable = ({
   getTournamentDetails,
   height,
   setUserData,
+  tableId
 }) => {
   const history = useHistory();
   const redirectToTable = () => {
-    history.push({
-      pathname: "/table",
-      search: "?gamecollection=poker&tableid=" + data?._id,
+    socket.emit('checkAlreadyInGame', { userId, tableId })
+    socket.on('userAlreadyInGame', (value) => {
+      console.log("user already in game");
+      console.log(value);
+      const { message, join } = value;
+      if (join) {
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + data?._id,
+        });
+      } else {
+        toast.error(message, { id: "create-table-error" });
+      }
     });
+
   };
 
   useEffect(() => {
