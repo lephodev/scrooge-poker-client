@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
-  const [rangeBetValue, setRangeBetValue] = useState(0);
+  const [rangeBetValue, setRangeBetValue] = useState();
   const { wallet } = currentPlayer || {};
 
   const handleRaiseAmount = (e) => {
@@ -50,7 +50,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Control
               type="number"
-              placeholder="ex: 100"
+              placeholder="ex:0"
               value={rangeBetValue}
               onChange={(e) => handleRaiseAmount(e)}
             />
