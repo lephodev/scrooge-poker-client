@@ -463,6 +463,7 @@ input:checked+.slider:before {
   padding: 15px;
   border-radius: 20px;
   padding-right: 25px;
+  min-width: 340px;
   z-index: 99999999;
 }
 
@@ -684,8 +685,8 @@ span.input-range__label.input-range__label--max {
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
   .raiseBet-container {
-    top: -162px;
-    left: -185%;
+    top: -166px;
+    left: -130%;
     scale: 0.75;
   }
 
