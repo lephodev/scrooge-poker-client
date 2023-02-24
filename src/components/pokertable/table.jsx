@@ -1668,37 +1668,45 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (x) => {
-    setOpenAction({
-      bet: false,
-      call: false,
-      raise: false,
-      check: false,
-      allin: false,
-      fold: false,
-    });
+    if (x >= roomData?.raiseAmount) {
+      setOpenAction({
+        bet: false,
+        call: false,
+        raise: false,
+        check: false,
+        allin: false,
+        fold: false,
+      });
 
-    socket.emit("doraise", {
-      userid: userId,
-      roomid: tableId,
-      amount: x,
-    });
+      socket.emit("doraise", {
+        userid: userId,
+        roomid: tableId,
+        amount: x,
+      });
+    } else {
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+    }
   };
   const betInSliderAction = (x) => {
     // console.log("BetAmount", x);
-    setOpenAction({
-      bet: false,
-      call: false,
-      raise: false,
-      check: false,
-      allin: false,
-      fold: false,
-    });
+    if (x >= roomData.raiseAmount) {
+      setOpenAction({
+        bet: false,
+        call: false,
+        raise: false,
+        check: false,
+        allin: false,
+        fold: false,
+      });
 
-    socket.emit("dobet", {
-      userid: userId,
-      roomid: tableId,
-      amount: x,
-    });
+      socket.emit("dobet", {
+        userid: userId,
+        roomid: tableId,
+        amount: x,
+      });
+    } else {
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+    }
   };
 
   return (
