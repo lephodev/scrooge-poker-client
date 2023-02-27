@@ -2131,7 +2131,7 @@ const PokerTable = (props) => {
                   <OverlayTrigger
                     placement="left"
                     overlay={
-                      <Tooltip id="tooltip-disabled">Chat History</Tooltip>
+                      <Tooltip id="tooltip-disabled">Chat</Tooltip>
                     }
                   >
                     <button
@@ -2208,12 +2208,12 @@ const PokerTable = (props) => {
                 placement="left"
                 overlay={
                   <Tooltip id="tooltip-disabled">
-                    {volume ? "Speaker" : "Mute"}
+                    {volume ? "Mute" : "Speaker" }
                   </Tooltip>
                 }
               >
                 <button onClick={() => setVolume(!volume)}>
-                  {volume ? <VolumeIcon /> : <MuteIcon />}
+                  {volume ? <MuteIcon /> : <VolumeIcon /> }
                 </button>
               </OverlayTrigger>
             </li>
@@ -2823,15 +2823,16 @@ const Players = ({
             roomData.runninground !== 0 &&
             playerData &&
             (playerData.isBigBlind ||
-              playerData.isSmallBlind ||
-              playerData.isDealer) && (
+              playerData.isSmallBlind 
+              // || playerData.isDealer
+              ) && (
               <div className="player-badge">
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
                   ? "B"
-                  : playerData.isDealer
-                  ? "D"
+                  // : playerData.isDealer
+                  // ? "D"
                   : ""}
               </div>
             )}
