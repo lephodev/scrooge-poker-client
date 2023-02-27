@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
-  const [rangeBetValue, setRangeBetValue] = useState();
+  const [rangeBetValue, setRangeBetValue] = useState(0);
   const { wallet } = currentPlayer || {};
 
   const handleRaiseAmount = (e) => {
@@ -27,6 +27,8 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
     // Bet slider for custom bets needed
 
     // Quick Bet options in relation to pot size (33%/50%/75%/all in) as well as the blind multiple bets
+
+    
 
     <div className="raise-inputRange">
       <Form className="customBet-amount">
@@ -51,7 +53,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
             <Form.Control
               type="number"
               placeholder="ex:0"
-              value={rangeBetValue}
+              value={rangeBetValue>0 && rangeBetValue}
               onChange={(e) => handleRaiseAmount(e)}
             />
           </Form.Group>
