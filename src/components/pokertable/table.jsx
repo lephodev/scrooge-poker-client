@@ -1727,6 +1727,7 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
+
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
@@ -1894,6 +1895,7 @@ const PokerTable = (props) => {
                   winner={winner}
                   communityCards={communityCards}
                   matchCards={matchCards}
+                  roomData={roomData}
                 />
 
                 {!isWatcher &&
@@ -2973,9 +2975,12 @@ const Players = ({
   );
 };
 
-const TableCard = ({ winner, communityCards, matchCards }) => {
+const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
+      <h4 className="table-blindLevel">
+        SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
+      </h4>
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
