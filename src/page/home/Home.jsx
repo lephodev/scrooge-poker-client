@@ -115,7 +115,7 @@ const Home = () => {
     }
 
     if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
-      err.sitInAmount = `You don't have enough balance.`;
+      err.sitInAmount = `You don't have enough balance in your wallet.`;
       valid = false;
     }
 
