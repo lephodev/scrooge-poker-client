@@ -88,6 +88,13 @@ input:checked {
   gap: 4px;
 }
 
+.sub-btn.text-center .btn-primary.disabled,
+.sub-btn.text-center .btn-primary:disabled {
+  color: #000000 !important;
+  background-color: #ccd000 !important;
+  border-color: #f9ff00 !important;
+}
+
 .close-btn .btn:active {
   background-color: #f9ff00 !important;
   border-color: #f9ff00 !important;
@@ -1860,6 +1867,12 @@ input:checked {
 
 .footer-btn .btn-primary:disabled {
   color: #361302;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.start-game-btn .footer-btn .btn-primary:disabled {
+  color: #ffffff !important;
   background-color: transparent;
   border-color: transparent;
 }
