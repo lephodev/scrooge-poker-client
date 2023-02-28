@@ -375,6 +375,7 @@ const Home = () => {
                   <>
                     <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
+                        <React.Fragment key={el._id}>
                         <GameTable
                           data={el}
                           gameType="Poker"
@@ -382,6 +383,7 @@ const Home = () => {
                           setUserData={setUserData}
                           tableId={el._id}
                         />
+                        </React.Fragment>
                       ))}
                     </div>
                   </>
@@ -402,6 +404,7 @@ const Home = () => {
                     <div className="container">
                       <div className="home-poker-card-grid" ref={tourCard}>
                         {filterTournaments.map((el) => (
+                          <React.Fragment key={el._id}>
                           <GameTable
                             data={el}
                             gameType="Tournament"
@@ -410,6 +413,7 @@ const Home = () => {
                             setUserData={setUserData}
 
                           />
+                          </React.Fragment>
                         ))}
                       </div>
                     </div>
@@ -699,10 +703,38 @@ const GameTable = ({
   };
 
   const [cardFlip, setCardFlip] = useState(false);
-
-  const handleFlip = () => {
+  const [dateState,setDateState]=useState()
+  const handleFlip = (tDate) => {
     setCardFlip(!cardFlip);
+    countDownData(tDate)
   };
+    const countDownData=(tDate)=>{
+      var x = setInterval(()=> {
+      let  countDownDate = new Date(tDate).getTime();
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        setDateState({
+          days,
+          hours,
+          minutes,
+          seconds
+        })
+        if (distance < 0) {
+          clearInterval(x);
+          setDateState({
+            days:'0',
+            hours:'0',
+            minutes:'0',
+            seconds:'0'
+          })
+        }
+      }, 1000);
+    }
+  
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -723,7 +755,8 @@ const GameTable = ({
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-        <FaInfoCircle onClick={handleFlip} />
+        <FaInfoCircle onClick={()=>handleFlip(data.tournamentDate)} />  
+       
         <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}>
           {!cardFlip ? (
             <div className="tournamentCard-front">
@@ -748,6 +781,7 @@ const GameTable = ({
                     <button onClick={() => enterRoom(data?._id)} type="submit">
                       Enter Game
                     </button>
+                    
                   </div>
                 )}
               </div>
@@ -779,6 +813,28 @@ const GameTable = ({
                 <h4>
                   Date : <span>{getTime(data?.tournamentDate)}</span>
                 </h4>
+              ) : (
+                ""
+              )}
+              {gameType === "Tournament" ? (
+               <div id="clockdiv">
+               <div>
+                 <span class="days">{dateState?.days || "0"}</span>
+                 <div class="smalltext">Days</div>
+               </div>
+               <div>
+                 <span class="hours">{dateState?.hours || "0"}</span>
+                 <div class="smalltext">Hours</div>
+               </div>
+               <div>
+                 <span class="minutes">{dateState?.minutes || "0"}</span>
+                 <div class="smalltext">Minutes</div>
+               </div>
+               <div>
+                 <span class="seconds">{dateState?.seconds || "0"}</span>
+                 <div class="smalltext">Seconds</div>
+               </div>
+             </div>
               ) : (
                 ""
               )}
