@@ -2,8 +2,8 @@ import axios from "axios";
 import CONSTANTS from "../config/contants";
 import { getCookie } from "./cookieUtil";
 
-const getAuthorizationHeader = () => `Bearer ${getCookie("token")}`;
-
+const getAuthorizationHeader = () => `Bearer ${getCookie("token")}` || `Bearer ${localStorage.getItem('token')}`;
+console.log("Get authorization header token->",getAuthorizationHeader())
 export const userInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.landingServerUrl}/users`,
