@@ -1727,6 +1727,7 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
+
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
@@ -1894,6 +1895,7 @@ const PokerTable = (props) => {
                   winner={winner}
                   communityCards={communityCards}
                   matchCards={matchCards}
+                  roomData={roomData}
                 />
 
                 {!isWatcher &&
@@ -2129,7 +2131,7 @@ const PokerTable = (props) => {
                   <OverlayTrigger
                     placement="left"
                     overlay={
-                      <Tooltip id="tooltip-disabled">Chat History</Tooltip>
+                      <Tooltip id="tooltip-disabled">Chat</Tooltip>
                     }
                   >
                     <button
@@ -2206,12 +2208,12 @@ const PokerTable = (props) => {
                 placement="left"
                 overlay={
                   <Tooltip id="tooltip-disabled">
-                    {volume ? "Speaker" : "Mute"}
+                    {volume ? "Mute" : "Speaker" }
                   </Tooltip>
                 }
               >
                 <button onClick={() => setVolume(!volume)}>
-                  {volume ? <VolumeIcon /> : <MuteIcon />}
+                  {volume ? <MuteIcon /> : <VolumeIcon /> }
                 </button>
               </OverlayTrigger>
             </li>
@@ -2821,15 +2823,16 @@ const Players = ({
             roomData.runninground !== 0 &&
             playerData &&
             (playerData.isBigBlind ||
-              playerData.isSmallBlind ||
-              playerData.isDealer) && (
+              playerData.isSmallBlind 
+              // || playerData.isDealer
+              ) && (
               <div className="player-badge">
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
                   ? "B"
-                  : playerData.isDealer
-                  ? "D"
+                  // : playerData.isDealer
+                  // ? "D"
                   : ""}
               </div>
             )}
@@ -2972,9 +2975,12 @@ const Players = ({
   );
 };
 
-const TableCard = ({ winner, communityCards, matchCards }) => {
+const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
+      <h4 className="table-blindLevel">
+        SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
+      </h4>
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
