@@ -1,9 +1,9 @@
-import { pokerInstance } from './axios.config';
+import { authInstance } from './axios.config';
 
 // This function is alternative of firebase.auth().onAuthStateChanged
 const getAuthUserData = async () => {
   try {
-    const userData = await pokerInstance().get('/check-auth');
+    const userData = await authInstance().get('/check-auth');
     return { success: true, data: userData.data };
   } catch (error) {
     console.log(error);
