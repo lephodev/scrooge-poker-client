@@ -5668,6 +5668,12 @@ img.coinWinning-animation {
     animation: rectGrow 1.5s 0.5s forwards ease-out !important;
   }
 
+  input:checked {
+    background-color: #f9ff00 !important;
+    border-color: #f9ff00 !important;
+    accent-color: #0600ff !important;
+    filter: invert(1);
+  }
   .winner-player:after {
     position: absolute;
     content: "";
