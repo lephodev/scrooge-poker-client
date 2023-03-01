@@ -1,13 +1,15 @@
 import axios from "axios";
+import { getCookie } from "./cookieUtil";
 // import { pokerInstance } from "./axios.config";
 
 // This function is alternative of firebase.auth().onAuthStateChanged
 const getAuthUserData = async () => {
+  console.log("getCookie", getCookie("token"));
   try {
     let userData = await axios({
       method: "get",
       url: "https://api.scrooge.casino/v1/auth/check-auth",
-      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: { authorization: `Bearer ${getCookie("token")}` },
       withCredentials: true,
       credentials: "include",
     });
