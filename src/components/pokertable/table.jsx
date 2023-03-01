@@ -160,7 +160,6 @@ const PokerTable = (props) => {
   const handleClick = (e) => {
     setOpen(e);
   };
-
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
@@ -590,7 +589,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data.updatedRoom;
+      roomData = data.updatedRoom;      
       setStart(false);
       joinInRunningRound = false;
       setTablePot(roomData.tablePot);
@@ -605,6 +604,17 @@ const PokerTable = (props) => {
       if (roomData.hostId === userId) {
         setisAdmin(true);
         admin = true;
+      }
+      if(roomData.players.find((el)=>el.userid.toString() !==userId.toString())){
+        console.log("Helooooo--->",roomData)
+        // socket.emit("doleavetable", {
+        //   tableId:roomData._id,
+        //   userId,
+        //   gameType: roomData.gameType,
+        //   isWatcher: false,
+        // });
+        // window.location.href = `${window.location.origin}`;
+        history.push('/')
       }
     });
 
@@ -1514,7 +1524,28 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-
+  useEffect(()=>{
+    socket.on("roomchanged", (data) => {
+      const { newRoomId } = data;
+      if (newRoomId) {
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + newRoomId,
+        });
+      } 
+    });
+  },[history])
+  useEffect(()=>{
+    socket.on("eleminated", (data) => {
+      console.log("Eleminated detail--->",data)
+      const { roomDetail } = data;
+      if (roomDetail) {
+        if(roomDetail?.players((el)=>el?.userid?.toString() !==userId?.toString())){
+          history.push('/');
+        }
+      } 
+    });
+  },[history])
   //   const toggleFullscreen = () => {
   //     let ele = document.getElementsByClassName("poker")[0]
   //     if (ele.requestFullscreen) {
