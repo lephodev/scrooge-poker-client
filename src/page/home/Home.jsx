@@ -108,7 +108,7 @@ const Home = () => {
     } else if (
       parseInt(gameState?.sitInAmount) < parseInt(gameState?.minchips)
     ) {
-      err.minchips = "sit in amount must be greater then small blind amount";
+      err.minchips = "Small blind amount must be less than Sit In amount";
       valid = false;
     }
     if (!gameState.sitInAmount) {
