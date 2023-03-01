@@ -101,9 +101,16 @@ const Home = () => {
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
         `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
+    } else if (gameState.minchips <= mimimumBet) {
+      err.minchips =
+        `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
+      valid = false;
+    } else if (
+      parseInt(gameState?.sitInAmount) < parseInt(gameState?.minchips)
+    ) {
+      err.minchips = "Small blind amount must be less than Sit In amount";
       valid = false;
     }
-
     if (!gameState.sitInAmount) {
       err.sitInAmount = `Sit in amount is required.`;
       valid = false;
@@ -146,6 +153,8 @@ const Home = () => {
       return;
     }
     try {
+      console.log("gameState", gameState);
+
       const resp = await pokerInstance().post("/createTable", {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
@@ -181,7 +190,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${ CONSTANTS.landingClient }`);
+      return (window.location.href = `${CONSTANTS.landingClient}`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -197,7 +206,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -209,7 +218,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -376,13 +385,13 @@ const Home = () => {
                     <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
-                        <GameTable
-                          data={el}
-                          gameType="Poker"
-                          height={openCardHeight}
-                          setUserData={setUserData}
-                          tableId={el._id}
-                        />
+                          <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />
                         </React.Fragment>
                       ))}
                     </div>
@@ -405,14 +414,13 @@ const Home = () => {
                       <div className="home-poker-card-grid" ref={tourCard}>
                         {filterTournaments.map((el) => (
                           <React.Fragment key={el._id}>
-                          <GameTable
-                            data={el}
-                            gameType="Tournament"
-                            getTournamentDetails={getTournamentDetails}
-                            height={tournamentCardHeight}
-                            setUserData={setUserData}
-
-                          />
+                            <GameTable
+                              data={el}
+                              gameType="Tournament"
+                              getTournamentDetails={getTournamentDetails}
+                              height={tournamentCardHeight}
+                              setUserData={setUserData}
+                            />
                           </React.Fragment>
                         ))}
                       </div>
@@ -611,7 +619,7 @@ const CreateTable = ({
           Close
         </Button>
         <Button variant="primary" onClick={createTable}>
-          {showSpinner ? <Spinner animation="border" /> : 'Create Table'}
+          {showSpinner ? <Spinner animation="border" /> : "Create Table"}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -624,12 +632,12 @@ const GameTable = ({
   getTournamentDetails,
   height,
   setUserData,
-  tableId
+  tableId,
 }) => {
   const history = useHistory();
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId })
-    socket.on('userAlreadyInGame', (value) => {
+    socket.emit("checkAlreadyInGame", { userId, tableId });
+    socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
       const { message, join } = value;
@@ -642,7 +650,6 @@ const GameTable = ({
         toast.error(message, { id: "create-table-error" });
       }
     });
-
   };
 
   useEffect(() => {
@@ -699,42 +706,44 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
+    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
-  const [dateState,setDateState]=useState()
+  const [dateState, setDateState] = useState();
   const handleFlip = (tDate) => {
     setCardFlip(!cardFlip);
-    countDownData(tDate)
+    countDownData(tDate);
   };
-    const countDownData=(tDate)=>{
-      var x = setInterval(()=> {
-      let  countDownDate = new Date(tDate).getTime();
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  const countDownData = (tDate) => {
+    var x = setInterval(() => {
+      let countDownDate = new Date(tDate).getTime();
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setDateState({
+        days,
+        hours,
+        minutes,
+        seconds,
+      });
+      if (distance < 0) {
+        clearInterval(x);
         setDateState({
-          days,
-          hours,
-          minutes,
-          seconds
-        })
-        if (distance < 0) {
-          clearInterval(x);
-          setDateState({
-            days:'0',
-            hours:'0',
-            minutes:'0',
-            seconds:'0'
-          })
-        }
-      }, 1000);
-    }
-  
+          days: "0",
+          hours: "0",
+          minutes: "0",
+          seconds: "0",
+        });
+      }
+    }, 1000);
+  };
+
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -755,9 +764,9 @@ const GameTable = ({
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-        <FaInfoCircle onClick={()=>handleFlip(data.tournamentDate)} />  
-       
-        <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}>
+        <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
+
+        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
           {!cardFlip ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
@@ -781,7 +790,6 @@ const GameTable = ({
                     <button onClick={() => enterRoom(data?._id)} type="submit">
                       Enter Game
                     </button>
-                    
                   </div>
                 )}
               </div>
@@ -817,24 +825,24 @@ const GameTable = ({
                 ""
               )}
               {gameType === "Tournament" ? (
-               <div id="clockdiv">
-               <div>
-                 <span class="days">{dateState?.days || "0"}</span>
-                 <div class="smalltext">Days</div>
-               </div>
-               <div>
-                 <span class="hours">{dateState?.hours || "0"}</span>
-                 <div class="smalltext">Hours</div>
-               </div>
-               <div>
-                 <span class="minutes">{dateState?.minutes || "0"}</span>
-                 <div class="smalltext">Minutes</div>
-               </div>
-               <div>
-                 <span class="seconds">{dateState?.seconds || "0"}</span>
-                 <div class="smalltext">Seconds</div>
-               </div>
-             </div>
+                <div id="clockdiv">
+                  <div>
+                    <span class="days">{dateState?.days || "0"}</span>
+                    <div class="smalltext">Days</div>
+                  </div>
+                  <div>
+                    <span class="hours">{dateState?.hours || "0"}</span>
+                    <div class="smalltext">Hours</div>
+                  </div>
+                  <div>
+                    <span class="minutes">{dateState?.minutes || "0"}</span>
+                    <div class="smalltext">Minutes</div>
+                  </div>
+                  <div>
+                    <span class="seconds">{dateState?.seconds || "0"}</span>
+                    <div class="smalltext">Seconds</div>
+                  </div>
+                </div>
               ) : (
                 ""
               )}
