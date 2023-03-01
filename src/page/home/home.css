@@ -673,6 +673,10 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
   max-height: 280px;
   height: 100%;
 } */
+div#clockdiv {
+  display: flex;
+  gap: 6px;
+}
 
 @media screen and (max-width: 1024px) {
   .btn-grid {
