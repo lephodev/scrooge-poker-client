@@ -672,6 +672,7 @@ const GameTable = ({
         toast.error(message, { id: "full" });
       }
     });
+    
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
