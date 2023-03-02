@@ -174,9 +174,12 @@ const Home = () => {
 
       setShowSpinner(false);
     } catch (error) {
+      console.log("errorerror",error);
       if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.message, { id: "create-table-error" });
+        toast.error("Minimum bet cant be less then or equal to 0", { id: "create-table-error" });
+
       }
+
       setShowSpinner(false);
     }
   };
@@ -647,14 +650,14 @@ const GameTable = ({
     socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
-      const { message, join } = value;
+      const { message,minchips, join } = value;
       if (join) {
         history.push({
           pathname: "/table",
           search: "?gamecollection=poker&tableid=" + data?._id,
         });
       } else {
-        toast.error(message, { id: "create-table-error" });
+        toast.error(minchips, { id: "create-table-error" });
       }
     });
   };
@@ -662,6 +665,7 @@ const GameTable = ({
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
+      console.log("data",data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
