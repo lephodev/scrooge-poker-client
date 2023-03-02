@@ -56,7 +56,10 @@ const Home = () => {
   const [showSpinner, setShowSpinner] = useState(false);
 
   // utils function
-  const handleShow = () => setShow(!show);
+  const handleShow = () => {
+    setShow(!show)
+    setGameState({ ...gameInit })
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "public" || name === "autohand") {
@@ -92,6 +95,10 @@ const Home = () => {
     let err = {};
     const mimimumBet = 0;
     if (gameState.gameName === "") {
+      err.gameName = "Game name is required.";
+      valid = false;
+    }
+    if (gameState.gameName.trim() === '') {
       err.gameName = "Game name is required.";
       valid = false;
     }
@@ -206,7 +213,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -218,7 +225,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -672,7 +679,7 @@ const GameTable = ({
         toast.error(message, { id: "full" });
       }
     });
-    
+
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
@@ -803,8 +810,8 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                {console.log("data?.havePlayers", data?.havePlayers)} people
-                joined:{" "}
+                people
+                joined :{" "}
                 <span>
                   {(gameType === "Tournament"
                     ? data?.havePlayers
@@ -826,24 +833,27 @@ const GameTable = ({
                 ""
               )}
               {gameType === "Tournament" ? (
-                <div id="clockdiv">
-                  <div>
-                    <span class="days">{dateState?.days || "0"}</span>
-                    <div class="smalltext">Days</div>
+                <>
+                  <div id="clockdiv">
+                    <h4>
+                      Days
+                      <span class="days">{dateState?.days || "0"}</span>
+                    </h4>
+                    <h4>
+                      Hours
+                      <span class="hours">{dateState?.hours || "0"}</span>
+                    </h4>
                   </div>
-                  <div>
-                    <span class="hours">{dateState?.hours || "0"}</span>
-                    <div class="smalltext">Hours</div>
-                  </div>
-                  <div>
-                    <span class="minutes">{dateState?.minutes || "0"}</span>
-                    <div class="smalltext">Minutes</div>
-                  </div>
-                  <div>
-                    <span class="seconds">{dateState?.seconds || "0"}</span>
-                    <div class="smalltext">Seconds</div>
-                  </div>
-                </div>
+                  <div id="clockdiv">
+                    <h4>
+                      Minutes
+                      <span class="minutes">{dateState?.minutes || "0"}</span>
+                    </h4>
+                    <h4>
+                      Seconds
+                      <span class="seconds">{dateState?.seconds || "0"}</span>
+                    </h4>
+                  </div></>
               ) : (
                 ""
               )}
