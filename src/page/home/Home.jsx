@@ -650,14 +650,14 @@ const GameTable = ({
     socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
-      const { message,minchips, join } = value;
+      const { message, join } = value;
       if (join) {
         history.push({
           pathname: "/table",
           search: "?gamecollection=poker&tableid=" + data?._id,
         });
       } else {
-        toast.error(minchips, { id: "create-table-error" });
+        toast.error(message, { id: "create-table-error" });
       }
     });
   };
