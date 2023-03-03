@@ -604,24 +604,11 @@ const PokerTable = (props) => {
         setisAdmin(true);
         admin = true;
       }
-      console.log("room data--->",roomData.players.find((el)=>el.userid.toString() !==userId.toString()))
-      // if(roomData.players.find((el)=>el.userid.toString() !==userId.toString())){
-         console.log("Helooooo--->",roomData)
          if(roomData.eleminated.length >0){
           if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
             history.push('/')
            }
          }
-         
-      //   // socket.emit("doleavetable", {
-      //   //   tableId:roomData._id,
-      //   //   userId,23
-      //   //   gameType: roomData.gameType,
-      //   //   isWatcher: false,
-      //   // });
-      //   // window.location.href = `${window.location.origin}`;
-      //   history.push('/')
-      // }
     });
 
     socket.on("preflopround", (data) => {
@@ -1490,6 +1477,7 @@ const PokerTable = (props) => {
       userId,
       gameType: gameCollection,
       isWatcher: isWatcher,
+      action: "Leave",
     });
     window.location.href = `${window.location.origin}`;
   };
@@ -1530,7 +1518,7 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-  useEffect(()=>{
+  useEffect(() => {
     socket.on("roomchanged", (data) => {
       const { newRoomId } = data;
       if (newRoomId) {
@@ -1538,20 +1526,20 @@ const PokerTable = (props) => {
           pathname: "/table",
           search: "?gamecollection=poker&tableid=" + newRoomId,
         });
-      } 
+      }
     });
-  },[history])
-  useEffect(()=>{
+  }, [history]);
+  useEffect(() => {
     socket.on("eleminated", (data) => {
-      console.log("Eleminated detail--->",data)
+      console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
       if (roomDetail) {
         if(roomDetail?.players((el)=>el?.userid?.toString() !== userId?.toString())){
           history.push('/');
         }
-      } 
+      }
     });
-  },[history])
+  }, [history]);
   //   const toggleFullscreen = () => {
   //     let ele = document.getElementsByClassName("poker")[0]
   //     if (ele.requestFullscreen) {
@@ -2167,9 +2155,7 @@ const PokerTable = (props) => {
                 <li className="">
                   <OverlayTrigger
                     placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Chat</Tooltip>
-                    }
+                    overlay={<Tooltip id="tooltip-disabled">Chat</Tooltip>}
                   >
                     <button
                       onClick={() => {
@@ -2245,12 +2231,12 @@ const PokerTable = (props) => {
                 placement="left"
                 overlay={
                   <Tooltip id="tooltip-disabled">
-                    {volume ? "Mute" : "Speaker" }
+                    {volume ? "Mute" : "Speaker"}
                   </Tooltip>
                 }
               >
                 <button onClick={() => setVolume(!volume)}>
-                  {volume ? <MuteIcon /> : <VolumeIcon /> }
+                  {volume ? <MuteIcon /> : <VolumeIcon />}
                 </button>
               </OverlayTrigger>
             </li>
@@ -2859,18 +2845,16 @@ const Players = ({
           {roomData &&
             roomData.runninground !== 0 &&
             playerData &&
-            (playerData.isBigBlind ||
-              playerData.isSmallBlind 
+            (playerData.isBigBlind || playerData.isSmallBlind) && (
               // || playerData.isDealer
-              ) && (
               <div className="player-badge">
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
                   ? "B"
-                  // : playerData.isDealer
-                  // ? "D"
-                  : ""}
+                  : // : playerData.isDealer
+                    // ? "D"
+                    ""}
               </div>
             )}
 

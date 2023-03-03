@@ -14,7 +14,7 @@ import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
-import axios from "axios";
+// import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
@@ -27,6 +27,7 @@ import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
+import axios from "axios";
 
 let userId;
 const Home = () => {
@@ -56,7 +57,10 @@ const Home = () => {
   const [showSpinner, setShowSpinner] = useState(false);
 
   // utils function
-  const handleShow = () => setShow(!show);
+  const handleShow = () => {
+    setShow(!show);
+    setGameState({ ...gameInit });
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "public" || name === "autohand") {
@@ -88,10 +92,23 @@ const Home = () => {
   };
 
   const validateCreateTable = () => {
+    console.log("pokerRooms", pokerRooms);
+
+    let checkIfExist =
+      pokerRooms?.length > 0 &&
+      pokerRooms.find(
+        (el) =>
+          el.gameName.toLowerCase() === gameState.gameName.trim().toLowerCase()
+      );
+
     let valid = true;
     let err = {};
     const mimimumBet = 0;
     if (gameState.gameName === "") {
+      err.gameName = "Game name is required.";
+      valid = false;
+    }
+    if (gameState.gameName.trim() === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
@@ -133,8 +150,16 @@ const Home = () => {
     else if (parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)) {
       err.maxchips = "Big blind amount cant be less then small blind";
       valid = false;
+    } else if (gameState.minchips <= 0) {
+      err.maxchips = "Minimum bet cant be less then or equal to 0";
+      valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
       err.invitedPlayer = "Please invite some player if table is private.";
+      valid = false;
+    }
+
+    if (checkIfExist) {
+      err.gameName = "Game name is already exist.";
       valid = false;
     }
     return { valid, err };
@@ -146,6 +171,7 @@ const Home = () => {
     if (showSpinner) {
       return false;
     }
+
     const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
       setErrors({ ...tableValidation.err });
@@ -167,9 +193,11 @@ const Home = () => {
 
       setShowSpinner(false);
     } catch (error) {
+      console.log("errorerror", error);
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message, { id: "create-table-error" });
       }
+
       setShowSpinner(false);
     }
   };
@@ -655,6 +683,7 @@ const GameTable = ({
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
+      console.log("data", data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
@@ -672,7 +701,6 @@ const GameTable = ({
         toast.error(message, { id: "full" });
       }
     });
-    
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
@@ -788,6 +816,7 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
+                    {console.log("datatatat", data)}
                     <button onClick={() => enterRoom(data?._id)} type="submit">
                       Enter Game
                     </button>
@@ -803,8 +832,7 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                {console.log("data?.havePlayers", data?.havePlayers)} people
-                joined:{" "}
+                people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
                     ? data?.havePlayers
@@ -826,24 +854,28 @@ const GameTable = ({
                 ""
               )}
               {gameType === "Tournament" ? (
-                <div id="clockdiv">
-                  <div>
-                    <span class="days">{dateState?.days || "0"}</span>
-                    <div class="smalltext">Days</div>
+                <>
+                  <div id="clockdiv">
+                    <h4>
+                      Days
+                      <span class="days">{dateState?.days || "0"}</span>
+                    </h4>
+                    <h4>
+                      Hours
+                      <span class="hours">{dateState?.hours || "0"}</span>
+                    </h4>
                   </div>
-                  <div>
-                    <span class="hours">{dateState?.hours || "0"}</span>
-                    <div class="smalltext">Hours</div>
+                  <div id="clockdiv">
+                    <h4>
+                      Minutes
+                      <span class="minutes">{dateState?.minutes || "0"}</span>
+                    </h4>
+                    <h4>
+                      Seconds
+                      <span class="seconds">{dateState?.seconds || "0"}</span>
+                    </h4>
                   </div>
-                  <div>
-                    <span class="minutes">{dateState?.minutes || "0"}</span>
-                    <div class="smalltext">Minutes</div>
-                  </div>
-                  <div>
-                    <span class="seconds">{dateState?.seconds || "0"}</span>
-                    <div class="smalltext">Seconds</div>
-                  </div>
-                </div>
+                </>
               ) : (
                 ""
               )}
