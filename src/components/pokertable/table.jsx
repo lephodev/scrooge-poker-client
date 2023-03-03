@@ -186,7 +186,6 @@ const PokerTable = (props) => {
   const scrollToBottom = () => {
     scrollDownRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
   useEffect(() => {
     let urlParams = new URLSearchParams(window.location.search);
     setTableId(urlParams.get("tableid"));
@@ -589,11 +588,11 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data.updatedRoom;
+      roomData = data?.updatedRoom;      
       setStart(false);
       joinInRunningRound = false;
-      setTablePot(roomData.tablePot);
-      updatePlayer(roomData.players);
+      setTablePot(roomData?.tablePot);
+      updatePlayer(roomData?.players);
       setCommunityCards([]);
       setCurrentPlayer(false);
       setWinner(false);
@@ -601,10 +600,15 @@ const PokerTable = (props) => {
       setAction(false);
       setActionText("");
       setHandMatch([]);
-      if (roomData.hostId === userId) {
+      if (roomData?.hostId === userId) {
         setisAdmin(true);
         admin = true;
       }
+         if(roomData.eleminated.length >0){
+          if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
+            history.push('/')
+           }
+         }
     });
 
     socket.on("preflopround", (data) => {
@@ -1530,12 +1534,8 @@ const PokerTable = (props) => {
       console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
       if (roomDetail) {
-        if (
-          roomDetail?.players(
-            (el) => el?.userid?.toString() !== userId?.toString()
-          )
-        ) {
-          history.push("/");
+        if(roomDetail?.players((el)=>el?.userid?.toString() !== userId?.toString())){
+          history.push('/');
         }
       }
     });
