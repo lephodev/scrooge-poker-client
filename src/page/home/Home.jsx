@@ -816,6 +816,7 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
+                    {console.log("datatatat", data)}
                     <button onClick={() => enterRoom(data?._id)} type="submit">
                       Enter Game
                     </button>
