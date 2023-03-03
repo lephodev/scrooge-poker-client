@@ -27,6 +27,7 @@ import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
+import axios from "axios";
 
 let userId;
 const Home = () => {
@@ -91,6 +92,14 @@ const Home = () => {
   };
 
   const validateCreateTable = () => {
+    console.log("pokerRooms", pokerRooms);
+
+    let checkIfExist =
+      pokerRooms?.length > 0 &&
+      pokerRooms.find(
+        (el) => el.gameName.toLowerCase() === gameState.gameName.toLowerCase()
+      );
+
     let valid = true;
     let err = {};
     const mimimumBet = 0;
@@ -147,6 +156,11 @@ const Home = () => {
       err.invitedPlayer = "Please invite some player if table is private.";
       valid = false;
     }
+
+    if (checkIfExist) {
+      err.gameName = "Game name is already exist.";
+      valid = false;
+    }
     return { valid, err };
   };
 
@@ -179,9 +193,9 @@ const Home = () => {
       setShowSpinner(false);
     } catch (error) {
       console.log("errorerror", error);
-      // if (axios.isAxiosError(error) && error.response) {
-      // toast.error("Minimum bet cant be less then or equal to 0", { id: "create-table-error" });
-      // }
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message, { id: "create-table-error" });
+      }
 
       setShowSpinner(false);
     }
