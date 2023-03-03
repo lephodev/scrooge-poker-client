@@ -428,6 +428,7 @@ const Home = () => {
                   <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                     <div className="no-room-available">
                       <h4>No Room Available</h4>
+
                       <button type="button" onClick={handleShow}>
                         Create Game
                       </button>
@@ -448,6 +449,7 @@ const Home = () => {
                               getTournamentDetails={getTournamentDetails}
                               height={tournamentCardHeight}
                               setUserData={setUserData}
+                              filterTournaments={filterTournaments}
                             />
                           </React.Fragment>
                         ))}
@@ -458,9 +460,6 @@ const Home = () => {
                   <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                     <div className="no-room-available">
                       <h4>No Tournament Available</h4>
-                      <button type="button" onClick={handleShow}>
-                        Create Game
-                      </button>
                     </div>
                   </div>
                 )}
@@ -709,6 +708,9 @@ const GameTable = ({
       userId: userId,
       fees,
     });
+    setTimeout(() => {
+      getTournamentDetails();
+    }, 1000);
   };
 
   const enterRoom = async (tournamentId) => {
@@ -790,6 +792,14 @@ const GameTable = ({
   };
   useOutsideAlerter(wrapperRef);
 
+  const ifUserJoind = () => {
+    let getData = data?.rooms?.find((el) =>
+      el?.players?.find((el) => el?.userid === userId)
+    );
+
+    return getData;
+  };
+
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
@@ -809,6 +819,7 @@ const GameTable = ({
                   <div className="btn-grid">
                     {" "}
                     <button
+                      disabled={ifUserJoind()}
                       onClick={() =>
                         joinTournament(data?._id, data?.tournamentFee)
                       }
@@ -816,10 +827,14 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
-                    {console.log("datatatat", data)}
-                    <button onClick={() => enterRoom(data?._id)} type="submit">
-                      Enter Game
-                    </button>
+                    {ifUserJoind() && (
+                      <button
+                        onClick={() => enterRoom(data?._id)}
+                        type="submit"
+                      >
+                        Enter Game
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
