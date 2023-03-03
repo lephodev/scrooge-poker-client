@@ -14,7 +14,7 @@ import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
-import axios from "axios";
+// import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
@@ -57,8 +57,8 @@ const Home = () => {
 
   // utils function
   const handleShow = () => {
-    setShow(!show)
-    setGameState({ ...gameInit })
+    setShow(!show);
+    setGameState({ ...gameInit });
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +98,7 @@ const Home = () => {
       err.gameName = "Game name is required.";
       valid = false;
     }
-    if (gameState.gameName.trim() === '') {
+    if (gameState.gameName.trim() === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
@@ -140,6 +140,9 @@ const Home = () => {
     else if (parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)) {
       err.maxchips = "Big blind amount cant be less then small blind";
       valid = false;
+    } else if (gameState.minchips <= 0) {
+      err.maxchips = "Minimum bet cant be less then or equal to 0";
+      valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
       err.invitedPlayer = "Please invite some player if table is private.";
       valid = false;
@@ -153,6 +156,7 @@ const Home = () => {
     if (showSpinner) {
       return false;
     }
+
     const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
       setErrors({ ...tableValidation.err });
@@ -174,11 +178,10 @@ const Home = () => {
 
       setShowSpinner(false);
     } catch (error) {
-      console.log("errorerror",error);
-      if (axios.isAxiosError(error) && error.response) {
-        toast.error("Minimum bet cant be less then or equal to 0", { id: "create-table-error" });
-
-      }
+      console.log("errorerror", error);
+      // if (axios.isAxiosError(error) && error.response) {
+      // toast.error("Minimum bet cant be less then or equal to 0", { id: "create-table-error" });
+      // }
 
       setShowSpinner(false);
     }
@@ -216,7 +219,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -228,7 +231,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -665,7 +668,7 @@ const GameTable = ({
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
-      console.log("data",data);
+      console.log("data", data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
@@ -683,7 +686,6 @@ const GameTable = ({
         toast.error(message, { id: "full" });
       }
     });
-
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
@@ -814,8 +816,7 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                people
-                joined :{" "}
+                people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
                     ? data?.havePlayers
@@ -857,7 +858,8 @@ const GameTable = ({
                       Seconds
                       <span class="seconds">{dateState?.seconds || "0"}</span>
                     </h4>
-                  </div></>
+                  </div>
+                </>
               ) : (
                 ""
               )}
