@@ -97,7 +97,8 @@ const Home = () => {
     let checkIfExist =
       pokerRooms?.length > 0 &&
       pokerRooms.find(
-        (el) => el.gameName.toLowerCase() === gameState.gameName.toLowerCase()
+        (el) =>
+          el.gameName.toLowerCase() === gameState.gameName.trim().toLowerCase()
       );
 
     let valid = true;
