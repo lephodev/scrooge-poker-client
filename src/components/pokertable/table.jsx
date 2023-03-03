@@ -1473,6 +1473,7 @@ const PokerTable = (props) => {
       userId,
       gameType: gameCollection,
       isWatcher: isWatcher,
+      action: "Leave",
     });
     window.location.href = `${window.location.origin}`;
   };
