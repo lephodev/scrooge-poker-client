@@ -29,7 +29,11 @@
   display: grid;
   place-items: center;
 }
-
+.css-2b097c-container {
+  position: relative;
+  box-sizing: border-box;
+  width: 100% !important;
+}
 .block .form-group {
   margin-bottom: 1rem;
   width: 100%;
