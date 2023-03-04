@@ -160,7 +160,6 @@ const PokerTable = (props) => {
   const handleClick = (e) => {
     setOpen(e);
   };
-
   const [view, setView] = useState();
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
@@ -187,7 +186,6 @@ const PokerTable = (props) => {
   const scrollToBottom = () => {
     scrollDownRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
   useEffect(() => {
     let urlParams = new URLSearchParams(window.location.search);
     setTableId(urlParams.get("tableid"));
@@ -590,11 +588,11 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data.updatedRoom;
+      roomData = data?.updatedRoom;      
       setStart(false);
       joinInRunningRound = false;
-      setTablePot(roomData.tablePot);
-      updatePlayer(roomData.players);
+      setTablePot(roomData?.tablePot);
+      updatePlayer(roomData?.players);
       setCommunityCards([]);
       setCurrentPlayer(false);
       setWinner(false);
@@ -602,10 +600,15 @@ const PokerTable = (props) => {
       setAction(false);
       setActionText("");
       setHandMatch([]);
-      if (roomData.hostId === userId) {
+      if (roomData?.hostId === userId) {
         setisAdmin(true);
         admin = true;
       }
+         if(roomData.eleminated.length >0){
+          if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
+            history.push('/')
+           }
+         }
     });
 
     socket.on("preflopround", (data) => {
@@ -1474,6 +1477,7 @@ const PokerTable = (props) => {
       userId,
       gameType: gameCollection,
       isWatcher: isWatcher,
+      action: "Leave",
     });
     window.location.href = `${window.location.origin}`;
   };
@@ -1514,7 +1518,28 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-
+  useEffect(() => {
+    socket.on("roomchanged", (data) => {
+      const { newRoomId } = data;
+      if (newRoomId) {
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + newRoomId,
+        });
+      }
+    });
+  }, [history]);
+  useEffect(() => {
+    socket.on("eleminated", (data) => {
+      console.log("Eleminated detail--->", data);
+      const { roomDetail } = data;
+      if (roomDetail) {
+        if(roomDetail?.players((el)=>el?.userid?.toString() !== userId?.toString())){
+          history.push('/');
+        }
+      }
+    });
+  }, [history]);
   //   const toggleFullscreen = () => {
   //     let ele = document.getElementsByClassName("poker")[0]
   //     if (ele.requestFullscreen) {
@@ -1727,6 +1752,7 @@ const PokerTable = (props) => {
           }`}
         />
       </Helmet>
+
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
@@ -1894,6 +1920,7 @@ const PokerTable = (props) => {
                   winner={winner}
                   communityCards={communityCards}
                   matchCards={matchCards}
+                  roomData={roomData}
                 />
 
                 {!isWatcher &&
@@ -2128,9 +2155,7 @@ const PokerTable = (props) => {
                 <li className="">
                   <OverlayTrigger
                     placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Chat History</Tooltip>
-                    }
+                    overlay={<Tooltip id="tooltip-disabled">Chat</Tooltip>}
                   >
                     <button
                       onClick={() => {
@@ -2206,12 +2231,12 @@ const PokerTable = (props) => {
                 placement="left"
                 overlay={
                   <Tooltip id="tooltip-disabled">
-                    {volume ? "Speaker" : "Mute"}
+                    {volume ? "Mute" : "Speaker"}
                   </Tooltip>
                 }
               >
                 <button onClick={() => setVolume(!volume)}>
-                  {volume ? <VolumeIcon /> : <MuteIcon />}
+                  {volume ? <MuteIcon /> : <VolumeIcon />}
                 </button>
               </OverlayTrigger>
             </li>
@@ -2820,17 +2845,16 @@ const Players = ({
           {roomData &&
             roomData.runninground !== 0 &&
             playerData &&
-            (playerData.isBigBlind ||
-              playerData.isSmallBlind ||
-              playerData.isDealer) && (
+            (playerData.isBigBlind || playerData.isSmallBlind) && (
+              // || playerData.isDealer
               <div className="player-badge">
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
                   ? "B"
-                  : playerData.isDealer
-                  ? "D"
-                  : ""}
+                  : // : playerData.isDealer
+                    // ? "D"
+                    ""}
               </div>
             )}
 
@@ -2972,9 +2996,12 @@ const Players = ({
   );
 };
 
-const TableCard = ({ winner, communityCards, matchCards }) => {
+const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
+      <h4 className="table-blindLevel">
+        SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
+      </h4>
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default

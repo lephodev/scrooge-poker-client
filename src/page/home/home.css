@@ -53,7 +53,6 @@
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-
 }
 
 .home-poker-card {
@@ -129,7 +128,7 @@
 
 .poker-table-header .backtoHome a {
   font-size: 18px;
-  color: #bcbcbc;
+  color: #f9ff00;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -634,7 +633,7 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
   padding: 30px 10px 10px 10px;
 }
 
@@ -673,6 +672,20 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
   max-height: 280px;
   height: 100%;
 } */
+div#clockdiv {
+  display: flex;
+  flex-direction: row;
+  grid-gap: 6px;
+  gap: 6px;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+}
+div#clockdiv h4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 @media screen and (max-width: 1024px) {
   .btn-grid {
@@ -752,8 +765,6 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
     width: 48%;
   }
 
-
-
   .create-game-box button {
     font-size: 14px;
   }
@@ -761,4 +772,9 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
   .poker-tableSearch {
     max-width: 200px;
   }
+}
+
+.tournamentCard-front button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

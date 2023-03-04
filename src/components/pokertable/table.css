@@ -88,6 +88,13 @@ input:checked {
   gap: 4px;
 }
 
+.sub-btn.text-center .btn-primary.disabled,
+.sub-btn.text-center .btn-primary:disabled {
+  color: #000000 !important;
+  background-color: #ccd000 !important;
+  border-color: #f9ff00 !important;
+}
+
 .close-btn .btn:active {
   background-color: #f9ff00 !important;
   border-color: #f9ff00 !important;
@@ -122,6 +129,26 @@ input:checked {
 .table-card .winner-card {
   /* width: 65px; */
   width: 52px;
+}
+
+.table-blindLevel {
+  position: absolute;
+  top: -170px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(4px);
+  background: #1c1c29;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: flex;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.table-blindLevel span {
+  color: #f9ff00;
+  white-space: nowrap;
 }
 
 /* .table-card .winner-card {
@@ -1097,7 +1124,9 @@ input:checked {
 
 .player-badge {
   background: url(../../assets/game/badge.png);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30px;
   height: 30px;
   line-height: 25px;
@@ -1105,7 +1134,7 @@ input:checked {
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
-  font-size: 12px;
+  font-size: 16px;
   right: -25px;
   bottom: 6px;
   padding-left: 3px;
@@ -1860,6 +1889,12 @@ input:checked {
 
 .footer-btn .btn-primary:disabled {
   color: #361302;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.start-game-btn .footer-btn .btn-primary:disabled {
+  color: #ffffff !important;
   background-color: transparent;
   border-color: transparent;
 }
@@ -3015,7 +3050,7 @@ ul.btn-list>li>button>img {
   display: flex;
   overflow: hidden;
   line-height: 0;
-  font-size: .75rem;
+  font-size: 0.75rem;
   background-color: #e9ecef;
   border-radius: 60px;
   position: absolute !important;
@@ -3036,7 +3071,7 @@ ul.btn-list>li>button>img {
   display: flex;
   overflow: hidden;
   line-height: 0;
-  font-size: .75rem;
+  font-size: 0.75rem;
   background-color: #e9ecef;
   border-radius: 60px;
   position: absolute !important;
@@ -3060,7 +3095,7 @@ ul.btn-list>li>button>img {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  transition: width .6s ease;
+  transition: width 0.6s ease;
 }
 
 /* 
@@ -3188,7 +3223,6 @@ img.coinWinning-animation {
   }
 } */
 
-
 .start-game .start-game-btn:nth-child(1) {
   z-index: 99;
 }
@@ -3196,7 +3230,6 @@ img.coinWinning-animation {
 .start-game .start-game-btn:nth-child(2) {
   top: 30%;
 }
-
 
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
@@ -3309,7 +3342,6 @@ img.coinWinning-animation {
   .player7 {
     /* top: 30px; */
     top: -20% !important;
-
   }
 
   .player4 {
@@ -3337,7 +3369,6 @@ img.coinWinning-animation {
   .total-pot-money {
     left: calc(50% - 52px);
   }
-
 }
 
 @media screen and (max-width: 1366px) {
@@ -3375,7 +3406,7 @@ img.coinWinning-animation {
 
   .players.player1 {
     left: 48%;
-    bottom: -16%;
+    bottom: -8%;
   }
 
   .player4 {
@@ -3557,7 +3588,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money span {
-    width: 100px;
+    width: 110px;
     height: 32px;
     font-size: 14px;
   }
@@ -3624,10 +3655,10 @@ img.coinWinning-animation {
   }
 
   .player-badge {
-    width: 20px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     line-height: 20px;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .players.winner-player .player-pic:before {
@@ -3787,6 +3818,11 @@ img.coinWinning-animation {
     bottom: -26px !important;
   }
 
+  .table-blindLevel {
+    position: absolute;
+    top: -140px;
+  }
+
   .player-pic .progress {
     width: 110px !important;
     height: 33px !important;
@@ -3908,9 +3944,19 @@ img.coinWinning-animation {
     height: 100vh;
   }
 
+  .chat-logo img {
+    max-width: 88px;
+  }
+
   img.coinWinning-animation {
     position: absolute;
     width: 120px;
+  }
+
+  .table-blindLevel {
+    position: absolute;
+    top: -25px;
+    font-size: 10px;
   }
 
   .player-action {
@@ -3983,7 +4029,17 @@ img.coinWinning-animation {
 
   .chat-wrapper {
     right: 10px;
-    bottom: -42px;
+    bottom: -34px;
+  }
+
+  .player1 .bubble-msg {
+    right: -154px;
+    bottom: 20px;
+  }
+
+  .start-game-btn .footer-btn {
+    width: 106px;
+    height: 48px;
   }
 
   .poker-logo img {
@@ -4041,7 +4097,7 @@ img.coinWinning-animation {
 
   .total-pot-money {
     /* top: 135px; */
-    top: 40%;
+    top: 41%;
     left: 44%;
   }
 
@@ -4704,6 +4760,11 @@ img.coinWinning-animation {
     width: 120px;
   }
 
+  .table-blindLevel {
+    position: absolute;
+    top: -216px;
+  }
+
   .player-with-icons {
     max-width: 150px;
   }
@@ -4757,7 +4818,7 @@ img.coinWinning-animation {
 
   .player1 .bubble-msg {
     right: -128px;
-    bottom: 4px;
+    bottom: 32px;
   }
 
   .player6 .bubble-msg,
@@ -4811,6 +4872,12 @@ img.coinWinning-animation {
 
   .chat-wrapper {
     right: 10px;
+    max-width: 325px;
+
+  }
+
+  .chat-search.chat-input .form-inline {
+    gap: 4px;
   }
 
   .poker-logo img {
@@ -4875,7 +4942,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    top: 136px;
+    top: 165px;
     left: 36%;
   }
 
@@ -5596,12 +5663,17 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
-
   .addRectAnimate {
     -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
     animation: rectGrow 1.5s 0.5s forwards ease-out !important;
   }
 
+  input:checked {
+    background-color: #f9ff00 !important;
+    border-color: #f9ff00 !important;
+    accent-color: #0600ff !important;
+    filter: invert(1);
+  }
   .winner-player:after {
     position: absolute;
     content: "";

@@ -14,7 +14,7 @@ import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
-import axios from "axios";
+// import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
@@ -27,6 +27,7 @@ import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
+import axios from "axios";
 
 let userId;
 const Home = () => {
@@ -56,7 +57,10 @@ const Home = () => {
   const [showSpinner, setShowSpinner] = useState(false);
 
   // utils function
-  const handleShow = () => setShow(!show);
+  const handleShow = () => {
+    setShow(!show);
+    setGameState({ ...gameInit });
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "public" || name === "autohand") {
@@ -88,10 +92,23 @@ const Home = () => {
   };
 
   const validateCreateTable = () => {
+    console.log("pokerRooms", pokerRooms);
+
+    let checkIfExist =
+      pokerRooms?.length > 0 &&
+      pokerRooms.find(
+        (el) =>
+          el.gameName.toLowerCase() === gameState.gameName.trim().toLowerCase()
+      );
+
     let valid = true;
     let err = {};
     const mimimumBet = 0;
     if (gameState.gameName === "") {
+      err.gameName = "Game name is required.";
+      valid = false;
+    }
+    if (gameState.gameName.trim() === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
@@ -101,9 +118,16 @@ const Home = () => {
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
         `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
+    } else if (gameState.minchips <= mimimumBet) {
+      err.minchips =
+        `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
+      valid = false;
+    } else if (
+      parseInt(gameState?.sitInAmount) < parseInt(gameState?.minchips)
+    ) {
+      err.minchips = "Small blind amount must be less than Sit In amount";
       valid = false;
     }
-
     if (!gameState.sitInAmount) {
       err.sitInAmount = `Sit in amount is required.`;
       valid = false;
@@ -126,8 +150,16 @@ const Home = () => {
     else if (parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)) {
       err.maxchips = "Big blind amount cant be less then small blind";
       valid = false;
+    } else if (gameState.minchips <= 0) {
+      err.maxchips = "Minimum bet cant be less then or equal to 0";
+      valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
       err.invitedPlayer = "Please invite some player if table is private.";
+      valid = false;
+    }
+
+    if (checkIfExist) {
+      err.gameName = "Game name is already exist.";
       valid = false;
     }
     return { valid, err };
@@ -139,6 +171,7 @@ const Home = () => {
     if (showSpinner) {
       return false;
     }
+
     const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
       setErrors({ ...tableValidation.err });
@@ -146,6 +179,8 @@ const Home = () => {
       return;
     }
     try {
+      console.log("gameState", gameState);
+
       const resp = await pokerInstance().post("/createTable", {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
@@ -158,9 +193,11 @@ const Home = () => {
 
       setShowSpinner(false);
     } catch (error) {
+      console.log("errorerror", error);
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message, { id: "create-table-error" });
       }
+
       setShowSpinner(false);
     }
   };
@@ -181,7 +218,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${ CONSTANTS.landingClient }`);
+      return (window.location.href = `${CONSTANTS.landingClient}`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -197,7 +234,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -209,7 +246,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -375,13 +412,15 @@ const Home = () => {
                   <>
                     <div className="home-poker-card-grid" ref={pokerCard}>
                       {filterRoom.map((el) => (
-                        <GameTable
-                          data={el}
-                          gameType="Poker"
-                          height={openCardHeight}
-                          setUserData={setUserData}
-                          tableId={el._id}
-                        />
+                        <React.Fragment key={el._id}>
+                          <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />
+                        </React.Fragment>
                       ))}
                     </div>
                   </>
@@ -389,6 +428,7 @@ const Home = () => {
                   <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                     <div className="no-room-available">
                       <h4>No Room Available</h4>
+
                       <button type="button" onClick={handleShow}>
                         Create Game
                       </button>
@@ -402,14 +442,16 @@ const Home = () => {
                     <div className="container">
                       <div className="home-poker-card-grid" ref={tourCard}>
                         {filterTournaments.map((el) => (
-                          <GameTable
-                            data={el}
-                            gameType="Tournament"
-                            getTournamentDetails={getTournamentDetails}
-                            height={tournamentCardHeight}
-                            setUserData={setUserData}
-
-                          />
+                          <React.Fragment key={el._id}>
+                            <GameTable
+                              data={el}
+                              gameType="Tournament"
+                              getTournamentDetails={getTournamentDetails}
+                              height={tournamentCardHeight}
+                              setUserData={setUserData}
+                              filterTournaments={filterTournaments}
+                            />
+                          </React.Fragment>
                         ))}
                       </div>
                     </div>
@@ -418,9 +460,6 @@ const Home = () => {
                   <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                     <div className="no-room-available">
                       <h4>No Tournament Available</h4>
-                      <button type="button" onClick={handleShow}>
-                        Create Game
-                      </button>
                     </div>
                   </div>
                 )}
@@ -607,7 +646,7 @@ const CreateTable = ({
           Close
         </Button>
         <Button variant="primary" onClick={createTable}>
-          {showSpinner ? <Spinner animation="border" /> : 'Create Table'}
+          {showSpinner ? <Spinner animation="border" /> : "Create Table"}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -620,12 +659,12 @@ const GameTable = ({
   getTournamentDetails,
   height,
   setUserData,
-  tableId
+  tableId,
 }) => {
   const history = useHistory();
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId })
-    socket.on('userAlreadyInGame', (value) => {
+    socket.emit("checkAlreadyInGame", { userId, tableId });
+    socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
       const { message, join } = value;
@@ -638,12 +677,12 @@ const GameTable = ({
         toast.error(message, { id: "create-table-error" });
       }
     });
-
   };
 
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
+      console.log("data", data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
@@ -669,6 +708,9 @@ const GameTable = ({
       userId: userId,
       fees,
     });
+    setTimeout(() => {
+      getTournamentDetails();
+    }, 1000);
   };
 
   const enterRoom = async (tournamentId) => {
@@ -695,14 +737,44 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
+    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
-
-  const handleFlip = () => {
+  const [dateState, setDateState] = useState();
+  const handleFlip = (tDate) => {
     setCardFlip(!cardFlip);
+    countDownData(tDate);
   };
+  const countDownData = (tDate) => {
+    var x = setInterval(() => {
+      let countDownDate = new Date(tDate).getTime();
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setDateState({
+        days,
+        hours,
+        minutes,
+        seconds,
+      });
+      if (distance < 0) {
+        clearInterval(x);
+        setDateState({
+          days: "0",
+          hours: "0",
+          minutes: "0",
+          seconds: "0",
+        });
+      }
+    }, 1000);
+  };
+
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -720,11 +792,20 @@ const GameTable = ({
   };
   useOutsideAlerter(wrapperRef);
 
+  const ifUserJoind = () => {
+    let getData = data?.rooms?.find((el) =>
+      el?.players?.find((el) => el?.userid === userId)
+    );
+
+    return getData;
+  };
+
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-        <FaInfoCircle onClick={handleFlip} />
-        <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}>
+        <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
+
+        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
           {!cardFlip ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
@@ -738,6 +819,7 @@ const GameTable = ({
                   <div className="btn-grid">
                     {" "}
                     <button
+                      disabled={ifUserJoind()}
                       onClick={() =>
                         joinTournament(data?._id, data?.tournamentFee)
                       }
@@ -745,9 +827,14 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
-                    <button onClick={() => enterRoom(data?._id)} type="submit">
-                      Enter Game
-                    </button>
+                    {ifUserJoind() && (
+                      <button
+                        onClick={() => enterRoom(data?._id)}
+                        type="submit"
+                      >
+                        Enter Game
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -760,8 +847,7 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                {console.log("data?.havePlayers", data?.havePlayers)} people
-                joined:{" "}
+                people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
                     ? data?.havePlayers
@@ -779,6 +865,32 @@ const GameTable = ({
                 <h4>
                   Date : <span>{getTime(data?.tournamentDate)}</span>
                 </h4>
+              ) : (
+                ""
+              )}
+              {gameType === "Tournament" ? (
+                <>
+                  <div id="clockdiv">
+                    <h4>
+                      Days
+                      <span class="days">{dateState?.days || "0"}</span>
+                    </h4>
+                    <h4>
+                      Hours
+                      <span class="hours">{dateState?.hours || "0"}</span>
+                    </h4>
+                  </div>
+                  <div id="clockdiv">
+                    <h4>
+                      Minutes
+                      <span class="minutes">{dateState?.minutes || "0"}</span>
+                    </h4>
+                    <h4>
+                      Seconds
+                      <span class="seconds">{dateState?.seconds || "0"}</span>
+                    </h4>
+                  </div>
+                </>
               ) : (
                 ""
               )}
