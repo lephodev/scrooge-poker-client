@@ -1,9 +1,14 @@
 .leave-confirm.modal .sub-btn .btn {
   border-color: #f9ff00;
-  font-size: 14px;
+  font-size: 16px;
   box-shadow: none;
   color: black;
   border-radius: 4px;
+  font-weight: 600;
+  border-radius: 30px;
+  width: 150px;
+  display: grid;
+  place-content: center;
 }
 
 .leave-confirm.modal .sub-btn .btn.btn-primary:hover,
@@ -20,6 +25,18 @@
 
 .block .sub-btn {
   margin-bottom: 10px !important;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.css-2b097c-container {
+  position: relative;
+  box-sizing: border-box;
+  width: 100% !important;
+}
+.block .form-group {
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .leave-confirm.modal .sub-btn .btn+.btn {
@@ -40,6 +57,8 @@
 
 .modal-content .block {
   text-align: center;
+  display: grid;
+  place-items: center;
 }
 
 .sitinPopup label.form-label {
@@ -51,12 +70,15 @@
 .sitinPopup .form-control,
 .sitinPopup .form-control:active,
 .sitinPopup .form-control:focus {
-  background-color: #1b1b1b;
-  border: 1px solid #3f3f3f;
+  background-color: #000000;
+  border: 1px solid #1a1a1a;
   box-shadow: none !important;
   color: #fff;
   font-size: 14px;
   height: 44px;
+  box-shadow: 0px 2px 10px rgba(25, 25, 25, 0.637);
+  border-radius: 30px;
+  padding: 2px 20px;
 }
 
 .sitinPopup .sub-btn.text-center {
@@ -73,7 +95,7 @@
 
 .exit-btn.btn,
 .grey-btn.btn {
-  height: 42px;
+  height: 38px;
   transition: all .5s;
   width: 144px;
 }
@@ -89,16 +111,16 @@
 .grey-btn.btn:active,
 .grey-btn.btn:hover,
 .grey-btn.btn:focus {
-  background: #414141 !important;
-  border-color: #414141 !important;
-  color: #fff !important;
+  background: #343a40 !important;
+  border-color: #343a40 !important;
+  color: #ddd !important;
 }
 
 .errorMssg {
   text-align: left;
   color: red;
   font-size: 12px;
-  margin: 2px;
+  margin: 2px 14px;
 }
 
 @media screen and (max-width: 767px) {
