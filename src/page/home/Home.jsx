@@ -60,6 +60,8 @@ const Home = () => {
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
+    setShowSpinner(false)
+    setErrors({})
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -234,7 +236,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -246,7 +248,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -601,34 +603,31 @@ const CreateTable = ({
             )}
           </div>
 
-          <div>
-            <Form.Label>Small Blind</Form.Label>
-            <Form.Control
-              name="minchips"
-              onChange={handleChange}
-              value={values.minchips}
-              type="number"
-              placeholder="Ex : 50"
-            />
-            {!!errors?.minchips && (
-              <p className="text-danger">{errors?.minchips}</p>
-            )}
-          </div>
-
-          <div>
-            <Form.Label>Big Blind</Form.Label>
-            <Form.Control
-              name="maxchips"
-              onChange={handleChange}
-              value={values.minchips * 2}
-              type="number"
-              placeholder="Ex : 1000"
-              disabled
-            />
+          <div>   <div className="blindFields-box">
+            <div> <Form.Label>Small Blind</Form.Label>
+              <Form.Control
+                name="minchips"
+                onChange={handleChange}
+                value={values.minchips}
+                type="number"
+                placeholder="Ex : 50"
+              /></div>
+            <div> <Form.Label>Big Blind</Form.Label>
+              <Form.Control
+                name="maxchips"
+                onChange={handleChange}
+                value={values.minchips * 2}
+                type="number"
+                placeholder="Ex : 1000"
+                disabled
+              /></div>
             {/* {!!errors?.maxchips && (
               <p className='text-danger'>{errors?.maxchips}</p>
             )} */}
           </div>
+            {!!errors?.minchips && (
+              <p className="text-danger">{errors?.minchips}</p>
+            )}</div>
         </Form.Group>
         <div className="searchSelectDropdown">
           <Form.Label>Invite Users</Form.Label>
