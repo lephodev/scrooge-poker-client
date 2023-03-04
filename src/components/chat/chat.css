@@ -59,10 +59,11 @@ i.fa.fa-sign-out {
 .chat-content {
   transition: all 0.5s;
   position: relative;
-  background: #131721;
+  background: #141414;
   padding: 15px 20px;
   border-radius: 10px;
-  border: 1px solid #222632;
+  border: 1px solid #141414;
+  box-shadow: 0px 2px 10px #141414;
 }
 
 .chat-content:before {
@@ -89,9 +90,10 @@ i.fa.fa-sign-out {
 }
 
 .chat-search.chat-input .form-inline .form-control {
-  border: 1px solid #1e2432;
+  border: 1px solid black;
   width: calc(100% - 50px);
-  background: #131620;
+  background: black;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.579);
   margin-left: 0px;
   color: #fff;
   border-top-right-radius: 0px;
@@ -132,8 +134,7 @@ i.fa.fa-sign-out {
 .chat-search.chat-input .form-inline {
   display: flex;
   flex-wrap: unset;
-  gap: 8px;
-
+  gap: 4px;
 }
 
 .chat-back {

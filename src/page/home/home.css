@@ -684,6 +684,7 @@ input[type="number"] {
 
 div#controlled-tab-example-tabpane-home .tournamentCard-front button {
   width: 100%;
+  font-size: 14px;
 }
 
 div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
