@@ -588,7 +588,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data?.updatedRoom;      
+      roomData = data?.updatedRoom;
       setStart(false);
       joinInRunningRound = false;
       setTablePot(roomData?.tablePot);
@@ -604,11 +604,15 @@ const PokerTable = (props) => {
         setisAdmin(true);
         admin = true;
       }
-         if(roomData.eleminated.length >0){
-          if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
-            history.push('/')
-           }
-         }
+      if (roomData.eleminated.length > 0) {
+        if (
+          roomData.eleminated.find(
+            (el) => el.userid.toString() === userId.toString()
+          )
+        ) {
+          history.push("/");
+        }
+      }
     });
 
     socket.on("preflopround", (data) => {
@@ -1197,12 +1201,15 @@ const PokerTable = (props) => {
       setHandWinner(roomData.handWinner);
     }
   };
-
-  const startGame = () => {
+  const [auto, setAuto] = useState(false);
+  const startGame = (data) => {
     socket.emit("startPreflopRound", {
       tableId,
       userId,
     });
+    if (data) {
+      setAuto(true);
+    }
   };
 
   const joinGame = () => {
@@ -1534,8 +1541,12 @@ const PokerTable = (props) => {
       console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
       if (roomDetail) {
-        if(roomDetail?.players((el)=>el?.userid?.toString() !== userId?.toString())){
-          history.push('/');
+        if (
+          roomDetail?.players(
+            (el) => el?.userid?.toString() !== userId?.toString()
+          )
+        ) {
+          history.push("/");
         }
       }
     });
@@ -1816,7 +1827,7 @@ const PokerTable = (props) => {
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
-                {!roomData?.gamestart && !newUser && (
+                {!roomData?.gamestart && !newUser && !auto && (
                   <div className="start-game">
                     <div className="start-game-btn">
                       {isAdmin && roomData && !roomData?.gamestart ? (
@@ -1828,7 +1839,7 @@ const PokerTable = (props) => {
                               <Button
                                 onClick={() => {
                                   setStart(true);
-                                  startGame();
+                                  startGame(roomData?.autoNextHand);
                                 }}
                                 disabled={start}
                               >
@@ -3124,7 +3135,7 @@ const FooterButton = ({
                         currentPlayer?.pot
                       )}
                       {/* roomData?.raiseAmount /* - currentPlayer?.pot */}(
-                      {Math.round(roomData?.raiseAmount)?.toFixed(2)})
+                      {numFormatter(roomData?.raiseAmount)})
                     </span>
                   </Button>
                   {/* <Form.Check
