@@ -120,7 +120,7 @@
   text-align: left;
   color: red;
   font-size: 12px;
-  margin: 2px;
+  margin: 2px 14px;
 }
 
 @media screen and (max-width: 767px) {
