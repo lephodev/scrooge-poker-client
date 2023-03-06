@@ -71,7 +71,6 @@ const EnterAmountPopup = ({
             >
               {isLoading ? <Spinner animation="border" /> : submitButtonText}
             </Button>
-            {console.log('submitButtonText---',submitButtonText)}
             <Button className="grey-btn" onClick={redirectToLobby}>
               {submitButtonText.toLowerCase().startsWith("refill")
                 ? "Close"
