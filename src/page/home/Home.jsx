@@ -60,6 +60,8 @@ const Home = () => {
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
+    setShowSpinner(false)
+    setErrors({})
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -235,7 +237,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -247,7 +249,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -478,38 +480,43 @@ const Home = () => {
     </div>
   );
 };
-
 const customStyles = {
   option: (provided) => ({
     ...provided,
-    background: "#333333",
-    color: "#fff",
+    background: "#000",
+    color: "#ddd",
     fontWeight: "400",
     fontSize: "16px",
-    padding: "12px",
+    padding: "10px 20px",
     lineHeight: "16px",
     cursor: "pointer",
+    borderRadius: "4px",
+    borderBottom: "1px solid #141414",
     ":hover": {
-      background: "#2a2a2a",
+      background: "#141414",
+      borderRadius: "4px",
     },
   }),
   menu: (provided) => ({
     ...provided,
-    background: "#333333",
-    padding: "0px",
+    background: "#000",
+    borderRadius: "30px",
+    padding: "10px 20px",
     border: "2px solid transparent",
   }),
   control: () => ({
-    background: "#333333",
-    border: "2px solid transparent",
-    borderRadius: "4px",
+    background: "#000",
+    border: "2px solid #000",
+    borderRadius: "30px",
     color: "#fff",
     display: "flex",
     alignItem: "center",
-    height: "inherit",
-    margin: "10px 0",
+    height: "41",
+    margin: "2px 0",
+    boxShadow: " 0 2px 10px #000000a5",
+    cursor: "pointer",
     ":hover": {
-      background: "#333333",
+      background: "#000",
       // border: "2px solid #306CFE",
     },
   }),
@@ -529,15 +536,32 @@ const customStyles = {
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "19px",
-    color: "#fff",
+    color: "#858585c7",
+
   }),
   input: (provided) => ({
     ...provided,
     // height: "38px",
     color: "fff",
+
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: "2px 20px",
+  }),
+  indicatorsContainer: (provided) => ({
+    ...provided,
+    paddingRight: "20px",
+    color: '#858585c7',
+  }),
+  svg: (provided) => ({
+    ...provided,
+    fill: '#858585c7 !important',
+    ":hover": {
+      fill: '#858585c7 !important',
+    },
   }),
 };
-
 const CreateTable = ({
   show,
   handleShow,
@@ -556,7 +580,7 @@ const CreateTable = ({
       </Modal.Header>
       <Modal.Body>
         <Form.Group className="form-group" controlId="formPlaintextPassword">
-          <Form.Label>Enter Table name</Form.Label>
+          <Form.Label>Enter Game name</Form.Label>
           <Form.Control
             name="gameName"
             type="text"
@@ -586,34 +610,31 @@ const CreateTable = ({
             )}
           </div>
 
-          <div>
-            <Form.Label>Small Blind</Form.Label>
-            <Form.Control
-              name="minchips"
-              onChange={handleChange}
-              value={values.minchips}
-              type="number"
-              placeholder="Ex : 50"
-            />
-            {!!errors?.minchips && (
-              <p className="text-danger">{errors?.minchips}</p>
-            )}
-          </div>
-
-          <div>
-            <Form.Label>Big Blind</Form.Label>
-            <Form.Control
-              name="maxchips"
-              onChange={handleChange}
-              value={values.minchips * 2}
-              type="number"
-              placeholder="Ex : 1000"
-              disabled
-            />
+          <div>   <div className="blindFields-box">
+            <div> <Form.Label>Small Blind</Form.Label>
+              <Form.Control
+                name="minchips"
+                onChange={handleChange}
+                value={values.minchips}
+                type="number"
+                placeholder="Ex : 50"
+              /></div>
+            <div> <Form.Label>Big Blind</Form.Label>
+              <Form.Control
+                name="maxchips"
+                onChange={handleChange}
+                value={values.minchips * 2}
+                type="number"
+                placeholder="Ex : 1000"
+                disabled
+              /></div>
             {/* {!!errors?.maxchips && (
               <p className='text-danger'>{errors?.maxchips}</p>
             )} */}
           </div>
+            {!!errors?.minchips && (
+              <p className="text-danger">{errors?.minchips}</p>
+            )}</div>
         </Form.Group>
         <div className="searchSelectDropdown">
           <Form.Label>Invite Users</Form.Label>

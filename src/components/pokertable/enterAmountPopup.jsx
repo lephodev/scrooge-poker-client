@@ -11,7 +11,6 @@ const EnterAmountPopup = ({
   const [isLoading, setLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
-
   const joinGame = async () => {
     if (parseInt(amount) >= 100) {
       setLoading(true);
@@ -72,6 +71,7 @@ const EnterAmountPopup = ({
             >
               {isLoading ? <Spinner animation="border" /> : submitButtonText}
             </Button>
+            {console.log('submitButtonText---',submitButtonText)}
             <Button className="grey-btn" onClick={redirectToLobby}>
               {submitButtonText.toLowerCase().startsWith("refill")
                 ? "Close"
