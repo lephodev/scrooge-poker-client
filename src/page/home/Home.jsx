@@ -41,7 +41,7 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-
+console.log("Constatn -->",CONSTANTS)
   // States
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
@@ -216,6 +216,7 @@ const Home = () => {
       setTournaments(data);
     });
   }, []);
+  
 
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
@@ -254,7 +255,12 @@ const Home = () => {
   useEffect(() => {
     getTournamentDetails();
   }, []);
-
+  socket.on("tournamentUpdate", (data) => {
+    const {updateTournament}=data
+    if(updateTournament){
+      getTournamentDetails();
+    }
+  });
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -295,7 +301,7 @@ const Home = () => {
       setTournamentCardHeight(tourCard.current.clientHeight);
     }
   }, [pokerCard, tourCard]);
-
+  
   return (
     <div className="poker-home">
       {loader && (
@@ -452,6 +458,7 @@ const Home = () => {
                               height={tournamentCardHeight}
                               setUserData={setUserData}
                               filterTournaments={filterTournaments}
+                              
                             />
                           </React.Fragment>
                         ))}
@@ -681,6 +688,7 @@ const GameTable = ({
   height,
   setUserData,
   tableId,
+
 }) => {
   const history = useHistory();
   const redirectToTable = () => {
@@ -837,6 +845,7 @@ const GameTable = ({
                     Join Game
                   </button>
                 ) : (
+                  
                   <div className="btn-grid">
                     {" "}
                     <button
@@ -848,7 +857,7 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
-                    {ifUserJoind() && (
+                    {ifUserJoind() && data?.showButton &&(
                       <button
                         onClick={() => enterRoom(data?._id)}
                         type="submit"
@@ -857,6 +866,7 @@ const GameTable = ({
                       </button>
                     )}
                   </div>
+                
                 )}
               </div>
             </div>

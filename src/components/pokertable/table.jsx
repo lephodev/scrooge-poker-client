@@ -1461,7 +1461,18 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
-
+  socket.on("roomchanged", (data) => {
+    const { newRoomId,changeIds } = data;
+    if (newRoomId && changeIds.length >0) {
+      if(changeIds.find((el)=>el.toString()===userId.toString())){
+        console.log("Change ids--->",changeIds)
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + newRoomId,
+      });
+    }
+    }
+  });
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1525,17 +1536,7 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-  useEffect(() => {
-    socket.on("roomchanged", (data) => {
-      const { newRoomId } = data;
-      if (newRoomId) {
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + newRoomId,
-        });
-      }
-    });
-  }, [history]);
+ 
   useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);
