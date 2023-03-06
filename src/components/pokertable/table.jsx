@@ -588,27 +588,30 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data?.updatedRoom;      
-      setStart(false);
-      joinInRunningRound = false;
-      setTablePot(roomData?.tablePot);
-      updatePlayer(roomData?.players);
-      setCommunityCards([]);
-      setCurrentPlayer(false);
-      setWinner(false);
-      setWinnerText("");
-      setAction(false);
-      setActionText("");
-      setHandMatch([]);
-      if (roomData?.hostId === userId) {
-        setisAdmin(true);
-        admin = true;
-      }
-         if(roomData.eleminated.length >0){
-          if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
-            history.push('/')
+      if(data?.updatedRoom){
+        roomData = data?.updatedRoom;      
+        setStart(false);
+        joinInRunningRound = false;
+        setTablePot(roomData?.tablePot);
+        updatePlayer(roomData?.players);
+        setCommunityCards([]);
+        setCurrentPlayer(false);
+        setWinner(false);
+        setWinnerText("");
+        setAction(false);
+        setActionText("");
+        setHandMatch([]);
+        if (roomData?.hostId === userId) {
+          setisAdmin(true);
+          admin = true;
+        }
+           if(roomData.eleminated.length >0){
+            if(roomData.eleminated.find((el)=>el.userid.toString() ===userId.toString())){
+              history.push('/')
+             }
            }
-         }
+      }
+      
     });
 
     socket.on("preflopround", (data) => {
@@ -1454,7 +1457,18 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
-
+  socket.on("roomchanged", (data) => {
+    const { newRoomId,changeIds } = data;
+    if (newRoomId && changeIds.length >0) {
+      if(changeIds.find((el)=>el.toString()===userId.toString())){
+        console.log("Change ids--->",changeIds)
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + newRoomId,
+      });
+    }
+    }
+  });
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1518,17 +1532,7 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-  useEffect(() => {
-    socket.on("roomchanged", (data) => {
-      const { newRoomId } = data;
-      if (newRoomId) {
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + newRoomId,
-        });
-      }
-    });
-  }, [history]);
+ 
   useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);

@@ -1,7 +1,7 @@
 const env = {
   dev: {
-    landingServerUrl: "http://localhost:3002",
-    serverUrl: "http://localhost:3002",
+    landingServerUrl: "https://api.scrooge.casino/v1",
+    serverUrl: "http://localhost:3003",
     landingClient: "http://localhost:3000",
   },
   production: {
@@ -16,4 +16,4 @@ const env = {
   },
 };
 
-export default env.production;
+export default env.dev;
