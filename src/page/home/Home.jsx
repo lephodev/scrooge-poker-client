@@ -41,7 +41,7 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-
+console.log("Constatn -->",CONSTANTS)
   // States
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
