@@ -41,7 +41,7 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-console.log("Constatn -->",CONSTANTS)
+  console.log("Constatn -->", CONSTANTS);
   // States
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
@@ -55,13 +55,13 @@ console.log("Constatn -->",CONSTANTS)
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
-
+  console.log("tournaments", tournaments);
   // utils function
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
-    setShowSpinner(false)
-    setErrors({})
+    setShowSpinner(false);
+    setErrors({});
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -216,7 +216,6 @@ console.log("Constatn -->",CONSTANTS)
       setTournaments(data);
     });
   }, []);
-  
 
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
@@ -237,7 +236,7 @@ console.log("Constatn -->",CONSTANTS)
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -249,15 +248,15 @@ console.log("Constatn -->",CONSTANTS)
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
     getTournamentDetails();
   }, []);
   socket.on("tournamentUpdate", (data) => {
-    const {updateTournament}=data
-    if(updateTournament){
+    const { updateTournament } = data;
+    if (updateTournament) {
       getTournamentDetails();
     }
   });
@@ -285,12 +284,14 @@ console.log("Constatn -->",CONSTANTS)
   );
 
   console.log("filterRoom ====>", filterRoom);
-  const filterTournaments = tournaments.filter((el) =>
-    el.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // const filterTournaments = tournaments.filter((el) =>
+  //   el.name.toLowerCase().includes(searchText.toLowerCase())
+  // );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
   const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
+  console.log("filterRoom ====>", tournamentCardHeight);
+
   const pokerCard = useRef(null);
   const tourCard = useRef(null);
   useEffect(() => {
@@ -301,7 +302,7 @@ console.log("Constatn -->",CONSTANTS)
       setTournamentCardHeight(tourCard.current.clientHeight);
     }
   }, [pokerCard, tourCard]);
-  
+
   return (
     <div className="poker-home">
       {loader && (
@@ -444,7 +445,7 @@ console.log("Constatn -->",CONSTANTS)
                   </div>
                 )}
               </Tab>
-              <Tab eventKey="2" title="Poker Tournament Tables">
+              {/* <Tab eventKey="2" title="Poker Tournament Tables">
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
@@ -458,7 +459,6 @@ console.log("Constatn -->",CONSTANTS)
                               height={tournamentCardHeight}
                               setUserData={setUserData}
                               filterTournaments={filterTournaments}
-                              
                             />
                           </React.Fragment>
                         ))}
@@ -472,7 +472,7 @@ console.log("Constatn -->",CONSTANTS)
                     </div>
                   </div>
                 )}
-              </Tab>
+              </Tab> */}
             </Tabs>
           </div>
         </div>
@@ -537,13 +537,11 @@ const customStyles = {
     fontSize: "14px",
     lineHeight: "19px",
     color: "#858585c7",
-
   }),
   input: (provided) => ({
     ...provided,
     // height: "38px",
     color: "fff",
-
   }),
   valueContainer: (provided) => ({
     ...provided,
@@ -552,13 +550,13 @@ const customStyles = {
   indicatorsContainer: (provided) => ({
     ...provided,
     paddingRight: "20px",
-    color: '#858585c7',
+    color: "#858585c7",
   }),
   svg: (provided) => ({
     ...provided,
-    fill: '#858585c7 !important',
+    fill: "#858585c7 !important",
     ":hover": {
-      fill: '#858585c7 !important',
+      fill: "#858585c7 !important",
     },
   }),
 };
@@ -610,31 +608,40 @@ const CreateTable = ({
             )}
           </div>
 
-          <div>   <div className="blindFields-box">
-            <div> <Form.Label>Small Blind</Form.Label>
-              <Form.Control
-                name="minchips"
-                onChange={handleChange}
-                value={values.minchips}
-                type="number"
-                placeholder="Ex : 50"
-              /></div>
-            <div> <Form.Label>Big Blind</Form.Label>
-              <Form.Control
-                name="maxchips"
-                onChange={handleChange}
-                value={values.minchips * 2}
-                type="number"
-                placeholder="Ex : 1000"
-                disabled
-              /></div>
-            {/* {!!errors?.maxchips && (
+          <div>
+            {" "}
+            <div className="blindFields-box">
+              <div>
+                {" "}
+                <Form.Label>Small Blind</Form.Label>
+                <Form.Control
+                  name="minchips"
+                  onChange={handleChange}
+                  value={values.minchips}
+                  type="number"
+                  placeholder="Ex : 50"
+                />
+              </div>
+              <div>
+                {" "}
+                <Form.Label>Big Blind</Form.Label>
+                <Form.Control
+                  name="maxchips"
+                  onChange={handleChange}
+                  value={values.minchips * 2}
+                  type="number"
+                  placeholder="Ex : 1000"
+                  disabled
+                />
+              </div>
+              {/* {!!errors?.maxchips && (
               <p className='text-danger'>{errors?.maxchips}</p>
             )} */}
-          </div>
+            </div>
             {!!errors?.minchips && (
               <p className="text-danger">{errors?.minchips}</p>
-            )}</div>
+            )}
+          </div>
         </Form.Group>
         <div className="searchSelectDropdown">
           <Form.Label>Invite Users</Form.Label>
@@ -688,7 +695,6 @@ const GameTable = ({
   height,
   setUserData,
   tableId,
-
 }) => {
   const history = useHistory();
   const redirectToTable = () => {
@@ -845,7 +851,6 @@ const GameTable = ({
                     Join Game
                   </button>
                 ) : (
-                  
                   <div className="btn-grid">
                     {" "}
                     <button
@@ -857,7 +862,7 @@ const GameTable = ({
                     >
                       Join Game
                     </button>
-                    {ifUserJoind() && data?.showButton &&(
+                    {ifUserJoind() && (
                       <button
                         onClick={() => enterRoom(data?._id)}
                         type="submit"
@@ -866,7 +871,6 @@ const GameTable = ({
                       </button>
                     )}
                   </div>
-                
                 )}
               </div>
             </div>
@@ -878,10 +882,12 @@ const GameTable = ({
                 ""
               )}
               <h4>
+                {console.log("vgagagfhgfha", data?.rooms)}
                 people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
-                    ? data?.havePlayers
+                    ? data?.rooms?.filter((el) => el?.players)[0]?.players
+                        ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
