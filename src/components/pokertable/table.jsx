@@ -588,29 +588,31 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      roomData = data?.updatedRoom;
-      setStart(false);
-      joinInRunningRound = false;
-      setTablePot(roomData?.tablePot);
-      updatePlayer(roomData?.players);
-      setCommunityCards([]);
-      setCurrentPlayer(false);
-      setWinner(false);
-      setWinnerText("");
-      setAction(false);
-      setActionText("");
-      setHandMatch([]);
-      if (roomData?.hostId === userId) {
-        setisAdmin(true);
-        admin = true;
-      }
-      if (roomData.eleminated.length > 0) {
-        if (
-          roomData.eleminated.find(
-            (el) => el.userid.toString() === userId.toString()
-          )
-        ) {
-          history.push("/");
+      if (data) {
+        roomData = data?.updatedRoom;
+        setStart(false);
+        joinInRunningRound = false;
+        setTablePot(roomData?.tablePot);
+        updatePlayer(roomData?.players);
+        setCommunityCards([]);
+        setCurrentPlayer(false);
+        setWinner(false);
+        setWinnerText("");
+        setAction(false);
+        setActionText("");
+        setHandMatch([]);
+        if (roomData?.hostId === userId) {
+          setisAdmin(true);
+          admin = true;
+        }
+        if (roomData?.eleminated?.length > 0) {
+          if (
+            roomData?.eleminated?.find(
+              (el) => el?.userid?.toString() === userId?.toString()
+            )
+          ) {
+            history.push("/");
+          }
         }
       }
     });
@@ -619,7 +621,6 @@ const PokerTable = (props) => {
       roomData = data;
       setTablePot(roomData.pot);
       setTimer(roomData.timer);
-
       updatePlayer(data.preflopround);
     });
 
@@ -1067,6 +1068,9 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
+    if (!data) {
+      return;
+    }
     let availablePosition = [];
     const pl = [...data];
     let players = [...pl];
@@ -1140,6 +1144,9 @@ const PokerTable = (props) => {
     setPlayers(playerDetails);
   };
   const showWinner = (data, players) => {
+    if (!data && !data.length) {
+      return;
+    }
     data.forEach((item, i) => {
       if (i === 0) {
         let type = players.find((el) => el.userid === item.id);
@@ -1461,7 +1468,18 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
-
+  socket.on("roomchanged", (data) => {
+    const { newRoomId, changeIds } = data;
+    if (newRoomId && changeIds.length > 0) {
+      if (changeIds.find((el) => el.toString() === userId.toString())) {
+        console.log("Change ids--->", changeIds);
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + newRoomId,
+        });
+      }
+    }
+  });
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1525,17 +1543,7 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
-  useEffect(() => {
-    socket.on("roomchanged", (data) => {
-      const { newRoomId } = data;
-      if (newRoomId) {
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + newRoomId,
-        });
-      }
-    });
-  }, [history]);
+
   useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);
