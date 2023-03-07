@@ -14,6 +14,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "emoji-picker-react": "^4.4.7",
+    "env-cmd": "^10.1.0",
     "firebase": "^8.6.7",
     "history": "^5.0.0",
     "react": "^17.0.2",
@@ -38,8 +39,14 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:local": "env-cmd -f .env.local react-scripts start",
+    "start:dev": "env-cmd -f .env.development react-scripts start",
+    "start:staging": "env-cmd -f .env.staging react-scripts start",
+    "start:prod": "env-cmd -f .env.production react-scripts start",
+    "build:dev": "env-cmd -f .env.development react-scripts build",
+    "build:staging": "env-cmd -f .env.staging react-scripts build",
+    "build:prod": "env-cmd -f .env.production react-scripts build",
+    "build:local": "env-cmd -f .env.local react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
