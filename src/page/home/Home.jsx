@@ -28,6 +28,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
+import { landingClient } from "../../config/keys";
 
 let userId;
 const Home = () => {
@@ -325,12 +326,12 @@ const Home = () => {
         <div className="container">
           <div className="user-header-grid">
             <div className="casino-logo">
-              <a href="https://scrooge.casino/">
+              <a href={landingClient}>
                 <img src={logo} alt="" />
               </a>
             </div>
             <div className="create-game-box">
-              <a href="https://scrooge.casino/profile">
+              <a href={`${landingClient}/profile`}>
                 <div className="create-game-box-avtar">
                   <img
                     src={
