@@ -588,7 +588,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("newhand", (data) => {
-      if(data){
+      if (data) {
         roomData = data?.updatedRoom;
         setStart(false);
         joinInRunningRound = false;
@@ -615,7 +615,6 @@ const PokerTable = (props) => {
           }
         }
       }
-      
     });
 
     socket.on("preflopround", (data) => {
@@ -1069,8 +1068,8 @@ const PokerTable = (props) => {
   });
 
   const updatePlayer = (data) => {
-    if(!data){
-      return
+    if (!data) {
+      return;
     }
     let availablePosition = [];
     const pl = [...data];
@@ -1145,8 +1144,8 @@ const PokerTable = (props) => {
     setPlayers(playerDetails);
   };
   const showWinner = (data, players) => {
-    if(!data && !data.length){
-      return
+    if (!data && !data.length) {
+      return;
     }
     data.forEach((item, i) => {
       if (i === 0) {
@@ -1470,15 +1469,15 @@ const PokerTable = (props) => {
     }
   };
   socket.on("roomchanged", (data) => {
-    const { newRoomId,changeIds } = data;
-    if (newRoomId && changeIds.length >0) {
-      if(changeIds.find((el)=>el.toString()===userId.toString())){
-        console.log("Change ids--->",changeIds)
-      history.push({
-        pathname: "/table",
-        search: "?gamecollection=poker&tableid=" + newRoomId,
-      });
-    }
+    const { newRoomId, changeIds } = data;
+    if (newRoomId && changeIds.length > 0) {
+      if (changeIds.find((el) => el.toString() === userId.toString())) {
+        console.log("Change ids--->", changeIds);
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + newRoomId,
+        });
+      }
     }
   });
   const sitout = () => {
@@ -1544,7 +1543,7 @@ const PokerTable = (props) => {
       socket.off("tablefull");
     };
   }, [history]);
- 
+
   useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);
