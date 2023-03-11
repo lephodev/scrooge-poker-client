@@ -3058,7 +3058,10 @@ const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
 const TablePotMoney = ({ tablePot }) => {
   return (
     <div className="total-pot-money animate__animated animate__fadeIn">
-      <span>{numFormatter(tablePot && tablePot)}</span>
+      <span>
+        <p>{numFormatter(tablePot && tablePot)}</p>
+
+      </span>
     </div>
   );
 };
