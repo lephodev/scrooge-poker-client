@@ -28,6 +28,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
+import { landingClient } from "../../config/keys";
 
 let userId;
 const Home = () => {
@@ -41,7 +42,7 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-
+  console.log("Constatn -->", CONSTANTS);
   // States
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
@@ -55,11 +56,13 @@ const Home = () => {
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
-
+  console.log("tournaments", tournaments);
   // utils function
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
+    setShowSpinner(false);
+    setErrors({});
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -252,7 +255,12 @@ const Home = () => {
   useEffect(() => {
     getTournamentDetails();
   }, []);
-
+  socket.on("tournamentUpdate", (data) => {
+    const { updateTournament } = data;
+    if (updateTournament) {
+      getTournamentDetails();
+    }
+  });
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -283,6 +291,8 @@ const Home = () => {
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
   const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
+  console.log("filterRoom ====>", tournamentCardHeight);
+
   const pokerCard = useRef(null);
   const tourCard = useRef(null);
   useEffect(() => {
@@ -316,12 +326,12 @@ const Home = () => {
         <div className="container">
           <div className="user-header-grid">
             <div className="casino-logo">
-              <a href="https://scrooge.casino/">
+              <a href={landingClient}>
                 <img src={logo} alt="" />
               </a>
             </div>
             <div className="create-game-box">
-              <a href="https://scrooge.casino/profile">
+              <a href={`${landingClient}/profile`}>
                 <div className="create-game-box-avtar">
                   <img
                     src={
@@ -471,38 +481,43 @@ const Home = () => {
     </div>
   );
 };
-
 const customStyles = {
   option: (provided) => ({
     ...provided,
-    background: "#333333",
-    color: "#fff",
+    background: "#000",
+    color: "#ddd",
     fontWeight: "400",
     fontSize: "16px",
-    padding: "12px",
+    padding: "10px 20px",
     lineHeight: "16px",
     cursor: "pointer",
+    borderRadius: "4px",
+    borderBottom: "1px solid #141414",
     ":hover": {
-      background: "#2a2a2a",
+      background: "#141414",
+      borderRadius: "4px",
     },
   }),
   menu: (provided) => ({
     ...provided,
-    background: "#333333",
-    padding: "0px",
+    background: "#000",
+    borderRadius: "30px",
+    padding: "10px 20px",
     border: "2px solid transparent",
   }),
   control: () => ({
-    background: "#333333",
-    border: "2px solid transparent",
-    borderRadius: "4px",
+    background: "#000",
+    border: "2px solid #000",
+    borderRadius: "30px",
     color: "#fff",
     display: "flex",
     alignItem: "center",
-    height: "inherit",
-    margin: "10px 0",
+    height: "41",
+    margin: "2px 0",
+    boxShadow: " 0 2px 10px #000000a5",
+    cursor: "pointer",
     ":hover": {
-      background: "#333333",
+      background: "#000",
       // border: "2px solid #306CFE",
     },
   }),
@@ -522,15 +537,30 @@ const customStyles = {
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "19px",
-    color: "#fff",
+    color: "#858585c7",
   }),
   input: (provided) => ({
     ...provided,
     // height: "38px",
     color: "fff",
   }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: "2px 20px",
+  }),
+  indicatorsContainer: (provided) => ({
+    ...provided,
+    paddingRight: "20px",
+    color: "#858585c7",
+  }),
+  svg: (provided) => ({
+    ...provided,
+    fill: "#858585c7 !important",
+    ":hover": {
+      fill: "#858585c7 !important",
+    },
+  }),
 };
-
 const CreateTable = ({
   show,
   handleShow,
@@ -549,7 +579,7 @@ const CreateTable = ({
       </Modal.Header>
       <Modal.Body>
         <Form.Group className="form-group" controlId="formPlaintextPassword">
-          <Form.Label>Enter Table name</Form.Label>
+          <Form.Label>Enter Game name</Form.Label>
           <Form.Control
             name="gameName"
             type="text"
@@ -580,32 +610,38 @@ const CreateTable = ({
           </div>
 
           <div>
-            <Form.Label>Small Blind</Form.Label>
-            <Form.Control
-              name="minchips"
-              onChange={handleChange}
-              value={values.minchips}
-              type="number"
-              placeholder="Ex : 50"
-            />
+            {" "}
+            <div className="blindFields-box">
+              <div>
+                {" "}
+                <Form.Label>Small Blind</Form.Label>
+                <Form.Control
+                  name="minchips"
+                  onChange={handleChange}
+                  value={values.minchips}
+                  type="number"
+                  placeholder="Ex : 50"
+                />
+              </div>
+              <div>
+                {" "}
+                <Form.Label>Big Blind</Form.Label>
+                <Form.Control
+                  name="maxchips"
+                  onChange={handleChange}
+                  value={values.minchips * 2}
+                  type="number"
+                  placeholder="Ex : 1000"
+                  disabled
+                />
+              </div>
+              {/* {!!errors?.maxchips && (
+              <p className='text-danger'>{errors?.maxchips}</p>
+            )} */}
+            </div>
             {!!errors?.minchips && (
               <p className="text-danger">{errors?.minchips}</p>
             )}
-          </div>
-
-          <div>
-            <Form.Label>Big Blind</Form.Label>
-            <Form.Control
-              name="maxchips"
-              onChange={handleChange}
-              value={values.minchips * 2}
-              type="number"
-              placeholder="Ex : 1000"
-              disabled
-            />
-            {/* {!!errors?.maxchips && (
-              <p className='text-danger'>{errors?.maxchips}</p>
-            )} */}
           </div>
         </Form.Group>
         <div className="searchSelectDropdown">
@@ -847,10 +883,12 @@ const GameTable = ({
                 ""
               )}
               <h4>
+                {console.log("vgagagfhgfha", data?.rooms)}
                 people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
-                    ? data?.havePlayers
+                    ? data?.rooms?.filter((el) => el?.players)[0]?.players
+                        ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
