@@ -101,7 +101,7 @@ input:checked {
 }
 
 .table-card img {
-  width: 50px;
+  width: 55px;
   margin: 0px 4px;
   transition: all 0.5s;
 }
@@ -186,7 +186,7 @@ input:checked {
 }
 
 .player1 {
-  bottom: -4%;
+  bottom: -1%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -342,7 +342,7 @@ input:checked {
   font-size: 13px;
   text-transform: lowercase;
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
   color: #111111;
   width: 100%;
   letter-spacing: 0.5px;
@@ -358,7 +358,7 @@ input:checked {
   letter-spacing: 0.5px;
   z-index: 9;
   position: relative;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .players.player1 {
@@ -440,6 +440,19 @@ input:checked {
   width: 200px; */
   height: 130px;
   width: 130px;
+}
+
+.playerChated {
+  filter: brightness(1.3);
+}
+
+.player-box.currentPlayerChance .player-pic {
+  /* filter: drop-shadow(0px 0px 20px black); */
+}
+
+.player-box.currentPlayerChance .player-pic img {
+  border: 3px solid #f9ff00;
+  box-shadow: 0px 0px 10px 5px #f9ff00;
 }
 
 .players.player4 .player-chip {
@@ -887,19 +900,21 @@ input:checked {
 
 .showCardIn-fold {
   position: fixed;
-  bottom: 10%;
-  left: -16%;
+  bottom: -56%;
+  left: 6%;
   background: #2e2e2e;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
-  color: white;
+  color: #ffffff;
   font-weight: 500;
+  font-size: 14px;
   align-items: center;
   border: 1px solid #282828;
   display: flex;
   box-shadow: 7px 8px 18px 6px #323232c4;
-  width: 216px;
-  z-index: 99999 !important;
+  width: 135px;
+  z-index: 9999999 !important;
+  cursor: pointer;
 }
 
 .showCardIn-fold .form-check-input:checked {
@@ -909,8 +924,8 @@ input:checked {
 }
 
 .showCardIn-fold input {
-  width: 35px;
-  height: 35px;
+  width: 15px;
+  height: 15px;
 }
 
 .footer-button {
@@ -919,7 +934,7 @@ input:checked {
   width: 100%;
   left: 0;
   right: 0;
-  padding: 10px;
+  padding: 5px;
   z-index: 99;
   width: 78%;
   margin: 0px auto;
@@ -1033,17 +1048,20 @@ input:checked {
   position: absolute;
   right: -20px;
 } */
-
-.player-action {
-  font-size: 18px;
+.player1 .player-action,
+.player2 .player-action,
+.player3 .player-action,
+.player8 .player-action,
+.player9 .player-action {
+  font-size: 22px;
+  font-weight: 600;
   letter-spacing: 1px;
   position: absolute;
   left: 50%;
-  /* bottom: 250%; */
-  bottom: 124%;
+  bottom: 94%;
   transform: translateX(-50%);
   opacity: 0;
-  color: #fff;
+  color: #f9ff00;
   animation-name: bottomFadeOut;
   animation-delay: 5ms;
   animation-duration: 3s;
@@ -1061,7 +1079,48 @@ input:checked {
 
   75% {
     position: absolute;
-    bottom: 124%;
+    bottom: 94%;
+    opacity: 1;
+    font-size: 18px;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.player4 .player-action,
+.player5 .player-action,
+.player6 .player-action,
+.player7 .player-action {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: absolute;
+  left: 50%;
+  /* bottom: 250%; */
+  bottom: -40%;
+  transform: translateX(-50%);
+  opacity: 0;
+  color: #f9ff00;
+  animation-name: downFadeOut;
+  animation-delay: 5ms;
+  animation-duration: 3s;
+  text-transform: capitalize;
+  z-index: 9999999;
+}
+
+@keyframes downFadeOut {
+  0% {
+    position: absolute;
+    bottom: 50%;
+    opacity: 0;
+    font-size: 5px;
+  }
+
+  75% {
+    position: absolute;
+    bottom: -40%;
     opacity: 1;
     font-size: 18px;
   }
@@ -1186,8 +1245,8 @@ input:checked {
 }
 
 .show-card img {
-  /* width: 65px; */
-  width: 50px;
+  width: 65px;
+  /* width: 50px; */
   margin: 0px 2px;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
@@ -1204,19 +1263,19 @@ input:checked {
   left: 50%;
   transform: translateX(-50%);
   /* top: -70px; */
-  top: 14px;
-  padding-right: 12px;
+  top: 8px;
+  padding-right: 25px;
   z-index: -1;
 }
 
 .show-card img:first-child {
-  -webkit-rotate: -15deg !important;
-  rotate: -15deg !important;
+  -webkit-rotate: -18deg !important;
+  rotate: -18deg !important;
 }
 
 .show-card img:last-child {
-  rotate: 15deg !important;
-  -webkit-rotate: 15deg !important;
+  rotate: 18deg !important;
+  -webkit-rotate: 18deg !important;
 }
 
 /* .player-card img:last-child {
@@ -1229,27 +1288,26 @@ input:checked {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  /* top: -70px; */
-  top: 14px;
-  padding-right: 12px;
+  top: 8px;
+  padding-right: 25px;
   z-index: -1;
 }
 
 .player-card img {
-  width: 50px;
+  width: 65px;
   margin: 0px auto;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
 }
 
 .player-card img:first-child {
-  rotate: -15deg !important;
-  -webkit-rotate: -15deg !important;
+  rotate: -18deg !important;
+  -webkit-rotate: -18deg !important;
 }
 
 .player-card img:last-child {
-  rotate: 15deg !important;
-  -webkit-rotate: 15deg !important;
+  rotate: 18deg !important;
+  -webkit-rotate: 18deg !important;
 }
 
 .player-timer div {
@@ -1933,15 +1991,15 @@ p.joined-player {
 .triangle-isosceles {
   position: relative;
   padding: 12px;
+  font-weight: 700;
   font-size: 12px;
-  color: #fff;
-  letter-spacing: 1px;
+  color: #000000;
   border-radius: 10px;
   margin-top: 15px;
 }
 
 .triangle-isosceles.left {
-  background: #222837;
+  background: #f9ff00;
 }
 
 .triangle-isosceles:after {
@@ -1959,7 +2017,7 @@ p.joined-player {
   left: -20px;
   bottom: 5px;
   border-width: 10px 30px 10px 0;
-  border-color: transparent #222837;
+  border-color: transparent #f9ff00;
 }
 
 .bubble-msg {
@@ -2399,7 +2457,7 @@ p.joined-player {
 .not-playing .player-box {
   cursor: not-allowed;
   pointer-events: none;
-  filter: brightness(0.5);
+  filter: brightness(0.6);
 }
 
 .buy-popup .modal-content {
@@ -2954,7 +3012,7 @@ ul.btn-list>li>button>img {
 
 /* ***************************** waiting text show for join player ************************/
 .game-started-join:before {
-  background: #000000ab;
+  background: transparent;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -2966,7 +3024,7 @@ ul.btn-list>li>button>img {
 }
 
 .game-started-join:after {
-  content: "Game already has been started, please wait for next round";
+  content: "Game has been already started, please wait for next round";
   position: fixed;
   top: 50%;
   left: 50%;
@@ -2980,6 +3038,13 @@ ul.btn-list>li>button>img {
   line-height: 1.4;
   max-width: 400px;
   text-align: center;
+  background: #1919199c;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  padding: 15px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #ffff;
 }
 
 .tooltip-box {
@@ -3148,7 +3213,7 @@ img.coinWinning-animation {
 
 .card-animate {
   perspective: 1000px;
-  width: 50px;
+  width: 55px;
   height: 70px;
   position: relative;
 }
@@ -3595,13 +3660,13 @@ img.coinWinning-animation {
 
   .show-card {
     /* top: 14px; */
-    top: 18px;
+    top: 12px;
     grid-template-columns: repeat(2, minmax(36px, 1fr));
   }
 
   .player-card {
     /* top: 14px; */
-    top: 18px;
+    top: 12px;
     grid-template-columns: repeat(2, minmax(30px, 1fr));
   }
 
@@ -3682,7 +3747,7 @@ img.coinWinning-animation {
 
   .show-card img,
   .player-card img {
-    width: 50px;
+    width: 60px;
   }
 
   .winner-player .show-card {
@@ -3781,7 +3846,8 @@ img.coinWinning-animation {
   }
 
   .showCardIn-fold {
-    width: 190px;
+    width: 125px;
+    bottom: -40%;
   }
 
   .showCardIn-fold label.form-check-label {
@@ -3988,6 +4054,47 @@ img.coinWinning-animation {
     }
   }
 
+  .player1 .player-action,
+  .player2 .player-action,
+  .player3 .player-action,
+  .player8 .player-action,
+  .player9 .player-action {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    bottom: 94%;
+    transform: translateX(-50%);
+    opacity: 0;
+    color: #f9ff00;
+    animation-name: bottomFadeOut;
+    animation-delay: 5ms;
+    animation-duration: 3s;
+    text-transform: capitalize;
+    z-index: 9999999;
+  }
+
+  @keyframes bottomFadeOut {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      bottom: 94%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
   .poker-table-bg {
     width: 90%;
     height: 65vh;
@@ -4086,7 +4193,7 @@ img.coinWinning-animation {
   }
 
   .table-card {
-    margin-top: -50px;
+    margin-top: -52px;
   }
 
   .total-pot-money span {
@@ -4148,8 +4255,8 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    width: 35px;
-    height: 50px;
+    width: 40px;
+    height: 56px;
     margin: 0px 2px;
   }
 
@@ -4177,8 +4284,8 @@ img.coinWinning-animation {
   }
 
   .card-animate {
-    width: 35px;
-    height: 50px;
+    width: 38px;
+    height: 55px;
   }
 
   .tooltip-inner {
@@ -4260,9 +4367,19 @@ img.coinWinning-animation {
     height: 85px;
   }
 
+  .player-card {
+    top: 26px !important;
+    padding-right: 7px;
+  }
+
+  .show-card {
+    top: 26px !important;
+    padding-right: 7px;
+  }
+
   .show-card img,
   .player-card img {
-    width: 45px;
+    width: 44px;
   }
 
   .players.player1 .player-chip {
@@ -4278,7 +4395,7 @@ img.coinWinning-animation {
 
   .player2 {
     transform: translateX(106%);
-    bottom: -38px;
+    bottom: -20px;
   }
 
   .player3 {
@@ -4313,7 +4430,7 @@ img.coinWinning-animation {
 
   .player9 {
     transform: translateX(26%);
-    bottom: -38px;
+    bottom: -20px;
   }
 
   /* 
@@ -4729,6 +4846,22 @@ img.coinWinning-animation {
     margin-top: 10px !important;
   }
 
+  .show-card {
+    /* top: 14px; */
+    top: 22px;
+    padding-right: 16px;
+  }
+  .player-card  {
+    /* top: 14px; */
+    top: 22px;
+    padding-right: 16px;
+  }
+
+  .show-card img,
+  .player-card img {
+    width: 50px;
+  }
+
   .roomDetails {
     display: grid;
     grid-template-columns: repeat(1, 1fr) !important;
@@ -4873,7 +5006,9 @@ img.coinWinning-animation {
   .chat-wrapper {
     right: 10px;
     max-width: 325px;
-
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 999999;
   }
 
   .chat-search.chat-input .form-inline {
@@ -4932,8 +5067,7 @@ img.coinWinning-animation {
   .table-card {
     width: 100%;
     text-align: center;
-    /* max-width: 150px; */
-    max-width: 175px;
+    max-width: 186px;
     margin-top: 30px;
   }
 
@@ -5084,15 +5218,15 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    height: 42px;
-    width: 30px;
+    height: 55px;
+    width: 34px;
     margin: 0px 2px;
     margin-bottom: 5px;
   }
 
   .card-animate {
-    width: 30px;
-    height: 42px;
+    width: 40px;
+    height: 55px;
   }
 
   .tooltip-inner {
@@ -5507,8 +5641,20 @@ img.coinWinning-animation {
     width: 100%;
   }
 
-  .player-action {
-    bottom: 122%;
+  .player1 .player-action,
+  .player2 .player-action,
+  .player3 .player-action,
+  .player8 .player-action,
+  .player9 .player-action {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    bottom: 94%;
+    transform: translateX(-50%);
+    opacity: 0;
+    color: #f9ff00;
     animation-name: bottomFadeOut;
     animation-delay: 5ms;
     animation-duration: 3s;
@@ -5548,7 +5694,7 @@ img.coinWinning-animation {
 
   .player1 {
     bottom: 2px;
-    transform: translateX(-58%);
+    transform: translateX(-64%);
   }
 
   .player3 {
@@ -5674,6 +5820,7 @@ img.coinWinning-animation {
     accent-color: #0600ff !important;
     filter: invert(1);
   }
+
   .winner-player:after {
     position: absolute;
     content: "";
@@ -5779,7 +5926,7 @@ img.coinWinning-animation {
 
 .backToHome {
   position: fixed;
-  bottom: 1%;
+  bottom: 2%;
   right: 1%;
   cursor: pointer;
   z-index: 9999;
