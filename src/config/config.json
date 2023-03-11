@@ -1,6 +1,6 @@
 {
   "local": {
-    "landingServerUrl": "https://api.scrooge.casino/v1",
+    "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "http://localhost:3002",
     "landingClient": "http://localhost:3000"
   },
