@@ -28,6 +28,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
+import { landingClient } from "../../config/keys";
 
 let userId;
 const Home = () => {
@@ -284,9 +285,9 @@ const Home = () => {
   );
 
   console.log("filterRoom ====>", filterRoom);
-  // const filterTournaments = tournaments.filter((el) =>
-  //   el.name.toLowerCase().includes(searchText.toLowerCase())
-  // );
+  const filterTournaments = tournaments.filter((el) =>
+    el.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
   const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
@@ -325,12 +326,12 @@ const Home = () => {
         <div className="container">
           <div className="user-header-grid">
             <div className="casino-logo">
-              <a href="https://scrooge.casino/">
+              <a href={landingClient}>
                 <img src={logo} alt="" />
               </a>
             </div>
             <div className="create-game-box">
-              <a href="https://scrooge.casino/profile">
+              <a href={`${landingClient}/profile`}>
                 <div className="create-game-box-avtar">
                   <img
                     src={
@@ -445,7 +446,7 @@ const Home = () => {
                   </div>
                 )}
               </Tab>
-              {/* <Tab eventKey="2" title="Poker Tournament Tables">
+              <Tab eventKey="2" title="Poker Tournament Tables">
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
@@ -472,7 +473,7 @@ const Home = () => {
                     </div>
                   </div>
                 )}
-              </Tab> */}
+              </Tab>
             </Tabs>
           </div>
         </div>
