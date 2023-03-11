@@ -590,6 +590,7 @@ const PokerTable = (props) => {
     socket.on("newhand", (data) => {
       if (data) {
         roomData = data?.updatedRoom;
+        tPlayer = null;
         setStart(false);
         joinInRunningRound = false;
         setTablePot(roomData?.tablePot);
