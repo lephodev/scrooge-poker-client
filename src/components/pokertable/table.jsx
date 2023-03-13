@@ -1437,13 +1437,13 @@ const PokerTable = (props) => {
           currentAction.allin = true;
           currentAction.raise = false;
         }
-        if (raiseAmount * 2 < wallet) {
+        if (raiseAmount < wallet) {
           currentAction.allin = false;
           currentAction.bet = false;
           currentAction.raise = true;
         }
       }
-      if (wallet <= raiseAmount * 2) {
+      if (wallet <= raiseAmount) {
         currentAction.allin = true;
         currentAction.raise = false;
       }
@@ -3187,7 +3187,7 @@ const FooterButton = ({
                 </div>
               )}
 
-              {openAction.raise && (
+              {openAction.raise && !raise && (
                 <div className="footer-btn ">
                   {raise && (
                     <div className="raiseBet-container">
@@ -3226,7 +3226,7 @@ const FooterButton = ({
                 </div>
               )}
 
-              {openAction.bet && (
+              {openAction.bet && !bet && (
                 <div className="footer-btn ">
                   {bet && (
                     <div className="raiseBet-container">
