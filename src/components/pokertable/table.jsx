@@ -1763,20 +1763,21 @@ const PokerTable = (props) => {
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${
+            !(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-            ? "game-started-join"
-            : ""
-            }`}
+              ? "game-started-join"
+              : ""
+          }`}
         />
       </Helmet>
 
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
+          roomData &&
+          roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1829,9 +1830,9 @@ const PokerTable = (props) => {
               />
             </div>
             {(players && players.find((ele) => ele.id === userId)) ||
-              (roomData &&
-                roomData.players.find((ele) => ele.userid === userId)) ||
-              isWatcher ? (
+            (roomData &&
+              roomData.players.find((ele) => ele.userid === userId)) ||
+            isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1915,8 +1916,8 @@ const PokerTable = (props) => {
                           </>
                         )}
                       {roomData &&
-                        roomData.handWinner.length === 0 &&
-                        !roomData?.gamestart ? (
+                      roomData.handWinner.length === 0 &&
+                      !roomData?.gamestart ? (
                         <>
                           <p className="joined-player">
                             Invited Players joined -{" "}
@@ -2217,20 +2218,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-                <li>
-                  <OverlayTrigger
-                    placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                    }
-                  >
-                    <button onClick={() => setShowInvite(true)}>
-                      {/* <img src={addcoin} alt="Invite friend" /> */}
-                      <i className="fa fa-envelope"></i>
-                    </button>
-                  </OverlayTrigger>
-                </li>
-              )}
+              <li>
+                <OverlayTrigger
+                  placement="left"
+                  overlay={
+                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                  }
+                >
+                  <button onClick={() => setShowInvite(true)}>
+                    {/* <img src={addcoin} alt="Invite friend" /> */}
+                    <i className="fa fa-envelope"></i>
+                  </button>
+                </OverlayTrigger>
+              </li>
+            )}
             {roomData?.tournament ? (
               ""
             ) : (
@@ -2495,12 +2496,12 @@ const Players = ({
             response.data.error === "no error" &&
             response.data.success === true &&
             response.data.special ===
-            "You have removed this follower in the past"
+              "You have removed this follower in the past"
           ) {
             toast.success(
               "You are now following @" +
-              nickname +
-              ", notice that you removed him from following you",
+                nickname +
+                ", notice that you removed him from following you",
               {
                 id: "follow-request",
                 icon: "✔️",
@@ -2605,10 +2606,10 @@ const Players = ({
           if (response.data.error === "already sent friend request") {
             toast.success(
               "Friend request already sent to @" +
-              Fname +
-              " please wait " +
-              response.data.hours +
-              " hours before you can try again.",
+                Fname +
+                " please wait " +
+                response.data.hours +
+                " hours before you can try again.",
               {
                 duration: 6000,
                 id: "frined-already-sent",
@@ -2696,25 +2697,40 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
-          ? `winner-player`
-          : ``
-          } ${playerData && playerData.playing && !playerData?.fold ? "" : "not-playing"} ${mergeAnimationState ? "animateMerge-chips" : ""
-          } ${playerData && playerData.id === messageBy ? "playerChated" : ''}`}
+        className={`players ${playerclass} ${
+          winner && playerData && winner.id === playerData.id
+            ? `winner-player`
+            : ``
+        } ${
+          playerData && playerData.playing && !playerData?.fold
+            ? ""
+            : "not-playing"
+        } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
+          playerData && playerData.id === messageBy ? "playerChated" : ""
+        }`}
       >
-        {playerData?.availablePosition === 0 && playerData?.fold && (
-          <div className="showCardIn-fold">
-            <Form.Check
-              inline
-              label="Show cards !"
-              name="group1"
-              type="checkbox"
-              id="inlinecheckbox"
-              onChange={handleChangeFold}
+        {playerData?.availablePosition === 0 &&
+          playerData?.fold &&
+          roomData.runninground === 5 && (
+            <div className="showCardIn-fold">
+              <Form.Check
+                inline
+                label="Show cards !"
+                name="group1"
+                type="checkbox"
+                id="inlinecheckbox"
+                onChange={handleChangeFold}
+              />
+            </div>
+          )}
+        {playerData &&
+          (playerData.fold || !playerData.playing) &&
+          playerData.id === userId && (
+            <ShowCard
+              cards={playerData.cards ? playerData.cards : []}
+              handMatch={handMatch}
             />
-          </div>
-        )}
-
+          )}
         {showCard ? (
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
@@ -2801,8 +2817,13 @@ const Players = ({
         </>
       )} */}
         <div id={`store-item-${playerData.id}`}></div>
-        <div className={`player-box ${currentPlayer &&
-          playerData && (currentPlayer.id === playerData.id) ? "currentPlayerChance" : ''}`}>
+        <div
+          className={`player-box ${
+            currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "currentPlayerChance"
+              : ""
+          }`}
+        >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
             // <div className="pyro">
@@ -2845,10 +2866,11 @@ const Players = ({
             </div> */}
           </div>
           <div
-            className={`player-info ${currentPlayer && playerData && currentPlayer.id === playerData.id
-              ? "progressActive"
-              : ""
-              } `}
+            className={`player-info ${
+              currentPlayer && playerData && currentPlayer.id === playerData.id
+                ? "progressActive"
+                : ""
+            } `}
           >
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -2876,8 +2898,8 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                    ? "B"
-                    : // : playerData.isDealer
+                  ? "B"
+                  : // : playerData.isDealer
                     // ? "D"
                     ""}
               </div>
@@ -3037,10 +3059,11 @@ const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
                 // src={cards ? cards : back }
                 src={`/cards/${card.toUpperCase()}.svg`}
                 alt="card"
-                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
-                  ? `winner-card`
-                  : ``
-                  } front-card duration-${i}`}
+                className={`${
+                  winner && matchCards.findIndex((ele) => ele === i) !== -1
+                    ? `winner-card`
+                    : ``
+                } front-card duration-${i}`}
               />
               <img
                 key={`item1-${i}`}
@@ -3060,7 +3083,6 @@ const TablePotMoney = ({ tablePot }) => {
     <div className="total-pot-money animate__animated animate__fadeIn">
       <span>
         <p>{numFormatter(tablePot && tablePot)}</p>
-
       </span>
     </div>
   );
@@ -3489,10 +3511,11 @@ const ShowCard = ({ cards, handMatch }) => {
             // }
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
-              ? ``
-              : `winner-card`
-              } `}
+            className={`animate__animated animate__rollIn duration-${i} ${
+              handMatch.findIndex((ele) => ele === i) !== -1
+                ? ``
+                : `winner-card`
+            } `}
           />
         ))}
     </div>
