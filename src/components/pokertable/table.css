@@ -128,7 +128,7 @@ input:checked {
 
 .table-card .winner-card {
   /* width: 65px; */
-  width: 52px;
+  width: 57px;
 }
 
 .table-blindLevel {
@@ -1063,7 +1063,7 @@ input:checked {
   letter-spacing: 1px;
   position: absolute;
   left: 50%;
-  bottom: 94%;
+  bottom: 111%;
   transform: translateX(-50%);
   opacity: 0;
   color: #f9ff00;
@@ -1084,7 +1084,7 @@ input:checked {
 
   75% {
     position: absolute;
-    bottom: 94%;
+    bottom: 111%;
     opacity: 1;
     font-size: 18px;
   }
@@ -2465,6 +2465,22 @@ p.joined-player {
   filter: brightness(0.6);
 }
 
+.not-playing .show-card {
+  animation: tofold 0.5s ease;
+}
+
+@keyframes tofold {
+  from {
+    top: 8px;
+    opacity: 1;
+  }
+
+  to {
+    top: -100px;
+    opacity: 0;
+  }
+}
+
 .buy-popup .modal-content {
   padding: 30px;
   text-align: left;
@@ -3650,7 +3666,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 45px;
+    width: 52px;
   }
 
   .table-card img {
@@ -3992,7 +4008,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 36px;
+    width: 42px;
   }
 
   .game-msg {
@@ -4075,7 +4091,7 @@ img.coinWinning-animation {
     letter-spacing: 1px;
     position: absolute;
     left: 50%;
-    bottom: 94%;
+    bottom: 111%;
     transform: translateX(-50%);
     opacity: 0;
     color: #f9ff00;
@@ -4096,7 +4112,7 @@ img.coinWinning-animation {
 
     75% {
       position: absolute;
-      bottom: 94%;
+      bottom: 111%;
       opacity: 1;
       font-size: 18px;
     }
@@ -5668,7 +5684,7 @@ img.coinWinning-animation {
     letter-spacing: 1px;
     position: absolute;
     left: 50%;
-    bottom: 94%;
+    bottom: 111%;
     transform: translateX(-50%);
     opacity: 0;
     color: #f9ff00;
