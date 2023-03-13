@@ -3187,7 +3187,7 @@ const FooterButton = ({
                 </div>
               )}
 
-              {openAction.raise && (
+              {openAction.raise && !raise && (
                 <div className="footer-btn ">
                   {raise && (
                     <div className="raiseBet-container">
@@ -3226,7 +3226,7 @@ const FooterButton = ({
                 </div>
               )}
 
-              {openAction.bet && (
+              {openAction.bet && !bet && (
                 <div className="footer-btn ">
                   {bet && (
                     <div className="raiseBet-container">
