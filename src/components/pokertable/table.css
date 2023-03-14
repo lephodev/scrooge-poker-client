@@ -1068,8 +1068,8 @@ input:checked {
   opacity: 0;
   color: #f9ff00;
   animation-name: bottomFadeOut;
-  animation-delay: 5ms;
-  animation-duration: 3s;
+  animation-delay: 0ms;
+  animation-duration: 1.5s;
   text-transform: capitalize;
   z-index: 9999999;
 }
@@ -1109,8 +1109,8 @@ input:checked {
   opacity: 0;
   color: #f9ff00;
   animation-name: downFadeOut;
-  animation-delay: 5ms;
-  animation-duration: 3s;
+  animation-delay: 0ms;
+  animation-duration: 1.5s;
   text-transform: capitalize;
   z-index: 9999999;
 }
