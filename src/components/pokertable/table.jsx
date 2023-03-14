@@ -172,6 +172,7 @@ const PokerTable = (props) => {
   const [unReadMessages, setUnReadMessages] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
   const [openChatHistory, setOpenChatHistory] = useState(false);
+
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
   };
@@ -585,23 +586,9 @@ const PokerTable = (props) => {
     socket.on("notEnoughPlayer", (data) => {
       toast.error("Atleast 3 player required to start the game", { id: "A" });
     });
-    socket.on("roomchanged", (data) => {
-      const { newRoomId, changeIds } = data;
-      if (newRoomId && changeIds?.length > 0 && localStorage.getItem('userId')) {        
-          const findVal=changeIds.findIndex((el)=>el===userId)
-          if(findVal !==-1){ 
-            window.location.href=`/table?gamecollection=poker&tableid=${newRoomId}`  
-            // history.push({
-            //   pathname: "/table",
-            //   search: "?gamecollection=poker&tableid=" + newRoomId,
-            // });
-          }
-      }
-    });
+
     socket.on("newhand", (data) => {
-      if (!data?.updatedRoom) {
-        return
-      }
+      if (data) {
         roomData = data?.updatedRoom;
         tPlayer = null;
         setStart(false);
@@ -628,17 +615,14 @@ const PokerTable = (props) => {
             history.push("/");
           }
         }
-
+      }
     });
 
     socket.on("preflopround", (data) => {
-      if(data){
-        roomData = data;
-        setTablePot(roomData?.pot);
-        setTimer(roomData?.timer);
-        updatePlayer(data?.preflopround);
-      }
-      
+      roomData = data;
+      setTablePot(roomData.pot);
+      setTimer(roomData.timer);
+      updatePlayer(data.preflopround);
     });
 
     socket.on("flopround", (data) => {
@@ -1409,7 +1393,7 @@ const PokerTable = (props) => {
     } = roomData ? roomData : {};
     currentAction.fold = true;
     if (round === 1) {
-      if (wallet > raiseAmount * 2) {
+      if (wallet > raiseAmount) {
         //range true
         currentAction.raise = true;
         currentAction.bet = false;
@@ -1422,7 +1406,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
           currentAction.bet = false;
         }
-      } else if (wallet <= raiseAmount * 2) {
+      } else if (wallet <= raiseAmount) {
         //allin true
         currentAction.allin = true;
         currentAction.raise = false;
@@ -1485,7 +1469,18 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
-  
+  socket.on("roomchanged", (data) => {
+    const { newRoomId, changeIds } = data;
+    if (newRoomId && changeIds.length > 0) {
+      if (changeIds.find((el) => el.toString() === userId.toString())) {
+        console.log("Change ids--->", changeIds);
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + newRoomId,
+        });
+      }
+    }
+  });
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
