@@ -7,16 +7,27 @@ const RaiseView = ({
   allinAction,
   roomData,
   players,
-  playersPot,
 }) => {
   return (
     <div className="bet-view">
-      {((roomData?.pot + playersPot) * 25) / 100 <= currentPlayer?.wallet &&
-        ((roomData?.pot + playersPot) * 25) / 100 >= roomData.raiseAmount && (
+      {roomData &&
+        currentPlayer &&
+        ((roomData?.pot ||
+          players?.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)) *
+          25) /
+          100 >=
+          roomData.raiseAmount && (
           <span
             onClick={() => {
               raiseAction(
-                Math.round(((roomData?.pot || playersPot) * 25) / 100)
+                ((roomData.pot ||
+                  players?.reduce((acc, obj) => {
+                    return acc + obj.pot;
+                  }, 0)) *
+                  25) /
+                  100
               );
               setRaise(false);
             }}
@@ -24,12 +35,24 @@ const RaiseView = ({
             25%
           </span>
         )}
-      {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
-        ((roomData?.pot + playersPot) * 33) / 100 >= roomData.raiseAmount && (
+      {roomData &&
+        currentPlayer &&
+        ((roomData?.pot ||
+          players?.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)) *
+          33) /
+          100 >=
+          roomData.raiseAmount && (
           <span
             onClick={() => {
               raiseAction(
-                Math.round(((roomData?.pot || playersPot) * 33) / 100)
+                ((roomData?.pot ||
+                  players?.reduce((acc, obj) => {
+                    return acc + obj.pot;
+                  }, 0)) *
+                  33) /
+                  100
               );
               setRaise(false);
             }}
@@ -37,12 +60,24 @@ const RaiseView = ({
             33%
           </span>
         )}
-      {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
-        ((roomData?.pot + playersPot) * 50) / 100 >= roomData.raiseAmount && (
+      {roomData &&
+        currentPlayer &&
+        ((roomData.pot ||
+          players?.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)) *
+          50) /
+          100 >=
+          roomData.raiseAmount && (
           <span
             onClick={() => {
               raiseAction(
-                Math.round(((roomData?.pot || playersPot) * 50) / 100)
+                ((roomData?.pot ||
+                  players?.reduce((acc, obj) => {
+                    return acc + obj.pot;
+                  }, 0)) *
+                  50) /
+                  100
               );
               setRaise(false);
             }}
@@ -50,12 +85,24 @@ const RaiseView = ({
             50%
           </span>
         )}
-      {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
-        ((roomData?.pot + playersPot) * 67) / 100 >= roomData.raiseAmount && (
+      {roomData &&
+        currentPlayer &&
+        ((roomData.pot ||
+          players?.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)) *
+          67) /
+          100 >=
+          roomData.raiseAmount && (
           <span
             onClick={() => {
               raiseAction(
-                Math.round(((roomData?.pot || playersPot) * 67) / 100)
+                ((roomData.pot ||
+                  players.reduce((acc, obj) => {
+                    return acc + obj.pot;
+                  }, 0)) *
+                  67) /
+                  100
               );
               setRaise(false);
             }}
@@ -63,12 +110,24 @@ const RaiseView = ({
             67%
           </span>
         )}
-      {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
-        ((roomData?.pot + playersPot) * 75) / 100 >= roomData.raiseAmount && (
+      {roomData &&
+        currentPlayer &&
+        ((roomData?.pot ||
+          players?.reduce((acc, obj) => {
+            return acc + obj.pot;
+          }, 0)) *
+          75) /
+          100 >=
+          roomData.raiseAmount && (
           <span
             onClick={() => {
               raiseAction(
-                Math.round(((roomData?.pot || playersPot) * 75) / 100)
+                ((roomData?.pot ||
+                  players?.reduce((acc, obj) => {
+                    return acc + obj.pot;
+                  }, 0)) *
+                  75) /
+                  100
               );
               setRaise(false);
             }}

@@ -157,7 +157,6 @@ const PokerTable = (props) => {
   const [buyinPopup, setBuyinPopup] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
   const [tentativeAction, setTentativeAction] = useState();
-
   const handleClick = (e) => {
     setOpen(e);
   };
@@ -1394,7 +1393,7 @@ const PokerTable = (props) => {
     } = roomData ? roomData : {};
     currentAction.fold = true;
     if (round === 1) {
-      if (wallet > raiseAmount) {
+      if (wallet > raiseAmount * 2) {
         //range true
         currentAction.raise = true;
         currentAction.bet = false;
@@ -1407,7 +1406,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
           currentAction.bet = false;
         }
-      } else if (wallet <= raiseAmount) {
+      } else if (wallet <= raiseAmount * 2) {
         //allin true
         currentAction.allin = true;
         currentAction.raise = false;
@@ -1447,7 +1446,6 @@ const PokerTable = (props) => {
       if (wallet <= raiseAmount) {
         currentAction.allin = true;
         currentAction.raise = false;
-        currentAction.call = false;
       }
       if (lastAction !== "check" && pot !== raiseAmount) {
         currentAction.check = false;
@@ -1760,27 +1758,6 @@ const PokerTable = (props) => {
       toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
     }
   };
-
-  let playersPot;
-  switch (roomData?.runninground) {
-    case 0:
-      playersPot = players?.reduce((a, b) => a + b.pot, 0);
-      break;
-    case 1:
-      playersPot = roomData?.preflopround?.reduce((a, b) => a + b.pot, 0);
-      break;
-    case 2:
-      playersPot = roomData?.flopround?.reduce((a, b) => a + b.pot, 0);
-      break;
-    case 3:
-      playersPot = roomData?.turnround?.reduce((a, b) => a + b.pot, 0);
-      break;
-    case 4:
-      playersPot = roomData?.riverround?.reduce((a, b) => a + b.pot, 0);
-      break;
-    default:
-      playersPot = players?.reduce((a, b) => a + b.pot, 0);
-  }
 
   return (
     <div className="poker" id={players.length}>
@@ -2160,7 +2137,6 @@ const PokerTable = (props) => {
             playersRight={playersRight}
             playersLeft={playersLeft}
             players={players}
-            playersPot={playersPot}
           />
         </div>
       </div>
@@ -3146,7 +3122,6 @@ const FooterButton = ({
   playersLeft,
   playersRight,
   players,
-  playersPot,
 }) => {
   return (
     <div className="footer-button">
@@ -3228,7 +3203,6 @@ const FooterButton = ({
                         allinAction={allinAction}
                         roomData={roomData}
                         players={players}
-                        playersPot={playersPot}
                       />
                     </div>
                   )}
@@ -3268,7 +3242,6 @@ const FooterButton = ({
                         allinAction={allinAction}
                         roomData={roomData}
                         players={players}
-                        playersPot={playersPot}
                       />
                     </div>
                   )}
