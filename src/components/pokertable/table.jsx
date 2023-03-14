@@ -1393,7 +1393,7 @@ const PokerTable = (props) => {
     } = roomData ? roomData : {};
     currentAction.fold = true;
     if (round === 1) {
-      if (wallet > raiseAmount * 2) {
+      if (wallet > raiseAmount) {
         //range true
         currentAction.raise = true;
         currentAction.bet = false;
@@ -1406,7 +1406,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
           currentAction.bet = false;
         }
-      } else if (wallet <= raiseAmount * 2) {
+      } else if (wallet <= raiseAmount) {
         //allin true
         currentAction.allin = true;
         currentAction.raise = false;
@@ -1437,13 +1437,13 @@ const PokerTable = (props) => {
           currentAction.allin = true;
           currentAction.raise = false;
         }
-        if (raiseAmount * 2 < wallet) {
+        if (raiseAmount < wallet) {
           currentAction.allin = false;
           currentAction.bet = false;
           currentAction.raise = true;
         }
       }
-      if (wallet <= raiseAmount * 2) {
+      if (wallet <= raiseAmount) {
         currentAction.allin = true;
         currentAction.raise = false;
       }
