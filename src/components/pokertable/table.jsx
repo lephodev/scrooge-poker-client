@@ -590,6 +590,7 @@ const PokerTable = (props) => {
     socket.on("newhand", (data) => {
       if (data) {
         roomData = data?.updatedRoom;
+        tPlayer = null;
         setStart(false);
         joinInRunningRound = false;
         setTablePot(roomData?.tablePot);
@@ -1392,7 +1393,7 @@ const PokerTable = (props) => {
     } = roomData ? roomData : {};
     currentAction.fold = true;
     if (round === 1) {
-      if (wallet > raiseAmount * 2) {
+      if (wallet > raiseAmount) {
         //range true
         currentAction.raise = true;
         currentAction.bet = false;
@@ -1405,7 +1406,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
           currentAction.bet = false;
         }
-      } else if (wallet <= raiseAmount * 2) {
+      } else if (wallet <= raiseAmount) {
         //allin true
         currentAction.allin = true;
         currentAction.raise = false;
@@ -1436,15 +1437,16 @@ const PokerTable = (props) => {
           currentAction.allin = true;
           currentAction.raise = false;
         }
-        if (raiseAmount * 2 < wallet) {
+        if (raiseAmount < wallet) {
           currentAction.allin = false;
           currentAction.bet = false;
           currentAction.raise = true;
         }
       }
-      if (wallet <= raiseAmount * 2) {
+      if (wallet <= raiseAmount) {
         currentAction.allin = true;
         currentAction.raise = false;
+        currentAction.call = false;
       }
       if (lastAction !== "check" && pot !== raiseAmount) {
         currentAction.check = false;
@@ -2435,9 +2437,16 @@ const Players = ({
   }, [playerData, setBuyinPopup]);
 
   useEffect(() => {
+    // console.log("RunningRound", roomData?.runninground);
     socket.on("showCard", (data) => {
-      if (playerData.id === data.userId) {
+      console.log("RunningRound", roomData?.runninground);
+      console.log("playerData.id", playerData.id);
+      if (playerData.id === userId) {
         setShowCard(true);
+      } else if (roomData?.runninground === 5) {
+        if (playerData.id === data.userId) {
+          setShowCard(true);
+        }
       }
     });
     socket.on("hideCard", (data) => {
@@ -2693,10 +2702,60 @@ const Players = ({
           winner && playerData && winner.id === playerData.id
             ? `winner-player`
             : ``
-        } ${playerData && playerData.playing ? "" : "not-playing"} ${
-          mergeAnimationState ? "animateMerge-chips" : ""
+        } ${
+          playerData && playerData.playing && !playerData?.fold
+            ? ""
+            : "not-playing"
+        } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
+          playerData && playerData.id === messageBy ? "playerChated" : ""
         }`}
       >
+        {playerData?.availablePosition === 0 &&
+          playerData?.fold &&
+          roomData.runninground === 5 && (
+            <div className="showCardIn-fold">
+              <Form.Check
+                inline
+                label="Show cards !"
+                name="group1"
+                type="checkbox"
+                id="inlinecheckbox"
+                onChange={handleChangeFold}
+              />
+            </div>
+          )}
+        {playerData &&
+          (playerData.fold || !playerData.playing) &&
+          playerData.id === userId && (
+            <ShowCard
+              cards={playerData.cards ? playerData.cards : []}
+              handMatch={handMatch}
+            />
+          )}
+        {showCard ? (
+          <ShowCard
+            cards={playerData.cards ? playerData.cards : []}
+            handMatch={handMatch}
+          />
+        ) : playerData && (playerData.fold || !playerData.playing) ? (
+          ""
+        ) : roomData && roomData.runninground === 5 ? (
+          <ShowCard
+            cards={playerData.cards ? playerData.cards : []}
+            handMatch={handMatch}
+          />
+        ) : roomData &&
+          roomData.runninground >= 1 &&
+          playerData.id === userId ? (
+          <ShowCard
+            cards={playerData.cards ? playerData.cards : []}
+            handMatch={handMatch}
+          />
+        ) : roomData && roomData.runninground === 0 ? (
+          ""
+        ) : (
+          <HideCard />
+        )}
         {/* start win or lose animation */}
         {/* {winner &&
       playerData &&
@@ -2759,7 +2818,13 @@ const Players = ({
         </>
       )} */}
         <div id={`store-item-${playerData.id}`}></div>
-        <div className="player-box">
+        <div
+          className={`player-box ${
+            currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "currentPlayerChance"
+              : ""
+          }`}
+        >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
             // <div className="pyro">
@@ -2768,43 +2833,7 @@ const Players = ({
             //    <Lottie options={winImageanim} width={600} height={500} />
             // </div>
           )}
-          {playerData?.availablePosition === 0 && playerData?.fold && (
-            <div className="showCardIn-fold">
-              <Form.Check
-                inline
-                label="Show your cards to opponents !"
-                name="group1"
-                type="checkbox"
-                id="inlinecheckbox"
-                onChange={handleChangeFold}
-              />
-            </div>
-          )}
 
-          {showCard ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : playerData && (playerData.fold || !playerData.playing) ? (
-            ""
-          ) : roomData && roomData.runninground === 5 ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData &&
-            roomData.runninground >= 1 &&
-            playerData.id === userId ? (
-            <ShowCard
-              cards={playerData.cards ? playerData.cards : []}
-              handMatch={handMatch}
-            />
-          ) : roomData && roomData.runninground === 0 ? (
-            ""
-          ) : (
-            <HideCard />
-          )}
           {/************ player PIC avtaar  **********/}
 
           <div
@@ -3053,7 +3082,9 @@ const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
 const TablePotMoney = ({ tablePot }) => {
   return (
     <div className="total-pot-money animate__animated animate__fadeIn">
-      <span>{numFormatter(tablePot && tablePot)}</span>
+      <span>
+        <p>{numFormatter(tablePot && tablePot)}</p>
+      </span>
     </div>
   );
 };

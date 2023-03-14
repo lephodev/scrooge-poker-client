@@ -12,7 +12,11 @@ const BetView = ({
     <div className="bet-view">
       {roomData &&
         currentPlayer &&
-        ((roomData.pot ||
+        (players?.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0) <= currentPlayer?.wallet ||
+          roomData.pot <= currentPlayer?.wallet) &&
+        ((roomData?.pot ||
           players?.reduce((acc, obj) => {
             return acc + obj.pot;
           }, 0)) *
@@ -37,7 +41,11 @@ const BetView = ({
         )}
       {roomData &&
         currentPlayer &&
-        ((roomData.pot ||
+        (players?.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0) <= currentPlayer?.wallet ||
+          roomData.pot <= currentPlayer?.wallet) &&
+        ((roomData?.pot ||
           players?.reduce((acc, obj) => {
             return acc + obj.pot;
           }, 0)) *
@@ -62,7 +70,11 @@ const BetView = ({
         )}
       {roomData &&
         currentPlayer &&
-        ((roomData.pot ||
+        (players?.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0) <= currentPlayer?.wallet ||
+          roomData?.pot <= currentPlayer?.wallet) &&
+        ((roomData?.pot ||
           players?.reduce((acc, obj) => {
             return acc + obj.pot;
           }, 0)) *
@@ -87,6 +99,10 @@ const BetView = ({
         )}
       {roomData &&
         currentPlayer &&
+        (players?.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0) <= currentPlayer?.wallet ||
+          roomData?.pot <= currentPlayer?.wallet) &&
         ((roomData.pot ||
           players?.reduce((acc, obj) => {
             return acc + obj.pot;
@@ -113,7 +129,11 @@ const BetView = ({
 
       {roomData &&
         currentPlayer &&
-        ((roomData.pot ||
+        (players?.reduce((acc, obj) => {
+          return acc + obj.pot;
+        }, 0) <= currentPlayer.wallet ||
+          roomData?.pot <= currentPlayer?.wallet) &&
+        ((roomData?.pot ||
           players?.reduce((acc, obj) => {
             return acc + obj.pot;
           }, 0)) *

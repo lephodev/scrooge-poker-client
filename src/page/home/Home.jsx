@@ -221,7 +221,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${CONSTANTS.landingClient}`);
+      return (window.location.href = `${landingClient}`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });

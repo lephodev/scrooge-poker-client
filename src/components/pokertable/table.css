@@ -101,7 +101,7 @@ input:checked {
 }
 
 .table-card img {
-  width: 50px;
+  width: 55px;
   margin: 0px 4px;
   transition: all 0.5s;
 }
@@ -128,7 +128,7 @@ input:checked {
 
 .table-card .winner-card {
   /* width: 65px; */
-  width: 52px;
+  width: 57px;
 }
 
 .table-blindLevel {
@@ -186,7 +186,7 @@ input:checked {
 }
 
 .player1 {
-  bottom: -4%;
+  bottom: -1%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -342,7 +342,7 @@ input:checked {
   font-size: 13px;
   text-transform: lowercase;
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
   color: #111111;
   width: 100%;
   letter-spacing: 0.5px;
@@ -358,7 +358,7 @@ input:checked {
   letter-spacing: 0.5px;
   z-index: 9;
   position: relative;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .players.player1 {
@@ -440,6 +440,19 @@ input:checked {
   width: 200px; */
   height: 130px;
   width: 130px;
+}
+
+.playerChated {
+  filter: brightness(1.3);
+}
+
+.player-box.currentPlayerChance .player-pic {
+  /* filter: drop-shadow(0px 0px 20px black); */
+}
+
+.player-box.currentPlayerChance .player-pic img {
+  border: 3px solid #f9ff00;
+  box-shadow: 0px 0px 10px 5px #f9ff00;
 }
 
 .players.player4 .player-chip {
@@ -887,19 +900,21 @@ input:checked {
 
 .showCardIn-fold {
   position: fixed;
-  bottom: 10%;
-  left: -16%;
+  bottom: -56%;
+  left: 6%;
   background: #2e2e2e;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
-  color: white;
+  color: #ffffff;
   font-weight: 500;
+  font-size: 14px;
   align-items: center;
   border: 1px solid #282828;
   display: flex;
   box-shadow: 7px 8px 18px 6px #323232c4;
-  width: 216px;
-  z-index: 99999 !important;
+  width: 135px;
+  z-index: 9999999 !important;
+  cursor: pointer;
 }
 
 .showCardIn-fold .form-check-input:checked {
@@ -909,8 +924,8 @@ input:checked {
 }
 
 .showCardIn-fold input {
-  width: 35px;
-  height: 35px;
+  width: 15px;
+  height: 15px;
 }
 
 .footer-button {
@@ -919,7 +934,7 @@ input:checked {
   width: 100%;
   left: 0;
   right: 0;
-  padding: 10px;
+  padding: 5px;
   z-index: 99;
   width: 78%;
   margin: 0px auto;
@@ -1008,7 +1023,7 @@ input:checked {
   background: url(../../assets/game/total-pot.png);
   text-align: center;
   width: 150px;
-  height: 56px;
+  height: 82px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1019,6 +1034,11 @@ input:checked {
   font-size: 20px;
   font-weight: 600;
   color: #fff;
+}
+
+.total-pot-money span p {
+  margin-bottom: 0px;
+  margin-top: 25px;
 }
 
 /* .total-pot-money span::before {
@@ -1033,17 +1053,20 @@ input:checked {
   position: absolute;
   right: -20px;
 } */
-
-.player-action {
-  font-size: 18px;
+.player1 .player-action,
+.player2 .player-action,
+.player3 .player-action,
+.player8 .player-action,
+.player9 .player-action {
+  font-size: 22px;
+  font-weight: 600;
   letter-spacing: 1px;
   position: absolute;
   left: 50%;
-  /* bottom: 250%; */
-  bottom: 124%;
+  bottom: 111%;
   transform: translateX(-50%);
   opacity: 0;
-  color: #fff;
+  color: #f9ff00;
   animation-name: bottomFadeOut;
   animation-delay: 5ms;
   animation-duration: 3s;
@@ -1061,7 +1084,48 @@ input:checked {
 
   75% {
     position: absolute;
-    bottom: 124%;
+    bottom: 111%;
+    opacity: 1;
+    font-size: 18px;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.player4 .player-action,
+.player5 .player-action,
+.player6 .player-action,
+.player7 .player-action {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: absolute;
+  left: 50%;
+  /* bottom: 250%; */
+  bottom: -40%;
+  transform: translateX(-50%);
+  opacity: 0;
+  color: #f9ff00;
+  animation-name: downFadeOut;
+  animation-delay: 5ms;
+  animation-duration: 3s;
+  text-transform: capitalize;
+  z-index: 9999999;
+}
+
+@keyframes downFadeOut {
+  0% {
+    position: absolute;
+    bottom: 50%;
+    opacity: 0;
+    font-size: 5px;
+  }
+
+  75% {
+    position: absolute;
+    bottom: -40%;
     opacity: 1;
     font-size: 18px;
   }
@@ -1186,8 +1250,8 @@ input:checked {
 }
 
 .show-card img {
-  /* width: 65px; */
-  width: 50px;
+  width: 65px;
+  /* width: 50px; */
   margin: 0px 2px;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
@@ -1204,19 +1268,19 @@ input:checked {
   left: 50%;
   transform: translateX(-50%);
   /* top: -70px; */
-  top: 14px;
-  padding-right: 12px;
+  top: 8px;
+  padding-right: 25px;
   z-index: -1;
 }
 
 .show-card img:first-child {
-  -webkit-rotate: -15deg !important;
-  rotate: -15deg !important;
+  -webkit-rotate: -18deg !important;
+  rotate: -18deg !important;
 }
 
 .show-card img:last-child {
-  rotate: 15deg !important;
-  -webkit-rotate: 15deg !important;
+  rotate: 18deg !important;
+  -webkit-rotate: 18deg !important;
 }
 
 /* .player-card img:last-child {
@@ -1229,27 +1293,26 @@ input:checked {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  /* top: -70px; */
-  top: 14px;
-  padding-right: 12px;
+  top: 8px;
+  padding-right: 25px;
   z-index: -1;
 }
 
 .player-card img {
-  width: 50px;
+  width: 65px;
   margin: 0px auto;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
 }
 
 .player-card img:first-child {
-  rotate: -15deg !important;
-  -webkit-rotate: -15deg !important;
+  rotate: -18deg !important;
+  -webkit-rotate: -18deg !important;
 }
 
 .player-card img:last-child {
-  rotate: 15deg !important;
-  -webkit-rotate: 15deg !important;
+  rotate: 18deg !important;
+  -webkit-rotate: 18deg !important;
 }
 
 .player-timer div {
@@ -1354,8 +1417,8 @@ input:checked {
 
 /**** Winner Animation *******/
 
-.pyro>.before,
-.pyro>.after {
+.pyro > .before,
+.pyro > .after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1380,7 +1443,7 @@ input:checked {
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro>.after {
+.pyro > .after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -1604,7 +1667,6 @@ input:checked {
 }
 
 @-webkit-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1637,7 +1699,6 @@ input:checked {
 }
 
 @-moz-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1670,7 +1731,6 @@ input:checked {
 }
 
 @-o-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1703,7 +1763,6 @@ input:checked {
 }
 
 @-ms-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1736,7 +1795,6 @@ input:checked {
 }
 
 @keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -1808,7 +1866,7 @@ input:checked {
 
 .custom-toaster .btn-primary:not(:disabled):not(.disabled).active,
 .custom-toaster .btn-primary:not(:disabled):not(.disabled):active,
-.custom-toaster .show>.btn-primary.dropdown-toggle {
+.custom-toaster .show > .btn-primary.dropdown-toggle {
   background-color: transparent;
   border-color: transparent;
 }
@@ -1847,7 +1905,6 @@ input:checked {
 }
 
 @keyframes shake {
-
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
@@ -1933,15 +1990,15 @@ p.joined-player {
 .triangle-isosceles {
   position: relative;
   padding: 12px;
+  font-weight: 700;
   font-size: 12px;
-  color: #fff;
-  letter-spacing: 1px;
+  color: #000000;
   border-radius: 10px;
   margin-top: 15px;
 }
 
 .triangle-isosceles.left {
-  background: #222837;
+  background: #f9ff00;
 }
 
 .triangle-isosceles:after {
@@ -1959,7 +2016,7 @@ p.joined-player {
   left: -20px;
   bottom: 5px;
   border-width: 10px 30px 10px 0;
-  border-color: transparent #222837;
+  border-color: transparent #f9ff00;
 }
 
 .bubble-msg {
@@ -2109,8 +2166,10 @@ p.joined-player {
 }
 
 .flip-vertical-left {
-  -webkit-animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  -webkit-animation: flip-vertical-left 0.8s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
 }
 
 @-webkit-keyframes flip-vertical-left {
@@ -2139,19 +2198,19 @@ p.joined-player {
 
 /************* Flip *******************/
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-duration: 0.5s;
   transition-property: transform, opacity;
 }
 
-.flip>.front {
+.flip > .front {
   transform: rotateY(0deg);
 }
 
-.flip>.back {
+.flip > .back {
   position: absolute;
   opacity: 0;
   top: 0px;
@@ -2161,12 +2220,12 @@ p.joined-player {
   transform: rotateY(-180deg);
 }
 
-.flip.active>.front {
+.flip.active > .front {
   transform: rotateY(180deg);
   opacity: 0;
 }
 
-.flip.active>.back {
+.flip.active > .back {
   opacity: 1;
   transform: rotateY(0deg);
 }
@@ -2177,18 +2236,18 @@ p.joined-player {
   width: 60px;
 }
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   width: 60px;
   height: 84px;
 }
 
-.tooltip-box>p {
+.tooltip-box > p {
   margin-bottom: 5px;
 }
 
-.tooltip-box>p:last-child {
+.tooltip-box > p:last-child {
   margin-bottom: 0;
 }
 
@@ -2399,7 +2458,24 @@ p.joined-player {
 .not-playing .player-box {
   cursor: not-allowed;
   pointer-events: none;
-  filter: brightness(0.5);
+  filter: brightness(0.6);
+}
+
+.not-playing .show-card {
+  animation: tofold 0.5s ease;
+  filter: brightness(0.6);
+}
+
+@keyframes tofold {
+  from {
+    top: 8px;
+    opacity: 1;
+  }
+
+  to {
+    top: -100px;
+    opacity: 0;
+  }
 }
 
 .buy-popup .modal-content {
@@ -2648,15 +2724,15 @@ ul.btn-list {
   z-index: 999;
 }
 
-ul.btn-list>li:first-child {
+ul.btn-list > li:first-child {
   display: none;
 }
 
-ul.btn-list>li {
+ul.btn-list > li {
   padding: 2px 0;
 }
 
-ul.btn-list>li>button {
+ul.btn-list > li > button {
   border-radius: 20px;
   padding: 5px 10px;
   width: 40px;
@@ -2672,7 +2748,7 @@ ul.btn-list>li>button {
   border: none;
 }
 
-ul.btn-list>li span.close-icon {
+ul.btn-list > li span.close-icon {
   position: absolute;
   right: 10px;
   top: -30px;
@@ -2693,7 +2769,7 @@ ul.btn-list>li span.close-icon {
   z-index: 999999 !important;
 }
 
-ul.btn-list>li>button>img {
+ul.btn-list > li > button > img {
   width: 18px;
   height: 18px;
   object-fit: cover;
@@ -2712,7 +2788,7 @@ ul.btn-list>li>button>img {
   background: transparent;
 }
 
-.poker-bg .poker-loader>img {
+.poker-bg .poker-loader > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -2726,7 +2802,7 @@ ul.btn-list>li>button>img {
   background-color: #a89319;
 }
 
-.abc>div {
+.abc > div {
   z-index: 99999999 !important;
 }
 
@@ -2835,7 +2911,7 @@ ul.btn-list>li>button>img {
   margin-bottom: 15px;
 }
 
-.player-box .pyro>div {
+.player-box .pyro > div {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -2895,7 +2971,7 @@ ul.btn-list>li>button>img {
   color: #16181b;
 }
 
-.cam-tool .show>.btn-success.dropdown-toggle {
+.cam-tool .show > .btn-success.dropdown-toggle {
   background: transparent !important;
 }
 
@@ -2954,7 +3030,7 @@ ul.btn-list>li>button>img {
 
 /* ***************************** waiting text show for join player ************************/
 .game-started-join:before {
-  background: #000000ab;
+  background: transparent;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -2966,7 +3042,7 @@ ul.btn-list>li>button>img {
 }
 
 .game-started-join:after {
-  content: "Game already has been started, please wait for next round";
+  content: "Game has been already started, please wait for next round";
   position: fixed;
   top: 50%;
   left: 50%;
@@ -2980,6 +3056,13 @@ ul.btn-list>li>button>img {
   line-height: 1.4;
   max-width: 400px;
   text-align: center;
+  background: #1919199c;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  padding: 15px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #ffff;
 }
 
 .tooltip-box {
@@ -3148,7 +3231,7 @@ img.coinWinning-animation {
 
 .card-animate {
   perspective: 1000px;
-  width: 50px;
+  width: 55px;
   height: 70px;
   position: relative;
 }
@@ -3547,7 +3630,7 @@ img.coinWinning-animation {
     top: 1px;
   }
 
-  .player-timer div>svg {
+  .player-timer div > svg {
     width: 100px !important;
     height: 100px !important;
   }
@@ -3580,7 +3663,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 45px;
+    width: 52px;
   }
 
   .table-card img {
@@ -3588,20 +3671,26 @@ img.coinWinning-animation {
   }
 
   .total-pot-money span {
+    margin-top: 18px;
     width: 110px;
-    height: 32px;
+    height: 58px;
     font-size: 14px;
+  }
+
+  .total-pot-money span p {
+    margin-bottom: 0px;
+    margin-top: 18px;
   }
 
   .show-card {
     /* top: 14px; */
-    top: 18px;
+    top: 12px;
     grid-template-columns: repeat(2, minmax(36px, 1fr));
   }
 
   .player-card {
     /* top: 14px; */
-    top: 18px;
+    top: 12px;
     grid-template-columns: repeat(2, minmax(30px, 1fr));
   }
 
@@ -3682,7 +3771,7 @@ img.coinWinning-animation {
 
   .show-card img,
   .player-card img {
-    width: 50px;
+    width: 60px;
   }
 
   .winner-player .show-card {
@@ -3781,7 +3870,8 @@ img.coinWinning-animation {
   }
 
   .showCardIn-fold {
-    width: 190px;
+    width: 125px;
+    bottom: -40%;
   }
 
   .showCardIn-fold label.form-check-label {
@@ -3832,7 +3922,7 @@ img.coinWinning-animation {
 }
 
 @media screen and (max-width: 768px) {
-  input:checked+.slider:before {
+  input:checked + .slider:before {
     transform: translateX(115px);
   }
 
@@ -3915,7 +4005,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 36px;
+    width: 42px;
   }
 
   .game-msg {
@@ -3988,6 +4078,47 @@ img.coinWinning-animation {
     }
   }
 
+  .player1 .player-action,
+  .player2 .player-action,
+  .player3 .player-action,
+  .player8 .player-action,
+  .player9 .player-action {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    bottom: 111%;
+    transform: translateX(-50%);
+    opacity: 0;
+    color: #f9ff00;
+    animation-name: bottomFadeOut;
+    animation-delay: 5ms;
+    animation-duration: 3s;
+    text-transform: capitalize;
+    z-index: 9999999;
+  }
+
+  @keyframes bottomFadeOut {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      bottom: 111%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
   .poker-table-bg {
     width: 90%;
     height: 65vh;
@@ -4012,7 +4143,7 @@ img.coinWinning-animation {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -4086,12 +4217,12 @@ img.coinWinning-animation {
   }
 
   .table-card {
-    margin-top: -50px;
+    margin-top: -52px;
   }
 
   .total-pot-money span {
     width: 90px;
-    height: 25px;
+    height: 46px;
     font-size: 13px;
   }
 
@@ -4099,6 +4230,11 @@ img.coinWinning-animation {
     /* top: 135px; */
     top: 41%;
     left: 44%;
+  }
+
+  .total-pot-money span p {
+    margin-bottom: 0px;
+    margin-top: 17px;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -4148,8 +4284,8 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    width: 35px;
-    height: 50px;
+    width: 40px;
+    height: 56px;
     margin: 0px 2px;
   }
 
@@ -4177,8 +4313,8 @@ img.coinWinning-animation {
   }
 
   .card-animate {
-    width: 35px;
-    height: 50px;
+    width: 38px;
+    height: 55px;
   }
 
   .tooltip-inner {
@@ -4260,9 +4396,19 @@ img.coinWinning-animation {
     height: 85px;
   }
 
+  .player-card {
+    top: 26px !important;
+    padding-right: 7px;
+  }
+
+  .show-card {
+    top: 26px !important;
+    padding-right: 7px;
+  }
+
   .show-card img,
   .player-card img {
-    width: 45px;
+    width: 44px;
   }
 
   .players.player1 .player-chip {
@@ -4278,7 +4424,7 @@ img.coinWinning-animation {
 
   .player2 {
     transform: translateX(106%);
-    bottom: -38px;
+    bottom: -20px;
   }
 
   .player3 {
@@ -4313,7 +4459,7 @@ img.coinWinning-animation {
 
   .player9 {
     transform: translateX(26%);
-    bottom: -38px;
+    bottom: -20px;
   }
 
   /* 
@@ -4370,7 +4516,7 @@ img.coinWinning-animation {
     top: inherit;
   } */
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -4380,7 +4526,7 @@ img.coinWinning-animation {
     scale: 1.1;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -4393,7 +4539,7 @@ img.coinWinning-animation {
     width: 30px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -4729,6 +4875,23 @@ img.coinWinning-animation {
     margin-top: 10px !important;
   }
 
+  .show-card {
+    /* top: 14px; */
+    top: 22px;
+    padding-right: 16px;
+  }
+
+  .player-card {
+    /* top: 14px; */
+    top: 22px;
+    padding-right: 16px;
+  }
+
+  .show-card img,
+  .player-card img {
+    width: 50px;
+  }
+
   .roomDetails {
     display: grid;
     grid-template-columns: repeat(1, 1fr) !important;
@@ -4855,7 +5018,7 @@ img.coinWinning-animation {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -4873,7 +5036,9 @@ img.coinWinning-animation {
   .chat-wrapper {
     right: 10px;
     max-width: 325px;
-
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 999999;
   }
 
   .chat-search.chat-input .form-inline {
@@ -4932,8 +5097,7 @@ img.coinWinning-animation {
   .table-card {
     width: 100%;
     text-align: center;
-    /* max-width: 150px; */
-    max-width: 175px;
+    max-width: 186px;
     margin-top: 30px;
   }
 
@@ -5084,15 +5248,15 @@ img.coinWinning-animation {
   }
 
   .table-card img {
-    height: 42px;
-    width: 30px;
+    height: 55px;
+    width: 34px;
     margin: 0px 2px;
     margin-bottom: 5px;
   }
 
   .card-animate {
-    width: 30px;
-    height: 42px;
+    width: 40px;
+    height: 55px;
   }
 
   .tooltip-inner {
@@ -5130,7 +5294,7 @@ img.coinWinning-animation {
     display: none !important;
   }
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 34px;
     height: 34px !important;
     padding: 0;
@@ -5140,7 +5304,7 @@ img.coinWinning-animation {
     scale: 1.1;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -5153,7 +5317,7 @@ img.coinWinning-animation {
     width: 34px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -5507,8 +5671,20 @@ img.coinWinning-animation {
     width: 100%;
   }
 
-  .player-action {
-    bottom: 122%;
+  .player1 .player-action,
+  .player2 .player-action,
+  .player3 .player-action,
+  .player8 .player-action,
+  .player9 .player-action {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    bottom: 111%;
+    transform: translateX(-50%);
+    opacity: 0;
+    color: #f9ff00;
     animation-name: bottomFadeOut;
     animation-delay: 5ms;
     animation-duration: 3s;
@@ -5548,7 +5724,7 @@ img.coinWinning-animation {
 
   .player1 {
     bottom: 2px;
-    transform: translateX(-58%);
+    transform: translateX(-64%);
   }
 
   .player3 {
@@ -5674,6 +5850,7 @@ img.coinWinning-animation {
     accent-color: #0600ff !important;
     filter: invert(1);
   }
+
   .winner-player:after {
     position: absolute;
     content: "";
@@ -5779,7 +5956,7 @@ img.coinWinning-animation {
 
 .backToHome {
   position: fixed;
-  bottom: 1%;
+  bottom: 2%;
   right: 1%;
   cursor: pointer;
   z-index: 9999;

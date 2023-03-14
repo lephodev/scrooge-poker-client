@@ -12,7 +12,7 @@
   "development": {
     "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "https://devpoker-api.scrooge.casino",
-    "landingClient": "https://dev.scrooge.casino"
+    "landingClient": "https://dev.scrooge.casino/"
   },
   "staging": {
     "landingServerUrl": "https://beta-api.scrooge.casino/v1",
