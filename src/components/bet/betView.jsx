@@ -8,102 +8,63 @@ const BetView = ({
   roomData,
   players,
 }) => {
+  let playersPot;
+  switch (roomData?.runninground) {
+    case 1:
+      playersPot = roomData.preflopround?.reduce((a, b) => a + b.pot, 0);
+      break;
+    case 2:
+      playersPot = roomData.flopround?.reduce((a, b) => a + b.pot, 0);
+      break;
+    case 3:
+      playersPot = roomData.turnround?.reduce((a, b) => a + b.pot, 0);
+      break;
+    case 4:
+      playersPot = roomData.riverround?.reduce((a, b) => a + b.pot, 0);
+      break;
+    default:
+      playersPot = players?.reduce((a, b) => a + b.pot, 0);
+  }
   return (
     <div className="bet-view">
-      {roomData &&
-        currentPlayer &&
-        ((roomData.pot ||
-          players?.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)) *
-          25) /
-          100 >=
-          roomData.raiseAmount && (
+      {((roomData?.pot + playersPot) * 25) / 100 <= currentPlayer?.wallet &&
+        ((roomData.pot + playersPot) * 25) / 100 >= roomData.raiseAmount && (
           <span
             onClick={() => {
-              betAction(
-                ((roomData.pot ||
-                  players?.reduce((acc, obj) => {
-                    return acc + obj.pot;
-                  }, 0)) *
-                  25) /
-                  100
-              );
+              betAction(((roomData.pot + playersPot) * 25) / 100);
               setBet(false);
             }}
           >
             25%
           </span>
         )}
-      {roomData &&
-        currentPlayer &&
-        ((roomData.pot ||
-          players?.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)) *
-          33) /
-          100 >=
-          roomData.raiseAmount && (
+      {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
+        ((roomData.pot + playersPot) * 33) / 100 >= roomData.raiseAmount && (
           <span
             onClick={() => {
-              betAction(
-                ((roomData.pot ||
-                  players?.reduce((acc, obj) => {
-                    return acc + obj.pot;
-                  }, 0)) *
-                  33) /
-                  100
-              );
+              betAction(((roomData.pot + playersPot) * 33) / 100);
               setBet(false);
             }}
           >
             33%
           </span>
         )}
-      {roomData &&
-        currentPlayer &&
-        ((roomData.pot ||
-          players?.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)) *
-          50) /
-          100 >=
-          roomData.raiseAmount && (
+      {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
+        ((roomData.pot + playersPot) * 50) / 100 >= roomData.raiseAmount && (
           <span
             onClick={() => {
-              betAction(
-                ((roomData.pot ||
-                  players?.reduce((acc, obj) => {
-                    return acc + obj.pot;
-                  }, 0)) *
-                  50) /
-                  100
-              );
+              betAction(((roomData.pot + playersPot) * 50) / 100);
               setBet(false);
             }}
           >
             50%
           </span>
         )}
-      {roomData &&
-        currentPlayer &&
-        ((roomData.pot ||
-          players?.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)) *
-          67) /
-          100 >=
-          roomData.raiseAmount && (
+      {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
+        ((roomData.pot + playersPot) * 67) / 100 >= roomData.raiseAmount && (
           <span
             onClick={() => {
-              betAction(
-                ((roomData.pot ||
-                  players?.reduce((acc, obj) => {
-                    return acc + obj.pot;
-                  }, 0)) *
-                  67) /
-                  100
-              );
+              betAction(((roomData.pot + playersPot) * 67) / 100);
               setBet(false);
             }}
           >
@@ -111,25 +72,11 @@ const BetView = ({
           </span>
         )}
 
-      {roomData &&
-        currentPlayer &&
-        ((roomData.pot ||
-          players?.reduce((acc, obj) => {
-            return acc + obj.pot;
-          }, 0)) *
-          75) /
-          100 >=
-          roomData.raiseAmount && (
+      {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
+        ((roomData.pot + playersPot) * 75) / 100 >= roomData.raiseAmount && (
           <span
             onClick={() => {
-              betAction(
-                ((roomData.pot ||
-                  players?.reduce((acc, obj) => {
-                    return acc + obj.pot;
-                  }, 0)) *
-                  75) /
-                  100
-              );
+              betAction(((roomData.pot + playersPot) * 75) / 100);
               setBet(false);
             }}
           >

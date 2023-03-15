@@ -89,6 +89,10 @@ const Home = () => {
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
+    if(userId){
+      localStorage.setItem('userId',userId)
+    }
+    
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -142,7 +146,7 @@ const Home = () => {
     }
 
     if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
-      err.sitInAmount = `You don't have enough balance.`;
+      err.sitInAmount = `You don't have enough balance in your wallet.`;
       valid = false;
     }
 
@@ -221,7 +225,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${CONSTANTS.landingClient}`);
+      return (window.location.href = `${landingClient}`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
