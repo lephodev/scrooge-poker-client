@@ -8,7 +8,8 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   // const [message, setMessages] = useState([]);
   const [typingOnChat, setTypingOnChat] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const [winHistoryData, setWinHistoryData] = useState([])
+  const [winHistoryData, setWinHistoryData] = useState([]);
+  const [typingPlayrName, setTypingPlayerName] = useState("");
   const isDesktop = useMediaQuery({
     query: "(min-width: 1024px)",
   });
@@ -20,7 +21,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
-        if (!isDesktop && ref.current && !ref.current.contains(event.target) ) {
+        if (!isDesktop && ref.current && !ref.current.contains(event.target)) {
           setOpenChatHistory(false);
         }
       };
@@ -33,9 +34,10 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
 
   useEffect(() => {
     socket.on('typingOnChat', (data) => {
-      const { crrTypingUserId, typing } = data;
+      const { crrTypingUserId, typing, userName } = data;
       if (userId !== crrTypingUserId) {
         setTypingOnChat(typing);
+        setTypingPlayerName(userName)
       }
     });
   })
@@ -61,12 +63,12 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
 
   return (
     <div
-      className={`chatHistory-Container ${!openChatHistory ? "" : "expand"}`}
+      className={`chatHistory-Container ${ !openChatHistory ? "" : "expand" }`}
       ref={wrapperRef}
     >
       <div className="chatHistory-header">
         <div className="Chatgame-title"> Chat History</div>
-        <div className="chatBubble-typing">{typingOnChat ? "Typing..." : null}</div>
+        <div className="chatBubble-typing">{typingOnChat ? `${ typingPlayrName } Typing...` : null}</div>
         <div className="Gameplayer-count">
           <div className="greendot" /> <h4>Players</h4>
           <h3>{roomData?.players?.length}</h3>
@@ -80,7 +82,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         {chatMessages?.map((msg) => {
           return (
             <>
-              <div className={`playerComment-box ${userId === msg.userId ? "playerSelfMssg" : ""}`}>
+              <div className={`playerComment-box ${ userId === msg.userId ? "playerSelfMssg" : "" }`}>
                 <div className="playerAvtar">
                   <img src={msg.profile ? msg.profile : avtar} alt="" />
                 </div>
@@ -94,7 +96,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         })
         }
         {winHistoryData?.map((data, i) => (
-          <div className="playerComment-box" key={i}  onClick={handleWinPopup}>
+          <div className="playerComment-box" key={i} onClick={handleWinPopup}>
             <div className="everyRoundData">--- {data?.name} wins --- </div>
           </div>
         ))}
