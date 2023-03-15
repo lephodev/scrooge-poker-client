@@ -1663,7 +1663,7 @@ const PokerTable = (props) => {
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${ players?.length }`}
               >
-                {roomData?.players.find(el =>el.id === userId) && !roomData?.gamestart && !newUser && !auto && (
+                {roomData?.players.find(el =>el.id === userId) && !roomData?.gamestart && !newUser && !auto && !roomData.tournament &&  (
                   <div className="start-game">
                     <div className="start-game-btn">
                       {isAdmin && roomData && !roomData?.gamestart ? (
@@ -1719,7 +1719,7 @@ const PokerTable = (props) => {
                             <p>Please wait for the Admin to Start the game</p>
                           </>
                         )}
-                      {roomData &&
+                      {roomData && !roomData.tournament && 
                         roomData.handWinner.length === 0 &&
                         !roomData?.gamestart ? (
                         <>
