@@ -126,6 +126,7 @@ const PokerTable = (props) => {
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
   const [start, setStart] = useState(false);
+  const [startBtn,setStartBtn] = useState(false)
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
@@ -1628,7 +1629,7 @@ const PokerTable = (props) => {
        
 
         <div className="container">
-          {isAdmin && !roomData?.public ? (
+          {startBtn && isAdmin && !roomData?.public ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -1675,6 +1676,7 @@ const PokerTable = (props) => {
                               <Button
                                 onClick={() => {
                                   setStart(true);
+                                  setStartBtn(true)
                                   startGame(roomData?.autoNextHand);
                                 }}
                                 disabled={start}
