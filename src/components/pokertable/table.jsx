@@ -1144,10 +1144,8 @@ const PokerTable = (props) => {
     });
     setPlayers(playerDetails);
   };
+
   const showWinner = (data, players) => {
-    if (!data && !data.length) {
-      return;
-    }
     data.forEach((item, i) => {
       if (i === 0) {
         let type = players.find((el) => el.userid === item.id);
@@ -1178,6 +1176,7 @@ const PokerTable = (props) => {
           setWinnerText(`${ item.name } wins before showdown`);
         }
         setTimeout(() => {
+          console.log("set winner for one executed");
           setWinner(false);
         }, 4000);
       } else if (i > 0) {
@@ -1209,6 +1208,7 @@ const PokerTable = (props) => {
       setHandWinner(roomData.handWinner);
     }
   };
+
   const [auto, setAuto] = useState(false);
   const startGame = (data) => {
     socket.emit("startPreflopRound", {
@@ -1469,6 +1469,7 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
+
   socket.on("roomchanged", (data) => {
     const { newRoomId, changeIds } = data;
     if (newRoomId && changeIds.length > 0) {
@@ -1481,6 +1482,7 @@ const PokerTable = (props) => {
       }
     }
   });
+
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1690,10 +1692,10 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData.wallet);
-    // let user = await userUtils.getAuthUserData();
+    let user = await userUtils.getAuthUserData();
 
     try {
-      if (parseFloat(amount) > userData.wallet) {
+      if (parseFloat(amount) > user?.data?.user?.wallet) {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
@@ -1933,7 +1935,7 @@ const PokerTable = (props) => {
                   </div>
                 )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
-                <GameMessage winnerText={winnerText} />
+                {winner ? <GameMessage winnerText={winnerText} /> : null}
 
                 <TableCard
                   winner={winner}
