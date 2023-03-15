@@ -126,6 +126,7 @@ const PokerTable = (props) => {
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
   const [start, setStart] = useState(false);
+  const [startBtn, setStartBtn] = useState(false);
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
@@ -149,6 +150,7 @@ const PokerTable = (props) => {
   const [buyinPopup, setBuyinPopup] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
   const [tentativeAction, setTentativeAction] = useState();
+  const [blindTimer, setBlindTimer] = useState();
   const handleClick = (e) => {
     setOpen(e);
   };
@@ -224,13 +226,13 @@ const PokerTable = (props) => {
         !urlParams.get("token") &&
         !getCookie("token")
       ) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
 
       user = await userUtils.getAuthUserData();
 
       if (!user.success) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       userId = user?.data.user?.id;
       let table = urlParams.get("tableid");
@@ -242,7 +244,7 @@ const PokerTable = (props) => {
       try {
         if (table) {
           const playerInTable = await pokerInstance().get(
-            `/checkUserInTable/${ table }`
+            `/checkUserInTable/${table}`
           );
 
           console.log("RommData", roomData);
@@ -456,7 +458,7 @@ const PokerTable = (props) => {
         roomData.players.find(
           (ele) => (ele.id ? ele.id : ele.userid) === data.id
         );
-      toast.success(`${ pl.name } made ${ data.action }`, { id: "info" });
+      toast.success(`${pl.name} made ${data.action}`, { id: "info" });
     });
 
     socket.on("cancelJoinRequest", (data) => {
@@ -469,7 +471,7 @@ const PokerTable = (props) => {
         toast.success("Join request is approved", { id: "A" });
         setNewUser(false);
       } else {
-        toast.success(`${ data.name } join the table`, { id: "B" });
+        toast.success(`${data.name} join the table`, { id: "B" });
       }
     });
 
@@ -527,9 +529,9 @@ const PokerTable = (props) => {
     socket.on("flopround", (data) => {
       setMergeAnimationState(true);
       roomData = data;
-        setTablePot(roomData.pot);
-        setCommunityCards(data?.communityCard);
-        updatePlayer(data.flopround);
+      setTablePot(roomData.pot);
+      setCommunityCards(data?.communityCard);
+      updatePlayer(data.flopround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
@@ -539,9 +541,9 @@ const PokerTable = (props) => {
     socket.on("turnround", (data) => {
       setMergeAnimationState(true);
       roomData = data;
-        setCommunityCards(data?.communityCard);
-        setTablePot(roomData.pot);
-        updatePlayer(data.turnround);
+      setCommunityCards(data?.communityCard);
+      setTablePot(roomData.pot);
+      updatePlayer(data.turnround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
@@ -579,7 +581,7 @@ const PokerTable = (props) => {
         gameType: gameCollection,
       });
       setTimeout(() => {
-        window.location.href = `${ window.location.origin }`;
+        window.location.href = `${window.location.origin}`;
       }, 100);
     });
 
@@ -780,7 +782,7 @@ const PokerTable = (props) => {
         });
       } else {
         toast.success(
-          `Admin left the game, Now ${ data.name } is the Game Admin`,
+          `Admin left the game, Now ${data.name} is the Game Admin`,
           { id: "GameAdmin" }
         );
       }
@@ -1038,10 +1040,8 @@ const PokerTable = (props) => {
     });
     setPlayers(playerDetails);
   };
+
   const showWinner = (data, players) => {
-    if (!data && !data.length) {
-      return;
-    }
     data.forEach((item, i) => {
       if (i === 0) {
         let type = players.find((el) => el.userid === item.id);
@@ -1049,7 +1049,7 @@ const PokerTable = (props) => {
         setWinner(item);
         playAudio("winner");
         if (item.handName) {
-          setWinnerText(`${ item.name } wins with ${ item.handName }`);
+          setWinnerText(`${item.name} wins with ${item.handName}`);
           let newMatch = [];
           let hand = [];
           item.communityCards.forEach((card, j) => {
@@ -1072,6 +1072,7 @@ const PokerTable = (props) => {
           setWinnerText(`All player folded, ${item.name} Win`);
         }
         setTimeout(() => {
+          console.log("set winner for one executed");
           setWinner(false);
         }, 2500);
       } else if (i > 0) {
@@ -1080,7 +1081,7 @@ const PokerTable = (props) => {
           setWinAnimationType(type?.items);
           setWinner(item);
           if (item.handName) {
-            setWinnerText(`${ item.name } wins with ${ item.handName }`);
+            setWinnerText(`${item.name} wins with ${item.handName}`);
             let newMatch = [];
             item.communityCards.forEach((card, j) => {
               let handCard = item.winnerHand.find((hand) => hand === card);
@@ -1091,7 +1092,7 @@ const PokerTable = (props) => {
             newMatch.sort((a, b) => a - b);
             setMatchCards(newMatch);
           } else if (!item.handName || item.name) {
-            setWinnerText(`All player folded, ${ item.name } Win`);
+            setWinnerText(`All player folded, ${item.name} Win`);
           }
           setTimeout(() => {
             setWinner(false);
@@ -1103,6 +1104,7 @@ const PokerTable = (props) => {
       setHandWinner(roomData.handWinner);
     }
   };
+
   const [auto, setAuto] = useState(false);
   const startGame = (data) => {
     socket.emit("startPreflopRound", {
@@ -1123,7 +1125,6 @@ const PokerTable = (props) => {
     setNewUser(false);
     setAllowWatcher(false);
   };
-
 
   const callAction = () => {
     setOpenAction({
@@ -1323,7 +1324,7 @@ const PokerTable = (props) => {
 
   const playAudio = (type) => {
     if (type) {
-      const audioEl = document.getElementsByClassName(`audio-${ type }`)[0];
+      const audioEl = document.getElementsByClassName(`audio-${type}`)[0];
       if (audioEl) {
         audioEl.play();
       }
@@ -1334,6 +1335,7 @@ const PokerTable = (props) => {
       }, 10000);
     }
   };
+
   socket.on("roomchanged", (data) => {
     const { newRoomId, changeIds } = data;
     if (newRoomId && changeIds.length > 0) {
@@ -1346,6 +1348,7 @@ const PokerTable = (props) => {
       }
     }
   });
+
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1370,10 +1373,8 @@ const PokerTable = (props) => {
       isWatcher: isWatcher,
       action: "Leave",
     });
-    window.location.href = `${ window.location.origin }`;
+    window.location.href = `${window.location.origin}`;
   };
-
-
 
   useEffect(() => {
     socket.on("notInvited", () => {
@@ -1524,10 +1525,10 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData.wallet);
-    // let user = await userUtils.getAuthUserData();
+    let user = await userUtils.getAuthUserData();
 
     try {
-      if (parseFloat(amount) > userData.wallet) {
+      if (parseFloat(amount) > user?.data?.user?.wallet) {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
@@ -1537,7 +1538,7 @@ const PokerTable = (props) => {
           tableId,
           amount,
         });
-        toast.success(`Your wallet will update in next hand ${ amount }`);
+        toast.success(`Your wallet will update in next hand ${amount}`);
         setRefillSitInAmount(false);
         updatePlayer(data?.data?.roomData.players);
 
@@ -1568,7 +1569,7 @@ const PokerTable = (props) => {
         amount: x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${ roomData?.raiseAmount }`);
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
     }
   };
   const betInSliderAction = (x) => {
@@ -1589,28 +1590,37 @@ const PokerTable = (props) => {
         amount: x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${ roomData?.raiseAmount }`);
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
     }
   };
+
+  useEffect(() => {
+    // console.log("RunningRound", roomData?.runninground);
+    socket.on("blindTimer", (data) => {
+      console.log("blindTimer", data);
+      setBlindTimer(data.time);
+    });
+  }, []);
 
   return (
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${
+            !(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-            ? "game-started-join"
-            : ""
-            }`}
+              ? "game-started-join"
+              : ""
+          }`}
         />
       </Helmet>
 
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
+          roomData &&
+          roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1619,16 +1629,15 @@ const PokerTable = (props) => {
           <i class="fa fa-sign-out" aria-hidden="true" />
         </button>
       </div>
-      <div className={`poker-bg ${ loader ? "loaderactive" : "" } `}>
+      <div className={`poker-bg ${loader ? "loaderactive" : ""} `}>
         {loader && (
           <div className="poker-loader">
             <img src={loaderImg} alt="loader-Las vegas" />{" "}
           </div>
         )}
-       
 
         <div className="container">
-          {isAdmin && !roomData?.public ? (
+          {startBtn && isAdmin && !roomData?.public ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -1637,7 +1646,7 @@ const PokerTable = (props) => {
           ) : (
             ""
           )}
-          <div className={`poker-table ${ winner ? "winner-show" : "" }`}>
+          <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
                 {unReadMessages > 0 && (
@@ -1657,94 +1666,101 @@ const PokerTable = (props) => {
               />
             </div>
             {(players && players.find((ele) => ele.id === userId)) ||
-              (roomData &&
-                roomData.players.find((ele) => ele.userid === userId)) ||
-              isWatcher ? (
+            (roomData &&
+              roomData.players.find((ele) => ele.userid === userId)) ||
+            isWatcher ? (
               <div
-                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${ players?.length }`}
+                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
-                {roomData?.players.find(el =>el.id === userId) && !roomData?.gamestart && !newUser && !auto && !roomData.tournament &&  (
-                  <div className="start-game">
-                    <div className="start-game-btn">
-                      {isAdmin && roomData && !roomData?.gamestart ? (
-                        <>
-                          <p>Click to start game</p>
-                          {/* disabled={players && players.length <2} */}
-                          <div className="footer-btn ">
-                            {players && players.length >= 2 && (
-                              <Button
-                                onClick={() => {
-                                  setStart(true);
-                                  startGame(roomData?.autoNextHand);
-                                }}
-                                disabled={start}
-                              >
-                                Start Game
-                              </Button>
-                            )}
-                            {players && players.length < 2 && (
-                              <OverlayTrigger
-                                placement="bottom"
-                                overlay={
-                                  <Tooltip id="tooltip-disabled">
-                                    Please wait for the other friends to join
-                                  </Tooltip>
-                                }
-                              >
-                                <Button className="not-allowed">
+                {roomData?.players.find((el) => el.id === userId) &&
+                  !roomData?.gamestart &&
+                  !newUser && !roomData.tournament &&
+                  !auto && (
+                    <div className="start-game">
+                      <div className="start-game-btn">
+                        {isAdmin && roomData && !roomData?.gamestart ? (
+                          <>
+                            <p>Click to start game</p>
+                            {/* disabled={players && players.length <2} */}
+                            <div className="footer-btn ">
+                              {players && players.length >= 2 && (
+                                <Button
+                                  onClick={() => {
+                                    setStart(true);
+                                    setStartBtn(true);
+                                    startGame(roomData?.autoNextHand);
+                                  }}
+                                  disabled={start}
+                                >
                                   Start Game
                                 </Button>
-                              </OverlayTrigger>
-                            )}
-                          </div>
-                        </>
-                      ) : newUser ? (
-                        <>
-                          <p>Join table</p>
-                          <div className="footer-btn ">
-                            <Button onClick={() => joinGame()}>
-                              Join Game
-                            </Button>
-                          </div>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                      {roomData &&
-                        roomData?.runninground === 0 &&
-                        !roomData?.gamestart &&
-                        !isAdmin &&
-                        !roomData?.tournament && (
-                          <>
-                            <p>Please wait for the Admin to Start the game</p>
+                              )}
+                              {players && players.length < 2 && (
+                                <OverlayTrigger
+                                  placement="bottom"
+                                  overlay={
+                                    <Tooltip id="tooltip-disabled">
+                                      Please wait for the other friends to join
+                                    </Tooltip>
+                                  }
+                                >
+                                  <Button className="not-allowed">
+                                    Start Game
+                                  </Button>
+                                </OverlayTrigger>
+                              )}
+                            </div>
                           </>
+                        ) : newUser ? (
+                          <>
+                            <p>Join table</p>
+                            <div className="footer-btn ">
+                              <Button onClick={() => joinGame()}>
+                                Join Game
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          ""
                         )}
-                      {roomData && !roomData.tournament && 
+                        {roomData &&
+                          roomData?.runninground === 0 &&
+                          !roomData?.gamestart &&
+                          !isAdmin &&
+                          !roomData?.tournament && (
+                            <>
+                              <p>Please wait for the Admin to Start the game</p>
+                            </>
+                          )}
+                        {roomData &&
                         roomData.handWinner.length === 0 &&
                         !roomData?.gamestart ? (
-                        <>
-                          <p className="joined-player">
-                            Invited Players joined -{" "}
-                            {roomData.players.filter((ele) =>
-                              roomData.invPlayers.includes(ele.userid)
-                            ).length + 1}
-                            /{roomData.invPlayers.length + 1}
-                          </p>
-                        </>
-                      ) : (
-                        ""
-                      )}
+                          <>
+                            {roomData.gameType !== "poker-tournament" && (
+                              <p className="joined-player">
+                                Invited Players joined -{" "}
+                                {roomData.players.filter((ele) =>
+                                  roomData.invPlayers.includes(ele.userid)
+                                ).length + 1}
+                                /{roomData.invPlayers.length + 1}
+                              </p>
+                            )}
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
                 {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
-                <GameMessage winnerText={winnerText} />
+                {winner ? <GameMessage winnerText={winnerText} /> : null}
 
                 <TableCard
                   winner={winner}
                   communityCards={communityCards}
                   matchCards={matchCards}
                   roomData={roomData}
+                  blindTimer={blindTimer}
                 />
 
                 {!isWatcher &&
@@ -1753,11 +1769,11 @@ const PokerTable = (props) => {
                   players.map((player, i) => (
                     <Players
                       mergeAnimationState={mergeAnimationState}
-                      key={`item-${ player.userid ? player.userid : player.id }`}
+                      key={`item-${player.userid ? player.userid : player.id}`}
                       followingList={followingList}
                       friendList={friendList}
                       systemplayer={i === 0 ? true : false}
-                      playerclass={`player${ player.availablePosition + 1 }`}
+                      playerclass={`player${player.availablePosition + 1}`}
                       playerData={player}
                       timer={timer}
                       action={action}
@@ -1783,7 +1799,7 @@ const PokerTable = (props) => {
                   ))}
               </div>
             ) : (
-             ""
+              ""
             )}
           </div>
           <FooterButton
@@ -1895,20 +1911,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-                <li>
-                  <OverlayTrigger
-                    placement="left"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                    }
-                  >
-                    <button onClick={() => setShowInvite(true)}>
-                      {/* <img src={addcoin} alt="Invite friend" /> */}
-                      <i className="fa fa-envelope"></i>
-                    </button>
-                  </OverlayTrigger>
-                </li>
-              )}
+              <li>
+                <OverlayTrigger
+                  placement="left"
+                  overlay={
+                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                  }
+                >
+                  <button onClick={() => setShowInvite(true)}>
+                    {/* <img src={addcoin} alt="Invite friend" /> */}
+                    <i className="fa fa-envelope"></i>
+                  </button>
+                </OverlayTrigger>
+              </li>
+            )}
             {roomData?.tournament ? (
               ""
             ) : (
@@ -2043,6 +2059,11 @@ const Players = ({
   timer,
   remainingTime,
   mergeAnimationState,
+  followingList,
+  setFriendList,
+  setFollowingList,
+  tablePot,
+  blindTimer,
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
@@ -2133,14 +2154,17 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
-          ? `winner-player`
-          : ``
-          } ${ playerData && playerData.playing && !playerData?.fold
+        className={`players ${playerclass} ${
+          winner && playerData && winner.id === playerData.id
+            ? `winner-player`
+            : ``
+        } ${
+          playerData && playerData.playing && !playerData?.fold
             ? ""
             : "not-playing"
-          } ${ mergeAnimationState ? "animateMerge-chips" : "" } ${ playerData && playerData.id === messageBy ? "playerChated" : ""
-          }`}
+        } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
+          playerData && playerData.id === messageBy ? "playerChated" : ""
+        }`}
       >
         {playerData?.availablePosition === 0 &&
           playerData?.fold &&
@@ -2188,23 +2212,23 @@ const Players = ({
         ) : (
           <HideCard />
         )}
-        
+
         {/* end of win or lose animation */}
         {currentPlayer &&
           playerData &&
           currentPlayer.id === playerData.id &&
           action && <span className="player-action">{actionText}</span>}
 
-        <div id={`store-item-${ playerData.id }`}></div>
+        <div id={`store-item-${playerData.id}`}></div>
         <div
-          className={`player-box ${ currentPlayer && playerData && currentPlayer.id === playerData.id
-            ? "currentPlayerChance"
-            : ""
-            }`}
+          className={`player-box ${
+            currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "currentPlayerChance"
+              : ""
+          }`}
         >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
-            
           )}
 
           {/************ player PIC avtaar  **********/}
@@ -2231,10 +2255,11 @@ const Players = ({
             />
           </div>
           <div
-            className={`player-info ${ currentPlayer && playerData && currentPlayer.id === playerData.id
-              ? "progressActive"
-              : ""
-              } `}
+            className={`player-info ${
+              currentPlayer && playerData && currentPlayer.id === playerData.id
+                ? "progressActive"
+                : ""
+            } `}
           >
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -2246,7 +2271,6 @@ const Players = ({
                 ? "Purchase"
                 : numFormatter(playerData && playerData.wallet)}
             </p>
-           
           </div>
           {roomData &&
             roomData.runninground !== 0 &&
@@ -2257,8 +2281,8 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                    ? "B"
-                    : // : playerData.isDealer
+                  ? "B"
+                  : // : playerData.isDealer
                     // ? "D"
                     ""}
               </div>
@@ -2266,49 +2290,56 @@ const Players = ({
 
           {playerData && playerData.pot > 0 && playerData !== undefined ? (
             <div className="player-chip">
-              <span>
-                {numFormatter(playerData && playerData?.pot)}
-              </span>
+              <span>{numFormatter(playerData && playerData?.pot)}</span>
             </div>
           ) : (
             ""
           )}
-          
         </div>
         {playerData && playerData.id === messageBy && (
           <BubbleMessage message={message} />
         )}
       </div>
-      </>
+    </>
   );
 };
 
-const TableCard = ({ winner, communityCards, matchCards, roomData }) => {
+const TableCard = ({
+  winner,
+  communityCards,
+  matchCards,
+  roomData,
+  blindTimer,
+}) => {
   return (
-    <div className={`table-card ${ winner ? "winner-show" : "" }`}>
+    <div className={`table-card ${winner ? "winner-show" : ""}`}>
       <h4 className="table-blindLevel">
         SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
       </h4>
+      {roomData.gameType === "poker-tournament" && (
+        <h4>BlindTimer:{blindTimer}</h4>
+      )}
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
-            <div className={`card-animate active duration-${ i }`}>
+            <div className={`card-animate active duration-${i}`}>
               <img
-                key={`item-${ i }`}
+                key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${ card.toUpperCase() }.svg`}
+                src={`/cards/${card.toUpperCase()}.svg`}
                 alt="card"
-                className={`${ winner && matchCards.findIndex((ele) => ele === i) !== -1
-                  ? `winner-card`
-                  : ``
-                  } front-card duration-${ i }`}
+                className={`${
+                  winner && matchCards.findIndex((ele) => ele === i) !== -1
+                    ? `winner-card`
+                    : ``
+                } front-card duration-${i}`}
               />
               <img
-                key={`item1-${ i }`}
+                key={`item1-${i}`}
                 src={back2}
                 alt="back"
-                className={`back-card duration-${ i }`}
+                className={`back-card duration-${i}`}
               />
             </div>
           );
@@ -2527,25 +2558,21 @@ const FooterButton = ({
               {roomData?.gamestart &&
                 roomData.runninground >= 1 &&
                 roomData.runninground < 5 &&
-                players.find((el) => el.id === userId)
-                  ?.cards?.length === 2 &&
-                !players.find((el) => el.id === userId)
-                  ?.fold &&
+                players.find((el) => el.id === userId)?.cards?.length === 2 &&
+                !players.find((el) => el.id === userId)?.fold &&
                 !(
                   roomData.lastAction === "check" &&
-                  players
-                    .find((el) => el.id === userId)?.action === true
+                  players.find((el) => el.id === userId)?.action === true
                 ) &&
-                players.find((el) => el.id === userId)
-                  .actionType !== "all-in" && (
+                players.find((el) => el.id === userId).actionType !==
+                  "all-in" && (
                   <AdvanceActionBtn
                     setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
                     handleTentativeAction={handleTentativeAction}
                     roomData={roomData}
                     currentPlayer={currentPlayer}
-                    player={players
-                      .find((el) => el.id === userId)}
+                    player={players.find((el) => el.id === userId)}
                   />
                 )}
             </>
@@ -2555,7 +2582,6 @@ const FooterButton = ({
     </div>
   );
 };
-
 
 const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
   const [isFinishClick, setisFinishClick] = useState(false);
@@ -2618,10 +2644,11 @@ const ShowCard = ({ cards, handMatch }) => {
             key={`item-${card}`}
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
-              ? ``
-              : `winner-card`
-              } `}
+            className={`animate__animated animate__rollIn duration-${i} ${
+              handMatch.findIndex((ele) => ele === i) !== -1
+                ? ``
+                : `winner-card`
+            } `}
           />
         ))}
     </div>
@@ -2689,8 +2716,6 @@ const RenderTooltip = ({ playerData }) => {
   );
 };
 
-
-
 const TimerSeparator = ({ time, remainingTime }) => {
   const [activeTime, setActiveTime] = useState(100);
   useEffect(() => {
@@ -2710,7 +2735,5 @@ const TimerSeparator = ({ time, remainingTime }) => {
     }
   };
 
-  return (
-    <ProgressBar animated variant={handelColor()} now={activeTime} />
-  );
+  return <ProgressBar animated variant={handelColor()} now={activeTime} />;
 };
