@@ -12,7 +12,6 @@ import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
 import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
-import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
@@ -29,6 +28,8 @@ import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
 
 let userId;
 const Home = () => {
@@ -42,8 +43,9 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-  console.log("Constatn -->", CONSTANTS);
   // States
+  const {userInAnyGame}=useContext(UserContext)
+  console.log("User In Any game--->",userInAnyGame)
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});

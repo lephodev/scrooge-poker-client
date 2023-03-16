@@ -16,7 +16,6 @@ import config from './config.json'
 //     landingClient: "http://localhost:3000",
 //   },
 // };
-
 // export default env.dev;
 const contants = config[process.env.REACT_APP_ENV];
 export default contants
