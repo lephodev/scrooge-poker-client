@@ -1617,7 +1617,7 @@ const PokerTable = (props) => {
         )}
 
         <div className="container">
-          {startBtn && isAdmin && !roomData?.public ? (
+          {startBtn && isAdmin ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -2581,30 +2581,43 @@ const PlayPauseBtn = ({ pauseGame, resumeGame, finishGame }) => {
     <div className="play-pause-button">
       {roomData && roomData.autoNextHand ? (
         roomData.pause ? (
-          <div className="play-btn">
-            <Button onClick={() => resumeGame()}>Resume</Button>
-          </div>
+          <>
+            <div className="play-btn">
+              <Button onClick={() => resumeGame()}>Resume</Button>
+            </div>
+            <div className="pause-btn">
+              <Button
+                onClick={() => {
+                  finishGame();
+                  setisFinishClick(true);
+                }}
+                disabled={isFinishClick}
+              >
+                Finish
+              </Button>
+            </div>
+          </>
         ) : (
-          <div className="play-btn">
-            <Button onClick={() => pauseGame()}>Pause</Button>
-          </div>
+          <>
+            {" "}
+            <div className="play-btn">
+              <Button onClick={() => pauseGame()}>Pause</Button>
+            </div>
+            <div className="pause-btn">
+              <Button
+                onClick={() => {
+                  finishGame();
+                  setisFinishClick(true);
+                }}
+                disabled={isFinishClick}
+              >
+                Finish
+              </Button>
+            </div>
+          </>
         )
       ) : (
         ""
-      )}
-
-      {!showFinish && (
-        <div className="pause-btn">
-          <Button
-            onClick={() => {
-              finishGame();
-              setisFinishClick(true);
-            }}
-            disabled={isFinishClick}
-          >
-            Finish
-          </Button>
-        </div>
       )}
     </div>
   );
