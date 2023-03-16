@@ -1674,7 +1674,7 @@ const PokerTable = (props) => {
               >
                 {roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
-                  !newUser &&
+                  !newUser && !roomData.tournament &&
                   !auto && (
                     <div className="start-game">
                       <div className="start-game-btn">
