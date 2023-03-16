@@ -29,6 +29,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
+import LeaderBoard from "./leaderBoard";
 
 let userId;
 const Home = () => {
@@ -89,10 +90,10 @@ const Home = () => {
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
-    if(userId){
-      localStorage.setItem('userId',userId)
+    if (userId) {
+      localStorage.setItem('userId', userId)
     }
-    
+
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -241,7 +242,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -253,7 +254,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -298,15 +299,12 @@ const Home = () => {
   console.log("filterRoom ====>", tournamentCardHeight);
 
   const pokerCard = useRef(null);
-  const tourCard = useRef(null);
   useEffect(() => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight);
     }
-    if (tourCard?.current?.clientHeight) {
-      setTournamentCardHeight(tourCard.current.clientHeight);
-    }
-  }, [pokerCard, tourCard]);
+
+  }, [pokerCard]);
 
   return (
     <div className="poker-home">
@@ -424,7 +422,7 @@ const Home = () => {
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
-                    <div className="home-poker-card-grid" ref={pokerCard}>
+                    <div className="home-poker-card-grid" >
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
                           <GameTable
@@ -454,14 +452,13 @@ const Home = () => {
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
-                      <div className="home-poker-card-grid" ref={tourCard}>
+                      <div className="home-poker-card-grid">
                         {filterTournaments.map((el) => (
                           <React.Fragment key={el._id}>
-                            <GameTable
+                            <GameTournament
                               data={el}
                               gameType="Tournament"
                               getTournamentDetails={getTournamentDetails}
-                              height={tournamentCardHeight}
                               setUserData={setUserData}
                               filterTournaments={filterTournaments}
                             />
@@ -844,9 +841,10 @@ const GameTable = ({
     <>
       <div className="tournamentCard" ref={wrapperRef}>
         <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
-
-        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
-          {!cardFlip ? (
+        <div className={`tournamentCard-inner
+         ${cardFlip && gameType === "Poker" ? "rotate" : ""}
+         `}>
+          {!cardFlip && gameType === "Poker" ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
               <div className="tournamentFront-info">
@@ -887,12 +885,11 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                {console.log("vgagagfhgfha", data?.rooms)}
                 people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                        ?.length || 0
+                      ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
@@ -944,6 +941,202 @@ const GameTable = ({
   );
 };
 
+const GameTournament = ({
+  data,
+  gameType,
+  getTournamentDetails,
+  height,
+  setUserData,
+  tableId,
+}) => {
+  const history = useHistory();
+  const redirectToTable = () => {
+    socket.emit("checkAlreadyInGame", { userId, tableId });
+    socket.on("userAlreadyInGame", (value) => {
+      console.log("user already in game");
+      console.log(value);
+      const { message, join } = value;
+      if (join) {
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + data?._id,
+        });
+      } else {
+        toast.error(message, { id: "create-table-error" });
+      }
+    });
+  };
+
+  useEffect(() => {
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
+      console.log("data", data);
+      if (code === 200) {
+        if (data?.user && Object.keys(data?.user)?.length > 0) {
+          setUserData(data?.user);
+        }
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
+    });
+    socket.on("notEnoughAmount", (data) => {
+      const { message, code } = data;
+      if (code === 200) {
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
+    });
+  }, []);
+
+  const joinTournament = async (tournamentId, fees) => {
+    socket.emit("joinTournament", {
+      tournamentId: tournamentId,
+      userId: userId,
+      fees,
+    });
+    setTimeout(() => {
+      getTournamentDetails();
+    }, 1000);
+  };
+
+  const enterRoom = async (tournamentId) => {
+    const res = await tournamentInstance().post("/enterroom", {
+      tournamentId: tournamentId,
+    });
+    if (res.data.code === 200) {
+      let roomid = res.data.roomId;
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
+    } else {
+      // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
+    }
+  };
+
+  const getTime = (time) => {
+    let d = new Date(time);
+    let pm = d.getHours() >= 12;
+    let hour12 = d.getHours() % 12;
+    if (!hour12) hour12 += 12;
+    let minute = d.getMinutes();
+    let date = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  };
+
+  const [cardFlip, setCardFlip] = useState(false);
+  const [dateState, setDateState] = useState();
+  const [showPopup, setShowPopup] = useState(false)
+  const handleFlip = (tDate) => {
+    setCardFlip(!cardFlip);
+    countDownData(tDate);
+    setShowPopup(!showPopup);
+  };
+  const leaderPopupshow = () => {
+    console.log("hiss")
+  }
+  const countDownData = (tDate) => {
+    var x = setInterval(() => {
+      let countDownDate = new Date(tDate).getTime();
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setDateState({
+        days,
+        hours,
+        minutes,
+        seconds,
+      });
+      if (distance < 0) {
+        clearInterval(x);
+        setDateState({
+          days: "0",
+          hours: "0",
+          minutes: "0",
+          seconds: "0",
+        });
+      }
+    }, 1000);
+  };
+
+  const wrapperRef = useRef();
+
+  // const useOutsideAlerter = (ref) => {
+  //   useEffect(() => {
+  //     const handleClickOutside = (event) => {
+  //       if (ref.current && !ref.current.contains(event.target)) {
+  //         setCardFlip(false);
+  //       }
+  //     };
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => {
+  //       document.removeEventListener("mousedown", handleClickOutside);
+  //     };
+  //   }, [ref]);
+  // };
+  // useOutsideAlerter(wrapperRef);
+
+  const ifUserJoind = () => {
+    let getData = data?.rooms?.find((el) =>
+      el?.players?.find((el) => el?.userid === userId)
+    );
+
+    return getData;
+  };
+
+  return (
+    <>
+      <div className="tournamentCard" >
+        <FaInfoCircle onClick={() => { handleFlip(data.tournamentDate)}} />
+        <div className={`tournamentCard-inner
+         `}>
+          <div className="tournamentCard-front">
+            <img src={casino} alt="" />
+            <div className="tournamentFront-info">
+              <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+              {gameType === "Poker" ? (
+                <button onClick={redirectToTable} type="submit">
+                  Join Game
+                </button>
+              ) : (
+                <div className="btn-grid">
+                  {" "}
+                  <button
+                    disabled={ifUserJoind()}
+                    onClick={() =>
+                      joinTournament(data?._id, data?.tournamentFee)
+                    }
+                    type="submit"
+                  >
+                    Join Game
+                  </button>
+                  {ifUserJoind() && (
+                    <button
+                      onClick={() => enterRoom(data?._id)}
+                      type="submit"
+                    >
+                      Enter Game
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <LeaderBoard open={showPopup}/>
+      </div>
+    </>
+  );
+};
 const AvatarGroup = ({ imgArr }) => {
   return (
     <div className="poker-avatar-box">
