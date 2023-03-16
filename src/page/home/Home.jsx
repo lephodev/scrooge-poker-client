@@ -89,10 +89,9 @@ const Home = () => {
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
-    if(userId){
-      localStorage.setItem('userId',userId)
+    if (userId) {
+      localStorage.setItem("userId", userId);
     }
-    
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -213,6 +212,7 @@ const Home = () => {
     (async () => {
       const response = await pokerInstance().get("/getAllUsers");
       setAllUsers(response.data.allUsers);
+      console.log("response", response);
     })();
   }, []);
 
