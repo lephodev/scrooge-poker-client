@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const AlreadyInGamePopup = ({userInAnyGame}) => {
- console.log("userInAnyGame",userInAnyGame)
     const leaveTable=async()=>{
       const leave=  await axios({
             method: "get",
@@ -18,7 +17,7 @@ const AlreadyInGamePopup = ({userInAnyGame}) => {
     }
   return (
     <Modal
-      show={true}
+      show={userInAnyGame?.inGame}
       centered
       className="friends-popup leave-confirm"
     >
