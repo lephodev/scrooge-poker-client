@@ -243,25 +243,13 @@ const PokerTable = (props) => {
 
       try {
         if (table) {
-          const playerInTable = await pokerInstance().get(
-            `/checkUserInTable/${table}`
-          );
-
           console.log("RommData", roomData);
-          if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
-            socket.emit("checkTable", {
-              gameId: table,
-              userId: user?.data.user?.id,
-              gameType: type,
-              sitInAmount: 0,
-            });
-
-            // setLoader(true);
-            // Ask user to type wallet amount
-          } else {
-            // Enter sit in amount popup
-            setShowEnterAmountPopup(true);
-          }
+          socket.emit("checkTable", {
+            gameId: table,
+            userId: user?.data.user?.id,
+            gameType: type,
+            sitInAmount: 0,
+          });
         }
         setLoader(true);
       } catch (error) {
@@ -291,9 +279,13 @@ const PokerTable = (props) => {
         }, 500);
       }
     });
-  }, []);
-
-  useEffect(() => {
+    socket.on("notInviteddddd", (data) => {
+      if (data.message === "notInvited") {
+        setShowEnterAmountPopup(true);
+      } else {
+        setShowEnterAmountPopup(false);
+      }
+    });
     socket.on("userId", async (data) => {
       userId = data;
     });
@@ -1336,19 +1328,6 @@ const PokerTable = (props) => {
     }
   };
 
-  socket.on("roomchanged", (data) => {
-    const { newRoomId, changeIds } = data;
-    if (newRoomId && changeIds.length > 0) {
-      if (changeIds.find((el) => el.toString() === userId.toString())) {
-        console.log("Change ids--->", changeIds);
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + newRoomId,
-        });
-      }
-    }
-  });
-
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1381,24 +1360,22 @@ const PokerTable = (props) => {
       alert("This is a private table");
       history.push("/");
     });
-    return () => {
-      socket.off("notInvited");
-    };
-  }, [history]);
-
-  useEffect(() => {
+    socket.on("roomchanged", (data) => {
+      const { newRoomId, changeIds } = data;
+      if (newRoomId && changeIds.length > 0) {
+        if (changeIds.find((el) => el.toString() === userId.toString())) {
+          console.log("Change ids--->", changeIds);
+          window.location.href =
+            "/table?gamecollection=poker&tableid=" + newRoomId;
+        }
+      }
+    });
     socket.on("tablefull", (data) => {
       toast.error(data?.message);
       setTimeout(() => {
         history.push("/");
       }, 2000);
     });
-    return () => {
-      socket.off("tablefull");
-    };
-  }, [history]);
-
-  useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
@@ -1412,6 +1389,9 @@ const PokerTable = (props) => {
         }
       }
     });
+    return () => {
+      socket.off("notInvited");
+    };
   }, [history]);
 
   const handleOpenChatHistory = () => {
