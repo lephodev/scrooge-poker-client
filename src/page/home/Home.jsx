@@ -45,7 +45,7 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const {userInAnyGame}=useContext(UserContext)
+  const {userInAnyGame,setUserInAnyGame}=useContext(UserContext)
   console.log("User In Any game--->",userInAnyGame)
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
@@ -313,7 +313,7 @@ const Home = () => {
 
   return (
     <div className="poker-home">
-      {userInAnyGame?.inGame&&<AlreadyInGamePopup userInAnyGame={userInAnyGame}/>
+      {userInAnyGame?.inGame&&<AlreadyInGamePopup userInAnyGame={userInAnyGame} setUserInAnyGame={setUserInAnyGame}/>
       }
       {loader && (
         <div className="poker-loader">
