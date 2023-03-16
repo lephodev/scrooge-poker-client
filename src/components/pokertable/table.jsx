@@ -243,25 +243,13 @@ const PokerTable = (props) => {
 
       try {
         if (table) {
-          const playerInTable = await pokerInstance().get(
-            `/checkUserInTable/${table}`
-          );
-
           console.log("RommData", roomData);
-          if (playerInTable?.data?.players?.find((el) => el.id === userId)) {
-            socket.emit("checkTable", {
-              gameId: table,
-              userId: user?.data.user?.id,
-              gameType: type,
-              sitInAmount: 0,
-            });
-
-            // setLoader(true);
-            // Ask user to type wallet amount
-          } else {
-            // Enter sit in amount popup
-            setShowEnterAmountPopup(true);
-          }
+          socket.emit("checkTable", {
+            gameId: table,
+            userId: user?.data.user?.id,
+            gameType: type,
+            sitInAmount: 0,
+          });
         }
         setLoader(true);
       } catch (error) {
@@ -291,9 +279,13 @@ const PokerTable = (props) => {
         }, 500);
       }
     });
-  }, []);
-
-  useEffect(() => {
+    socket.on("notInviteddddd", (data) => {
+      if (data.message === "notInvited") {
+        setShowEnterAmountPopup(true);
+      } else {
+        setShowEnterAmountPopup(false);
+      }
+    });
     socket.on("userId", async (data) => {
       userId = data;
     });
@@ -1336,19 +1328,6 @@ const PokerTable = (props) => {
     }
   };
 
-  socket.on("roomchanged", (data) => {
-    const { newRoomId, changeIds } = data;
-    if (newRoomId && changeIds.length > 0) {
-      if (changeIds.find((el) => el.toString() === userId.toString())) {
-        console.log("Change ids--->", changeIds);
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + newRoomId,
-        });
-      }
-    }
-  });
-
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
@@ -1381,24 +1360,22 @@ const PokerTable = (props) => {
       alert("This is a private table");
       history.push("/");
     });
-    return () => {
-      socket.off("notInvited");
-    };
-  }, [history]);
-
-  useEffect(() => {
+    socket.on("roomchanged", (data) => {
+      const { newRoomId, changeIds } = data;
+      if (newRoomId && changeIds.length > 0) {
+        if (changeIds.find((el) => el.toString() === userId.toString())) {
+          console.log("Change ids--->", changeIds);
+          window.location.href =
+            "/table?gamecollection=poker&tableid=" + newRoomId;
+        }
+      }
+    });
     socket.on("tablefull", (data) => {
       toast.error(data?.message);
       setTimeout(() => {
         history.push("/");
       }, 2000);
     });
-    return () => {
-      socket.off("tablefull");
-    };
-  }, [history]);
-
-  useEffect(() => {
     socket.on("eleminated", (data) => {
       console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
@@ -1412,6 +1389,9 @@ const PokerTable = (props) => {
         }
       }
     });
+    return () => {
+      socket.off("notInvited");
+    };
   }, [history]);
 
   const handleOpenChatHistory = () => {
@@ -1606,21 +1586,20 @@ const PokerTable = (props) => {
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${
-            !(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-              ? "game-started-join"
-              : ""
-          }`}
+            ? "game-started-join"
+            : ""
+            }`}
         />
       </Helmet>
 
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-          roomData &&
-          roomData.players.find((ele) => ele.userid === userId)
+            roomData &&
+            roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1646,6 +1625,20 @@ const PokerTable = (props) => {
           ) : (
             ""
           )}
+
+          {roomData?.gameType === "poker-tournament" && (
+            <div className="table-blindLevel">
+              <h4>{blindTimer ? blindTimer : '00:00'} : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span></h4>
+            </div>
+          )}
+
+          {/* {roomData.gameType === "poker-tournament" && (
+        <div className="table-blindLevel">
+          <h4>SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span></h4>
+          <h4>BlindTimer: <span>{blindTimer}</span></h4>
+        </div>
+      )} */}
+
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
@@ -1666,9 +1659,9 @@ const PokerTable = (props) => {
               />
             </div>
             {(players && players.find((ele) => ele.id === userId)) ||
-            (roomData &&
-              roomData.players.find((ele) => ele.userid === userId)) ||
-            isWatcher ? (
+              (roomData &&
+                roomData.players.find((ele) => ele.userid === userId)) ||
+              isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1733,8 +1726,8 @@ const PokerTable = (props) => {
                             </>
                           )}
                         {roomData &&
-                        roomData.handWinner.length === 0 &&
-                        !roomData?.gamestart ? (
+                          roomData.handWinner.length === 0 &&
+                          !roomData?.gamestart ? (
                           <>
                             {roomData.gameType !== "poker-tournament" && (
                               <p className="joined-player">
@@ -1911,20 +1904,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                  }
-                >
-                  <button onClick={() => setShowInvite(true)}>
-                    {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className="fa fa-envelope"></i>
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
+                <li>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                    }
+                  >
+                    <button onClick={() => setShowInvite(true)}>
+                      {/* <img src={addcoin} alt="Invite friend" /> */}
+                      <i className="fa fa-envelope"></i>
+                    </button>
+                  </OverlayTrigger>
+                </li>
+              )}
             {roomData?.tournament ? (
               ""
             ) : (
@@ -2154,17 +2147,14 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
-        } ${
-          playerData && playerData.playing && !playerData?.fold
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
+          ? `winner-player`
+          : ``
+          } ${playerData && playerData.playing && !playerData?.fold
             ? ""
             : "not-playing"
-        } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
-          playerData && playerData.id === messageBy ? "playerChated" : ""
-        }`}
+          } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
+          }`}
       >
         {playerData?.availablePosition === 0 &&
           playerData?.fold &&
@@ -2221,11 +2211,10 @@ const Players = ({
 
         <div id={`store-item-${playerData.id}`}></div>
         <div
-          className={`player-box ${
-            currentPlayer && playerData && currentPlayer.id === playerData.id
-              ? "currentPlayerChance"
-              : ""
-          }`}
+          className={`player-box ${currentPlayer && playerData && currentPlayer.id === playerData.id
+            ? "currentPlayerChance"
+            : ""
+            }`}
         >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
@@ -2255,11 +2244,10 @@ const Players = ({
             />
           </div>
           <div
-            className={`player-info ${
-              currentPlayer && playerData && currentPlayer.id === playerData.id
-                ? "progressActive"
-                : ""
-            } `}
+            className={`player-info ${currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "progressActive"
+              : ""
+              } `}
           >
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -2281,8 +2269,8 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                  ? "B"
-                  : // : playerData.isDealer
+                    ? "B"
+                    : // : playerData.isDealer
                     // ? "D"
                     ""}
               </div>
@@ -2313,12 +2301,8 @@ const TableCard = ({
 }) => {
   return (
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
-      <h4 className="table-blindLevel">
-        SB/BB : <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
-      </h4>
-      {roomData.gameType === "poker-tournament" && (
-        <h4>BlindTimer:{blindTimer}</h4>
-      )}
+
+
       {communityCards &&
         communityCards.map((card, i) => {
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
@@ -2329,11 +2313,10 @@ const TableCard = ({
                 // src={cards ? cards : back }
                 src={`/cards/${card.toUpperCase()}.svg`}
                 alt="card"
-                className={`${
-                  winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
-                } front-card duration-${i}`}
+                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+                  } front-card duration-${i}`}
               />
               <img
                 key={`item1-${i}`}
@@ -2565,7 +2548,7 @@ const FooterButton = ({
                   players.find((el) => el.id === userId)?.action === true
                 ) &&
                 players.find((el) => el.id === userId).actionType !==
-                  "all-in" && (
+                "all-in" && (
                   <AdvanceActionBtn
                     setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
@@ -2644,11 +2627,10 @@ const ShowCard = ({ cards, handMatch }) => {
             key={`item-${card}`}
             src={`/cards/${card.toUpperCase()}.svg`}
             alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
+            className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
+              ? ``
+              : `winner-card`
+              } `}
           />
         ))}
     </div>
