@@ -30,6 +30,7 @@ import axios from "axios";
 import { landingClient } from "../../config/keys";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
+import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 
 let userId;
 const Home = () => {
@@ -312,6 +313,8 @@ const Home = () => {
 
   return (
     <div className="poker-home">
+      {userInAnyGame?.inGame&&<AlreadyInGamePopup userInAnyGame={userInAnyGame}/>
+      }
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
