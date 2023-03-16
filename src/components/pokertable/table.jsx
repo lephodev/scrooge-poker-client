@@ -1522,7 +1522,7 @@ const PokerTable = (props) => {
   };
 
   const handleReffill = async (amount) => {
-    console.log("RefelAmount", userData.wallet);
+    console.log("RefelAmount", userData);
     // let user = await userUtils.getAuthUserData();
 
     try {
