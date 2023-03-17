@@ -1377,7 +1377,7 @@ const PokerTable = (props) => {
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message);
+      toast.error(data?.message, { id: 'A' });
       setTimeout(() => {
         history.push("/");
       }, 2000);
