@@ -46,8 +46,8 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const {userInAnyGame,setUserInAnyGame}=useContext(UserContext)
-  console.log("User In Any game--->",userInAnyGame)
+  const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);
+  console.log("User In Any game--->", userInAnyGame);
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -311,8 +311,12 @@ const Home = () => {
 
   return (
     <div className="poker-home">
-      {userInAnyGame?.inGame&&<AlreadyInGamePopup userInAnyGame={userInAnyGame} setUserInAnyGame={setUserInAnyGame}/>
-      }
+      {userInAnyGame?.inGame && (
+        <AlreadyInGamePopup
+          userInAnyGame={userInAnyGame}
+          setUserInAnyGame={setUserInAnyGame}
+        />
+      )}
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
@@ -394,7 +398,7 @@ const Home = () => {
         <div className="container">
           <div className="poker-table-header">
             <div className="backtoHome">
-              <a href="https://scrooge.casino/">
+              <a href={landingClient}>
                 <img src={Homesvg} alt="home" />
                 Home
               </a>

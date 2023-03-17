@@ -159,6 +159,34 @@ input:checked {
   white-space: nowrap;
 }
 
+.table-blindTimer {
+  position: absolute;
+  right: 2%;
+  bottom: 4%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(4px);
+  background: #1c1c29;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 9;
+}
+
+.table-blindTimer h4 {
+  font-size: 14px;
+  display: flex;
+  white-space: nowrap;
+  gap: 5px;
+  margin-bottom: 0px;
+}
+
+.table-blindTimer span {
+  color: #f9ff00;
+  white-space: nowrap;
+}
+
 /* .table-card .winner-card {
     z-index: 9;
     position: relative;
@@ -3926,6 +3954,12 @@ img.coinWinning-animation {
     top: 36%;
   }
 
+  .table-blindTimer {
+    position: absolute;
+    right: -6%;
+    bottom: 8%;
+  }
+
   .player-pic .progress {
     width: 110px !important;
     height: 33px !important;
@@ -4062,7 +4096,20 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    /* top: -25px; */
+    top: 12%;
+  }
+
+  .table-blindLevel h4 {
+    font-size: 10px;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: -6%;
+    bottom: 86%;
+  }
+
+  .table-blindTimer h4 {
     font-size: 10px;
   }
 
@@ -4945,7 +4992,13 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 6%;
+    top: 12%;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: -5%;
+    bottom: 90%;
   }
 
   .player-with-icons {
