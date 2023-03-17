@@ -487,6 +487,7 @@ const PokerTable = (props) => {
 
     socket.on("newhand", (data) => {
       if (data) {
+        console.log(data?.updatedRoom);
         roomData = data?.updatedRoom;
         tPlayer = null;
         setStart(false);
@@ -1024,7 +1025,7 @@ const PokerTable = (props) => {
       }
     }
     let playerDetails = [];
-    whole.forEach((el, i) => {
+    whole?.forEach((el, i) => {
       playerDetails.push({
         ...el,
         availablePosition: availablePosition[i],
@@ -1640,7 +1641,8 @@ const PokerTable = (props) => {
         )}
 
         <div className="container">
-          {startBtn && isAdmin ? (
+          {console.log("play pause game start  ==>", roomData?.gamestart)}
+          {startBtn && isAdmin && roomData?.gamestart ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -1694,13 +1696,20 @@ const PokerTable = (props) => {
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
+                {/* {console.log('con--', roomData?.players.find((el) => el.id === userId) &&
+                  !roomData?.gamestart &&
+                  !newUser &&
+                  !roomData.tournament)} */}
                 {roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
                   !newUser &&
-                  !roomData.tournament &&
-                  !auto && (
+                  !roomData.tournament && (
                     <div className="start-game">
                       <div className="start-game-btn">
+                        {console.log(
+                          `is admin ${isAdmin}`,
+                          `is game started ${roomData?.gamestart}`
+                        )}
                         {isAdmin && roomData && !roomData?.gamestart ? (
                           <>
                             <p>Click to start game</p>

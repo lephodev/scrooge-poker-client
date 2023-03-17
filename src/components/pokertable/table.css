@@ -2449,6 +2449,7 @@ p.joined-player {
   letter-spacing: 0.5px;
   font-size: 14px;
   box-shadow: none;
+  border-radius: 30px;
   font-family: "Poppins", sans-serif;
 }
 
@@ -6109,6 +6110,7 @@ img.coinWinning-animation {
   display: flex;
   flex-wrap: wrap;
   word-break: keep-all;
+  white-space: nowrap;
   margin-left: 8px;
 }
 

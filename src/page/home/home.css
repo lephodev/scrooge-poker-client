@@ -192,12 +192,13 @@
   align-items: center;
   padding: 1rem 2rem;
 }
+
 .casino-popup .modal-body {
   padding: 1rem 2rem;
 }
 
 .casino-popup .modal-footer {
-  border-top:1px solid #000;
+  border-top: 1px solid #000;
   align-items: center;
   padding: 1rem 2rem;
   flex-wrap: nowrap;
@@ -238,9 +239,11 @@
   color: #858585c7;
   font-size: 14px;
 }
+
 .casino-popup .form-group {
   margin-bottom: 20px;
 }
+
 .modal-footer .btn,
 .modal-footer .btn:focus,
 .modal-footer .btn:active {
@@ -277,7 +280,7 @@
 .blindpopupField {
   display: flex;
   flex-direction: row;
-  gap: 20px; 
+  gap: 20px;
 }
 
 .css-1rhbuit-multiValue {
@@ -305,7 +308,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -361,9 +364,11 @@ input[type="number"] {
   padding: 0 !important;
   font-size: 12px;
 }
-.pokerWallet-box svg{
+
+.pokerWallet-box svg {
   fill: #fff !important;
 }
+
 .create-game-box-avtar {
   display: flex;
   justify-content: center;
@@ -540,7 +545,7 @@ input[type="number"] {
   border-radius: 30px;
   display: flex;
   justify-content: space-between;
-  max-width: 470px;
+  max-width: 467px;
   margin: 0px auto;
   padding: 5px 6px 6px;
   background: #1b1b1b;
@@ -565,7 +570,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 240px;
+  height: 250px;
   width: 236px;
   flex-direction: column;
   overflow: hidden;
@@ -648,13 +653,16 @@ input[type="number"] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.blindFields-box{
+
+.blindFields-box {
   display: flex;
   gap: 20px;
 }
+
 .casino-popup .text-danger {
   margin: 2px 10px;
 }
+
 .tournamentCard-back {
   transform: rotateY(180deg);
   display: flex;
@@ -709,6 +717,7 @@ div#clockdiv {
   align-items: flex-start;
   width: 100%;
 }
+
 div#clockdiv h4 {
   display: flex;
   flex-direction: column;
@@ -745,7 +754,7 @@ div#clockdiv h4 {
   }
 
   div#controlled-tab-example-tabpane-home .tournamentCard {
-    height: 240px;
+    height: 250px;
     width: 48%;
   }
 
@@ -805,4 +814,185 @@ div#clockdiv h4 {
 .tournamentCard-front button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* leader board */
+
+.table-dark.table-bordered {
+  border-radius: 8px;
+}
+
+.table-bordered {
+  border: 1px solid #00000000;
+}
+
+.table-dark {
+  color: #ddd;
+  background-color: #141414 !important;
+}
+
+.table-dark.table-striped tbody tr:nth-of-type(odd),
+.table-dark.table-striped tbody tr:nth-of-type(odd):hover {
+  background-color: rgb(27 27 27) !important;
+}
+
+.table-dark.table-hover tbody tr:hover {
+  color: #ddd;
+  background-color: #141414 !important;
+}
+
+.table-dark td,
+.table-dark th,
+.table-dark thead th {
+  border-color: #00000000 !important;
+}
+
+th {
+  color: #f9ff00;
+  font-weight: 500;
+}
+
+tr.myRank:hover,
+tr.myRank {
+  background-color: #262728;
+}
+
+.leaderboard-table tr td {
+  position: relative;
+}
+
+.leaderboard-table tr td p {
+  display: grid;
+  place-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.leaderboard-table tr td svg {
+  display: block;
+  position: absolute;
+  top: 2px;
+  width: 40px;
+  height: 40px;
+  left: 38%;
+  z-index: 0;
+}
+
+.leaderboard-table tr.firstRank td:first-child p,
+.leaderboard-table tr.secondRank td:first-child p,
+.leaderboard-table tr.thirdRank td:first-child p {
+  color: #000;
+  position: relative;
+  z-index: 9;
+  display: grid;
+  place-content: center;
+}
+
+.leaderboard-table tr.firstRank td:first-child svg,
+.leaderboard-table tr.firstRank td:first-child svg path {
+  stroke: #ffd700;
+  fill: #ffd700;
+}
+
+.leaderboard-table tr.secondRank td:first-child svg,
+.leaderboard-table tr.secondRank td:first-child svg path {
+  stroke: #c0c0c0;
+  fill: #c0c0c0;
+}
+
+.leaderboard-table tr.thirdRank td:first-child svg,
+.leaderboard-table tr.thirdRank td:first-child svg path {
+  stroke: #cd7f32;
+  fill: #cd7f32;
+}
+
+.leaderBoardHeader .tournamentRanking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderBoardHeader h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f9ff00;
+}
+
+.tournamentDetails {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 50px;
+}
+
+.tournamentDetails span {
+  color: #f9ff00;
+  margin-left: 4px;
+}
+
+.tournamentTime h4 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tournamentTime div#clockdiv {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.tournamentTime div#clockdiv h4 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.tournamentTime h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  margin: 0px auto;
+  display: block;
+  width: 80%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.leaderBoardPage .leaderBoardContainer {
+  background: #000000c4;
+  padding: 20px 0px;
+  border-radius: 30px;
+  box-shadow: 0px 2px 20px #1a1a1ae0;
+}
+
+.leaderboard-table th p {
+  margin-bottom: 0px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tournamentRanking h6 {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f9ff00;
+  color: black;
+}
+
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
+  border-color: #f9ff00;
+  box-shadow: 0 1px 8px #fbff00b1;
 }
