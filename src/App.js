@@ -14,6 +14,7 @@ import axios from 'axios';
 import { getCookie } from "./utils/cookieUtil";
 import CONSTANTS from "./config/contants";
 import UserContext from './context/UserContext';
+import LeaderBoard from './page/home/leaderBoard';
 const App = () => {
   const [userInAnyGame,setUserInAnyGame]=useState()
   useEffect(() => {
@@ -47,6 +48,9 @@ useEffect(()=>{
       <Router>
         <Route exact path='/'>
           <Home />
+        </Route>
+        <Route path='/leaderboard'>
+          <LeaderBoard />
         </Route>
         <Route path='/table'>
           <PokerTable />

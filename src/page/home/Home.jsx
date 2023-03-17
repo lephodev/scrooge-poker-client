@@ -10,27 +10,23 @@ import { useEffect } from "react";
 import userUtils from "../../utils/user";
 import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
-import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
-import numFormatter from "../../utils/utils";
-import token from "../../assets/coin.png";
-import tickets from "../../assets/tickets.png";
-import { OverlayTrigger } from "react-bootstrap";
-import { Tooltip } from "react-bootstrap";
-import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
+//import LeaderBoard from "./leaderBoard";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
+import Header from "./header";
 
 let userId;
 const Home = () => {
@@ -276,17 +272,6 @@ const Home = () => {
     [allUsers]
   );
 
-  const renderWallet = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      This is your token balance, and can be used for betting.
-    </Tooltip>
-  );
-  const renderTicket = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      This is your ticket balance and can be redeemed for prizes.
-    </Tooltip>
-  );
-
   const filterRoom = pokerRooms.filter((el) =>
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -297,19 +282,16 @@ const Home = () => {
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
-  const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
-  console.log("filterRoom ====>", tournamentCardHeight);
+  // const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
+  // console.log("filterRoom ====>", setTournamentCardHeight);
 
   const pokerCard = useRef(null);
-  const tourCard = useRef(null);
   useEffect(() => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight);
     }
-    if (tourCard?.current?.clientHeight) {
-      setTournamentCardHeight(tourCard.current.clientHeight);
-    }
-  }, [pokerCard, tourCard]);
+
+  }, [pokerCard]);
 
   return (
     <div className="poker-home">
@@ -335,67 +317,7 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <div className="user-header">
-        <div className="container">
-          <div className="user-header-grid">
-            <div className="casino-logo">
-              <a href={landingClient}>
-                <img src={logo} alt="" />
-              </a>
-            </div>
-            <div className="create-game-box">
-              <a href={`${landingClient}/profile`}>
-                <div className="create-game-box-avtar">
-                  <img
-                    src={
-                      userData?.profile ||
-                      "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
-                    }
-                    alt=""
-                  />
-                  <h5>{userData?.username}</h5>
-                </div>
-              </a>
-              <div className="walletTicket-box">
-                <div className="pokerWallet-box">
-                  <img src={token} alt="" className="pokerWallet" />
-                  <span>{numFormatter(userData?.wallet || 0)}</span>
-                  <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderWallet}
-                  >
-                    <Button variant="success">
-                      <FaQuestionCircle />
-                    </Button>
-                  </OverlayTrigger>
-                </div>
-                <div className="pokerWallet-box">
-                  <img src={tickets} alt="" className="pokerWallet" />
-                  <span>{numFormatter(userData?.ticket || 0)}</span>
-                  <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderTicket}
-                  >
-                    <Button variant="success">
-                      <FaQuestionCircle />
-                    </Button>
-                  </OverlayTrigger>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="create-game-boxBtn"
-                onClick={handleShow}
-              >
-                Create Game
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <Header userData={userData} handleShow={handleShow} />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">
@@ -433,7 +355,7 @@ const Home = () => {
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
-                    <div className="home-poker-card-grid" ref={pokerCard}>
+                    <div className="home-poker-card-grid" >
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
                           <GameTable
@@ -463,14 +385,13 @@ const Home = () => {
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
-                      <div className="home-poker-card-grid" ref={tourCard}>
+                      <div className="home-poker-card-grid">
                         {filterTournaments.map((el) => (
                           <React.Fragment key={el._id}>
-                            <GameTable
+                            <GameTournament
                               data={el}
                               gameType="Tournament"
                               getTournamentDetails={getTournamentDetails}
-                              height={tournamentCardHeight}
                               setUserData={setUserData}
                               filterTournaments={filterTournaments}
                             />
@@ -852,9 +773,10 @@ const GameTable = ({
       <div className="tournamentCard" ref={wrapperRef}>
 
         <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
-
-        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
-          {!cardFlip ? (
+        <div className={`tournamentCard-inner
+         ${cardFlip && gameType === "Poker" ? "rotate" : ""}
+         `}>
+          {!cardFlip && gameType === "Poker" ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
               <div className="tournamentFront-info">
@@ -901,7 +823,6 @@ const GameTable = ({
                 ""
               )}
               <h4>
-                {console.log("vgagagfhgfha", data?.rooms)}
                 people joined :{" "}
                 <span>
                   {(gameType === "Tournament"
@@ -958,6 +879,140 @@ const GameTable = ({
   );
 };
 
+const GameTournament = ({
+  data,
+  gameType,
+  getTournamentDetails,
+  height,
+  setUserData,
+  tableId,
+}) => {
+  const history = useHistory();
+  const redirectToTable = () => {
+    socket.emit("checkAlreadyInGame", { userId, tableId });
+    socket.on("userAlreadyInGame", (value) => {
+      console.log("user already in game");
+      console.log(value);
+      const { message, join } = value;
+      if (join) {
+        history.push({
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + data?._id,
+        });
+      } else {
+        toast.error(message, { id: "create-table-error" });
+      }
+    });
+  };
+
+  useEffect(() => {
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
+      console.log("data", data);
+      if (code === 200) {
+        if (data?.user && Object.keys(data?.user)?.length > 0) {
+          setUserData(data?.user);
+        }
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
+    });
+    socket.on("notEnoughAmount", (data) => {
+      const { message, code } = data;
+      if (code === 200) {
+        toast.success(message, { id: "Nofull" });
+      } else {
+        toast.error(message, { id: "full" });
+      }
+    });
+  }, []);
+
+  const joinTournament = async (tournamentId, fees) => {
+    socket.emit("joinTournament", {
+      tournamentId: tournamentId,
+      userId: userId,
+      fees,
+    });
+    setTimeout(() => {
+      getTournamentDetails();
+    }, 1000);
+  };
+
+  const enterRoom = async (tournamentId) => {
+    const res = await tournamentInstance().post("/enterroom", {
+      tournamentId: tournamentId,
+    });
+    if (res.data.code === 200) {
+      let roomid = res.data.roomId;
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
+    } else {
+      // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
+    }
+  };
+
+  const handleFlip = (tournamentId) => {
+  history.push(`/leaderboard?tournamentId=${tournamentId}`)
+  };
+
+
+  const ifUserJoind = () => {
+    let getData = data?.rooms?.find((el) =>
+      el?.players?.find((el) => el?.userid === userId)
+    );
+
+    return getData;
+  };
+
+
+
+  return (
+    <>
+      <div className="tournamentCard" >
+        <FaInfoCircle onClick={() => { handleFlip(data._id) }} />
+        <div className={`tournamentCard-inner
+         `}>
+          <div className="tournamentCard-front">
+            <img src={casino} alt="" />
+            <div className="tournamentFront-info">
+              <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+              {gameType === "Poker" ? (
+                <button onClick={redirectToTable} type="submit">
+                  Join Game
+                </button>
+              ) : (
+                <div className="btn-grid">
+                  {" "}
+                  <button
+                    disabled={ifUserJoind()}
+                    onClick={() =>
+                      joinTournament(data?._id, data?.tournamentFee)
+                    }
+                    type="submit"
+                  >
+                    Join Game
+                  </button>
+                  {ifUserJoind() && (
+                    <button
+                      onClick={() => enterRoom(data?._id)}
+                      type="submit"
+                    >
+                      Enter Game
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        {/* <LeaderBoard dateState={dateState} data={data} /> */}
+      </div>
+    </>
+  );
+};
 const AvatarGroup = ({ imgArr }) => {
   return (
     <div className="poker-avatar-box">
