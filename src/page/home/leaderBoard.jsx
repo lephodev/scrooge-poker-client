@@ -1,46 +1,53 @@
 import React from 'react'
-import { Modal } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import { getTime } from '../../utils/utils';
+import Header from './header';
 
-const LeaderBoard = ({open,closeLeaderBoard,dateState,getTime,data}) => {
-    console.log("open",data.winPlayer?.['4-10']);
+const LeaderBoard = ({ dateState, data }) => {
+    console.log("open", data?.winPlayer?.['4-10']);
+    // console.log("open", data?.winPlayer?.['4-10']);
     return (
-        <Modal show={open} onHide={()=>closeLeaderBoard()}  centered className="casino-popup">
-            <Modal.Header closeButton>
-                <Modal.Title className="text-dark">Leader Board</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div>
-                    <p>Tournament table name : {data?.name}</p>
-                    <p>Total Players : {data?.rooms?.filter((el) => el?.players)[0]?.players
-                      ?.length || 0}</p>
-                    <p>SB/BB : 100/200</p>
-                    <p>Date : <span>{getTime(data?.tournamentDate)}</span></p>
-                    <>
-                  <div id="clockdiv">
-                    <h4>
-                      Days
-                      <span class="days">{dateState?.days || "0"}</span>
-                    </h4>
-                    <h4>
-                      Hours
-                      <span class="hours">{dateState?.hours || "0"}</span>
-                    </h4>
-                  </div>
-                  <div id="clockdiv">
-                    <h4>
-                      Minutes
-                      <span class="minutes">{dateState?.minutes || "0"}</span>
-                    </h4>
-                    <h4>
-                      Seconds
-                      <span class="seconds">{dateState?.seconds || "0"}</span>
-                    </h4>
-                  </div>
-                </>
+        <div className='leaderBoardPage'>
+            <Header />
+            <div className="container leaderBoardContainer">
+                <div className='leaderBoardHeader'>
+                    <h1>LEADERBOARD</h1>
+                    <div className="tournamentDetails">
+                        <div className="tournamentContent">
+                            <p>Tournament table name : <span>{data?.name}</span></p>
+                            <p>Total Players : <span>{data?.rooms?.filter((el) => el?.players)[0]?.players
+                                ?.length || 0}</span></p>
+                            <p>SB/BB : <span>100/200</span></p>
+                            <p>Date : <span>{getTime(data?.tournamentDate)}</span></p>
+                        </div>
+                        <div className='tournamentTime'>
+                            <h2>Tournament Time </h2>
+                            <div id="clockdiv">
+                                <h4>
+                                    Days :
+                                    <span class="days">{dateState?.days || "0"}</span>
+                                </h4>
+                                <h4>
+                                    Hours :
+                                    <span class="hours">{dateState?.hours || "0"}</span>
+                                </h4>
+                            </div>
+                            <div id="clockdiv">
+                                <h4>
+                                    Minutes :
+                                    <span class="minutes">{dateState?.minutes || "0"}</span>
+                                </h4>
+                                <h4>
+                                    Seconds :
+                                    <span class="seconds">{dateState?.seconds || "0"}</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="leaderboard-table">
-                     {data?.winPlayer?.first?.userId?<Table striped bordered hover variant="dark" responsive>
+                    {/* {data?.winPlayer?.first?.userId ?  */}
+                    <Table striped bordered hover variant="dark" responsive>
                         <thead>
                             <tr>
                                 <th><p>Rank</p></th>
@@ -49,46 +56,46 @@ const LeaderBoard = ({open,closeLeaderBoard,dateState,getTime,data}) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data?.winPlayer?.first?.userId&&
+                            {data?.winPlayer?.first?.userId &&
                                 <tr className='firstRank'>
-                                <td ><p>1</p><Star /></td>
-                                <td><p>{data?.winPlayer?.first?.userId?.username || 'To be decided'}</p></td>
-                                <td><p>{data?.winPlayer?.first?.amount || 'To be decided'}</p></td>
-                            </tr>}
-                            {data?.winPlayer?.second?.userId&&
+                                    <td ><p>1</p><Star /></td>
+                                    <td><p>{data?.winPlayer?.first?.userId?.username || 'To be decided'}</p></td>
+                                    <td><p>{data?.winPlayer?.first?.amount || 'To be decided'}</p></td>
+                                </tr>}
+                            {data?.winPlayer?.second?.userId &&
                                 <tr className='secondRank myRank'>
-                                <td ><p>2</p><Star /></td>
-                                <td><p>{data?.winPlayer?.second?.userId?.username || 'To be decided'}</p></td>
-                                <td><p>{data?.winPlayer?.second?.amount || 'To be decided'}</p></td>
-                            </tr>
+                                    <td ><p>2</p><Star /></td>
+                                    <td><p>{data?.winPlayer?.second?.userId?.username || 'To be decided'}</p></td>
+                                    <td><p>{data?.winPlayer?.second?.amount || 'To be decided'}</p></td>
+                                </tr>
                             }
-                            {data?.winPlayer?.third?.userId&&
+                            {data?.winPlayer?.third?.userId &&
                                 <tr className='thirdRank'>
-                                <td ><p>2</p><Star /></td>
-                                <td><p>{data?.winPlayer?.third?.userId?.username || 'To be decided'}</p></td>
-                                <td><p>{data?.winPlayer?.third?.amount || 'To be decided'}</p></td>
-                            </tr>
+                                    <td ><p>2</p><Star /></td>
+                                    <td><p>{data?.winPlayer?.third?.userId?.username || 'To be decided'}</p></td>
+                                    <td><p>{data?.winPlayer?.third?.amount || 'To be decided'}</p></td>
+                                </tr>
                             }
-                            {data.winPlayer?.['4-10'].userIds?.length>0 && data.winPlayer?.['4-10'].userIds?.map((fourP,i)=>(
+                            {data?.winPlayer?.['4-10'].userIds?.length > 0 && data?.winPlayer?.['4-10'].userIds?.map((fourP, i) => (
                                 <tr>
-                                <td><p>{4+i}</p></td>
-                                <td><p>{fourP?.username}</p></td>
-                                <td><p>{data.winPlayer?.['4-10']?.amount}</p></td>
-                            </tr>
+                                    <td><p>{4 + i}</p></td>
+                                    <td><p>{fourP?.username}</p></td>
+                                    <td><p>{data?.winPlayer?.['4-10']?.amount}</p></td>
+                                </tr>
                             ))}
-                            {data.winPlayer?.['11-25'].userIds?.length>0 && data.winPlayer?.['4-10'].userIds?.map((elevenP,i)=>(
+                            {data?.winPlayer?.['11-25'].userIds?.length > 0 && data?.winPlayer?.['4-10'].userIds?.map((elevenP, i) => (
                                 <tr>
-                                <td><p>{11+i}</p></td>
-                                <td><p>{elevenP?.username}</p></td>
-                                <td><p>{data.winPlayer?.['11-25']?.amount}</p></td>
-                            </tr>
+                                    <td><p>{11 + i}</p></td>
+                                    <td><p>{elevenP?.username}</p></td>
+                                    <td><p>{data?.winPlayer?.['11-25']?.amount}</p></td>
+                                </tr>
                             ))}
                         </tbody>
-                    </Table>:''}           
-                    
+                    </Table>
+                     {/* : '' */}
                 </div>
-            </Modal.Body>
-        </Modal>
+            </div>
+        </div>
     )
 }
 

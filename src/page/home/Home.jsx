@@ -10,19 +10,13 @@ import { useEffect } from "react";
 import userUtils from "../../utils/user";
 import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
-import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
-import numFormatter from "../../utils/utils";
-import token from "../../assets/coin.png";
-import tickets from "../../assets/tickets.png";
-import { OverlayTrigger } from "react-bootstrap";
-import { Tooltip } from "react-bootstrap";
-import { FaQuestionCircle, FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
@@ -32,6 +26,7 @@ import LeaderBoard from "./leaderBoard";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
+import Header from "./header";
 
 let userId;
 const Home = () => {
@@ -277,17 +272,6 @@ const Home = () => {
     [allUsers]
   );
 
-  const renderWallet = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      This is your token balance, and can be used for betting.
-    </Tooltip>
-  );
-  const renderTicket = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      This is your ticket balance and can be redeemed for prizes.
-    </Tooltip>
-  );
-
   const filterRoom = pokerRooms.filter((el) =>
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -333,67 +317,7 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <div className="user-header">
-        <div className="container">
-          <div className="user-header-grid">
-            <div className="casino-logo">
-              <a href={landingClient}>
-                <img src={logo} alt="" />
-              </a>
-            </div>
-            <div className="create-game-box">
-              <a href={`${landingClient}/profile`}>
-                <div className="create-game-box-avtar">
-                  <img
-                    src={
-                      userData?.profile ||
-                      "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
-                    }
-                    alt=""
-                  />
-                  <h5>{userData?.username}</h5>
-                </div>
-              </a>
-              <div className="walletTicket-box">
-                <div className="pokerWallet-box">
-                  <img src={token} alt="" className="pokerWallet" />
-                  <span>{numFormatter(userData?.wallet || 0)}</span>
-                  <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderWallet}
-                  >
-                    <Button variant="success">
-                      <FaQuestionCircle />
-                    </Button>
-                  </OverlayTrigger>
-                </div>
-                <div className="pokerWallet-box">
-                  <img src={tickets} alt="" className="pokerWallet" />
-                  <span>{numFormatter(userData?.ticket || 0)}</span>
-                  <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderTicket}
-                  >
-                    <Button variant="success">
-                      <FaQuestionCircle />
-                    </Button>
-                  </OverlayTrigger>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="create-game-boxBtn"
-                onClick={handleShow}
-              >
-                Create Game
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <Header userData={userData} handleShow={handleShow} />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">
@@ -1025,17 +949,7 @@ const GameTournament = ({
     }
   };
 
-  const getTime = (time) => {
-    let d = new Date(time);
-    let pm = d.getHours() >= 12;
-    let hour12 = d.getHours() % 12;
-    if (!hour12) hour12 += 12;
-    let minute = d.getMinutes();
-    let date = d.getDate();
-    let month = d.getMonth() + 1;
-    let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
-  };
+
 
   const [cardFlip, setCardFlip] = useState(false);
   const [dateState, setDateState] = useState();
@@ -1045,13 +959,13 @@ const GameTournament = ({
     countDownData(tDate);
     setShowPopup(true)
   };
-  console.log("Show leader board--->",showLeaderBoard)
+  console.log("Show leader board--->", showLeaderBoard)
   // const leaderPopupshow = () => {
   //   console.log("hiss")
   // }
- const closeLeaderBoard=()=>{
-  setShowPopup(false)
- }
+  // const closeLeaderBoard = () => {
+  //   setShowPopup(false)
+  // }
   const countDownData = (tDate) => {
     var x = setInterval(() => {
       let countDownDate = new Date(tDate).getTime();
@@ -1106,10 +1020,12 @@ const GameTournament = ({
     return getData;
   };
 
+
+
   return (
     <>
       <div className="tournamentCard" >
-        <FaInfoCircle onClick={() => { handleFlip(data.tournamentDate)}} />
+        <FaInfoCircle onClick={() => { handleFlip(data.tournamentDate) }} />
         <div className={`tournamentCard-inner
          `}>
           <div className="tournamentCard-front">
@@ -1145,7 +1061,7 @@ const GameTournament = ({
             </div>
           </div>
         </div>
-        <LeaderBoard open={showLeaderBoard} closeLeaderBoard={closeLeaderBoard} dateState={dateState} getTime={getTime} data={data}/>
+        <LeaderBoard dateState={dateState} data={data} />
       </div>
     </>
   );
