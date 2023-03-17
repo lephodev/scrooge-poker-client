@@ -3,9 +3,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import Table from 'react-bootstrap/Table'
+import { landingClient } from '../../config/keys'
 import { tournamentInstance } from '../../utils/axios.config'
 import { getTime } from '../../utils/utils'
-import Header from './header'
+// import Header from './header'
+import logo from "../../assets/game/logo.png";
 
 const LeaderBoard = ({ data }) => {
   const url = new URLSearchParams(window.location.search)
@@ -60,7 +62,73 @@ const LeaderBoard = ({ data }) => {
 
   return (
     <div className="leaderBoardPage">
-      <Header />
+      
+
+      <div className="user-header">
+            <div className="container">
+                <div className="user-header-grid">
+                    <div className="casino-logo">
+                        <a href={landingClient}>
+                            <img src={logo} alt="" />
+                        </a>
+                    </div>
+                    {/* <div className="create-game-box">
+                        <a href={`${landingClient}profile`}>
+                            <div className="create-game-box-avtar">
+                                <img
+                                    src={
+                                        userData?.profile ||
+                                        "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
+                                    }
+                                    alt=""
+                                />
+                                <h5>{userData?.username}</h5>
+                            </div>
+                        </a>
+                        <div className="walletTicket-box">
+                            <div className="pokerWallet-box">
+                                <img src={token} alt="" className="pokerWallet" />
+                                <span>{numFormatter(userData?.wallet || 0)}</span>
+                                <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={renderWallet}
+                                >
+                                    <Button variant="success">
+                                        <FaQuestionCircle />
+                                    </Button>
+                                </OverlayTrigger>
+                            </div>
+                            <div className="pokerWallet-box">
+                                <img src={tickets} alt="" className="pokerWallet" />
+                                <span>{numFormatter(userData?.ticket || 0)}</span>
+                                <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={renderTicket}
+                                >
+                                    <Button variant="success">
+                                        <FaQuestionCircle />
+                                    </Button>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            className="create-game-boxBtn"
+                            onClick={handleShow}
+                        >
+                            Create Game
+                        </button>
+                    </div> */}
+                </div>
+            </div>
+        </div>
+
+
+
+
+
       <div className="container leaderBoardContainer">
         <div className="leaderBoardHeader">
           <h1>LEADERBOARD</h1>
@@ -229,8 +297,8 @@ const LeaderBoard = ({ data }) => {
                 </td>
               </tr>
 
-              {tournamentData?.winPlayer?.['4-10'].userIds?.length > 0 &&
-                tournamentData?.winPlayer?.['4-10'].userIds?.map((fourP, i) => (
+              {tournamentData?.winPlayer?.['4-10']?.userIds?.length > 0 &&
+                tournamentData?.winPlayer?.['4-10']?.userIds?.map((fourP, i) => (
                   <tr>
                     <td>
                       <p>{4 + i}</p>
@@ -260,8 +328,8 @@ const LeaderBoard = ({ data }) => {
                     </td>
                   </tr>
                 ))}
-              {tournamentData?.winPlayer?.['11-25'].userIds?.length > 0 &&
-                tournamentData?.winPlayer?.['4-10'].userIds?.map(
+              {tournamentData?.winPlayer?.['11-25']?.userIds?.length > 0 &&
+                tournamentData?.winPlayer?.['4-10']?.userIds?.map(
                   (elevenP, i) => (
                     <tr>
                       <td>
