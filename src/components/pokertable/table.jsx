@@ -282,16 +282,17 @@ const PokerTable = (props) => {
     socket.on("notInvitedPlayer", (data) => {
       if (data.message === "notInvited") {
         setShowEnterAmountPopup(true);
+        setLoader(false);
       } else {
         setShowEnterAmountPopup(false);
       }
     });
-    socket.on("tablenotFound", (data) => {
-      if (data.message === "tablenotFound") {
-        setShowEnterAmountPopup(false);
-        history.push("/");
-      }
-    });
+    // socket.on("tablenotFound", (data) => {
+    //   if (data.message === "tablenotFound") {
+    //     setShowEnterAmountPopup(false);
+    //     history.push("/");
+    //   }
+    // });
 
     socket.on("userId", async (data) => {
       userId = data;
@@ -2020,14 +2021,15 @@ const PokerTable = (props) => {
           </span>
         </div>
       )}
-      {roomData?.gameType?.toLowerCase() === "poker" ? <EnterAmountPopup
+
+      <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
         submitButtonText={refillSitInAmount ? "Refill Tokens" : "Join"}
         setShow={
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
-      /> : null}
+      />
 
       <Bet
         handleBetClick={handleBetClick}
