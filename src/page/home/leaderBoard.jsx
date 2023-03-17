@@ -14,7 +14,6 @@ const LeaderBoard = ({ data }) => {
     const getTournamentById = async () => {
         try {
             if (url.get('tournamentId')) {
-                console.log("--->", url.get('tournamentId'))
                 const res = await tournamentInstance().get(`/tournamentById`, {
                     params: { tournamentId: url.get('tournamentId') }
                 })
@@ -59,10 +58,6 @@ const LeaderBoard = ({ data }) => {
             }
         }, 1000);
     }
-
-
-
-    // console.log("open", data?.winPlayer?.['4-10']);
 
     return (
         <div className='leaderBoardPage'>
@@ -120,19 +115,14 @@ const LeaderBoard = ({ data }) => {
                         <tbody>
                             <tr className='firstRank'>
                                 <td ><p>1</p><Star /></td>
-                                
                                 <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.username) || 'To be decided'}</p></td>
                                 <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.amount) || 'To be decided'}</p></td>
                             </tr>
-
-
                             <tr className='secondRank myRank'>
                                 <td ><p>2</p><Star /></td>
                                 <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.second?.userId?.username) || 'To be decided'}</p></td>
                                 <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.second?.amount) || 'To be decided'}</p></td>
                             </tr>
-
-
                             <tr className='thirdRank'>
                                 <td ><p>3</p><Star /></td>
                                 <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.third?.userId?.username) || 'To be decided'}</p></td>
