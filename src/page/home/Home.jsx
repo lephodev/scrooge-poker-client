@@ -228,7 +228,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${landingClient}`);
+      return (window.location.href = `${ landingClient }`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -344,7 +344,7 @@ const Home = () => {
               </a>
             </div>
             <div className="create-game-box">
-              <a href={`${landingClient}/profile`}>
+              <a href={`${ landingClient }/profile`}>
                 <div className="create-game-box-avtar">
                   <img
                     src={
@@ -786,7 +786,7 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
@@ -824,6 +824,12 @@ const GameTable = ({
     }, 1000);
   };
 
+  useEffect(() => {
+    socket.on("tournamentAlreadyStarted", data => {
+      toast.error(data.message, { id: "tournamentStarted" });
+    });
+  });
+
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -853,7 +859,7 @@ const GameTable = ({
 
         <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
 
-        <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
+        <div className={`tournamentCard-inner ${ cardFlip ? "rotate" : "" }`}>
           {!cardFlip ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />

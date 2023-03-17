@@ -289,8 +289,10 @@ const PokerTable = (props) => {
     socket.on("tablenotFound", (data) => {
       if (data.message === "tablenotFound") {
         setShowEnterAmountPopup(false);
+        history.push("/");
       }
     });
+
     socket.on("userId", async (data) => {
       userId = data;
     });
@@ -1973,14 +1975,15 @@ const PokerTable = (props) => {
           </span>
         </div>
       )}
-      <EnterAmountPopup
+      {roomData?.gameType?.toLowerCase() === "poker" ? <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
         submitButtonText={refillSitInAmount ? "Refill Tokens" : "Join"}
         setShow={
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
-      />
+      /> : null}
+
       <Bet
         handleBetClick={handleBetClick}
         view={view}
