@@ -1377,7 +1377,7 @@ const PokerTable = (props) => {
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message, { id: 'A' });
+      toast.error(data?.message, { id: "A" });
       setTimeout(() => {
         history.push("/");
       }, 2000);
@@ -2424,7 +2424,9 @@ const FooterButton = ({
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
-          {currentPlayer && currentPlayer?.id === userId ? (
+          {currentPlayer &&
+          currentPlayer?.id === userId &&
+          !currentPlayer?.tentativeAction ? (
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
