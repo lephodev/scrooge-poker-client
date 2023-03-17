@@ -933,6 +933,16 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
 div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
+}.leaderboard-table
+.rankingUsers {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+.leaderboard-table td img{
+  width: 35px;
+  height: 35px;
 }
 @media screen and (max-width: 1200px) {
   .home-poker-card-grid {
