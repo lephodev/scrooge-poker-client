@@ -22,7 +22,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
-import LeaderBoard from "./leaderBoard";
+//import LeaderBoard from "./leaderBoard";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
@@ -949,68 +949,10 @@ const GameTournament = ({
     }
   };
 
-
-
-  const [cardFlip, setCardFlip] = useState(false);
-  const [dateState, setDateState] = useState();
-  const [showLeaderBoard, setShowPopup] = useState(false)
-  const handleFlip = (tDate) => {
-    setCardFlip(!cardFlip);
-    countDownData(tDate);
-    setShowPopup(true)
-  };
-  console.log("Show leader board--->", showLeaderBoard)
-  // const leaderPopupshow = () => {
-  //   console.log("hiss")
-  // }
-  // const closeLeaderBoard = () => {
-  //   setShowPopup(false)
-  // }
-  const countDownData = (tDate) => {
-    var x = setInterval(() => {
-      let countDownDate = new Date(tDate).getTime();
-      var now = new Date().getTime();
-      var distance = countDownDate - now;
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      setDateState({
-        days,
-        hours,
-        minutes,
-        seconds,
-      });
-      if (distance < 0) {
-        clearInterval(x);
-        setDateState({
-          days: "0",
-          hours: "0",
-          minutes: "0",
-          seconds: "0",
-        });
-      }
-    }, 1000);
+  const handleFlip = (tournamentId) => {
+  history.push(`/leaderboard?tournamentId=${tournamentId}`)
   };
 
-  //const wrapperRef = useRef();
-
-  // const useOutsideAlerter = (ref) => {
-  //   useEffect(() => {
-  //     const handleClickOutside = (event) => {
-  //       if (ref.current && !ref.current.contains(event.target)) {
-  //         setCardFlip(false);
-  //       }
-  //     };
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener("mousedown", handleClickOutside);
-  //     };
-  //   }, [ref]);
-  // };
-  // useOutsideAlerter(wrapperRef);
 
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
@@ -1025,7 +967,7 @@ const GameTournament = ({
   return (
     <>
       <div className="tournamentCard" >
-        <FaInfoCircle onClick={() => { handleFlip(data.tournamentDate) }} />
+        <FaInfoCircle onClick={() => { handleFlip(data._id) }} />
         <div className={`tournamentCard-inner
          `}>
           <div className="tournamentCard-front">
@@ -1061,7 +1003,7 @@ const GameTournament = ({
             </div>
           </div>
         </div>
-        <LeaderBoard dateState={dateState} data={data} />
+        {/* <LeaderBoard dateState={dateState} data={data} /> */}
       </div>
     </>
   );

@@ -36,7 +36,7 @@ export const getTime = (time) => {
   let date = d.getDate();
   let month = d.getMonth() + 1;
   let year = d.getFullYear();
-  return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
 };
 export default numFormatter;
 
