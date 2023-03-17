@@ -244,7 +244,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -256,7 +256,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -845,13 +845,12 @@ const GameTable = ({
     let getData = data?.rooms?.find((el) =>
       el?.players?.find((el) => el?.userid === userId)
     );
-
     return getData;
   };
-
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
+
         <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
 
         <div className={`tournamentCard-inner ${cardFlip ? "rotate" : ""}`}>
@@ -867,7 +866,7 @@ const GameTable = ({
                 ) : (
                   <div className="btn-grid">
                     {" "}
-                    <button
+                    {!data?.isFinished ? <button
                       disabled={ifUserJoind()}
                       onClick={() =>
                         joinTournament(data?._id, data?.tournamentFee)
@@ -875,17 +874,23 @@ const GameTable = ({
                       type="submit"
                     >
                       Join Game
-                    </button>
-                    {ifUserJoind() && (
+                    </button> : null}
+                    {ifUserJoind() && !data?.isFinished ? (
                       <button
                         onClick={() => enterRoom(data?._id)}
                         type="submit"
                       >
                         Enter Game
                       </button>
-                    )}
+                    ) : null}
+                    {data?.isFinished &&
+                      <div className="tournamentRanking">
+                        <h6>Tournament Finished</h6>
+                        <Button>Check Ranking</Button>
+                      </div>}
                   </div>
                 )}
+
               </div>
             </div>
           ) : (
@@ -901,7 +906,7 @@ const GameTable = ({
                 <span>
                   {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                        ?.length || 0
+                      ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
