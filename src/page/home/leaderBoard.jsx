@@ -7,63 +7,63 @@ import { tournamentInstance } from '../../utils/axios.config';
 import { getTime } from '../../utils/utils';
 import Header from './header';
 
-const LeaderBoard = ({data}) => {
+const LeaderBoard = ({ data }) => {
     const url = new URLSearchParams(window.location.search);
-    const [tournamentData,setTournamentData]=useState()
+    const [tournamentData, setTournamentData] = useState()
     const [dateState, setDateState] = useState();
-    const getTournamentById=async()=>{
-        try{
-            if(url.get('tournamentId')){
-                console.log("--->",url.get('tournamentId'))
-                const res = await tournamentInstance().get(`/tournamentById`,{
-                    params:{tournamentId:url.get('tournamentId')}
+    const getTournamentById = async () => {
+        try {
+            if (url.get('tournamentId')) {
+                console.log("--->", url.get('tournamentId'))
+                const res = await tournamentInstance().get(`/tournamentById`, {
+                    params: { tournamentId: url.get('tournamentId') }
                 })
-                const {tournament}=res.data || {}
-                if(tournament){
+                const { tournament } = res.data || {}
+                if (tournament) {
                     setTournamentData(tournament)
                 }
             }
-            
-        }catch(err){
-            console.log("Error Message Here---->",err)
+
+        } catch (err) {
+            console.log("Error Message Here---->", err)
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         getTournamentById()
-    },[])
-    if(tournamentData && tournamentData?.tournamentData){
+    }, [])
+    if (tournamentData && tournamentData?.tournamentData) {
         var x = setInterval(() => {
             let countDownDate = new Date(tournamentData?.tournamentData).getTime();
             var now = new Date().getTime();
             var distance = countDownDate - now;
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor(
-              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
             );
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             setDateState({
-              days,
-              hours,
-              minutes,
-              seconds,
+                days,
+                hours,
+                minutes,
+                seconds,
             });
             if (distance < 0) {
-              clearInterval(x);
-              setDateState({
-                days: "0",
-                hours: "0",
-                minutes: "0",
-                seconds: "0",
-              });
+                clearInterval(x);
+                setDateState({
+                    days: "0",
+                    hours: "0",
+                    minutes: "0",
+                    seconds: "0",
+                });
             }
-          }, 1000);
+        }, 1000);
     }
-    
-    
-    
+
+
+
     // console.log("open", data?.winPlayer?.['4-10']);
-    
+
     return (
         <div className='leaderBoardPage'>
             <Header />
@@ -75,34 +75,34 @@ const LeaderBoard = ({data}) => {
                             <p>Tournament table name : <span>{tournamentData?.name}</span></p>
                             <p>Total Players : <span>{tournamentData?.rooms?.filter((el) => el?.players)[0]?.players
                                 ?.length || 0}</span></p>
-                            <p>SB-BB : <span>{tournamentData?.levels?.smallBlind?.amount}-{tournamentData?.levels?.bigBlind?.amount}</span></p>
+                            <p>SB/BB : <span>{tournamentData?.levels?.smallBlind?.amount}{tournamentData?.levels?.smallBlind?.amount ? "/" : ''}{tournamentData?.levels?.bigBlind?.amount}</span></p>
                             <p>Date : <span>{getTime(tournamentData?.tournamentDate)}</span></p>
                         </div>
                         <div className='tournamentTime'>
-                            {tournamentData?.isFinished?<h2>Tournament Finished</h2>:tournamentData?.isStart?<h2>Tournament Is Running</h2>:
-                            <>
-                            <h2>Tournament Start Time </h2>
-                            <div id="clockdiv">
-                                <h4>
-                                    Days :
-                                    <span class="days">{dateState?.days || "0"}</span>
-                                </h4>
-                                <h4>
-                                    Hours :
-                                    <span class="hours">{dateState?.hours || "0"}</span>
-                                </h4>
-                            </div>
-                            <div id="clockdiv">
-                                <h4>
-                                    Minutes :
-                                    <span class="minutes">{dateState?.minutes || "0"}</span>
-                                </h4>
-                                <h4>
-                                    Seconds :
-                                    <span class="seconds">{dateState?.seconds || "0"}</span>
-                                </h4>
-                            </div>
-                            </>
+                            {tournamentData?.isFinished ? <h2>Tournament Finished</h2> : tournamentData?.isStart ? <h2>Tournament Is Running</h2> :
+                                <>
+                                    <h2>Tournament Start Time </h2>
+                                    <div id="clockdiv">
+                                        <h4>
+                                            Days :
+                                            <span class="days">{dateState?.days || "0"}</span>
+                                        </h4>
+                                        <h4>
+                                            Hours :
+                                            <span class="hours">{dateState?.hours || "0"}</span>
+                                        </h4>
+                                    </div>
+                                    <div id="clockdiv">
+                                        <h4>
+                                            Minutes :
+                                            <span class="minutes">{dateState?.minutes || "0"}</span>
+                                        </h4>
+                                        <h4>
+                                            Seconds :
+                                            <span class="seconds">{dateState?.seconds || "0"}</span>
+                                        </h4>
+                                    </div>
+                                </>
                             }
                         </div>
                     </div>
@@ -118,43 +118,44 @@ const LeaderBoard = ({data}) => {
                             </tr>
                         </thead>
                         <tbody>
-                                <tr className='firstRank'>
-                                    <td ><p>1</p><Star /></td>
-                                    <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.username)  || 'To be decided'}</p></td>
-                                    <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.amount) || 'To be decided'}</p></td>
-                                </tr>
+                            <tr className='firstRank'>
+                                <td ><p>1</p><Star /></td>
                                 
-                            
-                                <tr className='secondRank myRank'>
-                                    <td ><p>2</p><Star /></td>
-                                    <td><p>{(tournamentData?.isFinished &&tournamentData?.winPlayer?.second?.userId?.username) || 'To be decided'}</p></td>
-                                    <td><p>{(tournamentData?.isFinished &&tournamentData?.winPlayer?.second?.amount) || 'To be decided'}</p></td>
-                                </tr>
-                            
-                           
-                                <tr className='thirdRank'>
-                                    <td ><p>3</p><Star /></td>
-                                    <td><p>{(tournamentData?.isFinished &&tournamentData?.winPlayer?.third?.userId?.username) || 'To be decided'}</p></td>
-                                    <td><p>{(tournamentData?.isFinished &&tournamentData?.winPlayer?.third?.amount) || 'To be decided'}</p></td>
-                                </tr>
-                          
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.username) || 'To be decided'}</p></td>
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.first?.amount) || 'To be decided'}</p></td>
+                            </tr>
+
+
+                            <tr className='secondRank myRank'>
+                                <td ><p>2</p><Star /></td>
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.second?.userId?.username) || 'To be decided'}</p></td>
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.second?.amount) || 'To be decided'}</p></td>
+                            </tr>
+
+
+                            <tr className='thirdRank'>
+                                <td ><p>3</p><Star /></td>
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.third?.userId?.username) || 'To be decided'}</p></td>
+                                <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.third?.amount) || 'To be decided'}</p></td>
+                            </tr>
+
                             {tournamentData?.winPlayer?.['4-10'].userIds?.length > 0 && tournamentData?.winPlayer?.['4-10'].userIds?.map((fourP, i) => (
                                 <tr>
                                     <td><p>{4 + i}</p></td>
-                                    <td><p>{(tournamentData?.isFinished&&fourP?.username) || 'To be decided'}</p></td>
-                                    <td><p>{(tournamentData?.isFinished&&tournamentData?.winPlayer?.['4-10']?.amount) || 'To be decided'}</p></td>
+                                    <td><p>{(tournamentData?.isFinished && fourP?.username) || 'To be decided'}</p></td>
+                                    <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.['4-10']?.amount) || 'To be decided'}</p></td>
                                 </tr>
                             ))}
                             {tournamentData?.winPlayer?.['11-25'].userIds?.length > 0 && tournamentData?.winPlayer?.['4-10'].userIds?.map((elevenP, i) => (
                                 <tr>
                                     <td><p>{11 + i}</p></td>
-                                    <td><p>{(tournamentData?.isFinished&&elevenP?.username) || 'To be decided'}</p></td>
-                                    <td><p>{(tournamentData?.isFinished&&tournamentData?.winPlayer?.['11-25']?.amount) || 'To be decided'}</p></td>
+                                    <td><p>{(tournamentData?.isFinished && elevenP?.username) || 'To be decided'}</p></td>
+                                    <td><p>{(tournamentData?.isFinished && tournamentData?.winPlayer?.['11-25']?.amount) || 'To be decided'}</p></td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
-                    
+
                 </div>
             </div>
         </div>

@@ -857,7 +857,7 @@ tr.myRank {
   background-color: #262728;
 }
 
-.leaderboard-table tr {
+.leaderboard-table tr td {
   position: relative;
 }
 
@@ -869,13 +869,13 @@ tr.myRank {
   margin-bottom: 0px;
 }
 
-.leaderboard-table tr svg {
+.leaderboard-table tr td svg {
   display: block;
   position: absolute;
   top: 2px;
   width: 40px;
   height: 40px;
-  left: 12px;
+  left: 38%;
   z-index: 0;
 }
 
@@ -972,19 +972,19 @@ tr.myRank {
   border-radius: 30px;
   box-shadow: 0px 2px 20px #1a1a1ae0;
 }
-th p {
+
+.leaderboard-table th p {
   margin-bottom: 0px;
   font-weight: 600;
+  text-align: center;
 }
+
 .tournamentRanking h6 {
   font-size: 12px;
   margin-bottom: 5px;
 }
 
-div#controlled-tab-example-tabpane-2
-  .tournamentCard-front
-  .tournamentRanking
-  button {
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button {
   width: 100%;
   font-size: 12px;
   font-weight: 700;
@@ -992,10 +992,7 @@ div#controlled-tab-example-tabpane-2
   color: black;
 }
 
-div#controlled-tab-example-tabpane-2
-  .tournamentCard-front
-  .tournamentRanking
-  button:focus {
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
 }

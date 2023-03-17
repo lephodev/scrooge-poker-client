@@ -30,7 +30,7 @@ const Header = ({userData, handleShow}) => {
                         </a>
                     </div>
                     <div className="create-game-box">
-                        <a href={`${landingClient}/profile`}>
+                        <a href={`${landingClient}profile`}>
                             <div className="create-game-box-avtar">
                                 <img
                                     src={
