@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
-import close from '../../assets/close.png';
+// import close from '../../assets/close.png';
 
 const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
 
@@ -19,14 +19,14 @@ const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
           <div className='stats-heading'>
             <h6>Table Stats</h6>
             <div className='close-icon'>
-              <img
+              {/* <img
                 src={close}
                 alt='close'
                 onClick={() => {
                   setModalShow(false);
 
                 }}
-              />
+              /> */}
             </div>
           </div>
           <Table striped bordered hover responsive>
@@ -42,10 +42,10 @@ const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
               {handWinner &&
                 handWinner.map((round, i) => {
                   return round.map((winner, j) => (
-                    <tr key={`item-${j}${i}`}>
+                    <tr key={`item-${ j }${ i }`}>
                       <td>{i + 1}</td>
                       <td>{winner.name}</td>
-                      <td>{winner.winningAmount}</td>
+                      <td>{winner.winningAmount?.toFixed(2)}</td>
                       <td>
                         {winner.handName && winner.handWinner !== ''
                           ? winner.handName
@@ -59,7 +59,7 @@ const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
           <div className='close-btn'>
             <Button
               onClick={() =>
-                (window.location.href = `${window.location.origin}`)
+                (window.location.href = `${ window.location.origin }`)
               }>
               Back to lobby
             </Button>
