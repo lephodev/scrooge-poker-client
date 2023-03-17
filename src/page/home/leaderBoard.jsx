@@ -2,64 +2,90 @@ import React from 'react'
 import { Modal } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 
-const LeaderBoard = (open, hide) => {
-    console.log("open",open);
+const LeaderBoard = ({open,closeLeaderBoard,dateState,getTime,data}) => {
+    console.log("open",data.winPlayer?.['4-10']);
     return (
-        <Modal show={open} onHide={false}  centered className="casino-popup">
+        <Modal show={open} onHide={()=>closeLeaderBoard()}  centered className="casino-popup">
             <Modal.Header closeButton>
-                <Modal.Title className="text-dark">LeaderBoard</Modal.Title>
+                <Modal.Title className="text-dark">Leader Board</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <p>Tournament table name : vipin</p>
-                    <p>Total Players : 5</p>
+                    <p>Tournament table name : {data?.name}</p>
+                    <p>Total Players : {data?.rooms?.filter((el) => el?.players)[0]?.players
+                      ?.length || 0}</p>
                     <p>SB/BB : 100/200</p>
-                    <p>Date : 12-03-2023</p>
-                    <p>Time: 10</p>
+                    <p>Date : <span>{getTime(data?.tournamentDate)}</span></p>
+                    <>
+                  <div id="clockdiv">
+                    <h4>
+                      Days
+                      <span class="days">{dateState?.days || "0"}</span>
+                    </h4>
+                    <h4>
+                      Hours
+                      <span class="hours">{dateState?.hours || "0"}</span>
+                    </h4>
+                  </div>
+                  <div id="clockdiv">
+                    <h4>
+                      Minutes
+                      <span class="minutes">{dateState?.minutes || "0"}</span>
+                    </h4>
+                    <h4>
+                      Seconds
+                      <span class="seconds">{dateState?.seconds || "0"}</span>
+                    </h4>
+                  </div>
+                </>
                 </div>
                 <div className="leaderboard-table">
-                    <Table striped bordered hover variant="dark" responsive>
+                     {data?.winPlayer?.first?.userId?<Table striped bordered hover variant="dark" responsive>
                         <thead>
                             <tr>
                                 <th><p>Rank</p></th>
                                 <th><p>Player</p></th>
-                                <th><p>Sit in amount</p></th>
                                 <th><p>Chip won each hand</p></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className='firstRank'>
+                            {data?.winPlayer?.first?.userId&&
+                                <tr className='firstRank'>
                                 <td ><p>1</p><Star /></td>
-                                <td><p>Mark</p></td>
-                                <td><p>500</p></td>
-                                <td><p>200</p></td>
+                                <td><p>{data?.winPlayer?.first?.userId?.username || 'To be decided'}</p></td>
+                                <td><p>{data?.winPlayer?.first?.amount || 'To be decided'}</p></td>
+                            </tr>}
+                            {data?.winPlayer?.second?.userId&&
+                                <tr className='secondRank myRank'>
+                                <td ><p>2</p><Star /></td>
+                                <td><p>{data?.winPlayer?.second?.userId?.username || 'To be decided'}</p></td>
+                                <td><p>{data?.winPlayer?.second?.amount || 'To be decided'}</p></td>
                             </tr>
-                            <tr className='secondRank myRank'>
-                                <td><p>2</p><Star /></td>
-                                <td><p>Jacob</p></td>
-                                <td><p>400</p></td>
-                                <td><p>200</p></td>
+                            }
+                            {data?.winPlayer?.third?.userId&&
+                                <tr className='thirdRank'>
+                                <td ><p>2</p><Star /></td>
+                                <td><p>{data?.winPlayer?.third?.userId?.username || 'To be decided'}</p></td>
+                                <td><p>{data?.winPlayer?.third?.amount || 'To be decided'}</p></td>
                             </tr>
-                            <tr className='thirdRank'>
-                                <td ><p>3</p><Star /></td>
-                                <td><p>mark</p></td>
-                                <td><p>500</p></td>
-                                <td><p>200</p></td>
+                            }
+                            {data.winPlayer?.['4-10'].userIds?.length>0 && data.winPlayer?.['4-10'].userIds?.map((fourP,i)=>(
+                                <tr>
+                                <td><p>{4+i}</p></td>
+                                <td><p>{fourP?.username}</p></td>
+                                <td><p>{data.winPlayer?.['4-10']?.amount}</p></td>
                             </tr>
-                            <tr>
-                                <td><p>4</p></td>
-                                <td><p>mark</p></td>
-                                <td><p>500</p></td>
-                                <td><p>200</p></td>
+                            ))}
+                            {data.winPlayer?.['11-25'].userIds?.length>0 && data.winPlayer?.['4-10'].userIds?.map((elevenP,i)=>(
+                                <tr>
+                                <td><p>{11+i}</p></td>
+                                <td><p>{elevenP?.username}</p></td>
+                                <td><p>{data.winPlayer?.['11-25']?.amount}</p></td>
                             </tr>
-                            <tr>
-                                <td><p>5</p></td>
-                                <td><p>mark</p></td>
-                                <td><p>500</p></td>
-                                <td><p>200</p></td>
-                            </tr>
+                            ))}
                         </tbody>
-                    </Table>
+                    </Table>:''}           
+                    
                 </div>
             </Modal.Body>
         </Modal>

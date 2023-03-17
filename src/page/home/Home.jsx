@@ -12,7 +12,6 @@ import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
 import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
-import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
@@ -30,6 +29,9 @@ import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
 import LeaderBoard from "./leaderBoard";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 
 let userId;
 const Home = () => {
@@ -43,8 +45,9 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-  console.log("Constatn -->", CONSTANTS);
   // States
+  const {userInAnyGame,setUserInAnyGame}=useContext(UserContext)
+  console.log("User In Any game--->",userInAnyGame)
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -91,9 +94,8 @@ const Home = () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
     if (userId) {
-      localStorage.setItem('userId', userId)
+      localStorage.setItem("userId", userId);
     }
-
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -214,6 +216,7 @@ const Home = () => {
     (async () => {
       const response = await pokerInstance().get("/getAllUsers");
       setAllUsers(response.data.allUsers);
+      console.log("response", response);
     })();
   }, []);
 
@@ -295,8 +298,8 @@ const Home = () => {
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
-  const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
-  console.log("filterRoom ====>", tournamentCardHeight);
+  // const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
+  // console.log("filterRoom ====>", setTournamentCardHeight);
 
   const pokerCard = useRef(null);
   useEffect(() => {
@@ -308,6 +311,8 @@ const Home = () => {
 
   return (
     <div className="poker-home">
+      {userInAnyGame?.inGame&&<AlreadyInGamePopup userInAnyGame={userInAnyGame} setUserInAnyGame={setUserInAnyGame}/>
+      }
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
@@ -1030,15 +1035,19 @@ const GameTournament = ({
 
   const [cardFlip, setCardFlip] = useState(false);
   const [dateState, setDateState] = useState();
-  const [showPopup, setShowPopup] = useState(false)
+  const [showLeaderBoard, setShowPopup] = useState(false)
   const handleFlip = (tDate) => {
     setCardFlip(!cardFlip);
     countDownData(tDate);
-    setShowPopup(!showPopup);
+    setShowPopup(true)
   };
-  const leaderPopupshow = () => {
-    console.log("hiss")
-  }
+  console.log("Show leader board--->",showLeaderBoard)
+  // const leaderPopupshow = () => {
+  //   console.log("hiss")
+  // }
+ const closeLeaderBoard=()=>{
+  setShowPopup(false)
+ }
   const countDownData = (tDate) => {
     var x = setInterval(() => {
       let countDownDate = new Date(tDate).getTime();
@@ -1068,7 +1077,7 @@ const GameTournament = ({
     }, 1000);
   };
 
-  const wrapperRef = useRef();
+  //const wrapperRef = useRef();
 
   // const useOutsideAlerter = (ref) => {
   //   useEffect(() => {
@@ -1132,7 +1141,7 @@ const GameTournament = ({
             </div>
           </div>
         </div>
-        <LeaderBoard open={showPopup}/>
+        <LeaderBoard open={showLeaderBoard} closeLeaderBoard={closeLeaderBoard} dateState={dateState} getTime={getTime} data={data}/>
       </div>
     </>
   );
