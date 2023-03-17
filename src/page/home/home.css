@@ -391,78 +391,7 @@ input[type='number'] {
   object-fit: cover;
 }
 
-@media screen and (max-width: 1200px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
 
-@media screen and (max-width: 1024px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .poker-tableSearch-box {
-    /* position: absolute;
-      right: 0px;
-      top: -52px; */
-  }
-
-  .create-game-box a {
-    position: absolute;
-    top: -68px;
-    right: 20%;
-  }
-
-  .casino-logo img {
-    width: 120px;
-  }
-
-  .blindpopupField {
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
-  }
-
-  .casino-popup label {
-    font-size: 14px !important;
-  }
-
-  .user-header-grid {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .create-game-box {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 10px;
-    grid-row-gap: 12px;
-    row-gap: 12px;
-    align-items: center;
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .create-game-box h5 {
-    display: grid;
-    grid-column-end: 3;
-    grid-column-start: 1;
-    text-align: center;
-  }
-
-  .poker-table-content {
-    padding: 16px !important;
-  }
-}
 
 .css-12jo7m5 {
   font-size: 14px !important;
@@ -545,7 +474,7 @@ input[type='number'] {
   border-radius: 30px;
   display: flex;
   justify-content: space-between;
-  max-width: 467px;
+  max-width: 470px;
   margin: 0px auto;
   padding: 5px 6px 6px;
   background: #1b1b1b;
@@ -867,16 +796,18 @@ tr.myRank {
   font-weight: 600;
   font-size: 14px;
   margin-bottom: 0px;
+  height: 40px;
 }
 
 .leaderboard-table tr td svg {
   display: block;
   position: absolute;
-  top: 2px;
+  top: 46%;
   width: 40px;
   height: 40px;
-  left: 38%;
+  left: 50%;
   z-index: 0;
+  transform: translate(-50%, -50%);
 }
 
 .leaderboard-table tr.firstRank td:first-child p,
@@ -887,6 +818,7 @@ tr.myRank {
   z-index: 9;
   display: grid;
   place-content: center;
+
 }
 
 .leaderboard-table tr.firstRank td:first-child svg,
@@ -905,6 +837,14 @@ tr.myRank {
 .leaderboard-table tr.thirdRank td:first-child svg path {
   stroke: #cd7f32;
   fill: #cd7f32;
+}
+
+.leaderBoardHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .leaderBoardHeader .tournamentRanking {
@@ -995,4 +935,101 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
 div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
+}
+
+.leaderboard-table .rankingUsers {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.leaderboard-table td img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 1200px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .table-responsive {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tournamentDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 30px;
+  }
+
+  .poker-tableSearch-box {
+    /* position: absolute;
+      right: 0px;
+      top: -52px; */
+  }
+
+  .create-game-box a {
+    position: absolute;
+    top: -68px;
+    right: 20%;
+  }
+
+  .casino-logo img {
+    width: 120px;
+  }
+
+  .blindpopupField {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+  }
+
+  .casino-popup label {
+    font-size: 14px !important;
+  }
+
+  .user-header-grid {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .create-game-box {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    grid-row-gap: 12px;
+    row-gap: 12px;
+    align-items: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .create-game-box h5 {
+    display: grid;
+    grid-column-end: 3;
+    grid-column-start: 1;
+    text-align: center;
+  }
+
+  .poker-table-content {
+    padding: 16px !important;
+  }
 }
