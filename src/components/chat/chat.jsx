@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap"
-import logo from "../../assets/game/logo-poker.png";
+// import logo from "../../assets/game/logo-poker.png";
 import "./chat.css";
 import { socket } from '../../config/socketConnection';
 import Picker from 'emoji-picker-react';
@@ -60,9 +60,10 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
                 </div> : ''}
                 <div className="chat-content-box">
                     <div className="chat-content">
-                        <div className="chat-logo">
+                        {/* <div className="chat-logo">
                             <img src={logo} alt="logo" />
-                        </div>
+                        </div> */}
+                        <h6>Chat with your buddies</h6>
 
                         <span className="msg-limit">Remaining Character - {60 - message.length}</span>
                         <div className="chat-search chat-input">
@@ -70,7 +71,7 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
                                 <Form.Control
                                     ref={ref}
                                     type="text"
-                                    placeholder="Type message"
+                                    placeholder="Type your message ..."
                                     onChange={handleChange}
                                     value={message}
                                     onBlur={handleOnFocusOut}

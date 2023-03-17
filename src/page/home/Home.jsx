@@ -12,7 +12,6 @@ import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
 import logo from "../../assets/game/logo.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
-import CONSTANTS from "../../config/contants";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
@@ -29,6 +28,9 @@ import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 
 let userId;
 const Home = () => {
@@ -42,8 +44,9 @@ const Home = () => {
     sitInAmount: "",
     invitedUsers: [],
   };
-  console.log("Constatn -->", CONSTANTS);
   // States
+  const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);
+  console.log("User In Any game--->", userInAnyGame);
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -89,6 +92,9 @@ const Home = () => {
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    }
   };
   const handleChnageInviteUsers = (selectedOptions) => {
     setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
@@ -142,7 +148,7 @@ const Home = () => {
     }
 
     if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
-      err.sitInAmount = `You don't have enough balance.`;
+      err.sitInAmount = `You don't have enough balance in your wallet.`;
       valid = false;
     }
 
@@ -209,6 +215,7 @@ const Home = () => {
     (async () => {
       const response = await pokerInstance().get("/getAllUsers");
       setAllUsers(response.data.allUsers);
+      console.log("response", response);
     })();
   }, []);
 
@@ -221,7 +228,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${CONSTANTS.landingClient}`);
+      return (window.location.href = `${landingClient}`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -306,6 +313,12 @@ const Home = () => {
 
   return (
     <div className="poker-home">
+      {userInAnyGame?.inGame && (
+        <AlreadyInGamePopup
+          userInAnyGame={userInAnyGame}
+          setUserInAnyGame={setUserInAnyGame}
+        />
+      )}
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
@@ -387,7 +400,7 @@ const Home = () => {
         <div className="container">
           <div className="poker-table-header">
             <div className="backtoHome">
-              <a href="https://scrooge.casino/">
+              <a href={landingClient}>
                 <img src={Homesvg} alt="home" />
                 Home
               </a>
