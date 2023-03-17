@@ -1661,14 +1661,15 @@ const PokerTable = (props) => {
             </div>
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindTimer">
-              <h4>
-                SB/BB will change in :{" "}
-                <span>{blindTimer ? blindTimer : "00 : 05"}</span>
-              </h4>
-            </div>
-          )}
+          {roomData?.gameType === "poker-tournament" &&
+            roomData?.isGameRunning && (
+              <div className="table-blindTimer">
+                <h4>
+                  SB/BB will change in :{" "}
+                  <span>{blindTimer ? blindTimer : ""}</span>
+                </h4>
+              </div>
+            )}
 
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
