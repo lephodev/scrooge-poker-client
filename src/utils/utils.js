@@ -27,4 +27,16 @@ export const deleteCookie = (name) => {
   document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 };
 
+export const getTime = (time) => {
+  let d = new Date(time);
+  let pm = d.getHours() >= 12;
+  let hour12 = d.getHours() % 12;
+  if (!hour12) hour12 += 12;
+  let minute = d.getMinutes();
+  let date = d.getDate();
+  let month = d.getMonth() + 1;
+  let year = d.getFullYear();
+  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+};
 export default numFormatter;
+
