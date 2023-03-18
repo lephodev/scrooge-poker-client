@@ -759,7 +759,7 @@ const PokerTable = (props) => {
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
       
-      if (data.roomdata.runninground === 0 && data.roomData.handWinner.length && !data.roomData.tournament) {
+      if (data.roomdata.runninground === 0 && data.roomdata.handWinner.length && !data.roomdata.tournament) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
       }else{
