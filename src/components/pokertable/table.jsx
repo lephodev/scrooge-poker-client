@@ -759,9 +759,11 @@ const PokerTable = (props) => {
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
       
-      if (data.roomdata.runninground === 0) {
+      if (data.roomdata.runninground === 0 && data.roomdata.handWinner.length && !data.roomdata.tournament) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
+      }else{
+        window.location.href = window.location.origin;
       }
     });
 
@@ -851,7 +853,7 @@ const PokerTable = (props) => {
       window.location.href = `/leaderboard?tournamentId=${tournamentId}`;
     });
 
-    socket.on("roomChanged", (data) => {
+    socket.on("roomchanged", (data) => {
       let user = data.userIds.find((el) => el.userId === userId);
       if (user) {
         window.location.href = `/table?gamecollection=poker&tableid=${user.newRoomId}`;
