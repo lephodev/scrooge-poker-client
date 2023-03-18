@@ -288,12 +288,12 @@ const PokerTable = (props) => {
         setShowEnterAmountPopup(false);
       }
     });
-    // socket.on("tablenotFound", (data) => {
-    //   if (data.message === "tablenotFound") {
-    //     setShowEnterAmountPopup(false);
-    //     history.push("/");
-    //   }
-    // });
+    socket.on("tablenotFound", (data) => {
+      if (data.message === "tablenotFound") {
+        setShowEnterAmountPopup(false);
+        history.push("/");
+      }
+    });
 
     socket.on("userId", async (data) => {
       userId = data;
