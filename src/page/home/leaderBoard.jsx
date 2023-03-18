@@ -31,6 +31,7 @@ const LeaderBoard = () => {
         }
       }
     } catch (err) {
+      history.push('/')
       console.log('Error Message Here---->', err)
     }
   }
