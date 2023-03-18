@@ -1531,10 +1531,10 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData);
-    // let user = await userUtils.getAuthUserData();
-
+    let user = await userUtils.getAuthUserData();
+    // console.log("user", user);
     try {
-      if (parseFloat(amount) > userData?.wallet) {
+      if (parseFloat(amount) > user?.data?.user?.wallet) {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
