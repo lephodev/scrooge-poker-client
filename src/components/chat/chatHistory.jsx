@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { socket } from '../../config/socketConnection';
 import avtar from "../../assets/profile_user.jpg";
