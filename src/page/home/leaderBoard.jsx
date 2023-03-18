@@ -8,8 +8,14 @@ import { tournamentInstance } from '../../utils/axios.config'
 import { getTime } from '../../utils/utils'
 // import Header from './header'
 import logo from "../../assets/game/logo.png";
+import userUtils from '../../utils/user'
+import { socket } from '../../config/socketConnection'
+import { useHistory } from 'react-router-dom'
 
-const LeaderBoard = ({ data }) => {
+let userId;
+
+const LeaderBoard = () => {
+  const history = useHistory();
   const url = new URLSearchParams(window.location.search)
   const [tournamentData, setTournamentData] = useState()
   const [dateState, setDateState] = useState()
@@ -28,12 +34,37 @@ const LeaderBoard = ({ data }) => {
       console.log('Error Message Here---->', err)
     }
   }
+  const enterRoom = async (tournamentId) => {
+    console.log("tournament id--->",tournamentId)
+    const res = await tournamentInstance().post("/enterroom", {
+      tournamentId: tournamentId,
+    });
+    console.log("response--->",res)
+    if (res.data.code === 200) {
+      let roomid = res.data.roomId;
+      history.push({
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
+    } else {
+      // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
+    }
+  };
+  const getUser = async () => {
+    let user = await userUtils.getAuthUserData();
+    userId = user?.data?.user?.id;
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    }
+  };
   useEffect(() => {
     getTournamentById()
+    getUser()
   }, [])
-  if (tournamentData && tournamentData?.tournamentData) {
+
+  if (tournamentData && tournamentData?.tournamentDate) {
     var x = setInterval(() => {
-      let countDownDate = new Date(tournamentData?.tournamentData).getTime()
+      let countDownDate = new Date(tournamentData?.tournamentDate).getTime()
       var now = new Date().getTime()
       var distance = countDownDate - now
       var days = Math.floor(distance / (1000 * 60 * 60 * 24))
@@ -60,19 +91,35 @@ const LeaderBoard = ({ data }) => {
     }, 1000)
   }
 
+  const ifUserJoind = () => {
+    let getData = tournamentData?.rooms?.find((el) =>
+      el?.players?.find((el) => el?.userid === userId)
+    );
+    return getData;
+  };
+
+  const joinTournament = async (tournamentId, fees) => {
+    socket.emit("joinTournament", {
+      tournamentId: tournamentId,
+      userId: userId,
+      fees,
+    });
+    setTimeout(() => {
+      getTournamentById();
+    }, 1000);
+  };
+
   return (
     <div className="leaderBoardPage">
-      
-
       <div className="user-header">
-            <div className="container">
-                <div className="user-header-grid">
-                    <div className="casino-logo">
-                        <a href={landingClient}>
-                            <img src={logo} alt="" />
-                        </a>
-                    </div>
-                    {/* <div className="create-game-box">
+        <div className="container">
+          <div className="user-header-grid">
+            <div className="casino-logo">
+              <a href={landingClient}>
+                <img src={logo} alt="" />
+              </a>
+            </div>
+            {/* <div className="create-game-box">
                         <a href={`${landingClient}profile`}>
                             <div className="create-game-box-avtar">
                                 <img
@@ -121,13 +168,9 @@ const LeaderBoard = ({ data }) => {
                             Create Game
                         </button>
                     </div> */}
-                </div>
-            </div>
+          </div>
         </div>
-
-
-
-
+      </div>
 
       <div className="container leaderBoardContainer">
         <div className="leaderBoardHeader">
@@ -158,33 +201,39 @@ const LeaderBoard = ({ data }) => {
             </div>
             <div className="tournamentTime">
               {tournamentData?.isFinished ? (
-                <h2>Tournament Finished</h2>
+                <h2 className='tournamentFinished'>Tournament Finished.</h2>
               ) : tournamentData?.isStart ? (
-                <h2>Tournament Is Running</h2>
+                <h2 className='tournamentRunning'>Tournament Is Running ...</h2>
               ) : (
                 <>
                   <h2>Tournament Start Time </h2>
                   <div id="clockdiv">
-                    <h4>
-                      Days :<span class="days">{dateState?.days || '0'}</span>
-                    </h4>
-                    <h4>
-                      Hours :
-                      <span class="hours">{dateState?.hours || '0'}</span>
-                    </h4>
-                  </div>
-                  <div id="clockdiv">
-                    <h4>
-                      Minutes :
-                      <span class="minutes">{dateState?.minutes || '0'}</span>
-                    </h4>
-                    <h4>
-                      Seconds :
-                      <span class="seconds">{dateState?.seconds || '0'}</span>
-                    </h4>
+                    <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
                   </div>
                 </>
               )}
+              <div className="btn-grid">
+                {" "}
+
+                {ifUserJoind() ? (
+                  <button
+             
+                   onClick={() => enterRoom(tournamentData?._id)}
+                    type="submit"
+                  >
+                    Enter Game
+                  </button>
+                ) : (
+                  <button
+                    disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
+                    onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
+                    }
+                    type="submit"
+                  >
+                    Join Game
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -214,7 +263,7 @@ const LeaderBoard = ({ data }) => {
                   <div className="rankingUsers">
                     <img
                       src={
-                        (tournamentData?.isFinished &&tournamentData?.winPlayer?.first?.userId?.profile) ||
+                        (tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.profile) ||
                         'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
                       }
                       alt=""
@@ -239,25 +288,25 @@ const LeaderBoard = ({ data }) => {
                   <p>2</p>
                   <Star />
                 </td>
-               
+
                 <td>
-                <div className="rankingUsers">
-                <img
+                  <div className="rankingUsers">
+                    <img
                       src={
-                        (tournamentData?.isFinished &&tournamentData?.winPlayer?.second?.userId?.profile) ||
+                        (tournamentData?.isFinished && tournamentData?.winPlayer?.second?.userId?.profile) ||
                         'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
                       }
                       alt=""
                     />
-                  <p>
-                    {(tournamentData?.isFinished &&
-                      tournamentData?.winPlayer?.second?.userId?.username) ||
-                      'To be decided'}
-                  </p>
+                    <p>
+                      {(tournamentData?.isFinished &&
+                        tournamentData?.winPlayer?.second?.userId?.username) ||
+                        'To be decided'}
+                    </p>
                   </div>
                 </td>
-                
-                
+
+
                 <td>
                   <p>
                     {(tournamentData?.isFinished &&
@@ -272,21 +321,21 @@ const LeaderBoard = ({ data }) => {
                   <Star />
                 </td>
                 <td>
-                <div className="rankingUsers">
-                <img
+                  <div className="rankingUsers">
+                    <img
                       src={
-                        (tournamentData?.isFinished &&tournamentData?.winPlayer?.third?.userId?.profile) ||
+                        (tournamentData?.isFinished && tournamentData?.winPlayer?.third?.userId?.profile) ||
                         'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
                       }
                       alt=""
                     />
-                <p>
-                    {(tournamentData?.isFinished &&
-                      tournamentData?.winPlayer?.third?.userId?.username) ||
-                      'To be decided'}
-                  </p>
-                </div>
-                  
+                    <p>
+                      {(tournamentData?.isFinished &&
+                        tournamentData?.winPlayer?.third?.userId?.username) ||
+                        'To be decided'}
+                    </p>
+                  </div>
+
                 </td>
                 <td>
                   <p>
@@ -304,20 +353,20 @@ const LeaderBoard = ({ data }) => {
                       <p>{4 + i}</p>
                     </td>
                     <td>
-                    <div className="rankingUsers">
-                    <img
-                      src={
-                        (tournamentData?.isFinished &&fourP?.profile) ||
-                        'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                      }
-                      alt=""
-                    />
-                    <p>
-                        {(tournamentData?.isFinished && fourP?.username) ||
-                          'To be decided'}
-                      </p>
+                      <div className="rankingUsers">
+                        <img
+                          src={
+                            (tournamentData?.isFinished && fourP?.profile) ||
+                            'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                          }
+                          alt=""
+                        />
+                        <p>
+                          {(tournamentData?.isFinished && fourP?.username) ||
+                            'To be decided'}
+                        </p>
                       </div>
-                      
+
                     </td>
                     <td>
                       <p>
@@ -336,23 +385,23 @@ const LeaderBoard = ({ data }) => {
                         <p>{11 + i}</p>
                       </td>
                       <td>
-                      <div className="rankingUsers">
-                      <img
-                      src={
-                        (tournamentData?.isFinished &&elevenP?.profile) ||
-                        'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                      }
-                      alt=""
-                    />
-                      <p>
-                          {(tournamentData?.isFinished && elevenP?.username) ||
-                            'To be decided'}
-                        </p>
-                      </div>
-                        
+                        <div className="rankingUsers">
+                          <img
+                            src={
+                              (tournamentData?.isFinished && elevenP?.profile) ||
+                              'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                            }
+                            alt=""
+                          />
+                          <p>
+                            {(tournamentData?.isFinished && elevenP?.username) ||
+                              'To be decided'}
+                          </p>
+                        </div>
+
                       </td>
                       <td>
-                      
+
                         <p>
                           {(tournamentData?.isFinished &&
                             tournamentData?.winPlayer?.['11-25']?.amount) ||
