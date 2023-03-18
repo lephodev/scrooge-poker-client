@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form, Spinner } from "react-bootstrap";
@@ -22,11 +22,10 @@ import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
-//import LeaderBoard from "./leaderBoard";
-import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
+
 
 let userId;
 const Home = () => {
@@ -42,7 +41,6 @@ const Home = () => {
   };
   // States
   const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);
-  console.log("User In Any game--->", userInAnyGame);
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -55,7 +53,6 @@ const Home = () => {
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
-  console.log("tournaments", tournaments);
   // utils function
   const handleShow = () => {
     setShow(!show);
@@ -97,8 +94,6 @@ const Home = () => {
   };
 
   const validateCreateTable = () => {
-    console.log("pokerRooms", pokerRooms);
-
     let checkIfExist =
       pokerRooms?.length > 0 &&
       pokerRooms.find(
@@ -184,8 +179,6 @@ const Home = () => {
       return;
     }
     try {
-      console.log("gameState", gameState);
-
       const resp = await pokerInstance().post("/createTable", {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
@@ -198,11 +191,9 @@ const Home = () => {
 
       setShowSpinner(false);
     } catch (error) {
-      console.log("errorerror", error);
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message, { id: "create-table-error" });
       }
-
       setShowSpinner(false);
     }
   };
@@ -211,7 +202,6 @@ const Home = () => {
     (async () => {
       const response = await pokerInstance().get("/getAllUsers");
       setAllUsers(response.data.allUsers);
-      console.log("response", response);
     })();
   }, []);
 
@@ -276,15 +266,12 @@ const Home = () => {
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  console.log("filterRoom ====>", filterRoom);
+
   const filterTournaments = tournaments.filter((el) =>
     el.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
-  // const [tournamentCardHeight, setTournamentCardHeight] = useState(190);
-  // console.log("filterRoom ====>", setTournamentCardHeight);
-
   const pokerCard = useRef(null);
   useEffect(() => {
     if (pokerCard?.current?.clientHeight) {
@@ -635,8 +622,6 @@ const GameTable = ({
   const redirectToTable = () => {
     socket.emit("checkAlreadyInGame", { userId, tableId });
     socket.on("userAlreadyInGame", (value) => {
-      console.log("user already in game");
-      console.log(value);
       const { message, join } = value;
       if (join) {
         history.push({
@@ -652,7 +637,6 @@ const GameTable = ({
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
-      console.log("data", data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
@@ -888,27 +872,11 @@ const GameTournament = ({
   tableId,
 }) => {
   const history = useHistory();
-  const redirectToTable = () => {
-    socket.emit("checkAlreadyInGame", { userId, tableId });
-    socket.on("userAlreadyInGame", (value) => {
-      console.log("user already in game");
-      console.log(value);
-      const { message, join } = value;
-      if (join) {
-        history.push({
-          pathname: "/table",
-          search: "?gamecollection=poker&tableid=" + data?._id,
-        });
-      } else {
-        toast.error(message, { id: "create-table-error" });
-      }
-    });
-  };
+
 
   useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
-      console.log("data", data);
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user);
@@ -953,12 +921,9 @@ const GameTournament = ({
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
     }
   };
-
   const handleFlip = (tournamentId) => {
-  history.push(`/leaderboard?tournamentId=${tournamentId}`)
+    history.push(`/leaderboard?tournamentId=${tournamentId}`)
   };
-
-
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
       el?.players?.find((el) => el?.userid === userId)
@@ -966,28 +931,37 @@ const GameTournament = ({
 
     return getData;
   };
-
-
+  var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 
   return (
     <>
-      <div className="tournamentCard" >
+      <div className="tournamentCard GameTournament" >
         <FaInfoCircle onClick={() => { handleFlip(data._id) }} />
+        { }
         <div className={`tournamentCard-inner
          `}>
           <div className="tournamentCard-front">
-            <img src={casino} alt="" />
+            <img src={casino} className="tournamentImg" alt="" />
             <div className="tournamentFront-info">
-              <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
-              {gameType === "Poker" ? (
-                <button onClick={redirectToTable} type="submit">
-                  Join Game
-                </button>
-              ) : (
-                <div className="btn-grid">
-                  {" "}
+              <h4>Table Name : <span>{data?.name}</span></h4>
+              {data?.isStart ?
+                <h4 className="tournamentRunning">Tournament is running ...</h4> : data?.isFinished ? <h4 className="tournamentFinished">Tournament is finished.</h4> :
+                  (
+                    <h4>Start Date/Time : <span>{startDateTime}</span> </h4>
+                  )}
+              <h4>Player Entered : <span>{data?.havePlayers}</span></h4>
+              <div className="btn-grid">
+                {" "}
+                {ifUserJoind() ? (
                   <button
-                    disabled={ifUserJoind()}
+                    onClick={() => enterRoom(data?._id)}
+                    type="submit"
+                  >
+                    Enter Game
+                  </button>
+                ) : (
+                  <button
+                    disabled={ifUserJoind() || data?.isStart || data?.isFinished}
                     onClick={() =>
                       joinTournament(data?._id, data?.tournamentFee)
                     }
@@ -995,20 +969,11 @@ const GameTournament = ({
                   >
                     Join Game
                   </button>
-                  {ifUserJoind() && (
-                    <button
-                      onClick={() => enterRoom(data?._id)}
-                      type="submit"
-                    >
-                      Enter Game
-                    </button>
-                  )}
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
-        {/* <LeaderBoard dateState={dateState} data={data} /> */}
       </div>
     </>
   );

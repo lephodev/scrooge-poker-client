@@ -1,0 +1,76 @@
+
+.error-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100vh;  
+}
+.requestNotFound img {
+    max-width: 591.84px;
+    width: 100%;
+    max-height: 420.77px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.requestNotFound {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.errorMssg {
+    font-size: 17px;
+    line-height: 34px;
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #EEEEEE;
+}
+.requestNotFound img:nth-child(2){
+    max-width: 100px;
+    width: 100%;
+    max-height: fit-content;
+    height: fit-content;
+    margin: 32px 0px 20px;
+}
+.requestNotFound a.play-btn span {
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #000000;
+    position: relative;
+    margin-top: 19px;
+    margin-left: 12px;
+    background: #f9ff00;
+    padding: 15px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+.requestNotFound  a{
+    text-decoration: none;
+}
+.requestNotFound .home-box .play-btn {
+    display: grid;
+    height: 98px;
+    width: 230px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 20px;
+    place-content: center;
+    margin: 0px auto;
+}
+.requestNotFound img {
+    height: 287px;
+}
+@media screen and (max-width: 767px) {
+    .requestNotFound img {
+        height: 170px;
+    }
+}

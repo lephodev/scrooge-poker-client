@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   // Switch,
   Route,
+  Switch,
 } from 'react-router-dom';
 import PokerTable from './components/pokertable/table';
 import 'animate.css';
@@ -15,8 +16,10 @@ import { getCookie } from "./utils/cookieUtil";
 import CONSTANTS from "./config/contants";
 import UserContext from './context/UserContext';
 import LeaderBoard from './page/home/leaderBoard';
+import Error404 from './page/Error404/Error404';
+
 const App = () => {
-  const [userInAnyGame,setUserInAnyGame]=useState()
+  const [userInAnyGame, setUserInAnyGame] = useState()
   useEffect(() => {
     if (window.width < window.height) {
       let w = window.width;
@@ -24,19 +27,19 @@ const App = () => {
       window.height = w;
     }
   }, []);
-  const checkUserInGame=async()=>{
+  const checkUserInGame = async () => {
     let userData = await axios({
       method: "get",
       url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
       headers: { authorization: `Bearer ${getCookie("token")}` },
     });
-    if(userData?.data){
+    if (userData?.data) {
       setUserInAnyGame(userData.data)
     }
   }
-useEffect(()=>{
-  checkUserInGame()
-},[])
+  useEffect(() => {
+    checkUserInGame()
+  }, [])
   return (
     <div className='App'>
       <UserContext.Provider
@@ -45,17 +48,22 @@ useEffect(()=>{
           setUserInAnyGame
         }}
       >
-      <Router>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/leaderboard'>
-          <LeaderBoard />
-        </Route>
-        <Route path='/table'>
-          <PokerTable />
-        </Route>
-      </Router>
+        <Router>
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route exact path='/leaderboard'>
+              <LeaderBoard />
+            </Route>
+            <Route exact path='/table'>
+              <PokerTable />
+            </Route>
+            <Route path="*">
+              <Error404 />
+            </Route>
+          </Switch>
+        </Router>
       </UserContext.Provider>
       <div className='abc'>
         <Toaster
