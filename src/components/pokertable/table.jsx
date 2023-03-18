@@ -167,6 +167,7 @@ const PokerTable = (props) => {
   const [unReadMessages, setUnReadMessages] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
   const [openChatHistory, setOpenChatHistory] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
@@ -1536,6 +1537,7 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData);
+    setDisable(true);
     let user = await userUtils.getAuthUserData();
     // console.log("user", user);
     try {
@@ -1543,6 +1545,8 @@ const PokerTable = (props) => {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
+        setDisable(false);
+
         return;
       } else {
         // const data = await pokerInstance().post("/refillWallet", {
@@ -1571,13 +1575,15 @@ const PokerTable = (props) => {
       console.log("datatatata", data);
 
       updatePlayer(data?.players);
-      toast.success(`Your wallet is updated`);
+      toast.success(`Your wallet is updated`, { id: "A" });
       setRefillSitInAmount(false);
+      setDisable(false);
     });
 
     socket.on("InrunningGame", (data) => {
-      toast.success(`Your wallet is update in next hand`);
+      toast.success(`Your wallet is update in next hand`, { id: "B" });
       setRefillSitInAmount(false);
+      setDisable(false);
     });
   }, []);
 
@@ -2035,6 +2041,7 @@ const PokerTable = (props) => {
         setShow={
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
+        disable={disable}
       />
 
       <Bet
