@@ -981,7 +981,7 @@ h4.tournamentFinished h2.tournamentFinished {
   }
 
   div#controlled-tab-example-tabpane-2 .tournamentCard {
-    height: 245px;
+    height: 100%;
     width: 48%;
   }
 
