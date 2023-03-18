@@ -55,6 +55,7 @@ import UsersComments from "../../assets/comenting.svg";
 import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
+import { DecryptCard } from "../../utils/utils";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -2365,13 +2366,14 @@ const TableCard = ({
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
+          console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
             <div className={`card-animate active duration-${i}`}>
               <img
                 key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${card.toUpperCase()}.svg`}
+                src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
                 className={`${
                   winner && matchCards.findIndex((ele) => ele === i) !== -1
@@ -2702,18 +2704,20 @@ const ShowCard = ({ cards, handMatch }) => {
   return (
     <div className="show-card">
       {cards &&
-        cards.map((card, i) => (
-          <img
-            key={`item-${card}`}
-            src={`/cards/${card.toUpperCase()}.svg`}
-            alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
-          />
-        ))}
+        cards.map((card, i) => {
+          return (
+            <img
+              key={`item-${card}`}
+              src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
+              alt="card"
+              className={`animate__animated animate__rollIn duration-${i} ${
+                handMatch.findIndex((ele) => ele === i) !== -1
+                  ? ``
+                  : `winner-card`
+              } `}
+            />
+          );
+        })}
     </div>
   );
 };
