@@ -55,6 +55,7 @@ import UsersComments from "../../assets/comenting.svg";
 import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
+import { DecryptCard } from "../../utils/utils";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -287,12 +288,12 @@ const PokerTable = (props) => {
         setShowEnterAmountPopup(false);
       }
     });
-    // socket.on("tablenotFound", (data) => {
-    //   if (data.message === "tablenotFound") {
-    //     setShowEnterAmountPopup(false);
-    //     history.push("/");
-    //   }
-    // });
+    socket.on("tablenotFound", (data) => {
+      if (data.message === "tablenotFound") {
+        setShowEnterAmountPopup(false);
+        history.push("/");
+      }
+    });
 
     socket.on("userId", async (data) => {
       userId = data;
@@ -435,6 +436,9 @@ const PokerTable = (props) => {
 
     socket.on("playerleft", (data) => {
       toast.success(data.msg, { id: "A" });
+      if(data.userId === userId){
+        window.location.href = window.location.origin
+      }
     });
 
     socket.on("notAuthorized", () => {
@@ -753,6 +757,7 @@ const PokerTable = (props) => {
 
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
+      
       if (data.roomdata.runninground === 0) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
@@ -1377,7 +1382,6 @@ const PokerTable = (props) => {
       isWatcher: isWatcher,
       action: "Leave",
     });
-    window.location.href = `${window.location.origin}`;
   };
 
   useEffect(() => {
@@ -1530,10 +1534,10 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData);
-    // let user = await userUtils.getAuthUserData();
-
+    let user = await userUtils.getAuthUserData();
+    // console.log("user", user);
     try {
-      if (parseFloat(amount) > userData?.wallet) {
+      if (parseFloat(amount) > user?.data?.user?.wallet) {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
@@ -2365,13 +2369,14 @@ const TableCard = ({
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
+          console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
             <div className={`card-animate active duration-${i}`}>
               <img
                 key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${card.toUpperCase()}.svg`}
+                src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
                 className={`${
                   winner && matchCards.findIndex((ele) => ele === i) !== -1
@@ -2702,18 +2707,20 @@ const ShowCard = ({ cards, handMatch }) => {
   return (
     <div className="show-card">
       {cards &&
-        cards.map((card, i) => (
-          <img
-            key={`item-${card}`}
-            src={`/cards/${card.toUpperCase()}.svg`}
-            alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
-          />
-        ))}
+        cards.map((card, i) => {
+          return (
+            <img
+              key={`item-${card}`}
+              src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
+              alt="card"
+              className={`animate__animated animate__rollIn duration-${i} ${
+                handMatch.findIndex((ele) => ele === i) !== -1
+                  ? ``
+                  : `winner-card`
+              } `}
+            />
+          );
+        })}
     </div>
   );
 };
