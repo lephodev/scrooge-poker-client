@@ -7,6 +7,7 @@ const EnterAmountPopup = ({
   showEnterAmountPopup,
   submitButtonText,
   setShow,
+  disable,
 }) => {
   const [isLoading, setLoading] = useState(false);
   const [amount, setAmount] = useState("");
@@ -64,11 +65,7 @@ const EnterAmountPopup = ({
           </Form.Group>
 
           <div className="sub-btn text-center">
-            <Button
-              className="exit-btn"
-              onClick={joinGame}
-              disabled={isLoading}
-            >
+            <Button className="exit-btn" onClick={joinGame} disabled={disable}>
               {isLoading ? <Spinner animation="border" /> : submitButtonText}
             </Button>
             <Button className="grey-btn" onClick={redirectToLobby}>
