@@ -282,15 +282,18 @@ const PokerTable = (props) => {
     socket.on("notInvitedPlayer", (data) => {
       if (data.message === "notInvited") {
         setShowEnterAmountPopup(true);
+        setLoader(false);
       } else {
         setShowEnterAmountPopup(false);
       }
     });
-    socket.on("tablenotFound", (data) => {
-      if (data.message === "tablenotFound") {
-        setShowEnterAmountPopup(false);
-      }
-    });
+    // socket.on("tablenotFound", (data) => {
+    //   if (data.message === "tablenotFound") {
+    //     setShowEnterAmountPopup(false);
+    //     history.push("/");
+    //   }
+    // });
+
     socket.on("userId", async (data) => {
       userId = data;
     });
@@ -836,6 +839,22 @@ const PokerTable = (props) => {
     socket.on("reload", () => {
       window.location.reload();
     });
+
+    socket.on("tournamentFinished", (data) => {
+      const { tournamentId } = data;
+      window.location.href = `/leaderboard?tournamentId=${tournamentId}`;
+    });
+
+    socket.on("roomChanged", (data) => {
+      let user = data.userIds.find((el) => el.userId === userId);
+      if (user) {
+        window.location.href = `/table?gamecollection=poker&tableid=${user.newRoomId}`;
+      }
+    });
+
+    socket.on("waitForReArrange", (data) => {
+      toast.sucess("Please wait for Re-arrange", { id: "rearrange" });
+    });
   }, [isAdmin]);
 
   const handleTentativeActionAuto = (player) => {
@@ -1153,7 +1172,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: x,
+      amount: currentPlayer.pot + x,
     });
     setTimer(0);
   };
@@ -1186,7 +1205,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: x,
+      amount: currentPlayer?.pot + x,
     });
     setTimer(0);
   };
@@ -1377,7 +1396,7 @@ const PokerTable = (props) => {
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message, { id: 'A' });
+      toast.error(data?.message, { id: "A" });
       setTimeout(() => {
         history.push("/");
       }, 2000);
@@ -1661,14 +1680,15 @@ const PokerTable = (props) => {
             </div>
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindTimer">
-              <h4>
-                SB/BB will change in :{" "}
-                <span>{blindTimer ? blindTimer : "00 : 05"}</span>
-              </h4>
-            </div>
-          )}
+          {roomData?.gameType === "poker-tournament" &&
+            roomData?.isGameRunning && (
+              <div className="table-blindTimer">
+                <h4>
+                  SB/BB will change in :{" "}
+                  <span>{blindTimer ? blindTimer : ""}</span>
+                </h4>
+              </div>
+            )}
 
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
@@ -2001,6 +2021,7 @@ const PokerTable = (props) => {
           </span>
         </div>
       )}
+
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2009,6 +2030,7 @@ const PokerTable = (props) => {
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
       />
+
       <Bet
         handleBetClick={handleBetClick}
         view={view}
@@ -2091,12 +2113,8 @@ const Players = ({
   timer,
   remainingTime,
   mergeAnimationState,
-  followingList,
-  setFriendList,
-  setFollowingList,
-  tablePot,
-  blindTimer,
 }) => {
+  console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
@@ -2412,18 +2430,23 @@ const FooterButton = ({
   handleTentativeAction,
   tentativeAction,
   setTentativeAction,
-  loader,
   raiseInSliderAction,
   betInSliderAction,
-  playersLeft,
-  playersRight,
   players,
 }) => {
+  console.log(
+    "roomData?.raiseAmount===>>",
+    roomData?.raiseAmount,
+    "currentPlayer?.pot===>>",
+    currentPlayer?.pot
+  );
   return (
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
-          {currentPlayer && currentPlayer?.id === userId ? (
+          {currentPlayer &&
+          currentPlayer?.id === userId &&
+          !currentPlayer?.tentativeAction ? (
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
@@ -2469,7 +2492,8 @@ const FooterButton = ({
                         currentPlayer?.pot
                       )}
                       {/* roomData?.raiseAmount /* - currentPlayer?.pot */}(
-                      {numFormatter(roomData?.raiseAmount)})
+                      {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)}
+                      )
                     </span>
                   </Button>
                   {/* <Form.Check

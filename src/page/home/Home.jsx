@@ -230,7 +230,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -242,7 +242,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -277,7 +277,6 @@ const Home = () => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight);
     }
-
   }, [pokerCard]);
 
   return (
@@ -342,7 +341,7 @@ const Home = () => {
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
-                    <div className="home-poker-card-grid" >
+                    <div className="home-poker-card-grid">
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
                           <GameTable
@@ -729,6 +728,12 @@ const GameTable = ({
     }, 1000);
   };
 
+  useEffect(() => {
+    socket.on("tournamentAlreadyStarted", (data) => {
+      toast.error(data.message, { id: "tournamentStarted" });
+    });
+  });
+
   const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
@@ -755,11 +760,12 @@ const GameTable = ({
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-
         <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
-        <div className={`tournamentCard-inner
+        <div
+          className={`tournamentCard-inner
          ${cardFlip && gameType === "Poker" ? "rotate" : ""}
-         `}>
+         `}
+        >
           {!cardFlip && gameType === "Poker" ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
@@ -772,15 +778,17 @@ const GameTable = ({
                 ) : (
                   <div className="btn-grid">
                     {" "}
-                    {!data?.isFinished ? <button
-                      disabled={ifUserJoind()}
-                      onClick={() =>
-                        joinTournament(data?._id, data?.tournamentFee)
-                      }
-                      type="submit"
-                    >
-                      Join Game
-                    </button> : null}
+                    {!data?.isFinished ? (
+                      <button
+                        disabled={ifUserJoind()}
+                        onClick={() =>
+                          joinTournament(data?._id, data?.tournamentFee)
+                        }
+                        type="submit"
+                      >
+                        Join Game
+                      </button>
+                    ) : null}
                     {ifUserJoind() && !data?.isFinished ? (
                       <button
                         onClick={() => enterRoom(data?._id)}
@@ -789,14 +797,14 @@ const GameTable = ({
                         Enter Game
                       </button>
                     ) : null}
-                    {data?.isFinished &&
+                    {data?.isFinished && (
                       <div className="tournamentRanking">
                         <h6>Tournament Finished</h6>
                         <Button>Check Ranking</Button>
-                      </div>}
+                      </div>
+                    )}
                   </div>
                 )}
-
               </div>
             </div>
           ) : (
@@ -811,7 +819,7 @@ const GameTable = ({
                 <span>
                   {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                      ?.length || 0
+                        ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>

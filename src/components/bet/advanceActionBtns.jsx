@@ -133,7 +133,7 @@ const AdvanceActionBtns = ({
           className="tentative-action-btn"
           inline
           defaultChecked={player?.tentativeAction?.startsWith("call")}
-          label={`Call ${numFormatter(roomData?.raiseAmount)}`}
+          label={`Call ${numFormatter(roomData?.raiseAmount - player?.pot)}`}
           value={`call ${roomData?.raiseAmount - player?.pot}`}
           name="group1"
           type="radio"
