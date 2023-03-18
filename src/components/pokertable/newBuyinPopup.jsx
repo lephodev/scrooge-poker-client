@@ -18,19 +18,20 @@ const NewBuyInPopup = ({
           <div className="sub-btn text-center">
             <Button
               onClick={() => {
+                leaveTable();
+              }}
+            >
+              Leave Table
+            </Button>
+            <Button
+              onClick={() => {
                 setBuyinPopup(false);
                 setModalShow(true);
               }}
             >
               Buy In
             </Button>
-            <Button
-              onClick={() => {
-                leaveTable();
-              }}
-            >
-              Leave Table
-            </Button>
+
           </div>
         </div>
       </Modal.Body>

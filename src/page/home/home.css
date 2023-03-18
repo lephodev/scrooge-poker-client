@@ -910,6 +910,10 @@ h4.tournamentFinished h2.tournamentFinished {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .casino-popup .modal-footer {
+    padding: 1rem 1rem;
+  }
+
   .tournamentCard .tournamentImg {
     width: 100%;
     height: 26%;
@@ -1030,14 +1034,28 @@ h4.tournamentFinished h2.tournamentFinished {
     right: 20%;
   }
 
+  .casino-popup .modal-body {
+    padding: 1rem 1rem;
+  }
+
   .casino-logo img {
     width: 120px;
   }
 
+  .casino-popup .modal-header {
+    padding: 1rem 1rem;
+  }
+
+  .user-header {
+    margin-bottom: 30px;
+  }
+
   .blindpopupField {
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
+    gap: 10px;
+  }
+
+  .blindFields-box {
+    gap: 10px;
   }
 
   .casino-popup label {
