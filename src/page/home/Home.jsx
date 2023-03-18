@@ -633,9 +633,6 @@ const GameTable = ({
   const history = useHistory();
   const redirectToTable = () => {
     socket.emit("checkAlreadyInGame", { userId, tableId });
-  };
-
-  useEffect(() => {
     socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
@@ -649,6 +646,9 @@ const GameTable = ({
         toast.error(message, { id: "create-table-error" });
       }
     });
+  };
+
+  useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
       console.log("data", data);
@@ -898,9 +898,6 @@ const GameTournament = ({
   const history = useHistory();
   const redirectToTable = () => {
     socket.emit("checkAlreadyInGame", { userId, tableId });
-  };
-
-  useEffect(() => {
     socket.on("userAlreadyInGame", (value) => {
       console.log("user already in game");
       console.log(value);
@@ -914,6 +911,9 @@ const GameTournament = ({
         toast.error(message, { id: "create-table-error" });
       }
     });
+  };
+
+  useEffect(() => {
     socket.on("alreadyInTournament", (data) => {
       const { message, code } = data;
       console.log("data", data);
