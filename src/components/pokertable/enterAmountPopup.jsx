@@ -65,13 +65,13 @@ const EnterAmountPopup = ({
           </Form.Group>
 
           <div className="sub-btn text-center">
-            <Button className="exit-btn" onClick={joinGame} disabled={disable}>
-              {isLoading ? <Spinner animation="border" /> : submitButtonText}
-            </Button>
             <Button className="grey-btn" onClick={redirectToLobby}>
               {submitButtonText.toLowerCase().startsWith("refill")
                 ? "Close"
                 : "Lobby"}
+            </Button>
+            <Button className="exit-btn" onClick={joinGame} disabled={disable}>
+              {isLoading ? <Spinner animation="border" /> : submitButtonText}
             </Button>
           </div>
         </div>
