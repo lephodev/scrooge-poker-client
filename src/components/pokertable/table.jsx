@@ -436,6 +436,9 @@ const PokerTable = (props) => {
 
     socket.on("playerleft", (data) => {
       toast.success(data.msg, { id: "A" });
+      if(data.userId === userId){
+        window.location.href = window.location.origin
+      }
     });
 
     socket.on("notAuthorized", () => {
@@ -754,6 +757,7 @@ const PokerTable = (props) => {
 
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
+      
       if (data.roomdata.runninground === 0) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
@@ -1378,7 +1382,6 @@ const PokerTable = (props) => {
       isWatcher: isWatcher,
       action: "Leave",
     });
-    window.location.href = `${window.location.origin}`;
   };
 
   useEffect(() => {
