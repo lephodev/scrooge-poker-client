@@ -2,23 +2,23 @@ import axios from "axios";
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
-const AlreadyInGamePopup = ({userInAnyGame,setUserInAnyGame}) => {
-    
-    const leaveTable=async()=>{
-        try{
-            await axios({
-                method: "get",
-                url: `${userInAnyGame?.leaveTable}`,
-              });
-              setUserInAnyGame({...userInAnyGame,inGame:false})   
-        }catch(err){
-         console.log("Error in leave APi Call")
-        }
-       
+const AlreadyInGamePopup = ({ userInAnyGame, setUserInAnyGame }) => {
+
+  const leaveTable = async () => {
+    try {
+      await axios({
+        method: "get",
+        url: `${userInAnyGame?.leaveTable}`,
+      });
+      setUserInAnyGame({ ...userInAnyGame, inGame: false })
+    } catch (err) {
+      console.log("Error in leave APi Call")
     }
-    const joinGame=()=>{
-       window.location.href=userInAnyGame.reJoinUrl
-    }
+
+  }
+  const joinGame = () => {
+    window.location.href = userInAnyGame.reJoinUrl
+  }
   return (
     <Modal
       show={userInAnyGame?.inGame}
@@ -30,16 +30,14 @@ const AlreadyInGamePopup = ({userInAnyGame,setUserInAnyGame}) => {
           <p>You are already in a game!</p>
           <div className="sub-btn text-center d-flex justify-content-center">
             <Button
-              onClick={() => 
+              onClick={() =>
                 leaveTable()
               }
-           
+
             >
               Leave
             </Button>
-          
-              <Button onClick={() => joinGame()}>Rejoin</Button>
-            
+            <Button onClick={() => joinGame()}>Rejoin</Button>
           </div>
         </div>
       </Modal.Body>

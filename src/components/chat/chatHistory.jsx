@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { socket } from '../../config/socketConnection';
 import avtar from "../../assets/profile_user.jpg";
@@ -10,11 +11,11 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   const [modalShow, setModalShow] = useState(false);
   const [winHistoryData, setWinHistoryData] = useState([]);
   const [typingPlayrName, setTypingPlayerName] = useState("");
+  const [winPopupData, setWinPopupData] = useState();
   const isDesktop = useMediaQuery({
     query: "(min-width: 1024px)",
   });
   // const isRoomData = roomData?.showdown?.length;
-  const winPlayerData = roomData?.winnerPlayer[roomData?.winnerPlayer?.length - 1];
 
   const wrapperRef = useRef(null);
 
@@ -40,25 +41,29 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         setTypingPlayerName(userName)
       }
     });
-  })
+    socket.on('winner', (data) => {
+      const room = data.updatedRoom;
+      setWinHistoryData(room.handWinner)
+    });
+    socket.on('updateGame', (data) => {
+      const room = data.game;
+      setWinHistoryData(room.handWinner)
+    })
+  },[])
 
-  useEffect(() => {
-    if (winPlayerData) {
-      setWinHistoryData((prev) => ([...prev, winPlayerData]));
-    }
-  }, [winPlayerData])
 
 
   useEffect(() => {
     if (openChatHistory) {
       scrollToBottom();
     }
-  })
+  },[])
 
   useOutsideAlerter(wrapperRef);
 
-  const handleWinPopup = () => {
+  const handleWinPopup = (data) => {
     setModalShow(!modalShow)
+    setWinPopupData(data)
   }
 
   return (
@@ -96,15 +101,19 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         })
         }
         {winHistoryData?.map((data, i) => (
-          <div className="playerComment-box" key={i} onClick={handleWinPopup}>
-            <div className="everyRoundData">--- {data?.name} wins --- </div>
+          <div className="playerComment-box" key={i} onClick={() => handleWinPopup(data)}>
+             <div className="everyRoundData">
+             {data.map(win => (
+              `--- ${win?.name} wins ---`
+            ))}
+             </div>
           </div>
         ))}
         <div style={{ float: "left", clear: "both" }}
           ref={scrollDownRef}>
         </div>
       </div>
-      <WinHistoryPopup modalShow={modalShow} setModalShow={setModalShow} />
+      <WinHistoryPopup modalShow={modalShow} setModalShow={setModalShow} winPopupData={winPopupData} />
     </div>
   );
 };

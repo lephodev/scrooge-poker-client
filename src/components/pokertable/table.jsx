@@ -55,6 +55,7 @@ import UsersComments from "../../assets/comenting.svg";
 import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
+import { DecryptCard } from "../../utils/utils";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -166,6 +167,7 @@ const PokerTable = (props) => {
   const [unReadMessages, setUnReadMessages] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
   const [openChatHistory, setOpenChatHistory] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
@@ -282,6 +284,7 @@ const PokerTable = (props) => {
     socket.on("notInvitedPlayer", (data) => {
       if (data.message === "notInvited") {
         setShowEnterAmountPopup(true);
+        setLoader(false);
       } else {
         setShowEnterAmountPopup(false);
       }
@@ -289,8 +292,10 @@ const PokerTable = (props) => {
     socket.on("tablenotFound", (data) => {
       if (data.message === "tablenotFound") {
         setShowEnterAmountPopup(false);
+        history.push("/");
       }
     });
+
     socket.on("userId", async (data) => {
       userId = data;
     });
@@ -432,6 +437,9 @@ const PokerTable = (props) => {
 
     socket.on("playerleft", (data) => {
       toast.success(data.msg, { id: "A" });
+      if(data.userId === userId){
+        window.location.href = window.location.origin
+      }
     });
 
     socket.on("notAuthorized", () => {
@@ -750,9 +758,12 @@ const PokerTable = (props) => {
 
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
-      if (data.roomdata.runninground === 0) {
+      
+      if (data.roomdata.runninground === 0 && data.roomdata.handWinner.length && !data.roomdata.tournament) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
+      }else{
+        window.location.href = window.location.origin;
       }
     });
 
@@ -835,6 +846,22 @@ const PokerTable = (props) => {
 
     socket.on("reload", () => {
       window.location.reload();
+    });
+
+    socket.on("tournamentFinished", (data) => {
+      const { tournamentId } = data;
+      window.location.href = `/leaderboard?tournamentId=${tournamentId}`;
+    });
+
+    socket.on("roomchanged", (data) => {
+      let user = data.userIds.find((el) => el.userId === userId);
+      if (user) {
+        window.location.href = `/table?gamecollection=poker&tableid=${user.newRoomId}`;
+      }
+    });
+
+    socket.on("waitForReArrange", (data) => {
+      toast.sucess("Please wait for Re-arrange", { id: "rearrange" });
     });
   }, [isAdmin]);
 
@@ -1153,7 +1180,7 @@ const PokerTable = (props) => {
     socket.emit("doraise", {
       userid: userId,
       roomid: tableId,
-      amount: x,
+      amount: currentPlayer.pot + x,
     });
     setTimer(0);
   };
@@ -1186,7 +1213,7 @@ const PokerTable = (props) => {
     socket.emit("dobet", {
       userid: userId,
       roomid: tableId,
-      amount: x,
+      amount: currentPlayer?.pot + x,
     });
     setTimer(0);
   };
@@ -1358,7 +1385,6 @@ const PokerTable = (props) => {
       isWatcher: isWatcher,
       action: "Leave",
     });
-    window.location.href = `${window.location.origin}`;
   };
 
   useEffect(() => {
@@ -1377,7 +1403,7 @@ const PokerTable = (props) => {
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message);
+      toast.error(data?.message, { id: "A" });
       setTimeout(() => {
         history.push("/");
       }, 2000);
@@ -1511,13 +1537,16 @@ const PokerTable = (props) => {
 
   const handleReffill = async (amount) => {
     console.log("RefelAmount", userData);
-    // let user = await userUtils.getAuthUserData();
-
+    setDisable(true);
+    let user = await userUtils.getAuthUserData();
+    // console.log("user", user);
     try {
-      if (parseFloat(amount) > userData?.wallet) {
+      if (parseFloat(amount) > user?.data?.user?.wallet) {
         toast.error("You don't have enough balance.", {
           id: "notEnoughSitIn",
         });
+        setDisable(false);
+
         return;
       } else {
         // const data = await pokerInstance().post("/refillWallet", {
@@ -1546,13 +1575,15 @@ const PokerTable = (props) => {
       console.log("datatatata", data);
 
       updatePlayer(data?.players);
-      toast.success(`Your wallet is updated`);
+      toast.success(`Your wallet is updated`, { id: "A" });
       setRefillSitInAmount(false);
+      setDisable(false);
     });
 
     socket.on("InrunningGame", (data) => {
-      toast.success(`Your wallet is update in next hand`);
+      toast.success(`Your wallet is update in next hand`, { id: "B" });
       setRefillSitInAmount(false);
+      setDisable(false);
     });
   }, []);
 
@@ -1661,14 +1692,15 @@ const PokerTable = (props) => {
             </div>
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindTimer">
-              <h4>
-                SB/BB will change in :{" "}
-                <span>{blindTimer ? blindTimer : "00 : 05"}</span>
-              </h4>
-            </div>
-          )}
+          {roomData?.gameType === "poker-tournament" &&
+            roomData?.isGameRunning && (
+              <div className="table-blindTimer">
+                <h4>
+                  SB/BB will change in :{" "}
+                  <span>{blindTimer ? blindTimer : ""}</span>
+                </h4>
+              </div>
+            )}
 
           <div className={`poker-table ${winner ? "winner-show" : ""}`}>
             <div className="containerFor-chatHistory">
@@ -2001,6 +2033,7 @@ const PokerTable = (props) => {
           </span>
         </div>
       )}
+
       <EnterAmountPopup
         handleSitin={handleSitInAmount}
         showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2008,7 +2041,9 @@ const PokerTable = (props) => {
         setShow={
           refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
         }
+        disable={disable}
       />
+
       <Bet
         handleBetClick={handleBetClick}
         view={view}
@@ -2091,12 +2126,8 @@ const Players = ({
   timer,
   remainingTime,
   mergeAnimationState,
-  followingList,
-  setFriendList,
-  setFollowingList,
-  tablePot,
-  blindTimer,
 }) => {
+  console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
@@ -2347,13 +2378,14 @@ const TableCard = ({
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
+          console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
             <div className={`card-animate active duration-${i}`}>
               <img
                 key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${card.toUpperCase()}.svg`}
+                src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
                 className={`${
                   winner && matchCards.findIndex((ele) => ele === i) !== -1
@@ -2412,18 +2444,23 @@ const FooterButton = ({
   handleTentativeAction,
   tentativeAction,
   setTentativeAction,
-  loader,
   raiseInSliderAction,
   betInSliderAction,
-  playersLeft,
-  playersRight,
   players,
 }) => {
+  console.log(
+    "roomData?.raiseAmount===>>",
+    roomData?.raiseAmount,
+    "currentPlayer?.pot===>>",
+    currentPlayer?.pot
+  );
   return (
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
-          {currentPlayer && currentPlayer?.id === userId ? (
+          {currentPlayer &&
+          currentPlayer?.id === userId &&
+          !currentPlayer?.tentativeAction ? (
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
@@ -2469,7 +2506,8 @@ const FooterButton = ({
                         currentPlayer?.pot
                       )}
                       {/* roomData?.raiseAmount /* - currentPlayer?.pot */}(
-                      {numFormatter(roomData?.raiseAmount)})
+                      {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)}
+                      )
                     </span>
                   </Button>
                   {/* <Form.Check
@@ -2678,18 +2716,20 @@ const ShowCard = ({ cards, handMatch }) => {
   return (
     <div className="show-card">
       {cards &&
-        cards.map((card, i) => (
-          <img
-            key={`item-${card}`}
-            src={`/cards/${card.toUpperCase()}.svg`}
-            alt="card"
-            className={`animate__animated animate__rollIn duration-${i} ${
-              handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-            } `}
-          />
-        ))}
+        cards.map((card, i) => {
+          return (
+            <img
+              key={`item-${card}`}
+              src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
+              alt="card"
+              className={`animate__animated animate__rollIn duration-${i} ${
+                handMatch.findIndex((ele) => ele === i) !== -1
+                  ? ``
+                  : `winner-card`
+              } `}
+            />
+          );
+        })}
     </div>
   );
 };

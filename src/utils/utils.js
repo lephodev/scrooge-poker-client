@@ -1,3 +1,6 @@
+import CryptoJS from "crypto-js";
+import { PUBLICK_KEY } from "../config/keys";
+
 const numFormatter = (num) => {
   if (num > 1 && num < 999) {
     return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
@@ -38,5 +41,16 @@ export const getTime = (time) => {
   let year = d.getFullYear();
   return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
 };
-export default numFormatter;
 
+export const DecryptCard = (cipher) => {
+  // Decrypt
+
+  if (cipher) {
+    let cardBytes = CryptoJS.AES.decrypt(cipher, PUBLICK_KEY);
+    return cardBytes.toString(CryptoJS.enc.Utf8);
+    // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    // console.log({ decryptedData }); // [{id: 1}, {id: 2}]
+    // return ;
+  }
+};
+export default numFormatter;
