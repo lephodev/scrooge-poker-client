@@ -492,7 +492,18 @@ const PokerTable = (props) => {
     socket.on("notEnoughPlayer", (data) => {
       toast.error("Atleast 3 player required to start the game", { id: "A" });
     });
-
+    socket.on("eliminatedPlayer", (data) => {
+      const {tournamentId,eliminated}=data
+      if (eliminated?.length > 0) {
+        if (
+          eliminated?.find(
+            (el) => el?.userid?.toString() === userId?.toString()
+          )
+        ) {
+          history.push(`/leaderboard?tournamentId=${tournamentId}`)
+        }
+      }
+    });
     socket.on("newhand", (data) => {
       if (data) {
         console.log(data?.updatedRoom);
@@ -512,15 +523,6 @@ const PokerTable = (props) => {
         if (roomData?.hostId === userId) {
           setisAdmin(true);
           admin = true;
-        }
-        if (roomData?.eleminated?.length > 0) {
-          if (
-            roomData?.eleminated?.find(
-              (el) => el?.userid?.toString() === userId?.toString()
-            )
-          ) {
-            history.push("/");
-          }
         }
       }
     });
