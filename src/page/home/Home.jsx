@@ -209,6 +209,18 @@ const Home = () => {
     socket.on("updatePlayerList", (data) => {
       setTournaments(data);
     });
+    socket.on("tournamentUpdate", (data) => {
+      const { updateTournament } = data;
+      if (updateTournament) {
+        getTournamentDetails();
+      }
+    });
+    socket.on("tournamentCreated", data => {
+      setTournaments(data.tournaments)
+    })
+    socket.on("AllTables", data => {
+      setPokerRooms(data?.tables)
+    })
   }, []);
 
   const checkAuth = async () => {
@@ -248,12 +260,7 @@ const Home = () => {
   useEffect(() => {
     getTournamentDetails();
   }, []);
-  socket.on("tournamentUpdate", (data) => {
-    const { updateTournament } = data;
-    if (updateTournament) {
-      getTournamentDetails();
-    }
-  });
+
   const options = useMemo(
     () =>
       allUsers.map((el) => {
