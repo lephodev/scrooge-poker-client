@@ -201,7 +201,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       const response = await pokerInstance().get("/getAllUsers");
-      setAllUsers(response.data.allUsers);
+      setAllUsers(response.data.allUsers || []);
     })();
   }, []);
 
@@ -219,7 +219,7 @@ const Home = () => {
       setTournaments(data.tournaments)
     })
     socket.on("AllTables", data => {
-      setPokerRooms(data?.tables)
+      setPokerRooms(data?.tables || [])
     })
   }, []);
 
@@ -241,7 +241,7 @@ const Home = () => {
     (async () => {
       try {
         const response = await pokerInstance().get("/rooms");
-        setPokerRooms(response.data.rooms);
+        setPokerRooms(response.data.rooms || []);
       } catch (error) {}
     })();
   }, []);
@@ -252,7 +252,7 @@ const Home = () => {
       const { status } = response;
       if (status === 200) {
         const { tournaments } = response.data;
-        setTournaments(tournaments);
+        setTournaments(tournaments || []);
       }
     } catch (error) {}
   };
