@@ -205,7 +205,7 @@ const PokerTable = (props) => {
             let type =
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
-              tPlayer=null;
+            tPlayer = null;
             socket.emit("checkTable", {
               gameId: table,
               userId,
@@ -247,7 +247,7 @@ const PokerTable = (props) => {
       try {
         if (table) {
           console.log("RommData", roomData);
-          tPlayer=null;
+          tPlayer = null;
           socket.emit("checkTable", {
             gameId: table,
             userId: user?.data.user?.id,
@@ -439,8 +439,8 @@ const PokerTable = (props) => {
 
     socket.on("playerleft", (data) => {
       toast.success(data.msg, { id: "A" });
-      if(data.userId === userId){
-        window.location.href = window.location.origin
+      if (data.userId === userId) {
+        window.location.href = window.location.origin;
       }
     });
 
@@ -495,14 +495,14 @@ const PokerTable = (props) => {
       toast.error("Atleast 3 player required to start the game", { id: "A" });
     });
     socket.on("eliminatedPlayer", (data) => {
-      const {tournamentId,eliminated}=data
+      const { tournamentId, eliminated } = data;
       if (eliminated?.length > 0) {
         if (
           eliminated?.find(
             (el) => el?.userid?.toString() === userId?.toString()
           )
         ) {
-          history.push(`/leaderboard?tournamentId=${tournamentId}`)
+          history.push(`/leaderboard?tournamentId=${tournamentId}`);
         }
       }
     });
@@ -762,12 +762,16 @@ const PokerTable = (props) => {
 
     socket.on("roomFinished", (data) => {
       toast.success(data.msg, { id: "A" });
-      
-      if (data.roomdata.runninground === 0 && data.roomdata.handWinner.length && !data.roomdata.tournament) {
+
+      if (
+        data?.roomdata?.runninground === 0 &&
+        data.roomdata.handWinner.length &&
+        !data.roomdata.tournament
+      ) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
-      }else{
-        window.location.href = window.location.origin;
+      } else {
+        //  window.location.href = window.location.origin;
       }
     });
 
@@ -865,8 +869,8 @@ const PokerTable = (props) => {
     });
 
     socket.on("waitForReArrange", (data) => {
-      if(data.userIds.find(el => el === userId))
-      toast.success("Please wait for Re-arrange", { id: "rearrange" });
+      if (data.userIds.find((el) => el === userId))
+        toast.success("Please wait for Re-arrange", { id: "rearrange" });
     });
   }, [isAdmin]);
 
@@ -1519,7 +1523,7 @@ const PokerTable = (props) => {
       }, 1000);
       return;
     } else if (/\d/.test(sitInAmount)) {
-      tPlayer=null;
+      tPlayer = null;
       socket.emit("checkTable", {
         gameId: table,
         userId: userId,
