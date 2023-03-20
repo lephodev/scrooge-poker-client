@@ -213,6 +213,7 @@ const LeaderBoard = () => {
                   </div>
                 </>
               )}
+              {tournamentData?.isFinished ? "" :(
               <div className="btn-grid">
                 {" "}
 
@@ -234,7 +235,7 @@ const LeaderBoard = () => {
                     Join Game
                   </button>
                 )}
-              </div>
+              </div>)}
             </div>
           </div>
         </div>
