@@ -888,6 +888,11 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
   height: 38%;
 }
 
+h2.tournamentFinished,
+h4.tournamentFinished {
+  color: #00de00;
+}
+
 .GameTournament .tournamentFront-info h4 {
   display: flex;
   flex-wrap: wrap;
