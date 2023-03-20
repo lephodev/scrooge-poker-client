@@ -205,6 +205,7 @@ const PokerTable = (props) => {
             let type =
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
+              tPlayer=null;
             socket.emit("checkTable", {
               gameId: table,
               userId,
@@ -246,6 +247,7 @@ const PokerTable = (props) => {
       try {
         if (table) {
           console.log("RommData", roomData);
+          tPlayer=null;
           socket.emit("checkTable", {
             gameId: table,
             userId: user?.data.user?.id,
@@ -1517,6 +1519,7 @@ const PokerTable = (props) => {
       }, 1000);
       return;
     } else if (/\d/.test(sitInAmount)) {
+      tPlayer=null;
       socket.emit("checkTable", {
         gameId: table,
         userId: userId,
