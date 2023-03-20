@@ -4052,7 +4052,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 42px;
+    width: 36px;
   }
 
   .game-msg {
@@ -5170,12 +5170,12 @@ img.coinWinning-animation {
   .table-card {
     width: 100%;
     text-align: center;
-    max-width: 186px;
+    max-width: 200px;
     margin-top: 30px;
   }
 
   .table-card .winner-show {
-    max-width: 186px;
+    max-width: 200px;
   }
 
   .total-pot-money {
