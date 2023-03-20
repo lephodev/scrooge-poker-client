@@ -863,7 +863,8 @@ const PokerTable = (props) => {
     });
 
     socket.on("waitForReArrange", (data) => {
-      toast.sucess("Please wait for Re-arrange", { id: "rearrange" });
+      if(data.userIds.find(el => el === userId))
+      toast.success("Please wait for Re-arrange", { id: "rearrange" });
     });
   }, [isAdmin]);
 
