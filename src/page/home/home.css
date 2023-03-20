@@ -548,9 +548,11 @@ input[type='number'] {
   gap: 5px;
 }
 
+.tournamentDetails .btn-grid button:last-child,
 .tournamentCard-front .btn-grid button:last-child {
   color: #fff;
   background: #2a2929;
+  cursor: pointer;
 }
 
 .tournamentFront-info {
@@ -610,6 +612,13 @@ input[type='number'] {
   color: #f9ff00;
 }
 
+.tournamentDetails button {
+  width: 100%;
+  font-size: 14px !important;
+  height: 38px !important;
+}
+
+.tournamentDetails button,
 .tournamentCard-front button {
   background-color: #f9ff00;
   color: #000;
@@ -660,85 +669,6 @@ div#clockdiv h4 {
   }
 }
 
-@media screen and (max-width: 767px) {
-  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media screen and (max-width: 530px) {
-  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .home-poker-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media screen and (max-width: 575px) {
-  div#controlled-tab-example-tabpane-2 .tournamentCard {
-    height: 265px;
-    width: 48%;
-  }
-
-  div#controlled-tab-example-tabpane-home .tournamentCard {
-    height: 250px;
-    width: 48%;
-  }
-
-  .btn-grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .home-poker-card-grid {
-    gap: 8px;
-  }
-
-  .poker-home .nav-tabs .nav-link,
-  .poker-home .nav-tabs .nav-link {
-    border-color: #1b1b1b;
-    padding: 6px 12px;
-  }
-
-  .poker-home .nav-tabs {
-    margin-top: 0;
-    margin-bottom: 12px !important;
-  }
-
-  .poker-table-content {
-    padding: 10px !important;
-  }
-
-  .no-room-available h4 {
-    font-size: 20px;
-  }
-
-  div#controlled-tab-example-tabpane-home .tournamentCard {
-    height: 200px;
-    width: 48%;
-  }
-
-  div#controlled-tab-example-tabpane-2 .tournamentCard {
-    height: 245px;
-    width: 48%;
-  }
-
-  .create-game-box button {
-    font-size: 14px;
-  }
-
-  .poker-tableSearch {
-    max-width: 200px;
-  }
-}
 
 .tournamentCard-front button:disabled {
   opacity: 0.5;
@@ -908,7 +838,7 @@ tr.myRank {
 
 .leaderBoardPage .leaderBoardContainer {
   background: #000000c4;
-  padding: 20px 0px;
+  padding: 40px 0px;
   border-radius: 30px;
   box-shadow: 0px 2px 20px #1a1a1ae0;
 }
@@ -948,6 +878,120 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
   width: 35px;
   height: 35px;
   border-radius: 50%;
+}
+
+.tournamentCard .tournamentImg {
+  width: 100%;
+  height: 38%;
+}
+
+.GameTournament .tournamentFront-info h4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-size: 12px;
+}
+
+.tournamentFront-info span {
+  color: #f9ff00;
+}
+
+h4.tournamentRunning,
+h2.tournamentRunning {
+  color: #ff1c00;
+}
+
+h4.tournamentFinished h2.tournamentFinished {
+  color: #f9ff00;
+}
+
+@media screen and (max-width: 767px) {
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .casino-popup .modal-footer {
+    padding: 1rem 1rem;
+  }
+
+  .tournamentCard .tournamentImg {
+    width: 100%;
+    height: 26%;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-poker-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 575px) {
+  div#controlled-tab-example-tabpane-2 .tournamentCard {
+    height: 265px;
+    width: 48%;
+  }
+
+  div#controlled-tab-example-tabpane-home .tournamentCard {
+    height: 250px;
+    width: 48%;
+  }
+
+  .btn-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div#controlled-tab-example-tabpane-2 .tournamentCard-front button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .home-poker-card-grid {
+    gap: 8px;
+  }
+
+  .poker-home .nav-tabs .nav-link,
+  .poker-home .nav-tabs .nav-link {
+    border-color: #1b1b1b;
+    padding: 6px 12px;
+  }
+
+  .poker-home .nav-tabs {
+    margin-top: 0;
+    margin-bottom: 12px !important;
+  }
+
+  .poker-table-content {
+    padding: 10px !important;
+  }
+
+  .no-room-available h4 {
+    font-size: 20px;
+  }
+
+  div#controlled-tab-example-tabpane-home .tournamentCard {
+    height: 200px;
+    width: 48%;
+  }
+
+  div#controlled-tab-example-tabpane-2 .tournamentCard {
+    height: 100%;
+    width: 48%;
+  }
+
+  .create-game-box button {
+    font-size: 14px;
+  }
+
+  .poker-tableSearch {
+    max-width: 200px;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -990,14 +1034,28 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
     right: 20%;
   }
 
+  .casino-popup .modal-body {
+    padding: 1rem 1rem;
+  }
+
   .casino-logo img {
     width: 120px;
   }
 
+  .casino-popup .modal-header {
+    padding: 1rem 1rem;
+  }
+
+  .user-header {
+    margin-bottom: 30px;
+  }
+
   .blindpopupField {
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
+    gap: 10px;
+  }
+
+  .blindFields-box {
+    gap: 10px;
   }
 
   .casino-popup label {
