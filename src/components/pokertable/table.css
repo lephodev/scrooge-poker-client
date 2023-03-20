@@ -3911,8 +3911,9 @@ img.coinWinning-animation {
   }
 
   .showCardIn-fold {
-    width: 125px;
+    width: 130px;
     bottom: -40%;
+    white-space: nowrap;
   }
 
   .showCardIn-fold label.form-check-label {
@@ -3969,6 +3970,11 @@ img.coinWinning-animation {
 }
 
 @media screen and (max-width: 768px) {
+  .game-started-join:after {
+
+    font-size: 20px;
+  }
+
   input:checked+.slider:before {
     transform: translateX(115px);
   }
@@ -4052,7 +4058,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 42px;
+    width: 36px;
   }
 
   .game-msg {
@@ -4074,7 +4080,7 @@ img.coinWinning-animation {
   }
 }
 
-/************************************************************ Landscape ***********************************************************/
+/************************* Landscape ****************************/
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
   .poker-bg {
@@ -4941,7 +4947,17 @@ img.coinWinning-animation {
     min-width: 9rem;
     margin-top: 10px !important;
   }
-
+  .table-blindTimer h4 {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    gap: 5px;
+    margin-bottom: 0px;
+    width: 150px;
+    align-items: center;
+    bottom: -40%;
+}
   .show-card {
     /* top: 14px; */
     top: 22px;
@@ -4997,10 +5013,9 @@ img.coinWinning-animation {
 
   .table-blindTimer {
     position: absolute;
-    right: -5%;
-    bottom: 90%;
-  }
-
+    right: 6%;
+    bottom: 87%;
+}
   .player-with-icons {
     max-width: 150px;
   }
@@ -5170,12 +5185,12 @@ img.coinWinning-animation {
   .table-card {
     width: 100%;
     text-align: center;
-    max-width: 186px;
+    max-width: 200px;
     margin-top: 30px;
   }
 
   .table-card .winner-show {
-    max-width: 186px;
+    max-width: 200px;
   }
 
   .total-pot-money {
@@ -5922,6 +5937,16 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
+  .backToHome button {
+    background: #f9ff00;
+    width: 44px;
+    height: 44px;
+    color: black;
+    border: 1px solid #f9ff00;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
+  }
+
   .addRectAnimate {
     -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
     animation: rectGrow 1.5s 0.5s forwards ease-out !important;
@@ -6053,6 +6078,7 @@ img.coinWinning-animation {
   background: #f9ff00;
   width: 44px;
   height: 44px;
+  color: black;
   border: 1px solid #f9ff00;
   border-radius: 50%;
   box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
