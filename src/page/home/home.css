@@ -704,11 +704,13 @@ div#clockdiv h4 {
 .table-dark th,
 .table-dark thead th {
   border-color: #00000000 !important;
+  vertical-align: middle;
 }
 
 th {
   color: #f9ff00;
   font-weight: 500;
+  vertical-align: middle;
 }
 
 tr.myRank:hover,
@@ -800,6 +802,7 @@ tr.myRank {
 .tournamentDetails span {
   color: #f9ff00;
   margin-left: 4px;
+  word-break: break-word;
 }
 
 .tournamentTime h4 {
