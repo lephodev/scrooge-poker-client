@@ -3969,6 +3969,11 @@ img.coinWinning-animation {
 }
 
 @media screen and (max-width: 768px) {
+  .game-started-join:after {
+
+    font-size: 20px;
+  }
+
   input:checked+.slider:before {
     transform: translateX(115px);
   }
@@ -4052,7 +4057,7 @@ img.coinWinning-animation {
   }
 
   .table-card .winner-card {
-    width: 42px;
+    width: 36px;
   }
 
   .game-msg {
@@ -5170,12 +5175,12 @@ img.coinWinning-animation {
   .table-card {
     width: 100%;
     text-align: center;
-    max-width: 186px;
+    max-width: 200px;
     margin-top: 30px;
   }
 
   .table-card .winner-show {
-    max-width: 186px;
+    max-width: 200px;
   }
 
   .total-pot-money {
@@ -5922,6 +5927,16 @@ img.coinWinning-animation {
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
+  .backToHome button {
+    background: #f9ff00;
+    width: 44px;
+    height: 44px;
+    color: black;
+    border: 1px solid #f9ff00;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
+  }
+
   .addRectAnimate {
     -webkit-animation: rectGrow 1.5s 0.5s forwards ease-out !important;
     animation: rectGrow 1.5s 0.5s forwards ease-out !important;
@@ -6053,6 +6068,7 @@ img.coinWinning-animation {
   background: #f9ff00;
   width: 44px;
   height: 44px;
+  color: black;
   border: 1px solid #f9ff00;
   border-radius: 50%;
   box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
