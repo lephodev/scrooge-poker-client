@@ -61,7 +61,7 @@ const EnterAmountPopup = ({
               onChange={handleAmountChange}
               placeholder="minimum amount: 100"
             />
-            {error && <p className="errorMssg">{error}</p>}
+            {error && <p className="errorMessage">{error}</p>}
           </Form.Group>
 
           <div className="sub-btn text-center">

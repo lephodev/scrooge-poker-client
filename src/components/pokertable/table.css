@@ -133,11 +133,10 @@ input:checked {
 
 .table-blindLevel {
   position: absolute;
-  top: 17%;
-  left: 50%;
+  top: 46%;
+  left: 32%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(4px);
-  background: #1c1c29;
+  background: transparent;
   padding: 10px;
   border-radius: 10px;
   display: flex;
@@ -155,17 +154,16 @@ input:checked {
 }
 
 .table-blindLevel span {
-  color: #f9ff00;
+  color: #ddd;
   white-space: nowrap;
 }
 
 .table-blindTimer {
   position: absolute;
-  right: 2%;
-  bottom: 4%;
+  right: 18%;
+  bottom: 50%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(4px);
-  background: #1c1c29;
+  background: transparent;
   padding: 10px;
   border-radius: 10px;
   display: flex;
@@ -183,7 +181,7 @@ input:checked {
 }
 
 .table-blindTimer span {
-  color: #f9ff00;
+  color: #ddd;
   white-space: nowrap;
 }
 
@@ -3659,6 +3657,18 @@ img.coinWinning-animation {
     font-weight: 500;
   }
 
+  .table-blindLevel {
+    position: absolute;
+    top: 44%;
+    left: 30%;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 6%;
+    bottom: 50%;
+  }
+
   img.coinWinning-animation {
     position: absolute;
     width: 140px;
@@ -3799,7 +3809,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    top: 65px;
+    top: 35px;
   }
 
   .game-msg {
@@ -3952,13 +3962,14 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 36%;
+    top: 49%;
+    left: 25%;
   }
 
   .table-blindTimer {
     position: absolute;
-    right: -6%;
-    bottom: 8%;
+    right: -4%;
+    bottom: 48%;
   }
 
   .player-pic .progress {
@@ -3971,7 +3982,6 @@ img.coinWinning-animation {
 
 @media screen and (max-width: 768px) {
   .game-started-join:after {
-
     font-size: 20px;
   }
 
@@ -4102,7 +4112,8 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 12%;
+    top: 46%;
+    left: 36%;
   }
 
   .table-blindLevel h4 {
@@ -4111,8 +4122,8 @@ img.coinWinning-animation {
 
   .table-blindTimer {
     position: absolute;
-    right: -6%;
-    bottom: 86%;
+    right: 14%;
+    bottom: 46%;
   }
 
   .table-blindTimer h4 {
@@ -4951,11 +4962,11 @@ img.coinWinning-animation {
   .table-blindTimer h4 {
     font-size: 14px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     grid-gap: 5px;
     gap: 5px;
     margin-bottom: 0px;
-    width: 150px;
+    width: 100%;
     align-items: center;
     bottom: -40%;
   }
@@ -5010,13 +5021,14 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 12%;
+    top: 28%;
+    left: 50%;
   }
 
   .table-blindTimer {
     position: absolute;
-    right: 6%;
-    bottom: 87%;
+    right: 7%;
+    bottom: 30%;
   }
 
   .player-with-icons {
@@ -5197,7 +5209,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    top: 134px;
+    top: 166px;
     left: 36%;
   }
 
@@ -5588,7 +5600,7 @@ img.coinWinning-animation {
   @keyframes mergeP5 {
     from {
       left: 85%;
-    top: 118%;
+      top: 118%;
       opacity: 1;
     }
 
@@ -5855,6 +5867,22 @@ img.coinWinning-animation {
     scale: 0.75;
   }
 
+  .total-pot-money {
+    top: 135px;
+    left: 36%;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 5%;
+    bottom: 27%;
+  }
+
+  .table-blindLevel {
+    position: absolute;
+    top: 20%;
+  }
+
   .poker-table-bg {
     height: 84vh;
   }
@@ -5895,6 +5923,12 @@ img.coinWinning-animation {
   .players .player-pic {
     height: 98px;
     width: 98px;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 6%;
+    bottom: 46%;
   }
 
   .table-card {
