@@ -3833,6 +3833,7 @@ img.coinWinning-animation {
   .game-msg p {
     text-shadow: none !important;
     font-size: 12px !important;
+    padding: 6px 15px !important;
   }
 
   .player-chip span::before {
@@ -4299,7 +4300,7 @@ img.coinWinning-animation {
   }
 
   .table-card {
-    margin-top: -64px;
+    margin-top: -58px;
   }
 
   .total-pot-money span {
@@ -4325,7 +4326,7 @@ img.coinWinning-animation {
 
   .game-msg {
     /* top: 115px; */
-    top: 15%;
+    top: 0%;
     text-align: center;
     z-index: 999999;
   }
@@ -4370,6 +4371,10 @@ img.coinWinning-animation {
     width: 34px;
     height: 56px;
     margin: 0px 2px;
+  }
+
+  .table-card .winner-card {
+    width: 35px;
   }
 
   .player-info {
