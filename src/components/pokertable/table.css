@@ -3985,7 +3985,17 @@ img.coinWinning-animation {
 @media screen and (max-width: 768px) {
   .game-started-join:after {
     font-size: 20px;
+    max-width: 280px;
   }
+
+  .stats-heading h6 {
+    font-size: 20px;
+  }
+
+  .stats-details h5 {
+    font-size: 18px;
+  }
+
 
   input:checked+.slider:before {
     transform: translateX(115px);
@@ -4097,6 +4107,23 @@ img.coinWinning-animation {
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
   .poker-bg {
     height: 100vh;
+  }
+
+  .chat-content h6 {
+    font-size: 16px;
+  }
+
+  .game-started-join:after {
+    font-size: 20px;
+    max-width: 280px;
+  }
+
+  .stats-heading h6 {
+    font-size: 20px;
+  }
+
+  .stats-details h5 {
+    font-size: 18px;
   }
 
   .total-pot-money span {
@@ -4976,6 +5003,23 @@ img.coinWinning-animation {
   .player-with-icons .cam-tool .dropdown-menu {
     min-width: 9rem;
     margin-top: 10px !important;
+  }
+
+  .game-started-join:after {
+    font-size: 20px;
+    max-width: 280px;
+  }
+
+  .stats-heading h6 {
+    font-size: 20px;
+  }
+
+  .stats-details h5 {
+    font-size: 18px;
+  }
+
+  .chat-content h6 {
+    font-size: 16px;
   }
 
   .table-blindTimer h4 {
