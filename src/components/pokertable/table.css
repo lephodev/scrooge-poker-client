@@ -2056,7 +2056,6 @@ p.joined-player {
   bottom: 5px;
   border-width: 10px 30px 10px 0;
   border-color: transparent #343a40;
-  box-shadow: 0px 3px 10px #2a2d31;
 }
 
 .bubble-msg {
@@ -5820,11 +5819,7 @@ img.coinWinning-animation {
     width: 100%;
   }
 
-  .player1 .player-action,
-  .player2 .player-action,
-  .player3 .player-action,
-  .player8 .player-action,
-  .player9 .player-action {
+  .player1 .player-action {
     font-size: 22px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -5857,6 +5852,239 @@ img.coinWinning-animation {
     }
 
     100% {
+      opacity: 0;
+    }
+  }
+
+  .player2 .player-action {
+    animation: p2a 1.5s 0.005s;
+    left: 130%;
+    bottom: 80%;
+  }
+
+  @keyframes p2a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 80%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player3 .player-action {
+    animation: p3a 1.5s 0.005s;
+    left: 130%;
+    bottom: 18%;
+  }
+
+  @keyframes p3a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 18%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player4 .player-action {
+    animation: p4a 1.5s 0.005s;
+    left: 130%;
+    bottom: 22%;
+  }
+
+  @keyframes p4a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 22%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player5 .player-action {
+    animation: p5a 1.5s 0.005s;
+    left: 130%;
+    bottom: -42%;
+  }
+
+  @keyframes p5a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: -42%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      left: 130%;
+      bottom: -42%;
+      opacity: 0;
+    }
+  }
+
+  .player6 .player-action {
+    animation: p6a 1.5s 0.005s;
+    left: -28%;
+    bottom: -42%;
+  }
+
+  @keyframes p6a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: -42%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player7 .player-action {
+    animation: p7a 1.5s 0.005s;
+    left: -28%;
+    bottom: 24%;
+  }
+
+  @keyframes p7a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 24%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player8 .player-action {
+    animation: p8a 1.5s 0.005s;
+    left: -28%;
+    bottom: 18%;
+  }
+
+  @keyframes p8a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 18%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player9 .player-action {
+    animation: p9a 1.5s 0.005s;
+    left: -28%;
+    bottom: 84%;
+  }
+
+  @keyframes p9a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 84%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
       opacity: 0;
     }
   }
