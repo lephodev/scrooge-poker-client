@@ -1108,7 +1108,7 @@ const PokerTable = (props) => {
         setTimeout(() => {
           console.log("set winner for one executed");
           setWinner(false);
-        }, 2500);
+        }, 4000);
       } else if (i > 0) {
         setTimeout(() => {
           let type = players.find((el) => el.id === item.id);
@@ -1130,7 +1130,7 @@ const PokerTable = (props) => {
           }
           setTimeout(() => {
             setWinner(false);
-          }, 2500);
+          }, 4000);
         }, 3000);
       }
     });
@@ -1745,7 +1745,7 @@ const PokerTable = (props) => {
                 {roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
                   !newUser &&
-                  !roomData.tournament && (
+                  !roomData.tournament && !roomData?.autoNextHand && (
                     <div className="start-game">
                       <div className="start-game-btn">
                         {console.log(
@@ -1801,7 +1801,7 @@ const PokerTable = (props) => {
                           roomData?.runninground === 0 &&
                           !roomData?.gamestart &&
                           !isAdmin &&
-                          !roomData?.tournament && (
+                          !roomData?.tournament && !roomData?.autoNextHand &&  (
                             <>
                               <p>Please wait for the Admin to Start the game</p>
                             </>
