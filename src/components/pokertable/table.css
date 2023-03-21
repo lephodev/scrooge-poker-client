@@ -2030,7 +2030,7 @@ p.joined-player {
 .triangle-isosceles {
   position: relative;
   padding: 12px;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 12px;
   color: #ececec;
   border-radius: 10px;
