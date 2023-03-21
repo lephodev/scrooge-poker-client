@@ -1693,14 +1693,14 @@ const PokerTable = (props) => {
             ""
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindLevel">
+          
+            { roomData?.smallBlind ? <div className="table-blindLevel">
               <h4>
                 SB/BB :{" "}
                 <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
               </h4>
-            </div>
-          )}
+            </div> : ""}
+
 
           {roomData?.gameType === "poker-tournament" &&
             roomData?.isGameRunning && (
@@ -1745,7 +1745,7 @@ const PokerTable = (props) => {
                 {roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
                   !newUser &&
-                  !roomData.tournament && !roomData?.autoNextHand && (
+                  !roomData.tournament && (
                     <div className="start-game">
                       <div className="start-game-btn">
                         {console.log(
@@ -1801,7 +1801,7 @@ const PokerTable = (props) => {
                           roomData?.runninground === 0 &&
                           !roomData?.gamestart &&
                           !isAdmin &&
-                          !roomData?.tournament && !roomData?.autoNextHand &&  (
+                          !roomData?.tournament &&  (
                             <>
                               <p>Please wait for the Admin to Start the game</p>
                             </>
