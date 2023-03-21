@@ -835,8 +835,11 @@ tr.myRank {
   margin: 0px auto;
   display: block;
   width: 80%;
-  overflow-x: auto;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
+  max-height: 500px;
+  height: 100%;
+  margin-bottom: 20px;
 }
 
 .leaderBoardPage .leaderBoardContainer {
