@@ -1108,7 +1108,7 @@ const PokerTable = (props) => {
         setTimeout(() => {
           console.log("set winner for one executed");
           setWinner(false);
-        }, 2500);
+        }, 4000);
       } else if (i > 0) {
         setTimeout(() => {
           let type = players.find((el) => el.id === item.id);
@@ -1130,7 +1130,7 @@ const PokerTable = (props) => {
           }
           setTimeout(() => {
             setWinner(false);
-          }, 2500);
+          }, 4000);
         }, 3000);
       }
     });
@@ -1693,14 +1693,14 @@ const PokerTable = (props) => {
             ""
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindLevel">
+          
+            { roomData?.smallBlind ? <div className="table-blindLevel">
               <h4>
                 SB/BB :{" "}
                 <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
               </h4>
-            </div>
-          )}
+            </div> : ""}
+
 
           {roomData?.gameType === "poker-tournament" &&
             roomData?.isGameRunning && (
@@ -1801,7 +1801,7 @@ const PokerTable = (props) => {
                           roomData?.runninground === 0 &&
                           !roomData?.gamestart &&
                           !isAdmin &&
-                          !roomData?.tournament && (
+                          !roomData?.tournament &&  (
                             <>
                               <p>Please wait for the Admin to Start the game</p>
                             </>
