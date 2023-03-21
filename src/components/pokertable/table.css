@@ -133,11 +133,10 @@ input:checked {
 
 .table-blindLevel {
   position: absolute;
-  top: 17%;
-  left: 50%;
+  top: 46%;
+  left: 32%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(4px);
-  background: #1c1c29;
+  background: transparent;
   padding: 10px;
   border-radius: 10px;
   display: flex;
@@ -155,17 +154,16 @@ input:checked {
 }
 
 .table-blindLevel span {
-  color: #f9ff00;
+  color: #ddd;
   white-space: nowrap;
 }
 
 .table-blindTimer {
   position: absolute;
-  right: 2%;
-  bottom: 4%;
+  right: 18%;
+  bottom: 50%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(4px);
-  background: #1c1c29;
+  background: transparent;
   padding: 10px;
   border-radius: 10px;
   display: flex;
@@ -183,7 +181,7 @@ input:checked {
 }
 
 .table-blindTimer span {
-  color: #f9ff00;
+  color: #ddd;
   white-space: nowrap;
 }
 
@@ -2058,7 +2056,6 @@ p.joined-player {
   bottom: 5px;
   border-width: 10px 30px 10px 0;
   border-color: transparent #343a40;
-  box-shadow: 0px 3px 10px #2a2d31;
 }
 
 .bubble-msg {
@@ -3659,6 +3656,18 @@ img.coinWinning-animation {
     font-weight: 500;
   }
 
+  .table-blindLevel {
+    position: absolute;
+    top: 44%;
+    left: 30%;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 6%;
+    bottom: 50%;
+  }
+
   img.coinWinning-animation {
     position: absolute;
     width: 140px;
@@ -3799,7 +3808,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    top: 65px;
+    top: 35px;
   }
 
   .game-msg {
@@ -3911,8 +3920,9 @@ img.coinWinning-animation {
   }
 
   .showCardIn-fold {
-    width: 125px;
+    width: 130px;
     bottom: -40%;
+    white-space: nowrap;
   }
 
   .showCardIn-fold label.form-check-label {
@@ -3951,13 +3961,14 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 36%;
+    top: 49%;
+    left: 25%;
   }
 
   .table-blindTimer {
     position: absolute;
-    right: -6%;
-    bottom: 8%;
+    right: -4%;
+    bottom: 48%;
   }
 
   .player-pic .progress {
@@ -3970,7 +3981,6 @@ img.coinWinning-animation {
 
 @media screen and (max-width: 768px) {
   .game-started-join:after {
-
     font-size: 20px;
   }
 
@@ -4079,7 +4089,7 @@ img.coinWinning-animation {
   }
 }
 
-/************************************************************ Landscape ***********************************************************/
+/************************* Landscape ****************************/
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
   .poker-bg {
@@ -4101,7 +4111,8 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 12%;
+    top: 46%;
+    left: 36%;
   }
 
   .table-blindLevel h4 {
@@ -4110,8 +4121,8 @@ img.coinWinning-animation {
 
   .table-blindTimer {
     position: absolute;
-    right: -6%;
-    bottom: 86%;
+    right: 14%;
+    bottom: 46%;
   }
 
   .table-blindTimer h4 {
@@ -4947,6 +4958,18 @@ img.coinWinning-animation {
     margin-top: 10px !important;
   }
 
+  .table-blindTimer h4 {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 5px;
+    gap: 5px;
+    margin-bottom: 0px;
+    width: 100%;
+    align-items: center;
+    bottom: -40%;
+  }
+
   .show-card {
     /* top: 14px; */
     top: 22px;
@@ -4997,13 +5020,14 @@ img.coinWinning-animation {
 
   .table-blindLevel {
     position: absolute;
-    top: 12%;
+    top: 28%;
+    left: 50%;
   }
 
   .table-blindTimer {
     position: absolute;
-    right: -5%;
-    bottom: 90%;
+    right: 7%;
+    bottom: 30%;
   }
 
   .player-with-icons {
@@ -5184,7 +5208,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money {
-    top: 165px;
+    top: 166px;
     left: 36%;
   }
 
@@ -5467,9 +5491,9 @@ img.coinWinning-animation {
   }
 
   .players.player3 .player-chip {
+    top: 86%;
+    left: 84%;
     right: inherit;
-    top: -10%;
-    left: inherit;
     animation: slideLeft3 0.4s;
   }
 
@@ -5479,8 +5503,9 @@ img.coinWinning-animation {
 
   @keyframes mergeP3 {
     from {
-      top: -10%;
-      left: inherit;
+      top: 86%;
+      left: 84%;
+      right: inherit;
       opacity: 1;
     }
 
@@ -5493,12 +5518,14 @@ img.coinWinning-animation {
 
   @keyframes slideLeft3 {
     from {
-      top: 75%;
+      top: 100%;
+      left: -3%;
       right: inherit;
     }
 
     to {
-      top: -10%;
+      top: 86%;
+      left: 84%;
       right: inherit;
     }
   }
@@ -5506,8 +5533,8 @@ img.coinWinning-animation {
   .players.player4 .player-chip {
     bottom: inherit;
     right: inherit;
-    left: inherit;
-    top: -10%;
+    left: 84%;
+    top: 82%;
     animation: slideLeft4 0.4s;
   }
 
@@ -5517,8 +5544,8 @@ img.coinWinning-animation {
 
   @keyframes mergeP4 {
     from {
-      top: -10%;
-      left: inherit;
+      left: 84%;
+      top: 82%;
       opacity: 1;
     }
 
@@ -5531,13 +5558,15 @@ img.coinWinning-animation {
 
   @keyframes slideLeft4 {
     from {
-      top: 75%;
+      left: 2%;
+      top: 98%;
       bottom: inherit;
       right: inherit;
     }
 
     to {
-      top: -10%;
+      left: 84%;
+      top: 82%;
       bottom: inherit;
       right: inherit;
     }
@@ -5545,19 +5574,32 @@ img.coinWinning-animation {
 
   .players.player5 .player-chip {
     bottom: inherit;
-    left: inherit;
-    top: -5%;
+    left: 85%;
+    top: 118%;
     transform: translateY(-25%);
+    animation: travelDown 0.4s;
   }
 
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
 
+  @keyframes travelDown {
+    0% {
+      left: 0%;
+      top: 103%;
+    }
+
+    100% {
+      left: 85%;
+      top: 118%;
+    }
+  }
+
   @keyframes mergeP5 {
     from {
-      top: -5%;
-      left: inherit;
+      left: 85%;
+      top: 118%;
       opacity: 1;
     }
 
@@ -5587,18 +5629,32 @@ img.coinWinning-animation {
   .players.player6 .player-chip {
     bottom: inherit;
     left: inherit;
-    right: inherit;
-    top: -5%;
+    right: 85%;
+    top: 118%;
     transform: translateY(-25%);
+    animation: p6right 0.4s;
   }
 
   .animateMerge-chips.players.player6 .player-chip {
     animation: mergeP7 0.4s;
   }
 
+  @keyframes p6right {
+    from {
+      right: 0%;
+      top: 103%;
+    }
+
+    to {
+      right: 85%;
+      top: 118%;
+    }
+  }
+
   @keyframes mergeP7 {
     from {
-      top: -5%;
+      right: 85%;
+      top: 118%;
       left: inherit;
       opacity: 1;
     }
@@ -5611,10 +5667,10 @@ img.coinWinning-animation {
   }
 
   .players.player7 .player-chip {
-    top: -5%;
+    top: 86%;
+    right: 84%;
     bottom: inherit;
     left: inherit;
-    right: inherit;
     animation: slideRight8 0.4s;
   }
 
@@ -5624,8 +5680,8 @@ img.coinWinning-animation {
 
   @keyframes mergeP8 {
     from {
-      top: -5%;
-      left: inherit;
+      top: 86%;
+      right: 84%;
       opacity: 1;
     }
 
@@ -5638,33 +5694,45 @@ img.coinWinning-animation {
 
   @keyframes slideRight8 {
     from {
-      bottom: inherit;
-      left: inherit;
-      top: 75%;
+      top: 104%;
+      right: 0%;
     }
 
     to {
-      bottom: inherit;
-      left: inherit;
-      top: -5%;
+      top: 86%;
+      right: 84%;
     }
   }
 
   .players.player8 .player-chip {
     left: inherit;
-    top: -10%;
-    right: inherit;
-    animation: slideLeft3 0.4s;
+    top: 86%;
+    right: 84%;
+    animation: slideLeft8 0.4s;
   }
 
   .animateMerge-chips.players.player8 .player-chip {
     animation: mergeP9 0.4s;
   }
 
+  @keyframes slideLeft8 {
+    from {
+      top: 97%;
+      right: 0%;
+
+    }
+
+    to {
+      top: 86%;
+      right: 84%;
+    }
+  }
+
+
   @keyframes mergeP9 {
     from {
-      top: -12%;
-      left: inherit;
+      top: 86%;
+      right: 84%;
       opacity: 1;
     }
 
@@ -5676,17 +5744,17 @@ img.coinWinning-animation {
   }
 
   .players.player2 .player-chip {
-    top: -10%;
+    top: 12%;
+    left: 80%;
     transform: inherit;
     animation: travelUp 0.4s;
   }
 
   .players.player9 .player-chip {
-    /* top: -80px; */
     left: inherit;
-    top: -10%;
+    top: 12%;
+    right: 76%;
     transform: inherit;
-    right: inherit;
     animation: travelUp 0.4s;
   }
 
@@ -5696,8 +5764,8 @@ img.coinWinning-animation {
 
   @keyframes mergeP10 {
     from {
-      top: -12%;
-      left: inherit;
+      top: 12%;
+      right: 76%;
       opacity: 1;
     }
 
@@ -5710,12 +5778,14 @@ img.coinWinning-animation {
 
   @keyframes travelUp {
     from {
-      top: 85%;
+      top: 98%;
+      right: 0%;
       transform: inherit;
     }
 
     to {
-      top: -10%;
+      top: 12%;
+      right: 76%;
       transform: inherit;
     }
   }
@@ -5749,11 +5819,7 @@ img.coinWinning-animation {
     width: 100%;
   }
 
-  .player1 .player-action,
-  .player2 .player-action,
-  .player3 .player-action,
-  .player8 .player-action,
-  .player9 .player-action {
+  .player1 .player-action {
     font-size: 22px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -5789,11 +5855,260 @@ img.coinWinning-animation {
       opacity: 0;
     }
   }
+
+  .player2 .player-action {
+    animation: p2a 1.5s 0.005s;
+    left: 130%;
+    bottom: 80%;
+  }
+
+  @keyframes p2a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 80%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player3 .player-action {
+    animation: p3a 1.5s 0.005s;
+    left: 130%;
+    bottom: 18%;
+  }
+
+  @keyframes p3a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 18%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player4 .player-action {
+    animation: p4a 1.5s 0.005s;
+    left: 130%;
+    bottom: 22%;
+  }
+
+  @keyframes p4a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: 22%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player5 .player-action {
+    animation: p5a 1.5s 0.005s;
+    left: 130%;
+    bottom: -42%;
+  }
+
+  @keyframes p5a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: 130%;
+      bottom: -42%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+      left: 130%;
+      bottom: -42%;
+      opacity: 0;
+    }
+  }
+
+  .player6 .player-action {
+    animation: p6a 1.5s 0.005s;
+    left: -28%;
+    bottom: -42%;
+  }
+
+  @keyframes p6a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: -42%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player7 .player-action {
+    animation: p7a 1.5s 0.005s;
+    left: -28%;
+    bottom: 24%;
+  }
+
+  @keyframes p7a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 24%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player8 .player-action {
+    animation: p8a 1.5s 0.005s;
+    left: -28%;
+    bottom: 18%;
+  }
+
+  @keyframes p8a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 18%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
+
+  .player9 .player-action {
+    animation: p9a 1.5s 0.005s;
+    left: -28%;
+    bottom: 84%;
+  }
+
+  @keyframes p9a {
+    0% {
+      position: absolute;
+      bottom: 50%;
+      left: 80%;
+      opacity: 0;
+      font-size: 5px;
+    }
+
+    75% {
+      position: absolute;
+      left: -28%;
+      bottom: 84%;
+      opacity: 1;
+      font-size: 18px;
+    }
+
+    100% {
+
+      opacity: 0;
+    }
+  }
 }
 
 @media only screen and (max-width: 385px) and (orientation: portrait) {
   .players {
     scale: 0.75;
+  }
+
+  .total-pot-money {
+    top: 135px;
+    left: 36%;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 5%;
+    bottom: 27%;
+  }
+
+  .table-blindLevel {
+    position: absolute;
+    top: 20%;
   }
 
   .poker-table-bg {
@@ -5836,6 +6151,12 @@ img.coinWinning-animation {
   .players .player-pic {
     height: 98px;
     width: 98px;
+  }
+
+  .table-blindTimer {
+    position: absolute;
+    right: 6%;
+    bottom: 46%;
   }
 
   .table-card {

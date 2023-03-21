@@ -30,10 +30,10 @@ const AlreadyInGamePopup = ({ userInAnyGame, setUserInAnyGame }) => {
           <p>You are already in a game!</p>
           <div className="sub-btn text-center d-flex justify-content-center">
             <Button
+                className="grey-btn"
               onClick={() =>
                 leaveTable()
               }
-
             >
               Leave
             </Button>
