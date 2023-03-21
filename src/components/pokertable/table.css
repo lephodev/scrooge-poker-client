@@ -151,10 +151,11 @@ input:checked {
   white-space: nowrap;
   gap: 5px;
   margin-bottom: 0px;
+  color: #ffffff73;
 }
 
 .table-blindLevel span {
-  color: #ddd;
+  color: #ffffff73;
   white-space: nowrap;
 }
 
@@ -178,10 +179,11 @@ input:checked {
   white-space: nowrap;
   gap: 5px;
   margin-bottom: 0px;
+  color: #ffffff73;
 }
 
 .table-blindTimer span {
-  color: #ddd;
+  color: #ffffff73;
   white-space: nowrap;
 }
 
