@@ -218,6 +218,10 @@ const Home = () => {
     socket.on("tournamentCreated", data => {
       setTournaments(data.tournaments)
     })
+
+    socket.on("NoTournamentFound", (data) => {
+      toast.error("No tournament found", { id: 'no-tournament'});
+    })
     socket.on("AllTables", data => {
       setPokerRooms(data?.tables || [])
     })
@@ -660,6 +664,14 @@ const GameTable = ({
         toast.error(message, { id: "full" });
       }
     });
+
+    socket.on("tournamentAlreadyFinished", (data) => {
+      toast.error("Tournament has been finished.", { id: "tournament-finished" });
+    });
+
+    socket.on("tournamentAlreadyStarted", (data) => {
+      toast.error(data.message, { id: "tournamentStarted" });
+    });
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
@@ -734,12 +746,6 @@ const GameTable = ({
       }
     }, 1000);
   };
-
-  useEffect(() => {
-    socket.on("tournamentAlreadyStarted", (data) => {
-      toast.error(data.message, { id: "tournamentStarted" });
-    });
-  });
 
   const wrapperRef = useRef();
 
@@ -909,6 +915,10 @@ const GameTournament = ({
         toast.error(message, { id: "full" });
       }
     });
+
+    socket.on("tournamentSlotFull", (data) => {
+      toast.error('Tournament slot is full', { id: 'slot-full'});
+    })
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {
