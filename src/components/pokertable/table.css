@@ -2030,7 +2030,7 @@ p.joined-player {
 .triangle-isosceles {
   position: relative;
   padding: 12px;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 12px;
   color: #ececec;
   border-radius: 10px;
@@ -4500,8 +4500,21 @@ img.coinWinning-animation {
   }
 
   .players.player1 .player-chip {
-    /* top: -78px; */
-    top: -2%;
+    top: 12%;
+    left: 72%;
+    animation: p1chip 0.4s;
+  }
+
+  @keyframes p1chip {
+    0% {
+      top: 104%;
+      left: 0%;
+    }
+
+    100% {
+      top: 12%;
+      left: 72%;
+    }
   }
 
   .player1 {
