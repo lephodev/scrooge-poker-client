@@ -835,8 +835,11 @@ tr.myRank {
   margin: 0px auto;
   display: block;
   width: 80%;
-  overflow-x: auto;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
+  max-height: 500px;
+  height: 100%;
+  margin-bottom: 20px;
 }
 
 .leaderBoardPage .leaderBoardContainer {
@@ -875,6 +878,16 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
   align-items: center;
   gap: 20px;
   justify-content: center;
+}
+
+.leaderboard-table .rankingUsers p {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .leaderboard-table td img {
