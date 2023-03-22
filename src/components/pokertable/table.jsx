@@ -537,12 +537,13 @@ const PokerTable = (props) => {
     socket.on("flopround", (data) => {
       setMergeAnimationState(true);
       roomData = data;
-      setTablePot(roomData.pot);
+
       setCommunityCards(data?.communityCard);
-      updatePlayer(data.flopround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.flopround);
       }, 400);
     });
 
@@ -550,11 +551,11 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.turnround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.turnround);
       }, 400);
     });
 
@@ -562,11 +563,12 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.riverround);
+
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.riverround);
       }, 400);
     });
 
@@ -1854,7 +1856,7 @@ const PokerTable = (props) => {
                       </div>
                     </div>
                   )}
-                {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
+                {tablePot ? <TablePotMoney tablePot={tablePot} winner={winner} players={players} /> : ""}
                 {winner ? <GameMessage winnerText={winnerText} /> : null}
 
                 <TableCard
@@ -1864,7 +1866,6 @@ const PokerTable = (props) => {
                   roomData={roomData}
                   blindTimer={blindTimer}
                 />
-
                 {!isWatcher &&
                   roomData &&
                   userId &&
@@ -2117,7 +2118,6 @@ const PokerTable = (props) => {
       </audio>
       <StatsPopup
         modalShow={modalShow}
-        setModalShow={setModalShow}
         handWinner={handWinner}
       />
       <LeaveConfirmPopup
@@ -2166,7 +2166,6 @@ const Players = ({
   remainingTime,
   mergeAnimationState,
 }) => {
-  // console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
@@ -2309,7 +2308,6 @@ const Players = ({
           <HideCard />
         )}
 
-        {/* end of win or lose animation */}
         {currentPlayer &&
           playerData &&
           currentPlayer.id === playerData.id &&
@@ -2436,9 +2434,16 @@ const TableCard = ({
   );
 };
 
-const TablePotMoney = ({ tablePot }) => {
+const TablePotMoney = ({ tablePot, winner, players }) => {
+  let playerWinn;
+  players.forEach((player) => {
+    if (player?.id === winner?.id) {
+
+      playerWinn = player?.availablePosition + 1
+    }
+  })
   return (
-    <div className="total-pot-money animate__animated animate__fadeIn">
+    <div className={`total-pot-money animate__animated animate__fadeIn  winnPlayer${playerWinn}`}>
       <span>
         <p>{numFormatter(tablePot && tablePot)}</p>
       </span>
@@ -2489,17 +2494,17 @@ const FooterButton = ({
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
-                  <Button onClick={() => foldAction()} disabled={remainingTime <= 1}> Fold</Button>
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
                 </div>
               )}
               {openAction.check && (
                 <div className="footer-btn ">
-                  <Button onClick={() => checkAction()} disabled={remainingTime <= 1}>Check</Button>
+                  <Button onClick={() => checkAction()} disabled={remainingTime <= 0}>Check</Button>
                 </div>
               )}
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()} disabled={remainingTime <= 1}>
+                  <Button onClick={() => callAction()} disabled={remainingTime <= 0}>
                     Call{" "}
                     <span
                       className={
@@ -2532,7 +2537,7 @@ const FooterButton = ({
                       setBet(false);
                       setRaise(true);
                     }}
-                    disabled={remainingTime <= 1}
+                    disabled={remainingTime <= 0}
                   >
                     Raise
                   </Button>
@@ -2557,7 +2562,7 @@ const FooterButton = ({
                       setBet(true);
                       setRaise(false);
                     }}
-                    disabled={remainingTime <= 1}
+                    disabled={remainingTime <= 0}
                   >
                     Bet
                   </Button>
@@ -2565,7 +2570,7 @@ const FooterButton = ({
               )}
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
-                  <Button onClick={() => allinAction()} disabled={remainingTime <= 1}>
+                  <Button onClick={() => allinAction()} disabled={remainingTime <= 0}>
                     All In
                   </Button>
                 </div>

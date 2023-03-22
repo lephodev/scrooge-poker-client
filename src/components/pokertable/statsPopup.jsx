@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 // import close from '../../assets/close.png';
 
-const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
+const StatsPopup = ({ modalShow, handWinner }) => {
 
   return (
     <>
@@ -10,9 +10,6 @@ const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
         size='lg'
         aria-labelledby='contained-modal-title-vcenter'
         show={modalShow}
-        onHide={() => {
-          setModalShow(false);
-        }}
         centered
         className='stats-popup'>
         <Modal.Body>
