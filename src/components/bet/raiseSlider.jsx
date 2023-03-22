@@ -24,10 +24,6 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
   const minBetValue = numFormatter(roomData?.raiseAmount);
 
   return (
-    
-    // Bet slider for custom bets needed
-
-    // Quick Bet options in relation to pot size (33%/50%/75%/all in) as well as the blind multiple bets
 
     <div className="raise-inputRange">
       <Form className="customBet-amount">
@@ -60,8 +56,9 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
         {currentPlayer && (
           <Button
             variant="primary"
-            onClick={() => SliderAction(parseInt(rangeBetValue))}
+            onClick={(e) => SliderAction(e,parseInt(rangeBetValue))}
             disabled={rangeBetValue <= 0}
+            type="submit"
           >
             Bet
           </Button>

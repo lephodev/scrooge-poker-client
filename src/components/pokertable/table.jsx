@@ -44,11 +44,8 @@ import userUtils from "./../../utils/user";
 import { useHistory } from "react-router-dom";
 import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
-import BetView from "../bet/betView";
-import RaiseView from "../bet/raiseView";
 import coinWinning from "../../assets/animation/22.gif";
 import { pokerInstance } from "../../utils/axios.config";
-import RaiseSlider from "../bet/raiseSlider";
 import AdvanceActionBtn from "../bet/advanceActionBtns";
 import ChatHistory from "../chat/chatHistory";
 import UsersComments from "../../assets/comenting.svg";
@@ -56,6 +53,7 @@ import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
+import RaiseContainer from "../bet/raiseContainer";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -869,23 +867,23 @@ const PokerTable = (props) => {
     });
 
     socket.on('tablestopped', (data) => {
-      if(data.game){
+      if (data.game) {
         setLoader(false);
-      roomData = data.game;
-      setChatMessages(data.game.chats);
-      if (
-        roomData.players.find((ele) => ele.userid === userId) &&
-        !roomData.preflopround.find((ele) => ele.id === userId) &&
-        roomData.runninground !== 0
-      ) {
-        joinInRunningRound = true;
-      }
-      setCommunityCards(data?.communityCard);
-      if (roomData.hostId === userId) {
-        setisAdmin(true);
-        admin = true;
-      }
-      
+        roomData = data.game;
+        setChatMessages(data.game.chats);
+        if (
+          roomData.players.find((ele) => ele.userid === userId) &&
+          !roomData.preflopround.find((ele) => ele.id === userId) &&
+          roomData.runninground !== 0
+        ) {
+          joinInRunningRound = true;
+        }
+        setCommunityCards(data?.communityCard);
+        if (roomData.hostId === userId) {
+          setisAdmin(true);
+          admin = true;
+        }
+
         updatePlayer(roomData.players);
         setCommunityCards([]);
         setCurrentPlayer(false);
@@ -1626,7 +1624,8 @@ const PokerTable = (props) => {
     });
   }, []);
 
-  const raiseInSliderAction = (x) => {
+  const raiseInSliderAction = (e, x) => {
+    e.preventDefault();
     if (x >= roomData?.raiseAmount) {
       setOpenAction({
         bet: false,
@@ -1646,7 +1645,8 @@ const PokerTable = (props) => {
       toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
     }
   };
-  const betInSliderAction = (x) => {
+  const betInSliderAction = (e, x) => {
+    e.preventDefault();
     // console.log("BetAmount", x);
     if (x >= roomData.raiseAmount) {
       setOpenAction({
@@ -1932,6 +1932,7 @@ const PokerTable = (props) => {
             playersRight={playersRight}
             playersLeft={playersLeft}
             players={players}
+            remainingTime={remainingTime}
           />
         </div>
       </div>
@@ -2476,13 +2477,8 @@ const FooterButton = ({
   raiseInSliderAction,
   betInSliderAction,
   players,
+  remainingTime,
 }) => {
-  // console.log(
-  //   "roomData?.raiseAmount===>>",
-  //   roomData?.raiseAmount,
-  //   "currentPlayer?.pot===>>",
-  //   currentPlayer?.pot
-  // );
   return (
     <div className="footer-button">
       <div className="container">
@@ -2493,34 +2489,17 @@ const FooterButton = ({
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
-                  <Button onClick={() => foldAction()}> Fold</Button>
-                  {/* <Form.Check
-                    inline
-                    label="Fold"
-                    name="Fold"
-                    type="checkbox"
-                    id={"fold"}
-                    onChange={() => handleCheck("Fold")}
-                    checked={selectedbets === "Fold"}
-                  /> */}
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 1}> Fold</Button>
                 </div>
               )}
               {openAction.check && (
                 <div className="footer-btn ">
-                  <Button onClick={() => checkAction()}>Check</Button>
-                  {/* <Form.Check
-                    inline
-                    name="Check"
-                    type="checkbox"
-                    id={"Check"}
-                    onChange={() => handleCheck("Check")}
-                    checked={selectedbets === "Check"}
-                  /> */}
+                  <Button onClick={() => checkAction()} disabled={remainingTime <= 1}>Check</Button>
                 </div>
               )}
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>
+                  <Button onClick={() => callAction()} disabled={remainingTime <= 1}>
                     Call{" "}
                     <span
                       className={
@@ -2529,61 +2508,32 @@ const FooterButton = ({
                           : "callBtn-amount-none"
                       }
                     >
-                      {/* {console.log(
-                        " roomData?.raiseAmount - currentPlayer?.pot",
-                        roomData?.raiseAmount,
-                        currentPlayer?.pot
-                      )} */}
-                      {/* roomData?.raiseAmount /* - currentPlayer?.pot */}(
-                      {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)}
-                      )
+                      (  {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)})
                     </span>
                   </Button>
-                  {/* <Form.Check
-                    inline
-                    name="Call"
-                    type="checkbox"
-                    id={"Call"}
-                    onChange={() => handleCheck("Call")}
-                    checked={selectedbets === "Call"}
-                  /> */}
                 </div>
               )}
 
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
-                    <div className="raiseBet-container">
-                      <RaiseSlider
-                        currentPlayer={currentPlayer}
-                        SliderAction={raiseInSliderAction}
-                        roomData={roomData}
-                      />
-                      <RaiseView
-                        currentPlayer={currentPlayer}
-                        setRaise={setRaise}
-                        raiseAction={raiseAction}
-                        allinAction={allinAction}
-                        roomData={roomData}
-                        players={players}
-                      />
-                    </div>
+                    <RaiseContainer
+                      currentPlayer={currentPlayer}
+                      SliderAction={raiseInSliderAction}
+                      roomData={roomData}
+                      setBetRaise={setRaise}
+                      setAction={raiseAction}
+                      allinAction={allinAction}
+                      players={players}
+                    />
                   )}
                   <Button
                     onClick={() => {
                       setBet(false);
                       setRaise(true);
                     }}
+                    disabled={remainingTime <= 1}
                   >
-                    {/* <Form.Check
-                      inline
-                      label="Raise"
-                      name="Raise"
-                      type="checkbox"
-                      id={"Raise"}
-                      onChange={() => handleCheck("Raise")}
-                      checked={selectedbets === "Raise"}
-                    /> */}
                     Raise
                   </Button>
                 </div>
@@ -2592,61 +2542,36 @@ const FooterButton = ({
               {openAction.bet && (
                 <div className="footer-btn ">
                   {bet && (
-                    <div className="raiseBet-container">
-                      <RaiseSlider
-                        currentPlayer={currentPlayer}
-                        SliderAction={betInSliderAction}
-                        roomData={roomData}
-                      />
-                      <BetView
-                        currentPlayer={currentPlayer}
-                        setBet={setBet}
-                        betAction={betAction}
-                        allinAction={allinAction}
-                        roomData={roomData}
-                        players={players}
-                      />
-                    </div>
+                    <RaiseContainer
+                      currentPlayer={currentPlayer}
+                      SliderAction={betInSliderAction}
+                      roomData={roomData}
+                      setBetRaise={setBet}
+                      setAction={betAction}
+                      allinAction={allinAction}
+                      players={players}
+                    />
                   )}
                   <Button
                     onClick={() => {
                       setBet(true);
                       setRaise(false);
                     }}
+                    disabled={remainingTime <= 1}
                   >
-                    {/* <Form.Check
-                      inline
-                      label="Bet"
-                      name="Bet"
-                      type="checkbox"
-                      id={"Bet"}
-                      onChange={() => handleCheck("Bet")}
-                      checked={selectedbets === "Bet"}
-                    /> */}
                     Bet
                   </Button>
                 </div>
               )}
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
-                  <Button onClick={() => allinAction()}>
-                    {/* <Form.Check
-                      inline
-                      label="All In"
-                      name="AllIn"
-                      type="checkbox"
-                      id={"AllIn"}
-                      onChange={() => handleCheck("All In")}
-                      checked={selectedbets === "All In"}
-                    /> */}
+                  <Button onClick={() => allinAction()} disabled={remainingTime <= 1}>
                     All In
                   </Button>
                 </div>
               )}
             </>
           ) : (
-            // ""
-
             <>
               {roomData?.gamestart &&
                 roomData.runninground >= 1 &&
