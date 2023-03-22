@@ -868,6 +868,35 @@ const PokerTable = (props) => {
       }
     });
 
+    socket.on('tablestopped', (data) => {
+      if(data.game){
+        setLoader(false);
+      roomData = data.game;
+      setChatMessages(data.game.chats);
+      if (
+        roomData.players.find((ele) => ele.userid === userId) &&
+        !roomData.preflopround.find((ele) => ele.id === userId) &&
+        roomData.runninground !== 0
+      ) {
+        joinInRunningRound = true;
+      }
+      setCommunityCards(data?.communityCard);
+      if (roomData.hostId === userId) {
+        setisAdmin(true);
+        admin = true;
+      }
+      
+        updatePlayer(roomData.players);
+        setCommunityCards([]);
+        setCurrentPlayer(false);
+        setWinner(false);
+        setWinnerText("");
+        setAction(false);
+        setActionText("");
+        setHandMatch([]);
+      }
+    })
+
     socket.on("waitForReArrange", (data) => {
       if (data.userIds.find((el) => el === userId))
         toast.success("Please wait for Re-arrange", { id: "rearrange" });
