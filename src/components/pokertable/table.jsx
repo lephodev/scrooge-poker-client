@@ -2212,10 +2212,7 @@ const Players = ({
   }, [playerData, setBuyinPopup]);
 
   useEffect(() => {
-    // console.log("RunningRound", roomData?.runninground);
     socket.on("showCard", (data) => {
-      // console.log("RunningRound", roomData?.runninground);
-      // console.log("playerData.id", playerData.id);
       if (playerData.id === userId) {
         setShowCard(true);
       } else if (roomData?.runninground === 5) {

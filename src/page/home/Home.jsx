@@ -25,8 +25,8 @@ import { landingClient } from "../../config/keys";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
-
-
+import CONSTANTS from "../../config/contants";
+import { getCookie } from "../../utils/cookieUtil";
 let userId;
 const Home = () => {
   // inital state
@@ -54,6 +54,19 @@ const Home = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   // utils function
+  const checkUserInGame = async () => {
+    let userData = await axios({
+      method: "get",
+      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
+      headers: { authorization: `Bearer ${getCookie("token")}` },
+    });
+    if (userData?.data) {
+      setUserInAnyGame(userData.data)
+    }
+  }
+  useEffect(() => {
+    checkUserInGame()
+  }, [])
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
