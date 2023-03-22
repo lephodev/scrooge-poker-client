@@ -10,24 +10,11 @@ const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
         size='lg'
         aria-labelledby='contained-modal-title-vcenter'
         show={modalShow}
-        onHide={() => {
-          setModalShow(false);
-        }}
         centered
         className='stats-popup'>
         <Modal.Body>
           <div className='stats-heading'>
             <h6>Table Stats</h6>
-            <div className='close-icon'>
-              {/* <img
-                src={close}
-                alt='close'
-                onClick={() => {
-                  setModalShow(false);
-
-                }}
-              /> */}
-            </div>
           </div>
           <Table striped bordered hover responsive>
             <thead>
