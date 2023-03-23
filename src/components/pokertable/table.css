@@ -3221,6 +3221,10 @@ ul.btn-list>li>button>img {
   transition: width 0.6s ease;
 }
 
+.footer-button .footer-btn .btn-primary:disabled {
+  color: #ffffff !important;
+}
+
 /* 
 .player-info .progress-bar {
   background: transparent;
