@@ -25,7 +25,6 @@ const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
                 alt='close'
                 onClick={() => {
                   setModalShow(false);
-
                 }}
               />
             </div>
@@ -42,7 +41,7 @@ const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
                   <div>Cummunity Cards :</div>
                   {winnData?.communityCards?.length ? winnData?.communityCards?.map((card, i) => (
                     <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
-                  )) : "All Folded"}
+                  )) : <span>All Folded</span>}
                 </div>
                 <div className="roomDetails-titles">Winning Amount: <span>{numFormatter(winnData?.winningAmount)}</span></div>
                 <div className="cummunityCards">
@@ -55,11 +54,10 @@ const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
                   <div>Winner Hand:</div>
                   {winnData?.winnerHand?.length ? winnData?.winnerHand?.map((card, i) => (
                     <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
-                  )) : "All Folded"}
+                  )) : <span>All Folded</span>}
                 </div>
               </div>
             </div>
-
           ))}
 
           <div className='close-btn'>

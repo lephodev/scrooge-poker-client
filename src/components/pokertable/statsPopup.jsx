@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 // import close from '../../assets/close.png';
 
-const StatsPopup = ({ setModalShow, modalShow, handWinner }) => {
+const StatsPopup = ({ modalShow, handWinner }) => {
 
   return (
     <>

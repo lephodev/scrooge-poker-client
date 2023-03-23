@@ -515,6 +515,7 @@ const PokerTable = (props) => {
         setWinnerText("");
         setAction(false);
         setActionText("");
+        setActiveWinnerPlayersPot({})
         setHandMatch([]);
         if (roomData?.hostId === userId) {
           setisAdmin(true);
@@ -533,12 +534,13 @@ const PokerTable = (props) => {
     socket.on("flopround", (data) => {
       setMergeAnimationState(true);
       roomData = data;
-      setTablePot(roomData.pot);
+
       setCommunityCards(data?.communityCard);
-      updatePlayer(data.flopround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.flopround);
       }, 400);
     });
 
@@ -546,11 +548,11 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.turnround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.turnround);
       }, 400);
     });
 
@@ -558,11 +560,12 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.riverround);
+
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        updatePlayer(data.riverround);
       }, 400);
     });
 
@@ -1118,47 +1121,47 @@ const PokerTable = (props) => {
   };
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const showWinner = (data, players) => {
-   data.reduce( (p, item, i) => 
-    p.then(() => {
-      let type = players.find((el) => el.id === item.id);
-      let activeWin = {
-        ...type,
-        ...item,
-      }
-      setActiveWinnerPlayersPot(activeWin);
-      setWinner(item);
-      playAudio("winner");
-      if (item.handName) {
-        setWinnerText(`${item.name} wins with ${item.handName}`);
-        let newMatch = [];
-        let hand = [];
-        item.communityCards.forEach((card, j) => {
-          let handCard = item.winnerHand.find((hand) => hand === card);
-          if (handCard) {
-            newMatch.push(j);
+    data.reduce((p, item, i) =>
+      p.then(() => {
+        let type = players.find((el) => el.id === item.id);
+        let activeWin = {
+          ...type,
+          ...item,
+        }
+        setActiveWinnerPlayersPot(activeWin);
+        setWinner(item);
+        playAudio("winner");
+        if (item.handName) {
+          setWinnerText(`${item.name} wins with ${item.handName}`);
+          let newMatch = [];
+          let hand = [];
+          item.communityCards.forEach((card, j) => {
+            let handCard = item.winnerHand.find((hand) => hand === card);
+            if (handCard) {
+              newMatch.push(j);
+            }
+          });
+          item.winnerCards.forEach((card, j) => {
+            let handCard = item.winnerHand.find((hand) => hand === card);
+            if (handCard) {
+              hand.push(j);
+            }
+          });
+          hand.sort((a, b) => a - b);
+          newMatch.sort((a, b) => a - b);
+          setMatchCards(newMatch);
+          setHandMatch(hand);
+        } else if (!item.handName || item.name) {
+          setWinnerText(`All player folded, ${item.name} Win`);
+        }
+      })
+        .then(() => delay(5000))
+        .then(() => {
+          if (roomData.finish) {
+            setHandWinner(roomData.handWinner);
           }
-        });
-        item.winnerCards.forEach((card, j) => {
-          let handCard = item.winnerHand.find((hand) => hand === card);
-          if (handCard) {
-            hand.push(j);
-          }
-        });
-        hand.sort((a, b) => a - b);
-        newMatch.sort((a, b) => a - b);
-        setMatchCards(newMatch);
-        setHandMatch(hand);
-      } else if (!item.handName || item.name) {
-        setWinnerText(`All player folded, ${item.name} Win`);
-      }
-    })
-    .then(() => delay(5000))
-    .then(() => {
-      if (roomData.finish) {
-        setHandWinner(roomData.handWinner);
-      }
-    })
-, Promise.resolve());
+        })
+      , Promise.resolve());
   };
 
   const [auto, setAuto] = useState(false);
@@ -1768,7 +1771,7 @@ const PokerTable = (props) => {
                                 <Button
                                   onClick={() => {
                                     setStart(true);
-                                   
+
                                     startGame(roomData?.autoNextHand);
                                   }}
                                   disabled={start}
@@ -1843,7 +1846,6 @@ const PokerTable = (props) => {
                   roomData={roomData}
                   blindTimer={blindTimer}
                 />
-
                 {!isWatcher &&
                   roomData &&
                   userId &&
@@ -2096,7 +2098,6 @@ const PokerTable = (props) => {
       </audio>
       <StatsPopup
         modalShow={modalShow}
-        setModalShow={setModalShow}
         handWinner={handWinner}
       />
       <LeaveConfirmPopup
@@ -2146,7 +2147,6 @@ const Players = ({
   mergeAnimationState,
   activeWinnerPlayersPot
 }) => {
-  // console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
@@ -2236,7 +2236,9 @@ const Players = ({
         className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
-          } ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
+          }
+          ${(activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5) ? "activeWinnerpot" : ''}
+          ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
             ? ""
             : "not-playing"
           } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
@@ -2289,7 +2291,6 @@ const Players = ({
           <HideCard />
         )}
 
-        {/* end of win or lose animation */}
         {currentPlayer &&
           playerData &&
           currentPlayer.id === playerData.id &&
@@ -2417,20 +2418,21 @@ const TableCard = ({
 };
 
 const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
+  console.log("activeWinnerPlayersPot", activeWinnerPlayersPot);
+  console.log("sidePots", sidePots);
   return (
-    <>
-    {sidePots.length  ? sidePots.map(sidePot => (
-      <div className={`total-pot-money animate__animated animate__fadeIn  ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`player-${activeWinnerPlayersPot.availablePosition}` : ''}`}>
-      <span>{numFormatter(sidePot.pot)}</span>
-      </div>
-      )):  
-      <div className="total-pot-money animate__animated animate__fadeIn">
-      <span>
-      <p>{numFormatter(tablePot && tablePot)}</p>
-    </span>
-    </div>}
-    </>
-    
+    <div className="pot-money">
+      {sidePots.length ? sidePots.map(sidePot => (
+        <div className={`total-pot-money animate__animated animate__fadeIn ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`winnPlayer${activeWinnerPlayersPot.availablePosition +1}` : ''}`}>
+          <span>{numFormatter(sidePot.pot)}</span>
+        </div>
+      )) :
+        <div className={`total-pot-money animate__animated animate__fadeIn winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`}>
+          <span>
+            <p>{numFormatter(tablePot && tablePot)}</p>
+          </span>
+        </div>}
+    </div>
   );
 };
 
@@ -2477,17 +2479,17 @@ const FooterButton = ({
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
-                  <Button onClick={() => foldAction()} disabled={remainingTime <= 1}> Fold</Button>
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
                 </div>
               )}
               {openAction.check && (
                 <div className="footer-btn ">
-                  <Button onClick={() => checkAction()} disabled={remainingTime <= 1}>Check</Button>
+                  <Button onClick={() => checkAction()} disabled={remainingTime <= 0}>Check</Button>
                 </div>
               )}
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()} disabled={remainingTime <= 1}>
+                  <Button onClick={() => callAction()} disabled={remainingTime <= 0}>
                     Call{" "}
                     <span
                       className={
@@ -2521,7 +2523,7 @@ const FooterButton = ({
                       setBet(false);
                       setRaise(true);
                     }}
-                    disabled={remainingTime <= 1}
+                    disabled={remainingTime <= 0}
                   >
                     Raise
                   </Button>
@@ -2547,7 +2549,7 @@ const FooterButton = ({
                       setBet(true);
                       setRaise(false);
                     }}
-                    disabled={remainingTime <= 1}
+                    disabled={remainingTime <= 0}
                   >
                     Bet
                   </Button>
@@ -2555,7 +2557,7 @@ const FooterButton = ({
               )}
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
-                  <Button onClick={() => allinAction()} disabled={remainingTime <= 1}>
+                  <Button onClick={() => allinAction()} disabled={remainingTime <= 0}>
                     All In
                   </Button>
                 </div>
