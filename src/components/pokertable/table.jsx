@@ -10,8 +10,6 @@ import front from "../../assets/game/Black-Card.png";
 import back from "../../assets/game/Black-Card.png";
 import back2 from "../../assets/game/Black-Card2.png";
 import { socket } from "../../config/socketConnection";
-import accept from "../../assets/checked.png";
-import reject from "../../assets/close.png";
 import Chat from "../chat/chat";
 import winnerSound from "../../assets/Poker Sfx/winSoundPoker.mp3";
 import call from "../../assets/Poker Sfx/Chip Bet/bet.wav";
@@ -25,8 +23,6 @@ import Bet from "../bet/bet";
 import "./table.css";
 import footerlogo from "../../assets/game/logo-poker.png";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
-import winnericon from "../../assets/win-icon.png";
-import loseicon from "../../assets/loss-icon.png";
 import StatsPopup from "./statsPopup";
 import BuyInPopup from "./buyInPopup";
 import LeaveConfirmPopup from "./leaveConfirmPopup";
@@ -37,7 +33,6 @@ import situp from "../../assets/sit-out.png";
 import loaderImg from "../../assets/chat/loader1.webp";
 import InviteFriend from "./InviteFriend";
 import Helmet from "react-helmet";
-import MarketStore from "../MarketPlace/marketStore";
 import axios from "axios";
 import winImage from "../../assets/animation/win.json";
 import userUtils from "./../../utils/user";
@@ -47,7 +42,6 @@ import { getCookie } from "../../utils/cookieUtil";
 import BetView from "../bet/betView";
 import RaiseView from "../bet/raiseView";
 import coinWinning from "../../assets/animation/22.gif";
-import { pokerInstance } from "../../utils/axios.config";
 import RaiseSlider from "../bet/raiseSlider";
 import AdvanceActionBtn from "../bet/advanceActionBtns";
 import ChatHistory from "../chat/chatHistory";
@@ -56,6 +50,7 @@ import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
+
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -77,11 +72,11 @@ let joinInRunningRound = false;
 let tRound = null;
 let tPlayer = null;
 let showFinish = false;
-let AvailablePosition = [];
 let admin = false;
 let idToken;
 let interval;
 let retryCount = 0;
+let tablePlayers = [];
 
 const numFormatter = (num) => {
   if (num > 1 && num < 999) {
@@ -127,13 +122,13 @@ const PokerTable = (props) => {
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
   const [start, setStart] = useState(false);
-  const [startBtn, setStartBtn] = useState(false);
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
   const [userData, setUserData] = useState(null);
   const [playersLeft, setPlayerLeft] = useState([]);
   const [playersRight, setPlayersRight] = useState([]);
+  const [activeWinnerPlayersPot, setActiveWinnerPlayersPot] = useState({});
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -159,7 +154,6 @@ const PokerTable = (props) => {
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
   const [selectedUser, setSelectedUser] = useState();
-  const [winAnimationType, setWinAnimationType] = useState("");
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followingList, setFollowingList] = useState([]);
   const [friendList, setFriendList] = useState([]);
@@ -516,7 +510,7 @@ const PokerTable = (props) => {
         setTablePot(roomData?.tablePot);
         updatePlayer(roomData?.players);
         setCommunityCards([]);
-        setCurrentPlayer(false);
+        setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
         setAction(false);
@@ -575,8 +569,8 @@ const PokerTable = (props) => {
     socket.on("winner", (data) => {
       roomData = data.updatedRoom;
       updatePlayer(roomData.showdown);
-      setCurrentPlayer(false);
-      showWinner(roomData.winnerPlayer, roomData.players);
+      setCurrentPlayer();
+      showWinner(roomData.winnerPlayer, tablePlayers);
     });
 
     socket.on("gameStarted", () => {
@@ -737,7 +731,7 @@ const PokerTable = (props) => {
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
         setCommunityCards([]);
-        setCurrentPlayer(false);
+        setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
         setAction(false);
@@ -770,6 +764,7 @@ const PokerTable = (props) => {
       ) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
+        setCurrentPlayer()
       } else {
         //  window.location.href = window.location.origin;
       }
@@ -832,7 +827,7 @@ const PokerTable = (props) => {
         if (roomData.runninground === 0) {
           updatePlayer(roomData.players);
           setCommunityCards([]);
-          setCurrentPlayer(false);
+          setCurrentPlayer();
           setWinner(false);
           setWinnerText("");
           setAction(false);
@@ -888,7 +883,7 @@ const PokerTable = (props) => {
       
         updatePlayer(roomData.players);
         setCommunityCards([]);
-        setCurrentPlayer(false);
+        setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
         setAction(false);
@@ -900,6 +895,21 @@ const PokerTable = (props) => {
     socket.on("waitForReArrange", (data) => {
       if (data.userIds.find((el) => el === userId))
         toast.success("Please wait for Re-arrange", { id: "rearrange" });
+    });
+
+    socket.on("updateRoom", (data) => {
+      // console.log("datatatata", data);
+
+      updatePlayer(data?.players);
+      toast.success(`Your wallet is updated`, { id: "A" });
+      setRefillSitInAmount(false);
+      setDisable(false);
+    });
+
+    socket.on("InrunningGame", (data) => {
+      toast.success(`Your wallet is update in next hand`, { id: "B" });
+      setRefillSitInAmount(false);
+      setDisable(false);
     });
   }, [isAdmin]);
 
@@ -999,7 +1009,7 @@ const PokerTable = (props) => {
       tPlayer = data.id;
       tRound = data.runninground;
     });
-  }, [players, currentPlayer]);
+  }, [players]);
 
   useEffect(() => {
     if (currentPlayer && currentPlayer.id === userId) {
@@ -1031,8 +1041,8 @@ const PokerTable = (props) => {
     if (!data) {
       return;
     }
-    let availablePosition = [];
     const pl = [...data];
+    let availablePosition = [];
     let players = [...pl];
     const pRight = pl.slice(0, Math.ceil(pl.length / 2));
     const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
@@ -1073,7 +1083,6 @@ const PokerTable = (props) => {
       default:
         break;
     }
-    AvailablePosition = [...availablePosition];
     let whole = [];
     if (isWatcher || joinInRunningRound) {
       whole = [...data];
@@ -1101,71 +1110,52 @@ const PokerTable = (props) => {
         id: el.userid ? el.userid : el.id,
       });
     });
+    tablePlayers = playerDetails;
     setPlayers(playerDetails);
   };
-
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const showWinner = (data, players) => {
-    data.forEach((item, i) => {
-      if (i === 0) {
-        let type = players.find((el) => el.userid === item.id);
-        setWinAnimationType(type.items);
-        setWinner(item);
-        playAudio("winner");
-        if (item.handName) {
-          setWinnerText(`${item.name} wins with ${item.handName}`);
-          let newMatch = [];
-          let hand = [];
-          item.communityCards.forEach((card, j) => {
-            let handCard = item.winnerHand.find((hand) => hand === card);
-            if (handCard) {
-              newMatch.push(j);
-            }
-          });
-          item.winnerCards.forEach((card, j) => {
-            let handCard = item.winnerHand.find((hand) => hand === card);
-            if (handCard) {
-              hand.push(j);
-            }
-          });
-          hand.sort((a, b) => a - b);
-          newMatch.sort((a, b) => a - b);
-          setMatchCards(newMatch);
-          setHandMatch(hand);
-        } else if (!item.handName || item.name) {
-          setWinnerText(`All player folded, ${item.name} Win`);
-        }
-        setTimeout(() => {
-          // console.log("set winner for one executed");
-          setWinner(false);
-        }, 4000);
-      } else if (i > 0) {
-        setTimeout(() => {
-          let type = players.find((el) => el.id === item.id);
-          setWinAnimationType(type?.items);
-          setWinner(item);
-          if (item.handName) {
-            setWinnerText(`${item.name} wins with ${item.handName}`);
-            let newMatch = [];
-            item.communityCards.forEach((card, j) => {
-              let handCard = item.winnerHand.find((hand) => hand === card);
-              if (handCard) {
-                newMatch.push(j);
-              }
-            });
-            newMatch.sort((a, b) => a - b);
-            setMatchCards(newMatch);
-          } else if (!item.handName || item.name) {
-            setWinnerText(`All player folded, ${item.name} Win`);
-          }
-          setTimeout(() => {
-            setWinner(false);
-          }, 4000);
-        }, 3000);
+   data.reduce( (p, item, i) => 
+    p.then(() => {
+      let type = players.find((el) => el.id === item.id);
+      let activeWin = {
+        ...type,
+        ...item,
       }
-    });
-    if (roomData.finish) {
-      setHandWinner(roomData.handWinner);
-    }
+      setActiveWinnerPlayersPot(activeWin);
+      setWinner(item);
+      playAudio("winner");
+      if (item.handName) {
+        setWinnerText(`${item.name} wins with ${item.handName}`);
+        let newMatch = [];
+        let hand = [];
+        item.communityCards.forEach((card, j) => {
+          let handCard = item.winnerHand.find((hand) => hand === card);
+          if (handCard) {
+            newMatch.push(j);
+          }
+        });
+        item.winnerCards.forEach((card, j) => {
+          let handCard = item.winnerHand.find((hand) => hand === card);
+          if (handCard) {
+            hand.push(j);
+          }
+        });
+        hand.sort((a, b) => a - b);
+        newMatch.sort((a, b) => a - b);
+        setMatchCards(newMatch);
+        setHandMatch(hand);
+      } else if (!item.handName || item.name) {
+        setWinnerText(`All player folded, ${item.name} Win`);
+      }
+    })
+    .then(() => delay(5000))
+    .then(() => {
+      if (roomData.finish) {
+        setHandWinner(roomData.handWinner);
+      }
+    })
+, Promise.resolve());
   };
 
   const [auto, setAuto] = useState(false);
@@ -1609,23 +1599,6 @@ const PokerTable = (props) => {
     }
   };
 
-  useEffect(() => {
-    socket.on("updateRoom", (data) => {
-      // console.log("datatatata", data);
-
-      updatePlayer(data?.players);
-      toast.success(`Your wallet is updated`, { id: "A" });
-      setRefillSitInAmount(false);
-      setDisable(false);
-    });
-
-    socket.on("InrunningGame", (data) => {
-      toast.success(`Your wallet is update in next hand`, { id: "B" });
-      setRefillSitInAmount(false);
-      setDisable(false);
-    });
-  }, []);
-
   const raiseInSliderAction = (x) => {
     if (x >= roomData?.raiseAmount) {
       setOpenAction({
@@ -1711,7 +1684,7 @@ const PokerTable = (props) => {
 
         <div className="container">
           {/* {console.log("play pause game start  ==>", roomData?.gamestart)} */}
-          {startBtn && isAdmin && roomData?.gamestart ? (
+          {isAdmin && roomData?.gamestart ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -1789,7 +1762,7 @@ const PokerTable = (props) => {
                                 <Button
                                   onClick={() => {
                                     setStart(true);
-                                    setStartBtn(true);
+                                   
                                     startGame(roomData?.autoNextHand);
                                   }}
                                   disabled={start}
@@ -1854,7 +1827,7 @@ const PokerTable = (props) => {
                       </div>
                     </div>
                   )}
-                {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
+                {tablePot || roomData?.sidePots.length ? <TablePotMoney tablePot={tablePot} sidePots={roomData?.sidePots} activeWinnerPlayersPot={activeWinnerPlayersPot} /> : ""}
                 {winner ? <GameMessage winnerText={winnerText} /> : null}
 
                 <TableCard
@@ -1895,8 +1868,8 @@ const PokerTable = (props) => {
                       showCoin={showCoin}
                       setShowCoin={setShowCoin}
                       setBuyinPopup={setBuyinPopup}
-                      winAnimationType={winAnimationType}
                       tablePot={tablePot}
+                      activeWinnerPlayersPot={activeWinnerPlayersPot}
                     />
                   ))}
               </div>
@@ -2164,6 +2137,7 @@ const Players = ({
   timer,
   remainingTime,
   mergeAnimationState,
+  activeWinnerPlayersPot
 }) => {
   // console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
@@ -2258,7 +2232,7 @@ const Players = ({
         className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
-          } ${playerData && playerData.playing && !playerData?.fold
+          } ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
             ? ""
             : "not-playing"
           } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
@@ -2438,13 +2412,21 @@ const TableCard = ({
   );
 };
 
-const TablePotMoney = ({ tablePot }) => {
+const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
   return (
-    <div className="total-pot-money animate__animated animate__fadeIn">
+    <>
+    {sidePots.length  ? sidePots.map(sidePot => (
+      <div className={`total-pot-money animate__animated animate__fadeIn  ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`player-${activeWinnerPlayersPot.availablePosition}` : ''}`}>
+      <span>{numFormatter(sidePot.pot)}</span>
+      </div>
+      )):  
+      <div className="total-pot-money animate__animated animate__fadeIn">
       <span>
-        <p>{numFormatter(tablePot && tablePot)}</p>
-      </span>
-    </div>
+      <p>{numFormatter(tablePot && tablePot)}</p>
+    </span>
+    </div>}
+    </>
+    
   );
 };
 
