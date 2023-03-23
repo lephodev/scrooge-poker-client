@@ -1618,7 +1618,7 @@ const PokerTable = (props) => {
       socket.emit("doraise", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
       toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`, {id: 'minimum-raise'});
@@ -1640,7 +1640,7 @@ const PokerTable = (props) => {
       socket.emit("dobet", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
       toast.error(`Bet amount must be minimum ${roomData?.raiseAmount}`, {id: 'bet-minimum'});
@@ -2513,6 +2513,7 @@ const FooterButton = ({
                       setAction={raiseAction}
                       allinAction={allinAction}
                       players={players}
+                      remainingTime={remainingTime}
                     />
                   )}
                   <Button
@@ -2538,6 +2539,7 @@ const FooterButton = ({
                       setAction={betAction}
                       allinAction={allinAction}
                       players={players}
+                      remainingTime={remainingTime}
                     />
                   )}
                   <Button
