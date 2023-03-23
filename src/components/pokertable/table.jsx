@@ -513,6 +513,7 @@ const PokerTable = (props) => {
         setWinnerText("");
         setAction(false);
         setActionText("");
+        setActiveWinnerPlayersPot({})
         setHandMatch([]);
         if (roomData?.hostId === userId) {
           setisAdmin(true);
@@ -1115,47 +1116,47 @@ const PokerTable = (props) => {
   };
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const showWinner = (data, players) => {
-   data.reduce( (p, item, i) => 
-    p.then(() => {
-      let type = players.find((el) => el.id === item.id);
-      let activeWin = {
-        ...type,
-        ...item,
-      }
-      setActiveWinnerPlayersPot(activeWin);
-      setWinner(item);
-      playAudio("winner");
-      if (item.handName) {
-        setWinnerText(`${item.name} wins with ${item.handName}`);
-        let newMatch = [];
-        let hand = [];
-        item.communityCards.forEach((card, j) => {
-          let handCard = item.winnerHand.find((hand) => hand === card);
-          if (handCard) {
-            newMatch.push(j);
+    data.reduce((p, item, i) =>
+      p.then(() => {
+        let type = players.find((el) => el.id === item.id);
+        let activeWin = {
+          ...type,
+          ...item,
+        }
+        setActiveWinnerPlayersPot(activeWin);
+        setWinner(item);
+        playAudio("winner");
+        if (item.handName) {
+          setWinnerText(`${item.name} wins with ${item.handName}`);
+          let newMatch = [];
+          let hand = [];
+          item.communityCards.forEach((card, j) => {
+            let handCard = item.winnerHand.find((hand) => hand === card);
+            if (handCard) {
+              newMatch.push(j);
+            }
+          });
+          item.winnerCards.forEach((card, j) => {
+            let handCard = item.winnerHand.find((hand) => hand === card);
+            if (handCard) {
+              hand.push(j);
+            }
+          });
+          hand.sort((a, b) => a - b);
+          newMatch.sort((a, b) => a - b);
+          setMatchCards(newMatch);
+          setHandMatch(hand);
+        } else if (!item.handName || item.name) {
+          setWinnerText(`All player folded, ${item.name} Win`);
+        }
+      })
+        .then(() => delay(5000))
+        .then(() => {
+          if (roomData.finish) {
+            setHandWinner(roomData.handWinner);
           }
-        });
-        item.winnerCards.forEach((card, j) => {
-          let handCard = item.winnerHand.find((hand) => hand === card);
-          if (handCard) {
-            hand.push(j);
-          }
-        });
-        hand.sort((a, b) => a - b);
-        newMatch.sort((a, b) => a - b);
-        setMatchCards(newMatch);
-        setHandMatch(hand);
-      } else if (!item.handName || item.name) {
-        setWinnerText(`All player folded, ${item.name} Win`);
-      }
-    })
-    .then(() => delay(5000))
-    .then(() => {
-      if (roomData.finish) {
-        setHandWinner(roomData.handWinner);
-      }
-    })
-, Promise.resolve());
+        })
+      , Promise.resolve());
   };
 
   const [auto, setAuto] = useState(false);
@@ -1764,7 +1765,7 @@ const PokerTable = (props) => {
                                 <Button
                                   onClick={() => {
                                     setStart(true);
-                                   
+
                                     startGame(roomData?.autoNextHand);
                                   }}
                                   disabled={start}
@@ -2229,7 +2230,9 @@ const Players = ({
         className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
-          } ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
+          }
+          ${(activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5) ? "activeWinnerpot" : ''}
+          ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
             ? ""
             : "not-playing"
           } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
@@ -2409,20 +2412,21 @@ const TableCard = ({
 };
 
 const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
+  console.log("activeWinnerPlayersPot", activeWinnerPlayersPot);
+  console.log("sidePots", sidePots);
   return (
-    <>
-    {sidePots.length  ? sidePots.map(sidePot => (
-      <div className={`total-pot-money animate__animated animate__fadeIn  ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`player-${activeWinnerPlayersPot.availablePosition}` : ''}`}>
-      <span>{numFormatter(sidePot.pot)}</span>
-      </div>
-      )):  
-      <div className="total-pot-money animate__animated animate__fadeIn">
-      <span>
-      <p>{numFormatter(tablePot && tablePot)}</p>
-    </span>
-    </div>}
-    </>
-    
+    <div className="pot-money">
+      {sidePots.length ? sidePots.map(sidePot => (
+        <div className={`total-pot-money animate__animated animate__fadeIn ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`winnPlayer${activeWinnerPlayersPot.availablePosition +1}` : ''}`}>
+          <span>{numFormatter(sidePot.pot)}</span>
+        </div>
+      )) :
+        <div className={`total-pot-money animate__animated animate__fadeIn winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`}>
+          <span>
+            <p>{numFormatter(tablePot && tablePot)}</p>
+          </span>
+        </div>}
+    </div>
   );
 };
 

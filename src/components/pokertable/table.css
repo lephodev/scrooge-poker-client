@@ -190,187 +190,164 @@ input:checked {
 /************** winn player pot animation  *************/
 
 .total-pot-money.winnPlayer1 {
-  top: 80%;
+  transform: translate(0px, -20px);
+  animation: winnPot1 0.8s forwards;
   opacity: 0;
-  animation: winnPot1 0.4s forwards;
 }
 
 @keyframes winnPot1 {
   from {
-    top: 108px;
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 80%;
+    transform: translate(72px, 335px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer2 {
-  animation: winnPot2 0.4s forwards;
-  top: 90%;
-  left: 21%;
+  transform: translate(-480px, 200px);
+  animation: winnPot2 0.8s forwards;
   opacity: 0;
+
 }
 
 @keyframes winnPot2 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 90%;
-    left: 21%;
+    transform: translate(-216px, 300px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer3 {
-  animation: winnPot3 0.4s forwards;
-  top: 68%;
-  left: 1%;
+  transform: translate(-480px, -70px);
+  animation: winnPot3 0.8s forwards;
   opacity: 0;
 }
 
 @keyframes winnPot3 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 68%;
-    left: 1%;
+    transform: translate(-480px, 200px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer4 {
-  animation: winnPot4 0.4s forwards;
-  top: 10%;
-  left: 1%;
+  transform: translate(0px, -20px);
+  animation: winnPot4 0.8s forwards;
   opacity: 0;
 }
 
 @keyframes winnPot4 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 10%;
-    left: 1%;
+    transform: translate(-480px, -70px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer5 {
-  animation: winnPot5 0.4s forwards;
-  top: -1%;
-  left: 22%;
+  transform: translate(0px, -20px);
+  animation: winnPot5 0.8s forwards;
   opacity: 0;
 }
 
 @keyframes winnPot5 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: -1%;
-    left: 22%;
+    transform: translate(-210px, -90px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer6 {
-  animation: winnPot6 0.4s forwards;
-  top: -1%;
-  left: 66%;
+  animation: winnPot6 0.8s forwards;
   opacity: 0;
+  transform: translate(0px, -20px);
 }
 
 @keyframes winnPot6 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: -1%;
-    left: 66%;
+    transform: translate(368px, -110px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer7 {
-  animation: winnPot7 0.4s forwards;
-  top: 10%;
-  left: 86%;
+  animation: winnPot7 0.8s forwards;
   opacity: 0;
+  transform: translate(0px, -20px);
 }
 
 @keyframes winnPot7 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 10%;
-    left: 86%;
+    transform: translate(620px, -35px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer8 {
-  animation: winnPot8 0.4s forwards;
-  top: 66%;
-  left: 86%;
+  animation: winnPot8 0.8s forwards;
   opacity: 0;
+  transform: translate(0px, -20px);
 }
 
 @keyframes winnPot8 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 66%;
-    left: 86%;
+    transform: translate(635px, 200px);
     opacity: 0;
   }
 }
 
 .total-pot-money.winnPlayer9 {
-  animation: winnPot9 0.4s forwards;
-  top: 86%;
-  left: 66%;
+  animation: winnPot9 0.8s forwards;
   opacity: 0;
+  transform: translate(0px, -20px);
 }
 
 @keyframes winnPot9 {
   from {
-    top: 108px;
-    left: calc(50% - 75px);
+    transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    top: 86%;
-    left: 66%;
+    transform: translate(365px, 300px);
     opacity: 0;
   }
 }
@@ -1232,18 +1209,28 @@ input:checked {
   margin-top: -40px;
 }
 
-.total-pot-money {
+.pot-money {
   position: absolute;
-  top: 108px;
-  left: calc(50% - 75px);
-  /* transform: translateX(-50%) !important; */
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 35%;
+  max-width: 260px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0px 10px;
+}
+
+.total-pot-money {
+  transition: all ease .3s;
+  transform: translate(2%, -30%);
 }
 
 .total-pot-money span {
   background: url(../../assets/game/total-pot.png);
   text-align: center;
-  width: 150px;
-  height: 82px;
+  width: 120px;
+  height: 46px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1257,8 +1244,8 @@ input:checked {
 }
 
 .total-pot-money span p {
-  margin-bottom: 0px;
-  margin-top: 25px;
+  margin: 1px 0px 0px 18px;
+  font-size: 15px;
 }
 
 /* .total-pot-money span::before {
@@ -1598,8 +1585,12 @@ input:checked {
   left: -43px;
 }
 
+.winner-show .players.activeWinnerpot {
+  filter: brightness(1);
+}
+
 .winner-show .players {
-  filter: brightness(0.5);
+  filter: brightness(0.4);
 }
 
 .winner-show .players.winner-player {
@@ -3595,9 +3586,7 @@ img.coinWinning-animation {
     height: 100px;
   } */
 
-  .total-pot-money {
-    top: 90px;
-  }
+  .total-pot-money {}
 
   .game-msg {
     top: 112px;
@@ -3681,9 +3670,7 @@ img.coinWinning-animation {
     right: -2%;
   }
 
-  .total-pot-money {
-    left: calc(50% - 52px);
-  }
+  .total-pot-money {}
 }
 
 @media screen and (max-width: 1366px) {
@@ -3697,9 +3684,7 @@ img.coinWinning-animation {
     height: 335px;
   }
 
-  .total-pot-money {
-    top: 70px;
-  }
+  .total-pot-money {}
 }
 
 @media screen and (max-width: 1200px) and (min-width: 768px) and (orientation: landscape) {
@@ -3713,11 +3698,7 @@ img.coinWinning-animation {
     margin: 0px 2px;
   }
 
-  .total-pot-money {
-    top: 65px;
-    left: calc(54% - 75px);
-    scale: 0.9;
-  }
+  .total-pot-money {}
 
   .players.player1 {
     left: 48%;
@@ -3780,11 +3761,7 @@ img.coinWinning-animation {
     margin: 0px 2px;
   }
 
-  .total-pot-money {
-    top: 65px;
-    left: calc(54% - 75px);
-    scale: 0.9;
-  }
+  .total-pot-money {}
 
   .players.player1 {
     left: 49%;
@@ -3915,15 +3892,12 @@ img.coinWinning-animation {
   }
 
   .total-pot-money span {
-    margin-top: 18px;
-    width: 110px;
-    height: 58px;
-    font-size: 14px;
+    width: 72px;
+    height: 28px;
   }
 
   .total-pot-money span p {
-    margin-bottom: 0px;
-    margin-top: 18px;
+    font-size: 10px;
   }
 
   .show-card {
@@ -3938,11 +3912,7 @@ img.coinWinning-animation {
     grid-template-columns: repeat(2, minmax(30px, 1fr));
   }
 
-  .total-pot-money span::before {
-    width: 36px;
-    height: 38px;
-    right: -10px;
-  }
+  .total-pot-money span::before {}
 
   .player-pic {
     height: 110px;
@@ -4001,9 +3971,13 @@ img.coinWinning-animation {
     left: -27px;
   }
 
-  .total-pot-money {
-    top: 35px;
+  .pot-money {
+    gap: 0px 5px;
+    max-width: 150px;
+    top: 32%;
   }
+
+  .total-pot-money {}
 
   .game-msg {
     top: 110px;
@@ -4301,8 +4275,180 @@ img.coinWinning-animation {
     height: 100vh;
   }
 
+  /************** winn player pot animation  *************/
+
+  .total-pot-money.winnPlayer1 {
+    transform: translate(0px, 90px);
+    animation: winnPot1 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot1 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer2 {
+    transform: translate(-147px, 110px);
+    animation: winnPot2 0.8s forwards;
+    opacity: 0;
+
+  }
+
+  @keyframes winnPot2 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer3 {
+    transform: translate(-305px, 74px);
+
+    animation: winnPot3 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot3 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer4 {
+    transform: translate(-306px, -85px);
+    animation: winnPot4 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot4 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer5 {
+    transform: translate(-210px, -90px);
+    animation: winnPot5 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot5 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer6 {
+    animation: winnPot6 0.8s forwards;
+    opacity: 0;
+    transform: translate(155px, -110px);
+  }
+
+  @keyframes winnPot6 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer7 {
+    animation: winnPot7 0.8s forwards;
+    opacity: 0;
+    transform: translate(620px, -35px);
+  }
+
+  @keyframes winnPot7 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer8 {
+    animation: winnPot8 0.8s forwards;
+    opacity: 0;
+    transform: translate(635px, 200px);
+  }
+
+  @keyframes winnPot8 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer9 {
+    animation: winnPot9 0.8s forwards;
+    opacity: 0;
+    transform: translate(155px, 98px);
+  }
+
+  @keyframes winnPot9 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 98px);
+      opacity: 0;
+    }
+  }
+
   .chat-content h6 {
     font-size: 16px;
+  }
+
+  .pot-money {
+    gap: 0px 5px;
+    max-width: 150px;
+    top: 52%;
   }
 
   .game-started-join:after {
@@ -4318,9 +4464,7 @@ img.coinWinning-animation {
     font-size: 18px;
   }
 
-  .total-pot-money span {
-    margin-top: -14px;
-  }
+  .total-pot-money span {}
 
   .chat-logo img {
     max-width: 88px;
@@ -4454,11 +4598,7 @@ img.coinWinning-animation {
     height: 120px !important;
   }
 
-  .total-pot-money span::before {
-    width: 30px;
-    height: 30px;
-    right: 0;
-  }
+  .total-pot-money span::before {}
 
   .chat-wrapper {
     right: 10px;
@@ -4518,13 +4658,19 @@ img.coinWinning-animation {
     text-align: center;
   }
 
+  .pot-money {
+    gap: 0px 5px;
+    max-width: 155px;
+    top: 52%;
+  }
+
   .table-card {
     margin-top: -58px;
   }
 
   .total-pot-money span {
-    width: 90px;
-    height: 46px;
+    width: 75px;
+    height: 30px;
     font-size: 13px;
   }
 
@@ -4535,8 +4681,7 @@ img.coinWinning-animation {
   }
 
   .total-pot-money span p {
-    margin-bottom: 0px;
-    margin-top: 17px;
+    margin: 1px 0px 0px 8px;
   }
 
   button.not-allowed.btn.btn-primary {
@@ -5197,6 +5342,176 @@ img.coinWinning-animation {
     margin-top: 10px !important;
   }
 
+  /************** winn player pot animation  *************/
+
+  .total-pot-money.winnPlayer1 {
+    transform: translate(4px, 436px);
+    animation: winnPot1 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot1 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer2 {
+    transform: translate(-150px, 388px);
+    animation: winnPot2 0.8s forwards;
+    opacity: 0;
+
+  }
+
+  @keyframes winnPot2 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer3 {
+    transform: translate(-150px, 227px);
+    animation: winnPot3 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot3 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer4 {
+    transform: translate(-133px, 50px);
+    animation: winnPot4 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot4 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer5 {
+    transform: translate(122px, -121px);
+    animation: winnPot5 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes winnPot5 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer6 {
+    animation: winnPot6 0.8s forwards;
+    opacity: 0;
+    transform: translate(122px, -121px);
+
+  }
+
+  @keyframes winnPot6 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer7 {
+    animation: winnPot7 0.8s forwards;
+    opacity: 0;
+    transform: translate(143px, 210px);
+  }
+
+  @keyframes winnPot7 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer8 {
+    animation: winnPot8 0.8s forwards;
+    opacity: 0;
+    transform: translate(143px, 210px);
+  }
+
+  @keyframes winnPot8 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  .total-pot-money.winnPlayer9 {
+    animation: winnPot9 0.8s forwards;
+    opacity: 0;
+    transform: translate(155px, 380px);
+
+  }
+
+  @keyframes winnPot9 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+
+      opacity: 0;
+    }
+  }
+
   .game-started-join:after {
     font-size: 20px;
     max-width: 280px;
@@ -5385,11 +5700,7 @@ img.coinWinning-animation {
     height: 120px !important;
   }
 
-  .total-pot-money span::before {
-    width: 30px;
-    height: 30px;
-    right: 0;
-  }
+  .total-pot-money span::before {}
 
   .chat-wrapper {
     right: 10px;
@@ -5709,196 +6020,6 @@ img.coinWinning-animation {
 
   .logo--bottom-image img {
     width: 63px;
-  }
-
-  .total-pot-money.winnPlayer1 {
-    top: 80%;
-    opacity: 0;
-    animation: winnPot1 0.4s forwards;
-  }
-
-  @keyframes winnPot1 {
-    from {
-      top: 108px;
-      opacity: 1;
-    }
-
-    to {
-      top: 80%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer2 {
-    animation: winnPot2 0.4s forwards;
-    top: 80%;
-    left: 0%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot2 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 80%;
-      left: 0%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer3 {
-    animation: winnPot3 0.4s forwards;
-    top: 52%;
-    left: 1%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot3 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 52%;
-      left: 1%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer4 {
-    animation: winnPot4 0.4s forwards;
-    top: 30%;
-    left: 1%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot4 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 30%;
-      left: 1%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer5 {
-    animation: winnPot5 0.4s forwards;
-    top: 3%;
-    left: 5%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot5 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 3%;
-      left: 5%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer6 {
-    animation: winnPot6 0.4s forwards;
-    top: 5%;
-    left: 68%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot6 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 5%;
-      left: 68%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer7 {
-    animation: winnPot7 0.4s forwards;
-
-    top: 30%;
-    left: 70%;
-
-    opacity: 0;
-  }
-
-  @keyframes winnPot7 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-
-      top: 30%;
-      left: 70%;
-
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer8 {
-    animation: winnPot8 0.4s forwards;
-    top: 54%;
-    left: 73%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot8 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 54%;
-      left: 73%;
-      opacity: 0;
-    }
-  }
-
-  .total-pot-money.winnPlayer9 {
-    animation: winnPot9 0.4s forwards;
-    top: 78%;
-    left: 74%;
-    opacity: 0;
-  }
-
-  @keyframes winnPot9 {
-    from {
-      top: 108px;
-      left: calc(50% - 75px);
-      opacity: 1;
-    }
-
-    to {
-      top: 78%;
-      left: 74%;
-      opacity: 0;
-    }
   }
 
   /* portrait chip animation */
@@ -6612,9 +6733,7 @@ img.coinWinning-animation {
     width: 200px;
   }
 
-  .total-pot-money span {
-    margin-top: -18px;
-  }
+  .total-pot-money span {}
 
   .players {
     scale: 0.7;
