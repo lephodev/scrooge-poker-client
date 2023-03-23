@@ -15,16 +15,6 @@ const StatsPopup = ({ modalShow, handWinner }) => {
         <Modal.Body>
           <div className='stats-heading'>
             <h6>Table Stats</h6>
-            <div className='close-icon'>
-              {/* <img
-                src={close}
-                alt='close'
-                onClick={() => {
-                  setModalShow(false);
-
-                }}
-              /> */}
-            </div>
           </div>
           <Table striped bordered hover responsive>
             <thead>
