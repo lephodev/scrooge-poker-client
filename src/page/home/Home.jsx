@@ -25,8 +25,8 @@ import { landingClient } from "../../config/keys";
 import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
-
-
+import CONSTANTS from "../../config/contants";
+import { getCookie } from "../../utils/cookieUtil";
 let userId;
 const Home = () => {
   // inital state
@@ -54,6 +54,19 @@ const Home = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   // utils function
+  const checkUserInGame = async () => {
+    let userData = await axios({
+      method: "get",
+      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
+      headers: { authorization: `Bearer ${getCookie("token")}` },
+    });
+    if (userData?.data) {
+      setUserInAnyGame(userData.data)
+    }
+  }
+  useEffect(() => {
+    checkUserInGame()
+  }, [])
   const handleShow = () => {
     setShow(!show);
     setGameState({ ...gameInit });
@@ -165,7 +178,8 @@ const Home = () => {
     return { valid, err };
   };
 
-  const createTable = async () => {
+  const createTable = async (e) => {
+    e.preventDefault()
     setErrors({});
     setShowSpinner(true);
     if (showSpinner) {
@@ -218,6 +232,10 @@ const Home = () => {
     socket.on("tournamentCreated", data => {
       setTournaments(data.tournaments)
     })
+
+    socket.on("NoTournamentFound", (data) => {
+      toast.error("No tournament found", { id: 'no-tournament' });
+    })
     socket.on("AllTables", data => {
       setPokerRooms(data?.tables || [])
     })
@@ -242,7 +260,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms || []);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -254,7 +272,7 @@ const Home = () => {
         const { tournaments } = response.data;
         setTournaments(tournaments || []);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -331,9 +349,6 @@ const Home = () => {
                   onChange={(e) => setSearchText(e.target.value)}
                   autoComplete="off"
                 />
-                {/* <button>
-                  <FaSearch />
-                </button> */}
               </div>
             </div>
           </div>
@@ -608,7 +623,7 @@ const CreateTable = ({
         <Button variant="secondary" onClick={handleShow}>
           Close
         </Button>
-        <Button variant="primary" onClick={createTable}>
+        <Button variant="primary" type="submit" onClick={createTable}>
           {showSpinner ? <Spinner animation="border" /> : "Create Table"}
         </Button>
       </Modal.Footer>
@@ -659,6 +674,14 @@ const GameTable = ({
       } else {
         toast.error(message, { id: "full" });
       }
+    });
+
+    socket.on("tournamentAlreadyFinished", (data) => {
+      toast.error("Tournament has been finished.", { id: "tournament-finished" });
+    });
+
+    socket.on("tournamentAlreadyStarted", (data) => {
+      toast.error(data.message, { id: "tournamentStarted" });
     });
   }, []);
 
@@ -734,12 +757,6 @@ const GameTable = ({
       }
     }, 1000);
   };
-
-  useEffect(() => {
-    socket.on("tournamentAlreadyStarted", (data) => {
-      toast.error(data.message, { id: "tournamentStarted" });
-    });
-  });
 
   const wrapperRef = useRef();
 
@@ -826,7 +843,7 @@ const GameTable = ({
                 <span>
                   {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                        ?.length || 0
+                      ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
@@ -909,6 +926,10 @@ const GameTournament = ({
         toast.error(message, { id: "full" });
       }
     });
+
+    socket.on("tournamentSlotFull", (data) => {
+      toast.error('Tournament slot is full', { id: 'slot-full' });
+    })
   }, []);
 
   const joinTournament = async (tournamentId, fees) => {

@@ -11,9 +11,6 @@ import PokerTable from './components/pokertable/table';
 import 'animate.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './page/home/Home';
-import axios from 'axios';
-import { getCookie } from "./utils/cookieUtil";
-import CONSTANTS from "./config/contants";
 import UserContext from './context/UserContext';
 import LeaderBoard from './page/home/leaderBoard';
 import Error404 from './page/Error404/Error404';
@@ -27,19 +24,7 @@ const App = () => {
       window.height = w;
     }
   }, []);
-  const checkUserInGame = async () => {
-    let userData = await axios({
-      method: "get",
-      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
-      headers: { authorization: `Bearer ${getCookie("token")}` },
-    });
-    if (userData?.data) {
-      setUserInAnyGame(userData.data)
-    }
-  }
-  useEffect(() => {
-    checkUserInGame()
-  }, [])
+  
   return (
     <div className='App'>
       <UserContext.Provider

@@ -76,11 +76,8 @@ const Chat = ({ open, handleClick, userId, tableId }) => {
                                     value={message}
                                     onBlur={handleOnFocusOut}
                                 />
-
-
                                 <Button type="button" onClick={() => { setOpenEMoji(!openEmoji) }} ><i class="fa fa-smile-o" aria-hidden="true"></i></Button>
                                 <Button type='submit'><i className="fa fa-location-arrow" /></Button>
-
                             </Form>
                         </div>
                     </div>

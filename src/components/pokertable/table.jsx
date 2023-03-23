@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "animate.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -10,8 +10,6 @@ import front from "../../assets/game/Black-Card.png";
 import back from "../../assets/game/Black-Card.png";
 import back2 from "../../assets/game/Black-Card2.png";
 import { socket } from "../../config/socketConnection";
-import accept from "../../assets/checked.png";
-import reject from "../../assets/close.png";
 import Chat from "../chat/chat";
 import winnerSound from "../../assets/Poker Sfx/winSoundPoker.mp3";
 import call from "../../assets/Poker Sfx/Chip Bet/bet.wav";
@@ -25,8 +23,6 @@ import Bet from "../bet/bet";
 import "./table.css";
 import footerlogo from "../../assets/game/logo-poker.png";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
-import winnericon from "../../assets/win-icon.png";
-import loseicon from "../../assets/loss-icon.png";
 import StatsPopup from "./statsPopup";
 import BuyInPopup from "./buyInPopup";
 import LeaveConfirmPopup from "./leaveConfirmPopup";
@@ -37,18 +33,13 @@ import situp from "../../assets/sit-out.png";
 import loaderImg from "../../assets/chat/loader1.webp";
 import InviteFriend from "./InviteFriend";
 import Helmet from "react-helmet";
-import MarketStore from "../MarketPlace/marketStore";
 import axios from "axios";
 import winImage from "../../assets/animation/win.json";
 import userUtils from "./../../utils/user";
 import { useHistory } from "react-router-dom";
 import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
-import BetView from "../bet/betView";
-import RaiseView from "../bet/raiseView";
 import coinWinning from "../../assets/animation/22.gif";
-import { pokerInstance } from "../../utils/axios.config";
-import RaiseSlider from "../bet/raiseSlider";
 import AdvanceActionBtn from "../bet/advanceActionBtns";
 import ChatHistory from "../chat/chatHistory";
 import UsersComments from "../../assets/comenting.svg";
@@ -56,6 +47,8 @@ import AddCoinIcon from "../SVGfiles/coinSVG";
 import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
+import RaiseContainer from "../bet/raiseContainer";
+
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -77,11 +70,11 @@ let joinInRunningRound = false;
 let tRound = null;
 let tPlayer = null;
 let showFinish = false;
-let AvailablePosition = [];
 let admin = false;
 let idToken;
 let interval;
 let retryCount = 0;
+let tablePlayers = [];
 
 const numFormatter = (num) => {
   if (num > 1 && num < 999) {
@@ -127,13 +120,14 @@ const PokerTable = (props) => {
   const [showCoin, setShowCoin] = useState(false);
   const [loader, setLoader] = useState(false);
   const [start, setStart] = useState(false);
-  const [startBtn, setStartBtn] = useState(false);
   const [mergeAnimationState, setMergeAnimationState] = useState(false);
   const [newJoinlowBalance, setNewJoinLowBalance] = useState(false);
   const [volume, setVolume] = useState(true);
   const [userData, setUserData] = useState(null);
   const [playersLeft, setPlayerLeft] = useState([]);
   const [playersRight, setPlayersRight] = useState([]);
+  const [activeWinnerPlayersPot, setActiveWinnerPlayersPot] = useState({});
+  const [sidePots, setSidePots] = useState([]);
   const [openAction, setOpenAction] = useState({
     bet: false,
     call: false,
@@ -159,7 +153,6 @@ const PokerTable = (props) => {
   const [btnToggle, setBtnToggle] = useState(false);
   const [showStore, setShowStore] = useState(false);
   const [selectedUser, setSelectedUser] = useState();
-  const [winAnimationType, setWinAnimationType] = useState("");
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [followingList, setFollowingList] = useState([]);
   const [friendList, setFriendList] = useState([]);
@@ -206,6 +199,7 @@ const PokerTable = (props) => {
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
             tPlayer = null;
+            tRound=null;
             socket.emit("checkTable", {
               gameId: table,
               userId,
@@ -246,8 +240,9 @@ const PokerTable = (props) => {
 
       try {
         if (table) {
-          console.log("RommData", roomData);
+          // console.log("RommData", roomData);
           tPlayer = null;
+            tRound=null;
           socket.emit("checkTable", {
             gameId: table,
             userId: user?.data.user?.id,
@@ -274,7 +269,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("notFound", (data) => {
-      toast.error("Table not Found");
+      toast.error("Table not Found", {id: 'notFound'});
       if (
         data?.message === "Game not found. Either game is finished or not exist"
       ) {
@@ -340,7 +335,7 @@ const PokerTable = (props) => {
       toast.error("Only One player, please wait for othe to join", { id: "A" });
       setStart(false);
       setTablePot(data.tablePot);
-
+      setSidePots(data.sidePots)
       updatePlayer(data.players);
       if (data.hostId === userId) {
         setisAdmin(true);
@@ -351,10 +346,11 @@ const PokerTable = (props) => {
     socket.on("newWatcherJoin", (data) => {
       setLoader(false);
       if (data.watcherId === userId) {
-        toast.success("Joined as Watcher", { id: "A" });
+        toast.success("Joined as Watcher", { id: "new WatcherJoin" });
         isWatcher = true;
       }
       roomData = data.roomData;
+      setSidePots(roomData.sidePots)
       setWatchers(data.roomData.watchers);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -376,6 +372,7 @@ const PokerTable = (props) => {
     });
     socket.on("sitInOut", (data) => {
       roomData = data.updatedRoom;
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -392,11 +389,11 @@ const PokerTable = (props) => {
     });
     socket.on("privateTable", () => {
       setLoader(false);
-      toast.error("Unable to join Private table", { id: "A" });
+      toast.error("Unable to join Private table", { id: "private-table" });
     });
     socket.on("noAdmin", () => {
       setLoader(false);
-      toast.error("Table host is not Available", { id: "A" });
+      toast.error("Table host is not Available", { id: "noAdmin" });
     });
     socket.on("tableOwner", (data) => {
       setLoader(false);
@@ -438,19 +435,19 @@ const PokerTable = (props) => {
     });
 
     socket.on("playerleft", (data) => {
-      toast.success(data.msg, { id: "A" });
+      toast.success(data.msg, { id: data.userId });
       if (data.userId === userId) {
         window.location.href = window.location.origin;
       }
     });
 
     socket.on("notAuthorized", () => {
-      toast.error("Not Authorized", { id: "A" });
+      toast.error("Not Authorized", { id: "not-authrized" });
       setLoader(false);
     });
 
     socket.on("noUser", () => {
-      toast.error("No user found", { id: "A" });
+      toast.error("No user found", { id: "not-user" });
     });
 
     socket.on("actionperformed", (data) => {
@@ -475,10 +472,10 @@ const PokerTable = (props) => {
 
     socket.on("approved", (data) => {
       if (data.playerid === userId) {
-        toast.success("Join request is approved", { id: "A" });
+        toast.success("Join request is approved", { id: "approved" });
         setNewUser(false);
       } else {
-        toast.success(`${data.name} join the table`, { id: "B" });
+        toast.success(`${data.name} join the table`, { id: "joined" });
       }
     });
 
@@ -492,7 +489,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("notEnoughPlayer", (data) => {
-      toast.error("Atleast 3 player required to start the game", { id: "A" });
+      toast.error("Atleast 2 player required to start the game", { id: "A" });
     });
     socket.on("eliminatedPlayer", (data) => {
       const { tournamentId, eliminated } = data;
@@ -508,19 +505,21 @@ const PokerTable = (props) => {
     });
     socket.on("newhand", (data) => {
       if (data) {
-        console.log(data?.updatedRoom);
+        // console.log(data?.updatedRoom);
         roomData = data?.updatedRoom;
         tPlayer = null;
         setStart(false);
         joinInRunningRound = false;
+        setSidePots(roomData.sidePots)
         setTablePot(roomData?.tablePot);
         updatePlayer(roomData?.players);
         setCommunityCards([]);
-        setCurrentPlayer(false);
+        setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
         setAction(false);
         setActionText("");
+        setActiveWinnerPlayersPot({})
         setHandMatch([]);
         if (roomData?.hostId === userId) {
           setisAdmin(true);
@@ -533,18 +532,21 @@ const PokerTable = (props) => {
       roomData = data;
       setTablePot(roomData.pot);
       setTimer(roomData.timer);
+      setSidePots(roomData.sidePots)
       updatePlayer(data.preflopround);
     });
 
     socket.on("flopround", (data) => {
       setMergeAnimationState(true);
       roomData = data;
-      setTablePot(roomData.pot);
+
       setCommunityCards(data?.communityCard);
-      updatePlayer(data.flopround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        setSidePots(roomData.sidePots)
+        updatePlayer(data.flopround);
       }, 400);
     });
 
@@ -552,11 +554,12 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.turnround);
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        setSidePots(roomData.sidePots)
+        updatePlayer(data.turnround);
       }, 400);
     });
 
@@ -564,27 +567,30 @@ const PokerTable = (props) => {
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
-      setTablePot(roomData.pot);
-      updatePlayer(data.riverround);
+
       setTimeout(() => {
         setMergeAnimationState(false);
         playAudio("collect");
+        setTablePot(roomData.pot);
+        setSidePots(roomData.sidePots)
+        updatePlayer(data.riverround);
       }, 400);
     });
 
     socket.on("winner", (data) => {
       roomData = data.updatedRoom;
+      setSidePots(roomData.sidePots)
       updatePlayer(roomData.showdown);
-      setCurrentPlayer(false);
-      showWinner(roomData.winnerPlayer, roomData.players);
+      setCurrentPlayer();
+      showWinner(roomData.winnerPlayer, tablePlayers);
     });
 
     socket.on("gameStarted", () => {
-      toast.error("Game already started", { id: "A" });
+      toast.error("Game already started", { id: "game-started" });
     });
 
     socket.on("gameFinished", () => {
-      toast.error("Game already finished", { id: "A" });
+      toast.error("Game already finished", { id: "game-finished" });
       setLoader(false);
       socket.emit("clearData", {
         tableId,
@@ -596,18 +602,19 @@ const PokerTable = (props) => {
     });
 
     socket.on("beingtimeout", (data) => {
-      toast.error("being Timeout");
+      toast.error("being Timeout", { id: 'time-out'});
     });
 
     socket.on("automaticFold", (data) => {
       playAudio("fold");
-      toast.error(data.msg, { id: "A" });
+      toast.error(data.msg, { id: "auto-fold" });
     });
 
     socket.on("raise", (data) => {
       playAudio("bet");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -627,6 +634,7 @@ const PokerTable = (props) => {
       playAudio("bet");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -646,6 +654,7 @@ const PokerTable = (props) => {
       playAudio("bet");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -664,6 +673,7 @@ const PokerTable = (props) => {
     socket.on("call", (data) => {
       playAudio("bet");
       roomData = data.updatedRoom;
+      setSidePots(roomData.sidePots)
       setTablePot(roomData.pot);
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
@@ -684,6 +694,7 @@ const PokerTable = (props) => {
       playAudio("check");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -703,6 +714,7 @@ const PokerTable = (props) => {
       playAudio("fold");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
+      setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
       } else if (roomData.runninground === 1) {
@@ -721,6 +733,9 @@ const PokerTable = (props) => {
     socket.on("updateGame", (data) => {
       setLoader(false);
       roomData = data.game;
+      setSidePots(roomData.sidePots)
+      tPlayer=null;
+      tRound=null;
       setChatMessages(data.game.chats);
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
@@ -737,7 +752,7 @@ const PokerTable = (props) => {
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players);
         setCommunityCards([]);
-        setCurrentPlayer(false);
+        setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
         setAction(false);
@@ -761,7 +776,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("roomFinished", (data) => {
-      toast.success(data.msg, { id: "A" });
+      toast.success(data.msg, { id: "room-finished" });
 
       if (
         data?.roomdata?.runninground === 0 &&
@@ -770,13 +785,15 @@ const PokerTable = (props) => {
       ) {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
-      } else {
-        //  window.location.href = window.location.origin;
+        setCurrentPlayer()
+      } else if(data.roomdata.tournament) {
+          window.location.href = window.location.origin;
       }
     });
 
     socket.on("onlyOnePlayingPlayer", (data) => {
       roomData = data.roomdata;
+      setSidePots(roomData.sidePots)
       updatePlayer(roomData.players);
       setStart(false);
       toast.success(
@@ -785,7 +802,7 @@ const PokerTable = (props) => {
       );
     });
     socket.on("roomResume", () => {
-      toast.success("Game is resumed for next hand", { id: "A" });
+      toast.success("Game is resumed for next hand", { id: "game-resume" });
     });
 
     socket.on("joinAndLeave", () => {
@@ -797,6 +814,7 @@ const PokerTable = (props) => {
         toast.success("Admin left the game, Now you are the Game Admin", {
           id: "GameAdmin",
         });
+        setisAdmin(true);
       } else {
         toast.success(
           `Admin left the game, Now ${data.name} is the Game Admin`,
@@ -806,14 +824,14 @@ const PokerTable = (props) => {
     });
 
     socket.on("notEnoughBalance", (data) => {
-      toast.error(data.message);
+      toast.error(data.message, {id: 'not-enough-balance'});
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
     });
 
     socket.on("inOtherGame", (data) => {
-      toast.error(data.message);
+      toast.error(data.message, 'in-other-game');
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
@@ -832,7 +850,7 @@ const PokerTable = (props) => {
         if (roomData.runninground === 0) {
           updatePlayer(roomData.players);
           setCommunityCards([]);
-          setCurrentPlayer(false);
+          setCurrentPlayer();
           setWinner(false);
           setWinnerText("");
           setAction(false);
@@ -868,9 +886,53 @@ const PokerTable = (props) => {
       }
     });
 
+    socket.on('tablestopped', (data) => {
+      if (data.game) {
+        setLoader(false);
+        roomData = data.game;
+        setChatMessages(data.game.chats);
+        if (
+          roomData.players.find((ele) => ele.userid === userId) &&
+          !roomData.preflopround.find((ele) => ele.id === userId) &&
+          roomData.runninground !== 0
+        ) {
+          joinInRunningRound = true;
+        }
+        setCommunityCards(data?.communityCard);
+        if (roomData.hostId === userId) {
+          setisAdmin(true);
+          admin = true;
+        }
+
+        updatePlayer(roomData.players);
+        setCommunityCards([]);
+        setCurrentPlayer();
+        setWinner(false);
+        setWinnerText("");
+        setAction(false);
+        setActionText("");
+        setHandMatch([]);
+      }
+    })
+
     socket.on("waitForReArrange", (data) => {
       if (data.userIds.find((el) => el === userId))
         toast.success("Please wait for Re-arrange", { id: "rearrange" });
+    });
+
+    socket.on("updateRoom", (data) => {
+      // console.log("datatatata", data);
+
+      updatePlayer(data?.players);
+      toast.success(`Your wallet is updated`, { id: "wallet-update" });
+      setRefillSitInAmount(false);
+      setDisable(false);
+    });
+
+    socket.on("InrunningGame", (data) => {
+      toast.success(`Your wallet is update in next hand`, { id: "wallet-update" });
+      setRefillSitInAmount(false);
+      setDisable(false);
     });
   }, [isAdmin]);
 
@@ -970,7 +1032,7 @@ const PokerTable = (props) => {
       tPlayer = data.id;
       tRound = data.runninground;
     });
-  }, [players, currentPlayer]);
+  }, [players]);
 
   useEffect(() => {
     if (currentPlayer && currentPlayer.id === userId) {
@@ -1002,8 +1064,8 @@ const PokerTable = (props) => {
     if (!data) {
       return;
     }
-    let availablePosition = [];
     const pl = [...data];
+    let availablePosition = [];
     let players = [...pl];
     const pRight = pl.slice(0, Math.ceil(pl.length / 2));
     const pleft = pl.slice(Math.ceil(pl.length / 2)).reverse();
@@ -1044,7 +1106,6 @@ const PokerTable = (props) => {
       default:
         break;
     }
-    AvailablePosition = [...availablePosition];
     let whole = [];
     if (isWatcher || joinInRunningRound) {
       whole = [...data];
@@ -1072,14 +1133,27 @@ const PokerTable = (props) => {
         id: el.userid ? el.userid : el.id,
       });
     });
+    tablePlayers = playerDetails;
     setPlayers(playerDetails);
   };
-
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const showWinner = (data, players) => {
-    data.forEach((item, i) => {
-      if (i === 0) {
-        let type = players.find((el) => el.userid === item.id);
-        setWinAnimationType(type.items);
+    data.reduce((p, item, i) =>
+      p.then(() => {
+        let type = players.find((el) => el.id === item.id);
+        let activeWin = {
+          ...type,
+          ...item,
+        }
+        
+        setActiveWinnerPlayersPot(old => {
+          if(old.potPlayer){
+            setSidePots(sideOld => 
+              sideOld.filter(o => o.players.length !== old.potPlayer.length)
+            )
+          }
+          return activeWin
+        });
         setWinner(item);
         playAudio("winner");
         if (item.handName) {
@@ -1105,38 +1179,14 @@ const PokerTable = (props) => {
         } else if (!item.handName || item.name) {
           setWinnerText(`All player folded, ${item.name} Win`);
         }
-        setTimeout(() => {
-          console.log("set winner for one executed");
-          setWinner(false);
-        }, 2500);
-      } else if (i > 0) {
-        setTimeout(() => {
-          let type = players.find((el) => el.id === item.id);
-          setWinAnimationType(type?.items);
-          setWinner(item);
-          if (item.handName) {
-            setWinnerText(`${item.name} wins with ${item.handName}`);
-            let newMatch = [];
-            item.communityCards.forEach((card, j) => {
-              let handCard = item.winnerHand.find((hand) => hand === card);
-              if (handCard) {
-                newMatch.push(j);
-              }
-            });
-            newMatch.sort((a, b) => a - b);
-            setMatchCards(newMatch);
-          } else if (!item.handName || item.name) {
-            setWinnerText(`All player folded, ${item.name} Win`);
+      })
+        .then(() => delay(5000))
+        .then(() => {
+          if (roomData.finish) {
+            setHandWinner(roomData.handWinner);
           }
-          setTimeout(() => {
-            setWinner(false);
-          }, 2500);
-        }, 3000);
-      }
-    });
-    if (roomData.finish) {
-      setHandWinner(roomData.handWinner);
-    }
+        })
+      , Promise.resolve());
   };
 
   const [auto, setAuto] = useState(false);
@@ -1405,20 +1455,20 @@ const PokerTable = (props) => {
       const { newRoomId, changeIds } = data;
       if (newRoomId && changeIds.length > 0) {
         if (changeIds.find((el) => el.toString() === userId.toString())) {
-          console.log("Change ids--->", changeIds);
+          // console.log("Change ids--->", changeIds);
           window.location.href =
             "/table?gamecollection=poker&tableid=" + newRoomId;
         }
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message, { id: "A" });
+      toast.error(data?.message, { id: "table-full" });
       setTimeout(() => {
         history.push("/");
       }, 2000);
     });
     socket.on("eleminated", (data) => {
-      console.log("Eleminated detail--->", data);
+      // console.log("Eleminated detail--->", data);
       const { roomDetail } = data;
       if (roomDetail) {
         if (
@@ -1524,6 +1574,7 @@ const PokerTable = (props) => {
       return;
     } else if (/\d/.test(sitInAmount)) {
       tPlayer = null;
+      tRound=null;
       socket.emit("checkTable", {
         gameId: table,
         userId: userId,
@@ -1546,7 +1597,7 @@ const PokerTable = (props) => {
   };
 
   const handleReffill = async (amount) => {
-    console.log("RefelAmount", userData);
+    // console.log("RefelAmount", userData);
     setDisable(true);
     let user = await userUtils.getAuthUserData();
     // console.log("user", user);
@@ -1580,24 +1631,8 @@ const PokerTable = (props) => {
     }
   };
 
-  useEffect(() => {
-    socket.on("updateRoom", (data) => {
-      console.log("datatatata", data);
-
-      updatePlayer(data?.players);
-      toast.success(`Your wallet is updated`, { id: "A" });
-      setRefillSitInAmount(false);
-      setDisable(false);
-    });
-
-    socket.on("InrunningGame", (data) => {
-      toast.success(`Your wallet is update in next hand`, { id: "B" });
-      setRefillSitInAmount(false);
-      setDisable(false);
-    });
-  }, []);
-
-  const raiseInSliderAction = (x) => {
+  const raiseInSliderAction = (e, x) => {
+    e.preventDefault();
     if (x >= roomData?.raiseAmount) {
       setOpenAction({
         bet: false,
@@ -1611,13 +1646,14 @@ const PokerTable = (props) => {
       socket.emit("doraise", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`, {id: 'minimum-raise'});
     }
   };
-  const betInSliderAction = (x) => {
+  const betInSliderAction = (e, x) => {
+    e.preventDefault();
     // console.log("BetAmount", x);
     if (x >= roomData.raiseAmount) {
       setOpenAction({
@@ -1632,17 +1668,17 @@ const PokerTable = (props) => {
       socket.emit("dobet", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount}`, {id: 'bet-minimum'});
     }
   };
 
   useEffect(() => {
     // console.log("RunningRound", roomData?.runninground);
     socket.on("blindTimer", (data) => {
-      console.log("blindTimer", data);
+      // console.log("blindTimer", data);
       setBlindTimer(data.time);
     });
   }, []);
@@ -1651,21 +1687,20 @@ const PokerTable = (props) => {
     <div className="poker" id={players.length}>
       <Helmet>
         <html
-          className={`game-page ${
-            !(players && players.find((ele) => ele.id === userId)) &&
+          className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
             roomData &&
             roomData.players.find((ele) => ele.userid === userId)
-              ? "game-started-join"
-              : ""
-          }`}
+            ? "game-started-join"
+            : ""
+            }`}
         />
       </Helmet>
 
       <div
         className={
           !(players && players.find((ele) => ele.id === userId)) &&
-          roomData &&
-          roomData.players.find((ele) => ele.userid === userId)
+            roomData &&
+            roomData.players.find((ele) => ele.userid === userId)
             ? "backToHome"
             : "notShow"
         }
@@ -1682,8 +1717,8 @@ const PokerTable = (props) => {
         )}
 
         <div className="container">
-          {console.log("play pause game start  ==>", roomData?.gamestart)}
-          {startBtn && isAdmin && roomData?.gamestart ? (
+          {/* {console.log("play pause game start  ==>", roomData?.gamestart)} */}
+          {isAdmin && roomData?.gamestart ? (
             <PlayPauseBtn
               pauseGame={pauseGame}
               finishGame={finishGame}
@@ -1693,14 +1728,14 @@ const PokerTable = (props) => {
             ""
           )}
 
-          {roomData?.gameType === "poker-tournament" && (
-            <div className="table-blindLevel">
-              <h4>
-                SB/BB :{" "}
-                <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
-              </h4>
-            </div>
-          )}
+
+          {roomData?.smallBlind ? <div className="table-blindLevel">
+            <h4>
+              SB/BB :{" "}
+              <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
+            </h4>
+          </div> : ""}
+
 
           {roomData?.gameType === "poker-tournament" &&
             roomData?.isGameRunning && (
@@ -1732,9 +1767,9 @@ const PokerTable = (props) => {
               />
             </div>
             {(players && players.find((ele) => ele.id === userId)) ||
-            (roomData &&
-              roomData.players.find((ele) => ele.userid === userId)) ||
-            isWatcher ? (
+              (roomData &&
+                roomData.players.find((ele) => ele.userid === userId)) ||
+              isWatcher ? (
               <div
                 className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
               >
@@ -1748,10 +1783,10 @@ const PokerTable = (props) => {
                   !roomData.tournament && (
                     <div className="start-game">
                       <div className="start-game-btn">
-                        {console.log(
+                        {/* {console.log(
                           `is admin ${isAdmin}`,
                           `is game started ${roomData?.gamestart}`
-                        )}
+                        )} */}
                         {isAdmin && roomData && !roomData?.gamestart ? (
                           <>
                             <p>Click to start game</p>
@@ -1761,12 +1796,12 @@ const PokerTable = (props) => {
                                 <Button
                                   onClick={() => {
                                     setStart(true);
-                                    setStartBtn(true);
+
                                     startGame(roomData?.autoNextHand);
                                   }}
                                   disabled={start}
                                 >
-                                  Start Game
+                                  {start ? <Spinner animation='border' /> : "Start Game"}
                                 </Button>
                               )}
                               {players && players.length < 2 && (
@@ -1807,8 +1842,8 @@ const PokerTable = (props) => {
                             </>
                           )}
                         {roomData &&
-                        roomData.handWinner.length === 0 &&
-                        !roomData?.gamestart ? (
+                          roomData.handWinner.length === 0 &&
+                          !roomData?.gamestart ? (
                           <>
                             {roomData.gameType !== "poker-tournament" && (
                               <p className="joined-player">
@@ -1826,7 +1861,7 @@ const PokerTable = (props) => {
                       </div>
                     </div>
                   )}
-                {tablePot ? <TablePotMoney tablePot={tablePot} /> : ""}
+                {tablePot || roomData?.sidePots.length ? <TablePotMoney tablePot={tablePot} sidePots={sidePots} activeWinnerPlayersPot={activeWinnerPlayersPot} /> : ""}
                 {winner ? <GameMessage winnerText={winnerText} /> : null}
 
                 <TableCard
@@ -1836,7 +1871,6 @@ const PokerTable = (props) => {
                   roomData={roomData}
                   blindTimer={blindTimer}
                 />
-
                 {!isWatcher &&
                   roomData &&
                   userId &&
@@ -1867,8 +1901,8 @@ const PokerTable = (props) => {
                       showCoin={showCoin}
                       setShowCoin={setShowCoin}
                       setBuyinPopup={setBuyinPopup}
-                      winAnimationType={winAnimationType}
                       tablePot={tablePot}
+                      activeWinnerPlayersPot={activeWinnerPlayersPot}
                     />
                   ))}
               </div>
@@ -1904,6 +1938,7 @@ const PokerTable = (props) => {
             playersRight={playersRight}
             playersLeft={playersLeft}
             players={players}
+            remainingTime={remainingTime}
           />
         </div>
       </div>
@@ -1985,20 +2020,20 @@ const PokerTable = (props) => {
             )}
             {((roomData && roomData.public) ||
               (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                  }
-                >
-                  <button onClick={() => setShowInvite(true)}>
-                    {/* <img src={addcoin} alt="Invite friend" /> */}
-                    <i className="fa fa-envelope"></i>
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
+                <li>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                    }
+                  >
+                    <button onClick={() => setShowInvite(true)}>
+                      {/* <img src={addcoin} alt="Invite friend" /> */}
+                      <i className="fa fa-envelope"></i>
+                    </button>
+                  </OverlayTrigger>
+                </li>
+              )}
             {roomData?.tournament ? (
               ""
             ) : (
@@ -2088,7 +2123,6 @@ const PokerTable = (props) => {
       </audio>
       <StatsPopup
         modalShow={modalShow}
-        setModalShow={setModalShow}
         handWinner={handWinner}
       />
       <LeaveConfirmPopup
@@ -2136,8 +2170,8 @@ const Players = ({
   timer,
   remainingTime,
   mergeAnimationState,
+  activeWinnerPlayersPot
 }) => {
-  console.log("playerData", playerData);
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
@@ -2183,10 +2217,7 @@ const Players = ({
   }, [playerData, setBuyinPopup]);
 
   useEffect(() => {
-    // console.log("RunningRound", roomData?.runninground);
     socket.on("showCard", (data) => {
-      console.log("RunningRound", roomData?.runninground);
-      console.log("playerData.id", playerData.id);
       if (playerData.id === userId) {
         setShowCard(true);
       } else if (roomData?.runninground === 5) {
@@ -2227,17 +2258,16 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${playerclass} ${
-          winner && playerData && winner.id === playerData.id
-            ? `winner-player`
-            : ``
-        } ${
-          playerData && playerData.playing && !playerData?.fold
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
+          ? `winner-player`
+          : ``
+          }
+          ${(activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5) ? "activeWinnerpot" : ''}
+          ${(playerData && playerData.playing && !playerData?.fold) || (activeWinnerPlayersPot?.potPlayer?.find(el => el.id === playerData?.id) && roomData.runninground === 5)
             ? ""
             : "not-playing"
-        } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
-          playerData && playerData.id === messageBy ? "playerChated" : ""
-        }`}
+          } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
+          }`}
       >
         {playerData?.availablePosition === 0 &&
           playerData?.fold &&
@@ -2286,7 +2316,6 @@ const Players = ({
           <HideCard />
         )}
 
-        {/* end of win or lose animation */}
         {currentPlayer &&
           playerData &&
           currentPlayer.id === playerData.id &&
@@ -2294,11 +2323,10 @@ const Players = ({
 
         <div id={`store-item-${playerData.id}`}></div>
         <div
-          className={`player-box ${
-            currentPlayer && playerData && currentPlayer.id === playerData.id
-              ? "currentPlayerChance"
-              : ""
-          }`}
+          className={`player-box ${currentPlayer && playerData && currentPlayer.id === playerData.id
+            ? "currentPlayerChance"
+            : ""
+            }`}
         >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
@@ -2328,11 +2356,10 @@ const Players = ({
             />
           </div>
           <div
-            className={`player-info ${
-              currentPlayer && playerData && currentPlayer.id === playerData.id
-                ? "progressActive"
-                : ""
-            } `}
+            className={`player-info ${currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "progressActive"
+              : ""
+              } `}
           >
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -2354,8 +2381,8 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                  ? "B"
-                  : // : playerData.isDealer
+                    ? "B"
+                    : // : playerData.isDealer
                     // ? "D"
                     ""}
               </div>
@@ -2388,7 +2415,7 @@ const TableCard = ({
     <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
-          console.log("DecryptCard(card)", DecryptCard(card));
+          // console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
             <div className={`card-animate active duration-${i}`}>
@@ -2397,11 +2424,10 @@ const TableCard = ({
                 // src={cards ? cards : back }
                 src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
-                className={`${
-                  winner && matchCards.findIndex((ele) => ele === i) !== -1
-                    ? `winner-card`
-                    : ``
-                } front-card duration-${i}`}
+                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
+                  ? `winner-card`
+                  : ``
+                  } front-card duration-${i}`}
               />
               <img
                 key={`item1-${i}`}
@@ -2416,12 +2442,20 @@ const TableCard = ({
   );
 };
 
-const TablePotMoney = ({ tablePot }) => {
+const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
+
   return (
-    <div className="total-pot-money animate__animated animate__fadeIn">
-      <span>
-        <p>{numFormatter(tablePot && tablePot)}</p>
-      </span>
+    <div className="pot-money">
+      {sidePots.length ? sidePots.map(sidePot => (
+        <div className={`total-pot-money animate__animated animate__fadeIn ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`winnPlayer${activeWinnerPlayersPot.availablePosition +1}` : ''}`}>
+          <span>{numFormatter(sidePot.pot)}</span>
+        </div>
+      )) :
+        <div className={`total-pot-money animate__animated animate__fadeIn winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`}>
+          <span>
+            <p>{numFormatter(tablePot && tablePot)}</p>
+          </span>
+        </div>}
     </div>
   );
 };
@@ -2457,51 +2491,29 @@ const FooterButton = ({
   raiseInSliderAction,
   betInSliderAction,
   players,
+  remainingTime,
 }) => {
-  console.log(
-    "roomData?.raiseAmount===>>",
-    roomData?.raiseAmount,
-    "currentPlayer?.pot===>>",
-    currentPlayer?.pot
-  );
   return (
     <div className="footer-button">
       <div className="container">
         <div className="footer-container">
           {currentPlayer &&
-          currentPlayer?.id === userId &&
-          !currentPlayer?.tentativeAction ? (
+            currentPlayer?.id === userId &&
+            !currentPlayer?.tentativeAction ? (
             <>
               {openAction.fold && (
                 <div className="footer-btn ">
-                  <Button onClick={() => foldAction()}> Fold</Button>
-                  {/* <Form.Check
-                    inline
-                    label="Fold"
-                    name="Fold"
-                    type="checkbox"
-                    id={"fold"}
-                    onChange={() => handleCheck("Fold")}
-                    checked={selectedbets === "Fold"}
-                  /> */}
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
                 </div>
               )}
               {openAction.check && (
                 <div className="footer-btn ">
-                  <Button onClick={() => checkAction()}>Check</Button>
-                  {/* <Form.Check
-                    inline
-                    name="Check"
-                    type="checkbox"
-                    id={"Check"}
-                    onChange={() => handleCheck("Check")}
-                    checked={selectedbets === "Check"}
-                  /> */}
+                  <Button onClick={() => checkAction()} disabled={remainingTime <= 0}>Check</Button>
                 </div>
               )}
               {openAction.call && (
                 <div className="footer-btn ">
-                  <Button onClick={() => callAction()}>
+                  <Button onClick={() => callAction()} disabled={remainingTime <= 0}>
                     Call{" "}
                     <span
                       className={
@@ -2510,61 +2522,33 @@ const FooterButton = ({
                           : "callBtn-amount-none"
                       }
                     >
-                      {console.log(
-                        " roomData?.raiseAmount - currentPlayer?.pot",
-                        roomData?.raiseAmount,
-                        currentPlayer?.pot
-                      )}
-                      {/* roomData?.raiseAmount /* - currentPlayer?.pot */}(
-                      {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)}
-                      )
+                      (  {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)})
                     </span>
                   </Button>
-                  {/* <Form.Check
-                    inline
-                    name="Call"
-                    type="checkbox"
-                    id={"Call"}
-                    onChange={() => handleCheck("Call")}
-                    checked={selectedbets === "Call"}
-                  /> */}
                 </div>
               )}
 
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
-                    <div className="raiseBet-container">
-                      <RaiseSlider
-                        currentPlayer={currentPlayer}
-                        SliderAction={raiseInSliderAction}
-                        roomData={roomData}
-                      />
-                      <RaiseView
-                        currentPlayer={currentPlayer}
-                        setRaise={setRaise}
-                        raiseAction={raiseAction}
-                        allinAction={allinAction}
-                        roomData={roomData}
-                        players={players}
-                      />
-                    </div>
+                    <RaiseContainer
+                      currentPlayer={currentPlayer}
+                      SliderAction={raiseInSliderAction}
+                      roomData={roomData}
+                      setBetRaise={setRaise}
+                      setAction={raiseAction}
+                      allinAction={allinAction}
+                      players={players}
+                      remainingTime={remainingTime}
+                    />
                   )}
                   <Button
                     onClick={() => {
                       setBet(false);
                       setRaise(true);
                     }}
+                    disabled={remainingTime <= 0}
                   >
-                    {/* <Form.Check
-                      inline
-                      label="Raise"
-                      name="Raise"
-                      type="checkbox"
-                      id={"Raise"}
-                      onChange={() => handleCheck("Raise")}
-                      checked={selectedbets === "Raise"}
-                    /> */}
                     Raise
                   </Button>
                 </div>
@@ -2573,61 +2557,37 @@ const FooterButton = ({
               {openAction.bet && (
                 <div className="footer-btn ">
                   {bet && (
-                    <div className="raiseBet-container">
-                      <RaiseSlider
-                        currentPlayer={currentPlayer}
-                        SliderAction={betInSliderAction}
-                        roomData={roomData}
-                      />
-                      <BetView
-                        currentPlayer={currentPlayer}
-                        setBet={setBet}
-                        betAction={betAction}
-                        allinAction={allinAction}
-                        roomData={roomData}
-                        players={players}
-                      />
-                    </div>
+                    <RaiseContainer
+                      currentPlayer={currentPlayer}
+                      SliderAction={betInSliderAction}
+                      roomData={roomData}
+                      setBetRaise={setBet}
+                      setAction={betAction}
+                      allinAction={allinAction}
+                      players={players}
+                      remainingTime={remainingTime}
+                    />
                   )}
                   <Button
                     onClick={() => {
                       setBet(true);
                       setRaise(false);
                     }}
+                    disabled={remainingTime <= 0}
                   >
-                    {/* <Form.Check
-                      inline
-                      label="Bet"
-                      name="Bet"
-                      type="checkbox"
-                      id={"Bet"}
-                      onChange={() => handleCheck("Bet")}
-                      checked={selectedbets === "Bet"}
-                    /> */}
                     Bet
                   </Button>
                 </div>
               )}
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
-                  <Button onClick={() => allinAction()}>
-                    {/* <Form.Check
-                      inline
-                      label="All In"
-                      name="AllIn"
-                      type="checkbox"
-                      id={"AllIn"}
-                      onChange={() => handleCheck("All In")}
-                      checked={selectedbets === "All In"}
-                    /> */}
+                  <Button onClick={() => allinAction()} disabled={remainingTime <= 0}>
                     All In
                   </Button>
                 </div>
               )}
             </>
           ) : (
-            // ""
-
             <>
               {roomData?.gamestart &&
                 roomData.runninground >= 1 &&
@@ -2639,7 +2599,7 @@ const FooterButton = ({
                   players.find((el) => el.id === userId)?.action === true
                 ) &&
                 players.find((el) => el.id === userId).actionType !==
-                  "all-in" && (
+                "all-in" && (
                   <AdvanceActionBtn
                     setTentativeAction={setTentativeAction}
                     tentativeAction={tentativeAction}
@@ -2732,11 +2692,10 @@ const ShowCard = ({ cards, handMatch }) => {
               key={`item-${card}`}
               src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
               alt="card"
-              className={`animate__animated animate__rollIn duration-${i} ${
-                handMatch.findIndex((ele) => ele === i) !== -1
-                  ? ``
-                  : `winner-card`
-              } `}
+              className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
+                ? ``
+                : `winner-card`
+                } `}
             />
           );
         })}

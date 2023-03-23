@@ -12,7 +12,8 @@ const EnterAmountPopup = ({
   const [isLoading, setLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
-  const joinGame = async () => {
+  const joinGame = async (e) => {
+    e.preventDefault();
     if (parseInt(amount) >= 100) {
       setLoading(true);
       const msg = await handleSitin(amount);
@@ -33,6 +34,7 @@ const EnterAmountPopup = ({
   };
 
   const redirectToLobby = () => {
+    setError('')
     if (submitButtonText.toLowerCase().startsWith("refill")) {
       setShow(false);
     } else {
@@ -47,7 +49,7 @@ const EnterAmountPopup = ({
       className="friends-popup leave-confirm sitinPopup"
     >
       <Modal.Body>
-        <div className="block">
+        <Form className="block">
           <Form.Group className="sitinPopup-div" controlId="formBasicEmail">
             <Form.Label>
               Enter{" "}
@@ -61,7 +63,7 @@ const EnterAmountPopup = ({
               onChange={handleAmountChange}
               placeholder="minimum amount: 100"
             />
-            {error && <p className="errorMssg">{error}</p>}
+            {error && <p className="errorMessage">{error}</p>}
           </Form.Group>
 
           <div className="sub-btn text-center">
@@ -70,11 +72,11 @@ const EnterAmountPopup = ({
                 ? "Close"
                 : "Lobby"}
             </Button>
-            <Button className="exit-btn" onClick={joinGame} disabled={disable}>
+            <Button className="exit-btn" type="submit" onClick={joinGame} disabled={disable}>
               {isLoading ? <Spinner animation="border" /> : submitButtonText}
             </Button>
           </div>
-        </div>
+        </Form>
       </Modal.Body>
     </Modal>
   );
