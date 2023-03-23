@@ -34,6 +34,7 @@ const EnterAmountPopup = ({
   };
 
   const redirectToLobby = () => {
+    setError('')
     if (submitButtonText.toLowerCase().startsWith("refill")) {
       setShow(false);
     } else {
