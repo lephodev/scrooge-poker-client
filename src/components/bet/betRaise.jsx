@@ -6,6 +6,7 @@ const BetRaise = ({ currentPlayer,
     setAction,
     allinAction,
     roomData,
+    remainingTime,
     players, }) => {
     let playersPot;
     switch (roomData?.runninground) {
@@ -29,6 +30,7 @@ const BetRaise = ({ currentPlayer,
             {((roomData?.pot + playersPot) * 25) / 100 <= currentPlayer?.wallet &&
                 ((roomData.pot + playersPot) * 25) / 100 >= roomData.raiseAmount && (
                     <Button
+                    disabled={remainingTime <=1}
                         onClick={() => {
                             setAction(((roomData.pot + playersPot) * 25) / 100);
                             setBetRaise(false);
@@ -40,6 +42,7 @@ const BetRaise = ({ currentPlayer,
             {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
                 ((roomData.pot + playersPot) * 33) / 100 >= roomData.raiseAmount && (
                     <Button
+                    disabled={remainingTime <=1}
                         onClick={() => {
                             setAction(((roomData.pot + playersPot) * 33) / 100);
                             setBetRaise(false);
@@ -51,6 +54,7 @@ const BetRaise = ({ currentPlayer,
             {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
                 ((roomData.pot + playersPot) * 50) / 100 >= roomData.raiseAmount && (
                     <Button
+                    disabled={remainingTime <=1}
                         onClick={() => {
                             setAction(((roomData.pot + playersPot) * 50) / 100);
                             setBetRaise(false);
@@ -62,6 +66,7 @@ const BetRaise = ({ currentPlayer,
             {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
                 ((roomData.pot + playersPot) * 67) / 100 >= roomData.raiseAmount && (
                     <Button
+                    disabled={remainingTime <=1}
                         onClick={() => {
                             setAction(((roomData.pot + playersPot) * 67) / 100);
                             setBetRaise(false);
@@ -74,6 +79,7 @@ const BetRaise = ({ currentPlayer,
             {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
                 ((roomData.pot + playersPot) * 75) / 100 >= roomData.raiseAmount && (
                     <Button
+                    disabled={remainingTime <=1}
                         onClick={() => {
                             setAction(((roomData.pot + playersPot) * 75) / 100);
                             setBetRaise(false);
@@ -83,6 +89,7 @@ const BetRaise = ({ currentPlayer,
                     </Button>
                 )}
             <Button
+            disabled={remainingTime <=1}
                 onClick={() => {
                     allinAction();
                     setBetRaise(false);

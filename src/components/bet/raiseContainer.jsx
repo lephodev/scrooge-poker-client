@@ -9,6 +9,7 @@ const RaiseContainer = ({ currentPlayer, SliderAction, roomData, setBetRaise, se
                 currentPlayer={currentPlayer}
                 SliderAction={SliderAction}
                 roomData={roomData}
+                remainingTime={remainingTime}
             />
             <BetRaise
                 currentPlayer={currentPlayer}
@@ -17,6 +18,7 @@ const RaiseContainer = ({ currentPlayer, SliderAction, roomData, setBetRaise, se
                 allinAction={allinAction}
                 roomData={roomData}
                 players={players}
+                remainingTime={remainingTime}
             />
         </div>
     )
