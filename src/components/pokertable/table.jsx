@@ -198,6 +198,7 @@ const PokerTable = (props) => {
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
             tPlayer = null;
+            tRound=null;
             socket.emit("checkTable", {
               gameId: table,
               userId,
@@ -240,6 +241,7 @@ const PokerTable = (props) => {
         if (table) {
           // console.log("RommData", roomData);
           tPlayer = null;
+            tRound=null;
           socket.emit("checkTable", {
             gameId: table,
             userId: user?.data.user?.id,
@@ -713,6 +715,8 @@ const PokerTable = (props) => {
     socket.on("updateGame", (data) => {
       setLoader(false);
       roomData = data.game;
+      tPlayer=null;
+      tRound=null;
       setChatMessages(data.game.chats);
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
@@ -1542,6 +1546,7 @@ const PokerTable = (props) => {
       return;
     } else if (/\d/.test(sitInAmount)) {
       tPlayer = null;
+      tRound=null;
       socket.emit("checkTable", {
         gameId: table,
         userId: userId,
