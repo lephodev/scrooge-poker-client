@@ -306,12 +306,12 @@ const Home = () => {
 
   return (
     <div className="poker-home">
-      {/* {userInAnyGame?.inGame && (
+      {userInAnyGame?.inGame && (
         <AlreadyInGamePopup
           userInAnyGame={userInAnyGame}
           setUserInAnyGame={setUserInAnyGame}
         />
-      )} */}
+      )}
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
