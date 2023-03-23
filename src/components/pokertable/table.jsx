@@ -763,8 +763,8 @@ const PokerTable = (props) => {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
         setCurrentPlayer()
-      } else {
-        //  window.location.href = window.location.origin;
+      } else if(data.roomdata.tournament) {
+          window.location.href = window.location.origin;
       }
     });
 
@@ -790,6 +790,7 @@ const PokerTable = (props) => {
         toast.success("Admin left the game, Now you are the Game Admin", {
           id: "GameAdmin",
         });
+        setisAdmin(true);
       } else {
         toast.success(
           `Admin left the game, Now ${data.name} is the Game Admin`,
