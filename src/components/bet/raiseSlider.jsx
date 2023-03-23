@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import numFormatter from "../../utils/utils";
 
-const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
+const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) => {
   const [rangeBetValue, setRangeBetValue] = useState(0);
   const { wallet } = currentPlayer || {};
 
@@ -57,7 +57,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData }) => {
           <Button
             variant="primary"
             onClick={(e) => SliderAction(e,parseInt(rangeBetValue))}
-            disabled={rangeBetValue <= 0}
+            disabled={rangeBetValue <= 0 || remainingTime <=1}
             type="submit"
           >
             Bet

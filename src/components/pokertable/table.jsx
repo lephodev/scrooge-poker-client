@@ -198,6 +198,7 @@ const PokerTable = (props) => {
               urlParams.get("gameCollection") ||
               urlParams.get("gamecollection");
             tPlayer = null;
+            tRound=null;
             socket.emit("checkTable", {
               gameId: table,
               userId,
@@ -240,6 +241,7 @@ const PokerTable = (props) => {
         if (table) {
           // console.log("RommData", roomData);
           tPlayer = null;
+            tRound=null;
           socket.emit("checkTable", {
             gameId: table,
             userId: user?.data.user?.id,
@@ -266,7 +268,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("notFound", (data) => {
-      toast.error("Table not Found");
+      toast.error("Table not Found", {id: 'notFound'});
       if (
         data?.message === "Game not found. Either game is finished or not exist"
       ) {
@@ -343,7 +345,7 @@ const PokerTable = (props) => {
     socket.on("newWatcherJoin", (data) => {
       setLoader(false);
       if (data.watcherId === userId) {
-        toast.success("Joined as Watcher", { id: "A" });
+        toast.success("Joined as Watcher", { id: "new WatcherJoin" });
         isWatcher = true;
       }
       roomData = data.roomData;
@@ -384,11 +386,11 @@ const PokerTable = (props) => {
     });
     socket.on("privateTable", () => {
       setLoader(false);
-      toast.error("Unable to join Private table", { id: "A" });
+      toast.error("Unable to join Private table", { id: "private-table" });
     });
     socket.on("noAdmin", () => {
       setLoader(false);
-      toast.error("Table host is not Available", { id: "A" });
+      toast.error("Table host is not Available", { id: "noAdmin" });
     });
     socket.on("tableOwner", (data) => {
       setLoader(false);
@@ -430,19 +432,19 @@ const PokerTable = (props) => {
     });
 
     socket.on("playerleft", (data) => {
-      toast.success(data.msg, { id: "A" });
+      toast.success(data.msg, { id: data.userId });
       if (data.userId === userId) {
         window.location.href = window.location.origin;
       }
     });
 
     socket.on("notAuthorized", () => {
-      toast.error("Not Authorized", { id: "A" });
+      toast.error("Not Authorized", { id: "not-authrized" });
       setLoader(false);
     });
 
     socket.on("noUser", () => {
-      toast.error("No user found", { id: "A" });
+      toast.error("No user found", { id: "not-user" });
     });
 
     socket.on("actionperformed", (data) => {
@@ -467,10 +469,10 @@ const PokerTable = (props) => {
 
     socket.on("approved", (data) => {
       if (data.playerid === userId) {
-        toast.success("Join request is approved", { id: "A" });
+        toast.success("Join request is approved", { id: "approved" });
         setNewUser(false);
       } else {
-        toast.success(`${data.name} join the table`, { id: "B" });
+        toast.success(`${data.name} join the table`, { id: "joined" });
       }
     });
 
@@ -484,7 +486,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("notEnoughPlayer", (data) => {
-      toast.error("Atleast 3 player required to start the game", { id: "A" });
+      toast.error("Atleast 2 player required to start the game", { id: "A" });
     });
     socket.on("eliminatedPlayer", (data) => {
       const { tournamentId, eliminated } = data;
@@ -575,11 +577,11 @@ const PokerTable = (props) => {
     });
 
     socket.on("gameStarted", () => {
-      toast.error("Game already started", { id: "A" });
+      toast.error("Game already started", { id: "game-started" });
     });
 
     socket.on("gameFinished", () => {
-      toast.error("Game already finished", { id: "A" });
+      toast.error("Game already finished", { id: "game-finished" });
       setLoader(false);
       socket.emit("clearData", {
         tableId,
@@ -591,12 +593,12 @@ const PokerTable = (props) => {
     });
 
     socket.on("beingtimeout", (data) => {
-      toast.error("being Timeout");
+      toast.error("being Timeout", { id: 'time-out'});
     });
 
     socket.on("automaticFold", (data) => {
       playAudio("fold");
-      toast.error(data.msg, { id: "A" });
+      toast.error(data.msg, { id: "auto-fold" });
     });
 
     socket.on("raise", (data) => {
@@ -716,6 +718,8 @@ const PokerTable = (props) => {
     socket.on("updateGame", (data) => {
       setLoader(false);
       roomData = data.game;
+      tPlayer=null;
+      tRound=null;
       setChatMessages(data.game.chats);
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
@@ -756,7 +760,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("roomFinished", (data) => {
-      toast.success(data.msg, { id: "A" });
+      toast.success(data.msg, { id: "room-finished" });
 
       if (
         data?.roomdata?.runninground === 0 &&
@@ -766,8 +770,8 @@ const PokerTable = (props) => {
         setHandWinner(data.roomdata.handWinner);
         setModalShow(true);
         setCurrentPlayer()
-      } else {
-        //  window.location.href = window.location.origin;
+      } else if(data.roomdata.tournament) {
+          window.location.href = window.location.origin;
       }
     });
 
@@ -781,7 +785,7 @@ const PokerTable = (props) => {
       );
     });
     socket.on("roomResume", () => {
-      toast.success("Game is resumed for next hand", { id: "A" });
+      toast.success("Game is resumed for next hand", { id: "game-resume" });
     });
 
     socket.on("joinAndLeave", () => {
@@ -793,6 +797,7 @@ const PokerTable = (props) => {
         toast.success("Admin left the game, Now you are the Game Admin", {
           id: "GameAdmin",
         });
+        setisAdmin(true);
       } else {
         toast.success(
           `Admin left the game, Now ${data.name} is the Game Admin`,
@@ -802,14 +807,14 @@ const PokerTable = (props) => {
     });
 
     socket.on("notEnoughBalance", (data) => {
-      toast.error(data.message);
+      toast.error(data.message, {id: 'not-enough-balance'});
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
     });
 
     socket.on("inOtherGame", (data) => {
-      toast.error(data.message);
+      toast.error(data.message, 'in-other-game');
       setTimeout(() => {
         window.location.href = window.location.origin;
       }, 1000);
@@ -902,13 +907,13 @@ const PokerTable = (props) => {
       // console.log("datatatata", data);
 
       updatePlayer(data?.players);
-      toast.success(`Your wallet is updated`, { id: "A" });
+      toast.success(`Your wallet is updated`, { id: "wallet-update" });
       setRefillSitInAmount(false);
       setDisable(false);
     });
 
     socket.on("InrunningGame", (data) => {
-      toast.success(`Your wallet is update in next hand`, { id: "B" });
+      toast.success(`Your wallet is update in next hand`, { id: "wallet-update" });
       setRefillSitInAmount(false);
       setDisable(false);
     });
@@ -1432,7 +1437,7 @@ const PokerTable = (props) => {
       }
     });
     socket.on("tablefull", (data) => {
-      toast.error(data?.message, { id: "A" });
+      toast.error(data?.message, { id: "table-full" });
       setTimeout(() => {
         history.push("/");
       }, 2000);
@@ -1544,6 +1549,7 @@ const PokerTable = (props) => {
       return;
     } else if (/\d/.test(sitInAmount)) {
       tPlayer = null;
+      tRound=null;
       socket.emit("checkTable", {
         gameId: table,
         userId: userId,
@@ -1615,10 +1621,10 @@ const PokerTable = (props) => {
       socket.emit("doraise", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`, {id: 'minimum-raise'});
     }
   };
   const betInSliderAction = (e, x) => {
@@ -1637,10 +1643,10 @@ const PokerTable = (props) => {
       socket.emit("dobet", {
         userid: userId,
         roomid: tableId,
-        amount: x,
+        amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`);
+      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount}`, {id: 'bet-minimum'});
     }
   };
 
@@ -2509,6 +2515,7 @@ const FooterButton = ({
                       setAction={raiseAction}
                       allinAction={allinAction}
                       players={players}
+                      remainingTime={remainingTime}
                     />
                   )}
                   <Button
@@ -2534,6 +2541,7 @@ const FooterButton = ({
                       setAction={betAction}
                       allinAction={allinAction}
                       players={players}
+                      remainingTime={remainingTime}
                     />
                   )}
                   <Button
