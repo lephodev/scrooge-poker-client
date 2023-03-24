@@ -2448,11 +2448,11 @@ const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
     <div className="pot-money">
       {sidePots.length ? sidePots.map(sidePot => (
         <div className={`total-pot-money animate__animated animate__fadeIn ${activeWinnerPlayersPot?.potPlayer?.length === sidePot?.players?.length ?`winnPlayer${activeWinnerPlayersPot.availablePosition +1}` : ''}`}>
-          <span>{numFormatter(sidePot.pot)}</span>
+          <span className={`pots-${sidePots.length}`}><p>{numFormatter(sidePot.pot)}</p></span>
         </div>
       )) :
         <div className={`total-pot-money animate__animated animate__fadeIn winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`}>
-          <span>
+          <span className="pots-1">
             <p>{numFormatter(tablePot && tablePot)}</p>
           </span>
         </div>}
