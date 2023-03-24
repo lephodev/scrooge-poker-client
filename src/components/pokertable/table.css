@@ -189,14 +189,52 @@ input:checked {
 
 /************** winn player pot animation  *************/
 
-.total-pot-money.winnPlayer1 {
+.winnPlayer1 .pots-1 {
+  animation: winnPot11 0.8s forwards ;
   transform: translate(2px, 335px);
-  animation: winnPot1 0.8s forwards;
-  opacity: 0;
-
 }
 
-@keyframes winnPot1 {
+.winnPlayer1 .pots-2 {
+  animation: winnPot12 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-3 {
+  animation: winnPot13 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-4 {
+  animation: winnPot14 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-5 {
+  animation: winnPot15 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-6 {
+  animation: winnPot16 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-7 {
+  animation: winnPot17 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-8 {
+  animation: winnPot18 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+.winnPlayer1 .pots-9 {
+  animation: winnPot19 0.8s forwards;
+  transform: translate(2px, 335px);
+}
+
+@keyframes winnPot11 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -205,18 +243,151 @@ input:checked {
   to {
     transform: translate(2px, 335px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer2 {
-  transform: translate(-283px, 300px);
-  animation: winnPot2 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot12 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
 
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
 }
 
-@keyframes winnPot2 {
+@keyframes winnPot13 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot14 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot15 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot16 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot17 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot18 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot19 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(2px, 335px);
+    opacity: 0;
+  }
+}
+
+.winnPlayer2 .pots-1 {
+  animation: winnPot21 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-2 {
+  animation: winnPot22 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-3 {
+  animation: winnPot23 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-4 {
+  animation: winnPot24 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-5 {
+  animation: winnPot25 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-6 {
+  animation: winnPot26 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-7 {
+  animation: winnPot27 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-8 {
+  animation: winnPot28 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+.winnPlayer2 .pots-9 {
+  animation: winnPot29 0.8s forwards;
+  transform: translate(-283px, 300px);
+}
+
+@keyframes winnPot21 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -225,18 +396,151 @@ input:checked {
   to {
     transform: translate(-283px, 300px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer3 {
-  transform: translate(-555px, 200px);
-  animation: winnPot3 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot22 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
 
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
 }
 
-@keyframes winnPot3 {
+@keyframes winnPot23 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot24 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot25 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot26 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot27 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot28 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot29 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-283px, 300px);
+    opacity: 0;
+  }
+}
+
+.winnPlayer3 .pots-1 {
+  animation: winnPot31 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-2 {
+  animation: winnPot32 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-3 {
+  animation: winnPot33 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-4 {
+  animation: winnPot34 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-5 {
+  animation: winnPot35 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-6 {
+  animation: winnPot36 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-7 {
+  animation: winnPot37 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-8 {
+  animation: winnPot38 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+.winnPlayer3 .pots-9 {
+  animation: winnPot39 0.8s forwards;
+  transform: translate(-555px, 200px);
+}
+
+@keyframes winnPot31 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -245,38 +549,304 @@ input:checked {
   to {
     transform: translate(-555px, 200px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer4 {
-  transform: translate(-480px, -70px);
-  animation: winnPot4 0.8s forwards;
-  opacity: 0;
-
-}
-
-@keyframes winnPot4 {
+@keyframes winnPot32 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
   }
 
   to {
-    transform: translate(-555px, -70px);
+    transform: translate(-555px, 200px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer5 {
-  transform: translate(-285px, -115px);
-  animation: winnPot5 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot33 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
 
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
 }
 
-@keyframes winnPot5 {
+@keyframes winnPot34 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot35 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot36 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot37 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot38 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot39 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-555px, 200px);
+    opacity: 0;
+  }
+}
+
+.winnPlayer4 .pots-1 {
+  animation: winnPot41 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-2 {
+  animation: winnPot42 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-3 {
+  animation: winnPot43 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-4 {
+  animation: winnPot44 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-5 {
+  animation: winnPot45 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-6 {
+  animation: winnPot46 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-7 {
+  animation: winnPot47 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-8 {
+  animation: winnPot48 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+.winnPlayer4 .pots-9 {
+  animation: winnPot49 0.8s forwards;
+  transform: translate(-480px, -70px);
+}
+
+@keyframes winnPot41 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot42 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot43 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot44 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot45 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot46 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot47 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot48 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot49 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-480px, -70px);
+    opacity: 0;
+  }
+}
+
+.winnPlayer5 .pots-1 {
+  animation: winnPot51 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-2 {
+  animation: winnPot52 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-3 {
+  animation: winnPot53 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-4 {
+  animation: winnPot54 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-5 {
+  animation: winnPot55 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-6 {
+  animation: winnPot56 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-7 {
+  animation: winnPot57 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-8 {
+  animation: winnPot58 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+.winnPlayer5 .pots-9 {
+  animation: winnPot59 0.8s forwards;
+  transform: translate(-285px, -115px);
+}
+
+@keyframes winnPot51 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -285,17 +855,151 @@ input:checked {
   to {
     transform: translate(-285px, -115px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer6 {
-  animation: winnPot6 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot52 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot53 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot54 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot55 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot56 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot57 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot58 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot59 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-285px, -115px);
+    opacity: 0;
+  }
+}
+
+.winnPlayer6 .pots-1 {
+  animation: winnPot61 0.8s forwards;
   transform: translate(300px, -118px);
 }
 
-@keyframes winnPot6 {
+.winnPlayer6 .pots-2 {
+  animation: winnPot62 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-3 {
+  animation: winnPot63 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-4 {
+  animation: winnPot64 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-5 {
+  animation: winnPot65 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-6 {
+  animation: winnPot66 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-7 {
+  animation: winnPot67 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-8 {
+  animation: winnPot68 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+.winnPlayer6 .pots-9 {
+  animation: winnPot69 0.8s forwards;
+  transform: translate(300px, -118px);
+}
+
+@keyframes winnPot61 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -304,17 +1008,152 @@ input:checked {
   to {
     transform: translate(300px, -118px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer7 {
-  animation: winnPot7 0.8s forwards;
-  display: none;
+@keyframes winnPot62 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot63 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot64 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot65 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot66 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot67 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot68 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot69 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(300px, -118px);
+    opacity: 0;
+  }
+}
+
+
+.winnPlayer7 .pots-1 {
+  animation: winnPot71 0.8s forwards;
   transform: translate(620px, -35px);
 }
 
-@keyframes winnPot7 {
+.winnPlayer7 .pots-2 {
+  animation: winnPot72 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-3 {
+  animation: winnPot73 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-4 {
+  animation: winnPot74 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-5 {
+  animation: winnPot75 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-6 {
+  animation: winnPot76 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-7 {
+  animation: winnPot77 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-8 {
+  animation: winnPot78 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+.winnPlayer7 .pots-9 {
+  animation: winnPot79 0.8s forwards;
+  transform: translate(620px, -35px);
+}
+
+@keyframes winnPot71 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -323,17 +1162,152 @@ input:checked {
   to {
     transform: translate(620px, -35px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer8 {
-  animation: winnPot8 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot72 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot73 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot74 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot75 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot76 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot77 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot78 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot79 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(620px, -35px);
+    opacity: 0;
+  }
+}
+
+
+.winnPlayer8 .pots-1 {
+  animation: winnPot81 0.8s forwards;
   transform: translate(635px, 200px);
 }
 
-@keyframes winnPot8 {
+.winnPlayer8 .pots-2 {
+  animation: winnPot82 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-3 {
+  animation: winnPot83 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-4 {
+  animation: winnPot84 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-5 {
+  animation: winnPot85 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-6 {
+  animation: winnPot86 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-7 {
+  animation: winnPot87 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-8 {
+  animation: winnPot88 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+.winnPlayer8 .pots-9 {
+  animation: winnPot89 0.8s forwards;
+  transform: translate(635px, 200px);
+}
+
+@keyframes winnPot81 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -342,17 +1316,153 @@ input:checked {
   to {
     transform: translate(635px, 200px);
     opacity: 0;
-    display: none;
   }
 }
 
-.total-pot-money.winnPlayer9 {
-  animation: winnPot9 0.8s forwards;
-  opacity: 0;
+@keyframes winnPot82 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot83 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot84 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot85 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot86 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot87 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot88 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot89 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(635px, 200px);
+    opacity: 0;
+  }
+}
+
+
+
+.winnPlayer9 .pots-1 {
+  animation: winnPot91 0.8s forwards;
   transform: translate(365px, 300px);
 }
 
-@keyframes winnPot9 {
+.winnPlayer9 .pots-2 {
+  animation: winnPot92 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-3 {
+  animation: winnPot93 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-4 {
+  animation: winnPot94 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-5 {
+  animation: winnPot95 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-6 {
+  animation: winnPot96 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-7 {
+  animation: winnPot97 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-8 {
+  animation: winnPot98 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+.winnPlayer9 .pots-9 {
+  animation: winnPot99 0.8s forwards;
+  transform: translate(365px, 300px);
+}
+
+@keyframes winnPot91 {
   from {
     transform: translate(0px, -20px);
     opacity: 1;
@@ -361,7 +1471,102 @@ input:checked {
   to {
     transform: translate(365px, 300px);
     opacity: 0;
-    display: none;
+  }
+}
+
+@keyframes winnPot92 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot93 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot94 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot95 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot96 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot97 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot98 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
+  }
+}
+
+@keyframes winnPot99 {
+  from {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(365px, 300px);
+    opacity: 0;
   }
 }
 
@@ -1257,8 +2462,10 @@ input:checked {
 }
 
 .total-pot-money span p {
-  margin: 1px 0px 0px 18px;
+  margin: 1px 8px 0px 25px;
+  width: 100%;
   font-size: 15px;
+  text-align: center;
 }
 
 /* .total-pot-money span::before {
@@ -1286,6 +2493,7 @@ input:checked {
   bottom: 111%;
   transform: translateX(-50%);
   opacity: 0;
+  white-space: nowrap;
   color: #f9ff00;
   animation-name: bottomFadeOut;
   animation-delay: 0ms;
@@ -1325,6 +2533,7 @@ input:checked {
   left: 50%;
   /* bottom: 250%; */
   bottom: -40%;
+  white-space: nowrap;
   transform: translateX(-50%);
   opacity: 0;
   color: #f9ff00;
@@ -4289,15 +5498,54 @@ img.coinWinning-animation {
   }
 
   /************** winn player pot animation  *************/
+  /************** winn player pot animation  *************/
 
-  .total-pot-money.winnPlayer1 {
+  .winnPlayer1 .pots-1 {
+    animation: winnPot11 0.8s forwards;
     transform: translate(0px, 90px);
-    animation: winnPot1 0.8s forwards;
-    opacity: 0;
-
   }
 
-  @keyframes winnPot1 {
+  .winnPlayer1 .pots-2 {
+    animation: winnPot12 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-3 {
+    animation: winnPot13 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-4 {
+    animation: winnPot14 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-5 {
+    animation: winnPot15 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-6 {
+    animation: winnPot16 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-7 {
+    animation: winnPot17 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-8 {
+    animation: winnPot18 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  .winnPlayer1 .pots-9 {
+    animation: winnPot19 0.8s forwards;
+    transform: translate(0px, 90px);
+  }
+
+  @keyframes winnPot11 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4306,19 +5554,151 @@ img.coinWinning-animation {
     to {
       transform: translate(0px, 90px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer2 {
-    transform: translate(-147px, 110px);
-    animation: winnPot2 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot12 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot2 {
+  @keyframes winnPot13 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot14 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot15 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot16 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot17 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot18 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot19 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(0px, 90px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer2 .pots-1 {
+    animation: winnPot21 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-2 {
+    animation: winnPot22 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-3 {
+    animation: winnPot23 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-4 {
+    animation: winnPot24 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-5 {
+    animation: winnPot25 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-6 {
+    animation: winnPot26 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-7 {
+    animation: winnPot27 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-8 {
+    animation: winnPot28 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  .winnPlayer2 .pots-9 {
+    animation: winnPot29 0.8s forwards;
+    transform: translate(-147px, 110px);
+  }
+
+  @keyframes winnPot21 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4327,18 +5707,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-147px, 110px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer3 {
-    transform: translate(-305px, 74px);
+  @keyframes winnPot22 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-    animation: winnPot3 0.8s forwards;
-    display: none;
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot3 {
+  @keyframes winnPot23 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot24 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot25 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot26 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot27 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot28 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot29 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-147px, 110px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer3 .pots-1 {
+    animation: winnPot31 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-2 {
+    animation: winnPot32 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-3 {
+    animation: winnPot33 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-4 {
+    animation: winnPot34 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-5 {
+    animation: winnPot35 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-6 {
+    animation: winnPot36 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-7 {
+    animation: winnPot37 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-8 {
+    animation: winnPot38 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  .winnPlayer3 .pots-9 {
+    animation: winnPot39 0.8s forwards;
+    transform: translate(-305px, 74px);
+  }
+
+  @keyframes winnPot31 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4347,18 +5860,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-305px, 74px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer4 {
-    transform: translate(-306px, -85px);
-    animation: winnPot4 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot32 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot4 {
+  @keyframes winnPot33 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot34 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot35 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot36 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot37 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot38 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot39 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-305px, 74px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer4 .pots-1 {
+    animation: winnPot41 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-2 {
+    animation: winnPot42 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-3 {
+    animation: winnPot43 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-4 {
+    animation: winnPot44 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-5 {
+    animation: winnPot45 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-6 {
+    animation: winnPot46 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-7 {
+    animation: winnPot47 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-8 {
+    animation: winnPot48 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  .winnPlayer4 .pots-9 {
+    animation: winnPot49 0.8s forwards;
+    transform: translate(-306px, -85px);
+  }
+
+  @keyframes winnPot41 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4367,18 +6013,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-306px, -85px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer5 {
-    transform: translate(-210px, -90px);
-    animation: winnPot5 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot42 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot5 {
+  @keyframes winnPot43 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot44 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot45 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot46 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot47 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot48 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot49 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-306px, -85px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer5 .pots-1 {
+    animation: winnPot51 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-2 {
+    animation: winnPot52 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-3 {
+    animation: winnPot53 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-4 {
+    animation: winnPot54 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-5 {
+    animation: winnPot55 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-6 {
+    animation: winnPot56 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-7 {
+    animation: winnPot57 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-8 {
+    animation: winnPot58 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  .winnPlayer5 .pots-9 {
+    animation: winnPot59 0.8s forwards;
+    transform: translate(-150px, -103px);
+  }
+
+  @keyframes winnPot51 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4387,18 +6166,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-150px, -103px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer6 {
-    animation: winnPot6 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot52 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot53 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot54 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot55 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot56 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot57 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot58 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot59 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, -103px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer6 .pots-1 {
+    animation: winnPot61 0.8s forwards;
     transform: translate(155px, -110px);
   }
 
-  @keyframes winnPot6 {
+  .winnPlayer6 .pots-2 {
+    animation: winnPot62 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-3 {
+    animation: winnPot63 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-4 {
+    animation: winnPot64 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-5 {
+    animation: winnPot65 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-6 {
+    animation: winnPot66 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-7 {
+    animation: winnPot67 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-8 {
+    animation: winnPot68 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  .winnPlayer6 .pots-9 {
+    animation: winnPot69 0.8s forwards;
+    transform: translate(155px, -110px);
+  }
+
+  @keyframes winnPot61 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4407,18 +6319,152 @@ img.coinWinning-animation {
     to {
       transform: translate(155px, -110px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer7 {
-    animation: winnPot7 0.8s forwards;
+  @keyframes winnPot62 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-    display: none;
-    transform: translate(620px, -35px);
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot7 {
+  @keyframes winnPot63 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot64 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot65 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot66 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot67 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot68 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot69 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, -110px);
+      opacity: 0;
+    }
+  }
+
+
+  .winnPlayer7 .pots-1 {
+    animation: winnPot71 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-2 {
+    animation: winnPot72 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-3 {
+    animation: winnPot73 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-4 {
+    animation: winnPot74 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-5 {
+    animation: winnPot75 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-6 {
+    animation: winnPot76 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-7 {
+    animation: winnPot77 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-8 {
+    animation: winnPot78 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  .winnPlayer7 .pots-9 {
+    animation: winnPot79 0.8s forwards;
+    transform: translate(312px, -76px);
+  }
+
+  @keyframes winnPot71 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4427,17 +6473,152 @@ img.coinWinning-animation {
     to {
       transform: translate(312px, -76px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer8 {
-    animation: winnPot8 0.8s forwards;
-    opacity: 0;
-    transform: translate(635px, 200px);
+  @keyframes winnPot72 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot8 {
+  @keyframes winnPot73 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot74 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot75 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot76 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot77 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot78 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot79 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(312px, -76px);
+      opacity: 0;
+    }
+  }
+
+
+  .winnPlayer8 .pots-1 {
+    animation: winnPot81 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-2 {
+    animation: winnPot82 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-3 {
+    animation: winnPot83 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-4 {
+    animation: winnPot84 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-5 {
+    animation: winnPot85 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-6 {
+    animation: winnPot86 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-7 {
+    animation: winnPot87 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-8 {
+    animation: winnPot88 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  .winnPlayer8 .pots-9 {
+    animation: winnPot89 0.8s forwards;
+    transform: translate(306px, 98px);
+  }
+
+  @keyframes winnPot81 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -4446,27 +6627,257 @@ img.coinWinning-animation {
     to {
       transform: translate(306px, 98px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer9 {
-    animation: winnPot9 0.8s forwards;
-    opacity: 0;
-
-    transform: translate(155px, 98px);
-  }
-
-  @keyframes winnPot9 {
+  @keyframes winnPot82 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
     }
 
     to {
-      transform: translate(155px, 98px);
+      transform: translate(306px, 98px);
       opacity: 0;
-      display: none;
+    }
+  }
+
+  @keyframes winnPot83 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot84 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot85 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot86 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot87 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot88 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot89 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(306px, 98px);
+      opacity: 0;
+    }
+  }
+
+
+
+  .winnPlayer9 .pots-1 {
+    animation: winnPot91 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-2 {
+    animation: winnPot92 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-3 {
+    animation: winnPot93 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-4 {
+    animation: winnPot94 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-5 {
+    animation: winnPot95 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-6 {
+    animation: winnPot96 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-7 {
+    animation: winnPot97 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-8 {
+    animation: winnPot98 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-9 {
+    animation: winnPot99 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  @keyframes winnPot91 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot92 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot93 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot94 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot95 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot96 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot97 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot98 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot99 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
     }
   }
 
@@ -5378,15 +7789,54 @@ img.coinWinning-animation {
   }
 
   /************** winn player pot animation  *************/
+  /************** winn player pot animation  *************/
 
-  .total-pot-money.winnPlayer1 {
+  .winnPlayer1 .pots-1 {
+    animation: winnPot11 0.8s forwards;
     transform: translate(4px, 436px);
-    animation: winnPot1 0.8s forwards;
-    opacity: 0;
-
   }
 
-  @keyframes winnPot1 {
+  .winnPlayer1 .pots-2 {
+    animation: winnPot12 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-3 {
+    animation: winnPot13 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-4 {
+    animation: winnPot14 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-5 {
+    animation: winnPot15 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-6 {
+    animation: winnPot16 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-7 {
+    animation: winnPot17 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-8 {
+    animation: winnPot18 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  .winnPlayer1 .pots-9 {
+    animation: winnPot19 0.8s forwards;
+    transform: translate(4px, 436px);
+  }
+
+  @keyframes winnPot11 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5395,19 +7845,151 @@ img.coinWinning-animation {
     to {
       transform: translate(4px, 436px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer2 {
-    transform: translate(-150px, 388px);
-    animation: winnPot2 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot12 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot2 {
+  @keyframes winnPot13 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot14 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot15 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot16 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot17 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot18 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot19 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(4px, 436px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer2 .pots-1 {
+    animation: winnPot21 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-2 {
+    animation: winnPot22 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-3 {
+    animation: winnPot23 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-4 {
+    animation: winnPot24 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-5 {
+    animation: winnPot25 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-6 {
+    animation: winnPot26 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-7 {
+    animation: winnPot27 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-8 {
+    animation: winnPot28 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  .winnPlayer2 .pots-9 {
+    animation: winnPot29 0.8s forwards;
+    transform: translate(-150px, 388px);
+  }
+
+  @keyframes winnPot21 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5416,18 +7998,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-150px, 388px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer3 {
-    transform: translate(-150px, 227px);
-    animation: winnPot3 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot22 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot3 {
+  @keyframes winnPot23 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot24 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot25 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot26 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot27 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot28 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot29 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 388px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer3 .pots-1 {
+    animation: winnPot31 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-2 {
+    animation: winnPot32 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-3 {
+    animation: winnPot33 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-4 {
+    animation: winnPot34 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-5 {
+    animation: winnPot35 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-6 {
+    animation: winnPot36 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-7 {
+    animation: winnPot37 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-8 {
+    animation: winnPot38 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  .winnPlayer3 .pots-9 {
+    animation: winnPot39 0.8s forwards;
+    transform: translate(-150px, 227px);
+  }
+
+  @keyframes winnPot31 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5436,18 +8151,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-150px, 227px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer4 {
-    transform: translate(-133px, 50px);
-    animation: winnPot4 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot32 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot4 {
+  @keyframes winnPot33 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot34 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot35 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot36 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot37 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot38 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot39 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-150px, 227px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer4 .pots-1 {
+    animation: winnPot41 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-2 {
+    animation: winnPot42 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-3 {
+    animation: winnPot43 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-4 {
+    animation: winnPot44 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-5 {
+    animation: winnPot45 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-6 {
+    animation: winnPot46 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-7 {
+    animation: winnPot47 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-8 {
+    animation: winnPot48 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  .winnPlayer4 .pots-9 {
+    animation: winnPot49 0.8s forwards;
+    transform: translate(-133px, 50px);
+  }
+
+  @keyframes winnPot41 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5456,18 +8304,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-133px, 50px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer5 {
-    transform: translate(122px, -121px);
-    animation: winnPot5 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot42 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot5 {
+  @keyframes winnPot43 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot44 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot45 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot46 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot47 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot48 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot49 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-133px, 50px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer5 .pots-1 {
+    animation: winnPot51 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-2 {
+    animation: winnPot52 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-3 {
+    animation: winnPot53 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-4 {
+    animation: winnPot54 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-5 {
+    animation: winnPot55 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-6 {
+    animation: winnPot56 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-7 {
+    animation: winnPot57 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-8 {
+    animation: winnPot58 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  .winnPlayer5 .pots-9 {
+    animation: winnPot59 0.8s forwards;
+    transform: translate(-122px, -121px);
+  }
+
+  @keyframes winnPot51 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5476,19 +8457,151 @@ img.coinWinning-animation {
     to {
       transform: translate(-122px, -121px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer6 {
-    animation: winnPot6 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot52 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-    transform: translate(122px, -121px);
-
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot6 {
+  @keyframes winnPot53 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot54 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot55 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot56 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot57 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot58 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot59 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(-122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  .winnPlayer6 .pots-1 {
+    animation: winnPot61 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-2 {
+    animation: winnPot62 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-3 {
+    animation: winnPot63 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-4 {
+    animation: winnPot64 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-5 {
+    animation: winnPot65 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-6 {
+    animation: winnPot66 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-7 {
+    animation: winnPot67 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-8 {
+    animation: winnPot68 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  .winnPlayer6 .pots-9 {
+    animation: winnPot69 0.8s forwards;
+    transform: translate(122px, -121px);
+  }
+
+  @keyframes winnPot61 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5496,20 +8609,153 @@ img.coinWinning-animation {
 
     to {
       transform: translate(122px, -121px);
-
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer7 {
-    animation: winnPot7 0.8s forwards;
+  @keyframes winnPot62 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-    display: none;
-    transform: translate(143px, 210px);
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot7 {
+  @keyframes winnPot63 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot64 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot65 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot66 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot67 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot68 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot69 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(122px, -121px);
+      opacity: 0;
+    }
+  }
+
+
+  .winnPlayer7 .pots-1 {
+    animation: winnPot71 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-2 {
+    animation: winnPot72 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-3 {
+    animation: winnPot73 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-4 {
+    animation: winnPot74 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-5 {
+    animation: winnPot75 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-6 {
+    animation: winnPot76 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-7 {
+    animation: winnPot77 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-8 {
+    animation: winnPot78 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  .winnPlayer7 .pots-9 {
+    animation: winnPot79 0.8s forwards;
+    transform: translate(132px, 32px);
+  }
+
+  @keyframes winnPot71 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5517,19 +8763,153 @@ img.coinWinning-animation {
 
     to {
       transform: translate(132px, 32px);
-
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer8 {
-    animation: winnPot8 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot72 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot73 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot74 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot75 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot76 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot77 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot78 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot79 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(132px, 32px);
+      opacity: 0;
+    }
+  }
+
+
+  .winnPlayer8 .pots-1 {
+    animation: winnPot81 0.8s forwards;
     transform: translate(143px, 210px);
   }
 
-  @keyframes winnPot8 {
+  .winnPlayer8 .pots-2 {
+    animation: winnPot82 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-3 {
+    animation: winnPot83 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-4 {
+    animation: winnPot84 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-5 {
+    animation: winnPot85 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-6 {
+    animation: winnPot86 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-7 {
+    animation: winnPot87 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-8 {
+    animation: winnPot88 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  .winnPlayer8 .pots-9 {
+    animation: winnPot89 0.8s forwards;
+    transform: translate(143px, 210px);
+  }
+
+  @keyframes winnPot81 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5538,19 +8918,153 @@ img.coinWinning-animation {
     to {
       transform: translate(143px, 210px);
       opacity: 0;
-      display: none;
     }
   }
 
-  .total-pot-money.winnPlayer9 {
-    animation: winnPot9 0.8s forwards;
-    opacity: 0;
+  @keyframes winnPot82 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
 
-    transform: translate(155px, 380px);
-
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
   }
 
-  @keyframes winnPot9 {
+  @keyframes winnPot83 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot84 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot85 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot86 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot87 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot88 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot89 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(143px, 210px);
+      opacity: 0;
+    }
+  }
+
+
+
+  .winnPlayer9 .pots-1 {
+    animation: winnPot91 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-2 {
+    animation: winnPot92 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-3 {
+    animation: winnPot93 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-4 {
+    animation: winnPot94 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-5 {
+    animation: winnPot95 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-6 {
+    animation: winnPot96 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-7 {
+    animation: winnPot97 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-8 {
+    animation: winnPot98 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  .winnPlayer9 .pots-9 {
+    animation: winnPot99 0.8s forwards;
+    transform: translate(155px, 380px);
+  }
+
+  @keyframes winnPot91 {
     from {
       transform: translate(0px, -20px);
       opacity: 1;
@@ -5558,11 +9072,107 @@ img.coinWinning-animation {
 
     to {
       transform: translate(155px, 380px);
-
       opacity: 0;
-      display: none;
     }
   }
+
+  @keyframes winnPot92 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot93 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot94 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot95 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot96 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot97 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot98 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes winnPot99 {
+    from {
+      transform: translate(0px, -20px);
+      opacity: 1;
+    }
+
+    to {
+      transform: translate(155px, 380px);
+      opacity: 0;
+    }
+  }
+
+
 
   .game-started-join:after {
     font-size: 20px;
