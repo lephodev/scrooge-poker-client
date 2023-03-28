@@ -387,9 +387,9 @@ const Home = () => {
                     <div className="no-room-available">
                       <h4>No Room Available</h4>
 
-                      <button type="button" onClick={handleShow}>
+                      {/* <button type="button" onClick={handleShow}>
                         Create Game
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 )}
