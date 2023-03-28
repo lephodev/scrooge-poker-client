@@ -10,13 +10,14 @@ import { useEffect } from "react";
 import userUtils from "../../utils/user";
 import loaderImg from "../../assets/chat/loader1.webp";
 import casino from "../../assets/game/placeholder.png";
+import casino1 from "../../assets/game/logo-poker.png";
 import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
 import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaUser, FaTrophy, FaCoins } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
@@ -27,6 +28,9 @@ import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
 import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
+// import feeIcon from "../../assets/images/feeIcon.png"
+import ranking from "../../assets/images/ranking.png"
+import { dateFormat, getTime, timeFormat } from "../../utils/utils";
 let userId;
 const Home = () => {
   // inital state
@@ -304,14 +308,15 @@ const Home = () => {
     }
   }, [pokerCard]);
 
+
   return (
     <div className="poker-home">
-      {userInAnyGame?.inGame && (
+      {/* {userInAnyGame?.inGame && (
         <AlreadyInGamePopup
           userInAnyGame={userInAnyGame}
           setUserInAnyGame={setUserInAnyGame}
         />
-      )}
+      )} */}
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
@@ -390,6 +395,7 @@ const Home = () => {
                 )}
               </Tab>
               <Tab eventKey="2" title="Poker Tournament Tables">
+
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
@@ -784,7 +790,7 @@ const GameTable = ({
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-        <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
+        <FaInfoCircle className="leaderboardBtn" onClick={() => handleFlip(data.tournamentDate)} />
         <div
           className={`tournamentCard-inner
          ${cardFlip && gameType === "Poker" ? "rotate" : ""}
@@ -971,44 +977,44 @@ const GameTournament = ({
 
   return (
     <>
-      <div className="tournamentCard GameTournament" >
-        <FaInfoCircle onClick={() => { handleFlip(data._id) }} />
-        { }
-        <div className={`tournamentCard-inner
-         `}>
-          <div className="tournamentCard-front">
-            <img src={casino} className="tournamentImg" alt="" />
-            <div className="tournamentFront-info">
-              <h4>Table Name : <span>{data?.name}</span></h4>
-              {data?.isStart ?
-                <h4 className="tournamentRunning">Tournament is running ...</h4> : data?.isFinished ? <h4 className="tournamentFinished">Tournament is finished.</h4> :
-                  (
-                    <h4>Start Date/Time : <span>{startDateTime}</span> </h4>
-                  )}
-              <h4>Player Entered : <span>{data?.havePlayers}</span></h4>
-              <div className="btn-grid">
-                {" "}
-                {ifUserJoind() ? (
-                  <button
-                    onClick={() => enterRoom(data?._id)}
-                    type="submit"
-                  >
-                    Enter Game
-                  </button>
-                ) : (
-                  <button
-                    disabled={ifUserJoind() || data?.isStart || data?.isFinished}
-                    onClick={() =>
-                      joinTournament(data?._id, data?.tournamentFee)
-                    }
-                    type="submit"
-                  >
-                    Join Game
-                  </button>
-                )}
-              </div>
+      <div className="pokerTournament-tableCard">
+        <div className="tableCard-imgDetail">
+          <img src={casino1} className="tournamentImg" alt="" />
+          <div className="tournamentCard-nameDetail">
+            <h6>{dateFormat(data.startDate)}, Start at {timeFormat(data.tournamentDate)}</h6>
+            <h2>{data?.name}</h2>
+            {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished ...</p> : <p>Not started ...</p>}
+          </div>
+        </div>
+        <div className="tournamentCard-extraDetail">
+          <div className="cardTournament-Fee">
+            <p>Entry Fee</p>
+            <div className="extraDetail-container">
+              <FaCoins
+              />
+              {data?.tournamentFee}
             </div>
           </div>
+          <div className="cardTournament-Fee">
+            <p>Participants</p>
+            <div className="extraDetail-container">
+              <FaUser />
+              {data?.havePlayers}
+            </div>
+          </div>
+          <div className="cardTournament-Fee">
+            <p>Prize Pool</p>
+            <div className="extraDetail-container">
+              <FaTrophy />
+              10
+            </div>
+          </div>
+        </div>
+        <div className="tournamentCard-buttonDetail">
+          {ifUserJoind() ? <Button type="text" onClick={() => enterRoom(data?._id)}>Enter game</Button> : <Button type="text" onClick={() =>
+            joinTournament(data?._id, data?.tournamentFee)
+          }>join game</Button>}
+          <img src={ranking} alt="" onClick={() => { handleFlip(data._id) }} />
         </div>
       </div>
     </>
@@ -1038,7 +1044,7 @@ const AvatarGroup = ({ imgArr }) => {
   );
 };
 
-// const TournamentGroup = ({ players }) => {
+// const TournamentGroup = ({players}) => {
 //   return (
 //     <div className="poker-avatar-box">
 //       <p>{players || 0} people joined</p>

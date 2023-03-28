@@ -32,6 +32,7 @@ export const deleteCookie = (name) => {
 
 export const getTime = (time) => {
   let d = new Date(time);
+  console.log("dddddddd",d)
   let pm = d.getHours() >= 12;
   let hour12 = d.getHours() % 12;
   if (!hour12) hour12 += 12;
@@ -39,7 +40,7 @@ export const getTime = (time) => {
   let date = d.getDate();
   let month = d.getMonth() + 1;
   let year = d.getFullYear();
-  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "PM" : "AM"}`;
 };
 
 export const DecryptCard = (cipher) => {
@@ -54,3 +55,35 @@ export const DecryptCard = (cipher) => {
   }
 };
 export default numFormatter;
+
+function getMonthName(month) {
+  const d = new Date();
+  d.setMonth(month - 1);
+  const monthName = d.toLocaleString("default", { month: "long" });
+  return monthName?.substring(0,3);
+}
+
+
+export const dateFormat = (d = new Date()) => {
+  const date = new Date(d);
+  const day = date.getDate(); // Date of the month: 2 in our example
+  let month = date.getMonth(); // Month of the Year: 0-based index, so 1 in our example
+  const year = date.getFullYear(); // Year: 2013
+  //const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  //const dayofweek = weekday[date.getDay()];
+  month = getMonthName(month);
+  return `${day} ${month}`;
+};
+
+export const timeFormat = (date = new Date()) => {
+  let dateChange = date ? new Date(date) : new Date();
+  console.log("dateChange",dateChange);
+  let time = dateChange.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  return time;
+};
+
+
