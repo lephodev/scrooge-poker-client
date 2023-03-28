@@ -1315,7 +1315,7 @@ const PokerTable = (props) => {
     } = roomData ? roomData : {};
     currentAction.fold = true;
     if (round === 1) {
-      if (wallet > raiseAmount) {
+      if (wallet >= raiseAmount * 2-pot) {
         //range true
         currentAction.raise = true;
         currentAction.bet = false;
@@ -1328,7 +1328,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
           currentAction.bet = false;
         }
-      } else if (wallet <= raiseAmount) {
+      } else if (wallet <= raiseAmount * 2-pot) {
         //allin true
         currentAction.allin = true;
         currentAction.raise = false;
@@ -1341,7 +1341,7 @@ const PokerTable = (props) => {
       }
 
       if (lastAction === "check") {
-        if (raiseAmount > wallet) {
+        if (raiseAmount * 2-pot >= wallet) {
           currentAction.allin = true;
           currentAction.raise = false;
         } else {
@@ -1350,16 +1350,16 @@ const PokerTable = (props) => {
           currentAction.raise = false;
         }
       } else {
-        if (raiseAmount < wallet) {
+        if (raiseAmount * 2-pot < wallet) {
           currentAction.call = true;
           currentAction.bet = false;
           currentAction.check = false;
         }
-        if (raiseAmount > wallet) {
+        if (raiseAmount * 2 - pot > wallet) {
           currentAction.allin = true;
           currentAction.raise = false;
         }
-        if (raiseAmount < wallet) {
+        if (raiseAmount * 2 -pot <= wallet) {
           currentAction.allin = false;
           currentAction.bet = false;
           currentAction.raise = true;
@@ -1605,7 +1605,7 @@ const PokerTable = (props) => {
 
   const raiseInSliderAction = (e, x) => {
     e.preventDefault();
-    if (x >= roomData?.raiseAmount) {
+    if (x >= roomData?.raiseAmount * 2) {
       setOpenAction({
         bet: false,
         call: false,
@@ -1621,13 +1621,13 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount}`, {id: 'minimum-raise'});
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount * 2}`, {id: 'minimum-raise'});
     }
   };
   const betInSliderAction = (e, x) => {
     e.preventDefault();
     // console.log("BetAmount", x);
-    if (x >= roomData.raiseAmount) {
+    if (x >= roomData.raiseAmount * 2) {
       setOpenAction({
         bet: false,
         call: false,
@@ -1643,7 +1643,7 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount}`, {id: 'bet-minimum'});
+      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount * 2}`, {id: 'bet-minimum'});
     }
   };
 
