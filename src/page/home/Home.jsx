@@ -16,7 +16,7 @@ import Homesvg from "../../assets/home.svg";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import { useMemo } from "react";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaUser, FaTrophy } from "react-icons/fa";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { socket } from "../../config/socketConnection";
@@ -27,6 +27,8 @@ import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
 import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
+import feeIcon from "../../assets/images/feeIcon.png"
+import ranking from "../../assets/images/ranking.png"
 let userId;
 const Home = () => {
   // inital state
@@ -304,6 +306,7 @@ const Home = () => {
     }
   }, [pokerCard]);
 
+
   return (
     <div className="poker-home">
       {userInAnyGame?.inGame && (
@@ -390,6 +393,7 @@ const Home = () => {
                 )}
               </Tab>
               <Tab eventKey="2" title="Poker Tournament Tables">
+
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
@@ -784,7 +788,7 @@ const GameTable = ({
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
-        <FaInfoCircle onClick={() => handleFlip(data.tournamentDate)} />
+        <FaInfoCircle className="leaderboardBtn" onClick={() => handleFlip(data.tournamentDate)} />
         <div
           className={`tournamentCard-inner
          ${cardFlip && gameType === "Poker" ? "rotate" : ""}
@@ -971,15 +975,102 @@ const GameTournament = ({
 
   return (
     <>
+
+      {/* <div className="tournament-lobbyPage">
+        <Table striped bordered  variant="dark" responsive>
+          <thead>
+            <tr>
+              <th>Start</th>
+              <th>Tournament Name</th>
+              <th>Fee</th>
+              <th>Buy-in</th>
+              <th>Players</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.map((data, i) => (
+              <tr key={i}>
+                <td>{data?.isStart ? <p className="tournamentRunning">Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Finished.</p> : `${dateFormat(data?.tournamentDate)}, ${timeFormat(data?.tournamentDate)}`}</td>
+                <td>{data?.name}  <FaInfoCircle className="leaderboardBtn" onClick={() => { handleFlip(data._id) }} /></td>
+                <td>{data?.tournamentFee}</td>
+                <td>{data?.buyIn}</td>
+                <td>{data?.havePlayers}</td>
+                <td> <div className="btn-grid">
+                {" "}
+                {ifUserJoind() ? (
+                  <button
+                    onClick={() => enterRoom(data?._id)}
+                    type="submit"
+                  >
+                    {data?.isStart ? "closed in 30 min " : "Enter Game"}
+                  </button>
+                ) : (
+                  <button
+                    disabled={ifUserJoind() || data?.isFinished}
+                    onClick={() =>
+                      joinTournament(data?._id, data?.tournamentFee)
+                    }
+                    type="submit"
+                  >
+                    Join Game
+                  </button>
+                )}
+              </div></td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div> */}
+
+      <div className="pokerTournament-tableCard">
+        <div className="tableCard-imgDetail">
+          <img src={casino} className="tournamentImg" alt="" />
+          <div className="tournamentCard-nameDetail">
+            <h6>SEP 02, Ending at 6:00 AM</h6>
+            <h2>Tournament Name</h2>
+            <p>Tournament Running</p>
+          </div>
+        </div>
+        <div className="tournamentCard-extraDetail">
+          <div className="cardTournament-Fee">
+            <p>Entry Fee</p>
+            <div className="extraDetail-container">
+              <img src={feeIcon} alt="" />
+              $100
+            </div>
+          </div>
+          <div className="cardTournament-Fee">
+            <p>Participants</p>
+            <div className="extraDetail-container">
+              <FaUser />
+              10
+            </div>
+          </div>
+          <div className="cardTournament-Fee">
+            <p>Prize Pool</p>
+            <div className="extraDetail-container">
+              <FaTrophy />
+              10
+            </div>
+          </div>
+        </div>
+        <div className="tournamentCard-buttonDetail">
+          <Button type="text">join game</Button>
+          <img src={ranking} alt="" />
+        </div>
+      </div>
+
       <div className="tournamentCard GameTournament" >
-        <FaInfoCircle onClick={() => { handleFlip(data._id) }} />
+        <FaInfoCircle className="leaderboardBtn" onClick={() => { handleFlip(data._id) }} />
         { }
         <div className={`tournamentCard-inner
          `}>
           <div className="tournamentCard-front">
-            <img src={casino} className="tournamentImg" alt="" />
+            {/* <img src={casino} className="tournamentImg" alt="" /> */}
             <div className="tournamentFront-info">
-              <h4>Table Name : <span>{data?.name}</span></h4>
+              <h3>{data?.name}</h3>
+              <h4>Fee: <span>{data?.tournamentFee}</span></h4>
               {data?.isStart ?
                 <h4 className="tournamentRunning">Tournament is running ...</h4> : data?.isFinished ? <h4 className="tournamentFinished">Tournament is finished.</h4> :
                   (
@@ -993,11 +1084,11 @@ const GameTournament = ({
                     onClick={() => enterRoom(data?._id)}
                     type="submit"
                   >
-                    Enter Game
+                    {data?.isStart ? "closed in 30 min " : "Enter Game"}
                   </button>
                 ) : (
                   <button
-                    disabled={ifUserJoind() || data?.isStart || data?.isFinished}
+                    disabled={ifUserJoind() || data?.isFinished}
                     onClick={() =>
                       joinTournament(data?._id, data?.tournamentFee)
                     }

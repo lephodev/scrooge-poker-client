@@ -11,14 +11,101 @@ import logo from "../../assets/game/logo.png";
 import userUtils from '../../utils/user'
 import { socket } from '../../config/socketConnection'
 import { useHistory } from 'react-router-dom'
+import { Button, Tab, Tabs } from 'react-bootstrap'
+import ReactSelect from 'react-select'
+import { useMemo } from 'react'
+// import ReactSelect from 'react-select'
 
 let userId;
+
+const customStyles = {
+  option: (provided) => ({
+    ...provided,
+    background: "#1b1b1b",
+    color: "#ddd",
+    fontWeight: "400",
+    fontSize: "16px",
+    padding: "10px 20px",
+    lineHeight: "16px",
+    cursor: "pointer",
+    borderRadius: "4px",
+    borderBottom: "1px solid #141414",
+    ":hover": {
+      background: "#141414",
+      borderRadius: "4px",
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    background: "#1b1b1b",
+    borderRadius: "30px",
+    padding: "10px 20px",
+    border: "2px solid transparent",
+  }),
+  control: () => ({
+    background: "#1b1b1b",
+    border: "2px solid #1b1b1b",
+    borderRadius: "30px",
+    color: "#fff",
+    display: "flex",
+    alignItem: "center",
+    height: "41",
+    margin: "2px 0",
+    boxShadow: " 0 2px 10px #000000a5",
+    cursor: "pointer",
+    ":hover": {
+      background: "#1b1b1b",
+      // border: "2px solid #306CFE",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "16px",
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: "none",
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "19px",
+    color: "#858585c7",
+  }),
+  input: (provided) => ({
+    ...provided,
+    // height: "38px",
+    color: "fff",
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: "2px 20px",
+  }),
+  indicatorsContainer: (provided) => ({
+    ...provided,
+    paddingRight: "20px",
+    color: "#858585c7",
+  }),
+  svg: (provided) => ({
+    ...provided,
+    fill: "#858585c7 !important",
+    ":hover": {
+      fill: "#858585c7 !important",
+    },
+  }),
+};
 
 const LeaderBoard = () => {
   const history = useHistory();
   const url = new URLSearchParams(window.location.search)
-  const [tournamentData, setTournamentData] = useState()
+  const [tournamentData, setTournamentData] = useState([])
   const [dateState, setDateState] = useState()
+  const [tournaments, setTournaments] = useState([]);
+
   const getTournamentById = async () => {
     try {
       if (url.get('tournamentId')) {
@@ -35,12 +122,22 @@ const LeaderBoard = () => {
       console.log('Error Message Here---->', err)
     }
   }
+
+  const getTournamentDetails = async () => {
+    try {
+      const response = await tournamentInstance().get("/tournaments");
+      const { status } = response;
+      if (status === 200) {
+        const { tournaments } = response.data;
+        setTournaments(tournaments || []);
+      }
+    } catch (error) { }
+  };
+  
   const enterRoom = async (tournamentId) => {
-    console.log("tournament id--->",tournamentId)
     const res = await tournamentInstance().post("/enterroom", {
       tournamentId: tournamentId,
     });
-    console.log("response--->",res)
     if (res.data.code === 200) {
       let roomid = res.data.roomId;
       history.push({
@@ -61,6 +158,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     getTournamentById()
     getUser()
+    getTournamentDetails();
   }, [])
 
   if (tournamentData && tournamentData?.tournamentDate) {
@@ -109,6 +207,13 @@ const LeaderBoard = () => {
       getTournamentById();
     }, 1000);
   };
+  const options = useMemo(
+    () =>
+    tournaments?.map((el) => {
+        return { value: el?.name, label: el?.name };
+      }),
+    [tournaments]
+  );
 
   return (
     <div className="leaderBoardPage">
@@ -176,11 +281,22 @@ const LeaderBoard = () => {
       <div className="container leaderBoardContainer">
         <div className="leaderBoardHeader">
           <h1>LEADERBOARD</h1>
+
+          <div className="tournamentFilter">
+            <ReactSelect
+              // onChange={handleChnageInviteUsers}
+              options={options}
+              styles={customStyles}
+            />
+            <Button>GO</Button>
+          </div>
+          <br />
           <div className="tournamentDetails">
             <div className="tournamentContent">
-              <p>
+              <h4>
                 Tournament table name : <span>{tournamentData?.name}</span>
-              </p>
+              </h4>
+              <p>Buy In : <span>{tournamentData?.buyIn}</span></p>
               <p>
                 Total Players :{' '}
                 <span>
@@ -189,7 +305,7 @@ const LeaderBoard = () => {
                 </span>
               </p>
               <p>
-                SB/BB :{' '}
+                Blind:{' '}
                 <span>
                   {tournamentData?.levels?.smallBlind?.amount}
                   {tournamentData?.levels?.smallBlind?.amount ? '/' : ''}
@@ -213,209 +329,48 @@ const LeaderBoard = () => {
                   </div>
                 </>
               )}
-              {tournamentData?.isFinished ? "" :(
-              <div className="btn-grid">
-                {" "}
+              {tournamentData?.isFinished ? "" : (
+                <div className="btn-grid">
+                  {" "}
 
-                {ifUserJoind() ? (
-                  <button
-             
-                   onClick={() => enterRoom(tournamentData?._id)}
-                    type="submit"
-                  >
-                    Enter Game
-                  </button>
-                ) : (
-                  <button
-                    disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
-                    onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
-                    }
-                    type="submit"
-                  >
-                    Join Game
-                  </button>
-                )}
-              </div>)}
+                  {ifUserJoind() ? (
+                    <button
+
+                      onClick={() => enterRoom(tournamentData?._id)}
+                      type="submit"
+                    >
+                      Enter Game
+                    </button>
+                  ) : (
+                    <button
+                      disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
+                      onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
+                      }
+                      type="submit"
+                    >
+                      Join Game
+                    </button>
+                  )}
+                </div>)}
             </div>
           </div>
         </div>
-        <div className="leaderboard-table">
-          {/* {data?.winPlayer?.first?.userId ?  */}
-          <Table striped bordered hover variant="dark" responsive>
-            <thead>
-              <tr>
-                <th>
-                  <p>Rank</p>
-                </th>
-                <th>
-                  <p>Player</p>
-                </th>
-                <th>
-                  <p>Chip won each hand</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="firstRank">
-                <td>
-                  <p>1</p>
-                  <Star />
-                </td>
-                <td>
-                  <div className="rankingUsers">
-                    <img
-                      src={
-                        (tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.profile) ||
-                        'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                      }
-                      alt=""
-                    />
-                    <p>
-                      {(tournamentData?.isFinished &&
-                        tournamentData?.winPlayer?.first?.userId?.username) ||
-                        'To be decided'}
-                    </p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    {(tournamentData?.isFinished &&
-                      tournamentData?.winPlayer?.first?.amount) ||
-                      'To be decided'}
-                  </p>
-                </td>
-              </tr>
-              <tr className="secondRank myRank">
-                <td>
-                  <p>2</p>
-                  <Star />
-                </td>
+        <Tabs
+          defaultActiveKey="home"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          <Tab eventKey="home" title="Final Results">
+            <Results tournamentData={tournamentData} />
+          </Tab>
+          <Tab eventKey="profile" title="Structure">
+            <Structure />
+          </Tab>
+          <Tab eventKey="contact" title="Prize Pool">
+            <PrizePool />
+          </Tab>
+        </Tabs>
 
-                <td>
-                  <div className="rankingUsers">
-                    <img
-                      src={
-                        (tournamentData?.isFinished && tournamentData?.winPlayer?.second?.userId?.profile) ||
-                        'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                      }
-                      alt=""
-                    />
-                    <p>
-                      {(tournamentData?.isFinished &&
-                        tournamentData?.winPlayer?.second?.userId?.username) ||
-                        'To be decided'}
-                    </p>
-                  </div>
-                </td>
-
-
-                <td>
-                  <p>
-                    {(tournamentData?.isFinished &&
-                      tournamentData?.winPlayer?.second?.amount) ||
-                      'To be decided'}
-                  </p>
-                </td>
-              </tr>
-              <tr className="thirdRank">
-                <td>
-                  <p>3</p>
-                  <Star />
-                </td>
-                <td>
-                  <div className="rankingUsers">
-                    <img
-                      src={
-                        (tournamentData?.isFinished && tournamentData?.winPlayer?.third?.userId?.profile) ||
-                        'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                      }
-                      alt=""
-                    />
-                    <p>
-                      {(tournamentData?.isFinished &&
-                        tournamentData?.winPlayer?.third?.userId?.username) ||
-                        'To be decided'}
-                    </p>
-                  </div>
-
-                </td>
-                <td>
-                  <p>
-                    {(tournamentData?.isFinished &&
-                      tournamentData?.winPlayer?.third?.amount) ||
-                      'To be decided'}
-                  </p>
-                </td>
-              </tr>
-
-              {tournamentData?.winPlayer?.['4-10']?.userIds?.length > 0 &&
-                tournamentData?.winPlayer?.['4-10']?.userIds?.map((fourP, i) => (
-                  <tr>
-                    <td>
-                      <p>{4 + i}</p>
-                    </td>
-                    <td>
-                      <div className="rankingUsers">
-                        <img
-                          src={
-                            (tournamentData?.isFinished && fourP?.profile) ||
-                            'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                          }
-                          alt=""
-                        />
-                        <p>
-                          {(tournamentData?.isFinished && fourP?.username) ||
-                            'To be decided'}
-                        </p>
-                      </div>
-
-                    </td>
-                    <td>
-                      <p>
-                        {(tournamentData?.isFinished &&
-                          tournamentData?.winPlayer?.['4-10']?.amount) ||
-                          'To be decided'}
-                      </p>
-                    </td>
-                  </tr>
-                ))}
-              {tournamentData?.winPlayer?.['11-25']?.userIds?.length > 0 &&
-                tournamentData?.winPlayer?.['4-10']?.userIds?.map(
-                  (elevenP, i) => (
-                    <tr>
-                      <td>
-                        <p>{11 + i}</p>
-                      </td>
-                      <td>
-                        <div className="rankingUsers">
-                          <img
-                            src={
-                              (tournamentData?.isFinished && elevenP?.profile) ||
-                              'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
-                            }
-                            alt=""
-                          />
-                          <p>
-                            {(tournamentData?.isFinished && elevenP?.username) ||
-                              'To be decided'}
-                          </p>
-                        </div>
-
-                      </td>
-                      <td>
-
-                        <p>
-                          {(tournamentData?.isFinished &&
-                            tournamentData?.winPlayer?.['11-25']?.amount) ||
-                            'To be decided'}
-                        </p>
-                      </td>
-                    </tr>
-                  ),
-                )}
-            </tbody>
-          </Table>
-        </div>
       </div>
     </div>
   )
@@ -437,5 +392,227 @@ const Star = () => {
         fill="#000000"
       />
     </svg>
+  )
+}
+
+
+const Results = ({ tournamentData }) => {
+  return (
+    <div className='tournament-results'>
+      <h4>Final Results</h4>
+      <div className="leaderboard-table">
+        {/* {data?.winPlayer?.first?.userId ?  */}
+        <Table striped bordered variant="dark" responsive>
+          <thead>
+            <tr>
+              <th>
+                <p>Rank</p>
+              </th>
+              <th>
+                <p>Player</p>
+              </th>
+              <th>
+                <p>Chip won each hand</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="firstRank">
+              <td>
+                <p>1</p>
+                <Star />
+              </td>
+              <td>
+                <div className="rankingUsers">
+                  <img
+                    src={
+                      (tournamentData?.isFinished && tournamentData?.winPlayer?.first?.userId?.profile) ||
+                      'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                    }
+                    alt=""
+                  />
+                  <p>
+                    {(tournamentData?.isFinished &&
+                      tournamentData?.winPlayer?.first?.userId?.username) ||
+                      'To be decided'}
+                  </p>
+                </div>
+              </td>
+              <td>
+                <p>
+                  {(tournamentData?.isFinished &&
+                    tournamentData?.winPlayer?.first?.amount) ||
+                    'To be decided'}
+                </p>
+              </td>
+            </tr>
+            <tr className="secondRank myRank">
+              <td>
+                <p>2</p>
+                <Star />
+              </td>
+
+              <td>
+                <div className="rankingUsers">
+                  <img
+                    src={
+                      (tournamentData?.isFinished && tournamentData?.winPlayer?.second?.userId?.profile) ||
+                      'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                    }
+                    alt=""
+                  />
+                  <p>
+                    {(tournamentData?.isFinished &&
+                      tournamentData?.winPlayer?.second?.userId?.username) ||
+                      'To be decided'}
+                  </p>
+                </div>
+              </td>
+
+
+              <td>
+                <p>
+                  {(tournamentData?.isFinished &&
+                    tournamentData?.winPlayer?.second?.amount) ||
+                    'To be decided'}
+                </p>
+              </td>
+            </tr>
+            <tr className="thirdRank">
+              <td>
+                <p>3</p>
+                <Star />
+              </td>
+              <td>
+                <div className="rankingUsers">
+                  <img
+                    src={
+                      (tournamentData?.isFinished && tournamentData?.winPlayer?.third?.userId?.profile) ||
+                      'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                    }
+                    alt=""
+                  />
+                  <p>
+                    {(tournamentData?.isFinished &&
+                      tournamentData?.winPlayer?.third?.userId?.username) ||
+                      'To be decided'}
+                  </p>
+                </div>
+
+              </td>
+              <td>
+                <p>
+                  {(tournamentData?.isFinished &&
+                    tournamentData?.winPlayer?.third?.amount) ||
+                    'To be decided'}
+                </p>
+              </td>
+            </tr>
+
+            {tournamentData?.winPlayer?.['4-10']?.userIds?.length > 0 &&
+              tournamentData?.winPlayer?.['4-10']?.userIds?.map((fourP, i) => (
+                <tr>
+                  <td>
+                    <p>{4 + i}</p>
+                  </td>
+                  <td>
+                    <div className="rankingUsers">
+                      <img
+                        src={
+                          (tournamentData?.isFinished && fourP?.profile) ||
+                          'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                        }
+                        alt=""
+                      />
+                      <p>
+                        {(tournamentData?.isFinished && fourP?.username) ||
+                          'To be decided'}
+                      </p>
+                    </div>
+
+                  </td>
+                  <td>
+                    <p>
+                      {(tournamentData?.isFinished &&
+                        tournamentData?.winPlayer?.['4-10']?.amount) ||
+                        'To be decided'}
+                    </p>
+                  </td>
+                </tr>
+              ))}
+            {tournamentData?.winPlayer?.['11-25']?.userIds?.length > 0 &&
+              tournamentData?.winPlayer?.['4-10']?.userIds?.map(
+                (elevenP, i) => (
+                  <tr>
+                    <td>
+                      <p>{11 + i}</p>
+                    </td>
+                    <td>
+                      <div className="rankingUsers">
+                        <img
+                          src={
+                            (tournamentData?.isFinished && elevenP?.profile) ||
+                            'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                          }
+                          alt=""
+                        />
+                        <p>
+                          {(tournamentData?.isFinished && elevenP?.username) ||
+                            'To be decided'}
+                        </p>
+                      </div>
+
+                    </td>
+                    <td>
+
+                      <p>
+                        {(tournamentData?.isFinished &&
+                          tournamentData?.winPlayer?.['11-25']?.amount) ||
+                          'To be decided'}
+                      </p>
+                    </td>
+                  </tr>
+                ),
+              )}
+          </tbody>
+        </Table>
+      </div>
+    </div>
+  )
+}
+
+const Structure = () => {
+  return (
+    <div className='tournament-results'><h4>Structure , documents or rule</h4></div>
+  )
+}
+
+const PrizePool = () => {
+  return (
+    <div className='tournament-results'>
+      <h4>PAYOUT STRUCTURE</h4>
+      <Table striped bordered variant="dark" responsive>
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Earnings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1st</td>
+            <td>$200000</td>
+          </tr>
+          <tr>
+            <td>2nd</td>
+            <td>$80000</td>
+          </tr>
+          <tr>
+            <td>3rd</td>
+            <td>$5000</td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   )
 }

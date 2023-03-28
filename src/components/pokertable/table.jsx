@@ -1736,7 +1736,6 @@ const PokerTable = (props) => {
             </h4>
           </div> : ""}
 
-
           {roomData?.gameType === "poker-tournament" &&
             roomData?.isGameRunning && (
               <div className="table-blindTimer">
