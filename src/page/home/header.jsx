@@ -47,7 +47,7 @@ const Header = ({userData, handleShow}) => {
                                 <img src={token} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.wallet || 0)}</span>
                                 <OverlayTrigger
-                                    placement="right"
+                                   placement={window.innerWidth < 767 ? "right":"left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderWallet}
                                 >
@@ -59,8 +59,9 @@ const Header = ({userData, handleShow}) => {
                             <div className="pokerWallet-box">
                                 <img src={tickets} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.ticket || 0)}</span>
+                                {console.log("dasdsdsd---------",window.innerWidth)}
                                 <OverlayTrigger
-                                    placement="right"
+                                    placement={window.innerWidth < 767 ? "right":"left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderTicket}
                                 >
