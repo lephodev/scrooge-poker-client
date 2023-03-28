@@ -28,7 +28,7 @@ const BetRaise = ({ currentPlayer,
     return (
         <div className="bet-view">
             {((roomData?.pot + playersPot) * 25) / 100 <= currentPlayer?.wallet &&
-                ((roomData.pot + playersPot) * 25) / 100 >= roomData.raiseAmount && (
+                ((roomData.pot + playersPot) * 25) / 100 >= roomData.raiseAmount *2 && (
                     <Button
                     disabled={remainingTime <=1}
                         onClick={() => {
@@ -40,7 +40,7 @@ const BetRaise = ({ currentPlayer,
                     </Button>
                 )}
             {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
-                ((roomData.pot + playersPot) * 33) / 100 >= roomData.raiseAmount && (
+                ((roomData.pot + playersPot) * 33) / 100 >= roomData.raiseAmount * 2 && (
                     <Button
                     disabled={remainingTime <=1}
                         onClick={() => {
@@ -52,7 +52,7 @@ const BetRaise = ({ currentPlayer,
                     </Button>
                 )}
             {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
-                ((roomData.pot + playersPot) * 50) / 100 >= roomData.raiseAmount && (
+                ((roomData.pot + playersPot) * 50) / 100 >= roomData.raiseAmount * 2 && (
                     <Button
                     disabled={remainingTime <=1}
                         onClick={() => {
@@ -64,7 +64,7 @@ const BetRaise = ({ currentPlayer,
                     </Button>
                 )}
             {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
-                ((roomData.pot + playersPot) * 67) / 100 >= roomData.raiseAmount && (
+                ((roomData.pot + playersPot) * 67) / 100 >= roomData.raiseAmount * 2 && (
                     <Button
                     disabled={remainingTime <=1}
                         onClick={() => {
@@ -77,7 +77,7 @@ const BetRaise = ({ currentPlayer,
                 )}
 
             {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
-                ((roomData.pot + playersPot) * 75) / 100 >= roomData.raiseAmount && (
+                ((roomData.pot + playersPot) * 75) / 100 >= roomData.raiseAmount * 2 && (
                     <Button
                     disabled={remainingTime <=1}
                         onClick={() => {
