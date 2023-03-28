@@ -68,7 +68,7 @@ export const dateFormat = (d = new Date()) => {
   const date = new Date(d);
   const day = date.getDate(); // Date of the month: 2 in our example
   let month = date.getMonth(); // Month of the Year: 0-based index, so 1 in our example
-  const year = date.getFullYear(); // Year: 2013
+  // const year = date.getFullYear(); // Year: 2013
   //const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   //const dayofweek = weekday[date.getDay()];
   month = getMonthName(month);

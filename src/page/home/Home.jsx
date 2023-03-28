@@ -30,7 +30,7 @@ import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
 // import feeIcon from "../../assets/images/feeIcon.png"
 import ranking from "../../assets/images/ranking.png"
-import { dateFormat, getTime, timeFormat } from "../../utils/utils";
+import { dateFormat, timeFormat } from "../../utils/utils";
 let userId;
 const Home = () => {
   // inital state
@@ -311,12 +311,12 @@ const Home = () => {
 
   return (
     <div className="poker-home">
-      {/* {userInAnyGame?.inGame && (
+      {userInAnyGame?.inGame && (
         <AlreadyInGamePopup
           userInAnyGame={userInAnyGame}
           setUserInAnyGame={setUserInAnyGame}
         />
-      )} */}
+      )}
       {loader && (
         <div className="poker-loader">
           <img src={loaderImg} alt="loader" />
@@ -973,7 +973,7 @@ const GameTournament = ({
 
     return getData;
   };
-  var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+  // var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 
   return (
     <>
