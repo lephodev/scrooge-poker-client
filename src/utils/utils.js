@@ -32,6 +32,7 @@ export const deleteCookie = (name) => {
 
 export const getTime = (time) => {
   let d = new Date(time);
+  console.log("dddddddd",d)
   let pm = d.getHours() >= 12;
   let hour12 = d.getHours() % 12;
   if (!hour12) hour12 += 12;
@@ -39,7 +40,7 @@ export const getTime = (time) => {
   let date = d.getDate();
   let month = d.getMonth() + 1;
   let year = d.getFullYear();
-  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  return `${date}-${month}-${year} ${hour12}:${minute} ${pm ? "PM" : "AM"}`;
 };
 
 export const DecryptCard = (cipher) => {
@@ -71,11 +72,12 @@ export const dateFormat = (d = new Date()) => {
   //const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   //const dayofweek = weekday[date.getDay()];
   month = getMonthName(month);
-  return `${day} ${month} ${year}`;
+  return `${day} ${month}`;
 };
 
 export const timeFormat = (date = new Date()) => {
   let dateChange = date ? new Date(date) : new Date();
+  console.log("dateChange",dateChange);
   let time = dateChange.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "numeric",
