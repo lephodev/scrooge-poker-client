@@ -24,13 +24,13 @@ import { socket } from "../../config/socketConnection";
 import axios from "axios";
 import { landingClient } from "../../config/keys";
 import UserContext from "../../context/UserContext";
-import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
+// import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
 import CONSTANTS from "../../config/contants";
 import { getCookie } from "../../utils/cookieUtil";
 // import feeIcon from "../../assets/images/feeIcon.png"
 import ranking from "../../assets/images/ranking.png"
-import { dateFormat, timeFormat } from "../../utils/utils";
+import { dateFormat, timeFormat } from "../../utils/utils";//, getTime
 let userId;
 const Home = () => {
   // inital state
@@ -44,7 +44,7 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);
+  const { setUserInAnyGame } = useContext(UserContext);//userInAnyGame,
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -61,8 +61,8 @@ const Home = () => {
   const checkUserInGame = async () => {
     let userData = await axios({
       method: "get",
-      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
-      headers: { authorization: `Bearer ${getCookie("token")}` },
+      url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
+      headers: { authorization: `Bearer ${ getCookie("token") }` },
     });
     if (userData?.data) {
       setUserInAnyGame(userData.data)
@@ -248,7 +248,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${landingClient}`);
+      return (window.location.href = `${ landingClient }`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -726,7 +726,7 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
@@ -793,7 +793,7 @@ const GameTable = ({
         <FaInfoCircle className="leaderboardBtn" onClick={() => handleFlip(data.tournamentDate)} />
         <div
           className={`tournamentCard-inner
-         ${cardFlip && gameType === "Poker" ? "rotate" : ""}
+         ${ cardFlip && gameType === "Poker" ? "rotate" : "" }
          `}
         >
           {!cardFlip && gameType === "Poker" ? (
@@ -964,7 +964,7 @@ const GameTournament = ({
     }
   };
   const handleFlip = (tournamentId) => {
-    history.push(`/leaderboard?tournamentId=${tournamentId}`)
+    history.push(`/leaderboard?tournamentId=${ tournamentId }`)
   };
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>

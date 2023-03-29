@@ -1,8 +1,16 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 // import close from '../../assets/close.png';
 
-const StatsPopup = ({ modalShow, handWinner }) => {
+const StatsPopup = ({ modalShow, handWinner, leaveTable }) => {
+
+  useEffect(() => {
+    setTimeout(() => {
+      leaveTable();
+    }, 60000);
+  }, []);
+
 
   return (
     <>
@@ -46,7 +54,8 @@ const StatsPopup = ({ modalShow, handWinner }) => {
           <div className='close-btn'>
             <Button
               onClick={() =>
-                (window.location.href = `${ window.location.origin }`)
+                leaveTable()
+                  (window.location.href = `${ window.location.origin }`)
               }>
               Back to lobby
             </Button>

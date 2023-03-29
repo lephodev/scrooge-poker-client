@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import close from '../../assets/close.png';
 import numFormatter from '../../utils/utils';
 
-const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
+const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData, leaveTable }) => {
 
   return (
     <>
@@ -40,20 +40,20 @@ const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
                 <div className="cummunityCards">
                   <div>Cummunity Cards :</div>
                   {winnData?.communityCards?.length ? winnData?.communityCards?.map((card, i) => (
-                    <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
+                    <img key={i} src={`./cards/${ card.toUpperCase() }.svg`} alt="card" />
                   )) : <span>All Folded</span>}
                 </div>
                 <div className="roomDetails-titles">Winning Amount: <span>{numFormatter(winnData?.winningAmount)}</span></div>
                 <div className="cummunityCards">
                   <div>Player Cards :</div>
                   {winnData?.winnerCards?.map((card, i) => (
-                    <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
+                    <img key={i} src={`./cards/${ card.toUpperCase() }.svg`} alt="card" />
                   ))}
                 </div>
                 <div className='cummunityCards'>
                   <div>Winner Hand:</div>
                   {winnData?.winnerHand?.length ? winnData?.winnerHand?.map((card, i) => (
-                    <img key={i} src={`./cards/${card.toUpperCase()}.svg`} alt="card" />
+                    <img key={i} src={`./cards/${ card.toUpperCase() }.svg`} alt="card" />
                   )) : <span>All Folded</span>}
                 </div>
               </div>
@@ -62,8 +62,10 @@ const WinHistoryPopup = ({ setModalShow, modalShow, winPopupData }) => {
 
           <div className='close-btn'>
             <Button
-              onClick={() =>
-                (window.location.href = `${window.location.origin}`)
+              onClick={() => {
+                leaveTable()
+                  (window.location.href = `${ window.location.origin }`)
+              }
               }>
               Back to lobby
             </Button>

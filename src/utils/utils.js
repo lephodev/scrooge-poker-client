@@ -32,7 +32,7 @@ export const deleteCookie = (name) => {
 
 export const getTime = (time) => {
   let d = new Date(time);
-  console.log("dddddddd",d)
+  console.log("dddddddd", d);
   let pm = d.getHours() >= 12;
   let hour12 = d.getHours() % 12;
   if (!hour12) hour12 += 12;
@@ -60,7 +60,7 @@ function getMonthName(month) {
   const d = new Date();
   d.setMonth(month - 1);
   const monthName = d.toLocaleString("default", { month: "long" });
-  return monthName?.substring(0,3);
+  return monthName?.substring(0, 3);
 }
 
 export const dateFormat = (d = new Date()) => {
@@ -76,7 +76,7 @@ export const dateFormat = (d = new Date()) => {
 
 export const timeFormat = (date = new Date()) => {
   let dateChange = date ? new Date(date) : new Date();
-  console.log("dateChange",dateChange);
+  console.log("dateChange", dateChange);
   let time = dateChange.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -84,5 +84,3 @@ export const timeFormat = (date = new Date()) => {
   });
   return time;
 };
-
-
