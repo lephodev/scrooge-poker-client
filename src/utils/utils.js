@@ -69,7 +69,7 @@ export const dateFormat = (d = new Date()) => {
   let month = date.getMonth(); // Month of the Year: 0-based index, so 1 in our example
   // const year = date.getFullYear(); // Year: 2013
   //const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  //const dayofweek = weekday[date.getDay()];
+  //const dayofweek = weekday[date.getDay(0)];
   month = getMonthName(month);
   return `${day} ${month}`;
 };
