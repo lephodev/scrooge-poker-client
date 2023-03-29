@@ -5,7 +5,7 @@ import avtar from "../../assets/profile_user.jpg";
 import WinHistoryPopup from "./winHistorypopup";
 import { useMediaQuery } from "react-responsive";
 
-const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, scrollToBottom, scrollDownRef }) => {
+const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, scrollToBottom, scrollDownRef, leaveTable }) => {
   // const [message, setMessages] = useState([]);
   const [typingOnChat, setTypingOnChat] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -49,7 +49,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
       const room = data.game;
       setWinHistoryData(room.handWinner)
     })
-  },[])
+  }, [])
 
 
 
@@ -57,7 +57,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     if (openChatHistory) {
       scrollToBottom();
     }
-  },[])
+  }, [])
 
   useOutsideAlerter(wrapperRef);
 
@@ -102,18 +102,18 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         }
         {winHistoryData?.map((data, i) => (
           <div className="playerComment-box" key={i} onClick={() => handleWinPopup(data)}>
-             <div className="everyRoundData">
-             {data.map(win => (
-              `--- ${win?.name} wins ---`
-            ))}
-             </div>
+            <div className="everyRoundData">
+              {data.map(win => (
+                `--- ${ win?.name } wins ---`
+              ))}
+            </div>
           </div>
         ))}
         <div style={{ float: "left", clear: "both" }}
           ref={scrollDownRef}>
         </div>
       </div>
-      <WinHistoryPopup modalShow={modalShow} setModalShow={setModalShow} winPopupData={winPopupData} />
+      <WinHistoryPopup modalShow={modalShow} setModalShow={setModalShow} winPopupData={winPopupData} leaveTable={leaveTable} />
     </div>
   );
 };
