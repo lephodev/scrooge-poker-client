@@ -190,7 +190,7 @@ input:checked {
 /************** winn player pot animation  *************/
 
 .winnPlayer1 .pots-1 {
-  animation: winnPot11 0.8s forwards ;
+  animation: winnPot11 0.8s forwards;
   transform: translate(2px, 335px);
 }
 
@@ -4346,6 +4346,10 @@ ul.btn-list>li>button>img {
 
 .stripe-confirmation-popup .CoinsHeader {
   margin-bottom: 15px;
+}
+
+.footer-btn.hiddenBtn {
+  visibility: hidden !important;
 }
 
 .player-box .pyro>div {
