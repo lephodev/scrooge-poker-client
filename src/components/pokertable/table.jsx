@@ -579,10 +579,13 @@ const PokerTable = (props) => {
 
     socket.on("winner", (data) => {
       roomData = data.updatedRoom;
+      let reStartSeconds = data.gameRestartSeconds;
       setSidePots(roomData.sidePots)
       updatePlayer(roomData.showdown);
       setCurrentPlayer();
-      showWinner(roomData.winnerPlayer, tablePlayers);
+      let delay = Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
+      console.log("time delay =====>", delay, roomData.winnerPlayer);
+      showWinner(roomData.winnerPlayer, tablePlayers, delay);
     });
 
     socket.on("gameStarted", () => {
@@ -1137,7 +1140,8 @@ const PokerTable = (props) => {
     setPlayers(playerDetails);
   };
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const showWinner = (data, players) => {
+
+  const showWinner = (data, players, timeDelay) => {
     data.reduce((p, item, i) =>
       p.then(() => {
         let type = players.find((el) => el.id === item.id);
@@ -1180,7 +1184,7 @@ const PokerTable = (props) => {
           setWinnerText(`All player folded, ${ item.name } Win`);
         }
       })
-        .then(() => delay(5000))
+        .then(() => delay(timeDelay))
         .then(() => {
           if (roomData.finish) {
             setHandWinner(roomData.handWinner);
@@ -1403,7 +1407,7 @@ const PokerTable = (props) => {
       if (wallet <= raiseAmount * 2 - pot) {
         currentAction.allin = true;
         currentAction.raise = false;
-        if (wallet > raiseAmount) {
+        if (wallet > raiseAmount && lastAction !== "check") {
           currentAction.call = true;
         }
       }
