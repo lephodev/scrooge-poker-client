@@ -584,7 +584,7 @@ const PokerTable = (props) => {
       updatePlayer(roomData.showdown);
       setCurrentPlayer();
       let delay = Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
-      console.log("time delay =====>", delay);
+      console.log("time delay =====>", delay, roomData.winnerPlayer);
       showWinner(roomData.winnerPlayer, tablePlayers, delay);
     });
 
