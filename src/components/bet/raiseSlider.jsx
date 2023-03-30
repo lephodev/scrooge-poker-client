@@ -5,23 +5,29 @@ import toast from "react-hot-toast";
 import numFormatter from "../../utils/utils";
 
 const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) => {
-  const [rangeBetValue, setRangeBetValue] = useState(0);
+  const [rangeBetValue, setRangeBetValue] = useState(roomData.raiseAmount * 2);
   const { wallet } = currentPlayer || {};
 
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
     console.log("value", value);
 
+
     if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
-    } else {
-      setRangeBetValue(value);
-    }
+    } 
+    if (value < roomData?.raiseAmount * 2) {
+      toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
+      return;
+    } 
+
+    setRangeBetValue(value);
+    
   };
 
   const maxBetValue = numFormatter(currentPlayer?.wallet);
-  const minBetValue = numFormatter(roomData?.raiseAmount);
+  const minBetValue = numFormatter(roomData?.raiseAmount * 2);
 
   return (
 
@@ -31,7 +37,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
           <div className="inputRange-Box">
             <InputRange
               maxValue={currentPlayer?.wallet}
-              minValue={roomData?.raiseAmount}
+              minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
               onChange={(e) => setRangeBetValue(e)}
               onChangeComplete={(betAmt) => {

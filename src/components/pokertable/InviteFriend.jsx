@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { socket } from '../../config/socketConnection';
 import contants from '../../config/contants';
+import { Spinner } from 'react-bootstrap';
 
 const InviteFriend = ({
   userId,
@@ -16,16 +17,19 @@ const InviteFriend = ({
 }) => {
   const [invPlayers, setInvPlayers] = useState([]);
   const [friendList, setFriendList] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     socket.on('invitationSend', (data) => {
       toast.success('Invitation Send Successfully', { id: 'A' });
       setShowInvite(false);
+      setButtonClicked(false);
     });
     socket.on('noInvitationSend', () => {
       toast.success('Unable to send Invitation', { id: 'A' });
+      setButtonClicked(false);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFriendList = useCallback(async () => {
@@ -53,6 +57,7 @@ const InviteFriend = ({
       toast.error('Please select any player');
       return;
     }
+    setButtonClicked(true);
 
     socket.emit('invPlayers', {
       invPlayers: invPlayers,
@@ -126,13 +131,13 @@ const InviteFriend = ({
       fontSize: "14px",
       lineHeight: "19px",
       color: "#858585c7",
-  
+
     }),
     input: (provided) => ({
       ...provided,
       // height: "38px",
       color: "fff",
-  
+
     }),
     valueContainer: (provided) => ({
       ...provided,
@@ -151,6 +156,7 @@ const InviteFriend = ({
       },
     }),
   };
+
   return (
     <Modal
       show={showInvite}
@@ -178,8 +184,9 @@ const InviteFriend = ({
             <Button
               onClick={() => {
                 handleInvitationSend();
-              }}>
-              Invite Friends
+              }}
+              disabled={buttonClicked}>
+              {buttonClicked ? <Spinner animation='border' /> : "Invite Friends"}
             </Button>
           </div>
         </div>

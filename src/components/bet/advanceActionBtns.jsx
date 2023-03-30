@@ -148,6 +148,13 @@ const AdvanceActionBtns = ({
       </Button>
     </div>
   );
+  const DISABLE_BTN = (
+    <div className="footer-btn hiddenBtn">
+      <Button disabled="true">
+        {" "}
+      </Button>
+    </div>
+  );
 
   let btn = "";
   if (
@@ -174,7 +181,8 @@ const AdvanceActionBtns = ({
       btn = (
         <>
           {ALL_IN_BTN}
-          {CHECK_FOLD_BTN}
+          {DISABLE_BTN}
+          {FOLD_BTN}
         </>
       );
     }
