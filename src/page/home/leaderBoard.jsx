@@ -11,93 +11,93 @@ import logo from "../../assets/game/logo.png";
 import userUtils from '../../utils/user'
 import { socket } from '../../config/socketConnection'
 import { useHistory } from 'react-router-dom'
-import { Button, Tab, Tabs } from 'react-bootstrap'
-import ReactSelect from 'react-select'
-import { useMemo } from 'react'
+import { Tab, Tabs } from 'react-bootstrap'
+// import ReactSelect from 'react-select'
+// import { useMemo } from 'react'
 // import ReactSelect from 'react-select'
 
 let userId;
 
-const customStyles = {
-  option: (provided) => ({
-    ...provided,
-    background: "#1b1b1b",
-    color: "#ddd",
-    fontWeight: "400",
-    fontSize: "16px",
-    padding: "10px 20px",
-    lineHeight: "16px",
-    cursor: "pointer",
-    borderRadius: "4px",
-    borderBottom: "1px solid #141414",
-    ":hover": {
-      background: "#141414",
-      borderRadius: "4px",
-    },
-  }),
-  menu: (provided) => ({
-    ...provided,
-    background: "#1b1b1b",
-    borderRadius: "30px",
-    padding: "10px 20px",
-    border: "2px solid transparent",
-  }),
-  control: () => ({
-    background: "#1b1b1b",
-    border: "2px solid #1b1b1b",
-    borderRadius: "30px",
-    color: "#fff",
-    display: "flex",
-    alignItem: "center",
-    height: "41",
-    margin: "2px 0",
-    boxShadow: " 0 2px 10px #000000a5",
-    cursor: "pointer",
-    ":hover": {
-      background: "#1b1b1b",
-      // border: "2px solid #306CFE",
-    },
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: "#fff",
-    fontWeight: "400",
-    fontSize: "14px",
-    lineHeight: "16px",
-  }),
-  indicatorSeparator: (provided) => ({
-    ...provided,
-    display: "none",
-  }),
-  placeholder: (provided) => ({
-    ...provided,
-    fontWeight: "400",
-    fontSize: "14px",
-    lineHeight: "19px",
-    color: "#858585c7",
-  }),
-  input: (provided) => ({
-    ...provided,
-    // height: "38px",
-    color: "fff",
-  }),
-  valueContainer: (provided) => ({
-    ...provided,
-    padding: "2px 20px",
-  }),
-  indicatorsContainer: (provided) => ({
-    ...provided,
-    paddingRight: "20px",
-    color: "#858585c7",
-  }),
-  svg: (provided) => ({
-    ...provided,
-    fill: "#858585c7 !important",
-    ":hover": {
-      fill: "#858585c7 !important",
-    },
-  }),
-};
+// const customStyles = {
+//   option: (provided) => ({
+//     ...provided,
+//     background: "#1b1b1b",
+//     color: "#ddd",
+//     fontWeight: "400",
+//     fontSize: "16px",
+//     padding: "10px 20px",
+//     lineHeight: "16px",
+//     cursor: "pointer",
+//     borderRadius: "4px",
+//     borderBottom: "1px solid #141414",
+//     ":hover": {
+//       background: "#141414",
+//       borderRadius: "4px",
+//     },
+//   }),
+//   menu: (provided) => ({
+//     ...provided,
+//     background: "#1b1b1b",
+//     borderRadius: "30px",
+//     padding: "10px 20px",
+//     border: "2px solid transparent",
+//   }),
+//   control: () => ({
+//     background: "#1b1b1b",
+//     border: "2px solid #1b1b1b",
+//     borderRadius: "30px",
+//     color: "#fff",
+//     display: "flex",
+//     alignItem: "center",
+//     height: "41",
+//     margin: "2px 0",
+//     boxShadow: " 0 2px 10px #000000a5",
+//     cursor: "pointer",
+//     ":hover": {
+//       background: "#1b1b1b",
+//       // border: "2px solid #306CFE",
+//     },
+//   }),
+//   singleValue: (provided) => ({
+//     ...provided,
+//     color: "#fff",
+//     fontWeight: "400",
+//     fontSize: "14px",
+//     lineHeight: "16px",
+//   }),
+//   indicatorSeparator: (provided) => ({
+//     ...provided,
+//     display: "none",
+//   }),
+//   placeholder: (provided) => ({
+//     ...provided,
+//     fontWeight: "400",
+//     fontSize: "14px",
+//     lineHeight: "19px",
+//     color: "#858585c7",
+//   }),
+//   input: (provided) => ({
+//     ...provided,
+//     // height: "38px",
+//     color: "fff",
+//   }),
+//   valueContainer: (provided) => ({
+//     ...provided,
+//     padding: "2px 20px",
+//   }),
+//   indicatorsContainer: (provided) => ({
+//     ...provided,
+//     paddingRight: "20px",
+//     color: "#858585c7",
+//   }),
+//   svg: (provided) => ({
+//     ...provided,
+//     fill: "#858585c7 !important",
+//     ":hover": {
+//       fill: "#858585c7 !important",
+//     },
+//   }),
+// };
 
 const LeaderBoard = () => {
   const history = useHistory();
@@ -207,14 +207,14 @@ const LeaderBoard = () => {
       getTournamentById();
     }, 1000);
   };
-  const options = useMemo(
-    () =>
-      tournaments?.map((el) => {
-        return { value: el?.name, label: el?.name };
-      }),
-    [tournaments]
-  );
-
+  // const options = useMemo(
+  //   () =>
+  //     tournaments?.map((el) => {
+  //       return { value: el?.name, label: el?.name };
+  //     }),
+  //   [tournaments]
+  // );
+  console.log("tournaments", tournaments);
   return (
     <div className="leaderBoardPage">
       <div className="user-header">
@@ -282,14 +282,14 @@ const LeaderBoard = () => {
         <div className="leaderBoardHeader">
           <h1>LEADERBOARD</h1>
 
-          <div className="tournamentFilter">
+          {/* <div className="tournamentFilter">
             <ReactSelect
               // onChange={handleChnageInviteUsers}
               options={options}
               styles={customStyles}
             />
             <Button>GO</Button>
-          </div>
+          </div> */}
           <br />
           <div className="tournamentDetails">
             <div className="tournamentContent">
