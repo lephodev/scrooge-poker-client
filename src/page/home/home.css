@@ -1116,21 +1116,6 @@ a.nav-link.active {
   font-weight: 600;
 }
 
-@media screen and (max-width: 767px) {
-  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .casino-popup .modal-footer {
-    padding: 1rem 1rem;
-  }
-
-  .tournamentCard .tournamentImg {
-    width: 100%;
-    height: 26%;
-  }
-}
-
 @media screen and (max-width: 530px) {
   #controlled-tab-example-tabpane-2 .home-poker-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1230,6 +1215,23 @@ a.nav-link.active {
 @media screen and (max-width: 767px) {
   .home-poker-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .casino-popup .modal-footer {
+    padding: 1rem 1rem;
+  }
+
+  .tournamentCard .tournamentImg {
+    width: 100%;
+    height: 26%;
+  }
+
+  .tournamentFilter {
+    width: 88%;
   }
 
   .tournamentDetails {
