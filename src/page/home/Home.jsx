@@ -984,6 +984,7 @@ const GameTournament = ({
             <h6>{dateFormat(data.startDate)}, Start at {timeFormat(data.tournamentDate)}</h6>
             <h2>{data?.name}</h2>
             {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished ...</p> : <p>Not started ...</p>}
+            {data?.tournamentType==='sit&go' ? <p className="tournamentRunning">Sit & Go</p> : <p className="tournamentRunning">Multi-Table Tournament</p>}
           </div>
         </div>
         <div className="tournamentCard-extraDetail">
@@ -1006,7 +1007,7 @@ const GameTournament = ({
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
-              10
+              {data?.prizePool}
             </div>
           </div>
         </div>
