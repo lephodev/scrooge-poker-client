@@ -44,7 +44,7 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);//userInAnyGame,
+  const { userInAnyGame, setUserInAnyGame,user,setUser } = useContext(UserContext);//userInAnyGame,
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -100,8 +100,9 @@ const Home = () => {
   };
 
   const getUser = async () => {
-    let user = await userUtils.getAuthUserData();
-    userId = user?.data?.user?.id;
+    let res = await userUtils.getAuthUserData();
+    userId = res?.data?.user?.id;
+    setUser(res?.data?.user)
     if (userId) {
       localStorage.setItem("userId", userId);
     }
@@ -264,6 +265,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms || []);
+        
       } catch (error) { }
     })();
   }, []);
@@ -294,7 +296,6 @@ const Home = () => {
   const filterRoom = pokerRooms.filter((el) =>
     el.gameName.toLowerCase().includes(searchText.toLowerCase())
   );
-
 
   const filterTournaments = tournaments.filter((el) =>
     el.name.toLowerCase().includes(searchText.toLowerCase())
@@ -365,19 +366,30 @@ const Home = () => {
               onSelect={(k) => setKey(k)}
               className="mb-3"
             >
+             
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
                     <div className="home-poker-card-grid">
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
+                          {el.public&&<GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />}
+                          {console.log("userid--->",userId)}
+                          {!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id)&&
                           <GameTable
                             data={el}
                             gameType="Poker"
                             height={openCardHeight}
                             setUserData={setUserData}
                             tableId={el._id}
-                          />
+                          />}
+                          
                         </React.Fragment>
                       ))}
                     </div>

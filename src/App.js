@@ -14,15 +14,22 @@ import Home from './page/home/Home';
 import UserContext from './context/UserContext';
 import LeaderBoard from './page/home/leaderBoard';
 import Error404 from './page/Error404/Error404';
+import userUtils from './utils/user';
 
 const App = () => {
-  const [userInAnyGame, setUserInAnyGame] = useState()
+  const [userInAnyGame, setUserInAnyGame] = useState({})
+  const [user,setUser]=useState()
+  const getUser = async () => {
+    let res = await userUtils.getAuthUserData();
+    setUser(res?.data?.user)
+  };
   useEffect(() => {
     if (window.width < window.height) {
       let w = window.width;
       window.width = window.height;
       window.height = w;
     }
+    getUser()
   }, []);
   
   return (
@@ -30,7 +37,9 @@ const App = () => {
       <UserContext.Provider
         value={{
           userInAnyGame,
-          setUserInAnyGame
+          setUserInAnyGame,
+          user,
+          setUser
         }}
       >
         <Router>
