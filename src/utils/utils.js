@@ -32,7 +32,6 @@ export const deleteCookie = (name) => {
 
 export const getTime = (time) => {
   let d = new Date(time);
-  console.log("dddddddd", d);
   let pm = d.getHours() >= 12;
   let hour12 = d.getHours() % 12;
   if (!hour12) hour12 += 12;
