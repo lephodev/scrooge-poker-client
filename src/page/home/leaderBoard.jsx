@@ -12,6 +12,7 @@ import userUtils from '../../utils/user'
 import { socket } from '../../config/socketConnection'
 import { useHistory } from 'react-router-dom'
 import { Tab, Tabs } from 'react-bootstrap'
+import Loader from '../../components/pageLoader/loader'
 // import ReactSelect from 'react-select'
 // import { useMemo } from 'react'
 // import ReactSelect from 'react-select'
@@ -104,34 +105,67 @@ const LeaderBoard = () => {
   const url = new URLSearchParams(window.location.search)
   const [tournamentData, setTournamentData] = useState([])
   const [dateState, setDateState] = useState()
-  const [tournaments, setTournaments] = useState([]);
+  //const [tournaments, setTournaments] = useState([]);
+  const [prizeStructure, setPrizeStructure] = useState([]);
+ // const [keys, setKeys] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
+  // const [keys, setPrize] = useState([]);
 
   const getTournamentById = async () => {
     try {
+      setShowLoader(true);
       if (url.get('tournamentId')) {
         const res = await tournamentInstance().get(`/tournamentById`, {
           params: { tournamentId: url.get('tournamentId') },
         })
-        const { tournament } = res.data || {}
+        const { tournament, payout } = res.data || {}
         if (tournament) {
-          setTournamentData(tournament)
+          setTournamentData(tournament);
+          setPrizeStructure(getPrizeStructure(tournament, payout));
         }
       }
+      setShowLoader(false);
     } catch (err) {
       history.push('/')
+      setShowLoader(false);
     }
   }
 
-  const getTournamentDetails = async () => {
-    try {
-      const response = await tournamentInstance().get("/tournaments");
-      const { status } = response;
-      if (status === 200) {
-        const { tournaments } = response.data;
-        setTournaments(tournaments || []);
-      }
-    } catch (error) { }
-  };
+  const getPrizeStructure = (tournament, payout) => {
+    const { prizeType, winPlayer, totalJoinPlayer, tournamentFee } = tournament;
+    const prize = totalJoinPlayer * parseFloat(tournamentFee);
+    if (prizeType === "Fixed") {
+      let keys = Object.keys(winPlayer);
+      let reqData = keys.map(key => {
+        return {
+          place: key,
+          earnings: winPlayer[key].amount
+        }
+      })
+      return reqData;
+    } else {
+      // let keys = Object.keys(payout?.amount);
+      let reqData = payout?.amount.map(obj => {
+        let key = Object.keys(obj)[0];
+        return {
+          place: parseFloat(key) + 1,
+          earnings: prize * obj[key] / 100
+        }
+      })
+      return reqData;
+    }
+  }
+
+  // const getTournamentDetails = async () => {
+  //   try {
+  //     const response = await tournamentInstance().get("/tournaments");
+  //     const { status } = response;
+  //     if (status === 200) {
+  //       const { tournaments } = response.data;
+  //       setTournaments(tournaments || []);
+  //     }
+  //   } catch (error) { }
+  // };
 
   const enterRoom = async (tournamentId) => {
     const res = await tournamentInstance().post("/enterroom", {
@@ -147,6 +181,7 @@ const LeaderBoard = () => {
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
     }
   };
+
   const getUser = async () => {
     let user = await userUtils.getAuthUserData();
     userId = user?.data?.user?.id;
@@ -157,7 +192,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     getTournamentById()
     getUser()
-    getTournamentDetails();
+    // getTournamentDetails();
   }, [])
 
   if (tournamentData && tournamentData?.tournamentDate) {
@@ -213,9 +248,10 @@ const LeaderBoard = () => {
   //     }),
   //   [tournaments]
   // );
-  console.log("tournaments", tournaments);
+
   return (
     <div className="leaderBoardPage">
+
       <div className="user-header">
         <div className="container">
           <div className="user-header-grid">
@@ -276,12 +312,14 @@ const LeaderBoard = () => {
           </div>
         </div>
       </div>
+      {showLoader ?
+        <Loader />
+        : <>
+          <div className="container leaderBoardContainer">
+            <div className="leaderBoardHeader">
+              <h1>LEADERBOARD</h1>
 
-      <div className="container leaderBoardContainer">
-        <div className="leaderBoardHeader">
-          <h1>LEADERBOARD</h1>
-
-          {/* <div className="tournamentFilter">
+              {/* <div className="tournamentFilter">
             <ReactSelect
               // onChange={handleChnageInviteUsers}
               options={options}
@@ -289,88 +327,90 @@ const LeaderBoard = () => {
             />
             <Button>GO</Button>
           </div> */}
-          <br />
-          <div className="tournamentDetails">
-            <div className="tournamentContent">
-              <h4>
-                Tournament table name : <span>{tournamentData?.name}</span>
-              </h4>
-              <p>Buy In : <span>{tournamentData?.buyIn}</span></p>
-              <p>
-                Total Players :{' '}
-                <span>
-                  {tournamentData?.rooms?.filter((el) => el?.players)[0]
-                    ?.players?.length || 0}
-                </span>
-              </p>
-              <p>
-                Blind:{' '}
-                <span>
-                  {tournamentData?.levels?.smallBlind?.amount}
-                  {tournamentData?.levels?.smallBlind?.amount ? '/' : ''}
-                  {tournamentData?.levels?.bigBlind?.amount}
-                </span>
-              </p>
-              <p>
-                Date : <span>{getTime(tournamentData?.tournamentDate)}</span>
-              </p>
-            </div>
-            <div className="tournamentTime">
-              {tournamentData?.isFinished ? (
-                <h2 className='tournamentFinished'>Tournament Finished.</h2>
-              ) : tournamentData?.isStart ? (
-                <h2 className='tournamentRunning'>Tournament Is Running ...</h2>
-              ) : (
-                <>
-                  <h2>Tournament Start Time </h2>
-                  <div id="clockdiv">
-                    <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
-                  </div>
-                </>
-              )}
-              {tournamentData?.isFinished ? "" : (
-                <div className="btn-grid">
-                  {" "}
-
-                  {ifUserJoind() ? (
-                    <button
-
-                      onClick={() => enterRoom(tournamentData?._id)}
-                      type="submit"
-                    >
-                      Enter Game
-                    </button>
+              <br />
+              <div className="tournamentDetails">
+                <div className="tournamentContent">
+                  <h4>
+                    Tournament table name : <span>{tournamentData?.name}</span>
+                  </h4>
+                  <p>Buy In : <span>{tournamentData?.buyIn}</span></p>
+                  <p>
+                    Total Players :{' '}
+                    <span>
+                      {tournamentData?.rooms?.filter((el) => el?.players)[0]
+                        ?.players?.length || 0}
+                    </span>
+                  </p>
+                  <p>
+                    Blind:{' '}
+                    <span>
+                      {tournamentData?.levels?.smallBlind?.amount}
+                      {tournamentData?.levels?.smallBlind?.amount ? '/' : ''}
+                      {tournamentData?.levels?.bigBlind?.amount}
+                    </span>
+                  </p>
+                  <p>
+                    Date : <span>{getTime(tournamentData?.tournamentDate)}</span>
+                  </p>
+                </div>
+                <div className="tournamentTime">
+                  {tournamentData?.isFinished ? (
+                    <h2 className='tournamentFinished'>Tournament Finished.</h2>
+                  ) : tournamentData?.isStart ? (
+                    <h2 className='tournamentRunning'>Tournament Is Running ...</h2>
                   ) : (
-                    <button
-                      disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
-                      onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
-                      }
-                      type="submit"
-                    >
-                      Join Game
-                    </button>
+                    <>
+                      <h2>Tournament Start Time </h2>
+                      <div id="clockdiv">
+                        <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
+                      </div>
+                    </>
                   )}
-                </div>)}
-            </div>
-          </div>
-        </div>
-        <Tabs
-          defaultActiveKey="home"
-          id="uncontrolled-tab-example"
-          className="mb-3"
-        >
-          <Tab eventKey="home" title="Final Results">
-            <Results tournamentData={tournamentData} />
-          </Tab>
-          <Tab eventKey="profile" title="Structure">
-            <Structure />
-          </Tab>
-          <Tab eventKey="contact" title="Prize Pool">
-            <PrizePool />
-          </Tab>
-        </Tabs>
+                  {tournamentData?.isFinished ? "" : (
+                    <div className="btn-grid">
+                      {" "}
 
-      </div>
+                      {ifUserJoind() ? (
+                        <button
+
+                          onClick={() => enterRoom(tournamentData?._id)}
+                          type="submit"
+                        >
+                          Enter Game
+                        </button>
+                      ) : (
+                        <button
+                          disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
+                          onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
+                          }
+                          type="submit"
+                        >
+                          Join Game
+                        </button>
+                      )}
+                    </div>)}
+                </div>
+              </div>
+            </div>
+            <Tabs
+              defaultActiveKey="home"
+              id="uncontrolled-tab-example"
+              className="mb-3"
+            >
+              <Tab eventKey="home" title="Final Results">
+                <Results tournamentData={tournamentData} />
+              </Tab>
+              {/* <Tab eventKey="profile" title="Structure">
+                <Structure />
+              </Tab> */}
+              <Tab eventKey="contact" title="Prize Pool">
+                <PrizePool prizeStructure={prizeStructure} />
+              </Tab>
+            </Tabs>
+
+          </div>
+        </>}
+
     </div>
   )
 }
@@ -398,25 +438,19 @@ const Star = () => {
 const Results = ({ tournamentData }) => {
 
   const [allPlayers, setAllPlayers] = useState([]);
-  // console.log("tournamentData ==>", tournamentData);
   useEffect(() => {
     if (tournamentData?.winPlayer) {
       let winPlayers = tournamentData.winPlayer;
       let allKeys = winPlayers ? Object.keys(winPlayers) : [];
-      console.log("winPlayers ===>", winPlayers);
-      console.log("allKeys ===>", allKeys);
       let players = [];
       allKeys.forEach(key => {
         if (winPlayers[key]?.userId) {
-          console.log("enterd in if");
           winPlayers[key] = {
             ...winPlayers[key],
             amount: winPlayers[key].amount,
           }
           players.push(winPlayers[key]);
         } else {
-          console.log("enterd in else");
-          console.log("user ids", winPlayers[key]?.userIds);
           winPlayers[key]?.userIds?.forEach(user => {
             user = {
               ...user,
@@ -427,7 +461,6 @@ const Results = ({ tournamentData }) => {
         }
       });
       setAllPlayers(players);
-      console.log("all players ", players);
     }
   }, [tournamentData]);
 
@@ -450,7 +483,7 @@ const Results = ({ tournamentData }) => {
               </th>
             </tr>
           </thead>
-     
+
           {tournamentData.prizeType === 'Fixed' ? (<tbody>
             <tr className="firstRank">
               <td>
@@ -993,13 +1026,18 @@ const Results = ({ tournamentData }) => {
   )
 }
 
-const Structure = () => {
-  return (
-    <div className='tournament-results'><h4>Structure , documents or rule</h4></div>
-  )
-}
+// const Structure = () => {
+//   return (
+//     <div className='tournament-results'><h4>Structure , documents or rule</h4></div>
+//   )
+// }
 
-const PrizePool = () => {
+const PrizePool = ({ prizeStructure }) => {
+  // useEffect(() => {
+  //   setKeys(Object.keys(prizeStructure));
+
+  // }, [keys]);
+
   return (
     <div className='tournament-results'>
       <h4>PAYOUT STRUCTURE</h4>
@@ -1011,18 +1049,30 @@ const PrizePool = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1st</td>
-            <td>$200000</td>
-          </tr>
-          <tr>
+          {prizeStructure?.length > 0 ? prizeStructure?.map(el =>
+          (
+            <>
+              {el.earnings ? <tr>
+                {el.place === "first" ? <td>1st</td>
+                  : el.place === "second" ? <td>2nd</td>
+                    : el.place === "third" ? <td>3rd</td>
+                      : <td>{el.place}</td>}
+                <td>{el.earnings}</td>
+              </tr> : null}
+            </>
+          )
+          ) : (
+            <div className='yetDecided'>To Be decided</div>
+          )}
+
+          {/* <tr>
             <td>2nd</td>
             <td>$80000</td>
           </tr>
           <tr>
             <td>3rd</td>
             <td>$5000</td>
-          </tr>
+          </tr> */}
         </tbody>
       </Table>
     </div>
