@@ -472,13 +472,21 @@ input[type="number"] {
   border-radius: 30px;
   display: flex;
   justify-content: space-between;
-  max-width: 300px;
+
   margin: 0px auto;
   padding: 5px 6px 6px;
   background: #1b1b1b;
   gap: 10px;
   border: 1px solid #232323;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
+.leaderBoardContainer .nav-tabs {
+  max-width: 300px !important;
+}
+
+.poker-table-content .nav-tabs {
+  max-width: 470px !important;
 }
 
 .nav-tabs .nav-link:focus,
@@ -626,6 +634,7 @@ input[type="number"] {
   height: 35px;
   border: none;
 }
+
 .yetDecided {
   width: 100%;
   text-align: end;
@@ -995,10 +1004,7 @@ tr.myRank {
   margin-bottom: 5px;
 }
 
-div#controlled-tab-example-tabpane-2
-  .tournamentCard-front
-  .tournamentRanking
-  button {
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button {
   width: 100%;
   font-size: 12px;
   font-weight: 700;
@@ -1006,10 +1012,7 @@ div#controlled-tab-example-tabpane-2
   color: black;
 }
 
-div#controlled-tab-example-tabpane-2
-  .tournamentCard-front
-  .tournamentRanking
-  button:focus {
+div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
 }
