@@ -937,7 +937,7 @@ const PokerTable = (props) => {
       setRefillSitInAmount(false);
       setDisable(false);
     });
-  }, [isAdmin]);
+  }, []);
 
   const handleTentativeActionAuto = (player) => {
     let event;
@@ -1035,7 +1035,7 @@ const PokerTable = (props) => {
       tPlayer = data.id;
       tRound = data.runninground;
     });
-  }, [players]);
+  }, []);
 
   useEffect(() => {
     if (currentPlayer && currentPlayer.id === userId) {
@@ -2229,7 +2229,7 @@ const Players = ({
     if (roomData && roomData.runninground === 0) {
       setNewPurchase(false);
     }
-  }, [playerData, setBuyinPopup]);
+  }, [playerData]);
 
   useEffect(() => {
     socket.on("showCard", (data) => {
