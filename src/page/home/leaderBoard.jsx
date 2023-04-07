@@ -402,9 +402,9 @@ const LeaderBoard = () => {
               <Tab eventKey="home" title="Final Results">
                 <Results tournamentData={tournamentData} />
               </Tab>
-              <Tab eventKey="profile" title="Structure">
+              {/* <Tab eventKey="profile" title="Structure">
                 <Structure />
-              </Tab>
+              </Tab> */}
               <Tab eventKey="contact" title="Prize Pool">
                 <PrizePool prizeStructure={prizeStructure} keys={keys} />
               </Tab>
