@@ -8,7 +8,7 @@ import logo from "../../assets/game/logo.png";
 import { FaQuestionCircle } from "react-icons/fa";
 import { landingClient } from '../../config/keys';
 
-const Header = ({userData, handleShow}) => {
+const Header = ({ userData, handleShow }) => {
     const renderWallet = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             This is your token balance, and can be used for betting.
@@ -47,7 +47,7 @@ const Header = ({userData, handleShow}) => {
                                 <img src={token} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.wallet || 0)}</span>
                                 <OverlayTrigger
-                                   placement={window.innerWidth < 767 ? "right":"left"}
+                                    placement={window.innerWidth < 767 ? "right" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderWallet}
                                 >
@@ -59,9 +59,8 @@ const Header = ({userData, handleShow}) => {
                             <div className="pokerWallet-box">
                                 <img src={tickets} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.ticket || 0)}</span>
-                                {console.log("dasdsdsd---------",window.innerWidth)}
                                 <OverlayTrigger
-                                    placement={window.innerWidth < 767 ? "right":"left"}
+                                    placement={window.innerWidth < 767 ? "right" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderTicket}
                                 >
