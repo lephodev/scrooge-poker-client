@@ -293,12 +293,12 @@ const Home = () => {
     [allUsers]
   );
 
-  const filterRoom = pokerRooms.filter((el) =>
-    el.gameName.toLowerCase().includes(searchText.toLowerCase())
+  const filterRoom =pokerRooms?.length>0&& pokerRooms?.filter((el) =>
+    el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
-  const filterTournaments = tournaments.filter((el) =>
-    el.name.toLowerCase().includes(searchText.toLowerCase())
+  const filterTournaments =tournaments?.length>0&& tournaments?.filter((el) =>
+    el?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
@@ -380,7 +380,6 @@ const Home = () => {
                             setUserData={setUserData}
                             tableId={el._id}
                           />}
-                          {console.log("userid--->",userId)}
                           {!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id)&&
                           <GameTable
                             data={el}
