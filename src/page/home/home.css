@@ -308,7 +308,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -390,8 +390,6 @@ input[type='number'] {
   height: 40px;
   object-fit: cover;
 }
-
-
 
 .css-12jo7m5 {
   font-size: 14px !important;
@@ -628,6 +626,13 @@ input[type='number'] {
   height: 35px;
   border: none;
 }
+.yetDecided {
+  width: 100%;
+  text-align: end;
+  height: 120px;
+  font-size: 20px;
+  padding-top: 50px;
+}
 
 div#controlled-tab-example-tabpane-home .tournamentCard-front button {
   width: 100%;
@@ -700,7 +705,6 @@ div#clockdiv h4 {
   border-radius: 10px;
   padding: 4px 10px;
   background-color: #2d3140;
-
 }
 
 .cardTournament-Fee p {
@@ -748,7 +752,6 @@ div#clockdiv h4 {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-
 }
 
 .tournamentCard-buttonDetail button,
@@ -880,7 +883,6 @@ tr.myRank {
   z-index: 9;
   display: grid;
   place-content: center;
-
 }
 
 .leaderboard-table tr.firstRank td:first-child svg,
@@ -906,7 +908,6 @@ tr.myRank {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .leaderBoardHeader .tournamentRanking {
@@ -990,7 +991,10 @@ tr.myRank {
   margin-bottom: 5px;
 }
 
-div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button {
+div#controlled-tab-example-tabpane-2
+  .tournamentCard-front
+  .tournamentRanking
+  button {
   width: 100%;
   font-size: 12px;
   font-weight: 700;
@@ -998,7 +1002,10 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
   color: black;
 }
 
-div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
+div#controlled-tab-example-tabpane-2
+  .tournamentCard-front
+  .tournamentRanking
+  button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
 }
@@ -1080,7 +1087,6 @@ h4.tournamentFinished h2.tournamentFinished {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .tournament-results .table-dark td,
@@ -1107,7 +1113,7 @@ h4.tournamentFinished h2.tournamentFinished {
   border: 1px solid #f9ff00;
   box-shadow: none !important;
   height: 40px;
-  color: rgb(0, 0, 0) ! important;
+  color: rgb(0, 0, 0) !important;
 
   font-size: 14px;
 }
@@ -1195,7 +1201,6 @@ a.nav-link.active {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
-
 
 @media screen and (max-width: 1024px) {
   .home-poker-card-grid {
