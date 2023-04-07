@@ -937,7 +937,7 @@ const PokerTable = (props) => {
       setRefillSitInAmount(false);
       setDisable(false);
     });
-  }, [isAdmin]);
+  }, []);
 
   const handleTentativeActionAuto = (player) => {
     let event;
