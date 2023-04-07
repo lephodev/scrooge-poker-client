@@ -116,21 +116,21 @@ const Home = () => {
       pokerRooms?.length > 0 &&
       pokerRooms.find(
         (el) =>
-          el.gameName.toLowerCase() === gameState.gameName.trim().toLowerCase()
+          el?.gameName?.toLowerCase() === gameState?.gameName?.trim()?.toLowerCase()
       );
 
     let valid = true;
     let err = {};
     const mimimumBet = 0;
-    if (gameState.gameName === "") {
+    if (gameState?.gameName === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
-    if (gameState.gameName.trim() === "") {
+    if (gameState?.gameName.trim() === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
-    if (!userData?.wallet || gameState.minchips > userData?.wallet) {
+    if (!userData?.wallet || gameState?.minchips > userData?.wallet) {
       err.minchips = "You don't have enough balance in your wallet.";
       valid = false;
     } else if (gameState.minchips <= mimimumBet) {
@@ -293,12 +293,12 @@ const Home = () => {
     [allUsers]
   );
 
-  const filterRoom = pokerRooms?.length > 0 && pokerRooms?.filter((el) =>
-    el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase())
+  const filterRoom =pokerRooms&&pokerRooms?.length>0&& pokerRooms?.filter((el) =>
+  el?.gameName&&el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
-  const filterTournaments = tournaments?.length > 0 && tournaments?.filter((el) =>
-    el?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
+  const filterTournaments =tournaments&&tournaments?.length>0&& tournaments?.filter((el) =>
+  el?.name&&el?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
@@ -380,15 +380,15 @@ const Home = () => {
                             setUserData={setUserData}
                             tableId={el._id}
                           />}
-                          {!el.public && el?.invPlayers?.find((pl) => pl?.toString() === userId || pl?.toString() === user?.id) &&
-                            <GameTable
-                              data={el}
-                              gameType="Poker"
-                              height={openCardHeight}
-                              setUserData={setUserData}
-                              tableId={el._id}
-                            />}
-
+                          {((!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id))|| (el.hostId ===userId))&&
+                          <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />}
+                          
                         </React.Fragment>
                       ))}
                     </div>
