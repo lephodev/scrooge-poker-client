@@ -105,9 +105,9 @@ const LeaderBoard = () => {
   const url = new URLSearchParams(window.location.search)
   const [tournamentData, setTournamentData] = useState([])
   const [dateState, setDateState] = useState()
-  const [tournaments, setTournaments] = useState([]);
+  //const [tournaments, setTournaments] = useState([]);
   const [prizeStructure, setPrizeStructure] = useState([]);
-  const [keys, setKeys] = useState([]);
+ // const [keys, setKeys] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   // const [keys, setPrize] = useState([]);
 
@@ -158,16 +158,16 @@ const LeaderBoard = () => {
     }
   }
 
-  const getTournamentDetails = async () => {
-    try {
-      const response = await tournamentInstance().get("/tournaments");
-      const { status } = response;
-      if (status === 200) {
-        const { tournaments } = response.data;
-        setTournaments(tournaments || []);
-      }
-    } catch (error) { }
-  };
+  // const getTournamentDetails = async () => {
+  //   try {
+  //     const response = await tournamentInstance().get("/tournaments");
+  //     const { status } = response;
+  //     if (status === 200) {
+  //       const { tournaments } = response.data;
+  //       setTournaments(tournaments || []);
+  //     }
+  //   } catch (error) { }
+  // };
 
   const enterRoom = async (tournamentId) => {
     const res = await tournamentInstance().post("/enterroom", {
@@ -194,7 +194,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     getTournamentById()
     getUser()
-    getTournamentDetails();
+    // getTournamentDetails();
   }, [])
 
   if (tournamentData && tournamentData?.tournamentDate) {
@@ -406,7 +406,7 @@ const LeaderBoard = () => {
                 <Structure />
               </Tab> */}
               <Tab eventKey="contact" title="Prize Pool">
-                <PrizePool prizeStructure={prizeStructure} keys={keys} />
+                <PrizePool prizeStructure={prizeStructure} />
               </Tab>
             </Tabs>
 
@@ -1035,14 +1035,14 @@ const Results = ({ tournamentData }) => {
   )
 }
 
-const Structure = () => {
-  return (
-    <div className='tournament-results'><h4>Structure , documents or rule</h4></div>
-  )
-}
+// const Structure = () => {
+//   return (
+//     <div className='tournament-results'><h4>Structure , documents or rule</h4></div>
+//   )
+// }
 
 const PrizePool = ({ prizeStructure }) => {
-  // console.log(prizeStructure);
+  console.log(prizeStructure);
   // useEffect(() => {
   //   setKeys(Object.keys(prizeStructure));
 
