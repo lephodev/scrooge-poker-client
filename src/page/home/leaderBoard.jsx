@@ -118,7 +118,6 @@ const LeaderBoard = () => {
         const res = await tournamentInstance().get(`/tournamentById`, {
           params: { tournamentId: url.get('tournamentId') },
         })
-        console.log("res ===>", res);
         const { tournament, payout } = res.data || {}
         if (tournament) {
           setTournamentData(tournament);
@@ -129,7 +128,6 @@ const LeaderBoard = () => {
     } catch (err) {
       history.push('/')
       setShowLoader(false);
-      console.log('Error Message Here---->', err)
     }
   }
 
@@ -440,25 +438,19 @@ const Star = () => {
 const Results = ({ tournamentData }) => {
 
   const [allPlayers, setAllPlayers] = useState([]);
-  // console.log("tournamentData ==>", tournamentData);
   useEffect(() => {
     if (tournamentData?.winPlayer) {
       let winPlayers = tournamentData.winPlayer;
       let allKeys = winPlayers ? Object.keys(winPlayers) : [];
-      console.log("winPlayers ===>", winPlayers);
-      console.log("allKeys ===>", allKeys);
       let players = [];
       allKeys.forEach(key => {
         if (winPlayers[key]?.userId) {
-          console.log("enterd in if");
           winPlayers[key] = {
             ...winPlayers[key],
             amount: winPlayers[key].amount,
           }
           players.push(winPlayers[key]);
         } else {
-          console.log("enterd in else");
-          console.log("user ids", winPlayers[key]?.userIds);
           winPlayers[key]?.userIds?.forEach(user => {
             user = {
               ...user,
@@ -469,7 +461,6 @@ const Results = ({ tournamentData }) => {
         }
       });
       setAllPlayers(players);
-      console.log("all players ", players);
     }
   }, [tournamentData]);
 
@@ -1042,7 +1033,6 @@ const Results = ({ tournamentData }) => {
 // }
 
 const PrizePool = ({ prizeStructure }) => {
-  console.log(prizeStructure);
   // useEffect(() => {
   //   setKeys(Object.keys(prizeStructure));
 
