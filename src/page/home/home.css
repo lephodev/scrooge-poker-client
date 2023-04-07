@@ -720,6 +720,10 @@ div#clockdiv h4 {
   font-size: 18px;
   font-weight: 600;
   color: #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
 }
 
 .tournamentCard-nameDetail h6 {
@@ -1114,6 +1118,13 @@ h4.tournamentFinished h2.tournamentFinished {
 
 a.nav-link.active {
   font-weight: 600;
+}
+
+.btn.disabled,
+.btn:disabled {
+  opacity: .65;
+  border-color: #343a40 !important;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 530px) {
