@@ -75,7 +75,6 @@ export const dateFormat = (d = new Date()) => {
 
 export const timeFormat = (date = new Date()) => {
   let dateChange = date ? new Date(date) : new Date();
-  console.log("dateChange", dateChange);
   let time = dateChange.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "numeric",
