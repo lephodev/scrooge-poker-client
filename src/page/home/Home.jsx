@@ -380,7 +380,7 @@ const Home = () => {
                             setUserData={setUserData}
                             tableId={el._id}
                           />}
-                          {((!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id))|| (el.hostId ===userId))&&
+                          {(!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id))&&
                           <GameTable
                             data={el}
                             gameType="Poker"
@@ -388,7 +388,14 @@ const Home = () => {
                             setUserData={setUserData}
                             tableId={el._id}
                           />}
-                          
+                          {(!el.public&& (el?.hostId?.toString ===user?.id?.toString()||el?.hostId?.toString() ===userId?.toString()))&&
+                          <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />} 
                         </React.Fragment>
                       ))}
                     </div>
