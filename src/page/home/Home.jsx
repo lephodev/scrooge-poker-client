@@ -44,7 +44,7 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const { userInAnyGame, setUserInAnyGame,user,setUser } = useContext(UserContext);//userInAnyGame,
+  const { userInAnyGame, setUserInAnyGame, user, setUser } = useContext(UserContext);//userInAnyGame,
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -265,7 +265,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms || []);
-        
+
       } catch (error) { }
     })();
   }, []);
@@ -366,14 +366,14 @@ const Home = () => {
               onSelect={(k) => setKey(k)}
               className="mb-3"
             >
-             
+
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
                     <div className="home-poker-card-grid">
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
-                          {el.public&&<GameTable
+                          {el.public && <GameTable
                             data={el}
                             gameType="Poker"
                             height={openCardHeight}
@@ -993,9 +993,9 @@ const GameTournament = ({
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
             <h6>{dateFormat(data.startDate)}, Start at {timeFormat(data.tournamentDate)}</h6>
-            <h2>{data?.name}</h2>
-            {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished ...</p> : <p>Not started ...</p>}
-            {data?.tournamentType==='sit&go' ? <p className="tournamentRunning">Sit & Go</p> : <p className="tournamentRunning">Multi-Table Tournament</p>}
+            <h2 title={data?.name}>{data?.name}</h2>
+            {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished</p> : <p>Not started</p>}
+            {data?.tournamentType === 'sit&go' ? <p className="tournamentRunning">Sit & Go</p> : <p className="tournamentRunning">Multi-Table Tournament</p>}
           </div>
         </div>
         <div className="tournamentCard-extraDetail">
@@ -1023,9 +1023,9 @@ const GameTournament = ({
           </div>
         </div>
         <div className="tournamentCard-buttonDetail">
-          {ifUserJoind() ? <Button type="text" onClick={() => enterRoom(data?._id)}>Enter game</Button> : <Button type="text" onClick={() =>
+          {data?.isFinished ? <Button type="text" disabled="true">Game Finished</Button> : ifUserJoind() ? <Button type="text" onClick={() => enterRoom(data?._id)}>Enter Game</Button> : <Button type="text" onClick={() =>
             joinTournament(data?._id, data?.tournamentFee)
-          }>join game</Button>}
+          }>Join Game</Button>}
           <img src={ranking} alt="" onClick={() => { handleFlip(data._id) }} />
         </div>
       </div>
