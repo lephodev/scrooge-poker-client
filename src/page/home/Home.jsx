@@ -44,7 +44,7 @@ const Home = () => {
     invitedUsers: [],
   };
   // States
-  const { userInAnyGame, setUserInAnyGame } = useContext(UserContext);//userInAnyGame,
+  const { userInAnyGame, setUserInAnyGame, user, setUser } = useContext(UserContext);//userInAnyGame,
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState({});
@@ -100,8 +100,9 @@ const Home = () => {
   };
 
   const getUser = async () => {
-    let user = await userUtils.getAuthUserData();
-    userId = user?.data?.user?.id;
+    let res = await userUtils.getAuthUserData();
+    userId = res?.data?.user?.id;
+    setUser(res?.data?.user)
     if (userId) {
       localStorage.setItem("userId", userId);
     }
@@ -115,21 +116,21 @@ const Home = () => {
       pokerRooms?.length > 0 &&
       pokerRooms.find(
         (el) =>
-          el.gameName.toLowerCase() === gameState.gameName.trim().toLowerCase()
+          el?.gameName?.toLowerCase() === gameState?.gameName?.trim()?.toLowerCase()
       );
 
     let valid = true;
     let err = {};
     const mimimumBet = 0;
-    if (gameState.gameName === "") {
+    if (gameState?.gameName === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
-    if (gameState.gameName.trim() === "") {
+    if (gameState?.gameName.trim() === "") {
       err.gameName = "Game name is required.";
       valid = false;
     }
-    if (!userData?.wallet || gameState.minchips > userData?.wallet) {
+    if (!userData?.wallet || gameState?.minchips > userData?.wallet) {
       err.minchips = "You don't have enough balance in your wallet.";
       valid = false;
     } else if (gameState.minchips <= mimimumBet) {
@@ -264,6 +265,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms || []);
+
       } catch (error) { }
     })();
   }, []);
@@ -291,13 +293,12 @@ const Home = () => {
     [allUsers]
   );
 
-  const filterRoom = pokerRooms.filter((el) =>
-    el.gameName.toLowerCase().includes(searchText.toLowerCase())
+  const filterRoom =pokerRooms&&pokerRooms?.length>0&& pokerRooms?.filter((el) =>
+  el?.gameName&&el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
-
-  const filterTournaments = tournaments.filter((el) =>
-    el.name.toLowerCase().includes(searchText.toLowerCase())
+  const filterTournaments =tournaments&&tournaments?.length>0&& tournaments?.filter((el) =>
+  el?.name&&el?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 
   const [openCardHeight, setOpenCardHeight] = useState(150);
@@ -365,19 +366,36 @@ const Home = () => {
               onSelect={(k) => setKey(k)}
               className="mb-3"
             >
+
               <Tab eventKey="home" title="Poker Open Tables">
                 {filterRoom.length > 0 ? (
                   <>
                     <div className="home-poker-card-grid">
                       {filterRoom.map((el) => (
                         <React.Fragment key={el._id}>
+                          {el.public && <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />}
+                          {(!el.public&& el?.invPlayers?.find((pl)=>pl?.toString()===userId || pl?.toString()===user?.id))&&
                           <GameTable
                             data={el}
                             gameType="Poker"
                             height={openCardHeight}
                             setUserData={setUserData}
                             tableId={el._id}
-                          />
+                          />}
+                          {(!el.public&& (el?.hostId?.toString ===user?.id?.toString()||el?.hostId?.toString() ===userId?.toString()))&&
+                          <GameTable
+                            data={el}
+                            gameType="Poker"
+                            height={openCardHeight}
+                            setUserData={setUserData}
+                            tableId={el._id}
+                          />} 
                         </React.Fragment>
                       ))}
                     </div>
@@ -982,8 +1000,9 @@ const GameTournament = ({
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
             <h6>{dateFormat(data.startDate)}, Start at {timeFormat(data.tournamentDate)}</h6>
-            <h2>{data?.name}</h2>
-            {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished ...</p> : <p>Not started ...</p>}
+            <h2 title={data?.name}>{data?.name}</h2>
+            {data?.isStart ? <p className="tournamentRunning">Tournament Running ...</p> : data?.isFinished ? <p className="tournamentFinished">Tournament Finished</p> : <p>Not started</p>}
+            {data?.tournamentType === 'sit&go' ? <p className="tournamentRunning">Sit & Go</p> : <p className="tournamentRunning">Multi-Table Tournament</p>}
           </div>
         </div>
         <div className="tournamentCard-extraDetail">
@@ -1006,14 +1025,14 @@ const GameTournament = ({
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
-              10
+              {data?.prizePool}
             </div>
           </div>
         </div>
         <div className="tournamentCard-buttonDetail">
-          {ifUserJoind() ? <Button type="text" onClick={() => enterRoom(data?._id)}>Enter game</Button> : <Button type="text" onClick={() =>
+          {data?.isFinished ? <Button type="text" disabled="true">Game Finished</Button> : ifUserJoind() ? <Button type="text" onClick={() => enterRoom(data?._id)}>Enter Game</Button> : <Button type="text" onClick={() =>
             joinTournament(data?._id, data?.tournamentFee)
-          }>join game</Button>}
+          }>Join Game</Button>}
           <img src={ranking} alt="" onClick={() => { handleFlip(data._id) }} />
         </div>
       </div>

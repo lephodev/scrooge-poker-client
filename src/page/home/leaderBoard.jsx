@@ -492,6 +492,7 @@ const Results = ({ tournamentData }) => {
               </th>
             </tr>
           </thead>
+
           {tournamentData.prizeType === 'Fixed' ? (<tbody>
             <tr className="firstRank">
               <td>
@@ -652,7 +653,6 @@ const Results = ({ tournamentData }) => {
               )}
           </tbody>) : (
             <tbody>
-
               {!tournamentData?.isFinished ? (
                 <>
                   <tr className="firstRank">
@@ -759,7 +759,7 @@ const Results = ({ tournamentData }) => {
                         <div className="rankingUsers">
                           <img
                             src={
-                              (el?.profile)
+                              el?.profile
                             }
                             alt=""
                           />
@@ -788,7 +788,7 @@ const Results = ({ tournamentData }) => {
                         <div className="rankingUsers">
                           <img
                             src={
-                              (el?.profile)
+                              el?.profile
                             }
                             alt=""
                           />
@@ -819,7 +819,7 @@ const Results = ({ tournamentData }) => {
                         <div className="rankingUsers">
                           <img
                             src={
-                              (el?.profile)
+                              el?.profile
                             }
                             alt=""
                           />
@@ -848,7 +848,7 @@ const Results = ({ tournamentData }) => {
                       <div className="rankingUsers">
                         <img
                           src={
-                            (el?.profile)
+                            el?.profile
                           }
                           alt=""
                         />
