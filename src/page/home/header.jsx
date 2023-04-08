@@ -70,13 +70,13 @@ const Header = ({ userData, handleShow }) => {
                                 </OverlayTrigger>
                             </div>
                         </div>
-                        {/* <button
+                        <button
                             type="button"
                             className="create-game-boxBtn"
                             onClick={handleShow}
                         >
                             Create Game
-                        </button> */}
+                        </button>
                     </div>
                 </div>
             </div>
