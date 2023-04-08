@@ -908,7 +908,6 @@ const PokerTable = (props) => {
         }
 
         updatePlayer(roomData.players);
-        setCommunityCards([]);
         setCurrentPlayer();
         setWinner(false);
         setWinnerText("");
@@ -1015,7 +1014,6 @@ const PokerTable = (props) => {
   };
 
   useEffect(() => {
-    setCommunityCards(roomData?.communityCard);
     socket.on("timer", (data) => {
       setRemainingTime(data.playerchance);
       if (tPlayer !== data.id || tRound !== data.runninground) {
