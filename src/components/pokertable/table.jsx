@@ -2011,7 +2011,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Stood up</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Stand Up</Tooltip>}
                 >
                   <button onClick={() => sitout()}>
                     <img src={situp} alt="sit-in" />
@@ -2022,7 +2022,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sat down</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Sit Down</Tooltip>}
                 >
                   <button onClick={() => sitin()}>
                     <img src={sitdown} alt="sit-out" />
