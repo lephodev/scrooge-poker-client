@@ -16,14 +16,14 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
     if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
-    } 
+    }
     if (value < roomData?.raiseAmount * 2) {
       toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
       return;
-    } 
+    }
 
     setRangeBetValue(value);
-    
+
   };
 
   const maxBetValue = numFormatter(currentPlayer?.wallet);
@@ -36,6 +36,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
         <div className="raiseSliderCustom">
           <div className="inputRange-Box">
             <InputRange
+              step={roomData?.raiseAmount}
               maxValue={currentPlayer?.wallet}
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
@@ -54,7 +55,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
             <Form.Control
               type="number"
               placeholder="ex:0"
-              value={rangeBetValue>0 && rangeBetValue}
+              value={rangeBetValue > 0 && rangeBetValue}
               onChange={(e) => handleRaiseAmount(e)}
             />
           </Form.Group>
@@ -62,8 +63,8 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
         {currentPlayer && (
           <Button
             variant="primary"
-            onClick={(e) => SliderAction(e,parseInt(rangeBetValue))}
-            disabled={rangeBetValue <= 0 || remainingTime <=1}
+            onClick={(e) => SliderAction(e, parseInt(rangeBetValue))}
+            disabled={rangeBetValue <= 0 || remainingTime <= 1}
             type="submit"
           >
             Bet
