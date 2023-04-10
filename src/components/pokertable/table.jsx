@@ -1179,7 +1179,7 @@ const PokerTable = (props) => {
           setMatchCards(newMatch);
           setHandMatch(hand);
         } else if (!item.handName || item.name) {
-          setWinnerText(`All player folded, ${item.name} Win`);
+          setWinnerText(`All Players Folded, ${item.name} Win`);
         }
       })
         .then(() => delay(timeDelay))
