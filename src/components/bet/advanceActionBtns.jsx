@@ -172,16 +172,16 @@ const AdvanceActionBtns = ({
     if (player?.wallet >= roomData?.raiseAmount) {
       btn = (
         <>
-          {FOLD_BTN}
           {CALL_BTN}
+          {FOLD_BTN}
           {CALL_ANY_BTN}
         </>
       );
     } else {
       btn = (
         <>
-          {FOLD_BTN}
           {DISABLE_BTN}
+          {FOLD_BTN}
           {ALL_IN_BTN}
         </>
       );
