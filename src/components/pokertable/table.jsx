@@ -2536,6 +2536,13 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
+              {!openAction.check && !openAction.call && (
+                <div className="footer-btn hiddenBtn">
+                  <Button disabled="true">
+                    {" "}
+                  </Button>
+                </div>
+              )}
               {openAction.fold && (
                 <div className="footer-btn ">
                   <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
@@ -2593,13 +2600,7 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
-              {!openAction.check && !openAction.call && (
-                <div className="footer-btn hiddenBtn">
-                  <Button disabled="true">
-                    {" "}
-                  </Button>
-                </div>
-              )}
+
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
                   <Button onClick={() => allinAction()} disabled={remainingTime <= 0}>
