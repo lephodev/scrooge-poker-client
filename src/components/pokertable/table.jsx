@@ -2514,7 +2514,11 @@ const FooterButton = ({
             currentPlayer?.id === userId &&
             !currentPlayer?.tentativeAction ? (
             <>
-
+              {openAction.fold && (
+                <div className="footer-btn ">
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
+                </div>
+              )}
               {openAction.check && (
                 <div className="footer-btn ">
                   <Button onClick={() => checkAction()} disabled={remainingTime <= 0}>Check</Button>
@@ -2543,12 +2547,6 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
-              {openAction.fold && (
-                <div className="footer-btn ">
-                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
-                </div>
-              )}
-
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
