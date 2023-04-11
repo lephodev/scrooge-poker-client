@@ -631,7 +631,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("allin", (data) => {
@@ -652,7 +651,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("bet", (data) => {
@@ -673,7 +671,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("call", (data) => {
@@ -694,7 +691,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("check", (data) => {
@@ -715,7 +711,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("fold", (data) => {
@@ -736,7 +731,6 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
-      setCurrentPlayer();
     });
 
     socket.on("updateGame", (data) => {
