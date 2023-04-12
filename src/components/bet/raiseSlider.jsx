@@ -11,20 +11,21 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
     console.log("value", value);
-
-
     if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
-    } 
-    if (value < roomData?.raiseAmount * 2) {
-      toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
-      return;
-    } 
-
+    }
+    
     setRangeBetValue(value);
     
   };
+
+  const onBlurChange =()=>{
+    if (rangeBetValue < roomData?.raiseAmount * 2) {
+      toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
+      return;
+    }
+  }
 
   const maxBetValue = numFormatter(currentPlayer?.wallet);
   const minBetValue = numFormatter(roomData?.raiseAmount * 2);
@@ -36,6 +37,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
         <div className="raiseSliderCustom">
           <div className="inputRange-Box">
             <InputRange
+              step={roomData?.raiseAmount}
               maxValue={currentPlayer?.wallet}
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
@@ -54,16 +56,17 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
             <Form.Control
               type="number"
               placeholder="ex:0"
-              value={rangeBetValue>0 && rangeBetValue}
+              value={rangeBetValue > 0 && rangeBetValue}
               onChange={(e) => handleRaiseAmount(e)}
+              onBlur={onBlurChange}
             />
           </Form.Group>
         </div>
         {currentPlayer && (
           <Button
             variant="primary"
-            onClick={(e) => SliderAction(e,parseInt(rangeBetValue))}
-            disabled={rangeBetValue <= 0 || remainingTime <=1}
+            onClick={(e) => SliderAction(e, parseInt(rangeBetValue))}
+            disabled={rangeBetValue <= 0 || remainingTime <= 1}
             type="submit"
           >
             Bet

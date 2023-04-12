@@ -1179,7 +1179,7 @@ const PokerTable = (props) => {
           setMatchCards(newMatch);
           setHandMatch(hand);
         } else if (!item.handName || item.name) {
-          setWinnerText(`All player folded, ${item.name} Win`);
+          setWinnerText(`All Players Folded, ${item.name} Win`);
         }
       })
         .then(() => delay(timeDelay))
@@ -2011,7 +2011,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Stood up</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Stand Up</Tooltip>}
                 >
                   <button onClick={() => sitout()}>
                     <img src={situp} alt="sit-in" />
@@ -2022,7 +2022,7 @@ const PokerTable = (props) => {
               <li>
                 <OverlayTrigger
                   placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sat down</Tooltip>}
+                  overlay={<Tooltip id="tooltip-disabled">Sit Down</Tooltip>}
                 >
                   <button onClick={() => sitin()}>
                     <img src={sitdown} alt="sit-out" />
@@ -2514,7 +2514,11 @@ const FooterButton = ({
             currentPlayer?.id === userId &&
             !currentPlayer?.tentativeAction ? (
             <>
-
+              {openAction.fold && (
+                <div className="footer-btn ">
+                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
+                </div>
+              )}
               {openAction.check && (
                 <div className="footer-btn ">
                   <Button onClick={() => checkAction()} disabled={remainingTime <= 0}>Check</Button>
@@ -2536,12 +2540,13 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
-              {openAction.fold && (
-                <div className="footer-btn ">
-                  <Button onClick={() => foldAction()} disabled={remainingTime <= 0}> Fold</Button>
+              {!openAction.check && !openAction.call && (
+                <div className="footer-btn hiddenBtn">
+                  <Button disabled="true">
+                    {" "}
+                  </Button>
                 </div>
               )}
-
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
@@ -2593,13 +2598,7 @@ const FooterButton = ({
                   </Button>
                 </div>
               )}
-              {!openAction.check && !openAction.call && (
-                <div className="footer-btn hiddenBtn">
-                  <Button disabled="true">
-                    {" "}
-                  </Button>
-                </div>
-              )}
+
               {!openAction.raise && !openAction.bet && openAction.allin && (
                 <div className="footer-btn ">
                   <Button onClick={() => allinAction()} disabled={remainingTime <= 0}>
