@@ -70,6 +70,7 @@ const Header = ({ userData, handleShow }) => {
                                 </OverlayTrigger>
                             </div>
                         </div>
+
                         <button
                             type="button"
                             className="create-game-boxBtn"
