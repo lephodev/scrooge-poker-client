@@ -30,7 +30,7 @@ const Header = ({ userData, handleShow }) => {
                         </a>
                     </div>
                     <div className="create-game-box">
-                        <a href={`${landingClient}profile`}>
+                        <a href={`${ landingClient }profile`}>
                             <div className="create-game-box-avtar">
                                 <img
                                     src={
@@ -70,13 +70,13 @@ const Header = ({ userData, handleShow }) => {
                                 </OverlayTrigger>
                             </div>
                         </div>
-                        <button
+                        {/* <button
                             type="button"
                             className="create-game-boxBtn"
                             onClick={handleShow}
                         >
                             Create Game
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
