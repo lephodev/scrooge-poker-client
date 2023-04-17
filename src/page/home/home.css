@@ -1136,6 +1136,107 @@ a.nav-link.active {
   cursor: pointer;
 }
 
+.slotLobby-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: black;
+  padding: 6px;
+  border: 1px solid #141414;
+  border-radius: 8px;
+  box-shadow: inset 0px 1px 12px #141414;
+}
+
+.slotLobby-mode {
+  font-size: 16px;
+  color: #f9ff00;
+}
+
+.slotLobby-mode .form-check.form-switch {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.slotLobby-mode .label {
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.slotLobby-mode .switch,
+.slotLobby-mode .input:checked + .label .left,
+.slotLobby-mode .input:not(:checked) + .label .right {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.slotLobby-mode .input {
+  display: none;
+}
+
+.slotLobby-mode .switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+}
+
+.slotLobby-mode .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slotLobby-mode .slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slotLobby-mode input:checked + .label .slider {
+  background-color: #2196f3;
+}
+
+.slotLobby-mode input:focus + .label .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.slotLobby-mode input:checked + .label .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+.slotLobby-mode .slider.round {
+  border-radius: 34px;
+}
+
+.slotLobby-mode .slider.round:before {
+  border-radius: 50%;
+}
+
+/* styling to make it look like your screenshot */
+
+.slotLobby-mode .left, .slotLobby-mode .right {
+  margin: 0 .5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+
 @media screen and (max-width: 530px) {
   #controlled-tab-example-tabpane-2 .home-poker-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

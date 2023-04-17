@@ -4987,7 +4987,6 @@ img.coinWinning-animation {
     margin: 0px 2px;
   }
 
-  .total-pot-money {}
 
   .players.player1 {
     left: 49%;
@@ -5015,7 +5014,7 @@ img.coinWinning-animation {
   }
 
   .player5 {
-    top: -42%;
+    top: -41%;
   }
 
   .player6 {
@@ -5327,6 +5326,18 @@ img.coinWinning-animation {
   .showCardIn-fold .form-check-inline .form-check-input {
     width: 20px !important;
     height: 20px !important;
+  }
+
+  .player5 {
+    top: -40%;
+    left: 25%;
+    transform: translateX(-25%);
+  }
+
+  .player6 {
+    top: -40%;
+    left: 75%;
+    transform: translateX(-75%);
   }
 }
 
