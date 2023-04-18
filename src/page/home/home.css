@@ -1146,9 +1146,14 @@ a.nav-link.active {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
   padding: 8px;
+}
+
+.slotLobby-mode p {
+  font-size: 14px;
   font-weight: 600;
+  margin: 0px;
+  padding-right: 24px;
 }
 
 .slotLobby-mode .mode-labels {

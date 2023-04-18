@@ -90,7 +90,7 @@ const Header = ({ userData, handleShow }) => {
                             </div>
                         </div>
                         <div className="slotLobby-mode">
-                            Mode:
+                            <p>Mode:</p>
                             <div className="mode-labels">
                                 <h6>GC</h6>
                                 <Form className='formMode'>
