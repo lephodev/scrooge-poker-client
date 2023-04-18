@@ -348,8 +348,8 @@ input[type="number"] {
 }
 
 .walletTicket-box .pokerWallet {
-  width: 38px;
-  height: 26px;
+  width: 30px;
+  height: 22px;
   object-fit: contain;
   margin: 0px 5px;
 }
@@ -367,6 +367,11 @@ input[type="number"] {
 
 .pokerWallet-box svg {
   fill: #fff !important;
+}
+
+.pokerWallet-box span {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .create-game-box-avtar {
@@ -1141,100 +1146,66 @@ a.nav-link.active {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  background: black;
-  padding: 6px;
-  border: 1px solid #141414;
-  border-radius: 8px;
-  box-shadow: inset 0px 1px 12px #141414;
+  padding: 8px;
 }
 
-.slotLobby-mode {
-  font-size: 16px;
-  color: #f9ff00;
-}
-
-.slotLobby-mode .form-check.form-switch {
-  color: #fff;
+.slotLobby-mode p {
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
+  margin: 0px;
+  padding-right: 24px;
 }
-.slotLobby-mode .label {
-  pointer-events: none;
+
+.slotLobby-mode .mode-labels {
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
-.slotLobby-mode .switch,
-.slotLobby-mode .input:checked + .label .left,
-.slotLobby-mode .input:not(:checked) + .label .right {
-  pointer-events: all;
+.slotLobby-mode h6 {
+  margin-bottom: 0px;
+  margin-top: 4px;
   cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
 }
 
-.slotLobby-mode .input {
-  display: none;
+form.formMode {
+  margin: 0px 0px 0px 2px;
+  width: 52px;
 }
 
-.slotLobby-mode .switch {
-  position: relative;
-  display: inline-block;
+.custom-switch .custom-control-label::before {
   width: 50px;
-  height: 30px;
+  height: 26px;
+  border-radius: 30px;
+  pointer-events: all;
 }
 
-.slotLobby-mode .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slotLobby-mode .slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slotLobby-mode input:checked + .label .slider {
-  background-color: #2196f3;
-}
-
-.slotLobby-mode input:focus + .label .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-.slotLobby-mode input:checked + .label .slider:before {
-  -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
-  transform: translateX(20px);
-}
-
-.slotLobby-mode .slider.round {
-  border-radius: 34px;
-}
-
-.slotLobby-mode .slider.round:before {
+.custom-switch .custom-control-label::after {
+  top: 4px;
+  margin-left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: #adb5bd;
   border-radius: 50%;
+  transition: transform .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-/* styling to make it look like your screenshot */
+.custom-switch .custom-control-input:checked~.custom-control-label::after {
+  background-color: #444242;
+  transform: translateX(24px);
+}
 
-.slotLobby-mode .left, .slotLobby-mode .right {
-  margin: 0 .5em;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-family: sans-serif;
+.custom-control-input:checked~.custom-control-label::before {
+  color: #fff;
+  border-color: #f9ff00;
+  background-color: #f9ff00;
+}
+
+.custom-control-label::before {
+  position: absolute;
+  top: 0px;
 }
 
 @media screen and (max-width: 530px) {

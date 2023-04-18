@@ -2,7 +2,8 @@ import React from 'react'
 import numFormatter from "../../utils/utils";
 import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
-import { Button, OverlayTrigger } from "react-bootstrap";
+import gold from "../../assets/gold.png";
+import { Button, Form, OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import logo from "../../assets/game/logo.png";
 import { FaQuestionCircle } from "react-icons/fa";
@@ -17,6 +18,11 @@ const Header = ({ userData, handleShow }) => {
     const renderTicket = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             This is your ticket balance and can be redeemed for prizes.
+        </Tooltip>
+    );
+    const renderGold = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            This gold coins is for fun play.
         </Tooltip>
     );
 
@@ -69,21 +75,29 @@ const Header = ({ userData, handleShow }) => {
                                     </Button>
                                 </OverlayTrigger>
                             </div>
+                            <div className="pokerWallet-box">
+                                <img src={gold} alt="" className="pokerWallet" />
+                                <span>{numFormatter(userData?.goldCoin || 0)}</span>
+                                <OverlayTrigger
+                                    placement={window.innerWidth < 767 ? "right" : "left"}
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={renderGold}
+                                >
+                                    <Button variant="success">
+                                        <FaQuestionCircle />
+                                    </Button>
+                                </OverlayTrigger>
+                            </div>
                         </div>
-                        <div className='slotLobby-mode'> Mode:
-                            <input className="input" id="toggle" type="checkbox" // defaultChecked={mode} onChange={handleModeChange}
-                            />
-                            <label className="label" htmlFor="toggle">
-                                <div className="left">
-                                    GC
-                                </div>
-                                <div className="switch">
-                                    <span className="slider round"></span>
-                                </div>
-                                <div className="right">
-                                    Token
-                                </div>
-                            </label>
+                        <div className="slotLobby-mode">
+                            <p>Mode:</p>
+                            <div className="mode-labels">
+                                <h6>GC</h6>
+                                <Form className='formMode'>
+                                    <Form.Check type="switch" id="custom-switch" />
+                                </Form>
+                                <h6>Token</h6>
+                            </div>
                         </div>
                         <button
                             type="button"
