@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal'
 import { Form, Spinner } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import './home.css'
+import cookie from "js-cookie";
+
 import { useEffect } from 'react'
 import userUtils from '../../utils/user'
 import loaderImg from '../../assets/chat/loader1.webp'
@@ -204,6 +206,7 @@ const Home = () => {
       const resp = await pokerInstance().post('/createTable', {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
+        gameMode:cookie.get('mode')
       })
       setGameState({ ...gameInit })
       history.push({
@@ -301,7 +304,8 @@ const Home = () => {
     pokerRooms?.filter(
       (el) =>
         el?.gameName &&
-        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()),
+        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) && el?.gameName===cookie.get("mode")
+
     )
 
   const filterTournaments =
