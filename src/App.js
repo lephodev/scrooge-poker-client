@@ -19,6 +19,7 @@ import userUtils from './utils/user';
 const App = () => {
   const [userInAnyGame, setUserInAnyGame] = useState({})
   const [user,setUser]=useState()
+  const [mode,setMode]=useState("")
   const getUser = async () => {
     let res = await userUtils.getAuthUserData();
     setUser(res?.data?.user)
@@ -39,7 +40,9 @@ const App = () => {
           userInAnyGame,
           setUserInAnyGame,
           user,
-          setUser
+          setUser,
+          mode,
+          setMode
         }}
       >
         <Router>
