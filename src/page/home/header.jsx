@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import numFormatter from "../../utils/utils";
 import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
@@ -12,9 +12,7 @@ import cookie from "js-cookie";
 import { getCookie } from '../../utils/cookieUtil';
 
 
-const Header = ({ userData, handleShow }) => {
-    const [mode, setMode] = useState("");
-
+const Header = ({ userData, handleShow,mode,setMode  }) => {
 
     const renderWallet = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -49,7 +47,7 @@ const Header = ({ userData, handleShow }) => {
       useEffect(() => {
         let getMode=getCookie('mode')
         if(getMode){
-          setMode(getMode)
+            setMode(getMode)
         }
         else {
           cookie.set("mode","token", {domain: domain,
@@ -58,7 +56,10 @@ const Header = ({ userData, handleShow }) => {
             setMode(getCookie('mode'))
         }
        
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [mode])
+
+      console.log("modemode",mode);
 
     return (
         <div className="user-header">

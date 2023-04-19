@@ -46,7 +46,7 @@ const Home = () => {
     invitedUsers: [],
   }
   // States
-  const { userInAnyGame, setUserInAnyGame, user, setUser } = useContext(
+  const { userInAnyGame, setUserInAnyGame, user, setUser,mode,setMode } = useContext(
     UserContext,
   ) //userInAnyGame,
   const [searchText, setSearchText] = useState('')
@@ -290,6 +290,7 @@ const Home = () => {
     getTournamentDetails()
   }, [])
 
+
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -298,13 +299,15 @@ const Home = () => {
     [allUsers],
   )
 
+  console.log("cookie?",cookie?.get("mode"));
+
   const filterRoom =
     pokerRooms &&
     pokerRooms?.length > 0 &&
     pokerRooms?.filter(
       (el) =>
         el?.gameName &&
-        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) && el?.gameName===cookie.get("mode")
+        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) && el?.gameMode===mode
 
     )
 
@@ -323,7 +326,7 @@ const Home = () => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight)
     }
-  }, [pokerCard])
+  }, [pokerCard,filterRoom])
 
   return (
     <div className="poker-home">
@@ -349,7 +352,7 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <Header userData={userData} handleShow={handleShow} />
+      <Header userData={userData} handleShow={handleShow} mode={mode} setMode={setMode} />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">
