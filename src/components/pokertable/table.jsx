@@ -1571,7 +1571,7 @@ const PokerTable = (props) => {
       return (window.location.href = window.location.origin);
     }
 
-    if (parseFloat(sitInAmount) > userData.wallet && cookie.get('mode') ==='token') {
+    if (parseFloat(sitInAmount) > userData?.wallet && cookie.get('mode') ==='token') {
       toast.error("You don't have enough token.", {
         id: "notEnoughSitIn",
       });
@@ -1579,7 +1579,7 @@ const PokerTable = (props) => {
       //   window.location.href = window.location.origin;
       // }, 1000);
       return;
-    }else if(parseFloat(sitInAmount) > userData.wallet && cookie.get('mode') ==='goldCoin'){
+    }else if(parseFloat(sitInAmount) > userData?.goldCoin && cookie.get('mode') ==='goldCoin'){
       toast.error("You don't have enough gold coin.", {
         id: "notEnoughSitIn",
       });
@@ -1628,7 +1628,7 @@ const PokerTable = (props) => {
         });
         setDisable(false);
         return;
-      }else if(parseFloat(amount) > user?.data?.user?.wallet && cookie.get('mode')==='goldCoin'){
+      }else if(parseFloat(amount) > user?.data?.user?.goldCoin && cookie.get('mode')==='goldCoin'){
         toast.error("You don't have enough gold coin.", {
           id: "notEnoughSitIn",
         });
