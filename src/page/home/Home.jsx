@@ -135,8 +135,12 @@ const Home = () => {
       err.gameName = 'Game name is required.'
       valid = false
     }
-    if (!userData?.wallet || gameState?.minchips > userData?.wallet) {
+    console.log("mode and user data",userData,cookie.get('mode'))
+    if ((!userData?.wallet &&cookie.get('mode')==='token')|| (gameState?.minchips > userData?.wallet && cookie.get('mode')==='token')) {
       err.minchips = "You don't have enough balance in your wallet."
+      valid = false
+    }else if ((!userData?.goldCoin && cookie.get('mode')==='goldCoin')|| (gameState?.minchips > userData?.goldCoin && cookie.get('mode')==='goldCoin')) {
+      err.minchips = "You don't have enough gold coins in your wallet."
       valid = false
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
@@ -161,8 +165,12 @@ const Home = () => {
       valid = false
     }
 
-    if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
+    if (parseFloat(gameState.sitInAmount) > userData?.wallet && cookie.get('mode')==='token') {
       err.sitInAmount = `You don't have enough balance in your wallet.`
+      valid = false
+    }
+    if (parseFloat(gameState.sitInAmount) > userData?.goldCoin && cookie.get('mode')==='goldCoin') {
+      err.sitInAmount = `You don't have enough gold coins in your wallet.`
       valid = false
     }
 
