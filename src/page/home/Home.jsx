@@ -121,7 +121,7 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-          gameState?.gameName?.trim()?.toLowerCase(),
+          gameState?.gameName?.trim()?.toLowerCase() && el?.gameMode ===cookie.get('mode')
       )
 
     let valid = true
@@ -693,7 +693,7 @@ const GameTable = ({
 }) => {
   const history = useHistory()
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId })
+    socket.emit('checkAlreadyInGame', { userId, tableId,gameMode:cookie.get('mode') })
     socket.on('userAlreadyInGame', (value) => {
       const { message, join } = value
       if (join) {
