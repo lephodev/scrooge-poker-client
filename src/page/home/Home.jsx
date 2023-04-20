@@ -693,7 +693,7 @@ const GameTable = ({
 }) => {
   const history = useHistory()
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId })
+    socket.emit('checkAlreadyInGame', { userId, tableId,gameMode:cookie.get('mode') })
     socket.on('userAlreadyInGame', (value) => {
       const { message, join } = value
       if (join) {
