@@ -121,7 +121,7 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-          gameState?.gameName?.trim()?.toLowerCase(),
+          gameState?.gameName?.trim()?.toLowerCase() && el?.gameMode ===cookie.get('mode')
       )
 
     let valid = true
