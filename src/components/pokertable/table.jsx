@@ -1928,6 +1928,7 @@ const PokerTable = (props) => {
                       setBuyinPopup={setBuyinPopup}
                       tablePot={tablePot}
                       activeWinnerPlayersPot={activeWinnerPlayersPot}
+                      roomData={roomData}
                     />
                   ))}
               </div>
@@ -2324,7 +2325,10 @@ const Players = ({
           />
         ) : playerData && (playerData.fold || !playerData.playing) ? (
           ""
-        ) : roomData && roomData.runninground === 5 ? (
+        ) :roomData && roomData?.winnerPlayer?.find((el)=>!el?.handName) ? (
+          ""
+        ):
+         roomData && roomData.runninground === 5 ? (
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
