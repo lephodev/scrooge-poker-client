@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal'
 import { Form, Spinner } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import './home.css'
+import cookie from "js-cookie";
+
 import { useEffect } from 'react'
 import userUtils from '../../utils/user'
 import loaderImg from '../../assets/chat/loader1.webp'
@@ -44,7 +46,7 @@ const Home = () => {
     invitedUsers: [],
   }
   // States
-  const { userInAnyGame, setUserInAnyGame, user, setUser } = useContext(
+  const { userInAnyGame, setUserInAnyGame, user, setUser,mode,setMode } = useContext(
     UserContext,
   ) //userInAnyGame,
   const [searchText, setSearchText] = useState('')
@@ -119,7 +121,7 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-          gameState?.gameName?.trim()?.toLowerCase(),
+          gameState?.gameName?.trim()?.toLowerCase() && el?.gameMode ===cookie.get('mode')
       )
 
     let valid = true
@@ -133,8 +135,12 @@ const Home = () => {
       err.gameName = 'Game name is required.'
       valid = false
     }
-    if (!userData?.wallet || gameState?.minchips > userData?.wallet) {
+    console.log("mode and user data",userData,cookie.get('mode'))
+    if ((!userData?.wallet &&cookie.get('mode')==='token')|| (gameState?.minchips > userData?.wallet && cookie.get('mode')==='token')) {
       err.minchips = "You don't have enough balance in your wallet."
+      valid = false
+    }else if ((!userData?.goldCoin && cookie.get('mode')==='goldCoin')|| (gameState?.minchips > userData?.goldCoin && cookie.get('mode')==='goldCoin')) {
+      err.minchips = "You don't have enough gold coins in your wallet."
       valid = false
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
@@ -159,8 +165,12 @@ const Home = () => {
       valid = false
     }
 
-    if (parseFloat(gameState.sitInAmount) > userData?.wallet) {
+    if (parseFloat(gameState.sitInAmount) > userData?.wallet && cookie.get('mode')==='token') {
       err.sitInAmount = `You don't have enough balance in your wallet.`
+      valid = false
+    }
+    if (parseFloat(gameState.sitInAmount) > userData?.goldCoin && cookie.get('mode')==='goldCoin') {
+      err.sitInAmount = `You don't have enough gold coins in your wallet.`
       valid = false
     }
 
@@ -204,6 +214,7 @@ const Home = () => {
       const resp = await pokerInstance().post('/createTable', {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
+        gameMode:cookie.get('mode')
       })
       setGameState({ ...gameInit })
       history.push({
@@ -287,6 +298,7 @@ const Home = () => {
     getTournamentDetails()
   }, [])
 
+
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -295,13 +307,16 @@ const Home = () => {
     [allUsers],
   )
 
+  console.log("cookie?",cookie?.get("mode"));
+
   const filterRoom =
     pokerRooms &&
     pokerRooms?.length > 0 &&
     pokerRooms?.filter(
       (el) =>
         el?.gameName &&
-        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()),
+        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) && el?.gameMode===mode
+
     )
 
   const filterTournaments =
@@ -319,7 +334,7 @@ const Home = () => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight)
     }
-  }, [pokerCard])
+  }, [pokerCard,filterRoom])
 
   return (
     <div className="poker-home">
@@ -345,7 +360,7 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <Header userData={userData} handleShow={handleShow} />
+      <Header userData={userData} handleShow={handleShow} mode={mode} setMode={setMode} />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">
@@ -686,7 +701,7 @@ const GameTable = ({
 }) => {
   const history = useHistory()
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId })
+    socket.emit('checkAlreadyInGame', { userId, tableId,gameMode:cookie.get('mode') })
     socket.on('userAlreadyInGame', (value) => {
       const { message, join } = value
       if (join) {

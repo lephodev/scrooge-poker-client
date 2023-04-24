@@ -5,6 +5,7 @@ import { Button, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "animate.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import cookie from "js-cookie";
 import "react-circular-progressbar/dist/styles.css";
 import front from "../../assets/game/Black-Card.png";
 import back from "../../assets/game/Black-Card.png";
@@ -204,7 +205,8 @@ const PokerTable = (props) => {
               gameId: table,
               userId,
               gameType: type,
-              dataFrom: "reconnect",
+              dataFrom:"reconnect",
+              gameMode:cookie.get('mode')
             });
             setLoader(true);
           }
@@ -248,6 +250,7 @@ const PokerTable = (props) => {
             userId: user?.data.user?.id,
             gameType: type,
             sitInAmount: 0,
+            gameMode:cookie.get('mode')
           });
         }
         setLoader(true);
@@ -1568,14 +1571,18 @@ const PokerTable = (props) => {
       return (window.location.href = window.location.origin);
     }
 
-    if (parseFloat(sitInAmount) > userData.wallet) {
-      toast.error("You don't have enough balance.", {
+    if (parseFloat(sitInAmount) > userData?.wallet && cookie.get('mode') ==='token') {
+      toast.error("You don't have enough token.", {
         id: "notEnoughSitIn",
       });
       // setTimeout(() => {
       //   window.location.href = window.location.origin;
       // }, 1000);
       return;
+    }else if(parseFloat(sitInAmount) > userData?.goldCoin && cookie.get('mode') ==='goldCoin'){
+      toast.error("You don't have enough gold coin.", {
+        id: "notEnoughSitIn",
+      });
     } else if (parseFloat(sitInAmount) < 0) {
       toast.error("Amount is not valid.", {
         id: "notEnoughSitIn",
@@ -1592,6 +1599,7 @@ const PokerTable = (props) => {
         userId: userId,
         gameType: type,
         sitInAmount: parseFloat(sitInAmount),
+        gameMode:cookie.get('mode')
       });
       setShowEnterAmountPopup(false);
       // setRetryIfUserNotJoin(true);
@@ -1614,12 +1622,17 @@ const PokerTable = (props) => {
     let user = await userUtils.getAuthUserData();
     // console.log("user", user);
     try {
-      if (parseFloat(amount) > user?.data?.user?.wallet) {
-        toast.error("You don't have enough balance.", {
+      if (parseFloat(amount) > user?.data?.user?.wallet && cookie.get('mode')==='token') {
+        toast.error("You don't have enough token.", {
           id: "notEnoughSitIn",
         });
         setDisable(false);
-
+        return;
+      }else if(parseFloat(amount) > user?.data?.user?.goldCoin && cookie.get('mode')==='goldCoin'){
+        toast.error("You don't have enough gold coin.", {
+          id: "notEnoughSitIn",
+        });
+        setDisable(false);
         return;
       } else {
         // const data = await pokerInstance().post("/refillWallet", {

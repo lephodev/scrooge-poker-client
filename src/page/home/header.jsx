@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import numFormatter from "../../utils/utils";
 import token from "../../assets/coin.png";
 import tickets from "../../assets/tickets.png";
@@ -7,9 +7,13 @@ import { Button, Form, OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import logo from "../../assets/game/logo.png";
 import { FaQuestionCircle } from "react-icons/fa";
-import { landingClient } from '../../config/keys';
+import { landingClient,domain } from '../../config/keys';
+import cookie from "js-cookie";
+import { getCookie } from '../../utils/cookieUtil';
 
-const Header = ({ userData, handleShow }) => {
+
+const Header = ({ userData, handleShow,mode,setMode  }) => {
+
     const renderWallet = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             This is your token balance, and can be used for betting.
@@ -25,6 +29,37 @@ const Header = ({ userData, handleShow }) => {
             This gold coins is for fun play.
         </Tooltip>
     );
+
+    const handleModeChange = async (e) => {
+        try {
+          const { target: { checked } } = e;
+          // setMode(checked);
+          let gameMode = checked ? "token" : "goldCoin"
+          cookie.set("mode",gameMode, {domain: domain,
+          path: "/",
+          httpOnly: false, });
+          setMode(getCookie('mode'))
+        } catch (error) {
+          console.log("error",error);
+        }
+      }             
+      
+      useEffect(() => {
+        let getMode=getCookie('mode')
+        if(getMode){
+            setMode(getMode)
+        }
+        else {
+          cookie.set("mode","token", {domain: domain,
+            path: "/",
+            httpOnly: false, });
+            setMode(getCookie('mode'))
+        }
+       
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [mode])
+
+      console.log("modemode",mode);
 
     return (
         <div className="user-header">
@@ -94,7 +129,7 @@ const Header = ({ userData, handleShow }) => {
                             <div className="mode-labels">
                                 <h6>GC</h6>
                                 <Form className='formMode'>
-                                    <Form.Check type="switch" id="custom-switch" />
+                                <Form.Check type="switch" id="custom-switch" checked={mode === "token" ? true : false} onChange={handleModeChange} />
                                 </Form>
                                 <h6>Token</h6>
                             </div>
