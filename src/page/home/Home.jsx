@@ -897,6 +897,7 @@ const GameTable = ({
                     : data?.players?.length) || 0}
                 </span>
               </h4>
+              <h4>SB/BB : <span>{data?.smallBlind}{"/"}{data?.bigBlind}</span></h4>
               {gameType === 'Tournament' ? (
                 <h4>
                   Fee : <span>{data?.tournamentFee}</span>
