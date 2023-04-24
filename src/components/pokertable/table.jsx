@@ -2296,9 +2296,9 @@ const Players = ({
           } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
           }`}
       >
-        {playerData?.availablePosition === 0 &&
+        {((playerData?.availablePosition === 0 &&
           playerData?.fold &&
-          roomData.runninground === 5 && (
+          roomData.runninground === 5)||(roomData?.winnerPlayer?.find((el)=>!el?.handName && el.id===userId)&& playerData.id === userId && !playerData?.fold)) && (
             <div className="showCardIn-fold">
               <Form.Check
                 inline
@@ -2325,7 +2325,7 @@ const Players = ({
           />
         ) : playerData && (playerData.fold || !playerData.playing) ? (
           ""
-        ) :roomData && roomData?.winnerPlayer?.find((el)=>!el?.handName) ? (
+        ) :roomData && roomData?.winnerPlayer?.find((el)=>!el?.handName) &&  playerData.id !== userId ? (
           ""
         ):
          roomData && roomData.runninground === 5 ? (
