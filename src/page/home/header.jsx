@@ -50,21 +50,18 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
     }
 
     useEffect(() => {
-        let getMode = getCookie('mode')
+        const getMode = getCookie("mode");
         if (getMode) {
-            setMode(getMode)
+          setMode(getMode);
+        } else {
+          cookie.set("mode", "goldCoin", {
+            domain: domain,
+            path: "/",
+            httpOnly: false,
+          });
+          setMode("goldCoin");
         }
-        else {
-            cookie.set("mode", "goldCoin", {
-                domain: domain,
-                path: "/",
-                httpOnly: false,
-            });
-            setMode(getCookie('mode'))
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mode])
+      }, []);
 
     console.log("modemode", mode);
     const handleTicketTotoken = () => {
@@ -93,7 +90,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                       defaultChecked={mode === "token"}
                       onChange={handleModeChange}
                     /> */}
-                    <input type="checkbox" id="switch" defaultChecked={mode === "token"} className='form-check-input' onChange={handleModeChange} /><label for="switch">Toggle</label>
+                    <input type="checkbox" id="switch" checked={mode === "token"} defaultChecked={mode === "token"} className='form-check-input' onChange={handleModeChange} /><label for="switch">Toggle</label>
                     <span>{
                         mode === "token"
                           ? `ST: ${numFormatter(userData?.wallet)}`
