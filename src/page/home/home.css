@@ -120,6 +120,7 @@
   height: 40px;
   color: rgb(0, 0, 0);
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .backtoHome {
@@ -1009,7 +1010,10 @@ tr.myRank {
   margin-bottom: 5px;
 }
 
-div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button {
+div#controlled-tab-example-tabpane-2
+  .tournamentCard-front
+  .tournamentRanking
+  button {
   width: 100%;
   font-size: 12px;
   font-weight: 700;
@@ -1017,7 +1021,10 @@ div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking bu
   color: black;
 }
 
-div#controlled-tab-example-tabpane-2 .tournamentCard-front .tournamentRanking button:focus {
+div#controlled-tab-example-tabpane-2
+  .tournamentCard-front
+  .tournamentRanking
+  button:focus {
   border-color: #f9ff00;
   box-shadow: 0 1px 8px #fbff00b1;
 }
@@ -1189,15 +1196,16 @@ form.formMode {
   height: 18px;
   background-color: #adb5bd;
   border-radius: 50%;
-  transition: transform .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.custom-switch .custom-control-input:checked~.custom-control-label::after {
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
   background-color: #444242;
   transform: translateX(24px);
 }
 
-.custom-control-input:checked~.custom-control-label::before {
+.custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
   border-color: #f9ff00;
   background-color: #f9ff00;
@@ -1206,6 +1214,632 @@ form.formMode {
 .custom-control-label::before {
   position: absolute;
   top: 0px;
+}
+
+/******* ticket to otken *************/
+.ticket-token-modal .modal-content {
+  border: 1px solid #202020;
+  max-width: 400px;
+  margin: 0px auto;
+  background: rgb(42 42 42);
+  padding: 30px 20px;
+  position: relative;
+  border-radius: 5px;
+}
+.ticket-token-modal .ticket-to-token-popup h6:first-child {
+  font-size: 18px;
+  text-align: center;
+  color: #f9ff00;
+}
+.ticket-token-modal .modal-dialog {
+  display: block;
+}
+.ticket-token-modal .inputRange-Box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 30px;
+  max-width: 100%;
+}
+.ticket-token-modal .ticket-to-token-popup h6 {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+}
+
+.ticket-token-modal .total.tickets {
+  margin: 30px auto;
+  width: fit-content;
+  background: #f9ff00;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+.ticket-token-modal .input-range__track--active {
+  background: #f9ff00 !important;
+}
+.ticket-token-modal .input-range__slider {
+  background: #f9ff00 !important;
+  border: 1px solid #f9ff00 !important;
+}
+.ticket-token-modal .min-max-value p {
+  font-size: 13px;
+  color: white;
+}
+.ticket-token-modal .confirm-btn button,
+.ticket-token-modal .confirm-btn button:hover,
+.ticket-token-modal .confirm-btn button:focus {
+  background: #f9ff00 !important;
+  color: black;
+  border: 1px solid #f9ff00 !important;
+  font-weight: 600;
+  font-size: 14px;
+  width: fit-content !important;
+  min-width: 85px !important;
+  width: fit-content;
+  height: 35px;
+}
+.ticket-token-modal .input-range__label--value {
+  display: none;
+}
+.ticket-token-modal .confirm-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.ticket-token-modal .modal-body {
+  padding: 0 !important;
+}
+.ticket-token-modal .min-max-value button,
+.ticket-token-modal .min-max-value button:hover,
+.ticket-token-modal .min-max-value button:focus {
+  background: #f9ff00;
+  border: 1px solid #f9ff00;
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: fit-content !important;
+  max-width: fit-content !important;
+}
+.ticket-token-modal .total.tickets h6 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 15px;
+  color: #000;
+}
+.ticket-token-modal .ticket-to-token-popup h6 {
+  font-size: 15px;
+  text-align: center;
+}
+.ticket-token-modal .input-range {
+  height: 1rem;
+  position: relative;
+  width: 94% !important;
+  margin-left: 8px;
+}
+
+.ticket-token-modal .inputRangeSlider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ticket-token-modal span.input-range__label.input-range__label--min,
+.ticket-token-modal span.input-range__label.input-range__label--max {
+  display: none;
+}
+.ticket-token-modal .min-max-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-token-modal .min-max-value p {
+  margin: 0;
+}
+.tickets-token {
+  margin-left: 0px;
+}
+
+.tickets-token .btn.disabled,
+.tickets-token .btn:disabled,
+.tickets-token fieldset:disabled .btn {
+  background: #f9ff00;
+  border-color: #f9ff00;
+  color: #000;
+}
+
+.tickets-token button:focus,
+.tickets-token button:active,
+.tickets-token button:hover,
+.tickets-token button,
+.tickets-token .btn:first-child:active {
+  display: flex;
+  flex-direction: row;
+  background: #f9ff00;
+  color: #000;
+  border-radius: 30px;
+  border-color: #f9ff00;
+  height: 38px;
+  align-items: center;
+}
+
+.tickets-token button img {
+  /* width: 45px; */
+  height: 22px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+.tickets-token button svg {
+  margin: 0px 10px;
+}
+
+.tickets-token button span {
+  font-weight: 600;
+}
+.headerMode-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.slotLobby-mode {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  background-color: #000;
+  overflow: hidden;
+  max-width: 240px;
+  width: 100%;
+  border-radius: 30px;
+  padding: 2px;
+}
+
+.goldCoin-labels,
+.sweepToken-labels {
+  position: relative;
+}
+
+.sweepToken-labels .form-check-inline,
+.goldCoin-labels .form-check-inline {
+  position: absolute;
+  width: 100% !important;
+}
+
+.sweepToken-labels label.form-check-label,
+.goldCoin-labels label.form-check-label {
+  width: 100% !important;
+}
+
+.goldCoin-labels .goldCoin,
+.sweepToken-labels .token {
+  color: #f9ff00;
+}
+
+/* fjkhksdjhfkdhsfkhksdfhksdhfhsdjkh */
+.slotLobby-mode form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  justify-content: space-between;
+}
+
+.slotLobby-mode.goldCoin {
+  border: 1px solid #f9ff00;
+}
+
+.slotLobby-mode.token {
+  border: 1px solid #fa0000;
+}
+
+.slotLobby-mode.token form .purchase-btn {
+  background: #fa0000;
+  border: 1px solid #fa0000;
+}
+
+.slotLobby-mode.goldCoin form .purchase-btn {
+  background: #f9ff00;
+  border: 1px solid #f9ff00;
+}
+
+.slotLobby-mode form .purchase-btn {
+  /* position: absolute;
+  right: 0%; */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  transition: all 0.1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotLobby-mode form .purchase-btn a {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-content: center;
+}
+.slotLobby-mode form .purchase-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: #000;
+}
+
+.slotLobby-mode form input {
+  background-color: #f9ff00 !important;
+  border: 1px solid #f9ff00;
+}
+
+.slotLobby-mode img {
+  width: 25px;
+}
+
+.slotLobby-mode .mode-labels {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  overflow: hidden;
+  /* padding: 6px 30px; */
+  border-radius: 30px;
+  width: 100%;
+}
+
+.slotLobby-mode h6 {
+  display: grid;
+  place-content: center;
+  margin: 0px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  background: #151515;
+  width: 100%;
+  z-index: 0;
+  border: 1px solid #fbff0000;
+  white-space: nowrap;
+}
+
+.slotLobby-mode h6.goldLabel {
+  padding: 6px 20px;
+  text-align: right;
+}
+
+.slotLobby-mode h6.tokenLabel {
+  padding: 6px 20px;
+  text-align: left;
+}
+
+.slotLobby-mode h6.goldCoin,
+.slotLobby-mode h6.token {
+  z-index: 1;
+  border: 1px solid #fbff00b7;
+}
+
+.slotLobby-mode p {
+  font-size: 14px;
+  padding-right: 24px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+.slotLobby-mode .form-check {
+  margin: 0px !important;
+}
+
+.slotLobby-mode .form-check-input {
+  height: 30px;
+}
+
+.slotLobby-mode .form-check-input:checked {
+  background-color: #fa0000 !important;
+  border-color: #fa0000 !important;
+}
+
+.slotLobby-mode .form-switch .form-check-input {
+  width: 60px;
+  margin-left: 0px !important;
+  margin-top: 0px !important;
+}
+
+.slotLobby-mode label.form-check-label {
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: 600;
+  width: calc(100% - 72px);
+  cursor: pointer;
+}
+
+.slotLobby-mode .form-switch {
+  padding-left: 0px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slotLobby-mode .custom-switch .custom-control-label::after {
+  background-image: url("../../assets/images/goldCoin.png") !important;
+  background-size: cover;
+}
+
+.slotLobby-mode .form-switch .form-check-input:focus {
+  background-image: url("../../assets//images/goldCoin.png") !important;
+  background-color: #f9ff00;
+  box-shadow: 0 0 0 0.25rem rgba(253, 233, 13, 0);
+}
+
+.slotLobby-mode.token .custom-switch .custom-control-label::before {
+  background-color: #fa0000 !important;
+  border-color: #fa0000 !important;
+}
+.slotLobby-mode.goldCoin .custom-switch .custom-control-label::before {
+  background-color: #f9ff00 !important;
+  border: 1px solid #f9ff00;
+}
+.slotLobby-mode .form-switch .form-check-input:checked {
+  background-position: right center;
+  background-image: url("../../assets/images/sweep.png") !important;
+}
+input#custom-switch {
+  cursor: pointer;
+}
+.slotLobby-mode.goldCoin form .purchase-btn {
+  background: #f9ff00;
+  border: 1px solid #f9ff00;
+}
+.pokerWallet-box {
+  display: flex;
+}
+
+.slotLobby-mode input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.slotLobby-mode label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 60px;
+  height: 31px;
+  background-color: #f9ff00 !important;
+  border: 1px solid #f9ff00;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  margin: 0;
+}
+
+.slotLobby-mode label:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+  background-image: url("../../assets//images/goldCoin.png") !important;
+  background-color: #f9ff00;
+  box-shadow: 0 0 0 0.25rem rgba(253, 233, 13, 0);
+  background-size: contain;
+}
+
+.slotLobby-mode input:checked + label {
+  background-color: #fa0000 !important;
+  border-color: #fa0000;
+}
+
+.slotLobby-mode input:checked + label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+  background-position: right center;
+  background-image: url("../../assets/images/sweep.png") !important;
+}
+.slotLobby-mode span {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+/* .slotLobby-mode label:active:after {
+	width: 130px;
+} */
+
+@media screen and (max-width: 1200px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-poker-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .btn-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .table-responsive {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .user-header-grid {
+    position: relative;
+  }
+  button.create-game-boxBtn {
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+  .tickets-token {
+    margin: 0;
+    max-width: 200px;
+  }
+  .tickets-token button:focus,
+  .tickets-token button:active,
+  .tickets-token button:hover,
+  .tickets-token button,
+  .tickets-token .btn:first-child:active {
+    height: 35px;
+  }
+  .create-game-box button{
+    height: 35px;
+    font-size: 12px !important;
+  }
+  button.create-game-boxBtn {
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+  .tickets-token button img {
+    height: 19px;
+    object-fit: contain;
+    margin-right: 5px;
+  }
+  .pokerWallet-box span {
+    font-size: 12px;
+  }
+
+  .pokerWallet-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .pokerWallet-box img {
+    margin: 0px !important;
+    height: 14px !important;
+    margin-right: 5px !important;
+    width: fit-content !important;
+  }
+
+  .walletTicket-box {
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .headerMode-container {
+    margin: 10px 0px;
+  }
+  .slotLobby-mode span {
+    font-size: 12px;
+  }
+  .slotLobby-mode {
+    max-width: 200px;
+  }
+  .tickets-token button span {
+    font-size: 12px;
+  }
+  .create-game-box a {
+    display: none;
+  }
+  .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .casino-popup .modal-footer {
+    padding: 1rem 1rem;
+  }
+
+  .tournamentCard .tournamentImg {
+    width: 100%;
+    height: 26%;
+  }
+
+  .tournamentFilter {
+    width: 88%;
+  }
+
+  .tournamentDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 30px;
+  }
+
+  .poker-tableSearch-box {
+    /* position: absolute;
+      right: 0px;
+      top: -52px; */
+  }
+
+  /* .create-game-box a {
+    position: absolute;
+    top: -68px;
+    right: 20%;
+  } */
+
+  .casino-popup .modal-body {
+    padding: 1rem 1rem;
+  }
+
+  .casino-logo img {
+    width: 120px;
+  }
+
+  .casino-popup .modal-header {
+    padding: 1rem 1rem;
+  }
+
+  .user-header {
+    margin-bottom: 30px;
+  }
+
+  .blindpopupField {
+    gap: 10px;
+  }
+
+  .blindFields-box {
+    gap: 10px;
+  }
+
+  .casino-popup label {
+    font-size: 14px !important;
+  }
+
+  .user-header-grid {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .create-game-box {
+    position: initial;
+    align-items: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .create-game-box h5 {
+    display: grid;
+    grid-column-end: 3;
+    grid-column-start: 1;
+    text-align: center;
+  }
+
+  .poker-table-content {
+    padding: 16px !important;
+  }
+
+  .pokerTournament-tableCard {
+    padding: 14px 8px;
+  }
 }
 
 @media screen and (max-width: 530px) {
@@ -1279,129 +1913,5 @@ form.formMode {
 
   .poker-tableSearch {
     max-width: 200px;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .btn-grid {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .table-responsive {
-    width: 90%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .home-poker-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  #controlled-tab-example-tabpane-2 .home-poker-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .casino-popup .modal-footer {
-    padding: 1rem 1rem;
-  }
-
-  .tournamentCard .tournamentImg {
-    width: 100%;
-    height: 26%;
-  }
-
-  .tournamentFilter {
-    width: 88%;
-  }
-
-  .tournamentDetails {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 15px 30px;
-  }
-
-  .poker-tableSearch-box {
-    /* position: absolute;
-      right: 0px;
-      top: -52px; */
-  }
-
-  .create-game-box a {
-    position: absolute;
-    top: -68px;
-    right: 20%;
-  }
-
-  .casino-popup .modal-body {
-    padding: 1rem 1rem;
-  }
-
-  .casino-logo img {
-    width: 120px;
-  }
-
-  .casino-popup .modal-header {
-    padding: 1rem 1rem;
-  }
-
-  .user-header {
-    margin-bottom: 30px;
-  }
-
-  .blindpopupField {
-    gap: 10px;
-  }
-
-  .blindFields-box {
-    gap: 10px;
-  }
-
-  .casino-popup label {
-    font-size: 14px !important;
-  }
-
-  .user-header-grid {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .create-game-box {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 10px;
-    grid-row-gap: 12px;
-    row-gap: 12px;
-    align-items: center;
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .create-game-box h5 {
-    display: grid;
-    grid-column-end: 3;
-    grid-column-start: 1;
-    text-align: center;
-  }
-
-  .poker-table-content {
-    padding: 16px !important;
-  }
-
-  .pokerTournament-tableCard {
-    padding: 14px 8px;
   }
 }

@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import numFormatter from "../../utils/utils";
-import token from "../../assets/coin.png";
+import token from "../../assets/images/sweep.png";
+import { FaArrowsAltH, FaPlusCircle } from "react-icons/fa";
 import tickets from "../../assets/tickets.png";
-import gold from "../../assets/gold.png";
+import gold from "../../assets/images/goldCoin.png";
 import { Button, Form, OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import logo from "../../assets/game/logo.png";
 import { FaQuestionCircle } from "react-icons/fa";
-import { landingClient, domain } from '../../config/keys';
+import { landingClient, domain,  marketPlaceUrl } from '../../config/keys';
 import cookie from "js-cookie";
 import { getCookie } from '../../utils/cookieUtil';
+import TicketTotoken from './ticketToToken';
 
 
-const Header = ({ userData, handleShow, mode, setMode }) => {
+const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
+    const [ticketToToken, setTicketToToekn] = useState(false);
 
     const renderWallet = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -64,7 +67,9 @@ const Header = ({ userData, handleShow, mode, setMode }) => {
     }, [mode])
 
     console.log("modemode", mode);
-
+    const handleTicketTotoken = () => {
+        setTicketToToekn(!ticketToToken);
+      };
     return (
         <div className="user-header">
             <div className="container">
@@ -74,6 +79,54 @@ const Header = ({ userData, handleShow, mode, setMode }) => {
                             <img src={logo} alt="" />
                         </a>
                     </div>
+                    <div className="headerMode-container">
+                <div className={`slotLobby-mode ${mode}`}>
+                  <Form>
+                    {/* <Form.Check
+                      type="switch"
+                      id="custom-switch"
+                      label={
+                        mode === "token"
+                          ? `ST: ${numFormatter(userData?.wallet)}`
+                          : `GC: ${numFormatter(userData?.goldCoin)}`
+                      }
+                      defaultChecked={mode === "token"}
+                      onChange={handleModeChange}
+                    /> */}
+                    <input type="checkbox" id="switch" defaultChecked={mode === "token"} className='form-check-input' onChange={handleModeChange} /><label for="switch">Toggle</label>
+                    <span>{
+                        mode === "token"
+                          ? `ST: ${numFormatter(userData?.wallet)}`
+                          : `GC: ${numFormatter(userData?.goldCoin)}`
+                      }</span>
+                    <Button className="purchase-btn">
+                      <a
+                        href={`${marketPlaceUrl}/crypto-to-gc`}
+                        rel="noreferrer"
+                      >
+                        <FaPlusCircle />
+                      </a>
+                    </Button>
+                  </Form>
+                </div>
+                <div className="tickets-token">
+                  <Button
+                    className="btn btn-primary"
+                    disabled={userData?.ticket <= 0}
+                    onClick={handleTicketTotoken}
+                  >
+                    <img src={tickets} alt="" /> <span>Ticket</span>{" "}
+                    <FaArrowsAltH /> <img src={gold} alt="" />{" "}
+                    <span>Token</span>
+                  </Button>
+                  <TicketTotoken
+                    user={userData}
+                    show={ticketToToken}
+                    handleClose={handleTicketTotoken}
+                    setUser={setUserData}
+                  />
+                </div>
+              </div>
                     <div className="create-game-box">
                         <a href={`${ landingClient }profile`}>
                             <div className="create-game-box-avtar">
@@ -128,7 +181,7 @@ const Header = ({ userData, handleShow, mode, setMode }) => {
                                 </OverlayTrigger>
                             </div>
                         </div>
-                        <div className="slotLobby-mode">
+                        {/* <div className="slotLobby-mode">
                             <p>Mode:</p>
                             <div className="mode-labels">
                                 <h6>GC</h6>
@@ -137,7 +190,7 @@ const Header = ({ userData, handleShow, mode, setMode }) => {
                                 </Form>
                                 <h6>Token</h6>
                             </div>
-                        </div>
+                        </div> */}
                         <button
                             type="button"
                             className="create-game-boxBtn"
