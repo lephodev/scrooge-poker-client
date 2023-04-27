@@ -20,7 +20,7 @@
   "development": {
     "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "https://devpoker-api.scrooge.casino",
-    "landingClient": "http://localhost:3000",
+    "landingClient": "https://dev.scrooge.casino/",
     "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
     "domain":".scrooge.casino",
     "marketPlaceUrl": "https://devmarket.scrooge.casino",
