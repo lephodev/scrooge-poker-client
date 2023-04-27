@@ -3,7 +3,7 @@ import PropsTypes from "prop-types";
 import InputRange from "react-input-range";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import "react-input-range/lib/css/index.css";
-import { authInstance, ticketTotokenInstance } from "../../utils/axios.config";
+import { ticketTotokenInstance } from "../../utils/axios.config";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { landingClient } from "../../config/keys";

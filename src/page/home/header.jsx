@@ -116,7 +116,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                     onClick={handleTicketTotoken}
                   >
                     <img src={tickets} alt="" /> <span>Ticket</span>{" "}
-                    <FaArrowsAltH /> <img src={gold} alt="" />{" "}
+                    <FaArrowsAltH /> <img src={token} alt="" />{" "}
                     <span>Token</span>
                   </Button>
                   <TicketTotoken
