@@ -61,6 +61,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
           });
           setMode("goldCoin");
         }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
     console.log("modemode", mode);
