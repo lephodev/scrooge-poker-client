@@ -112,7 +112,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                 <div className="tickets-token">
                   <Button
                     className="btn btn-primary"
-                    disabled={userData?.ticket <= 0}
+                    disabled={userData?.ticket < 10}
                     onClick={handleTicketTotoken}
                   >
                     <img src={tickets} alt="" /> <span>Ticket</span>{" "}
