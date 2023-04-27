@@ -360,7 +360,7 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <Header userData={userData} handleShow={handleShow} mode={mode} setMode={setMode} />
+      <Header userData={userData} handleShow={handleShow} mode={mode} setMode={setMode} setUserData={setUserData} />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">

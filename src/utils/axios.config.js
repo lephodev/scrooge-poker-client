@@ -25,3 +25,10 @@ export const tournamentInstance = () =>
     baseURL: `${CONSTANTS.serverUrl}/tournament`,
     headers: { Authorization: getAuthorizationHeader() },
   });
+  export const ticketTotokenInstance = () =>
+  axios.create({
+    baseURL: `${CONSTANTS.marketServer}/api`,
+    headers: {
+      Authorization: getCookie('token') ? `Bearer ${getCookie('token')}` : '',
+    },
+  });
