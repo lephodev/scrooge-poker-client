@@ -3,24 +3,36 @@
     "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "http://localhost:3002",
     "landingClient": "http://localhost:3000",
-    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073"
+    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
+    "domain":"localhost",
+    "marketPlaceUrl": "https://devmarket.scrooge.casino",
+    "marketServer": "https://devmarket-api.scrooge.casino"
   },
   "production": {
     "landingServerUrl": "https://api.scrooge.casino/v1",
     "serverUrl": "https://poker-api.scrooge.casino",
     "landingClient": "https://scrooge.casino/",
-    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073"
+    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
+    "domain":".scrooge.casino",
+    "marketPlaceUrl": "https://market.scrooge.casino",
+    "marketServer": "https://market-api.scrooge.casino"
   },
   "development": {
     "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "https://devpoker-api.scrooge.casino",
     "landingClient": "https://dev.scrooge.casino/",
-    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073"
+    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
+    "domain":".scrooge.casino",
+    "marketPlaceUrl": "https://devmarket.scrooge.casino",
+    "marketServer": "https://devmarket-api.scrooge.casino"
   },
   "staging": {
     "landingServerUrl": "https://beta-api.scrooge.casino/v1",
     "serverUrl": "https://betapoker-api.scrooge.casino",
     "landingClient": "https://beta.scrooge.casino/",
-    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073"
+    "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
+    "domain":".scrooge.casino",
+    "marketPlaceUrl": "https://betamarket.scrooge.casino",
+    "marketServer": "https://betamarket-api.scrooge.casino"
   }
 }
