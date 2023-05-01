@@ -143,7 +143,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                                 <img src={token} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.wallet || 0)}</span>
                                 <OverlayTrigger
-                                    placement={window.innerWidth < 767 ? "right" : "left"}
+                                    placement={window.innerWidth < 767 ? "bottom" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderWallet}
                                 >
@@ -156,7 +156,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                                 <img src={tickets} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.ticket || 0)}</span>
                                 <OverlayTrigger
-                                    placement={window.innerWidth < 767 ? "right" : "left"}
+                                    placement={window.innerWidth < 767 ? "bottom" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderTicket}
                                 >
@@ -169,7 +169,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                                 <img src={gold} alt="" className="pokerWallet" />
                                 <span>{numFormatter(userData?.goldCoin || 0)}</span>
                                 <OverlayTrigger
-                                    placement={window.innerWidth < 767 ? "right" : "left"}
+                                    placement={window.innerWidth < 767 ? "bottom" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderGold}
                                 >

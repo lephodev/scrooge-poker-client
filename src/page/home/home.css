@@ -1218,35 +1218,39 @@ form.formMode {
 
 /******* ticket to otken *************/
 .ticket-token-modal .modal-content {
+  background: #151515;
   border: 1px solid #202020;
+  border-radius: 10px;
+  margin: 0 auto;
   max-width: 400px;
-  margin: 0px auto;
-  background: rgb(42 42 42);
-  padding: 30px 20px;
+  padding: 20px 30px;
   position: relative;
-  border-radius: 5px;
 }
-.ticket-token-modal .ticket-to-token-popup h6:first-child {
-  font-size: 18px;
+.ticket-to-token-popup h5 {
+  margin-top: 20px;
   text-align: center;
-  color: #f9ff00;
+  color: #fff;
 }
 .ticket-token-modal .modal-dialog {
   display: block;
 }
 .ticket-token-modal .inputRange-Box {
-  position: relative;
-  width: 100%;
+  background: #000;
+  border: 1px solid #f9ff00;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   margin-top: 30px;
+  padding: 14px 20px;
+  position: relative;
   max-width: 100%;
+  width: 100%;
 }
 .ticket-token-modal .ticket-to-token-popup h6 {
-  font-size: 14px;
+  font-size: 18px;
   text-align: center;
-  color: white;
+  color: #f9ff00;
 }
 
 .ticket-token-modal .total.tickets {
@@ -1275,10 +1279,12 @@ form.formMode {
   border: 1px solid #f9ff00 !important;
   font-weight: 600;
   font-size: 14px;
+  width: -moz-fit-content !important;
   width: fit-content !important;
-  min-width: 85px !important;
+  min-width: 80% !important;
   width: fit-content;
   height: 35px;
+  border-radius: 30px;
 }
 .ticket-token-modal .input-range__label--value {
   display: none;
@@ -1294,14 +1300,15 @@ form.formMode {
 .ticket-token-modal .min-max-value button,
 .ticket-token-modal .min-max-value button:hover,
 .ticket-token-modal .min-max-value button:focus {
+  height: 30px !important;
+  min-width: 80px !important;
+  padding: 4px 10px !important;
+  border-radius: 30px;
   background: #f9ff00;
   border: 1px solid #f9ff00;
   color: black;
   font-weight: 600;
   font-size: 14px;
-  padding: 5px 10px;
-  width: fit-content !important;
-  max-width: fit-content !important;
 }
 .ticket-token-modal .total.tickets h6 {
   margin: 0;
@@ -1318,6 +1325,14 @@ form.formMode {
   position: relative;
   width: 94% !important;
   margin-left: 8px;
+}
+.ticket-token-modal .input-range__track {
+  height: 10px !important;
+}
+.ticket-token-modal .input-range__slider {
+  height: 20px !important;
+  margin-top: -15px !important;
+  width: 20px !important;
 }
 
 .ticket-token-modal .inputRangeSlider {
@@ -1709,10 +1724,6 @@ input#custom-switch {
     object-fit: contain;
     margin-right: 5px;
   }
-  .pokerWallet-box span {
-    font-size: 12px;
-  }
-
   .pokerWallet-box {
     display: flex;
     align-items: center;
@@ -1720,9 +1731,9 @@ input#custom-switch {
 
   .pokerWallet-box img {
     margin: 0px !important;
-    height: 14px !important;
+    height: 28px !important;
     margin-right: 5px !important;
-    width: fit-content !important;
+    width: 38px !important;
   }
 
   .walletTicket-box {
