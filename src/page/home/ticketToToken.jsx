@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { landingClient } from "../../config/keys";
 import userUtils from "../../utils/user";
+import numFormatter from "../../utils/utils";
 
 function TicketTotoken({ show, handleClose, user, setUser }) {
   const [rangeValue, setRangeValue] = useState(10);
@@ -64,12 +65,12 @@ function TicketTotoken({ show, handleClose, user, setUser }) {
       <Modal.Body>
         <div className="ticket-to-token-popup">
           <h6>Continue Playing</h6>
-          <h6>
+          <h5>
             Swap your tickets back to Sweep <br /> tokens at a 1:1 ratio
-          </h6>
+          </h5>
           <div className="total tickets">
             <h6>
-              Ticket <span>{user && user?.ticket ? user?.ticket : "0.00"}</span>
+              Ticket <span>{user && user?.ticket ? numFormatter(user?.ticket) : "0.00"}</span>
             </h6>
           </div>
           <div className="inputRange-Box">
@@ -80,7 +81,7 @@ function TicketTotoken({ show, handleClose, user, setUser }) {
               onChange={(value) => setRangeValue(value)}
             />
             <div className="min-max-value">
-              <p>Amount to swap: {rangeValue}</p>
+              <p>Amount to swap: {numFormatter(rangeValue)}</p>
               <Button
                 className="yellowBtn btn btn-primary"
                 onClick={() => setRangeValue(maxValue)}
