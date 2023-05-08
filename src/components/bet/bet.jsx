@@ -172,6 +172,7 @@ const Bet = ({
 
       setBet(winnBet);
       setTimeout(() => {
+      
         setBet([]);
       }, 13000);
     });

@@ -392,12 +392,11 @@ input:checked+.slider:before {
 } */
 .raiseBet-container .close-bet {
   position: absolute;
-  right: 2%;
+  right: -30px;
   color: #000000;
   font-weight: 700;
   cursor: pointer;
-  top: 9%;
-  transform: translateY(-50%);
+  top: -136px;
   background: #f9ff00;
   border-radius: 50%;
   width: 20px;
@@ -409,19 +408,52 @@ input:checked+.slider:before {
 }
 
 .raiseBet-container .bet-view {
+  position: relative;
   display: flex;
   width: 100%;
   padding: 10px;
 }
 
-.raiseBet-container .bet-view button {
+.raiseBet-container .betConfirmPopup {
+  position: absolute;
+  top: -125%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 20px 10px 15px;
+  background: #2b2a2a;
+  box-shadow: 0px 0px 20px 0px #2f2b2be6;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.raiseBet-container .betConfirmPopup.block .sub-btn {
+  display: flex !important;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.raiseBet-container .betConfirmPopup.block .sub-btn button:first-child {
+  background: grey !important;
+  color: #fff;
+}
+
+.raiseBet-container .betConfirmPopup.block .sub-btn button {
+  height: 34px;
+}
+
+.raiseBet-container .bet-view button,
+.raiseBet-container .bet-view button:hover,
+.raiseBet-container .bet-view button:active,
+.raiseBet-container .bet-view button:focus {
   background: #f9ff00;
   border-radius: 30px;
   min-width: 43px;
   padding: 1px 0px;
   margin: 0px 5px;
   color: #361302;
-  border-top: 2px solid #ffff42;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.5s;
@@ -429,20 +461,6 @@ input:checked+.slider:before {
   height: 28px;
 }
 
-.raiseBet-container .bet-view button:hover {
-  background: #dde101;
-  border-radius: 30px;
-  min-width: 43px;
-  padding: 1px 0px;
-  margin: 0px 5px;
-  color: #361302;
-  border-top: 2px solid #ffff42;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.5s;
-  font-weight: 700;
-  height: 28px;
-}
 
 .raiseBet-container .bet-view::before {
   content: "";

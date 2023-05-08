@@ -186,14 +186,12 @@ const PokerTable = (props) => {
     const tryReconnect = () => {
       setTimeout(() => {
         socket.io.open((err) => {
-          // console.log("Socket open");
           if (err) {
             console.log('reconnect err => ', err)
             tryReconnect()
           } else {
             let urlParams = new URLSearchParams(window.location.search)
             let table = urlParams.get('tableid')
-            // console.log({ table });
             let type =
               urlParams.get('gameCollection') || urlParams.get('gamecollection')
             tPlayer = null
@@ -505,7 +503,6 @@ const PokerTable = (props) => {
     })
     socket.on('newhand', (data) => {
       if (data) {
-        // console.log(data?.updatedRoom);
         roomData = data?.updatedRoom
         tPlayer = null
         setStart(false)
@@ -584,7 +581,6 @@ const PokerTable = (props) => {
       updatePlayer(roomData.showdown)
       setCurrentPlayer()
       let delay = Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
-      console.log('time delay =====>', delay, roomData.winnerPlayer)
       showWinner(roomData.winnerPlayer, tablePlayers, delay)
     })
 
@@ -923,7 +919,6 @@ const PokerTable = (props) => {
     })
 
     socket.on('updateRoom', (data) => {
-      // console.log("datatatata", data);
 
       updatePlayer(data?.players)
       toast.success(`Your wallet is updated`, { id: 'wallet-update' })
@@ -1404,7 +1399,6 @@ const PokerTable = (props) => {
           currentAction.raise = true
         }
       }
-      console.log('check ===>', wallet, raiseAmount * 2 - pot, pot)
       if (wallet <= raiseAmount * 2 - pot) {
         currentAction.allin = true
         currentAction.raise = false
@@ -1431,7 +1425,7 @@ const PokerTable = (props) => {
     if (type === 'winner') {
       setTimeout(() => {
         setWinner(false)
-      }, 10000)
+      }, 4000)
     }
   }
 
@@ -1470,7 +1464,6 @@ const PokerTable = (props) => {
       const { newRoomId, changeIds } = data
       if (newRoomId && changeIds.length > 0) {
         if (changeIds.find((el) => el.toString() === userId.toString())) {
-          // console.log("Change ids--->", changeIds);
           window.location.href =
             '/table?gamecollection=poker&tableid=' + newRoomId
         }
@@ -1483,7 +1476,6 @@ const PokerTable = (props) => {
       }, 2000)
     })
     socket.on('eleminated', (data) => {
-      // console.log("Eleminated detail--->", data);
       const { roomDetail } = data
       if (roomDetail) {
         if (
@@ -1623,10 +1615,8 @@ const PokerTable = (props) => {
   }
 
   const handleReffill = async (amount) => {
-    // console.log("RefelAmount", userData);
     setDisable(true)
     let user = await userUtils.getAuthUserData()
-    // console.log("user", user);
     try {
       if (
         parseFloat(amount) > user?.data?.user?.wallet &&
@@ -1693,7 +1683,6 @@ const PokerTable = (props) => {
   }
   const betInSliderAction = (e, x) => {
     e.preventDefault()
-    // console.log("BetAmount", x);
     if (x >= roomData.raiseAmount * 2) {
       setOpenAction({
         bet: false,
@@ -1717,9 +1706,7 @@ const PokerTable = (props) => {
   }
 
   useEffect(() => {
-    // console.log("RunningRound", roomData?.runninground);
     socket.on('blindTimer', (data) => {
-      // console.log("blindTimer", data);
       setBlindTimer(data.time)
     })
   }, [])
