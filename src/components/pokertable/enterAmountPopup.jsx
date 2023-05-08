@@ -16,9 +16,8 @@ const EnterAmountPopup = ({
     e.preventDefault();
     if (parseInt(amount) >= 100) {
       setLoading(true);
-      const msg = await handleSitin(amount);
+      await handleSitin(amount);
       setLoading(false);
-      console.log(msg);
       // if (msg) {
       //   setError(msg);
       // }

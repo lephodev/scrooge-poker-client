@@ -37,7 +37,6 @@ const InviteFriend = ({
       const res = await axios.get(
         contants.serverUrl + '/getUserForInvite/' + tableId
       );
-      // console.log(res.data.data);
       if (res.data.data) {
         setFriendList(res.data.data);
       }
@@ -51,7 +50,6 @@ const InviteFriend = ({
       fetchFriendList();
     }
   }, [fetchFriendList, tableId]);
-  // console.log({ friendList });
   const handleInvitationSend = () => {
     if (!invPlayers.length) {
       toast.error('Please select any player');
