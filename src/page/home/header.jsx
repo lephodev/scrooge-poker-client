@@ -63,8 +63,6 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
         }
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
-
-    console.log("modemode", mode);
     const handleTicketTotoken = () => {
         setTicketToToekn(!ticketToToken);
       };
