@@ -1425,7 +1425,7 @@ const PokerTable = (props) => {
     if (type === 'winner') {
       setTimeout(() => {
         setWinner(false)
-      }, 10000)
+      }, 4000)
     }
   }
 

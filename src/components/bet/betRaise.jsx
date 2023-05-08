@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import BetConfirmPopup from './betConfirmationPopup'
+// import BetConfirmPopup from './betConfirmationPopup'
 
 const BetRaise = ({
   currentPlayer,
@@ -31,8 +31,8 @@ const BetRaise = ({
       playersPot = players?.reduce((a, b) => a + b.pot, 0)
   }
   const getConfirmation = (percentAmt) => {
-    setConfirmPopup(true)
     setBetAmount(percentAmt)
+    setConfirmPopup(true)
   }
   const confirmBet = () => {
     setAction(betAmount)
@@ -40,14 +40,13 @@ const BetRaise = ({
     setBetAmount(0)
   }
   const cancelBet = () => {
-    setBetAmount(0)
     setConfirmPopup(false)
   }
   return (
     <div className="bet-view">
       {((roomData?.pot + playersPot) * 25) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 25) / 100 >=
-          roomData.raiseAmount * 2 && (
+        roomData.raiseAmount * 2 && (
           <Button
             disabled={remainingTime <= 1}
             onClick={() => {
@@ -61,13 +60,13 @@ const BetRaise = ({
         )}
       {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 33) / 100 >=
-          roomData.raiseAmount * 2 && (
+        roomData.raiseAmount * 2 && (
           <Button
             disabled={remainingTime <= 1}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 33) / 100)
-            //   setAction(((roomData.pot + playersPot) * 33) / 100)
-            //   setBetRaise(false)
+              //   setAction(((roomData.pot + playersPot) * 33) / 100)
+              //   setBetRaise(false)
             }}
           >
             33%
@@ -75,13 +74,13 @@ const BetRaise = ({
         )}
       {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 50) / 100 >=
-          roomData.raiseAmount * 2 && (
+        roomData.raiseAmount * 2 && (
           <Button
             disabled={remainingTime <= 1}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 50) / 100)
-            //   setAction(((roomData.pot + playersPot) * 50) / 100)
-            //   setBetRaise(false)
+              //   setAction(((roomData.pot + playersPot) * 50) / 100)
+              //   setBetRaise(false)
             }}
           >
             50%
@@ -89,13 +88,13 @@ const BetRaise = ({
         )}
       {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 67) / 100 >=
-          roomData.raiseAmount * 2 && (
+        roomData.raiseAmount * 2 && (
           <Button
             disabled={remainingTime <= 1}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 67) / 100)
-            //   setAction(((roomData.pot + playersPot) * 67) / 100)
-            //   setBetRaise(false)
+              //   setAction(((roomData.pot + playersPot) * 67) / 100)
+              //   setBetRaise(false)
             }}
           >
             67%
@@ -104,13 +103,13 @@ const BetRaise = ({
 
       {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 75) / 100 >=
-          roomData.raiseAmount * 2 && (
+        roomData.raiseAmount * 2 && (
           <Button
             disabled={remainingTime <= 1}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 75) / 100)
-            //   setAction(((roomData.pot + playersPot) * 75) / 100)
-            //   setBetRaise(false)
+              //   setAction(((roomData.pot + playersPot) * 75) / 100)
+              //   setBetRaise(false)
             }}
           >
             75%
@@ -132,16 +131,39 @@ const BetRaise = ({
       >
         x
       </div>
-      <BetConfirmPopup
-        confirmPopup={confirmPopup}
-        
-        setConfirmPopup={setConfirmPopup}
+      {confirmPopup && <BetConfirmPopup
         confirmBet={confirmBet}
         cancelBet={cancelBet}
         betAmount={betAmount}
-      />
+      />}
+
     </div>
   )
 }
 
 export default BetRaise
+
+const BetConfirmPopup = ({
+  confirmBet,
+  cancelBet,
+  betAmount
+}) => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <div className="betConfirmPopup block">
+      <p>Bet: {Math.ceil(betAmount)}</p>
+      <div className="sub-btn text-center">
+        <Button onClick={() => cancelBet()}>Cancel</Button>
+        <Button
+          onClick={() => {
+            confirmBet();
+            setClicked(true);
+          }}
+          disabled={clicked}
+        >
+          Confirm
+        </Button>
+      </div>
+    </div>
+  );
+};

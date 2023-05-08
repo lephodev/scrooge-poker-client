@@ -14,12 +14,10 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
       toast.error("You dont have enough balance", { id: "A" });
       return;
     }
-    
     setRangeBetValue(value);
-    
   };
 
-  const onBlurChange =()=>{
+  const onBlurChange = () => {
     if (rangeBetValue < roomData?.raiseAmount * 2) {
       toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
       return;

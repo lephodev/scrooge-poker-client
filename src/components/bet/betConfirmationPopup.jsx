@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const BetConfirmPopup = ({
-    confirmPopup,
-    setConfirmPopup,
+  confirmPopup,
+  setConfirmPopup,
   confirmBet,
   cancelBet,
   betAmount
@@ -33,8 +33,7 @@ const BetConfirmPopup = ({
             >
               Confirm
             </Button>
-              <Button onClick={() => cancelBet()}>Cancel</Button>
-           
+            <Button onClick={() => cancelBet()}>Cancel</Button>
           </div>
         </div>
       </Modal.Body>
