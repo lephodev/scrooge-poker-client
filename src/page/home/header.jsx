@@ -8,7 +8,7 @@ import { Button, Form, OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import logo from "../../assets/game/logo.png";
 import { FaQuestionCircle } from "react-icons/fa";
-import { landingClient, domain,  marketPlaceUrl } from '../../config/keys';
+import { landingClient, domain, marketPlaceUrl } from '../../config/keys';
 import cookie from "js-cookie";
 import { getCookie } from '../../utils/cookieUtil';
 import TicketTotoken from './ticketToToken';
@@ -52,20 +52,20 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
     useEffect(() => {
         const getMode = getCookie("mode");
         if (getMode) {
-          setMode(getMode);
+            setMode(getMode);
         } else {
-          cookie.set("mode", "goldCoin", {
-            domain: domain,
-            path: "/",
-            httpOnly: false,
-          });
-          setMode("goldCoin");
+            cookie.set("mode", "goldCoin", {
+                domain: domain,
+                path: "/",
+                httpOnly: false,
+            });
+            setMode("goldCoin");
         }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const handleTicketTotoken = () => {
         setTicketToToekn(!ticketToToken);
-      };
+    };
     return (
         <div className="user-header">
             <div className="container">
@@ -76,9 +76,9 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                         </a>
                     </div>
                     <div className="headerMode-container">
-                <div className={`slotLobby-mode ${mode}`}>
-                  <Form>
-                    {/* <Form.Check
+                        <div className={`slotLobby-mode ${ mode }`}>
+                            <Form>
+                                {/* <Form.Check
                       type="switch"
                       id="custom-switch"
                       label={
@@ -89,40 +89,40 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                       defaultChecked={mode === "token"}
                       onChange={handleModeChange}
                     /> */}
-                    <input type="checkbox" id="switch" checked={mode === "token"} defaultChecked={mode === "token"} className='form-check-input' onChange={handleModeChange} /><label for="switch">Toggle</label>
-                    <span>{
-                        mode === "token"
-                          ? `ST: ${numFormatter(userData?.wallet)}`
-                          : `GC: ${numFormatter(userData?.goldCoin)}`
-                      }</span>
-                    <Button className="purchase-btn">
-                      <a
-                        href={`${marketPlaceUrl}/crypto-to-gc`}
-                        rel="noreferrer"
-                      >
-                        <FaPlusCircle />
-                      </a>
-                    </Button>
-                  </Form>
-                </div>
-                <div className="tickets-token">
-                  <Button
-                    className="btn btn-primary"
-                    disabled={userData?.ticket < 10}
-                    onClick={handleTicketTotoken}
-                  >
-                    <img src={tickets} alt="" /> <span>Ticket</span>{" "}
-                    <FaArrowsAltH /> <img src={token} alt="" />{" "}
-                    <span>Token</span>
-                  </Button>
-                  <TicketTotoken
-                    user={userData}
-                    show={ticketToToken}
-                    handleClose={handleTicketTotoken}
-                    setUser={setUserData}
-                  />
-                </div>
-              </div>
+                                <input type="checkbox" id="switch" checked={mode === "token"} defaultChecked={mode === "token"} className='form-check-input' onChange={handleModeChange} /><label for="switch">Toggle</label>
+                                <span>{
+                                    mode === "token"
+                                        ? `ST: ${ numFormatter(userData?.wallet) }`
+                                        : `GC: ${ numFormatter(userData?.goldCoin) }`
+                                }</span>
+                                <Button className="purchase-btn">
+                                    <a
+                                        href={`${ marketPlaceUrl }/crypto-to-gc`}
+                                        rel="noreferrer"
+                                    >
+                                        <FaPlusCircle />
+                                    </a>
+                                </Button>
+                            </Form>
+                        </div>
+                        <div className="tickets-token">
+                            <Button
+                                className="btn btn-primary"
+                                disabled={userData?.ticket < 10}
+                                onClick={handleTicketTotoken}
+                            >
+                                <img src={tickets} alt="" /> <span>Ticket</span>{" "}
+                                <FaArrowsAltH /> <img src={token} alt="" />{" "}
+                                <span>Token</span>
+                            </Button>
+                            <TicketTotoken
+                                user={userData}
+                                show={ticketToToken}
+                                handleClose={handleTicketTotoken}
+                                setUser={setUserData}
+                            />
+                        </div>
+                    </div>
                     <div className="create-game-box">
                         <a href={`${ landingClient }profile`}>
                             <div className="create-game-box-avtar">
