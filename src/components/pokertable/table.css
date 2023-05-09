@@ -173,6 +173,22 @@ input:checked {
   z-index: 9;
 }
 
+.playerHand-status {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #232325;
+  color: #f9ff00;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.playerHand-status p{
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .table-blindTimer h4 {
   font-size: 14px;
   display: flex;
