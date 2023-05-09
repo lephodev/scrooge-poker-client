@@ -34,7 +34,6 @@ const BetRaise = ({
     setBetAmount(percentAmt)
     setConfirmPopup(true)
   }
-
   const confirmBet = () => {
     setAction(betAmount)
     setBetRaise(false)
@@ -59,10 +58,10 @@ const BetRaise = ({
             25%
           </Button>
         )}
-      {/* {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
+      {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 33) / 100 >=
         roomData.raiseAmount * 2 && (
-          <Button 
+          <Button
             disabled={remainingTime <= 1}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 33) / 100)
@@ -72,7 +71,7 @@ const BetRaise = ({
           >
             33%
           </Button>
-        )} */}
+        )}
       {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 50) / 100 >=
         roomData.raiseAmount * 2 && (
@@ -87,7 +86,7 @@ const BetRaise = ({
             50%
           </Button>
         )}
-      {/* {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
+      {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 67) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
@@ -100,7 +99,7 @@ const BetRaise = ({
           >
             67%
           </Button>
-        )} */}
+        )}
 
       {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 75) / 100 >=
