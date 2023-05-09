@@ -58,7 +58,7 @@ const BetRaise = ({
             25%
           </Button>
         )}
-      {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
+      {/* {((roomData?.pot + playersPot) * 33) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 33) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
@@ -71,7 +71,7 @@ const BetRaise = ({
           >
             33%
           </Button>
-        )}
+        )} */}
       {((roomData?.pot + playersPot) * 50) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 50) / 100 >=
         roomData.raiseAmount * 2 && (
@@ -86,7 +86,7 @@ const BetRaise = ({
             50%
           </Button>
         )}
-      {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
+      {/* {((roomData?.pot + playersPot) * 67) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 67) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
@@ -99,7 +99,7 @@ const BetRaise = ({
           >
             67%
           </Button>
-        )}
+        )} */}
 
       {((roomData?.pot + playersPot) * 75) / 100 <= currentPlayer?.wallet &&
         ((roomData.pot + playersPot) * 75) / 100 >=
