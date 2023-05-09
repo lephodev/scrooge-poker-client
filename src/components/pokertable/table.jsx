@@ -102,6 +102,7 @@ const PokerTable = (props) => {
   const [isAdmin, setisAdmin] = useState(false)
   const [timer, setTimer] = useState(0)
   const [communityCards, setCommunityCards] = useState([])
+  const [showPairHand, setShowPairHand] = useState([])
   const [newUser, setNewUser] = useState(false)
   const [winnerText, setWinnerText] = useState('')
   const [remainingTime, setRemainingTime] = useState()
@@ -511,6 +512,7 @@ const PokerTable = (props) => {
         setTablePot(roomData?.tablePot)
         updatePlayer(roomData?.players)
         setCommunityCards([])
+        setShowPairHand([])
         setCurrentPlayer()
         setWinner(false)
         setWinnerText('')
@@ -536,8 +538,12 @@ const PokerTable = (props) => {
     socket.on('flopround', (data) => {
       setMergeAnimationState(true)
       roomData = data
-
       setCommunityCards(data?.communityCard)
+      socket.emit('calCulateCardPair', {
+        communityCard: data?.communityCard,
+        roundData: data?.flopround,
+        roomId: data?._id,
+      })
       setTimeout(() => {
         setMergeAnimationState(false)
         playAudio('collect')
@@ -551,6 +557,11 @@ const PokerTable = (props) => {
       setMergeAnimationState(true)
       roomData = data
       setCommunityCards(data?.communityCard)
+      socket.emit('calCulateCardPair', {
+        communityCard: data?.communityCard,
+        roundData: data?.turnround,
+        roomId: data?._id,
+      })
       setTimeout(() => {
         setMergeAnimationState(false)
         playAudio('collect')
@@ -564,7 +575,11 @@ const PokerTable = (props) => {
       setMergeAnimationState(true)
       roomData = data
       setCommunityCards(data?.communityCard)
-
+      socket.emit('calCulateCardPair', {
+        communityCard: data?.communityCard,
+        roundData: data?.riverround,
+        roomId: data?._id,
+      })
       setTimeout(() => {
         setMergeAnimationState(false)
         playAudio('collect')
@@ -751,6 +766,7 @@ const PokerTable = (props) => {
       if (roomData.runninground === 0) {
         updatePlayer(roomData.players)
         setCommunityCards([])
+        setShowPairHand([])
         setCurrentPlayer()
         setWinner(false)
         setWinnerText('')
@@ -849,6 +865,7 @@ const PokerTable = (props) => {
         if (roomData.runninground === 0) {
           updatePlayer(roomData.players)
           setCommunityCards([])
+          setShowPairHand([])
           setCurrentPlayer()
           setWinner(false)
           setWinnerText('')
@@ -919,7 +936,6 @@ const PokerTable = (props) => {
     })
 
     socket.on('updateRoom', (data) => {
-
       updatePlayer(data?.players)
       toast.success(`Your wallet is updated`, { id: 'wallet-update' })
       setRefillSitInAmount(false)
@@ -933,8 +949,10 @@ const PokerTable = (props) => {
       setRefillSitInAmount(false)
       setDisable(false)
     })
+    socket.on('showPairCard', (data) => {
+      setShowPairHand(data?.hands || [])
+    })
   }, [])
-
   const handleTentativeActionAuto = (player) => {
     let event
     const { tentativeAction } = player
@@ -1814,14 +1832,11 @@ const PokerTable = (props) => {
                   !roomData.tournament && (
                     <div className="start-game">
                       <div className="start-game-btn">
-                        {/* {console.log(
-                          `is admin ${isAdmin}`,
-                          `is game started ${roomData?.gamestart}`
-                        )} */}
+                        
                         {isAdmin && roomData && !roomData?.gamestart ? (
                           <>
                             <p>Click to start game</p>
-                            {/* disabled={players && players.length <2} */}
+                       
                             <div className="footer-btn ">
                               {players && players.length >= 2 && (
                                 <Button
@@ -1949,6 +1964,19 @@ const PokerTable = (props) => {
                       roomData={roomData}
                     />
                   ))}
+              </div>
+            ) : (
+              ''
+            )}
+            {showPairHand && showPairHand?.length > 0 ? (
+              <div className="playerHand-status">
+                <p>
+                Card Pair :&nbsp;
+                  {
+                    showPairHand.find((el) => el?.id === userId)?.hand?.descr
+                      .replace(",",' and')
+                  }
+                </p>
               </div>
             ) : (
               ''
