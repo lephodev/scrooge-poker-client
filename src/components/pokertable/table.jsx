@@ -1832,14 +1832,11 @@ const PokerTable = (props) => {
                   !roomData.tournament && (
                     <div className="start-game">
                       <div className="start-game-btn">
-                        {/* {console.log(
-                          `is admin ${isAdmin}`,
-                          `is game started ${roomData?.gamestart}`
-                        )} */}
+                        
                         {isAdmin && roomData && !roomData?.gamestart ? (
                           <>
                             <p>Click to start game</p>
-                            {/* disabled={players && players.length <2} */}
+                       
                             <div className="footer-btn ">
                               {players && players.length >= 2 && (
                                 <Button
