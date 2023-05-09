@@ -1975,7 +1975,7 @@ const PokerTable = (props) => {
             {showPairHand && showPairHand?.length > 0 ? (
               <div className="playerHand-status">
                 <p>
-                  Card Pair.
+                Card Pair :&nbsp;
                   {
                     showPairHand.find((el) => el?.id === userId)?.hand?.descr
                       .replace(",",' and')
