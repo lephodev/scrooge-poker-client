@@ -10721,3 +10721,11 @@ img.coinWinning-animation {
   flex-direction: column;
   gap: 6px;
 }
+.buttonDetail-twobtns{
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.buttonDetail-twobtns button{
+  padding: 2px;
+}

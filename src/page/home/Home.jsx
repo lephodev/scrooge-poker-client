@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 import { Form, Spinner } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import './home.css'
-import cookie from "js-cookie";
+import cookie from 'js-cookie'
 
 import { useEffect } from 'react'
 import userUtils from '../../utils/user'
@@ -46,9 +46,14 @@ const Home = () => {
     invitedUsers: [],
   }
   // States
-  const { userInAnyGame, setUserInAnyGame, user, setUser,mode,setMode } = useContext(
-    UserContext,
-  ) //userInAnyGame,
+  const {
+    userInAnyGame,
+    setUserInAnyGame,
+    user,
+    setUser,
+    mode,
+    setMode,
+  } = useContext(UserContext) //userInAnyGame,
   const [searchText, setSearchText] = useState('')
   const [loader, setLoader] = useState(true)
   const [userData, setUserData] = useState({})
@@ -121,7 +126,8 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-          gameState?.gameName?.trim()?.toLowerCase() && el?.gameMode ===cookie.get('mode')
+            gameState?.gameName?.trim()?.toLowerCase() &&
+          el?.gameMode === cookie.get('mode'),
       )
 
     let valid = true
@@ -135,11 +141,18 @@ const Home = () => {
       err.gameName = 'Game name is required.'
       valid = false
     }
-    console.log("mode and user data",userData,cookie.get('mode'))
-    if ((!userData?.wallet &&cookie.get('mode')==='token')|| (gameState?.minchips > userData?.wallet && cookie.get('mode')==='token')) {
+    console.log('mode and user data', userData, cookie.get('mode'))
+    if (
+      (!userData?.wallet && cookie.get('mode') === 'token') ||
+      (gameState?.minchips > userData?.wallet && cookie.get('mode') === 'token')
+    ) {
       err.minchips = "You don't have enough balance in your wallet."
       valid = false
-    }else if ((!userData?.goldCoin && cookie.get('mode')==='goldCoin')|| (gameState?.minchips > userData?.goldCoin && cookie.get('mode')==='goldCoin')) {
+    } else if (
+      (!userData?.goldCoin && cookie.get('mode') === 'goldCoin') ||
+      (gameState?.minchips > userData?.goldCoin &&
+        cookie.get('mode') === 'goldCoin')
+    ) {
       err.minchips = "You don't have enough gold coins in your wallet."
       valid = false
     } else if (gameState.minchips <= mimimumBet) {
@@ -165,11 +178,17 @@ const Home = () => {
       valid = false
     }
 
-    if (parseFloat(gameState.sitInAmount) > userData?.wallet && cookie.get('mode')==='token') {
+    if (
+      parseFloat(gameState.sitInAmount) > userData?.wallet &&
+      cookie.get('mode') === 'token'
+    ) {
       err.sitInAmount = `You don't have enough balance in your wallet.`
       valid = false
     }
-    if (parseFloat(gameState.sitInAmount) > userData?.goldCoin && cookie.get('mode')==='goldCoin') {
+    if (
+      parseFloat(gameState.sitInAmount) > userData?.goldCoin &&
+      cookie.get('mode') === 'goldCoin'
+    ) {
       err.sitInAmount = `You don't have enough gold coins in your wallet.`
       valid = false
     }
@@ -214,7 +233,7 @@ const Home = () => {
       const resp = await pokerInstance().post('/createTable', {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
-        gameMode:cookie.get('mode')
+        gameMode: cookie.get('mode'),
       })
       setGameState({ ...gameInit })
       history.push({
@@ -298,7 +317,6 @@ const Home = () => {
     getTournamentDetails()
   }, [])
 
-
   const options = useMemo(
     () =>
       allUsers.map((el) => {
@@ -307,7 +325,7 @@ const Home = () => {
     [allUsers],
   )
 
-  console.log("cookie?",cookie?.get("mode"));
+  console.log('cookie?', cookie?.get('mode'))
 
   const filterRoom =
     pokerRooms &&
@@ -315,8 +333,8 @@ const Home = () => {
     pokerRooms?.filter(
       (el) =>
         el?.gameName &&
-        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) && el?.gameMode===mode
-
+        el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) &&
+        el?.gameMode === mode,
     )
 
   const filterTournaments =
@@ -334,7 +352,7 @@ const Home = () => {
     if (pokerCard?.current?.clientHeight) {
       setOpenCardHeight(pokerCard.current.clientHeight)
     }
-  }, [pokerCard,filterRoom])
+  }, [pokerCard, filterRoom])
 
   return (
     <div className="poker-home">
@@ -360,7 +378,13 @@ const Home = () => {
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
       />
-      <Header userData={userData} handleShow={handleShow} mode={mode} setMode={setMode} setUserData={setUserData} />
+      <Header
+        userData={userData}
+        handleShow={handleShow}
+        mode={mode}
+        setMode={setMode}
+        setUserData={setUserData}
+      />
       <div className="home-poker-card">
         <div className="container">
           <div className="poker-table-header">
@@ -412,7 +436,8 @@ const Home = () => {
                               (pl) =>
                                 pl?.toString() === userId ||
                                 pl?.toString() === user?.id,
-                            )&& el?.hostId?.toString !== user?.id?.toString() && (
+                            ) &&
+                            el?.hostId?.toString !== user?.id?.toString() && (
                               <GameTable
                                 data={el}
                                 gameType="Poker"
@@ -462,6 +487,7 @@ const Home = () => {
                               getTournamentDetails={getTournamentDetails}
                               setUserData={setUserData}
                               filterTournaments={filterTournaments}
+                              userId={user?.id || userId}
                             />
                           </React.Fragment>
                         ))}
@@ -701,7 +727,11 @@ const GameTable = ({
 }) => {
   const history = useHistory()
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', { userId, tableId,gameMode:cookie.get('mode') })
+    socket.emit('checkAlreadyInGame', {
+      userId,
+      tableId,
+      gameMode: cookie.get('mode'),
+    })
     socket.on('userAlreadyInGame', (value) => {
       const { message, join } = value
       if (join) {
@@ -912,7 +942,14 @@ const GameTable = ({
                     : data?.players?.length) || 0}
                 </span>
               </h4>
-              <h4>SB/BB : <span>{data?.smallBlind}{"/"}{data?.bigBlind}</span></h4>
+              <h4>
+                SB/BB :{' '}
+                <span>
+                  {data?.smallBlind}
+                  {'/'}
+                  {data?.bigBlind}
+                </span>
+              </h4>
               {gameType === 'Tournament' ? (
                 <h4>
                   Fee : <span>{data?.tournamentFee}</span>
@@ -967,10 +1004,17 @@ const GameTournament = ({
   getTournamentDetails,
   height,
   setUserData,
-  tableId,
+  userId,
 }) => {
   const history = useHistory()
-
+  let tableId
+  let buttonClick = false
+  data&&data?.rooms?.length >0 &&data?.rooms?.filter((el) => {
+    if (el.players.find((p) => p?.userid === userId)) {
+      tableId = el?._id
+    }
+    return tableId
+  })
   useEffect(() => {
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data
@@ -1009,6 +1053,7 @@ const GameTournament = ({
   }
 
   const enterRoom = async (tournamentId) => {
+    buttonClick = true
     const res = await tournamentInstance().post('/enterroom', {
       tournamentId: tournamentId,
     })
@@ -1019,6 +1064,7 @@ const GameTournament = ({
         search: '?gamecollection=poker&tableid=' + roomid,
       })
     } else {
+      buttonClick = false
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
     }
   }
@@ -1033,7 +1079,22 @@ const GameTournament = ({
     return getData
   }
   // var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
-
+  const cancelTournament = async () => {
+    socket.emit('doleavetable', {
+      tableId,
+      userId,
+      gameType: gameType,
+      isWatcher: false,
+      action: 'Leave',
+    })
+  }
+  useEffect(() => {
+    socket.on('sitInOut', (data) => {
+      if (data?.updatedRoom?.gameType === 'poker-tournament') {
+        getTournamentDetails()
+      }
+    })
+  }, [])
   return (
     <>
       <div className="pokerTournament-tableCard">
@@ -1078,7 +1139,12 @@ const GameTournament = ({
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
-              {data?.prizePool}
+              {data?.tournamentFee &&
+                data?.havePlayers &&
+                (
+                  parseFloat(data?.tournamentFee) *
+                  parseFloat(data?.havePlayers)
+                ).toFixed(2)}
             </div>
           </div>
         </div>
@@ -1088,9 +1154,22 @@ const GameTournament = ({
               Game Finished
             </Button>
           ) : ifUserJoind() ? (
-            <Button type="text" onClick={() => enterRoom(data?._id)}>
-              Enter Game
-            </Button>
+            <div className='buttonDetail-twobtns'>
+              <Button
+                type="text"
+                disabled={buttonClick}
+                onClick={() => enterRoom(data?._id)}
+              >
+                Enter Game
+              </Button>
+              <Button
+                type="button"
+                disabled={buttonClick}
+                onClick={() => cancelTournament()}
+              >
+                Leave
+              </Button>
+            </div>
           ) : (
             <Button
               type="text"
