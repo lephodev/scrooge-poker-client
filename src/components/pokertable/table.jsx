@@ -370,6 +370,7 @@ const PokerTable = (props) => {
       console.log('actionErroractionError', data)
     })
     socket.on('sitInOut', (data) => {
+      
       roomData = data.updatedRoom
       setSidePots(roomData.sidePots)
       if (roomData.runninground === 0) {
@@ -385,6 +386,7 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown)
       }
+
     })
     socket.on('privateTable', () => {
       setLoader(false)
