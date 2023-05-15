@@ -598,7 +598,7 @@ const PokerTable = (props) => {
       updatePlayer(roomData.showdown)
       setCurrentPlayer()
       let delay = Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
-      showWinner(roomData.winnerPlayer, tablePlayers, delay)
+      showWinner(roomData.winnerPlayer, tablePlayers, 1500)
     })
 
     socket.on('gameStarted', () => {
