@@ -7817,6 +7817,14 @@ img.coinWinning-animation {
     font-size: 11px;
   }
 
+  .playerHand-status{
+    transform: translate(-76%, 107%) scale(80%);
+  }
+
+  .playerHand-status p{
+    font-size: 14px;
+  }
+
   /************** winn player pot animation  *************/
   /************** winn player pot animation  *************/
 
