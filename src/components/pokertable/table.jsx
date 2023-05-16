@@ -597,8 +597,14 @@ const PokerTable = (props) => {
       setSidePots(roomData.sidePots)
       updatePlayer(roomData.showdown)
       setCurrentPlayer()
-      let delay = Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
-      showWinner(roomData.winnerPlayer, tablePlayers, 1500)
+      const playrsWin = [];
+      roomData?.winnerPlayer?.forEach(el=>{
+        if(playrsWin.indexOf(el.name) < 0){
+          playrsWin.push(el.name);
+        }
+      })
+      // Math.floor(reStartSeconds / roomData?.winnerPlayer?.length)
+      showWinner(roomData.winnerPlayer, tablePlayers, playrsWin.length > 1 ? 2000 : 3000);
     })
 
     socket.on('gameStarted', () => {
