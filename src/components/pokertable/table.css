@@ -10737,3 +10737,14 @@ img.coinWinning-animation {
 .buttonDetail-twobtns button{
   padding: 2px;
 }
+h4.tornamentStart-timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999 !important;
+    font-size: 18px;
+    background: #3c3d38;
+    padding: 8px 20px;
+    border-radius: 30px;
+}
