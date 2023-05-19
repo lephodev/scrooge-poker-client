@@ -10,21 +10,19 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
 
   const handleRaiseAmount = (e) => {
     const { value } = e.target;
-    console.log("value", value);
-
-
     if (value > wallet) {
       toast.error("You dont have enough balance", { id: "A" });
       return;
     }
-    if (value < roomData?.raiseAmount * 2) {
+    setRangeBetValue(value);
+  };
+
+  const onBlurChange = () => {
+    if (rangeBetValue < roomData?.raiseAmount * 2) {
       toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
       return;
     }
-
-    setRangeBetValue(value);
-
-  };
+  }
 
   const maxBetValue = numFormatter(currentPlayer?.wallet);
   const minBetValue = numFormatter(roomData?.raiseAmount * 2);
@@ -41,9 +39,6 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
               onChange={(e) => setRangeBetValue(e)}
-              onChangeComplete={(betAmt) => {
-                console.log({ betAmt: betAmt });
-              }}
             />
             <div className="inputRangeSlider">
               <span className="minValueSpan">{minBetValue}</span>
@@ -57,6 +52,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
               placeholder="ex:0"
               value={rangeBetValue > 0 && rangeBetValue}
               onChange={(e) => handleRaiseAmount(e)}
+              onBlur={onBlurChange}
             />
           </Form.Group>
         </div>

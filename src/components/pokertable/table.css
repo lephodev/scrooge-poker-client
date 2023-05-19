@@ -144,7 +144,21 @@ input:checked {
   gap: 4px;
   z-index: 9;
 }
-
+.playerHand-status {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #232325;
+  color: #f9ff00;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.playerHand-status p{
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 500;
+}
 .table-blindLevel h4 {
   font-size: 14px;
   display: flex;
@@ -4987,7 +5001,6 @@ img.coinWinning-animation {
     margin: 0px 2px;
   }
 
-  .total-pot-money {}
 
   .players.player1 {
     left: 49%;
@@ -5015,7 +5028,7 @@ img.coinWinning-animation {
   }
 
   .player5 {
-    top: -42%;
+    top: -41%;
   }
 
   .player6 {
@@ -5327,6 +5340,18 @@ img.coinWinning-animation {
   .showCardIn-fold .form-check-inline .form-check-input {
     width: 20px !important;
     height: 20px !important;
+  }
+
+  .player5 {
+    top: -40%;
+    left: 25%;
+    transform: translateX(-25%);
+  }
+
+  .player6 {
+    top: -40%;
+    left: 75%;
+    transform: translateX(-75%);
   }
 }
 
@@ -7792,6 +7817,14 @@ img.coinWinning-animation {
     font-size: 11px;
   }
 
+  .playerHand-status{
+    transform: translate(-74%, -70%) scale(80%);
+  }
+
+  .playerHand-status p{
+    font-size: 14px;
+  }
+
   /************** winn player pot animation  *************/
   /************** winn player pot animation  *************/
 
@@ -9814,6 +9847,8 @@ img.coinWinning-animation {
     animation: travelDown 0.4s;
   }
 
+
+
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
@@ -10693,4 +10728,12 @@ img.coinWinning-animation {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+.buttonDetail-twobtns{
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.buttonDetail-twobtns button{
+  padding: 2px;
 }

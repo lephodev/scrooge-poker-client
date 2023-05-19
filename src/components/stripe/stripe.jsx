@@ -27,6 +27,7 @@ import firebase from '../../config/firebase';
 import ApplePay from './ApplePay';
 import PayPal from './payPal';
 import './buyPopup.css';
+import Cookies from 'js-cookie';
 
 const CheckoutForm = (props) => {
   const [idToken, setIdToken] = useState('');
@@ -436,6 +437,7 @@ const StripeSuccess = (props) => {
       tableId: props.values.tableId,
       userId: props.values.uid,
       gameType: props.values.gameType,
+      gameMode:Cookies.get('mode')
     });
     props.closePopUp();
   };
