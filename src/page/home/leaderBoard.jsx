@@ -251,7 +251,6 @@ const LeaderBoard = () => {
 
   return (
     <div className="leaderBoardPage">
-
       <div className="user-header">
         <div className="container">
           <div className="user-header-grid">
@@ -333,7 +332,7 @@ const LeaderBoard = () => {
                   <h4>
                     Tournament table name : <span>{tournamentData?.name}</span>
                   </h4>
-                  <p>Buy In : <span>{tournamentData?.buyIn}</span></p>
+                  <p>Starting Stack : <span>{tournamentData?.buyIn}</span></p>
                   <p>
                     Total Players :{' '}
                     <span>
@@ -349,22 +348,23 @@ const LeaderBoard = () => {
                       {tournamentData?.levels?.bigBlind?.amount}
                     </span>
                   </p>
-                  <p>
+                  {tournamentData?.tournamentType !== "sit&go"?<p>
                     Date : <span>{getTime(tournamentData?.tournamentDate)}</span>
-                  </p>
+                  </p>:""}
+                  
                 </div>
+                
                 <div className="tournamentTime">
                   {tournamentData?.isFinished ? (
                     <h2 className='tournamentFinished'>Tournament Finished.</h2>
                   ) : tournamentData?.isStart ? (
                     <h2 className='tournamentRunning'>Tournament Is Running ...</h2>
                   ) : (
-                    <>
-                      <h2>Tournament Start Time </h2>
-                      <div id="clockdiv">
-                        <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
-                      </div>
-                    </>
+                    tournamentData?.tournamentType !== "sit&go"?<><h2>Tournament Start Time </h2>
+                    <div id="clockdiv">
+                      <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
+                    </div>
+                  </>:null   
                   )}
                   {tournamentData?.isFinished ? "" : (
                     <div className="btn-grid">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   // HashRouter,
   BrowserRouter as Router,
@@ -15,6 +15,8 @@ import UserContext from './context/UserContext';
 import LeaderBoard from './page/home/leaderBoard';
 import Error404 from './page/Error404/Error404';
 import userUtils from './utils/user';
+import { socket } from './config/socketConnection';
+import { landingClient } from './config/keys';
 
 const App = () => {
   const [userInAnyGame, setUserInAnyGame] = useState({})
@@ -32,6 +34,30 @@ const App = () => {
     }
     getUser()
   }, []);
+
+  useEffect(() => {
+    socket.on("tournamentStart", (data) => {
+      console.log("tournamentStart socket listen");
+      data.rooms.forEach(room => {
+        if(room.players.find(player => player.id === user.id)){
+          toast((t) => (
+            <span>
+              "Tournament will start in 10 seconds, please join the table"
+              <button onClick={() =>{ toast.dismiss(t.id)
+              window.open(`${landingClient}/table?gamecollection=poker&tableid=${room._id}`, "__self")
+              }}>
+                Join
+              </button>
+            </span>
+          ));
+        }
+      })
+
+    })
+    return () => {
+      socket.off("tournamentStart")
+    }
+  }, [user])
   
   return (
     <div className='App'>

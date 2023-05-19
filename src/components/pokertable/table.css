@@ -144,7 +144,21 @@ input:checked {
   gap: 4px;
   z-index: 9;
 }
-
+.playerHand-status {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #232325;
+  color: #f9ff00;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.playerHand-status p{
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 500;
+}
 .table-blindLevel h4 {
   font-size: 14px;
   display: flex;
@@ -171,22 +185,6 @@ input:checked {
   flex-direction: column;
   gap: 4px;
   z-index: 9;
-}
-
-.playerHand-status {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #232325;
-  color: #f9ff00;
-  padding: 6px 10px;
-  border-radius: 10px;
-}
-.playerHand-status p{
-  margin: 0px;
-  font-size: 16px;
-  font-weight: 500;
 }
 
 .table-blindTimer h4 {
@@ -7819,6 +7817,14 @@ img.coinWinning-animation {
     font-size: 11px;
   }
 
+  .playerHand-status{
+    transform: translate(-74%, -70%) scale(80%);
+  }
+
+  .playerHand-status p{
+    font-size: 14px;
+  }
+
   /************** winn player pot animation  *************/
   /************** winn player pot animation  *************/
 
@@ -9841,6 +9847,8 @@ img.coinWinning-animation {
     animation: travelDown 0.4s;
   }
 
+
+
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
@@ -10720,4 +10728,23 @@ img.coinWinning-animation {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+.buttonDetail-twobtns{
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.buttonDetail-twobtns button{
+  padding: 2px;
+}
+h4.tornamentStart-timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999 !important;
+    font-size: 18px;
+    background: #3c3d38;
+    padding: 8px 20px;
+    border-radius: 30px;
 }
