@@ -1808,7 +1808,10 @@ const PokerTable = (props) => {
                 </h4>
               </div>
             )}
-          <h4 className='tornamentStart-timer'>{tourTimer ? `Tournament starts in ${tourTimer}` : null}</h4>
+            
+          {tourTimer ? <h4 className='tornamentStart-timer'>Tournament starts in {tourTimer} </h4> : <h4>null</h4>}
+
+
           <div className={`poker-table ${winner ? 'winner-show' : ''}`}>
             <div className="containerFor-chatHistory">
               <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
