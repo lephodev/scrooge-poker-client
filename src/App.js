@@ -50,7 +50,6 @@ const App = () => {
               </button>
             </span>
           ));
-          toast.success("Tournament will start in 10 seconds, please join the table", { id: "tournamentStart"});
         }
       })
 
