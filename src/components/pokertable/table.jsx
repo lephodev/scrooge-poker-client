@@ -160,7 +160,8 @@ const PokerTable = (props) => {
   const [unReadMessages, setUnReadMessages] = useState(0)
   const [chatMessages, setChatMessages] = useState([])
   const [openChatHistory, setOpenChatHistory] = useState(false)
-  const [disable, setDisable] = useState(false)
+  const [disable, setDisable] = useState(false);
+  const [tourTimer, setTourTimer] = useState();
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle)
@@ -266,6 +267,11 @@ const PokerTable = (props) => {
         window.location.href = window.location.origin + '/'
       }, 1000)
     })
+
+    socket.on('tournamentStarted', (data)=>{
+      console.log("timer===>", data?.time);
+      setTourTimer(data.time);
+    });
 
     socket.on('notFound', (data) => {
       toast.error('Table not Found', { id: 'notFound' })
@@ -1823,6 +1829,7 @@ const PokerTable = (props) => {
                 leaveTable={leaveTable}
               />
             </div>
+            {tourTimer ? `Tournament starts in ${tourTimer}` :null}
             {(players && players.find((ele) => ele.id === userId)) ||
               (roomData &&
                 roomData.players.find((ele) => ele.userid === userId)) ||
