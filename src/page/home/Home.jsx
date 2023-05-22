@@ -1106,10 +1106,11 @@ const GameTournament = ({
         <div className="tableCard-imgDetail">
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
-            <h6>
+            {data?.tournamentType !== 'sit&go' ? (<h6>
               {dateFormat(data.startDate)}, Start at{' '}
               {timeFormat(data.tournamentDate)}
-            </h6>
+            </h6>) : null}
+
             <h2 title={data?.name}>{data?.name}</h2>
             {data?.isStart ? (
               <p className="tournamentRunning">Tournament Running ...</p>
