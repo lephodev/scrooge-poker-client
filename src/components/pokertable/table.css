@@ -144,6 +144,7 @@ input:checked {
   gap: 4px;
   z-index: 9;
 }
+
 .playerHand-status {
   position: absolute;
   top: 5%;
@@ -154,11 +155,13 @@ input:checked {
   padding: 6px 10px;
   border-radius: 10px;
 }
-.playerHand-status p{
+
+.playerHand-status p {
   margin: 0px;
   font-size: 16px;
   font-weight: 500;
 }
+
 .table-blindLevel h4 {
   font-size: 14px;
   display: flex;
@@ -4777,6 +4780,148 @@ img.coinWinning-animation {
   top: 30%;
 }
 
+.notShow {
+  display: none;
+}
+
+.backToHome {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  cursor: pointer;
+  z-index: 9999;
+  padding: 5px;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+}
+
+.backToHome button {
+  background: #f9ff00;
+  width: 44px;
+  height: 44px;
+  color: black;
+  border: 1px solid #f9ff00;
+  border-radius: 50%;
+  box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
+}
+
+.stats-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.stats-details h5 {
+  padding-top: 20px;
+  border-top: 1px solid rgb(72, 72, 72);
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+
+.stats-details .winningplayerDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.stats-details .roomDetails-titles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.cummunityCards img {
+  width: 30px;
+}
+
+.cummunityCards {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.stats-details span {
+  color: #f9ff00;
+  font-size: 18px;
+  max-width: 160px;
+  display: flex;
+  flex-wrap: wrap;
+  word-break: keep-all;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.roomDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tablePlayerNames-span {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.buttonDetail-twobtns {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.buttonDetail-twobtns button {
+  padding: 2px;
+}
+
+h4.tornamentStart-timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999 !important;
+  font-size: 18px;
+  background: #3c3d38;
+  padding: 8px 20px;
+  border-radius: 30px;
+}
+
+.chips-images img {
+  height: 30px;
+}
+
+.chips-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -2px;
+  left: -6px;
+}
+
+.player-pic .fa-commenting {
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  font-family: "FontAwesome";
+}
+
+.players.player1 .player-pic .fa-commenting {
+  position: absolute;
+  right: 5%;
+  top: 56%;
+}
+
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -5377,6 +5522,11 @@ img.coinWinning-animation {
     height: 38px !important;
     left: -19px !important;
     bottom: -26px !important;
+  }
+
+  h4.tornamentStart-timer {
+    font-size: 12px;
+    padding: 6px 14px;
   }
 
   .table-blindLevel {
@@ -7817,11 +7967,11 @@ img.coinWinning-animation {
     font-size: 11px;
   }
 
-  .playerHand-status{
+  .playerHand-status {
     transform: translate(-74%, -70%) scale(80%);
   }
 
-  .playerHand-status p{
+  .playerHand-status p {
     font-size: 14px;
   }
 
@@ -10486,32 +10636,6 @@ img.coinWinning-animation {
   }
 }
 
-.chips-images img {
-  height: 30px;
-}
-
-.chips-images {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: -2px;
-  left: -6px;
-}
-
-.player-pic .fa-commenting {
-  position: absolute;
-  right: 0%;
-  top: 50%;
-  font-family: "FontAwesome";
-}
-
-.players.player1 .player-pic .fa-commenting {
-  position: absolute;
-  right: 5%;
-  top: 56%;
-}
-
 /* for ios devices css properties  */
 
 @supports (-webkit-touch-callout: none) {
@@ -10635,116 +10759,3 @@ img.coinWinning-animation {
 }
 
 /* back to home if game started already  */
-
-.notShow {
-  display: none;
-}
-
-.backToHome {
-  position: fixed;
-  bottom: 2%;
-  right: 1%;
-  cursor: pointer;
-  z-index: 9999;
-  padding: 5px;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-}
-
-.backToHome button {
-  background: #f9ff00;
-  width: 44px;
-  height: 44px;
-  color: black;
-  border: 1px solid #f9ff00;
-  border-radius: 50%;
-  box-shadow: 0px 0px 15px 2px rgb(48, 48, 48);
-}
-
-.stats-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-  max-height: 80vh;
-  overflow-y: auto;
-  height: 100%;
-}
-
-.stats-details h5 {
-  padding-top: 20px;
-  border-top: 1px solid rgb(72, 72, 72);
-  font-size: 24px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  width: 100%;
-  text-align: center;
-}
-
-.stats-details .winningplayerDetails {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding-bottom: 10px;
-}
-
-.stats-details .roomDetails-titles {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  white-space: nowrap;
-}
-
-.cummunityCards img {
-  width: 30px;
-}
-
-.cummunityCards {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-}
-
-.stats-details span {
-  color: #f9ff00;
-  font-size: 18px;
-  max-width: 160px;
-  display: flex;
-  flex-wrap: wrap;
-  word-break: keep-all;
-  white-space: nowrap;
-  margin-left: 8px;
-}
-
-.roomDetails {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.tablePlayerNames-span {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.buttonDetail-twobtns{
-  display: flex;
-  gap: 6px;
-  width: 100%;
-}
-.buttonDetail-twobtns button{
-  padding: 2px;
-}
-h4.tornamentStart-timer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999 !important;
-    font-size: 18px;
-    background: #3c3d38;
-    padding: 8px 20px;
-    border-radius: 30px;
-}
