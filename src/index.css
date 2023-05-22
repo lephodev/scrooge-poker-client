@@ -2,7 +2,7 @@
 @import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap";
 
 body {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
   margin: 0;
   padding: 0;
   color: #ddd !important;
@@ -27,4 +27,35 @@ body {
 ::selection {
   color: rgb(0, 0, 0) !important;
   background: #f9ff00 !important;
+}
+
+.cus-toastify {
+  background: #1d1d1d !important;
+  border: 1px solid #232323 !important;
+}
+
+.toaster-join {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.toaster-join span {
+  color: #bcbcbc;
+  font-size: 14px;
+  width: calc(100% - 100px);
+  display: block;
+  line-height: 1.5;
+}
+
+.toaster-join button {
+  background-color: #f9ff00;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 30px;
+  height: 35px;
+  border: none;
+  width: 80px;
 }
