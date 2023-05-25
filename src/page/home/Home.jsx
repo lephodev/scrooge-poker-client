@@ -70,8 +70,8 @@ const Home = () => {
   const checkUserInGame = async () => {
     let userData = await axios({
       method: 'get',
-      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
-      headers: { authorization: `Bearer ${getCookie('token')}` },
+      url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
+      headers: { authorization: `Bearer ${ getCookie('token') }` },
     })
     if (userData?.data) {
       setUserInAnyGame(userData.data)
@@ -126,7 +126,7 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-            gameState?.gameName?.trim()?.toLowerCase() &&
+          gameState?.gameName?.trim()?.toLowerCase() &&
           el?.gameMode === cookie.get('mode'),
       )
 
@@ -251,7 +251,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const response = await pokerInstance().get('/getAllUsers')
       setAllUsers(response.data.allUsers || [])
     })()
@@ -282,7 +282,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData()
     if (!data.success) {
-      return (window.location.href = `${landingClient}`)
+      return (window.location.href = `${ landingClient }`)
     }
     setLoader(false)
     setUserData({ ...data?.data?.user })
@@ -294,11 +294,11 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const response = await pokerInstance().get('/rooms')
         setPokerRooms(response.data.rooms || [])
-      } catch (error) {}
+      } catch (error) { }
     })()
   }, [])
 
@@ -310,7 +310,7 @@ const Home = () => {
         const { tournaments } = response.data
         setTournaments(tournaments || [])
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   useEffect(() => {
@@ -449,7 +449,7 @@ const Home = () => {
                           {!el.public &&
                             (el?.hostId?.toString === user?.id?.toString() ||
                               el?.hostId?.toString() ===
-                                userId?.toString()) && (
+                              userId?.toString()) && (
                               <GameTable
                                 data={el}
                                 gameType="Poker"
@@ -812,7 +812,7 @@ const GameTable = ({
     let date = d.getDate()
     let month = d.getMonth() + 1
     let year = d.getFullYear()
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? 'pm' : 'am'}`
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? 'pm' : 'am' }`
   }
 
   const [cardFlip, setCardFlip] = useState(false)
@@ -882,7 +882,7 @@ const GameTable = ({
         />
         <div
           className={`tournamentCard-inner
-         ${cardFlip && gameType === 'Poker' ? 'rotate' : ''}
+         ${ cardFlip && gameType === 'Poker' ? 'rotate' : '' }
          `}
         >
           {!cardFlip && gameType === 'Poker' ? (
@@ -938,7 +938,7 @@ const GameTable = ({
                 <span>
                   {(gameType === 'Tournament'
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                        ?.length || 0
+                      ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
@@ -1009,7 +1009,7 @@ const GameTournament = ({
   const history = useHistory()
   let tableId
   let buttonClick = false
-  data&&data?.rooms?.length >0 &&data?.rooms?.filter((el) => {
+  data && data?.rooms?.length > 0 && data?.rooms?.filter((el) => {
     if (el.players.find((p) => p?.userid === userId)) {
       tableId = el?._id
     }
@@ -1069,12 +1069,13 @@ const GameTournament = ({
     }
   }
   const handleFlip = (tournamentId) => {
-    history.push(`/leaderboard?tournamentId=${tournamentId}`)
+    history.push(`/leaderboard?tournamentId=${ tournamentId }`)
   }
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
       el?.players?.find((el) => el?.userid === userId),
     )
+    console.log("getData ===>", getData);
 
     return getData
   }
@@ -1090,8 +1091,12 @@ const GameTournament = ({
   }
   useEffect(() => {
     socket.on('sitInOut', (data) => {
+      console.log("sitout runs from home ==>", data);
       if (data?.updatedRoom?.gameType === 'poker-tournament') {
-        getTournamentDetails()
+        setTimeout(async () => {
+          await getTournamentDetails();
+        }, 500);
+
       }
     })
   }, [])
@@ -1101,10 +1106,11 @@ const GameTournament = ({
         <div className="tableCard-imgDetail">
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
-            <h6>
+            {data?.tournamentType !== 'sit&go' ? (<h6>
               {dateFormat(data.startDate)}, Start at{' '}
               {timeFormat(data.tournamentDate)}
-            </h6>
+            </h6>) : null}
+
             <h2 title={data?.name}>{data?.name}</h2>
             {data?.isStart ? (
               <p className="tournamentRunning">Tournament Running ...</p>
