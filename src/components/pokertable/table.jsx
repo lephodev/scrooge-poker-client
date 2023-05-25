@@ -970,6 +970,20 @@ const PokerTable = (props) => {
     socket.on("showPairCard", (data) => {
       setShowPairHand(data?.hands || []);
     });
+
+    socket.on("spendingLimitExceeds", data => {
+      toast.error(data.message, { toast_id: "spendingLimitExceeds" });
+      if (data.from !== "refillWallet") {
+        setTimeout(() => {
+          history.push("/");
+        }, 1500)
+      } else {
+        setRefillSitInAmount(false);
+        setDisable(false);
+      }
+    });
+
+
   }, []);
   const handleTentativeActionAuto = (player) => {
     let event;
