@@ -29,10 +29,10 @@ body {
   background: #f9ff00 !important;
 }
 
-.cus-toastify {
+/* .cus-toastify {
   background: #1d1d1d !important;
   border: 1px solid #232323 !important;
-}
+} */
 
 .toaster-join {
   display: flex;
@@ -42,7 +42,7 @@ body {
 }
 
 .toaster-join span {
-  color: #bcbcbc;
+  color: #000000;
   font-size: 14px;
   width: calc(100% - 100px);
   display: block;
@@ -50,8 +50,8 @@ body {
 }
 
 .toaster-join button {
-  background-color: #f9ff00;
-  color: #000;
+  background-color: #159913;
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
   border-radius: 30px;
