@@ -2018,7 +2018,7 @@ const PokerTable = (props) => {
                   Card Pair :&nbsp;
                   {showPairHand
                     .find((el) => el?.id === userId)
-                    ?.hand?.descr.replace(",", " and")}
+                    ?.hand?.descr.replace(",", " of")}
                 </p>
               </div>
             ) : (
