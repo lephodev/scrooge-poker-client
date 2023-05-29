@@ -24,7 +24,7 @@ const LeaveConfirmPopup = ({
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <div className="block">
-          <p>Are sure you want to leave the Table ?</p>
+          <p>Are you sure you want to leave the table?</p>
           <div className="sub-btn text-center">
             <Button
               onClick={() => {
