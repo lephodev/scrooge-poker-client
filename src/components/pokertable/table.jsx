@@ -1245,10 +1245,14 @@ const PokerTable = (props) => {
 
   const [auto, setAuto] = useState(false);
   const startGame = (data) => {
-    socket.emit("startPreflopRound", {
-      tableId,
-      userId,
-    });
+
+    setTimeout(() => {
+      socket.emit("startPreflopRound", {
+        tableId,
+        userId,
+      });
+    }, 300);
+
     if (data) {
       setAuto(true);
     }
