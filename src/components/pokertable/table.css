@@ -5676,6 +5676,11 @@ h4.tornamentStart-timer {
     height: 100vh;
   }
 
+  .playerHand-status p {
+    margin: 0px;
+    font-size: 12px;
+  }
+
   /************** winn player pot animation  *************/
   /************** winn player pot animation  *************/
 
@@ -7961,6 +7966,10 @@ h4.tornamentStart-timer {
     margin-top: 10px !important;
   }
 
+  .players.player1 .player-chip {
+    top: -10%;
+  }
+
   .total-pot-money span {
     width: 72px;
     height: 28px;
@@ -7968,11 +7977,11 @@ h4.tornamentStart-timer {
   }
 
   .playerHand-status {
-    transform: translate(-74%, -70%) scale(80%);
+    /* transform: translate(-74%, -70%) scale(80%); */
   }
 
   .playerHand-status p {
-    font-size: 14px;
+    font-size: 12px
   }
 
   /************** winn player pot animation  *************/

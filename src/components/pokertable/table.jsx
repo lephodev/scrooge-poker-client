@@ -339,7 +339,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("OnlyOne", (data) => {
-      toast.error("Only One player, please wait for othe to join", { id: "A" });
+      toast.error("Only One player, please wait for others to join", { id: "A" });
       setStart(false);
       setTablePot(data.tablePot);
       setSidePots(data.sidePots);
@@ -950,7 +950,7 @@ const PokerTable = (props) => {
 
     socket.on("waitForReArrange", (data) => {
       if (data.userIds.find((el) => el === userId))
-        toast.success("Please wait for Re-arrange", { id: "rearrange" });
+        toast.success("Please wait to Re-arrange", { id: "rearrange" });
     });
 
     socket.on("updateRoom", (data) => {
@@ -1230,7 +1230,7 @@ const PokerTable = (props) => {
               setMatchCards(newMatch);
               setHandMatch(hand);
             } else if (!item.handName || item.name) {
-              setWinnerText(`All Players Folded, ${ item.name } Win`);
+              setWinnerText(`All players folded, ${ item.name } Wins`);
             }
           })
           .then(() => delay(timeDelay))
@@ -1245,10 +1245,14 @@ const PokerTable = (props) => {
 
   const [auto, setAuto] = useState(false);
   const startGame = (data) => {
-    socket.emit("startPreflopRound", {
-      tableId,
-      userId,
-    });
+
+    setTimeout(() => {
+      socket.emit("startPreflopRound", {
+        tableId,
+        userId,
+      });
+    }, 300);
+
     if (data) {
       setAuto(true);
     }
@@ -1903,7 +1907,7 @@ const PokerTable = (props) => {
                                   placement="bottom"
                                   overlay={
                                     <Tooltip id="tooltip-disabled">
-                                      Please wait for the other friends to join
+                                      Please wait for other players to join.
                                     </Tooltip>
                                   }
                                 >
@@ -2018,7 +2022,7 @@ const PokerTable = (props) => {
                   Card Pair :&nbsp;
                   {showPairHand
                     .find((el) => el?.id === userId)
-                    ?.hand?.descr.replace(",", " and")}
+                    ?.hand?.descr.replace(",", " of")}
                 </p>
               </div>
             ) : (
