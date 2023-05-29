@@ -7373,14 +7373,15 @@ h4.tornamentStart-timer {
   .player1 .player-pic .progress {
     width: 118px !important;
     height: 34px !important;
-    left: -9px !important;
+    left: -19px !important;
     bottom: -16px !important;
   }
 
   .player-pic .progress {
     width: 108px !important;
     height: 33px !important;
-    left: -7px !important;
+    /* left: -7px !important; */
+    left: -14px !important;
     bottom: -16px !important;
   }
 
@@ -7443,16 +7444,19 @@ h4.tornamentStart-timer {
     background: transparent;
     border: none;
   }
-
+  .players .player-pic {
+    height: 80px;
+    width: 80px;
+  }
   .players.player1 .player-pic {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
   }
 
   .player1 .player-pic img,
   .player1 .player-pic video {
-    width: 90px !important;
-    height: 90px !important;
+    height: 70px !important;
+    width: 70px !important;
     /* z-index: -1; */
   }
 
@@ -7460,16 +7464,10 @@ h4.tornamentStart-timer {
     width: 120px;
     height: 35px;
   }
-
-  .player1 .players .player-pic {
-    height: 35px;
-    width: 118px;
-  }
-
   .players .player-pic img,
   .players .player-pic video {
-    width: 85px;
-    height: 85px;
+    width: 70px;
+    height: 70px;
   }
 
   .player-card {
@@ -9498,8 +9496,8 @@ h4.tornamentStart-timer {
   }
 
   .players .player-pic {
-    height: 95px;
-    width: 95px;
+    height: 80px;
+    width: 80px;
   }
 
   .player2 .bubble-msg,
@@ -9679,14 +9677,16 @@ h4.tornamentStart-timer {
   .player1 .player-pic .progress {
     width: 118px !important;
     height: 35px !important;
-    left: -11px !important;
+    /* left: -11px !important; */
+    left: -18px !important;
     bottom: -23px !important;
   }
 
   .player-pic .progress {
     width: 108px !important;
     height: 33px !important;
-    left: -7px !important;
+    /* left: -7px !important; */
+    left: -14px !important;
     bottom: -22px !important;
   }
 
@@ -9858,15 +9858,15 @@ h4.tornamentStart-timer {
   }
 
   .players.player1 .player-pic {
-    height: 95px;
-    width: 95px;
+    height: 80px;
+    width: 80px;
   }
 
   .players .player-pic img,
   .players .player-pic video,
   .players .battery {
-    width: 85px !important;
-    height: 85px !important;
+    width: 70px!important;
+    height: 70px!important;
   }
 
   .logo--bottom-image {
