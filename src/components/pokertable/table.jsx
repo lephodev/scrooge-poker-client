@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Button, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "animate.css";
@@ -91,6 +92,8 @@ const numFormatter = (num) => {
 };
 
 const PokerTable = (props) => {
+  const handle = useFullScreenHandle();
+
   const [currentPlayer, setCurrentPlayer] = useState();
   const [action, setAction] = useState(false);
   const [actionText, setActionText] = useState("");
@@ -224,13 +227,13 @@ const PokerTable = (props) => {
         !urlParams.get("token") &&
         !getCookie("token")
       ) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
 
       user = await userUtils.getAuthUserData();
 
       if (!user.success) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       userId = user?.data.user?.id;
       let table = urlParams.get("tableid");
@@ -339,7 +342,9 @@ const PokerTable = (props) => {
     });
 
     socket.on("OnlyOne", (data) => {
-      toast.error("Only One player, please wait for others to join", { id: "A" });
+      toast.error("Only One player, please wait for others to join", {
+        id: "A",
+      });
       setStart(false);
       setTablePot(data.tablePot);
       setSidePots(data.sidePots);
@@ -469,7 +474,7 @@ const PokerTable = (props) => {
         roomData.players.find(
           (ele) => (ele.id ? ele.id : ele.userid) === data.id
         );
-      toast.success(`${ pl.name } made ${ data.action }`, { id: "info" });
+      toast.success(`${pl.name} made ${data.action}`, { id: "info" });
     });
 
     socket.on("cancelJoinRequest", (data) => {
@@ -482,7 +487,7 @@ const PokerTable = (props) => {
         toast.success("Join request is approved", { id: "approved" });
         setNewUser(false);
       } else {
-        toast.success(`${ data.name } join the table`, { id: "joined" });
+        toast.success(`${data.name} join the table`, { id: "joined" });
       }
     });
 
@@ -506,7 +511,7 @@ const PokerTable = (props) => {
             (el) => el?.userid?.toString() === userId?.toString()
           )
         ) {
-          history.push(`/leaderboard?tournamentId=${ tournamentId }`);
+          history.push(`/leaderboard?tournamentId=${tournamentId}`);
         }
       }
     });
@@ -629,7 +634,7 @@ const PokerTable = (props) => {
         gameType: gameCollection,
       });
       setTimeout(() => {
-        window.location.href = `${ window.location.origin }`;
+        window.location.href = `${window.location.origin}`;
       }, 100);
     });
 
@@ -850,7 +855,7 @@ const PokerTable = (props) => {
         setisAdmin(true);
       } else {
         toast.success(
-          `Admin left the game, Now ${ data.name } is the Game Admin`,
+          `Admin left the game, Now ${data.name} is the Game Admin`,
           { id: "GameAdmin" }
         );
       }
@@ -910,13 +915,13 @@ const PokerTable = (props) => {
 
     socket.on("tournamentFinished", (data) => {
       const { tournamentId } = data;
-      window.location.href = `/leaderboard?tournamentId=${ tournamentId }`;
+      window.location.href = `/leaderboard?tournamentId=${tournamentId}`;
     });
 
     socket.on("roomchanged", (data) => {
       let user = data.userIds.find((el) => el.userId === userId);
       if (user) {
-        window.location.href = `/table?gamecollection=poker&tableid=${ user.newRoomId }`;
+        window.location.href = `/table?gamecollection=poker&tableid=${user.newRoomId}`;
       }
     });
 
@@ -971,19 +976,17 @@ const PokerTable = (props) => {
       setShowPairHand(data?.hands || []);
     });
 
-    socket.on("spendingLimitExceeds", data => {
+    socket.on("spendingLimitExceeds", (data) => {
       toast.error(data.message, { toast_id: "spendingLimitExceeds" });
       if (data.from !== "refillWallet") {
         setTimeout(() => {
           history.push("/");
-        }, 1500)
+        }, 1500);
       } else {
         setRefillSitInAmount(false);
         setDisable(false);
       }
     });
-
-
   }, []);
   const handleTentativeActionAuto = (player) => {
     let event;
@@ -1210,7 +1213,7 @@ const PokerTable = (props) => {
             setWinner(item);
             playAudio("winner");
             if (item.handName) {
-              setWinnerText(`${ item.name } wins with ${ item.handName }`);
+              setWinnerText(`${item.name} wins with ${item.handName}`);
               let newMatch = [];
               let hand = [];
               item.communityCards.forEach((card, j) => {
@@ -1230,7 +1233,7 @@ const PokerTable = (props) => {
               setMatchCards(newMatch);
               setHandMatch(hand);
             } else if (!item.handName || item.name) {
-              setWinnerText(`All players folded, ${ item.name } Wins`);
+              setWinnerText(`All players folded, ${item.name} Wins`);
             }
           })
           .then(() => delay(timeDelay))
@@ -1245,7 +1248,6 @@ const PokerTable = (props) => {
 
   const [auto, setAuto] = useState(false);
   const startGame = (data) => {
-
     setTimeout(() => {
       socket.emit("startPreflopRound", {
         tableId,
@@ -1473,7 +1475,7 @@ const PokerTable = (props) => {
 
   const playAudio = (type) => {
     if (type) {
-      const audioEl = document.getElementsByClassName(`audio-${ type }`)[0];
+      const audioEl = document.getElementsByClassName(`audio-${type}`)[0];
       if (audioEl) {
         audioEl.play();
       }
@@ -1732,7 +1734,7 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${ roomData?.raiseAmount * 2 }`, {
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount * 2}`, {
         id: "minimum-raise",
       });
     }
@@ -1755,7 +1757,7 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Bet amount must be minimum ${ roomData?.raiseAmount * 2 }`, {
+      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount * 2}`, {
         id: "bet-minimum",
       });
     }
@@ -1767,522 +1769,592 @@ const PokerTable = (props) => {
     });
   }, []);
 
+  const [mousePos, setMousePos] = useState({});
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePos({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener(
+        'mousemove',
+        handleMouseMove
+      );
+    };
+  }, []);
+
   return (
-    <div className="poker" id={players.length}>
-      <Helmet>
-        <html
-          className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
-            ? "game-started-join"
-            : ""
-            }`}
-        />
-      </Helmet>
-
-      <div
-        className={
-          !(players && players.find((ele) => ele.id === userId)) &&
-            roomData &&
-            roomData.players.find((ele) => ele.userid === userId)
-            ? "backToHome"
-            : "notShow"
-        }
-      >
-        <button onClick={() => setLeaveConfirm(true)}>
-          <i class="fa fa-sign-out" aria-hidden="true" />
-        </button>
-      </div>
-      <div className={`poker-bg ${ loader ? "loaderactive" : "" } `}>
-        {loader && (
-          <div className="poker-loader">
-            <img src={loaderImg} alt="loader-Las vegas" />{" "}
-          </div>
-        )}
-
-        <div className="container">
-          {/* {console.log("play pause game start  ==>", roomData?.gamestart)} */}
-          {isAdmin && roomData?.gamestart ? (
-            <PlayPauseBtn
-              pauseGame={pauseGame}
-              finishGame={finishGame}
-              resumeGame={resumeGame}
+    <>
+      <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
+        <svg
+          height="20px"
+          // style="enable-background:new 0 0 32 32;"
+          version="1.1"
+          viewBox="0 0 32 32"
+          width="20px"
+          fill="#fff"
+        >
+          <g id="Layer_1" />
+          <g id="fullscreen_x5F_alt">
+            <g>
+              <polygon
+                points="29.414,26.586 22.828,20 20,22.828 26.586,29.414 24,32 32,32 32,24   "
+              // style="fill:#4E4E50;"
+              />
+              <polygon
+                points="2.586,5.414 9.172,12 12,9.172 5.414,2.586 8,0 0,0 0,8   "
+              // style="fill:#4E4E50;"
+              />
+              <polygon
+                points="26.586,2.586 20,9.172 22.828,12 29.414,5.414 32,8 32,0 24,0   "
+              // style="fill:#4E4E50;"
+              />
+              <polygon
+                points="12,22.828 9.172,20 2.586,26.586 0,24 0,32 8,32 5.414,29.414   "
+              // style="fill:#4E4E50;"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+      <FullScreen handle={handle}>
+        <div className="poker" id={players.length}>
+          <Helmet>
+            <html
+              className={`game-page ${!(players && players.find((ele) => ele.id === userId)) &&
+                roomData &&
+                roomData.players.find((ele) => ele.userid === userId)
+                ? "game-started-join"
+                : ""
+                }`}
             />
-          ) : (
-            ""
-          )}
+          </Helmet>
 
-          {roomData?.smallBlind ? (
-            <div className="table-blindLevel">
-              <h4>
-                SB/BB :{" "}
-                <span>{roomData?.smallBlind + "/" + roomData?.bigBlind}</span>
-              </h4>
-            </div>
-          ) : (
-            ""
-          )}
-
-          {roomData?.gameType === "poker-tournament" &&
-            roomData?.isGameRunning && (
-              <div className="table-blindTimer">
-                <h4>
-                  SB/BB will change in :{" "}
-                  <span>{blindTimer ? blindTimer : ""}</span>
-                </h4>
+          <div
+            className={
+              !(players && players.find((ele) => ele.id === userId)) &&
+                roomData &&
+                roomData.players.find((ele) => ele.userid === userId)
+                ? "backToHome"
+                : "notShow"
+            }
+          >
+            <button onClick={() => setLeaveConfirm(true)}>
+              <i class="fa fa-sign-out" aria-hidden="true" />
+            </button>
+          </div>
+          <div className={`poker-bg ${loader ? "loaderactive" : ""} `}>
+            {loader && (
+              <div className="poker-loader">
+                <img src={loaderImg} alt="loader-Las vegas" />{" "}
               </div>
             )}
 
-          {tourTimer ? (
-            <h4 className="tornamentStart-timer">
-              Tournament starts in {tourTimer}{" "}
-            </h4>
-          ) : null}
+            <div className="container">
+              {/* {console.log("play pause game start  ==>", roomData?.gamestart)} */}
+              {isAdmin && roomData?.gamestart ? (
+                <PlayPauseBtn
+                  pauseGame={pauseGame}
+                  finishGame={finishGame}
+                  resumeGame={resumeGame}
+                />
+              ) : (
+                ""
+              )}
 
-          <div className={`poker-table ${ winner ? "winner-show" : "" }`}>
-            <div className="containerFor-chatHistory">
-              <div className="chatHistory-icon" onClick={handleOpenChatHistory}>
-                {unReadMessages > 0 && (
-                  <p className="ChatHistory-count">{unReadMessages}</p>
+              {roomData?.smallBlind ? (
+                <div className="table-blindLevel">
+                  <h4>
+                    SB/BB :{" "}
+                    <span>
+                      {roomData?.smallBlind + "/" + roomData?.bigBlind}
+                    </span>
+                  </h4>
+                </div>
+              ) : (
+                ""
+              )}
+
+              {roomData?.gameType === "poker-tournament" &&
+                roomData?.isGameRunning && (
+                  <div className="table-blindTimer">
+                    <h4>
+                      SB/BB will change in :{" "}
+                      <span>{blindTimer ? blindTimer : ""}</span>
+                    </h4>
+                  </div>
                 )}
-                <img src={UsersComments} alt="" />
-              </div>
-              <ChatHistory
-                setOpenChatHistory={setOpenChatHistory}
-                openChatHistory={openChatHistory}
-                handleOpenChatHistory={handleOpenChatHistory}
-                userId={userId}
-                roomData={roomData}
-                chatMessages={chatMessages}
-                scrollToBottom={scrollToBottom}
-                scrollDownRef={scrollDownRef}
-                leaveTable={leaveTable}
-              />
-            </div>
 
-            {(players && players.find((ele) => ele.id === userId)) ||
-              (roomData &&
-                roomData.players.find((ele) => ele.userid === userId)) ||
-              isWatcher ? (
-              <div
-                className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${ players?.length }`}
-              >
-                {/* {console.log('con--', roomData?.players.find((el) => el.id === userId) &&
+              {tourTimer ? (
+                <h4 className="tornamentStart-timer">
+                  Tournament starts in {tourTimer}{" "}
+                </h4>
+              ) : null}
+
+              <div className={`poker-table ${winner ? "winner-show" : ""}`}>
+                <div className="containerFor-chatHistory">
+                  <div
+                    className="chatHistory-icon"
+                    onClick={handleOpenChatHistory}
+                  >
+                    {unReadMessages > 0 && (
+                      <p className="ChatHistory-count">{unReadMessages}</p>
+                    )}
+                    <img src={UsersComments} alt="" />
+                  </div>
+                  <ChatHistory
+                    setOpenChatHistory={setOpenChatHistory}
+                    openChatHistory={openChatHistory}
+                    handleOpenChatHistory={handleOpenChatHistory}
+                    userId={userId}
+                    roomData={roomData}
+                    chatMessages={chatMessages}
+                    scrollToBottom={scrollToBottom}
+                    scrollDownRef={scrollDownRef}
+                    leaveTable={leaveTable}
+                  />
+                </div>
+
+                {(players && players.find((ele) => ele.id === userId)) ||
+                  (roomData &&
+                    roomData.players.find((ele) => ele.userid === userId)) ||
+                  isWatcher ? (
+                  <div
+                    className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
+                  >
+                    {/* {console.log('con--', roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
                   !newUser &&
                   !roomData.tournament)} */}
-                {roomData?.players.find((el) => el.id === userId) &&
-                  !roomData?.gamestart &&
-                  !newUser &&
-                  !roomData.tournament && (
-                    <div className="start-game">
-                      <div className="start-game-btn">
-                        {/* {console.log(
+                    {roomData?.players.find((el) => el.id === userId) &&
+                      !roomData?.gamestart &&
+                      !newUser &&
+                      !roomData.tournament && (
+                        <div className="start-game">
+                          <div className="start-game-btn">
+                            {/* {console.log(
                           `is admin ${isAdmin}`,
                           `is game started ${roomData?.gamestart}`
                         )} */}
-                        {isAdmin && roomData && !roomData?.gamestart ? (
-                          <>
-                            <p>Click to start game</p>
-                            {/* disabled={players && players.length <2} */}
-                            <div className="footer-btn ">
-                              {players && players.length >= 2 && (
-                                <Button
-                                  onClick={() => {
-                                    setStart(true);
+                            {isAdmin && roomData && !roomData?.gamestart ? (
+                              <>
+                                <p>Click to start game</p>
+                                {/* disabled={players && players.length <2} */}
+                                <div className="footer-btn ">
+                                  {players && players.length >= 2 && (
+                                    <Button
+                                      onClick={() => {
+                                        setStart(true);
 
-                                    startGame(roomData?.autoNextHand);
-                                  }}
-                                  disabled={start}
-                                >
-                                  {start ? (
-                                    <Spinner animation="border" />
-                                  ) : (
-                                    "Start Game"
+                                        startGame(roomData?.autoNextHand);
+                                      }}
+                                      disabled={start}
+                                    >
+                                      {start ? (
+                                        <Spinner animation="border" />
+                                      ) : (
+                                        "Start Game"
+                                      )}
+                                    </Button>
                                   )}
-                                </Button>
-                              )}
-                              {players && players.length < 2 && (
-                                <OverlayTrigger
-                                  placement="bottom"
-                                  overlay={
-                                    <Tooltip id="tooltip-disabled">
-                                      Please wait for other players to join.
-                                    </Tooltip>
-                                  }
-                                >
-                                  <Button className="not-allowed">
-                                    Start Game
+                                  {players && players.length < 2 && (
+                                    <OverlayTrigger
+                                      placement="bottom"
+                                      overlay={
+                                        <Tooltip id="tooltip-disabled">
+                                          Please wait for other players to join.
+                                        </Tooltip>
+                                      }
+                                    >
+                                      <Button className="not-allowed">
+                                        Start Game
+                                      </Button>
+                                    </OverlayTrigger>
+                                  )}
+                                </div>
+                              </>
+                            ) : newUser ? (
+                              <>
+                                <p>Join table</p>
+                                <div className="footer-btn ">
+                                  <Button onClick={() => joinGame()}>
+                                    Join Game
                                   </Button>
-                                </OverlayTrigger>
-                              )}
-                            </div>
-                          </>
-                        ) : newUser ? (
-                          <>
-                            <p>Join table</p>
-                            <div className="footer-btn ">
-                              <Button onClick={() => joinGame()}>
-                                Join Game
-                              </Button>
-                            </div>
-                          </>
-                        ) : (
-                          ""
-                        )}
-                        {roomData &&
-                          roomData?.runninground === 0 &&
-                          !roomData?.gamestart &&
-                          !isAdmin &&
-                          !roomData?.tournament && (
-                            <>
-                              <p>Please wait for the Admin to Start the game</p>
-                            </>
-                          )}
-                        {roomData &&
-                          roomData.handWinner.length === 0 &&
-                          !roomData?.gamestart ? (
-                          <>
-                            {roomData.gameType !== "poker-tournament" && (
-                              <p className="joined-player">
-                                Invited Players joined -{" "}
-                                {roomData.players.filter((ele) =>
-                                  roomData.invPlayers.includes(ele.userid)
-                                ).length + 1}
-                                /{roomData.invPlayers.length + 1}
-                              </p>
+                                </div>
+                              </>
+                            ) : (
+                              ""
                             )}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
-                  )}
-                {tablePot || roomData?.sidePots.length ? (
-                  <TablePotMoney
-                    tablePot={tablePot}
-                    sidePots={sidePots}
-                    activeWinnerPlayersPot={activeWinnerPlayersPot}
-                  />
+                            {roomData &&
+                              roomData?.runninground === 0 &&
+                              !roomData?.gamestart &&
+                              !isAdmin &&
+                              !roomData?.tournament && (
+                                <>
+                                  <p>
+                                    Please wait for the Admin to Start the game
+                                  </p>
+                                </>
+                              )}
+                            {roomData &&
+                              roomData.handWinner.length === 0 &&
+                              !roomData?.gamestart ? (
+                              <>
+                                {roomData.gameType !== "poker-tournament" && (
+                                  <p className="joined-player">
+                                    Invited Players joined -{" "}
+                                    {roomData.players.filter((ele) =>
+                                      roomData.invPlayers.includes(ele.userid)
+                                    ).length + 1}
+                                    /{roomData.invPlayers.length + 1}
+                                  </p>
+                                )}
+                              </>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    {tablePot || roomData?.sidePots.length ? (
+                      <TablePotMoney
+                        tablePot={tablePot}
+                        sidePots={sidePots}
+                        activeWinnerPlayersPot={activeWinnerPlayersPot}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    {winner ? <GameMessage winnerText={winnerText} /> : null}
+
+                    <TableCard
+                      winner={winner}
+                      communityCards={communityCards}
+                      matchCards={matchCards}
+                      roomData={roomData}
+                      blindTimer={blindTimer}
+                    />
+                    {!isWatcher &&
+                      roomData &&
+                      userId &&
+                      players.map((player, i) => (
+                        <Players
+                          mergeAnimationState={mergeAnimationState}
+                          key={`item-${player.userid ? player.userid : player.id
+                            }`}
+                          followingList={followingList}
+                          friendList={friendList}
+                          systemplayer={i === 0 ? true : false}
+                          playerclass={`player${player.availablePosition + 1}`}
+                          playerData={player}
+                          timer={timer}
+                          action={action}
+                          actionText={actionText}
+                          remainingTime={remainingTime}
+                          currentPlayer={currentPlayer}
+                          winner={winner}
+                          handMatch={handMatch}
+                          message={message}
+                          messageBy={messageBy}
+                          betOn={betOn}
+                          betWin={betWin}
+                          tableId={tableId}
+                          sitout={sitout}
+                          sitin={sitin}
+                          gameCollection={gameCollection}
+                          showCoin={showCoin}
+                          setShowCoin={setShowCoin}
+                          setBuyinPopup={setBuyinPopup}
+                          tablePot={tablePot}
+                          activeWinnerPlayersPot={activeWinnerPlayersPot}
+                          roomData={roomData}
+                        />
+                      ))}
+                  </div>
                 ) : (
                   ""
                 )}
-                {winner ? <GameMessage winnerText={winnerText} /> : null}
-
-                <TableCard
-                  winner={winner}
-                  communityCards={communityCards}
-                  matchCards={matchCards}
-                  roomData={roomData}
-                  blindTimer={blindTimer}
-                />
-                {!isWatcher &&
-                  roomData &&
-                  userId &&
-                  players.map((player, i) => (
-                    <Players
-                      mergeAnimationState={mergeAnimationState}
-                      key={`item-${ player.userid ? player.userid : player.id }`}
-                      followingList={followingList}
-                      friendList={friendList}
-                      systemplayer={i === 0 ? true : false}
-                      playerclass={`player${ player.availablePosition + 1 }`}
-                      playerData={player}
-                      timer={timer}
-                      action={action}
-                      actionText={actionText}
-                      remainingTime={remainingTime}
-                      currentPlayer={currentPlayer}
-                      winner={winner}
-                      handMatch={handMatch}
-                      message={message}
-                      messageBy={messageBy}
-                      betOn={betOn}
-                      betWin={betWin}
-                      tableId={tableId}
-                      sitout={sitout}
-                      sitin={sitin}
-                      gameCollection={gameCollection}
-                      showCoin={showCoin}
-                      setShowCoin={setShowCoin}
-                      setBuyinPopup={setBuyinPopup}
-                      tablePot={tablePot}
-                      activeWinnerPlayersPot={activeWinnerPlayersPot}
-                      roomData={roomData}
-                    />
-                  ))}
+                {showPairHand && showPairHand?.length > 0 ? (
+                  <div className="playerHand-status">
+                    <p>
+                      Card Pair :&nbsp;
+                      {showPairHand
+                        .find((el) => el?.id === userId)
+                        ?.hand?.descr.replace(",", " of")}
+                    </p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-            ) : (
-              ""
-            )}
-            {showPairHand && showPairHand?.length > 0 ? (
-              <div className="playerHand-status">
-                <p>
-                  Card Pair :&nbsp;
-                  {showPairHand
-                    .find((el) => el?.id === userId)
-                    ?.hand?.descr.replace(",", " of")}
-                </p>
-              </div>
-            ) : (
-              ""
-            )}
+              <FooterButton
+                bet={bet}
+                setBet={setBet}
+                raise={raise}
+                setRaise={setRaise}
+                isAdmin={isAdmin}
+                startGame={startGame}
+                betAction={betAction}
+                callAction={callAction}
+                foldAction={foldAction}
+                raiseAction={raiseAction}
+                checkAction={checkAction}
+                allinAction={allinAction}
+                joinGame={joinGame}
+                newUser={newUser}
+                currentPlayer={currentPlayer}
+                action={action}
+                openAction={openAction}
+                roomData={roomData}
+                handleTentativeAction={handleTentativeAction}
+                tentativeAction={tentativeAction}
+                setTentativeAction={setTentativeAction}
+                loader={loader}
+                raiseInSliderAction={raiseInSliderAction}
+                betInSliderAction={betInSliderAction}
+                playersRight={playersRight}
+                playersLeft={playersLeft}
+                players={players}
+                remainingTime={remainingTime}
+              />
+            </div>
           </div>
-          <FooterButton
-            bet={bet}
-            setBet={setBet}
-            raise={raise}
-            setRaise={setRaise}
-            isAdmin={isAdmin}
-            startGame={startGame}
-            betAction={betAction}
-            callAction={callAction}
-            foldAction={foldAction}
-            raiseAction={raiseAction}
-            checkAction={checkAction}
-            allinAction={allinAction}
-            joinGame={joinGame}
-            newUser={newUser}
-            currentPlayer={currentPlayer}
-            action={action}
-            openAction={openAction}
-            roomData={roomData}
-            handleTentativeAction={handleTentativeAction}
-            tentativeAction={tentativeAction}
-            setTentativeAction={setTentativeAction}
-            loader={loader}
-            raiseInSliderAction={raiseInSliderAction}
-            betInSliderAction={betInSliderAction}
-            playersRight={playersRight}
-            playersLeft={playersLeft}
-            players={players}
-            remainingTime={remainingTime}
-          />
-        </div>
-      </div>
 
-      <div className="btn-toggler" onClick={handleBtnClick} role="presentation">
-        <img src={btntoggle} alt="" />
-      </div>
-      {((players &&
-        players.length > 0 &&
-        players.find((ele) => ele.id === userId)) ||
-        isWatcher) &&
-        btnToggle && (
-          <ul className="btn-list" ref={wrapperRef}>
-            <li>
-              <span
-                className="close-icon"
-                onClick={() => handleBtnClick()}
-                role="presentation"
-              >
-                <i className="fa fa-close" />
-              </span>
-            </li>
-            <li>
-              <OverlayTrigger
-                placement="left"
-                overlay={<Tooltip id="tooltip-disabled">Leave</Tooltip>}
-              >
-                <button onClick={() => setLeaveConfirm(true)}>
-                  <i class="fa fa-sign-out" aria-hidden="true" />
-                </button>
-              </OverlayTrigger>
-            </li>
-            {players &&
-              players.length > 0 &&
-              players.find((ele) => ele.id === userId) && (
-                <li className="">
+          <div
+            className="btn-toggler"
+            onClick={handleBtnClick}
+            role="presentation"
+          >
+            <img src={btntoggle} alt="" />
+          </div>
+          {((players &&
+            players.length > 0 &&
+            players.find((ele) => ele.id === userId)) ||
+            isWatcher) &&
+            btnToggle && (
+              <ul className="btn-list" ref={wrapperRef}>
+                <li>
+                  <span
+                    className="close-icon"
+                    onClick={() => handleBtnClick()}
+                    role="presentation"
+                  >
+                    <i className="fa fa-close" />
+                  </span>
+                </li>
+                <li>
                   <OverlayTrigger
                     placement="left"
-                    overlay={<Tooltip id="tooltip-disabled">Chat</Tooltip>}
+                    overlay={<Tooltip id="tooltip-disabled">Leave</Tooltip>}
                   >
-                    <button
-                      onClick={() => {
-                        handleClick(!open);
-                        setBtnToggle(!btnToggle);
-                      }}
-                    >
-                      <i className="fa fa-comment" aria-hidden="true" />
+                    <button onClick={() => setLeaveConfirm(true)}>
+                      <i class="fa fa-sign-out" aria-hidden="true" />
                     </button>
                   </OverlayTrigger>
                 </li>
-              )}
-            {isWatcher ? (
-              ""
-            ) : players &&
-              players.length &&
-              players.find((ele) => (ele.id ? ele.id : ele.userid) === userId)
-                .playing ? (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Stand Up</Tooltip>}
-                >
-                  <button onClick={() => sitout()}>
-                    <img src={situp} alt="sit-in" />
-                  </button>
-                </OverlayTrigger>
-              </li>
-            ) : (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={<Tooltip id="tooltip-disabled">Sit Down</Tooltip>}
-                >
-                  <button onClick={() => sitin()}>
-                    <img src={sitdown} alt="sit-out" />
-                  </button>
-                </OverlayTrigger>
-              </li>
-            )}
-            {((roomData && roomData.public) ||
-              (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
+                {players &&
+                  players.length > 0 &&
+                  players.find((ele) => ele.id === userId) && (
+                    <li className="">
+                      <OverlayTrigger
+                        placement="left"
+                        overlay={<Tooltip id="tooltip-disabled">Chat</Tooltip>}
+                      >
+                        <button
+                          onClick={() => {
+                            handleClick(!open);
+                            setBtnToggle(!btnToggle);
+                          }}
+                        >
+                          <i className="fa fa-comment" aria-hidden="true" />
+                        </button>
+                      </OverlayTrigger>
+                    </li>
+                  )}
+                {isWatcher ? (
+                  ""
+                ) : players &&
+                  players.length &&
+                  players.find(
+                    (ele) => (ele.id ? ele.id : ele.userid) === userId
+                  ).playing ? (
+                  <li>
+                    <OverlayTrigger
+                      placement="left"
+                      overlay={
+                        <Tooltip id="tooltip-disabled">Stand Up</Tooltip>
+                      }
+                    >
+                      <button onClick={() => sitout()}>
+                        <img src={situp} alt="sit-in" />
+                      </button>
+                    </OverlayTrigger>
+                  </li>
+                ) : (
+                  <li>
+                    <OverlayTrigger
+                      placement="left"
+                      overlay={
+                        <Tooltip id="tooltip-disabled">Sit Down</Tooltip>
+                      }
+                    >
+                      <button onClick={() => sitin()}>
+                        <img src={sitdown} alt="sit-out" />
+                      </button>
+                    </OverlayTrigger>
+                  </li>
+                )}
+                {((roomData && roomData.public) ||
+                  (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
+                    <li>
+                      <OverlayTrigger
+                        placement="left"
+                        overlay={
+                          <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                        }
+                      >
+                        <button onClick={() => setShowInvite(true)}>
+                          {/* <img src={addcoin} alt="Invite friend" /> */}
+                          <i className="fa fa-envelope"></i>
+                        </button>
+                      </OverlayTrigger>
+                    </li>
+                  )}
+                {roomData?.tournament ? (
+                  ""
+                ) : (
+                  <li>
+                    <OverlayTrigger
+                      placement="left"
+                      overlay={
+                        <Tooltip id="tooltip-disabled">
+                          {roomData?.gameMode === "goldCoin"
+                            ? "Fill gold coins"
+                            : "Fill Tokens"}
+                        </Tooltip>
+                      }
+                    >
+                      <button onClick={() => setRefillSitInAmount(true)}>
+                        <AddCoinIcon />
+                      </button>
+                    </OverlayTrigger>
+                  </li>
+                )}
                 <li>
                   <OverlayTrigger
                     placement="left"
                     overlay={
-                      <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                      <Tooltip id="tooltip-disabled">
+                        {volume ? "Mute" : "Speaker"}
+                      </Tooltip>
                     }
                   >
-                    <button onClick={() => setShowInvite(true)}>
-                      {/* <img src={addcoin} alt="Invite friend" /> */}
-                      <i className="fa fa-envelope"></i>
+                    <button onClick={() => setVolume(!volume)}>
+                      {volume ? <MuteIcon /> : <VolumeIcon />}
                     </button>
                   </OverlayTrigger>
                 </li>
-              )}
-            {roomData?.tournament ? (
-              ""
-            ) : (
-              <li>
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">
-                      {roomData?.gameMode === "goldCoin"
-                        ? "Fill gold coins"
-                        : "Fill Tokens"}
-                    </Tooltip>
-                  }
-                >
-                  <button onClick={() => setRefillSitInAmount(true)}>
-                    <AddCoinIcon />
-                  </button>
-                </OverlayTrigger>
-              </li>
+              </ul>
             )}
-            <li>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="tooltip-disabled">
-                    {volume ? "Mute" : "Speaker"}
-                  </Tooltip>
-                }
-              >
-                <button onClick={() => setVolume(!volume)}>
-                  {volume ? <MuteIcon /> : <VolumeIcon />}
-                </button>
-              </OverlayTrigger>
-            </li>
-          </ul>
-        )}
-      <Chat
-        handleClick={handleClick}
-        open={open}
-        userId={userId}
-        tableId={tableId}
-      />
-      {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
-      {isWatcher && (
-        <div className="bet-button">
-          <span onClick={() => handleBetClick(!view)} role="presentation">
-            Place Bet <img src={arrow} alt="arrow" />
-          </span>
+          <Chat
+            handleClick={handleClick}
+            open={open}
+            userId={userId}
+            tableId={tableId}
+          />
+          {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
+          {isWatcher && (
+            <div className="bet-button">
+              <span onClick={() => handleBetClick(!view)} role="presentation">
+                Place Bet <img src={arrow} alt="arrow" />
+              </span>
+            </div>
+          )}
+
+          <EnterAmountPopup
+            handleSitin={handleSitInAmount}
+            showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
+            submitButtonText={
+              refillSitInAmount && roomData?.gameMode === "token"
+                ? "Refill Tokens"
+                : refillSitInAmount && roomData?.gameMode === "goldCoin"
+                  ? "Refill gold coin"
+                  : "Join"
+            }
+            setShow={
+              refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
+            }
+            disable={disable}
+          />
+
+          <Bet
+            handleBetClick={handleBetClick}
+            view={view}
+            setView={setView}
+            players={players}
+            watchers={watchers}
+            roomData={roomData}
+            userId={userId}
+          />
+
+          <LogoImage />
+          <audio className="audio-winner" muted={!volume}>
+            <source src={winnerSound}></source>
+          </audio>
+          <audio className="audio-bet" muted={!volume}>
+            <source src={call}></source>
+          </audio>
+          <audio className="audio-turn" muted={!volume}>
+            <source src={myTurn}></source>
+          </audio>
+          <audio className="audio-bet" muted={!volume}>
+            <source src={fold}></source>
+          </audio>
+          <audio className="audio-collect" muted={!volume}>
+            <source src={collect}></source>
+          </audio>
+          <audio className="audio-check" muted={!volume}>
+            <source src={check}></source>
+          </audio>
+          <audio className="audio-chat" muted={!volume}>
+            <source src={chatBubble}></source>
+          </audio>
+          <StatsPopup
+            modalShow={modalShow}
+            handWinner={handWinner}
+            leaveTable={leaveTable}
+          />
+          <LeaveConfirmPopup
+            setLeaveConfirm={setLeaveConfirm}
+            leaveConfirmShow={leaveConfirmShow}
+            leaveTable={leaveTable}
+            isWatcher={isWatcher}
+            allowWatcher={allowWatcher}
+          />
+          <BuyInPopup
+            setModalShow={setShowCoin}
+            setBuyinPopup={setBuyinPopup}
+            modalShow={showCoin}
+            userId={userId}
+            tableId={tableId}
+            setNewJoinLowBalance={setNewJoinLowBalance}
+            newJoinlowBalance={newJoinlowBalance}
+            gameType={gameCollection}
+          />
+          <InviteFriend
+            setShowInvite={setShowInvite}
+            showInvite={showInvite}
+            userId={userId}
+            tableId={tableId}
+            gameCollection={gameCollection}
+            roomData={roomData}
+          />
         </div>
-      )}
-
-      <EnterAmountPopup
-        handleSitin={handleSitInAmount}
-        showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
-        submitButtonText={
-          refillSitInAmount && roomData?.gameMode === "token"
-            ? "Refill Tokens"
-            : refillSitInAmount && roomData?.gameMode === "goldCoin"
-              ? "Refill gold coin"
-              : "Join"
-        }
-        setShow={
-          refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
-        }
-        disable={disable}
-      />
-
-      <Bet
-        handleBetClick={handleBetClick}
-        view={view}
-        setView={setView}
-        players={players}
-        watchers={watchers}
-        roomData={roomData}
-        userId={userId}
-      />
-
-      <LogoImage />
-      <audio className="audio-winner" muted={!volume}>
-        <source src={winnerSound}></source>
-      </audio>
-      <audio className="audio-bet" muted={!volume}>
-        <source src={call}></source>
-      </audio>
-      <audio className="audio-turn" muted={!volume}>
-        <source src={myTurn}></source>
-      </audio>
-      <audio className="audio-bet" muted={!volume}>
-        <source src={fold}></source>
-      </audio>
-      <audio className="audio-collect" muted={!volume}>
-        <source src={collect}></source>
-      </audio>
-      <audio className="audio-check" muted={!volume}>
-        <source src={check}></source>
-      </audio>
-      <audio className="audio-chat" muted={!volume}>
-        <source src={chatBubble}></source>
-      </audio>
-      <StatsPopup
-        modalShow={modalShow}
-        handWinner={handWinner}
-        leaveTable={leaveTable}
-      />
-      <LeaveConfirmPopup
-        setLeaveConfirm={setLeaveConfirm}
-        leaveConfirmShow={leaveConfirmShow}
-        leaveTable={leaveTable}
-        isWatcher={isWatcher}
-        allowWatcher={allowWatcher}
-      />
-      <BuyInPopup
-        setModalShow={setShowCoin}
-        setBuyinPopup={setBuyinPopup}
-        modalShow={showCoin}
-        userId={userId}
-        tableId={tableId}
-        setNewJoinLowBalance={setNewJoinLowBalance}
-        newJoinlowBalance={newJoinlowBalance}
-        gameType={gameCollection}
-      />
-      <InviteFriend
-        setShowInvite={setShowInvite}
-        showInvite={showInvite}
-        userId={userId}
-        tableId={tableId}
-        gameCollection={gameCollection}
-        roomData={roomData}
-      />
-    </div>
+      </FullScreen>
+    </>
   );
 };
 
@@ -2390,24 +2462,24 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
+        className={`players ${playerclass} ${winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
           }
-          ${ activeWinnerPlayersPot?.potPlayer?.find(
+          ${activeWinnerPlayersPot?.potPlayer?.find(
             (el) => el.id === playerData?.id
           ) && roomData.runninground === 5
             ? "activeWinnerpot"
             : ""
           }
-          ${ (playerData && playerData.playing && !playerData?.fold) ||
+          ${(playerData && playerData.playing && !playerData?.fold) ||
             (activeWinnerPlayersPot?.potPlayer?.find(
               (el) => el.id === playerData?.id
             ) &&
               roomData.runninground === 5)
             ? ""
             : "not-playing"
-          } ${ mergeAnimationState ? "animateMerge-chips" : "" } ${ playerData && playerData.id === messageBy ? "playerChated" : ""
+          } ${mergeAnimationState ? "animateMerge-chips" : ""} ${playerData && playerData.id === messageBy ? "playerChated" : ""
           }`}
       >
         {((playerData?.availablePosition === 0 &&
@@ -2471,9 +2543,9 @@ const Players = ({
           currentPlayer.id === playerData.id &&
           action && <span className="player-action">{actionText}</span>}
 
-        <div id={`store-item-${ playerData.id }`}></div>
+        <div id={`store-item-${playerData.id}`}></div>
         <div
-          className={`player-box ${ currentPlayer && playerData && currentPlayer.id === playerData.id
+          className={`player-box ${currentPlayer && playerData && currentPlayer.id === playerData.id
             ? "currentPlayerChance"
             : ""
             }`}
@@ -2506,7 +2578,7 @@ const Players = ({
             />
           </div>
           <div
-            className={`player-info ${ currentPlayer && playerData && currentPlayer.id === playerData.id
+            className={`player-info ${currentPlayer && playerData && currentPlayer.id === playerData.id
               ? "progressActive"
               : ""
               } `}
@@ -2562,28 +2634,28 @@ const TableCard = ({
   blindTimer,
 }) => {
   return (
-    <div className={`table-card ${ winner ? "winner-show" : "" }`}>
+    <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
           // console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
-            <div className={`card-animate active duration-${ i }`}>
+            <div className={`card-animate active duration-${i}`}>
               <img
-                key={`item-${ i }`}
+                key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${ DecryptCard(card)?.toUpperCase() }.svg`}
+                src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
-                className={`${ winner && matchCards.findIndex((ele) => ele === i) !== -1
+                className={`${winner && matchCards.findIndex((ele) => ele === i) !== -1
                   ? `winner-card`
                   : ``
-                  } front-card duration-${ i }`}
+                  } front-card duration-${i}`}
               />
               <img
-                key={`item1-${ i }`}
+                key={`item1-${i}`}
                 src={back2}
                 alt="back"
-                className={`back-card duration-${ i }`}
+                className={`back-card duration-${i}`}
               />
             </div>
           );
@@ -2598,20 +2670,20 @@ const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
       {sidePots.length ? (
         sidePots.map((sidePot) => (
           <div
-            className={`total-pot-money animate__animated animate__fadeIn ${ activeWinnerPlayersPot?.potPlayer?.length ===
+            className={`total-pot-money animate__animated animate__fadeIn ${activeWinnerPlayersPot?.potPlayer?.length ===
               sidePot?.players?.length
-              ? `winnPlayer${ activeWinnerPlayersPot.availablePosition + 1 }`
+              ? `winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`
               : ""
               }`}
           >
-            <span className={`pots-${ sidePots.length }`}>
+            <span className={`pots-${sidePots.length}`}>
               <p>{numFormatter(sidePot.pot)}</p>
             </span>
           </div>
         ))
       ) : (
         <div
-          className={`total-pot-money animate__animated animate__fadeIn winnPlayer${ activeWinnerPlayersPot.availablePosition + 1
+          className={`total-pot-money animate__animated animate__fadeIn winnPlayer${activeWinnerPlayersPot.availablePosition + 1
             }`}
         >
           <span className="pots-1">
@@ -2876,10 +2948,10 @@ const ShowCard = ({ cards, handMatch }) => {
         cards.map((card, i) => {
           return (
             <img
-              key={`item-${ card }`}
-              src={`/cards/${ DecryptCard(card)?.toUpperCase() }.svg`}
+              key={`item-${card}`}
+              src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
               alt="card"
-              className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
+              className={`animate__animated animate__rollIn duration-${i} ${handMatch.findIndex((ele) => ele === i) !== -1
                 ? ``
                 : `winner-card`
                 } `}
