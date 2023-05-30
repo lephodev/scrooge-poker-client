@@ -1874,8 +1874,8 @@ input:checked {
 .players.player1 .player-pic {
   /* height: 200px;
   width: 200px; */
-  height: 130px;
-  width: 130px;
+  height: 90px;
+  width: 90px;
 }
 
 .playerChated {
@@ -2097,7 +2097,7 @@ input:checked {
 .players.player1 .player-chip {
   position: absolute;
   width: 100%;
-  top: -12%;
+  top: -22%;
   left: 0%;
   transform: translateY(-50%);
   animation: travelUpCenter 0.4s;
@@ -2109,7 +2109,7 @@ input:checked {
 
 @keyframes mergeP1 {
   from {
-    top: -12%;
+    top: -22%;
     opacity: 1;
   }
 
@@ -2694,7 +2694,7 @@ input:checked {
 }
 
 .show-card img {
-  width: 65px;
+  width: 50px;
   /* width: 50px; */
   margin: 0px 2px;
   box-shadow: 0px 8px 10px #00000075;
@@ -2707,24 +2707,24 @@ input:checked {
 
 .show-card {
   display: grid;
-  grid-template-columns: repeat(2, minmax(40px, 1fr));
+  grid-template-columns: repeat(2, minmax(50px, 1fr));
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   /* top: -70px; */
-  top: 8px;
-  padding-right: 25px;
+  top: -2px;
+  padding-right: 11px;
   z-index: -1;
 }
 
 .show-card img:first-child {
-  -webkit-rotate: -18deg !important;
-  rotate: -18deg !important;
+  -webkit-rotate: -10deg !important;
+  rotate: -10deg !important;
 }
 
 .show-card img:last-child {
-  rotate: 18deg !important;
-  -webkit-rotate: 18deg !important;
+  rotate: 10deg !important;
+  -webkit-rotate: 10deg !important;
 }
 
 /* .player-card img:last-child {
@@ -2737,26 +2737,27 @@ input:checked {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  /* top: -70px; */
   top: 8px;
-  padding-right: 25px;
+  padding-right: 12px;
   z-index: -1;
 }
 
 .player-card img {
-  width: 65px;
+  width: 50px;
   margin: 0px auto;
   box-shadow: 0px 8px 10px #00000075;
   /* transform: rotate(-50deg) translateY(10px); */
 }
 
 .player-card img:first-child {
-  rotate: -18deg !important;
-  -webkit-rotate: -18deg !important;
+  rotate: -10deg !important;
+  -webkit-rotate: -10deg !important;
 }
 
 .player-card img:last-child {
-  rotate: 18deg !important;
-  -webkit-rotate: 18deg !important;
+  rotate: 10deg !important;
+  -webkit-rotate: 10deg !important;
 }
 
 .player-timer div {
@@ -4294,8 +4295,8 @@ ul.btn-list>li>button>img {
 .players .player-pic {
   /* height: 145px;
   width: 145px; */
-  height: 110px;
-  width: 110px;
+  height: 90px;
+  width: 90px;
 }
 
 .player-pic img,
@@ -4306,28 +4307,25 @@ ul.btn-list>li>button>img {
 
 .players .player-pic img,
 .players .player-pic video {
-  /* width: 85px;
-  height: 85px; */
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background: #0c111d;
 }
 
 .battery {
-  width: 85px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
 }
 
 .player1 .player-pic img,
 .player1 .player-pic video {
-  width: 115px !important;
-  height: 115px !important;
-  /* z-index: -1; */
+  width: 80px !important;
+  height: 80px !important;
 }
 
 .player1 .battery {
-  width: 120px !important;
-  height: 120px !important;
+  width: 80px !important;
+  height: 80px !important;
 }
 
 .bar {
@@ -4596,7 +4594,7 @@ ul.btn-list>li>button>img {
   border-radius: 60px;
   position: absolute !important;
   bottom: -30px !important;
-  left: -4px !important;
+  left: -24px !important;
   width: 138px !important;
   height: 45px !important;
   z-index: 9;
@@ -4617,7 +4615,7 @@ ul.btn-list>li>button>img {
   border-radius: 60px;
   position: absolute !important;
   bottom: -25px !important;
-  left: -8px !important;
+  left: -20px !important;
   width: 128px !important;
   height: 40px !important;
   z-index: 9;
@@ -5287,13 +5285,15 @@ h4.tornamentStart-timer {
   .show-card {
     /* top: 14px; */
     top: 12px;
-    grid-template-columns: repeat(2, minmax(36px, 1fr));
+    grid-template-columns: repeat(2, minmax(44px, 1fr));
+    padding-right: 20px;
   }
 
   .player-card {
     /* top: 14px; */
     top: 12px;
-    grid-template-columns: repeat(2, minmax(30px, 1fr));
+    grid-template-columns: repeat(2, minmax(40px, 1fr));
+    padding-right: 22px;
   }
 
   .total-pot-money span::before {}
@@ -5453,8 +5453,7 @@ h4.tornamentStart-timer {
   .players.player1 .player-chip,
   .players.player2 .player-chip,
   .players.player9 .player-chip {
-    /* top: -78px; */
-    top: -6%;
+    top: -14%;
   }
 
   .players.player6 .player-chip,
@@ -5504,14 +5503,14 @@ h4.tornamentStart-timer {
   .player1 .player-pic .progress {
     width: 138px !important;
     height: 42px !important;
-    left: -4px !important;
+    left: -24px !important;
     bottom: -31px !important;
   }
 
   .player-pic .progress {
     width: 108px !important;
     height: 32px !important;
-    left: 1px !important;
+    left: -10px !important;
     bottom: -22px !important;
   }
 }
@@ -7373,7 +7372,7 @@ h4.tornamentStart-timer {
   .player1 .player-pic .progress {
     width: 118px !important;
     height: 34px !important;
-    left: -19px !important;
+    left: -24px !important;
     bottom: -16px !important;
   }
 
@@ -7381,7 +7380,7 @@ h4.tornamentStart-timer {
     width: 108px !important;
     height: 33px !important;
     /* left: -7px !important; */
-    left: -14px !important;
+    left: -20px !important;
     bottom: -16px !important;
   }
 
@@ -7444,34 +7443,48 @@ h4.tornamentStart-timer {
     background: transparent;
     border: none;
   }
+
   .players .player-pic {
-    height: 80px;
-    width: 80px;
+    height: 60px;
+    width: 60px;
   }
+
   .players.player1 .player-pic {
-    height: 80px;
-    width: 80px;
+    height: 60px;
+    width: 60px;
   }
 
   .player1 .player-pic img,
   .player1 .player-pic video {
+    height: 65px !important;
+    width: 65px !important;
+  }
+
+  .player1 .player-pic,
+  .player1 .player-pic {
     height: 70px !important;
     width: 70px !important;
-    /* z-index: -1; */
   }
 
   .player1 .player-info {
     width: 120px;
     height: 35px;
   }
+
   .players .player-pic img,
   .players .player-pic video {
-    width: 70px;
-    height: 70px;
+    height: 65px !important;
+    width: 65px !important;
+  }
+
+  .players .player-pic,
+  .players .player-pic {
+    height: 70px !important;
+    width: 70px !important;
   }
 
   .player-card {
-    top: 26px !important;
+    top: 34px !important;
     padding-right: 7px;
   }
 
@@ -7965,7 +7978,7 @@ h4.tornamentStart-timer {
   }
 
   .players.player1 .player-chip {
-    top: -10%;
+    top: -32%;
   }
 
   .total-pot-money span {
@@ -9398,9 +9411,8 @@ h4.tornamentStart-timer {
   }
 
   .show-card {
-    /* top: 14px; */
-    top: 22px;
-    padding-right: 16px;
+    top: 14px;
+    padding-right: 10px;
   }
 
   .player-card {
@@ -9677,16 +9689,14 @@ h4.tornamentStart-timer {
   .player1 .player-pic .progress {
     width: 118px !important;
     height: 35px !important;
-    /* left: -11px !important; */
-    left: -18px !important;
+    left: -20px !important;
     bottom: -23px !important;
   }
 
   .player-pic .progress {
     width: 108px !important;
     height: 33px !important;
-    /* left: -7px !important; */
-    left: -14px !important;
+    left: -18px !important;
     bottom: -22px !important;
   }
 
@@ -9858,15 +9868,27 @@ h4.tornamentStart-timer {
   }
 
   .players.player1 .player-pic {
-    height: 80px;
-    width: 80px;
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .players.player1 .player-pic img {
+    width: 65px !important;
+    height: 65px !important;
+  }
+
+  .players .player-pic,
+  .players .player-pic,
+  .players .battery {
+    width: 75px !important;
+    height: 75px !important;
   }
 
   .players .player-pic img,
   .players .player-pic video,
   .players .battery {
-    width: 70px!important;
-    height: 70px!important;
+    height: 65px !important;
+    width: 65px !important;
   }
 
   .logo--bottom-image {
