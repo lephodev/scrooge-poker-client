@@ -154,6 +154,7 @@ input:checked {
   color: #f9ff00;
   padding: 6px 10px;
   border-radius: 10px;
+  z-index: 99999;
 }
 
 .playerHand-status p {
@@ -7989,6 +7990,7 @@ h4.tornamentStart-timer {
 
   .playerHand-status {
     /* transform: translate(-74%, -70%) scale(80%); */
+    top: 6%;
   }
 
   .playerHand-status p {
