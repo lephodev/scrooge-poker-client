@@ -88,6 +88,48 @@ input:checked {
   gap: 4px;
 }
 
+.btnForFullscreen {
+  position: fixed;
+  /* top: 0%; */
+  z-index: 9;
+  left: 50%;
+  /* transform: translate(-50%, 5%); */
+  background: #222427c2;
+  border: none !important;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-content: center;
+  padding: 25px;
+  top: -50%;
+  transform: translate(-50%, -50%);
+}
+
+button.btnForFullscreen.offScreen {
+  top: -50%;
+  transform: translate(-50%, -50%);
+}
+
+button.btnForFullscreen.onScreen {
+  animation: FullscreenOn 0.5s;
+  transition: all 0.3s ease;
+  top: 0%;
+  transform: translate(-50%, 5%);
+}
+
+@keyframes FullscreenOn {
+  from {
+    top: -50%;
+    transform: translate(-50%, -50%);
+  }
+
+  to {
+    top: 0%;
+    transform: translate(-50%, 5%);
+  }
+}
+
 .sub-btn.text-center .btn-primary.disabled,
 .sub-btn.text-center .btn-primary:disabled {
   color: #000000 !important;
