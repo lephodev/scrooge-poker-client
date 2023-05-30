@@ -106,6 +106,10 @@ input:checked {
   transform: translate(-50%, -50%);
 }
 
+.btnForFullscreen svg {
+  color: #fff;
+}
+
 button.btnForFullscreen.offScreen {
   top: -50%;
   transform: translate(-50%, -50%);

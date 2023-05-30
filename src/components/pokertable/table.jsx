@@ -50,6 +50,7 @@ import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
 import RaiseContainer from "../bet/raiseContainer";
+import {FaCompressArrowsAlt} from "react-icons/fa"
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -1786,9 +1787,37 @@ const PokerTable = (props) => {
     };
   }, []);
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const handleToggleFullscreen = () => {
+    const elem = document.documentElement;
+    if (!isFullScreen) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+    setIsFullScreen(!isFullScreen);
+  };
   return (
     <>
-      <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
+      <button onClick={handleToggleFullscreen} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
+        {/* <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  > */}
+        {isFullScreen ? <FaCompressArrowsAlt /> :
         <svg
           height="20px"
           // style="enable-background:new 0 0 32 32;"
@@ -1818,7 +1847,7 @@ const PokerTable = (props) => {
               />
             </g>
           </g>
-        </svg>
+        </svg> }
       </button>
       <FullScreen handle={handle}>
         <div className="poker" id={players.length}>
