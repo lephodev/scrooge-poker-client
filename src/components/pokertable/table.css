@@ -91,7 +91,7 @@ input:checked {
 .btnForFullscreen {
   position: fixed;
   /* top: 0%; */
-  z-index: 9;
+  z-index: 99999;
   left: 50%;
   /* transform: translate(-50%, 5%); */
   background: #222427c2;
@@ -104,6 +104,24 @@ input:checked {
   padding: 25px;
   top: -50%;
   transform: translate(-50%, -50%);
+}
+
+.contentForFullScreen {
+  position: fixed;
+  z-index: 99999;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 12%);
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #dddddd85;
+  font-size: 1rem;
+}
+
+.btnForFullscreen svg {
+  color: #fff;
 }
 
 button.btnForFullscreen.offScreen {
@@ -5566,6 +5584,10 @@ h4.tornamentStart-timer {
     bottom: -26px !important;
   }
 
+  .contentForFullScreen {
+    font-size: 0.8rem;
+  }
+
   h4.tornamentStart-timer {
     font-size: 12px;
     padding: 6px 14px;
@@ -8032,7 +8054,9 @@ h4.tornamentStart-timer {
 
   .playerHand-status {
     /* transform: translate(-74%, -70%) scale(80%); */
-    top: 6%;
+    top: 7%;
+    max-width: 80%;
+    text-align: center;
   }
 
   .playerHand-status p {
@@ -9906,9 +9930,10 @@ h4.tornamentStart-timer {
 
   .play-pause-button .pause-btn .btn,
   .play-pause-button .play-btn .btn {
-    min-width: 70px;
+    min-width: 65px;
     height: 26px;
     font-size: 10px;
+    margin: 0px 3px;
   }
 
   .players.player1 .player-pic {
@@ -10834,3 +10859,14 @@ h4.tornamentStart-timer {
 }
 
 /* back to home if game started already  */
+
+/* for iphone exceptiion */
+@supports (-webkit-touch-callout: none) {
+  .contentForFullScreen {
+    display: none;
+  }
+
+  .btnForFullscreen {
+    display: none;
+  }
+}

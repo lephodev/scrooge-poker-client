@@ -50,6 +50,7 @@ import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
 import RaiseContainer from "../bet/raiseContainer";
+import { FaCompressArrowsAlt } from "react-icons/fa"
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -1786,39 +1787,68 @@ const PokerTable = (props) => {
     };
   }, []);
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const handleToggleFullscreen = () => {
+    const elem = document.documentElement;
+    if (!isFullScreen) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+    setIsFullScreen(!isFullScreen);
+  };
   return (
     <>
-      <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
-        <svg
-          height="20px"
-          // style="enable-background:new 0 0 32 32;"
-          version="1.1"
-          viewBox="0 0 32 32"
-          width="20px"
-          fill="#fff"
-        >
-          <g id="Layer_1" />
-          <g id="fullscreen_x5F_alt">
-            <g>
-              <polygon
-                points="29.414,26.586 22.828,20 20,22.828 26.586,29.414 24,32 32,32 32,24   "
-              // style="fill:#4E4E50;"
-              />
-              <polygon
-                points="2.586,5.414 9.172,12 12,9.172 5.414,2.586 8,0 0,0 0,8   "
-              // style="fill:#4E4E50;"
-              />
-              <polygon
-                points="26.586,2.586 20,9.172 22.828,12 29.414,5.414 32,8 32,0 24,0   "
-              // style="fill:#4E4E50;"
-              />
-              <polygon
-                points="12,22.828 9.172,20 2.586,26.586 0,24 0,32 8,32 5.414,29.414   "
-              // style="fill:#4E4E50;"
-              />
+      <p className="contentForFullScreen">{!isFullScreen ? "Tap here for Full Screen View" : "Exit From Full Screen"}</p>
+      <button onClick={handleToggleFullscreen} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
+        {/* <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  > */}
+        {isFullScreen ? <FaCompressArrowsAlt /> :
+          <svg
+            height="20px"
+            // style="enable-background:new 0 0 32 32;"
+            version="1.1"
+            viewBox="0 0 32 32"
+            width="20px"
+            fill="#fff"
+          >
+            <g id="Layer_1" />
+            <g id="fullscreen_x5F_alt">
+              <g>
+                <polygon
+                  points="29.414,26.586 22.828,20 20,22.828 26.586,29.414 24,32 32,32 32,24   "
+                // style="fill:#4E4E50;"
+                />
+                <polygon
+                  points="2.586,5.414 9.172,12 12,9.172 5.414,2.586 8,0 0,0 0,8   "
+                // style="fill:#4E4E50;"
+                />
+                <polygon
+                  points="26.586,2.586 20,9.172 22.828,12 29.414,5.414 32,8 32,0 24,0   "
+                // style="fill:#4E4E50;"
+                />
+                <polygon
+                  points="12,22.828 9.172,20 2.586,26.586 0,24 0,32 8,32 5.414,29.414   "
+                // style="fill:#4E4E50;"
+                />
+              </g>
             </g>
-          </g>
-        </svg>
+          </svg>}
       </button>
       <FullScreen handle={handle}>
         <div className="poker" id={players.length}>
