@@ -42,25 +42,33 @@ const App = () => {
       console.log("tournamentStart socket listen");
       data.rooms.forEach((room) => {
         if (room.players.find((player) => player?.id === user?.id)) {
-          toast((t) => (
-            <div className='toaster-join'>
-              <span>
-                "Tournament will start in 10 seconds, please join the table"
-              </span>
-              <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                  window.open(
-                    `${landingClient}/table?gamecollection=poker&tableid=${room?._id}`,
-                    "__self"
-                  );
-                }}>
-                Join
-              </button>
-            </div>
-          ));
+          toast(
+            (t) => (
+              <div className='toaster-join'>
+                <span>
+                  "Tournament will start in 10 seconds, please join the table"
+                </span>
+                <button
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                    window.open(
+                      `${landingClient}/table?gamecollection=poker&tableid=${room?._id}`, //
+                      "__self"
+                    );
+                  }}>
+                  Join
+                </button>
+              </div>
+            ),
+            {
+              toastId: "test",
+            }
+          );
         }
       });
+      setTimeout(() => {
+        setCustomToast(false);
+      }, 1000);
     });
     return () => {
       socket.off("tournamentStart");
