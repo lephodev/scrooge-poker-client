@@ -10859,3 +10859,14 @@ h4.tornamentStart-timer {
 }
 
 /* back to home if game started already  */
+
+/* for iphone exceptiion */
+@supports (-webkit-touch-callout: none) {
+  .contentForFullScreen {
+    display: none;
+  }
+
+  .btnForFullscreen {
+    display: none;
+  }
+}
