@@ -1815,7 +1815,7 @@ const PokerTable = (props) => {
   };
   return (
     <>
-      <p className="contentForFullScreen">Tap here for Full Screen View.</p>
+      <p className="contentForFullScreen">{!isFullScreen ? "Tap here for Full Screen View" : "Exit From Full Screen"}</p>
       <button onClick={handleToggleFullscreen} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  >
         {/* <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  > */}
         {isFullScreen ? <FaCompressArrowsAlt /> :
