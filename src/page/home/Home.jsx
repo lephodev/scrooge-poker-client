@@ -1027,6 +1027,15 @@ const GameTournament = ({
         toast.error(message, { id: 'full' })
       }
     })
+    socket.on('leaveTournament', (data) => {
+      const { message, code } = data
+      if (code === 200) {
+        if (data?.user && Object.keys(data?.user)?.length > 0) {
+          setUserData(data?.user)
+        }
+        toast.success(message, { id: 'Nofull' })
+      }
+    })
     socket.on('notEnoughAmount', (data) => {
       const { message, code } = data
       if (code === 200) {
@@ -1042,6 +1051,7 @@ const GameTournament = ({
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
+    console.log("tournamentId, fees",tournamentId, fees);
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
       userId: userId,
@@ -1088,6 +1098,9 @@ const GameTournament = ({
       isWatcher: false,
       action: 'Leave',
     })
+    setTimeout(() => {
+      getTournamentDetails()
+    }, 1000)
   }
   useEffect(() => {
     socket.on('sitInOut', (data) => {
