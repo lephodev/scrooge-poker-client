@@ -2428,7 +2428,7 @@ button.btnForFullscreen.onScreen {
   left: 0;
   right: 0;
   padding: 5px;
-  z-index: 99;
+  z-index: 999;
   width: 78%;
   margin: 0px auto;
 }
