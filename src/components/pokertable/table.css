@@ -4981,6 +4981,9 @@ h4.tornamentStart-timer {
   top: 56%;
 }
 
+ul.btn-list>li button.mute-btn svg {
+  width: 20px;
+}
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -8023,6 +8026,14 @@ h4.tornamentStart-timer {
       opacity: 0;
     }
   }
+
+  .players.player1{
+    z-index: 111;
+  }
+
+  .players.player2{
+    z-index: 1111;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
@@ -10607,6 +10618,13 @@ h4.tornamentStart-timer {
       opacity: 0;
     }
   }
+  .players.player1{
+    z-index: 111;
+  }
+
+  .players.player2{
+    z-index: 1111;
+  }
 }
 
 @media only screen and (max-width: 385px) and (orientation: portrait) {
@@ -10657,6 +10675,13 @@ h4.tornamentStart-timer {
 
   .player2 {
     bottom: 4%;
+  }
+  .players.player1{
+    z-index: 111;
+  }
+
+  .players.player2{
+    z-index: 1111;
   }
 }
 
@@ -10733,6 +10758,13 @@ h4.tornamentStart-timer {
   .player9 {
     transform: translateX(50%);
     bottom: -36px;
+  }
+  .players.player1{
+    z-index: 111;
+  }
+
+  .players.player2{
+    z-index: 1111;
   }
 }
 
