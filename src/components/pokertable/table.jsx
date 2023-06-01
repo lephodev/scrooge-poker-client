@@ -2289,7 +2289,7 @@ const PokerTable = (props) => {
                     }
                   >
                     <button onClick={() => setVolume(!volume)} className="mute-btn">
-                      {volume ? <MuteIcon /> : <VolumeIcon />}
+                      {volume ? <VolumeIcon /> : <MuteIcon />}
                     </button>
                   </OverlayTrigger>
                 </li>
