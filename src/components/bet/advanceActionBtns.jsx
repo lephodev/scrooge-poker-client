@@ -21,7 +21,7 @@ const AdvanceActionBtns = ({
     } else {
       setTentativeAction(player?.tentativeAction);
     }
-  }, [currentPlayer, player]);
+  }, [currentPlayer, player?.tentativeAction]);
   const FOLD_BTN = (
     <div className="footer-btn ">
       <Button>
@@ -31,7 +31,7 @@ const AdvanceActionBtns = ({
           label="Fold"
           value="fold"
           name="group1"
-          type="radio"
+          type="checkbox"
           key="fold"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("fold")}
@@ -51,7 +51,7 @@ const AdvanceActionBtns = ({
           label="Check/Fold"
           value="check/fold"
           name="group1"
-          type="radio"
+          type="checkbox"
           key="check/fold"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("check/fold")}
@@ -72,7 +72,7 @@ const AdvanceActionBtns = ({
           label="Check"
           value="check"
           name="group1"
-          type="radio"
+          type="checkbox"
           key="check"
           onChange={handleTentativeAction}
           defaultChecked={player?.tentativeAction?.startsWith("check")}
@@ -94,7 +94,7 @@ const AdvanceActionBtns = ({
           label="Call Any"
           value="callAny"
           name="group1"
-          type="radio"
+          type="checkbox"
           key="callAny"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
@@ -115,7 +115,7 @@ const AdvanceActionBtns = ({
           label="All-in"
           value={`allin ${player?.wallet}`}
           name="group1"
-          type="radio"
+          type="checkbox"
           key="allin"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
@@ -136,7 +136,7 @@ const AdvanceActionBtns = ({
           label={`Call ${numFormatter(roomData?.raiseAmount - player?.pot)}`}
           value={`call ${roomData?.raiseAmount - player?.pot}`}
           name="group1"
-          type="radio"
+          type="checkbox"
           key="call"
           onChange={handleTentativeAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}

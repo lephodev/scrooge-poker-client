@@ -547,9 +547,11 @@ const PokerTable = (props) => {
       setTimer(roomData.timer);
       setSidePots(roomData.sidePots);
       updatePlayer(data.preflopround);
+      setCurrentPlayer();
     });
 
     socket.on("flopround", (data) => {
+      setCurrentPlayer();
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -568,6 +570,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("turnround", (data) => {
+      setCurrentPlayer();
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -586,6 +589,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("riverround", (data) => {
+      setCurrentPlayer();
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -669,6 +673,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("allin", (data) => {
+      setCurrentPlayer();
       playAudio("bet");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
@@ -709,6 +714,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("call", (data) => {
+      setCurrentPlayer();
       playAudio("bet");
       roomData = data.updatedRoom;
       setSidePots(roomData.sidePots);
@@ -729,6 +735,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("check", (data) => {
+      setCurrentPlayer();
       playAudio("check");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
@@ -749,6 +756,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("fold", (data) => {
+      setCurrentPlayer();
       playAudio("fold");
       roomData = data.updatedRoom;
       setTablePot(roomData.pot);
@@ -1563,11 +1571,9 @@ const PokerTable = (props) => {
       target: { value, checked },
     } = e;
 
-    if (tentativeAction === value) {
-      setTentativeAction("");
-    } else {
-      setTentativeAction(value);
-    }
+    if(!checked)setTentativeAction("");
+    else setTentativeAction(value);
+    
     socket.emit("playerTentativeAction", {
       gameId: tableId,
       userId,
