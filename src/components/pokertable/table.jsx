@@ -2278,12 +2278,12 @@ const PokerTable = (props) => {
                     placement="left"
                     overlay={
                       <Tooltip id="tooltip-disabled">
-                        {volume ? "Mute" : "Speaker"}
+                        {!volume ? "Mute" : "Speaker"}
                       </Tooltip>
                     }
                   >
                     <button onClick={() => setVolume(!volume)}>
-                      {volume ? <MuteIcon /> : <VolumeIcon />}
+                      {!volume ? <MuteIcon /> : <VolumeIcon />}
                     </button>
                   </OverlayTrigger>
                 </li>
