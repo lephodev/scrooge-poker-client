@@ -159,7 +159,7 @@ const AdvanceActionBtns = ({
           onChange={handleAction}
           //  disabled={player?.tentativeAction !== null && player.id === userId}
           id="inline-radio-4"
-          checked={player?.tentativeAction?.startsWith("call")}
+          checked={player?.tentativeAction?.startsWith("call ")}
         // checked={
         //   tentativeAction === `call ${ roomData?.raiseAmount - player?.pot }`
         // }
