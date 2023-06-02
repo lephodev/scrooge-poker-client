@@ -2,7 +2,7 @@
   "local": {
     "landingServerUrl": "https://dev-api.scrooge.casino/v1",
     "serverUrl": "http://localhost:3002",
-    "landingClient": "http://localhost:3000",
+    "landingClient": "http://localhost:3000/",
     "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
     "domain":"localhost",
     "marketPlaceUrl": "https://devmarket.scrooge.casino",
