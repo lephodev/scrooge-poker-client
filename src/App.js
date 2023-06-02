@@ -16,7 +16,7 @@ import LeaderBoard from "./page/home/leaderBoard";
 import Error404 from "./page/Error404/Error404";
 import userUtils from "./utils/user";
 import { socket } from "./config/socketConnection";
-import { landingClient } from "./config/keys";
+import { pokerClient } from "./config/keys";
 
 const App = () => {
   const [userInAnyGame, setUserInAnyGame] = useState({});
@@ -52,7 +52,7 @@ const App = () => {
                   onClick={() => {
                     toast.dismiss(t.id);
                     window.open(
-                      `${landingClient}/table?gamecollection=poker&tableid=${room?._id}`, //
+                      `${pokerClient}table?gamecollection=poker&tableid=${room?._id}`, //
                       "__self"
                     );
                   }}>
