@@ -52,7 +52,7 @@ const App = () => {
                   onClick={() => {
                     toast.dismiss(t.id);
                     window.open(
-                      `${landingClient}/table?gamecollection=poker&tableid=${room?._id}`, //
+                      `${landingClient}table?gamecollection=poker&tableid=${room?._id}`, //
                       "__self"
                     );
                   }}>
