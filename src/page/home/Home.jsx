@@ -1051,7 +1051,7 @@ const GameTournament = ({
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
-    console.log("tournamentId, fees",tournamentId, fees);
+    console.log("tournamentId, fees", tournamentId, fees);
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
       userId: userId,
@@ -1189,7 +1189,7 @@ const GameTournament = ({
                 Leave
               </Button>
             </div>
-          ) : (
+          ) : data?.tournamentType === 'sit&go' && data?.totalJoinPlayer < 9 && (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
