@@ -1703,10 +1703,10 @@ const PokerTable = (props) => {
         socket.emit("refillWallet", {
           tableId: tableId,
           amount: amount,
-          userid: userData.id,
+          token: cookie.get("token"),
           username: userData.username,
+          gameMode: cookie.get("mode"),
         });
-
         return "success";
       }
     } catch (error) {
@@ -1768,6 +1768,11 @@ const PokerTable = (props) => {
     socket.on("blindTimer", (data) => {
       setBlindTimer(data.time);
     });
+    socket.on('notEnoughAmount', (data) => {
+        const { message, code } = data
+        setDisable(false);
+        toast.error(message, { id: 'full' })
+    })
   }, []);
 
   const [mousePos, setMousePos] = useState({});
