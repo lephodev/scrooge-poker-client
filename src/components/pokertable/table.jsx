@@ -206,8 +206,10 @@ const PokerTable = (props) => {
             tRound = null;
             socket.emit("checkTable", {
               gameId: table,
+              userId,
               gameType: type,
               dataFrom: "reconnect",
+              gameMode: cookie.get("mode"),
             });
             setLoader(true);
           }
@@ -1279,6 +1281,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("docall", {
+      userid: userId,
       roomid: tableId,
       amount: roomData.raiseAmount,
     });
@@ -1295,6 +1298,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("doraise", {
+      userid: userId,
       roomid: tableId,
       amount: currentPlayer.pot + x,
     });
@@ -1311,6 +1315,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("docheck", {
+      userid: userId,
       roomid: tableId,
     });
     setTimer(0);
@@ -1326,6 +1331,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("dobet", {
+      userid: userId,
       roomid: tableId,
       amount: currentPlayer?.pot + x,
     });
@@ -1342,6 +1348,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("doallin", {
+      userid: userId,
       roomid: tableId,
       amount: currentPlayer?.wallet,
     });
@@ -1358,6 +1365,7 @@ const PokerTable = (props) => {
       fold: false,
     });
     socket.emit("dofold", {
+      userid: userId,
       roomid: tableId,
     });
     setTimer(0);
@@ -1365,18 +1373,21 @@ const PokerTable = (props) => {
 
   const finishGame = () => {
     socket.emit("dofinishgame", {
+      userid: userId,
       roomid: tableId,
     });
   };
 
   const pauseGame = () => {
     socket.emit("dopausegame", {
+      userid: userId,
       roomid: tableId,
     });
   };
 
   const resumeGame = () => {
     socket.emit("doresumegame", {
+      userid: userId,
       roomid: tableId,
     });
   };
@@ -1480,6 +1491,7 @@ const PokerTable = (props) => {
   const sitout = () => {
     socket.emit("dositout", {
       tableId,
+      userId,
       gameType: gameCollection,
     });
   };
@@ -1487,6 +1499,7 @@ const PokerTable = (props) => {
   const sitin = () => {
     socket.emit("dositin", {
       tableId,
+      userId,
       gameType: gameCollection,
     });
   };
@@ -1494,6 +1507,7 @@ const PokerTable = (props) => {
   const leaveTable = () => {
     socket.emit("doleavetable", {
       tableId,
+      userId,
       gameType: gameCollection,
       isWatcher: isWatcher,
       action: "Leave",
@@ -1538,7 +1552,7 @@ const PokerTable = (props) => {
   }, [history]);
 
   const handleOpenChatHistory = () => {
-    socket.emit("updateChatIsRead", { tableId });
+    socket.emit("updateChatIsRead", { userId, tableId });
     setNoOfPrevMessages(chatMessages.length);
     setUnReadMessages(0);
     setOpenChatHistory(!openChatHistory);
@@ -1556,6 +1570,7 @@ const PokerTable = (props) => {
     }
     socket.emit("playerTentativeAction", {
       gameId: tableId,
+      userId,
       playerAction: checked ? value : null,
     });
   };
@@ -1638,8 +1653,10 @@ const PokerTable = (props) => {
       tRound = null;
       socket.emit("checkTable", {
         gameId: table,
+        userId: userId,
         gameType: type,
         sitInAmount: parseFloat(sitInAmount),
+        gameMode: cookie.get("mode"),
       });
       setShowEnterAmountPopup(false);
       // setRetryIfUserNotJoin(true);
@@ -1711,6 +1728,7 @@ const PokerTable = (props) => {
       });
 
       socket.emit("doraise", {
+        userid: userId,
         roomid: tableId,
         amount: currentPlayer?.pot + x,
       });
@@ -1733,6 +1751,7 @@ const PokerTable = (props) => {
       });
 
       socket.emit("dobet", {
+        userid: userId,
         roomid: tableId,
         amount: currentPlayer?.pot + x,
       });
