@@ -728,9 +728,7 @@ const GameTable = ({
   const history = useHistory()
   const redirectToTable = () => {
     socket.emit('checkAlreadyInGame', {
-      userId,
       tableId,
-      gameMode: cookie.get('mode'),
     })
     socket.on('userAlreadyInGame', (value) => {
       const { message, join } = value
@@ -780,7 +778,6 @@ const GameTable = ({
   const joinTournament = async (tournamentId, fees) => {
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
-      userId: userId,
       fees,
     })
     setTimeout(() => {
@@ -1093,7 +1090,6 @@ const GameTournament = ({
   const cancelTournament = async () => {
     socket.emit('doleavetable', {
       tableId,
-      userId,
       gameType: gameType,
       isWatcher: false,
       action: 'Leave',
