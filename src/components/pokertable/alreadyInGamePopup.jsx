@@ -9,8 +9,7 @@ const AlreadyInGamePopup = ({ userInAnyGame, setUserInAnyGame }) => {
       await axios({
         method: "get",
         url: `${userInAnyGame?.leaveTable}`,
-      }
-      );
+      });
       setUserInAnyGame({ ...userInAnyGame, inGame: false })
     } catch (err) {
       console.log("Error in leave APi Call")
