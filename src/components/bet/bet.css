@@ -126,15 +126,15 @@
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: #07974f;
 }
 
-input:focus+.slider {
+input:focus + .slider {
   box-shadow: 0 0 1px #07974f;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(100px);
   -ms-transform: translateX(100px);
   transform: translateX(100px);
@@ -461,7 +461,6 @@ input:checked+.slider:before {
   height: 28px;
 }
 
-
 .raiseBet-container .bet-view::before {
   content: "";
   width: 0;
@@ -681,8 +680,9 @@ span.input-range__label.input-range__label--max {
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
   .raiseBet-container {
-    top: -176px;
-    left: -248%;
+    top: -200px;
+    left: 45%;
+    transform: translateX(-50%);
     scale: 0.9;
   }
 
@@ -707,8 +707,9 @@ span.input-range__label.input-range__label--max {
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 991px) and (orientation: landscape) {
   .raiseBet-container {
-    top: -166px;
-    left: -130%;
+    top: -180px;
+    left: 44%;
+    transform: translateX(-50%);
     scale: 0.75;
   }
 
