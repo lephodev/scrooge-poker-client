@@ -11,6 +11,7 @@ socket.on('connect', () => {
   console.log('connected');
 });
 socket.on('disconnect', () => {
+  window.location.href = window.location.origin + "/table" + window.location.search;
   console.log('Disconnected');
 });
 
