@@ -988,6 +988,13 @@ const PokerTable = (props) => {
         setDisable(false);
       }
     });
+
+    socket.on("tournamentLeave",()=>{
+      setTimeout(()=>{
+        history.push("/");
+      },500)
+    })
+
   }, []);
   const handleTentativeActionAuto = (player) => {
     let event;
@@ -2180,7 +2187,7 @@ const PokerTable = (props) => {
                     placement="left"
                     overlay={<Tooltip id="tooltip-disabled">Leave</Tooltip>}
                   >
-                    <button onClick={() => setLeaveConfirm(true)}>
+                   <button onClick={() => setLeaveConfirm(true)}>
                       <i class="fa fa-sign-out" aria-hidden="true" />
                     </button>
                   </OverlayTrigger>
