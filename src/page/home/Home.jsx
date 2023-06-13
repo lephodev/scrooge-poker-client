@@ -1051,7 +1051,7 @@ const GameTournament = ({
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
-    console.log("tournamentId, fees",tournamentId, fees);
+    console.log("tournamentId, fees", tournamentId, fees);
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
       userId: userId,
@@ -1069,10 +1069,11 @@ const GameTournament = ({
     })
     if (res.data.code === 200) {
       let roomid = res.data.roomId
-      history.push({
-        pathname: '/table',
-        search: '?gamecollection=poker&tableid=' + roomid,
-      })
+      window.location.href = window.location.origin + '/table?gamecollection=poker&tableid=' + roomid
+      // history.push({
+      //   pathname: '/table',
+      //   search: '?gamecollection=poker&tableid=' + roomid,
+      // })
     } else {
       buttonClick = false
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
@@ -1172,7 +1173,7 @@ const GameTournament = ({
             <Button type="text" disabled="true">
               Game Finished
             </Button>
-          ) : ifUserJoind() ? (
+          ) : (ifUserJoind()) ? (
             <div className='buttonDetail-twobtns'>
               <Button
                 type="text"
@@ -1181,13 +1182,14 @@ const GameTournament = ({
               >
                 Enter Game
               </Button>
-              <Button
+              {!data?.isStart ? (<Button
                 type="button"
                 disabled={buttonClick}
                 onClick={() => cancelTournament()}
               >
                 Leave
-              </Button>
+              </Button>) : null}
+
             </div>
           ) : (
             <Button
