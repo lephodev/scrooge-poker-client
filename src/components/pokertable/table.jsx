@@ -989,10 +989,10 @@ const PokerTable = (props) => {
       }
     });
 
-    socket.on("tournamentLeave",()=>{
-      setTimeout(()=>{
+    socket.on("tournamentLeave", () => {
+      setTimeout(() => {
         history.push("/");
-      },500)
+      }, 500)
     })
 
   }, []);
@@ -2187,7 +2187,7 @@ const PokerTable = (props) => {
                     placement="left"
                     overlay={<Tooltip id="tooltip-disabled">Leave</Tooltip>}
                   >
-                   <button onClick={() => setLeaveConfirm(true)}>
+                    <button onClick={() => setLeaveConfirm(true)}>
                       <i class="fa fa-sign-out" aria-hidden="true" />
                     </button>
                   </OverlayTrigger>
@@ -2704,8 +2704,9 @@ const TableCard = ({
 const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
   return (
     <div className="pot-money">
+      {/* {console.log("Sideeeeee potsssssss ", sidePots.filter(el => !(el.pot)))} */}
       {sidePots.length ? (
-        sidePots.map((sidePot) => (
+        sidePots.filter(el => (el.pot)).map((sidePot) => (
           <div
             className={`total-pot-money animate__animated animate__fadeIn ${ activeWinnerPlayersPot?.potPlayer?.length ===
               sidePot?.players?.length
@@ -2716,8 +2717,9 @@ const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
             <span className={`pots-${ sidePots.length }`}>
               <p>{numFormatter(sidePot.pot)}</p>
             </span>
-          </div>
-        ))
+          </div>)
+
+        )
       ) : (
         <div
           className={`total-pot-money animate__animated animate__fadeIn winnPlayer${ activeWinnerPlayersPot.availablePosition + 1
