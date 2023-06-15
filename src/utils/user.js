@@ -10,7 +10,10 @@ const getAuthUserData = async () => {
     let userData = await axios({
       method: "get",
       url: `${CONSTANTS.landingServerUrl}/auth/check-auth`,
-      headers: { authorization: `Bearer ${getCookie("token")}` },
+      headers: {
+         authorization: `Bearer ${getCookie("token")}`, 
+         "Permissions-Policy": "geolocation=*",
+        },
       withCredentials: true,
       credentials: "include",
     });
