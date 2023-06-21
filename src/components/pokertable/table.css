@@ -1185,7 +1185,6 @@ button.btnForFullscreen.onScreen {
   }
 }
 
-
 .winnPlayer7 .pots-1 {
   animation: winnPot71 0.8s forwards;
   transform: translate(620px, -35px);
@@ -1339,7 +1338,6 @@ button.btnForFullscreen.onScreen {
   }
 }
 
-
 .winnPlayer8 .pots-1 {
   animation: winnPot81 0.8s forwards;
   transform: translate(635px, 200px);
@@ -1492,8 +1490,6 @@ button.btnForFullscreen.onScreen {
     opacity: 0;
   }
 }
-
-
 
 .winnPlayer9 .pots-1 {
   animation: winnPot91 0.8s forwards;
@@ -2428,7 +2424,7 @@ button.btnForFullscreen.onScreen {
   left: 0;
   right: 0;
   padding: 5px;
-  z-index: 999;
+  z-index: 99999;
   width: 78%;
   margin: 0px auto;
 }
@@ -2518,7 +2514,7 @@ button.btnForFullscreen.onScreen {
 }
 
 .total-pot-money {
-  transition: all ease .3s;
+  transition: all ease 0.3s;
   transform: translate(2%, -30%);
 }
 
@@ -2927,8 +2923,8 @@ button.btnForFullscreen.onScreen {
 
 /**** Winner Animation *******/
 
-.pyro>.before,
-.pyro>.after {
+.pyro > .before,
+.pyro > .after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -2953,7 +2949,7 @@ button.btnForFullscreen.onScreen {
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro>.after {
+.pyro > .after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -3177,7 +3173,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @-webkit-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -3210,7 +3205,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @-moz-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -3243,7 +3237,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @-o-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -3276,7 +3269,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @-ms-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -3309,7 +3301,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -3381,7 +3372,7 @@ button.btnForFullscreen.onScreen {
 
 .custom-toaster .btn-primary:not(:disabled):not(.disabled).active,
 .custom-toaster .btn-primary:not(:disabled):not(.disabled):active,
-.custom-toaster .show>.btn-primary.dropdown-toggle {
+.custom-toaster .show > .btn-primary.dropdown-toggle {
   background-color: transparent;
   border-color: transparent;
 }
@@ -3420,7 +3411,6 @@ button.btnForFullscreen.onScreen {
 }
 
 @keyframes shake {
-
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
@@ -3683,8 +3673,10 @@ p.joined-player {
 }
 
 .flip-vertical-left {
-  -webkit-animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  -webkit-animation: flip-vertical-left 0.8s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-left 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
 }
 
 @-webkit-keyframes flip-vertical-left {
@@ -3713,19 +3705,19 @@ p.joined-player {
 
 /************* Flip *******************/
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-duration: 0.5s;
   transition-property: transform, opacity;
 }
 
-.flip>.front {
+.flip > .front {
   transform: rotateY(0deg);
 }
 
-.flip>.back {
+.flip > .back {
   position: absolute;
   opacity: 0;
   top: 0px;
@@ -3735,12 +3727,12 @@ p.joined-player {
   transform: rotateY(-180deg);
 }
 
-.flip.active>.front {
+.flip.active > .front {
   transform: rotateY(180deg);
   opacity: 0;
 }
 
-.flip.active>.back {
+.flip.active > .back {
   opacity: 1;
   transform: rotateY(0deg);
 }
@@ -3751,18 +3743,18 @@ p.joined-player {
   width: 60px;
 }
 
-.flip>.front,
-.flip>.back {
+.flip > .front,
+.flip > .back {
   display: block;
   width: 60px;
   height: 84px;
 }
 
-.tooltip-box>p {
+.tooltip-box > p {
   margin-bottom: 5px;
 }
 
-.tooltip-box>p:last-child {
+.tooltip-box > p:last-child {
   margin-bottom: 0;
 }
 
@@ -4240,15 +4232,15 @@ ul.btn-list {
   z-index: 999;
 }
 
-ul.btn-list>li:first-child {
+ul.btn-list > li:first-child {
   display: none;
 }
 
-ul.btn-list>li {
+ul.btn-list > li {
   padding: 2px 0;
 }
 
-ul.btn-list>li>button {
+ul.btn-list > li > button {
   border-radius: 20px;
   padding: 5px 10px;
   width: 40px;
@@ -4264,7 +4256,7 @@ ul.btn-list>li>button {
   border: none;
 }
 
-ul.btn-list>li span.close-icon {
+ul.btn-list > li span.close-icon {
   position: absolute;
   right: 10px;
   top: -30px;
@@ -4285,7 +4277,7 @@ ul.btn-list>li span.close-icon {
   z-index: 999999 !important;
 }
 
-ul.btn-list>li>button>img {
+ul.btn-list > li > button > img {
   width: 18px;
   height: 18px;
   object-fit: cover;
@@ -4304,7 +4296,7 @@ ul.btn-list>li>button>img {
   background: transparent;
 }
 
-.poker-bg .poker-loader>img {
+.poker-bg .poker-loader > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -4318,7 +4310,7 @@ ul.btn-list>li>button>img {
   background-color: #a89319;
 }
 
-.abc>div {
+.abc > div {
   z-index: 99999999 !important;
 }
 
@@ -4428,7 +4420,7 @@ ul.btn-list>li>button>img {
   visibility: hidden !important;
 }
 
-.player-box .pyro>div {
+.player-box .pyro > div {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -4488,7 +4480,7 @@ ul.btn-list>li>button>img {
   color: #16181b;
 }
 
-.cam-tool .show>.btn-success.dropdown-toggle {
+.cam-tool .show > .btn-success.dropdown-toggle {
   background: transparent !important;
 }
 
@@ -5033,7 +5025,8 @@ ul.btn-list li button svg {
     height: 100px;
   } */
 
-  .total-pot-money {}
+  .total-pot-money {
+  }
 
   .game-msg {
     top: 112px;
@@ -5117,7 +5110,8 @@ ul.btn-list li button svg {
     right: -2%;
   }
 
-  .total-pot-money {}
+  .total-pot-money {
+  }
 }
 
 @media screen and (max-width: 1366px) {
@@ -5131,7 +5125,8 @@ ul.btn-list li button svg {
     height: 335px;
   }
 
-  .total-pot-money {}
+  .total-pot-money {
+  }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 768px) and (orientation: landscape) {
@@ -5145,7 +5140,8 @@ ul.btn-list li button svg {
     margin: 0px 2px;
   }
 
-  .total-pot-money {}
+  .total-pot-money {
+  }
 
   .players.player1 {
     left: 48%;
@@ -5207,7 +5203,6 @@ ul.btn-list li button svg {
     scale: 0.9;
     margin: 0px 2px;
   }
-
 
   .players.player1 {
     left: 49%;
@@ -5297,7 +5292,7 @@ ul.btn-list li button svg {
     top: 1px;
   }
 
-  .player-timer div>svg {
+  .player-timer div > svg {
     width: 100px !important;
     height: 100px !important;
   }
@@ -5360,7 +5355,8 @@ ul.btn-list li button svg {
     padding-right: 22px;
   }
 
-  .total-pot-money span::before {}
+  .total-pot-money span::before {
+  }
 
   .player-pic {
     height: 110px;
@@ -5425,7 +5421,8 @@ ul.btn-list li button svg {
     top: 32%;
   }
 
-  .total-pot-money {}
+  .total-pot-money {
+  }
 
   .game-msg {
     top: 110px;
@@ -5630,8 +5627,7 @@ ul.btn-list li button svg {
     font-size: 18px;
   }
 
-
-  input:checked+.slider:before {
+  input:checked + .slider:before {
     transform: translateX(115px);
   }
 
@@ -6669,7 +6665,6 @@ ul.btn-list li button svg {
     }
   }
 
-
   .winnPlayer7 .pots-1 {
     animation: winnPot71 0.8s forwards;
     transform: translate(312px, -76px);
@@ -6823,7 +6818,6 @@ ul.btn-list li button svg {
     }
   }
 
-
   .winnPlayer8 .pots-1 {
     animation: winnPot81 0.8s forwards;
     transform: translate(306px, 98px);
@@ -6976,8 +6970,6 @@ ul.btn-list li button svg {
       opacity: 0;
     }
   }
-
-
 
   .winnPlayer9 .pots-1 {
     animation: winnPot91 0.8s forwards;
@@ -7155,7 +7147,8 @@ ul.btn-list li button svg {
     font-size: 18px;
   }
 
-  .total-pot-money span {}
+  .total-pot-money span {
+  }
 
   .chat-logo img {
     max-width: 88px;
@@ -7280,7 +7273,7 @@ ul.btn-list li button svg {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -7289,7 +7282,8 @@ ul.btn-list li button svg {
     height: 120px !important;
   }
 
-  .total-pot-money span::before {}
+  .total-pot-money span::before {
+  }
 
   .chat-wrapper {
     right: 10px;
@@ -7389,6 +7383,7 @@ ul.btn-list li button svg {
   .footer-btn {
     width: 105px;
     height: 36px;
+    position: initial;
   }
 
   .footer-btn .btn,
@@ -7684,7 +7679,7 @@ ul.btn-list li button svg {
     top: inherit;
   } */
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 30px;
     height: 30px !important;
     padding: 0;
@@ -7694,7 +7689,7 @@ ul.btn-list li button svg {
     scale: 1.1;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -7707,7 +7702,7 @@ ul.btn-list li button svg {
     width: 30px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -8027,11 +8022,11 @@ ul.btn-list li button svg {
     }
   }
 
-  .players.player1{
+  .players.player1 {
     z-index: 111;
   }
 
-  .players.player2{
+  .players.player2 {
     z-index: 1111;
   }
 }
@@ -8042,7 +8037,6 @@ ul.btn-list li button svg {
     height: 60vh;
     margin: 0px auto;
   }
-
 }
 
 /************************************************************ Portrait ***********************************************************/
@@ -8071,7 +8065,7 @@ ul.btn-list li button svg {
   }
 
   .playerHand-status p {
-    font-size: 12px
+    font-size: 12px;
   }
 
   /************** winn player pot animation  *************/
@@ -8995,7 +8989,6 @@ ul.btn-list li button svg {
     }
   }
 
-
   .winnPlayer7 .pots-1 {
     animation: winnPot71 0.8s forwards;
     transform: translate(132px, 32px);
@@ -9148,7 +9141,6 @@ ul.btn-list li button svg {
       opacity: 0;
     }
   }
-
 
   .winnPlayer8 .pots-1 {
     animation: winnPot81 0.8s forwards;
@@ -9303,8 +9295,6 @@ ul.btn-list li button svg {
     }
   }
 
-
-
   .winnPlayer9 .pots-1 {
     animation: winnPot91 0.8s forwards;
     transform: translate(155px, 380px);
@@ -9457,8 +9447,6 @@ ul.btn-list li button svg {
       opacity: 0;
     }
   }
-
-
 
   .game-started-join:after {
     font-size: 20px;
@@ -9638,7 +9626,7 @@ ul.btn-list li button svg {
     font-size: 16px;
   }
 
-  .leave-confirm.modal .block>p {
+  .leave-confirm.modal .block > p {
     padding-bottom: 10px;
   }
 
@@ -9647,7 +9635,8 @@ ul.btn-list li button svg {
     height: 120px !important;
   }
 
-  .total-pot-money span::before {}
+  .total-pot-money span::before {
+  }
 
   .chat-wrapper {
     right: 10px;
@@ -9739,6 +9728,7 @@ ul.btn-list li button svg {
   .footer-btn {
     width: 94px;
     height: 42px;
+    position: initial;
   }
 
   .footer-btn input {
@@ -9911,7 +9901,7 @@ ul.btn-list li button svg {
     display: none !important;
   }
 
-  ul.btn-list>li>button {
+  ul.btn-list > li > button {
     width: 34px;
     height: 34px !important;
     padding: 0;
@@ -9921,7 +9911,7 @@ ul.btn-list li button svg {
     scale: 1.1;
   }
 
-  ul.btn-list>li>button i {
+  ul.btn-list > li > button i {
     font-size: 14px;
   }
 
@@ -9934,7 +9924,7 @@ ul.btn-list li button svg {
     width: 34px;
   }
 
-  ul.btn-list>li>button>img {
+  ul.btn-list > li > button > img {
     width: 20px;
     height: 20px;
   }
@@ -10108,8 +10098,6 @@ ul.btn-list li button svg {
     animation: travelDown 0.4s;
   }
 
-
-
   .animateMerge-chips.players.player5 .player-chip {
     animation: mergeP5 0.4s;
   }
@@ -10249,7 +10237,6 @@ ul.btn-list li button svg {
     from {
       top: 97%;
       right: 0%;
-
     }
 
     to {
@@ -10257,7 +10244,6 @@ ul.btn-list li button svg {
       right: 84%;
     }
   }
-
 
   @keyframes mergeP9 {
     from {
@@ -10410,7 +10396,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10439,7 +10424,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10468,7 +10452,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10527,7 +10510,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10556,7 +10538,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10585,7 +10566,6 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
@@ -10614,15 +10594,14 @@ ul.btn-list li button svg {
     }
 
     100% {
-
       opacity: 0;
     }
   }
-  .players.player1{
+  .players.player1 {
     z-index: 111;
   }
 
-  .players.player2{
+  .players.player2 {
     z-index: 1111;
   }
 }
@@ -10676,11 +10655,11 @@ ul.btn-list li button svg {
   .player2 {
     bottom: 4%;
   }
-  .players.player1{
+  .players.player1 {
     z-index: 111;
   }
 
-  .players.player2{
+  .players.player2 {
     z-index: 1111;
   }
 }
@@ -10709,7 +10688,8 @@ ul.btn-list li button svg {
     width: 200px;
   }
 
-  .total-pot-money span {}
+  .total-pot-money span {
+  }
 
   .players {
     scale: 0.7;
@@ -10759,11 +10739,11 @@ ul.btn-list li button svg {
     transform: translateX(50%);
     bottom: -36px;
   }
-  .players.player1{
+  .players.player1 {
     z-index: 111;
   }
 
-  .players.player2{
+  .players.player2 {
     z-index: 1111;
   }
 }
