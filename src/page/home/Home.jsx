@@ -1030,10 +1030,10 @@ const GameTournament = ({
     socket.on('leaveTournament', (data) => {
       const { message, code } = data
       if (code === 200) {
-        if (data?.user && Object.keys(data?.user)?.length > 0) {
+        if (data?.user && Object.keys(data?.user)?.length > 0 && data.user.id === userId) {
           setUserData(data?.user)
+          toast.success(message, { id: 'Nofull' })
         }
-        toast.success(message, { id: 'Nofull' })
       }
     })
     socket.on('notEnoughAmount', (data) => {
