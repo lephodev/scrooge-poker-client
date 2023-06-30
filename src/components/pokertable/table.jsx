@@ -223,13 +223,13 @@ const PokerTable = (props) => {
     const isLoggedIn = async () => {
       let urlParams = new URLSearchParams(window.location.search);
       let user;
-      if (
-        !localStorage.getItem("token") &&
-        !urlParams.get("token") &&
-        !getCookie("token")
-      ) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
-      }
+      // if (
+      //   !localStorage.getItem("token") &&
+      //   !urlParams.get("token") &&
+      //   !getCookie("token")
+      // ) {
+      //   return (window.location.href = `${ CONSTANTS.landingClient }`);
+      // }
 
       user = await userUtils.getAuthUserData();
 
