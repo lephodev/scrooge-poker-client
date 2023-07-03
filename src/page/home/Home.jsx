@@ -72,6 +72,8 @@ const Home = () => {
       method: 'get',
       url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
       headers: { authorization: `Bearer ${ getCookie('token') }` },
+      withCredentials:true,
+      credentials:"include"
     })
     if (userData?.data) {
       setUserInAnyGame(userData.data)
