@@ -1193,14 +1193,19 @@ const GameTournament = ({
               </Button>) : null}
 
             </div>
-          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 && (
+          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 ?  (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
               Join Game
             </Button>
-          )}
+          ) : data?.tournamentType !== 'sit&go' ? (<Button
+            type="text"
+            onClick={() => joinTournament(data?._id, data?.tournamentFee)}
+          >
+            Join Game
+          </Button>) : null}
           <img
             src={ranking}
             alt=""
