@@ -1,18 +1,24 @@
-import { io } from 'socket.io-client';
-import CONSTANTS from './contants';
+import { io } from "socket.io-client";
+import CONSTANTS from "./contants";
 // https://poker-server-t3e66zpola-uc.a.run.app
 
 const socket = io(CONSTANTS.serverUrl, {
-  transports: ['websocket'],
+  transports: ["websocket"],
   rejectUnauthorized: false,
   reconnection: false,
 });
-socket.on('connect', () => {
-  console.log('connected');
+socket.on("connect", () => {
+  console.log("connected");
 });
-socket.on('disconnect', () => {
-  window.location.href = window.location.origin + "/table" + window.location.search;
-  console.log('Disconnected');
+socket.on("disconnect", () => {
+  if (window.location.search) {
+    window.location.href =
+      window.location.origin + "/table" + window.location.search;
+  } else {
+    window.location.href = window.location.origin;
+  }
+
+  console.log("Disconnected");
 });
 
 export { socket };
