@@ -269,6 +269,8 @@ const Home = () => {
         getTournamentDetails()
       }
     })
+
+   
     socket.on('tournamentCreated', (data) => {
       setTournaments(data.tournaments)
     })
@@ -318,6 +320,14 @@ const Home = () => {
   useEffect(() => {
     getTournamentDetails()
   }, [])
+
+  socket.on("tournamentStart", (data) => {
+    getTournamentDetails()
+
+    // setTimeout(() => {
+    //   getTournamentDetails()
+    // }, 1000)
+  });
 
   const options = useMemo(
     () =>
@@ -754,6 +764,7 @@ const GameTable = ({
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user)
         }
+      
         toast.success(message, { id: 'Nofull' })
       } else {
         toast.error(message, { id: 'full' })
@@ -777,6 +788,10 @@ const GameTable = ({
     socket.on('tournamentAlreadyStarted', (data) => {
       toast.error(data.message, { id: 'tournamentStarted' })
     })
+
+    
+   
+    
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
@@ -789,6 +804,8 @@ const GameTable = ({
       getTournamentDetails()
     }, 1000)
   }
+
+ 
 
   const enterRoom = async (tournamentId) => {
     const res = await tournamentInstance().post('/enterroom', {
