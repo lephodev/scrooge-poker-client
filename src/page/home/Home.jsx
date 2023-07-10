@@ -1192,7 +1192,7 @@ const GameTournament = ({
             <Button type="text" disabled="true">
               Game Finished
             </Button>
-          ) : (ifUserJoind()) ? (
+          ) : (ifUserJoind() && !data?.isStart) ? (
             <div className='buttonDetail-twobtns'>
               <Button
                 type="text"
@@ -1210,7 +1210,7 @@ const GameTournament = ({
               </Button>) : null}
 
             </div>
-          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 ?  (
+          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9  && !data?.isStart ?  (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
