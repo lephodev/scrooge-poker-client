@@ -1192,7 +1192,7 @@ const GameTournament = ({
             <Button type="text" disabled="true">
               Game Finished
             </Button>
-          ) : (ifUserJoind() && !data?.isStart) ? (
+          ) : (ifUserJoind()) ? (
             <div className='buttonDetail-twobtns'>
               <Button
                 type="text"
