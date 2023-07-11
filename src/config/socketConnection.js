@@ -14,7 +14,7 @@ socket.on("disconnect", () => {
   if (window.location.search) {
     window.location.href =
       window.location.origin +
-      (window.location.search.includes("leaderboard")
+      (window.location.search.includes("tournamentId")
         ? "/leaderboard"
         : "/table") +
       window.location.search;
