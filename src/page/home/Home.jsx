@@ -72,8 +72,8 @@ const Home = () => {
       method: 'get',
       url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
       headers: { authorization: `Bearer ${ getCookie('token') }` },
-      withCredentials:true,
-      credentials:"include"
+      withCredentials: true,
+      credentials: "include"
     })
     if (userData?.data) {
       setUserInAnyGame(userData.data)
@@ -270,7 +270,7 @@ const Home = () => {
       }
     })
 
-   
+
     socket.on('tournamentCreated', (data) => {
       setTournaments(data.tournaments)
     })
@@ -764,7 +764,7 @@ const GameTable = ({
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user)
         }
-      
+
         toast.success(message, { id: 'Nofull' })
       } else {
         toast.error(message, { id: 'full' })
@@ -789,9 +789,9 @@ const GameTable = ({
       toast.error(data.message, { id: 'tournamentStarted' })
     })
 
-    
-   
-    
+
+
+
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
@@ -805,7 +805,7 @@ const GameTable = ({
     }, 1000)
   }
 
- 
+
 
   const enterRoom = async (tournamentId) => {
     const res = await tournamentInstance().post('/enterroom', {
@@ -1188,6 +1188,7 @@ const GameTournament = ({
           </div>
         </div>
         <div className="tournamentCard-buttonDetail">
+          {console.log("eleminated players ===>", data?.eleminatedPlayers)}
           {data?.isFinished ? (
             <Button type="text" disabled="true">
               Game Finished
@@ -1210,14 +1211,14 @@ const GameTournament = ({
               </Button>) : null}
 
             </div>
-          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9  && !data?.isStart ?  (
+          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 && !data?.isStart ? (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
               Join Game
             </Button>
-          ) : data?.tournamentType !== 'sit&go' ? (<Button
+          ) : data?.tournamentType !== 'sit&go' && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) ? (<Button
             type="text"
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
