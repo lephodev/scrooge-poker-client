@@ -920,7 +920,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("roomchanged", (data) => {
-      let user = data.userIds.find((el) => el.userId === userId);
+      let user = data?.userIds?.find((el) => el.userId === userId);
       if (user) {
         window.location.href = `/table?gamecollection=poker&tableid=${ user.newRoomId }`;
       }
