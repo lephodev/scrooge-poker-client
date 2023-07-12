@@ -44,6 +44,7 @@ const Home = () => {
     autohand: true,
     sitInAmount: '',
     invitedUsers: [],
+    actionTime: '',
   }
   // States
   const {
@@ -65,7 +66,15 @@ const Home = () => {
   const [key, setKey] = useState('home')
   const history = useHistory()
   const [allUsers, setAllUsers] = useState([])
-  const [showSpinner, setShowSpinner] = useState(false)
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [timeOptions] = useState([
+    { value: 10, label: "10 seconds" },
+    { value: 15, label: "15 seconds" },
+    { value: 20, label: "20 seconds" },
+    { value: 30, label: "30 seconds" },
+    { value: 45, label: "45 seconds" },
+    { value: 60, label: "60 seconds" },
+  ]);
   // utils function
   const checkUserInGame = async () => {
     let userData = await axios({
@@ -214,6 +223,12 @@ const Home = () => {
       err.gameName = 'Game name is already exist.'
       valid = false
     }
+
+    if (gameState.actionTime === '') {
+      err.actionTime = 'Please select an action time.'
+      valid = false
+    }
+
     return { valid, err }
   }
 
@@ -317,6 +332,11 @@ const Home = () => {
     } catch (error) { }
   }
 
+  const handleActionTime = (selectedOption) => {
+    console.log("selectedOption ===>", selectedOption);
+    setGameState({ ...gameState, actionTime: selectedOption.value })
+  }
+
   useEffect(() => {
     getTournamentDetails()
   }, [])
@@ -389,6 +409,8 @@ const Home = () => {
         options={options}
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
+        timeOptions={timeOptions}
+        handleActionTime={handleActionTime}
       />
       <Header
         userData={userData}
@@ -611,6 +633,8 @@ const CreateTable = ({
   options,
   showSpinner,
   handleChnageInviteUsers,
+  handleActionTime,
+  timeOptions
 }) => {
   return (
     <Modal show={show} onHide={handleShow} centered className="casino-popup">
@@ -684,6 +708,17 @@ const CreateTable = ({
             )}
           </div>
         </Form.Group>
+        <div className="searchSelectDropdown">
+          <Form.Label>Action time</Form.Label>
+          <Select
+            onChange={handleActionTime}
+            options={timeOptions}
+            styles={customStyles}
+          />
+          {!!errors?.actionTime && (
+            <p className="text-danger">{errors?.actionTime}</p>
+          )}
+        </div>
         <div className="searchSelectDropdown">
           <Form.Label>Invite Users</Form.Label>
           <Select
