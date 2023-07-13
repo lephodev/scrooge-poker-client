@@ -43,12 +43,12 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     });
     socket.on('winner', (data) => {
       const room = data.updatedRoom;
-      let filterData=room.handWinner.filter(arr=>(arr.length));
+      let filterData = room.handWinner.filter(arr => (arr.length));
       setWinHistoryData(filterData)
     });
     socket.on('updateGame', (data) => {
       const room = data.game;
-      let filterData=room.handWinner.filter(arr=>(arr.length));
+      let filterData = room.handWinner.filter(arr => (arr.length));
       setWinHistoryData(filterData)
     })
   }, [])
@@ -102,7 +102,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
           )
         })
         }
-        {console.log("winHistoryData",winHistoryData)}
+        {/* {console.log("winHistoryData",winHistoryData)} */}
         {winHistoryData?.map((data, i) => (
           <div className="playerComment-box" key={i} onClick={() => handleWinPopup(data)}>
             <div className="everyRoundData">

@@ -1102,7 +1102,27 @@ const GameTournament = ({
     socket.on('tournamentSlotFull', (data) => {
       toast.error('Tournament slot is full', { id: 'slot-full' })
     })
+
   }, [])
+
+  useEffect(() => {
+    socket.on("redirectToTableAsWatcher", async (data) => {
+      console.log("redirectToTableAsWatcher ==>", data);
+      try {
+        if (data?.userId === userId) {
+          console.log("hellow", data, window)
+          if (window) {
+            console.log("redirectToTableAsWatcher111 ==>", data, window);
+            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            console.log("helloo i am here");
+          }
+          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
+        }
+      } catch (err) {
+        console.log("errror in redirection ==>", err);
+      }
+    });
+  })
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
@@ -1246,12 +1266,12 @@ const GameTournament = ({
               </Button>) : null}
 
             </div>
-          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 && !data?.isStart ? (
+          ) : data?.tournamentType === 'sit&go' ? (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
-              Join Game
+              {data.isStart ? "Spectate" : "Join Game"}
             </Button>
           ) : data?.tournamentType !== 'sit&go' && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) ? (<Button
             type="text"

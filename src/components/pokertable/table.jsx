@@ -808,6 +808,10 @@ const PokerTable = (props) => {
       } else if (roomData.runninground === 5) {
         updatePlayer(roomData.showdown);
       }
+      setWatchers(roomData.watchers);
+      if (roomData.watchers.find(el => (el.toString() === userId))) {
+        isWatcher = true;
+      }
     });
 
     socket.on("roomPaused", () => {
@@ -1182,15 +1186,18 @@ const PokerTable = (props) => {
     }
     let playerDetails = [];
     whole?.forEach((el, i) => {
-      playerDetails.push({
-        ...el,
-        availablePosition: availablePosition[i],
-        isDealer: roomData.dealerPosition === el.position ? true : false,
-        isSmallBlind:
-          roomData.smallBlindPosition === el.position ? true : false,
-        isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
-        id: el.userid ? el.userid : el.id,
-      });
+      if (el.playing) {
+        playerDetails.push({
+          ...el,
+          availablePosition: availablePosition[i],
+          isDealer: roomData.dealerPosition === el.position ? true : false,
+          isSmallBlind:
+            roomData.smallBlindPosition === el.position ? true : false,
+          isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
+          id: el.userid ? el.userid : el.id,
+        });
+      }
+
     });
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
@@ -1859,11 +1866,12 @@ const PokerTable = (props) => {
       </button>
       <FullScreen handle={handle}>
         <div className="poker" id={players.length}>
+          {console.log("players ====>", players)}
           <Helmet>
             <html
               className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
                 roomData &&
-                roomData.players.find((ele) => ele.userid === userId)
+                roomData.players.find((ele) => (ele.userid === userId)) && !isWatcher
                 ? "game-started-join"
                 : ""
                 }`}
@@ -2074,7 +2082,7 @@ const PokerTable = (props) => {
                       roomData={roomData}
                       blindTimer={blindTimer}
                     />
-                    {!isWatcher &&
+                    {
                       roomData &&
                       userId &&
                       players.map((player, i) => (
@@ -2303,15 +2311,15 @@ const PokerTable = (props) => {
             tableId={tableId}
           />
           {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
-          {isWatcher && (
+          {/* {isWatcher && (
             <div className="bet-button">
               <span onClick={() => handleBetClick(!view)} role="presentation">
                 Place Bet <img src={arrow} alt="arrow" />
               </span>
             </div>
-          )}
-
-          <EnterAmountPopup
+          )} */}
+          {console.log("roomdata: ==>", roomData?.tournament)}
+          {!roomData?.tournament ? (<EnterAmountPopup
             handleSitin={handleSitInAmount}
             showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
             submitButtonText={
@@ -2325,7 +2333,9 @@ const PokerTable = (props) => {
               refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
             }
             disable={disable}
-          />
+          />) : null}
+
+
 
           <Bet
             handleBetClick={handleBetClick}
