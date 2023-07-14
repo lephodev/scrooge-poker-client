@@ -17,6 +17,7 @@ import Error404 from "./page/Error404/Error404";
 import userUtils from "./utils/user";
 import { socket } from "./config/socketConnection";
 import { pokerClient } from "./config/keys";
+import Spectate from "./page/home/spectate";
 
 const App = () => {
   const [userInAnyGame, setUserInAnyGame] = useState({});
@@ -93,6 +94,9 @@ const App = () => {
             </Route>
             <Route exact path='/leaderboard'>
               <LeaderBoard />
+            </Route>
+            <Route exact path='/spectate'>
+              <Spectate />
             </Route>
             <Route exact path='/table'>
               <PokerTable />
