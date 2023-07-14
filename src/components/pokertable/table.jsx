@@ -50,7 +50,8 @@ import { MuteIcon, VolumeIcon } from "../SVGfiles/soundSVG";
 import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
 import RaiseContainer from "../bet/raiseContainer";
-import { FaCompressArrowsAlt } from "react-icons/fa"
+import { FaCompressArrowsAlt } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
 
 const getQueryParams = () => {
   const url = new URLSearchParams(window.location.search);
@@ -142,6 +143,7 @@ const PokerTable = (props) => {
     fold: false,
   });
   const history = useHistory();
+  // const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [refillSitInAmount, setRefillSitInAmount] = useState(false);
@@ -1519,13 +1521,18 @@ const PokerTable = (props) => {
   };
 
   const leaveTable = () => {
-    socket.emit("doleavetable", {
-      tableId,
-      userId,
-      gameType: gameCollection,
-      isWatcher: isWatcher,
-      action: "Leave",
-    });
+    if (isWatcher) {
+      history.goBack();
+      // history.push(-1);
+    } else {
+      socket.emit("doleavetable", {
+        tableId,
+        userId,
+        gameType: gameCollection,
+        isWatcher: isWatcher,
+        action: "Leave",
+      });
+    }
   };
 
   useEffect(() => {
@@ -1941,7 +1948,7 @@ const PokerTable = (props) => {
 
               <div className={`poker-table ${ winner ? "winner-show" : "" }`}>
                 <div className="containerFor-chatHistory">
-                  <div
+                  {!isWatcher ? (<div
                     className="chatHistory-icon"
                     onClick={handleOpenChatHistory}
                   >
@@ -1949,7 +1956,7 @@ const PokerTable = (props) => {
                       <p className="ChatHistory-count">{unReadMessages}</p>
                     )}
                     <img src={UsersComments} alt="" />
-                  </div>
+                  </div>) : null}
                   <ChatHistory
                     setOpenChatHistory={setOpenChatHistory}
                     openChatHistory={openChatHistory}

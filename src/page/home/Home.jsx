@@ -285,6 +285,9 @@ const Home = () => {
       }
     })
 
+    socket.on('allTournaments', (data) => {
+      setTournaments(data?.tournaments)
+    })
 
     socket.on('tournamentCreated', (data) => {
       setTournaments(data.tournaments)
@@ -1122,7 +1125,7 @@ const GameTournament = ({
         console.log("errror in redirection ==>", err);
       }
     });
-  })
+  }, [])
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
@@ -1188,6 +1191,19 @@ const GameTournament = ({
       }
     })
   }, [])
+
+  const openSpectatingTables = (tournamentId) => {
+    if (tournamentId) {
+      window.location.href = '/spectate?tournamentId=' + tournamentId;
+    }
+  }
+
+
+  // const joinTimeExceeded = (tourData) => {
+  //   const startTime = new Date(tourData?.startDate+" "+tourData?.statrTime)
+  // }
+
+
   return (
     <>
       <div className="pokerTournament-tableCard">
@@ -1273,12 +1289,18 @@ const GameTournament = ({
             >
               {data.isStart ? "Spectate" : "Join Game"}
             </Button>
-          ) : data?.tournamentType !== 'sit&go' && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) ? (<Button
+          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded ? (<Button
             type="text"
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
             Join Game
-          </Button>) : null}
+          </Button>) : (<Button
+            type="text"
+            onClick={() => openSpectatingTables(data?._id)}
+          >
+            Spectate
+          </Button>)}
+          {/*  && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) */}
           <img
             src={ranking}
             alt=""
