@@ -1125,7 +1125,7 @@ const GameTournament = ({
         console.log("errror in redirection ==>", err);
       }
     });
-  }, [])
+  })
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
