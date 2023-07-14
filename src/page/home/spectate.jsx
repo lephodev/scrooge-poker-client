@@ -179,6 +179,10 @@ const Spectate = () => {
     //   [tournaments]
     // );
 
+    const backFromSpectate = () => {
+        window.location.href = '/'
+    }
+
     return (
         <div className="leaderBoardPage">
             <div className="user-header">
@@ -202,7 +206,7 @@ const Spectate = () => {
 
 
                             <div className="leaderBoardHeader">
-                                <Button className='back-btn'>
+                                <Button className='back-btn' onClick={() => { backFromSpectate() }}>
                                     <FaArrowLeft />
                                 </Button>
                                 <h1>Tables you can spectate</h1>
@@ -465,7 +469,7 @@ const GameTable = ({
                             <div className="tournamentFront-info">
                                 <h4>{`Table ${ index + 1 }`}</h4>
                                 <button onClick={() => { doSpectate(data._id) }} type="submit">
-                                    Spectate22222
+                                    Spectate
                                 </button>
                             </div>
                         </div>
