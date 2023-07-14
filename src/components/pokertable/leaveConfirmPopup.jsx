@@ -35,13 +35,13 @@ const LeaveConfirmPopup = ({
             >
               Leave
             </Button>
-            {isWatcher ? (
+            {/* {isWatcher ? (
               <Button onClick={() => joinGame()}>Join as Player</Button>
             ) : allowWatcher ? (
               <Button onClick={() => joinWatcher()}>Join as Watcher</Button>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
       </Modal.Body>
