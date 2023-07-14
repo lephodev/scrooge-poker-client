@@ -17,6 +17,8 @@ import Loader from '../../components/pageLoader/loader'
 import toast from 'react-hot-toast'
 import { FaInfoCircle } from 'react-icons/fa'
 import casino from '../../assets/game/placeholder.png'
+import { Button } from 'react-bootstrap'
+import { FaArrowLeft } from "react-icons/fa";
 // import Button from 'react-bootstrap/Button'
 // import ReactSelect from 'react-select'
 // import { useMemo } from 'react'
@@ -195,11 +197,17 @@ const Spectate = () => {
             {showLoader ?
                 <Loader />
                 : <>
-                    <div className="container leaderBoardContainer">
-                        <div className="leaderBoardHeader">
-                            <h1>Tables you can spectate</h1>
-                            <br />
-                            <div className="tournamentDetails">
+                    <div className="container ">
+                        <div className=" leaderBoardContainer spectate-page">
+
+
+                            <div className="leaderBoardHeader">
+                                <Button className='back-btn'>
+                                    <FaArrowLeft />
+                                </Button>
+                                <h1>Tables you can spectate</h1>
+                            </div>
+                            <div className="home-poker-card-grid">
                                 {allRooms?.map((el, i) => (
                                     <GameTable
                                         data={el}
@@ -211,8 +219,8 @@ const Spectate = () => {
 
 
                             </div>
-                        </div>
 
+                        </div>
 
                     </div>
                 </>}

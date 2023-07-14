@@ -928,6 +928,24 @@ tr.myRank {
   justify-content: center;
   align-items: center;
 }
+.spectate-page .leaderBoardHeader {
+  flex-direction: row;
+  position: relative;
+  padding-bottom: 30px;
+}
+.back-btn {
+  position: absolute;
+  left: 13px;
+  border: none;
+  border-radius: 100%;
+  color: #060606;
+  font-size: 15px;
+  background: #f9ff00;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0;
+}
 
 .leaderBoardHeader .tournamentRanking {
   display: flex;
@@ -1710,7 +1728,7 @@ input#custom-switch {
   .tickets-token .btn:first-child:active {
     height: 35px;
   }
-  .create-game-box button{
+  .create-game-box button {
     height: 35px;
     font-size: 12px !important;
   }
@@ -1850,6 +1868,20 @@ input#custom-switch {
 
   .pokerTournament-tableCard {
     padding: 14px 8px;
+  }
+  .leaderBoardContainer.spectate-page {
+    padding: 20px 0px;
+  }
+  .spectate-page .leaderBoardHeader {
+    padding-bottom: 15px;
+  }
+  .spectate-page .leaderBoardHeader h1 {
+    font-size: 18px;
+  }
+  .back-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 13px;
   }
 }
 
