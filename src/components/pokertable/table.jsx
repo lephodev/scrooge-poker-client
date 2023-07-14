@@ -2325,13 +2325,13 @@ const PokerTable = (props) => {
               </span>
             </div>
           )} */}
-          {isWatcher && (
+          {/* {isWatcher && (
             <div className="bet-button">
               <span role="presentation">
                 Spectate mode
               </span>
             </div>
-          )}
+          )} */}
           {console.log("roomdata: ==>", roomData?.tournament)}
           {!roomData?.tournament ? (<EnterAmountPopup
             handleSitin={handleSitInAmount}
