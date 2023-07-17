@@ -1298,7 +1298,7 @@ const GameTournament = ({
             Join Game
           </Button>) : (<Button
             type="text"
-            onClick={() => openSpectatingTables(data?._id)}
+            onClick={() => { openSpectatingTables(data?._id) }}
           >
             Spectate
           </Button>)}

@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 // import close from '../../assets/close.png';
 
-const StatsPopup = ({ modalShow, handWinner, leaveTable }) => {
+const StatsPopup = ({ modalShow, handWinner, leaveTable, isWatcher }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      leaveTable();
+      if (!isWatcher) {
+        leaveTable();
+      }
     }, 60000);
   }, []);
 

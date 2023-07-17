@@ -28,7 +28,7 @@ const LeaveConfirmPopup = ({
           <div className="sub-btn text-center">
             <Button
               onClick={() => {
-                leaveTable();
+                leaveTable("fromLeaveButton");
                 setClicked(true);
               }}
               disabled={clicked}
