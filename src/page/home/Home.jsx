@@ -44,6 +44,7 @@ const Home = () => {
     autohand: true,
     sitInAmount: '',
     invitedUsers: [],
+    actionTime: '',
   }
   // States
   const {
@@ -65,15 +66,23 @@ const Home = () => {
   const [key, setKey] = useState('home')
   const history = useHistory()
   const [allUsers, setAllUsers] = useState([])
-  const [showSpinner, setShowSpinner] = useState(false)
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [timeOptions] = useState([
+    { value: 10, label: "10 seconds" },
+    { value: 15, label: "15 seconds" },
+    { value: 20, label: "20 seconds" },
+    { value: 30, label: "30 seconds" },
+    { value: 45, label: "45 seconds" },
+    { value: 60, label: "60 seconds" },
+  ]);
   // utils function
   const checkUserInGame = async () => {
     let userData = await axios({
       method: 'get',
       url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
       headers: { authorization: `Bearer ${ getCookie('token') }` },
-      withCredentials:true,
-      credentials:"include"
+      withCredentials: true,
+      credentials: "include"
     })
     if (userData?.data) {
       setUserInAnyGame(userData.data)
@@ -214,6 +223,12 @@ const Home = () => {
       err.gameName = 'Game name is already exist.'
       valid = false
     }
+
+    if (gameState.actionTime === '') {
+      err.actionTime = 'Please select an action time.'
+      valid = false
+    }
+
     return { valid, err }
   }
 
@@ -269,6 +284,11 @@ const Home = () => {
         getTournamentDetails()
       }
     })
+
+    socket.on('allTournaments', (data) => {
+      setTournaments(data?.tournaments)
+    })
+
     socket.on('tournamentCreated', (data) => {
       setTournaments(data.tournaments)
     })
@@ -315,9 +335,22 @@ const Home = () => {
     } catch (error) { }
   }
 
+  const handleActionTime = (selectedOption) => {
+    console.log("selectedOption ===>", selectedOption);
+    setGameState({ ...gameState, actionTime: selectedOption.value })
+  }
+
   useEffect(() => {
     getTournamentDetails()
   }, [])
+
+  socket.on("tournamentStart", (data) => {
+    getTournamentDetails()
+
+    // setTimeout(() => {
+    //   getTournamentDetails()
+    // }, 1000)
+  });
 
   const options = useMemo(
     () =>
@@ -326,6 +359,25 @@ const Home = () => {
       }),
     [allUsers],
   )
+
+  useEffect(() => {
+    socket.on("redirectToTableAsWatcher", async (data) => {
+      console.log("redirectToTableAsWatcher ==>", data);
+      try {
+        if (data?.userId === userId) {
+          console.log("hellow", data, window)
+          if (window) {
+            console.log("redirectToTableAsWatcher111 ==>", data, window);
+            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            console.log("helloo i am here");
+          }
+          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
+        }
+      } catch (err) {
+        console.log("errror in redirection ==>", err);
+      }
+    });
+  }, [])
 
   console.log('cookie?', cookie?.get('mode'))
 
@@ -379,6 +431,8 @@ const Home = () => {
         options={options}
         handleChnageInviteUsers={handleChnageInviteUsers}
         showSpinner={showSpinner}
+        timeOptions={timeOptions}
+        handleActionTime={handleActionTime}
       />
       <Header
         userData={userData}
@@ -601,6 +655,8 @@ const CreateTable = ({
   options,
   showSpinner,
   handleChnageInviteUsers,
+  handleActionTime,
+  timeOptions
 }) => {
   return (
     <Modal show={show} onHide={handleShow} centered className="casino-popup">
@@ -674,6 +730,17 @@ const CreateTable = ({
             )}
           </div>
         </Form.Group>
+        <div className="searchSelectDropdown">
+          <Form.Label>Action time</Form.Label>
+          <Select
+            onChange={handleActionTime}
+            options={timeOptions}
+            styles={customStyles}
+          />
+          {!!errors?.actionTime && (
+            <p className="text-danger">{errors?.actionTime}</p>
+          )}
+        </div>
         <div className="searchSelectDropdown">
           <Form.Label>Invite Users</Form.Label>
           <Select
@@ -754,6 +821,7 @@ const GameTable = ({
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user)
         }
+
         toast.success(message, { id: 'Nofull' })
       } else {
         toast.error(message, { id: 'full' })
@@ -777,6 +845,10 @@ const GameTable = ({
     socket.on('tournamentAlreadyStarted', (data) => {
       toast.error(data.message, { id: 'tournamentStarted' })
     })
+
+
+
+
   }, [])
 
   const joinTournament = async (tournamentId, fees) => {
@@ -789,6 +861,8 @@ const GameTable = ({
       getTournamentDetails()
     }, 1000)
   }
+
+
 
   const enterRoom = async (tournamentId) => {
     const res = await tournamentInstance().post('/enterroom', {
@@ -1050,7 +1124,10 @@ const GameTournament = ({
     socket.on('tournamentSlotFull', (data) => {
       toast.error('Tournament slot is full', { id: 'slot-full' })
     })
+
   }, [])
+
+
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
@@ -1116,6 +1193,19 @@ const GameTournament = ({
       }
     })
   }, [])
+
+  const openSpectatingTables = (tournamentId) => {
+    if (tournamentId) {
+      window.location.href = '/spectate?tournamentId=' + tournamentId;
+    }
+  }
+
+
+  // const joinTimeExceeded = (tourData) => {
+  //   const startTime = new Date(tourData?.startDate+" "+tourData?.statrTime)
+  // }
+
+
   return (
     <>
       <div className="pokerTournament-tableCard">
@@ -1154,7 +1244,7 @@ const GameTournament = ({
             <p>Participants</p>
             <div className="extraDetail-container">
               <FaUser />
-              {data?.havePlayers}
+              {data?.totalJoinPlayer}
             </div>
           </div>
           <div className="cardTournament-Fee">
@@ -1165,12 +1255,13 @@ const GameTournament = ({
                 data?.havePlayers &&
                 (
                   parseFloat(data?.tournamentFee) *
-                  parseFloat(data?.havePlayers)
+                  parseFloat(data?.totalJoinPlayer)
                 ).toFixed(2)}
             </div>
           </div>
         </div>
         <div className="tournamentCard-buttonDetail">
+          {console.log("eleminated players ===>", data?.eleminatedPlayers)}
           {data?.isFinished ? (
             <Button type="text" disabled="true">
               Game Finished
@@ -1193,19 +1284,25 @@ const GameTournament = ({
               </Button>) : null}
 
             </div>
-          ) : data?.tournamentType === 'sit&go' && data?.havePlayers < 9 ?  (
+          ) : data?.tournamentType === 'sit&go' ? (
             <Button
               type="text"
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
-              Join Game
+              {data.isStart ? "Spectate" : "Join Game"}
             </Button>
-          ) : data?.tournamentType !== 'sit&go' ? (<Button
+          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (<Button
             type="text"
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
             Join Game
-          </Button>) : null}
+          </Button>) : (<Button
+            type="text"
+            onClick={() => openSpectatingTables(data?._id)}
+          >
+            Spectate
+          </Button>)}
+          {/*  && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) */}
           <img
             src={ranking}
             alt=""

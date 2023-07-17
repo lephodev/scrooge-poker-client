@@ -7709,6 +7709,7 @@ ul.btn-list li button svg {
 
   .player-badge {
     top: 128px;
+    right: -12px;
   }
 
   .winner-player:after {
@@ -10668,7 +10669,7 @@ ul.btn-list li button svg {
   .player-pic .progress {
     width: 108px !important;
     height: 33px !important;
-    left: -5px !important;
+    left: -18px !important;
   }
 
   .players .player-pic {

@@ -6,7 +6,8 @@
     "PUBLICK_KEY": "AC2d27e9ad2978d70ffb5637ce05542073",
     "domain":"localhost",
     "marketPlaceUrl": "https://devmarket.scrooge.casino",
-    "marketServer": "https://devmarket-api.scrooge.casino"
+    "marketServer": "https://devmarket-api.scrooge.casino",
+    "pokerClient": "http://localhost:3000/"
   },
   "production": {
     "landingServerUrl": "https://api.scrooge.casino/v1",

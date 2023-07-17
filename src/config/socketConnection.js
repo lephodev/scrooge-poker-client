@@ -13,7 +13,11 @@ socket.on("connect", () => {
 socket.on("disconnect", () => {
   if (window.location.search) {
     window.location.href =
-      window.location.origin + "/table" + window.location.search;
+      window.location.origin +
+      (window.location.search.includes("tournamentId")
+        ? "/leaderboard"
+        : "/table") +
+      window.location.search;
   } else {
     window.location.href = window.location.origin;
   }
