@@ -1520,9 +1520,11 @@ const PokerTable = (props) => {
     });
   };
 
-  const leaveTable = () => {
+  const leaveTable = (from) => {
     if (isWatcher) {
-      history.goBack();
+      if ("fromLeaveButton" === from) {
+        history.goBack();
+      }
       // history.push(-1);
     } else {
       socket.emit("doleavetable", {
@@ -1873,7 +1875,7 @@ const PokerTable = (props) => {
       </button>
       <FullScreen handle={handle}>
         <div className="poker" id={players.length}>
-          {console.log("players ====>", players)}
+          {/* {console.log("players ====>", players)} */}
           <Helmet>
             <html
               className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
@@ -2332,7 +2334,7 @@ const PokerTable = (props) => {
               </span>
             </div>
           )} */}
-          {console.log("roomdata: ==>", roomData?.tournament)}
+          {/* {console.log("roomdata: ==>", roomData?.tournament)} */}
           {!roomData?.tournament ? (<EnterAmountPopup
             handleSitin={handleSitInAmount}
             showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
@@ -2387,6 +2389,7 @@ const PokerTable = (props) => {
             modalShow={modalShow}
             handWinner={handWinner}
             leaveTable={leaveTable}
+            isWatcher={isWatcher}
           />
           <LeaveConfirmPopup
             setLeaveConfirm={setLeaveConfirm}
