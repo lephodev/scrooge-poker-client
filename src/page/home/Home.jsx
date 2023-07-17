@@ -360,6 +360,25 @@ const Home = () => {
     [allUsers],
   )
 
+  useEffect(() => {
+    socket.on("redirectToTableAsWatcher", async (data) => {
+      console.log("redirectToTableAsWatcher ==>", data);
+      try {
+        if (data?.userId === userId) {
+          console.log("hellow", data, window)
+          if (window) {
+            console.log("redirectToTableAsWatcher111 ==>", data, window);
+            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            console.log("helloo i am here");
+          }
+          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
+        }
+      } catch (err) {
+        console.log("errror in redirection ==>", err);
+      }
+    });
+  }, [])
+
   console.log('cookie?', cookie?.get('mode'))
 
   const filterRoom =
@@ -1108,24 +1127,7 @@ const GameTournament = ({
 
   }, [])
 
-  useEffect(() => {
-    socket.on("redirectToTableAsWatcher", async (data) => {
-      console.log("redirectToTableAsWatcher ==>", data);
-      try {
-        if (data?.userId === userId) {
-          console.log("hellow", data, window)
-          if (window) {
-            console.log("redirectToTableAsWatcher111 ==>", data, window);
-            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
-            console.log("helloo i am here");
-          }
-          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
-        }
-      } catch (err) {
-        console.log("errror in redirection ==>", err);
-      }
-    });
-  })
+
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
@@ -1242,7 +1244,7 @@ const GameTournament = ({
             <p>Participants</p>
             <div className="extraDetail-container">
               <FaUser />
-              {data?.havePlayers}
+              {data?.totalJoinPlayer}
             </div>
           </div>
           <div className="cardTournament-Fee">
@@ -1253,7 +1255,7 @@ const GameTournament = ({
                 data?.havePlayers &&
                 (
                   parseFloat(data?.tournamentFee) *
-                  parseFloat(data?.havePlayers)
+                  parseFloat(data?.totalJoinPlayer)
                 ).toFixed(2)}
             </div>
           </div>
@@ -1289,7 +1291,7 @@ const GameTournament = ({
             >
               {data.isStart ? "Spectate" : "Join Game"}
             </Button>
-          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded ? (<Button
+          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (<Button
             type="text"
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
