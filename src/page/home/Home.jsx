@@ -1131,13 +1131,15 @@ const GameTournament = ({
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
+    buttonClick = true;
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
       userId: userId,
       fees,
     })
     setTimeout(() => {
-      getTournamentDetails()
+      getTournamentDetails();
+      buttonClick = false;
     }, 1000)
   }
 
@@ -1293,6 +1295,7 @@ const GameTournament = ({
             </Button>
           ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (<Button
             type="text"
+            disabled={buttonClick}
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
             Join Game
