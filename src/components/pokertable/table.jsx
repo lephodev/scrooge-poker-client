@@ -2150,9 +2150,13 @@ const PokerTable = (props) => {
                         ?.hand?.descr.replace(",", " of")}
                     </p>
                   </div>
-                ) : (
-                  ""
-                )}
+                ) : isWatcher ? (
+                  <div className="playerHand-status">
+                    <p>
+                      Spectate Mode
+                    </p>
+                  </div>
+                ) : null}
               </div>
               <FooterButton
                 bet={bet}
