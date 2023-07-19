@@ -11,8 +11,9 @@ import logo from "../../assets/game/logo.png";
 import userUtils from '../../utils/user'
 import { socket } from '../../config/socketConnection'
 import { useHistory } from 'react-router-dom'
-import { Tab, Tabs } from 'react-bootstrap'
+import { Button, Tab, Tabs } from 'react-bootstrap'
 import Loader from '../../components/pageLoader/loader'
+import { FaArrowLeft } from 'react-icons/fa'
 // import ReactSelect from 'react-select'
 // import { useMemo } from 'react'
 // import ReactSelect from 'react-select'
@@ -107,7 +108,7 @@ const LeaderBoard = () => {
   const [dateState, setDateState] = useState()
   //const [tournaments, setTournaments] = useState([]);
   const [prizeStructure, setPrizeStructure] = useState([]);
- // const [keys, setKeys] = useState([]);
+  // const [keys, setKeys] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   // const [keys, setPrize] = useState([]);
 
@@ -241,6 +242,39 @@ const LeaderBoard = () => {
       getTournamentById();
     }, 1000);
   };
+
+  const spectateTournament = (data) => {
+    const { _id, tournamentType, tournamentFee } = data;
+    if (tournamentType === 'sit&go') {
+      joinTournament(_id, tournamentFee)
+    } else {
+      window.location.href = '/spectate?tournamentId=' + _id.toString();
+    }
+  }
+
+  const backFromLeaderBoard = () => {
+    window.location.href = '/';
+  }
+
+  useEffect(() => {
+    socket.on("redirectToTableAsWatcher", async (data) => {
+      console.log("redirectToTableAsWatcher ==>", data);
+      try {
+        if (data?.userId === userId) {
+          console.log("hellow", data, window)
+          if (window) {
+            console.log("redirectToTableAsWatcher111 ==>", data, window);
+            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            console.log("helloo i am here");
+          }
+          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
+        }
+      } catch (err) {
+        console.log("errror in redirection ==>", err);
+      }
+    });
+  }, [])
+
   // const options = useMemo(
   //   () =>
   //     tournaments?.map((el) => {
@@ -315,7 +349,11 @@ const LeaderBoard = () => {
         <Loader />
         : <>
           <div className="container leaderBoardContainer">
+            <Button className='back-btn' onClick={() => { backFromLeaderBoard() }}>
+              <FaArrowLeft />
+            </Button>
             <div className="leaderBoardHeader">
+
               <h1>LEADERBOARD</h1>
 
               {/* <div className="tournamentFilter">
@@ -348,29 +386,29 @@ const LeaderBoard = () => {
                       {tournamentData?.levels?.bigBlind?.amount}
                     </span>
                   </p>
-                  {tournamentData?.tournamentType !== "sit&go"?<p>
+                  {tournamentData?.tournamentType !== "sit&go" ? <p>
                     Date : <span>{getTime(tournamentData?.tournamentDate)}</span>
-                  </p>:""}
-                  
+                  </p> : ""}
+
                 </div>
-                
+
                 <div className="tournamentTime">
                   {tournamentData?.isFinished ? (
                     <h2 className='tournamentFinished'>Tournament Finished.</h2>
                   ) : tournamentData?.isStart ? (
                     <h2 className='tournamentRunning'>Tournament Is Running ...</h2>
                   ) : (
-                    tournamentData?.tournamentType !== "sit&go"?<><h2>Tournament Start Time </h2>
-                    <div id="clockdiv">
-                      <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
-                    </div>
-                  </>:null   
+                    tournamentData?.tournamentType !== "sit&go" ? <><h2>Tournament Start Time </h2>
+                      <div id="clockdiv">
+                        <h4>Days / Time : <span>{dateState?.days || '00'}/{dateState?.hours || '00'}:{dateState?.minutes || '00'}:{dateState?.seconds || '00'}</span></h4>
+                      </div>
+                    </> : null
                   )}
                   {tournamentData?.isFinished ? "" : (
                     <div className="btn-grid">
                       {" "}
 
-                      {ifUserJoind() ? (
+                      {ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (
                         <button
 
                           onClick={() => enterRoom(tournamentData?._id)}
@@ -378,7 +416,7 @@ const LeaderBoard = () => {
                         >
                           Enter Game
                         </button>
-                      ) : (
+                      ) : (tournamentData?.tournamentType !== 'sit&go' && !tournamentData.joinTimeExceeded && !ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString()))) || (tournamentData?.tournamentType === 'sit&go' && !tournamentData?.isStart) ? (
                         <button
                           disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
                           onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
@@ -386,6 +424,14 @@ const LeaderBoard = () => {
                           type="submit"
                         >
                           Join Game
+                        </button>
+                      ) : (
+                        <button
+                          // disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
+                          onClick={() => spectateTournament(tournamentData)}
+                          type="submit"
+                        >
+                          Spectate
                         </button>
                       )}
                     </div>)}
@@ -411,7 +457,7 @@ const LeaderBoard = () => {
           </div>
         </>}
 
-    </div>
+    </div >
   )
 }
 

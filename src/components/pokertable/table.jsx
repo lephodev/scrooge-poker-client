@@ -2141,7 +2141,7 @@ const PokerTable = (props) => {
                 ) : (
                   ""
                 )}
-                {showPairHand && showPairHand?.length > 0 ? (
+                {showPairHand && showPairHand?.length > 0 && !isWatcher ? (
                   <div className="playerHand-status">
                     <p>
                       Card Pair :&nbsp;
@@ -2150,9 +2150,13 @@ const PokerTable = (props) => {
                         ?.hand?.descr.replace(",", " of")}
                     </p>
                   </div>
-                ) : (
-                  ""
-                )}
+                ) : isWatcher ? (
+                  <div className="playerHand-status">
+                    <p>
+                      Spectate Mode
+                    </p>
+                  </div>
+                ) : null}
               </div>
               <FooterButton
                 bet={bet}
@@ -2563,18 +2567,18 @@ const Players = ({
             (el) => !el?.handName && el.id === userId
           ) &&
             playerData.id === userId &&
-            !playerData?.fold)) && (
-            <div className="showCardIn-fold">
-              <Form.Check
-                inline
-                label="Show cards !"
-                name="group1"
-                type="checkbox"
-                id="inlinecheckbox"
-                onChange={handleChangeFold}
-              />
-            </div>
-          )}
+            !playerData?.fold)) && !isWatcher ? (
+          <div className="showCardIn-fold">
+            <Form.Check
+              inline
+              label="Show cards !"
+              name="group1"
+              type="checkbox"
+              id="inlinecheckbox"
+              onChange={handleChangeFold}
+            />
+          </div>
+        ) : null}
         {playerData &&
           (playerData.fold || !playerData.playing) &&
           playerData.id === userId && (
