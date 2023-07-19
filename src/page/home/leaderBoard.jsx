@@ -256,6 +256,25 @@ const LeaderBoard = () => {
     window.location.href = '/';
   }
 
+  useEffect(() => {
+    socket.on("redirectToTableAsWatcher", async (data) => {
+      console.log("redirectToTableAsWatcher ==>", data);
+      try {
+        if (data?.userId === userId) {
+          console.log("hellow", data, window)
+          if (window) {
+            console.log("redirectToTableAsWatcher111 ==>", data, window);
+            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            console.log("helloo i am here");
+          }
+          // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
+        }
+      } catch (err) {
+        console.log("errror in redirection ==>", err);
+      }
+    });
+  }, [])
+
   // const options = useMemo(
   //   () =>
   //     tournaments?.map((el) => {
