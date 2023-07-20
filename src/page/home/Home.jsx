@@ -1173,6 +1173,7 @@ const GameTournament = ({
   }
   // var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
   const cancelTournament = async () => {
+    buttonClick = true;
     socket.emit('doleavetable', {
       tableId,
       userId,
@@ -1181,7 +1182,8 @@ const GameTournament = ({
       action: 'Leave',
     })
     setTimeout(() => {
-      getTournamentDetails()
+      getTournamentDetails();
+      buttonClick = false;
     }, 1000)
   }
   useEffect(() => {
