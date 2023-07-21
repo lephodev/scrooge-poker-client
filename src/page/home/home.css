@@ -559,6 +559,12 @@ input[type="number"] {
   align-items: center;
   gap: 5px;
 }
+.container.leaderBoardContainer .tournamentTime {
+  width: 15%;
+}
+.container.leaderBoardContainer .tournamentDetails .btn-grid button:last-child {
+  font-size: 16px !important;
+}
 
 .tournamentDetails .btn-grid button:last-child,
 .tournamentCard-front .btn-grid button:last-child {
@@ -1023,6 +1029,7 @@ tr.myRank {
   padding: 40px 0px;
   border-radius: 30px;
   box-shadow: 0px 2px 20px #1a1a1ae0;
+  position: relative;
 }
 
 .leaderboard-table th p {
@@ -1879,6 +1886,15 @@ input#custom-switch {
   }
   .leaderBoardContainer.spectate-page {
     padding: 20px 0px;
+  }
+  .container.leaderBoardContainer .tournamentTime {
+    width: 40%;
+  }
+  .container.leaderBoardContainer
+    .tournamentDetails
+    .btn-grid
+    button:last-child {
+    font-size: 14px !important;
   }
   .spectate-page .leaderBoardHeader {
     padding-bottom: 15px;
