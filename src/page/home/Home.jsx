@@ -1084,7 +1084,8 @@ const GameTournament = ({
 }) => {
   const history = useHistory()
   let tableId
-  let buttonClick = false
+  let [buttonClick, setButtonClick] = useState(false);
+
   data && data?.rooms?.length > 0 && data?.rooms?.filter((el) => {
     if (el.players.find((p) => p?.userid === userId)) {
       tableId = el?._id
@@ -1131,7 +1132,7 @@ const GameTournament = ({
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
-    buttonClick = true;
+    setButtonClick(true);
     socket.emit('joinTournament', {
       tournamentId: tournamentId,
       userId: userId,
@@ -1139,7 +1140,7 @@ const GameTournament = ({
     })
     setTimeout(() => {
       getTournamentDetails();
-      buttonClick = false;
+      setButtonClick(false);
     }, 1000)
   }
 
@@ -1173,7 +1174,7 @@ const GameTournament = ({
   }
   // var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
   const cancelTournament = async () => {
-    buttonClick = true;
+    setButtonClick(true);
     socket.emit('doleavetable', {
       tableId,
       userId,
@@ -1183,7 +1184,7 @@ const GameTournament = ({
     })
     setTimeout(() => {
       getTournamentDetails();
-      buttonClick = false;
+      setButtonClick(false);
     }, 1000)
   }
   useEffect(() => {
@@ -1291,6 +1292,7 @@ const GameTournament = ({
           ) : data?.tournamentType === 'sit&go' ? (
             <Button
               type="text"
+              disabled={buttonClick}
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
               {data.isStart ? "Spectate" : "Join Game"}
