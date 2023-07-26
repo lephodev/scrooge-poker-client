@@ -1192,6 +1192,7 @@ const PokerTable = (props) => {
       }
     }
     let playerDetails = [];
+
     whole?.forEach((el, i) => {
       if (el.playing) {
         playerDetails.push({
@@ -1206,6 +1207,11 @@ const PokerTable = (props) => {
       }
 
     });
+
+
+
+    // data.forEach
+
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
   };
