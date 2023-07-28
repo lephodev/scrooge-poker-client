@@ -2135,6 +2135,7 @@ const PokerTable = (props) => {
                           tablePot={tablePot}
                           activeWinnerPlayersPot={activeWinnerPlayersPot}
                           roomData={roomData}
+                          open={open}
                         />
                       ))}
                   </div>
@@ -2187,6 +2188,7 @@ const PokerTable = (props) => {
                 playersLeft={playersLeft}
                 players={players}
                 remainingTime={remainingTime}
+                open={open}
               />
             </div>
           </div>
@@ -2332,6 +2334,8 @@ const PokerTable = (props) => {
             open={open}
             userId={userId}
             tableId={tableId}
+            currentPlayer={currentPlayer}
+            // playerData={playerData}
           />
           {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
           {/* {isWatcher && (
@@ -2453,6 +2457,7 @@ const Players = ({
   remainingTime,
   mergeAnimationState,
   activeWinnerPlayersPot,
+  open
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
@@ -2530,6 +2535,8 @@ const Players = ({
     }
   };
 
+  
+
   return (
     <>
       <div
@@ -2540,7 +2547,8 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
+        
+        className={`players ${ playerclass } ${(open && currentPlayer && playerData && currentPlayer.id === playerData.id) ? 'currentWithChat':''} ${ winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
           }
@@ -2807,9 +2815,10 @@ const FooterButton = ({
   betInSliderAction,
   players,
   remainingTime,
+  open
 }) => {
   return (
-    <div className="footer-button">
+    <div className={`footer-button ${(open && currentPlayer && userId && currentPlayer.id === userId) ? 'currentWithChat':''}`}>
       <div className="container">
         <div className="footer-container">
           {currentPlayer &&
