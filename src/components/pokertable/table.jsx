@@ -1306,7 +1306,7 @@ const PokerTable = (props) => {
           if (count === 20) {
             break
           }
-          console.log("aaaaiieeee ++>", i)
+          console.log("aaaaiieeee ++>", i, indxesFinished)
           if (indxesFinished.indexOf(i) === -1) {
             // console.log("indxesFinished ===>", indxesFinished, alreadyPushdUsers)
             console.log(i);
@@ -1339,6 +1339,9 @@ const PokerTable = (props) => {
               }
               currntVacantPosition++;
             }
+
+          } else if (totalPlayerPushd < whole.length) {
+            i = -1;
           }
 
         }
