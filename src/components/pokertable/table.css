@@ -5730,6 +5730,15 @@ ul.btn-list li button svg {
     left: -7px !important;
     bottom: -22px !important;
   }
+  .players.currentWithChat {
+    z-index: 9999999 !important;
+}
+  .currentWithChat.expand {
+    opacity: 0.6;
+  }
+  .currentWithChat.footer-button {
+    z-index: 9999999;
+  }
 }
 
 /************************* Landscape ****************************/

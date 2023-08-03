@@ -811,7 +811,8 @@ const PokerTable = (props) => {
         updatePlayer(roomData.showdown);
       }
       setWatchers(roomData.watchers);
-      if (roomData.watchers.find(el => (el.toString() === userId))) {
+      console.log("watchers ===>", roomData.watchers)
+      if (roomData.watchers.find(el => (el?.toString() === userId))) {
         isWatcher = true;
       }
     });
@@ -1131,7 +1132,9 @@ const PokerTable = (props) => {
   }, []);
 
   const updatePlayer = (data) => {
+    console.log("update player executed", data);
     if (!data) {
+      console.log("Entered in null");
       return;
     }
     const pl = [...data];
@@ -1177,38 +1180,239 @@ const PokerTable = (props) => {
         break;
     }
     let whole = [];
+    let playerDetails = [];
     if (isWatcher || joinInRunningRound) {
       whole = [...data];
+      whole?.forEach((el, i) => {
+        if (el.playing) {
+          playerDetails.push({
+            ...el,
+            availablePosition: el.position,//availablePosition[i],
+            isDealer: roomData.dealerPosition === el.position ? true : false,
+            isSmallBlind:
+              roomData.smallBlindPosition === el.position ? true : false,
+            isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
+            id: el.userid ? el.userid : el.id,
+          });
+        }
+
+      });
     } else {
+
+      data = data.sort((a, b) => a.position - b.position);
       const index = data.findIndex(
         (ele) => (ele.id ? ele.id : ele.userid) === userId
       );
       if (index !== -1) {
+        data = data.map((el) => {
+          if (el.id === userId) {
+            el.self = true;
+          } else {
+            el.self = true;
+          }
+          return el;
+        })
+        const startPosition = data.filter(
+          (ele) => (ele.id ? ele.id : ele.userid) === userId
+        )[0].position;
+        // arrangePlayers(data)
         const split1 = data.slice(0, index + 1);
-        const me = split1.pop();
+        const me = split1.pop() // data.find(el => (el.id ? el.id : el.userid) === userId);
         const split2 = data.slice(index + 1, data.length);
         whole.push(me);
+        // let swapIndx;
+
+        // for (var i = 0; i < data.length; i++) {
+        //   if ((data[i].id ? data[i].id : data[i].userid) === userId) {
+        //     swapIndx = i
+        //     break;
+        //   }
+        // }
+
+        // let temp = data[swapIndx]
+        // data[swapIndx] = data[0];
+        // data[0] = temp
+
+
         whole = whole.concat(split2).concat(split1);
-      }
-    }
-    let playerDetails = [];
-    whole?.forEach((el, i) => {
-      if (el.playing) {
+
+        let totalPlayerPushd = 1;
+        let alreadyPushdUsers = [whole[0].userid ? whole[0].userid : whole[0].id];
+        console.log("");
+        let currntVacantPosition = 0;
+        let startCountIndx = startPosition;
+        console.log("startCountIndx ===>", startCountIndx, whole, data);
+        // for (let i = startCountIndx; i < 9; i++) {
+        //   console.log("indx ==>", i)
+        //   if (i === startCountIndx && playerDetails.length < whole.length && alreadyPushdUsers.indexOf(whole[0].id) < 0) {
+        //     console.log("entered in first if", whole[0])
+        //     playerDetails.push({
+        //       ...whole[0],
+        //       availablePosition: currntVacantPosition,//availablePosition[i],
+        //       isDealer: roomData.dealerPosition === whole[0].position ? true : false,
+        //       isSmallBlind:
+        //         roomData.smallBlindPosition === whole[0].position ? true : false,
+        //       isBigBlind: roomData.bigBlindPosition === whole[0].position ? true : false,
+        //       id: whole[0].userid ? whole[0].userid : whole[0].id,
+        //     });
+        //     alreadyPushdUsers.push(whole[0].id);
+        //     currntVacantPosition++;
+        //     totalPlayerPushd++;
+        //   } else if (i === 8 && totalPlayerPushd < whole.length) {
+        //     console.log("entered in  i==8", playerDetails);
+        //     const playerAvail = whole.find(el => (el.position === i));
+        //     if (playerAvail) {
+        //       playerDetails.push({
+        //         ...playerAvail,
+        //         availablePosition: currntVacantPosition,//availablePosition[i],
+        //         isDealer: roomData.dealerPosition === playerAvail.position ? true : false,
+        //         isSmallBlind:
+        //           roomData.smallBlindPosition === playerAvail.position ? true : false,
+        //         isBigBlind: roomData.bigBlindPosition === playerAvail.position ? true : false,
+        //         id: playerAvail.userid ? playerAvail.userid : playerAvail.id,
+        //       });
+        //       currntVacantPosition++;
+        //       totalPlayerPushd++
+        //     } else {
+        //       // playerDetails.push({});
+        //       currntVacantPosition++;
+        //     }
+        //     i = 0;
+        //   } else if (totalPlayerPushd < whole.length) {
+        //     const playerAvail = whole.find(el => (el.position === i));
+        //     console.log("entered in last else", playerDetails, i);
+        //     if (playerAvail) {
+        //       playerDetails.push({
+        //         ...playerAvail,
+        //         availablePosition: currntVacantPosition,//availablePosition[i],
+        //         isDealer: roomData.dealerPosition === playerAvail.position ? true : false,
+        //         isSmallBlind:
+        //           roomData.smallBlindPosition === playerAvail.position ? true : false,
+        //         isBigBlind: roomData.bigBlindPosition === playerAvail.position ? true : false,
+        //         id: playerAvail.userid ? playerAvail.userid : playerAvail.id,
+        //       });
+        //       currntVacantPosition++;
+        //       totalPlayerPushd++
+        //     } else {
+        //       // playerDetails.push({});
+        //       currntVacantPosition++;
+        //     }
+        //     if (i === 8 && playerDetails.length < whole.length) {
+        //       i = 0
+        //     }
+        //   }
+        // }
+
         playerDetails.push({
-          ...el,
-          availablePosition: availablePosition[i],
-          isDealer: roomData.dealerPosition === el.position ? true : false,
+          ...whole[0],
+          availablePosition: currntVacantPosition,//availablePosition[i],
+          isDealer: roomData.dealerPosition === whole[0].position ? true : false,
           isSmallBlind:
-            roomData.smallBlindPosition === el.position ? true : false,
-          isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
-          id: el.userid ? el.userid : el.id,
+            roomData.smallBlindPosition === whole[0].position ? true : false,
+          isBigBlind: roomData.bigBlindPosition === whole[0].position ? true : false,
+          id: whole[0].userid ? whole[0].userid : whole[0].id,
         });
+        currntVacantPosition++;
+
+        let indxesFinished = [startCountIndx];
+        // let count = 0;
+
+        for (let i = startPosition; i < 9; i++) {
+          // count++;
+          if (totalPlayerPushd === whole.length) break
+          // if (count === 20) {
+          //   break
+          // }
+          console.log("aaaaiieeee ++>", i, indxesFinished)
+          if (indxesFinished.indexOf(i) === -1) {
+            // console.log("indxesFinished ===>", indxesFinished, alreadyPushdUsers)
+            console.log(i);
+            const playerAvail = whole.find(el => (el.position === i));
+            // console.log("player avail ===>", playerAvail)
+            if (playerAvail) {
+              if (alreadyPushdUsers.indexOf(playerAvail.id) === -1) {
+                playerDetails.push({
+                  ...playerAvail,
+                  availablePosition: currntVacantPosition,//availablePosition[i],
+                  isDealer: roomData.dealerPosition === playerAvail.position ? true : false,
+                  isSmallBlind:
+                    roomData.smallBlindPosition === playerAvail.position ? true : false,
+                  isBigBlind: roomData.bigBlindPosition === playerAvail.position ? true : false,
+                  id: playerAvail.userid ? playerAvail.userid : playerAvail.id,
+                });
+                alreadyPushdUsers.push(playerAvail.userid ? playerAvail.userid : playerAvail.id)
+                indxesFinished.push(i);
+                currntVacantPosition++;
+                totalPlayerPushd++;
+              }
+              // console.log(totalPlayerPushd, whole.length, i === 8 && totalPlayerPushd < whole.length)
+              if (i === 8 && totalPlayerPushd < whole.length) {
+                i = -1;
+              }
+            } else {
+              // console.log("in else", totalPlayerPushd, whole.length, i === 8 && totalPlayerPushd < whole.length)
+              if (i === 8 && totalPlayerPushd < whole.length) {
+                i = -1;
+              }
+              currntVacantPosition++;
+            }
+
+          }
+          else if (totalPlayerPushd < whole.length && i === 8) {
+            i = -1;
+          }
+
+        }
+
       }
 
-    });
+    }
+
+
+    // whole?.forEach((el, i) => {
+    //   if (el.playing) {
+    //     playerDetails.push({
+    //       ...el,
+    //       availablePosition: i,//availablePosition[i],
+    //       isDealer: roomData.dealerPosition === el.position ? true : false,
+    //       isSmallBlind:
+    //         roomData.smallBlindPosition === el.position ? true : false,
+    //       isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
+    //       id: el.userid ? el.userid : el.id,
+    //     });
+    //   }
+
+    // });
+
+
+
+    // data.forEach
+    console.log("player detailsssssss ===>>", playerDetails);
+
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
+
   };
+
+
+  function arrangePlayers(players) {
+    // Find the index of the self player
+    let selfPlayerIndex = players.findIndex(player => player.self);
+
+    if (selfPlayerIndex === -1) {
+      // Self player not found, cannot proceed with arrangement
+      return null;
+    }
+
+    // Shift the players array so that the self player is in the center (position 4 on a 9-position round table)
+    let arrangedPlayers = players.slice(selfPlayerIndex - 4).concat(players.slice(0, selfPlayerIndex - 4));
+
+
+
+    return arrangedPlayers;
+  }
+
+
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const showWinner = (data, players, timeDelay) => {
@@ -1981,7 +2185,7 @@ const PokerTable = (props) => {
                     leaveTable={leaveTable}
                   />
                 </div>
-
+                {/* {console.log("players ===>", players)} */}
                 {(players && players.find((ele) => ele.id === userId)) ||
                   (roomData &&
                     roomData.players.find((ele) => ele.userid === userId)) ||
@@ -2135,6 +2339,7 @@ const PokerTable = (props) => {
                           tablePot={tablePot}
                           activeWinnerPlayersPot={activeWinnerPlayersPot}
                           roomData={roomData}
+                          open={open}
                         />
                       ))}
                   </div>
@@ -2187,6 +2392,7 @@ const PokerTable = (props) => {
                 playersLeft={playersLeft}
                 players={players}
                 remainingTime={remainingTime}
+                open={open}
               />
             </div>
           </div>
@@ -2332,6 +2538,8 @@ const PokerTable = (props) => {
             open={open}
             userId={userId}
             tableId={tableId}
+            currentPlayer={currentPlayer}
+          // playerData={playerData}
           />
           {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
           {/* {isWatcher && (
@@ -2453,6 +2661,7 @@ const Players = ({
   remainingTime,
   mergeAnimationState,
   activeWinnerPlayersPot,
+  open
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
@@ -2530,6 +2739,8 @@ const Players = ({
     }
   };
 
+
+
   return (
     <>
       <div
@@ -2540,7 +2751,8 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-        className={`players ${ playerclass } ${ winner && playerData && winner.id === playerData.id
+
+        className={`players ${ playerclass } ${ (open && currentPlayer && playerData && currentPlayer.id === playerData.id) ? 'currentWithChat' : '' } ${ winner && playerData && winner.id === playerData.id
           ? `winner-player`
           : ``
           }
@@ -2807,9 +3019,10 @@ const FooterButton = ({
   betInSliderAction,
   players,
   remainingTime,
+  open
 }) => {
   return (
-    <div className="footer-button">
+    <div className={`footer-button ${ (open && currentPlayer && userId && currentPlayer.id === userId) ? 'currentWithChat' : '' }`}>
       <div className="container">
         <div className="footer-container">
           {currentPlayer &&
