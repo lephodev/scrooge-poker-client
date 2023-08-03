@@ -811,7 +811,8 @@ const PokerTable = (props) => {
         updatePlayer(roomData.showdown);
       }
       setWatchers(roomData.watchers);
-      if (roomData.watchers.find(el => (el.toString() === userId))) {
+      console.log("watchers ===>", roomData.watchers)
+      if (roomData.watchers.find(el => (el?.toString() === userId))) {
         isWatcher = true;
       }
     });
@@ -1131,7 +1132,9 @@ const PokerTable = (props) => {
   }, []);
 
   const updatePlayer = (data) => {
+    console.log("update player executed", data);
     if (!data) {
+      console.log("Entered in null");
       return;
     }
     const pl = [...data];
@@ -1180,6 +1183,20 @@ const PokerTable = (props) => {
     let playerDetails = [];
     if (isWatcher || joinInRunningRound) {
       whole = [...data];
+      whole?.forEach((el, i) => {
+        if (el.playing) {
+          playerDetails.push({
+            ...el,
+            availablePosition: el.position,//availablePosition[i],
+            isDealer: roomData.dealerPosition === el.position ? true : false,
+            isSmallBlind:
+              roomData.smallBlindPosition === el.position ? true : false,
+            isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
+            id: el.userid ? el.userid : el.id,
+          });
+        }
+
+      });
     } else {
 
       data = data.sort((a, b) => a.position - b.position);
@@ -1370,9 +1387,11 @@ const PokerTable = (props) => {
 
 
     // data.forEach
+    console.log("player detailsssssss ===>>", playerDetails);
 
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
+
   };
 
 
@@ -2166,7 +2185,7 @@ const PokerTable = (props) => {
                     leaveTable={leaveTable}
                   />
                 </div>
-
+                {/* {console.log("players ===>", players)} */}
                 {(players && players.find((ele) => ele.id === userId)) ||
                   (roomData &&
                     roomData.players.find((ele) => ele.userid === userId)) ||
