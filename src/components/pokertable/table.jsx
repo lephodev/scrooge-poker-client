@@ -1007,6 +1007,11 @@ const PokerTable = (props) => {
       }, 500)
     })
 
+    socket.on('availableinNextRound', () => {
+
+      toast.success("You can play from next round", { toast_id: "availableinNextRound" });
+    })
+
   }, []);
   const handleTentativeActionAuto = (player) => {
     let event;
@@ -2050,6 +2055,15 @@ const PokerTable = (props) => {
     }
     setIsFullScreen(!isFullScreen);
   };
+
+  const setAvailability = async (availability) => {
+    socket.emit('setAvailability', {
+      userId,
+      tableId,
+      availability
+    });
+  }
+
   return (
     <>
       <p className="contentForFullScreen">{!isFullScreen ? "Tap here for Full Screen View" : "Exit From Full Screen"}</p>
@@ -2531,6 +2545,24 @@ const PokerTable = (props) => {
                     </button>
                   </OverlayTrigger>
                 </li>
+                {players &&
+                  players.length > 0 &&
+                  players.find((ele) => ele.id === userId) && (
+                    <li className="">
+                      <OverlayTrigger
+                        placement="left"
+                        overlay={<Tooltip id="tooltip-disabled">{players.find((ele) => ele.id === userId).away ? "Not Available" : "Available"}</Tooltip>}
+                      >
+                        <button
+                          onClick={() => {
+                            setAvailability(!players.find((ele) => ele.id === userId).away);
+                          }}
+                        >
+                          {players.find((ele) => ele.id === userId).away ? <i class="fa fa-unlock-alt" aria-hidden="true"></i> : <i class="fa fa-lock" aria-hidden="true"></i>}
+                        </button>
+                      </OverlayTrigger>
+                    </li>
+                  )}
               </ul>
             )}
           <Chat
