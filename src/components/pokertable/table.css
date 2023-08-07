@@ -5732,7 +5732,7 @@ ul.btn-list li button svg {
   }
   .players.currentWithChat {
     z-index: 9999999 !important;
-}
+  }
   .currentWithChat.expand {
     opacity: 0.6;
   }
@@ -10666,11 +10666,11 @@ ul.btn-list li button svg {
     bottom: 4%;
   }
   .players.player1 {
-    z-index: 111;
+    z-index: 11;
   }
 
   .players.player2 {
-    z-index: 1111;
+    z-index: 11;
   }
 }
 
