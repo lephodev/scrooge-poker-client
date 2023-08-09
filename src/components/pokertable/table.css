@@ -5733,12 +5733,15 @@ ul.btn-list li button svg {
     left: -7px !important;
     bottom: -22px !important;
   }
-  .players.player1 {
-    z-index: 11 !important;
+  .players.player1.playerChated {
+    z-index: 111 !important;
   }
 
-  .players.player2 {
-    z-index: 11 !important;
+  .players.player2.playerChated {
+    z-index: 111 !important;
+  }
+  .players.player9.playerChated {
+    z-index: 111 !important;
   }
   .players.currentWithChat {
     z-index: 9999999 !important;
