@@ -2377,37 +2377,63 @@ const PokerTable = (props) => {
                   </div>
                 ) : null}
               </div>
-              <FooterButton
-                bet={bet}
-                setBet={setBet}
-                raise={raise}
-                setRaise={setRaise}
-                isAdmin={isAdmin}
-                startGame={startGame}
-                betAction={betAction}
-                callAction={callAction}
-                foldAction={foldAction}
-                raiseAction={raiseAction}
-                checkAction={checkAction}
-                allinAction={allinAction}
-                joinGame={joinGame}
-                newUser={newUser}
-                currentPlayer={currentPlayer}
-                action={action}
-                openAction={openAction}
-                roomData={roomData}
-                handleTentativeAction={handleTentativeAction}
-                tentativeAction={tentativeAction}
-                setTentativeAction={setTentativeAction}
-                loader={loader}
-                raiseInSliderAction={raiseInSliderAction}
-                betInSliderAction={betInSliderAction}
-                playersRight={playersRight}
-                playersLeft={playersLeft}
-                players={players}
-                remainingTime={remainingTime}
-                open={open}
-              />
+              {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
+
+              {console.log("roomData?.gamestart", roomData?.gamestart)}
+              {players.find((ele) => ele.id === userId)?.away && roomData?.gamestart ? <>
+                <div className={`footer-button `}>
+                  <div className="container">
+                    <div className="footer-container">
+                      <div className="footer-btn away-btn">
+                        <Button
+                          onClick={() => {
+                            setAvailability(!currentPlayer?.away);
+                          }}
+
+                        >
+                          Not Available <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+                : <>
+                  <FooterButton
+                    bet={bet}
+                    setBet={setBet}
+                    raise={raise}
+                    setRaise={setRaise}
+                    isAdmin={isAdmin}
+                    startGame={startGame}
+                    betAction={betAction}
+                    callAction={callAction}
+                    foldAction={foldAction}
+                    raiseAction={raiseAction}
+                    checkAction={checkAction}
+                    allinAction={allinAction}
+                    joinGame={joinGame}
+                    newUser={newUser}
+                    currentPlayer={currentPlayer}
+                    action={action}
+                    openAction={openAction}
+                    roomData={roomData}
+                    handleTentativeAction={handleTentativeAction}
+                    tentativeAction={tentativeAction}
+                    setTentativeAction={setTentativeAction}
+                    loader={loader}
+                    raiseInSliderAction={raiseInSliderAction}
+                    betInSliderAction={betInSliderAction}
+                    playersRight={playersRight}
+                    playersLeft={playersLeft}
+                    players={players}
+                    remainingTime={remainingTime}
+                    open={open} />
+                </>
+
+              }
+
+
             </div>
           </div>
 
@@ -2545,24 +2571,7 @@ const PokerTable = (props) => {
                     </button>
                   </OverlayTrigger>
                 </li>
-                {players &&
-                  players.length > 0 &&
-                  players.find((ele) => ele.id === userId) && (
-                    <li className="">
-                      <OverlayTrigger
-                        placement="left"
-                        overlay={<Tooltip id="tooltip-disabled">{players.find((ele) => ele.id === userId).away ? "Not Available" : "Available"}</Tooltip>}
-                      >
-                        <button
-                          onClick={() => {
-                            setAvailability(!players.find((ele) => ele.id === userId).away);
-                          }}
-                        >
-                          {players.find((ele) => ele.id === userId).away ? <i class="fa fa-unlock-alt" aria-hidden="true"></i> : <i class="fa fa-lock" aria-hidden="true"></i>}
-                        </button>
-                      </OverlayTrigger>
-                    </li>
-                  )}
+
               </ul>
             )}
           <Chat
@@ -3051,12 +3060,13 @@ const FooterButton = ({
   betInSliderAction,
   players,
   remainingTime,
-  open
+  open,
+  setAvailability
 }) => {
   return (
     <div className={`footer-button ${ (open && currentPlayer && userId && currentPlayer.id === userId) ? 'currentWithChat' : '' }`}>
       <div className="container">
-        <div className="footer-container">
+        {<div className="footer-container">
           {currentPlayer &&
             currentPlayer?.id === userId &&
             !currentPlayer?.tentativeAction ? (
@@ -3195,7 +3205,8 @@ const FooterButton = ({
                 )}
             </>
           )}
-        </div>
+        </div>}
+
       </div>
     </div>
   );
