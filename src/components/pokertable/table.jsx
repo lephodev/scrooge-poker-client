@@ -3061,7 +3061,6 @@ const FooterButton = ({
   players,
   remainingTime,
   open,
-  setAvailability
 }) => {
   return (
     <div className={`footer-button ${ (open && currentPlayer && userId && currentPlayer.id === userId) ? 'currentWithChat' : '' }`}>
