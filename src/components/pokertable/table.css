@@ -4976,6 +4976,9 @@ h4.tornamentStart-timer {
 ul.btn-list li button svg {
   width: 20px;
 }
+.footer-btn.away-btn .btn i {
+  margin-left: 4px;
+}
 /************************************************************ Media Query ***********************************************************/
 /************************************************************ Media Query ***********************************************************/
 
@@ -5745,6 +5748,9 @@ ul.btn-list li button svg {
   }
   .currentWithChat.footer-button {
     z-index: 9999999;
+  }
+  .footer-btn.away-btn {
+    width: 115px;
   }
 }
 
