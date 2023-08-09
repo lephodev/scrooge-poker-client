@@ -2377,12 +2377,13 @@ const PokerTable = (props) => {
                   </div>
                 ) : null}
               </div>
-              {/* {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)} */}
-              {players.find((ele) => ele.id === userId)?.away ?
+              {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
+
+              {console.log("roomData?.gamestart", roomData?.gamestart)}
+              {players.find((ele) => ele.id === userId)?.away && roomData?.gamestart ? <>
                 <div className={`footer-button `}>
                   <div className="container">
                     <div className="footer-container">
-
                       <div className="footer-btn away-btn">
                         <Button
                           onClick={() => {
@@ -2390,42 +2391,46 @@ const PokerTable = (props) => {
                           }}
 
                         >
-                          {currentPlayer?.away ? "Not Available" : "Available"}{currentPlayer?.away ? <i class="fa fa-unlock-alt" aria-hidden="true"></i> : <i class="fa fa-lock" aria-hidden="true"></i>}
+                          Not Available <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </Button>
                       </div>
-                    </div></div></div> :
-                <FooterButton
-                  bet={bet}
-                  setBet={setBet}
-                  raise={raise}
-                  setRaise={setRaise}
-                  isAdmin={isAdmin}
-                  startGame={startGame}
-                  betAction={betAction}
-                  callAction={callAction}
-                  foldAction={foldAction}
-                  raiseAction={raiseAction}
-                  checkAction={checkAction}
-                  allinAction={allinAction}
-                  joinGame={joinGame}
-                  newUser={newUser}
-                  currentPlayer={currentPlayer}
-                  action={action}
-                  openAction={openAction}
-                  roomData={roomData}
-                  handleTentativeAction={handleTentativeAction}
-                  tentativeAction={tentativeAction}
-                  setTentativeAction={setTentativeAction}
-                  loader={loader}
-                  raiseInSliderAction={raiseInSliderAction}
-                  betInSliderAction={betInSliderAction}
-                  playersRight={playersRight}
-                  playersLeft={playersLeft}
-                  players={players}
-                  remainingTime={remainingTime}
-                  open={open}
-                  setAvailability={setAvailability}
-                />
+                    </div>
+                  </div>
+                </div>
+              </>
+                : <>
+                  <FooterButton
+                    bet={bet}
+                    setBet={setBet}
+                    raise={raise}
+                    setRaise={setRaise}
+                    isAdmin={isAdmin}
+                    startGame={startGame}
+                    betAction={betAction}
+                    callAction={callAction}
+                    foldAction={foldAction}
+                    raiseAction={raiseAction}
+                    checkAction={checkAction}
+                    allinAction={allinAction}
+                    joinGame={joinGame}
+                    newUser={newUser}
+                    currentPlayer={currentPlayer}
+                    action={action}
+                    openAction={openAction}
+                    roomData={roomData}
+                    handleTentativeAction={handleTentativeAction}
+                    tentativeAction={tentativeAction}
+                    setTentativeAction={setTentativeAction}
+                    loader={loader}
+                    raiseInSliderAction={raiseInSliderAction}
+                    betInSliderAction={betInSliderAction}
+                    playersRight={playersRight}
+                    playersLeft={playersLeft}
+                    players={players}
+                    remainingTime={remainingTime}
+                    open={open} />
+                </>
+
               }
 
 
