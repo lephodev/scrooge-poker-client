@@ -42,7 +42,10 @@ const App = () => {
       setCustomToast(true);
       console.log("tournamentStart socket listen");
       data.rooms.forEach((room) => {
-        if (room.players.find((player) => player?.id === user?.id)) {
+        if (
+          room.players.find((player) => player?.id === user?.id) &&
+          !window.location.pathname.includes("/table")
+        ) {
           toast(
             (t) => (
               <div className='toaster-join'>

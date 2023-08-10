@@ -384,6 +384,7 @@ const PokerTable = (props) => {
 
     socket.on("actionError", (data) => {
       console.log("actionErroractionError", data);
+      toast.error(data.msg, { toast_id: "actionError" });
     });
     socket.on("sitInOut", (data) => {
       roomData = data.updatedRoom;
