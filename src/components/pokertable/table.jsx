@@ -2377,9 +2377,9 @@ const PokerTable = (props) => {
                   </div>
                 ) : null}
               </div>
-              {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
+              {/* {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
 
-              {console.log("roomData?.gamestart", roomData?.gamestart)}
+              {console.log("roomData?.gamestart", roomData?.gamestart)} */}
               {players.find((ele) => ele.id === userId)?.away && roomData?.gamestart ? <>
                 <div className={`footer-button `}>
                   <div className="container">
