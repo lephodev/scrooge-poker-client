@@ -37,10 +37,20 @@ const App = () => {
     getUser();
   }, []);
 
+  console.log(
+    "tournamentStart socket listen",
+    window.location.pathname,
+    window.location
+  );
+
   useEffect(() => {
     socket.on("tournamentStart", (data) => {
       setCustomToast(true);
-      console.log("tournamentStart socket listen");
+      console.log(
+        "tournamentStart socket listen",
+        window.location.pathname,
+        window.location
+      );
       data.rooms.forEach((room) => {
         if (
           room.players.find((player) => player?.id === user?.id) &&
