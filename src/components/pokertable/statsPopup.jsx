@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 // import close from '../../assets/close.png';
-
+// { useEffect }
 const StatsPopup = ({ modalShow, handWinner, leaveTable, isWatcher }) => {
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isWatcher) {
-        leaveTable();
-      }
-    }, 60000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!isWatcher) {
+  //       leaveTable();
+  //     }
+  //   }, 60000);
+  // }, []);
 
 
   return (

@@ -100,8 +100,8 @@ const PokerTable = (props) => {
   const [action, setAction] = useState(false);
   const [actionText, setActionText] = useState("");
   const [winner, setWinner] = useState(false);
-  const [bet, setBet] = useState();
-  const [raise, setRaise] = useState();
+  const [bet, setBet] = useState(false);
+  const [raise, setRaise] = useState(false);
   const [tableId, setTableId] = useState();
   const [players, setPlayers] = useState([]);
   const [tablePot, setTablePot] = useState("");
@@ -384,6 +384,7 @@ const PokerTable = (props) => {
 
     socket.on("actionError", (data) => {
       console.log("actionErroractionError", data);
+      toast.error(data.msg, { toast_id: "actionError" });
     });
     socket.on("sitInOut", (data) => {
       roomData = data.updatedRoom;
@@ -774,8 +775,15 @@ const PokerTable = (props) => {
       setLoader(false);
       roomData = data.game;
       setSidePots(roomData.sidePots);
-      tPlayer = null;
-      tRound = null;
+      console.log("current player ==>", currentPlayer);
+      setCurrentPlayer((old) => {
+        if (!old) {
+          tPlayer = null;
+          tRound = null;
+        }
+        return old
+      });
+
       setChatMessages(data.game.chats);
       if (
         roomData.players.find((ele) => ele.userid === userId) &&
@@ -1101,6 +1109,7 @@ const PokerTable = (props) => {
 
         setPlayers((preState) => {
           setCurrentPlayer(preState.find((ele) => ele.id === data.id));
+          console.log("tirgger")
           handleActionButton(preState.find((ele) => ele.id === data.id));
           return preState;
         });
@@ -1246,7 +1255,7 @@ const PokerTable = (props) => {
         console.log("");
         let currntVacantPosition = 0;
         let startCountIndx = startPosition;
-        console.log("startCountIndx ===>", startCountIndx, whole, data);
+        // console.log("startCountIndx ===>", startCountIndx, whole, data);
         // for (let i = startCountIndx; i < 9; i++) {
         //   console.log("indx ==>", i)
         //   if (i === startCountIndx && playerDetails.length < whole.length && alreadyPushdUsers.indexOf(whole[0].id) < 0) {
@@ -1328,7 +1337,7 @@ const PokerTable = (props) => {
           // if (count === 20) {
           //   break
           // }
-          console.log("aaaaiieeee ++>", i, indxesFinished)
+          // console.log("aaaaiieeee ++>", i, indxesFinished)
           if (indxesFinished.indexOf(i) === -1) {
             // console.log("indxesFinished ===>", indxesFinished, alreadyPushdUsers)
             console.log(i);
@@ -1392,7 +1401,7 @@ const PokerTable = (props) => {
 
 
     // data.forEach
-    console.log("player detailsssssss ===>>", playerDetails);
+    // console.log("player detailsssssss ===>>", playerDetails);
 
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
@@ -2377,9 +2386,9 @@ const PokerTable = (props) => {
                   </div>
                 ) : null}
               </div>
-              {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
+              {/* {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
 
-              {console.log("roomData?.gamestart", roomData?.gamestart)}
+              {console.log("roomData?.gamestart", roomData?.gamestart)} */}
               {players.find((ele) => ele.id === userId)?.away && roomData?.gamestart ? <>
                 <div className={`footer-button `}>
                   <div className="container">
@@ -3117,6 +3126,7 @@ const FooterButton = ({
                   <Button disabled="true"> </Button>
                 </div>
               )}
+              {console.log("raise =====>", raise)}
               {openAction.raise && (
                 <div className="footer-btn ">
                   {raise && (
