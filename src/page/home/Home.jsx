@@ -593,7 +593,7 @@ const Home = () => {
                             }
                           </div>
                         </Tab>
-                        <Tab eventKey='finsih' title='Finish'>
+                        <Tab eventKey='finsih' title='Completed'>
                           <div className="home-poker-card-grid">
                             {filterTournaments.length > 0 && filterTournaments.filter((el) => el.isFinished === true).map((el) => (
 
