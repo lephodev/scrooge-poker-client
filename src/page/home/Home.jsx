@@ -75,6 +75,8 @@ const Home = () => {
     { value: 45, label: "45 seconds" },
     { value: 60, label: "60 seconds" },
   ]);
+  const [eventKey, setEventKey] = useState("register");
+
   // utils function
   const checkUserInGame = async () => {
     let userData = await axios({
@@ -408,6 +410,12 @@ const Home = () => {
     }
   }, [pokerCard, filterRoom])
 
+  const handleTabSwitch = (k) => {
+    setEventKey(k);
+  };
+
+  console.log("Tournament Tabs", eventKey);
+
   return (
     <div className="poker-home">
       {userInAnyGame?.inGame && (
@@ -534,20 +542,83 @@ const Home = () => {
                 {filterTournaments.length > 0 ? (
                   <div className="home-poker-card">
                     <div className="container">
-                      <div className="home-poker-card-grid">
-                        {filterTournaments.map((el) => (
-                          <React.Fragment key={el._id}>
-                            <GameTournament
-                              data={el}
-                              gameType="Tournament"
-                              getTournamentDetails={getTournamentDetails}
-                              setUserData={setUserData}
-                              filterTournaments={filterTournaments}
-                              userId={user?.id || userId}
-                            />
-                          </React.Fragment>
-                        ))}
-                      </div>
+                      <Tabs
+                        activeKey={eventKey}
+                        onSelect={(k) => handleTabSwitch(k)}
+                        id='uncontrolled-tab-example'>
+                        <Tab eventKey='register' title='Register'>
+                          <div className="home-poker-card-grid">
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === false && el?.isFinished === false).map((el) => (
+                              <React.Fragment key={el._id}>
+                                {console.log("elll", el)}
+                                <GameTournament
+                                  data={el}
+                                  gameType="Tournament"
+                                  getTournamentDetails={getTournamentDetails}
+                                  setUserData={setUserData}
+                                  filterTournaments={filterTournaments}
+                                  userId={user?.id || userId}
+                                />
+                              </React.Fragment>
+                            ))}
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === false && el?.isFinished === false).length === 0 &&
+                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                <div className="no-room-available">
+                                  <h4>No Tournament Available</h4>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        </Tab>
+                        <Tab eventKey='running' title='Running'>
+                          <div className="home-poker-card-grid">
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === true).map((el) => (
+                              <React.Fragment key={el._id}>
+                                <GameTournament
+                                  data={el}
+                                  gameType="Tournament"
+                                  getTournamentDetails={getTournamentDetails}
+                                  setUserData={setUserData}
+                                  filterTournaments={filterTournaments}
+                                  userId={user?.id || userId}
+                                />
+                              </React.Fragment>
+                            ))}
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === true).length === 0 &&
+                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                <div className="no-room-available">
+                                  <h4>No Tournament Available</h4>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        </Tab>
+                        <Tab eventKey='finsih' title='Completed'>
+                          <div className="home-poker-card-grid">
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el.isFinished === true).map((el) => (
+
+                              <React.Fragment key={el._id}>
+                                <GameTournament
+                                  data={el}
+                                  gameType="Tournament"
+                                  getTournamentDetails={getTournamentDetails}
+                                  setUserData={setUserData}
+                                  filterTournaments={filterTournaments}
+                                  userId={user?.id || userId}
+                                />
+                              </React.Fragment>
+                            ))}
+                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isFinished === true).length === 0 &&
+                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                <div className="no-room-available">
+                                  <h4>No Tournament Available</h4>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        </Tab>
+                      </Tabs>
+
                     </div>
                   </div>
                 ) : (
@@ -1213,7 +1284,9 @@ const GameTournament = ({
 
   return (
     <>
+
       <div className="pokerTournament-tableCard">
+
         <div className="tableCard-imgDetail">
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
