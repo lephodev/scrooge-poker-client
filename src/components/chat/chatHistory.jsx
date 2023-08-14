@@ -68,6 +68,8 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     setWinPopupData(data)
   }
 
+  console.log("Chat messages ===>", chatMessages);
+
   return (
     <div
       className={`chatHistory-Container ${ !openChatHistory ? "" : "expand" }`}
@@ -94,7 +96,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
                   <img src={msg.profile ? msg.profile : avtar} alt="" />
                 </div>
                 <div className="playerMssgtoDisplay">
-                  <div className="playerName">{msg.firstName}</div>
+                  <div className="playerName">{msg?.username?.toLowerCase()}</div>
                   <p>{msg.message}</p>
                 </div>
               </div>
