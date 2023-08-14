@@ -525,7 +525,7 @@ const Results = ({ tournamentData }) => {
                 <p>Player</p>
               </th>
               <th>
-                <p>Chip won each hand</p>
+                <p>Tickets won</p>
               </th>
             </tr>
           </thead>
