@@ -19,7 +19,7 @@ import Homesvg from '../../assets/home.svg'
 import toast from 'react-hot-toast'
 import Select from 'react-select'
 import { useMemo } from 'react'
-import { FaInfoCircle, FaUser, FaTrophy, FaCoins } from 'react-icons/fa'
+import { FaInfoCircle, FaUser, FaCoins } from 'react-icons/fa'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import { socket } from '../../config/socketConnection'
@@ -1325,7 +1325,7 @@ const GameTournament = ({
               {data?.totalJoinPlayer}
             </div>
           </div>
-          <div className="cardTournament-Fee">
+          {/* <div className="cardTournament-Fee">
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
@@ -1336,7 +1336,7 @@ const GameTournament = ({
                   parseFloat(data?.totalJoinPlayer)
                 ).toFixed(2)}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="tournamentCard-buttonDetail">
           {console.log("eleminated players ===>", data?.eleminatedPlayers)}
