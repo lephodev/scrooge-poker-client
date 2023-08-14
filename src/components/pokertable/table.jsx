@@ -515,7 +515,8 @@ const PokerTable = (props) => {
             (el) => el?.userid?.toString() === userId?.toString()
           )
         ) {
-          history.push(`/leaderboard?tournamentId=${ tournamentId }`);
+          window.location.href = `/leaderboard?tournamentId=${ tournamentId }`
+          // history.push(`/leaderboard?tournamentId=${ tournamentId }`);
         }
       }
     });
