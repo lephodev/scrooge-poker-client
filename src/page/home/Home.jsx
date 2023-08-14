@@ -1325,7 +1325,7 @@ const GameTournament = ({
               {data?.totalJoinPlayer}
             </div>
           </div>
-          <div className="cardTournament-Fee">
+          {/* <div className="cardTournament-Fee">
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
@@ -1336,7 +1336,7 @@ const GameTournament = ({
                   parseFloat(data?.totalJoinPlayer)
                 ).toFixed(2)}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="tournamentCard-buttonDetail">
           {console.log("eleminated players ===>", data?.eleminatedPlayers)}
