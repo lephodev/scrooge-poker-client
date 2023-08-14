@@ -199,6 +199,7 @@ const PokerTable = (props) => {
             console.log("reconnect err => ", err);
             tryReconnect();
           } else {
+            console.log("reconnect4ed")
             let urlParams = new URLSearchParams(window.location.search);
             let table = urlParams.get("tableid");
             let type =
@@ -247,7 +248,6 @@ const PokerTable = (props) => {
 
       try {
         if (table) {
-          // console.log("RommData", roomData);
           tPlayer = null;
           tRound = null;
           socket.emit("checkTable", {
@@ -523,6 +523,7 @@ const PokerTable = (props) => {
       if (data) {
         roomData = data?.updatedRoom;
         tPlayer = null;
+        tRound = null;
         setStart(false);
         joinInRunningRound = false;
         setSidePots(roomData.sidePots);
@@ -545,6 +546,10 @@ const PokerTable = (props) => {
     });
 
     socket.on("preflopround", (data) => {
+      setCurrentPlayer({})
+      setCommunityCards([]);
+      tPlayer = null;
+      tRound = null;
       roomData = data;
       setTablePot(roomData.pot);
       setTimer(roomData.timer);
@@ -553,6 +558,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("flopround", (data) => {
+      setCurrentPlayer({})
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -571,6 +577,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("turnround", (data) => {
+      setCurrentPlayer({})
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -589,6 +596,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("riverround", (data) => {
+      setCurrentPlayer({})
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
