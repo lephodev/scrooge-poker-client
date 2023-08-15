@@ -560,6 +560,8 @@ const PokerTable = (props) => {
 
     socket.on("flopround", (data) => {
       setCurrentPlayer({})
+      tPlayer = null;
+      tRound = null;
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -579,6 +581,8 @@ const PokerTable = (props) => {
 
     socket.on("turnround", (data) => {
       setCurrentPlayer({})
+      tPlayer = null;
+      tRound = null;
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
@@ -598,6 +602,8 @@ const PokerTable = (props) => {
 
     socket.on("riverround", (data) => {
       setCurrentPlayer({})
+      tPlayer = null;
+      tRound = null;
       setMergeAnimationState(true);
       roomData = data;
       setCommunityCards(data?.communityCard);
