@@ -684,6 +684,12 @@ span.input-range__label.input-range__label--max {
     left: 45%;
     transform: translateX(-50%);
     scale: 0.9;
+    padding: 15px 10px;
+    padding-right: 25px;
+    min-width: 385px;
+  }
+  .customBet-amount .raiseSliderCustom {
+    gap: 15px;
   }
 
   .raiseBet-container .bet-view::before {
