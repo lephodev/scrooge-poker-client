@@ -1718,7 +1718,7 @@ const PokerTable = (props) => {
         if (wallet > raiseAmount && lastAction !== "check") {
           currentAction.call = true;
         }
-        if (wallet + pot >= raiseAmount) {
+        if (wallet + pot > raiseAmount) {
           currentAction.call = true;
         }
       }
