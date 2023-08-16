@@ -1676,7 +1676,7 @@ const PokerTable = (props) => {
         currentAction.allin = true;
         currentAction.raise = false;
 
-        if (wallet > raiseAmount) {
+        if (wallet + pot > raiseAmount) {
           currentAction.call = true;
         }
       }
@@ -1716,6 +1716,9 @@ const PokerTable = (props) => {
         currentAction.allin = true;
         currentAction.raise = false;
         if (wallet > raiseAmount && lastAction !== "check") {
+          currentAction.call = true;
+        }
+        if (wallet + pot >= raiseAmount) {
           currentAction.call = true;
         }
       }
