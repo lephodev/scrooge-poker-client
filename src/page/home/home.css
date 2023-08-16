@@ -726,6 +726,7 @@ div#clockdiv h4 {
   border-radius: 10px;
   padding: 4px 10px;
   background-color: #2d3140;
+  width: 100%;
 }
 
 .cardTournament-Fee p {
@@ -811,6 +812,8 @@ div#clockdiv h4 {
   padding: 16px 10px;
   justify-content: space-around;
   background: #1b1b1b;
+  max-width: 270px;
+  width: 100%;
 }
 
 .tournamentCard-nameDetail p {
