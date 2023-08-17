@@ -945,8 +945,8 @@ const PokerTable = (props) => {
     });
 
     socket.on("tournamentFinished", (data) => {
-      const { tournamentId } = data;
-      window.location.href = `/leaderboard?tournamentId=${ tournamentId }`;
+      const { tournamentId: { _id } } = data;
+      window.location.href = `/leaderboard?tournamentId=${ _id }`;
     });
 
     socket.on("roomchanged", (data) => {
