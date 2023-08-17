@@ -1722,7 +1722,7 @@ const PokerTable = (props) => {
           currentAction.call = true;
         }
       }
-      if (lastAction !== "check" && pot !== raiseAmount) {
+      if ((lastAction !== "check" && pot !== raiseAmount) || currentAction.call === true) {
         currentAction.check = false;
       }
     }
