@@ -17,6 +17,8 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
     setRangeBetValue(value);
   };
 
+
+
   const onBlurChange = () => {
     if (rangeBetValue < roomData?.raiseAmount * 2) {
       toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
@@ -28,17 +30,16 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
   const minBetValue = numFormatter(roomData?.raiseAmount * 2);
 
   return (
-
     <div className="raise-inputRange">
       <Form className="customBet-amount">
         <div className="raiseSliderCustom">
           <div className="inputRange-Box">
             <InputRange
-              step={roomData?.raiseAmount}
               maxValue={currentPlayer?.wallet}
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
               onChange={(e) => setRangeBetValue(e)}
+              
             />
             <div className="inputRangeSlider">
               <span className="minValueSpan">{minBetValue}</span>
