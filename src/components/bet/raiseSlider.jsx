@@ -17,16 +17,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
     setRangeBetValue(value);
   };
 
-  const handleChange = (value) => {
-    if (value > roomData?.raiseAmount) {
-      if (value >= currentPlayer?.wallet) {
-        setRangeBetValue(currentPlayer?.wallet);
-      } else {
-        const val = ((value - (value % roomData?.raiseAmount)) / roomData?.raiseAmount) * roomData?.raiseAmount;
-        setRangeBetValue(val);
-      }
-    }
-  };
+
 
   const onBlurChange = () => {
     if (rangeBetValue < roomData?.raiseAmount * 2) {
@@ -47,7 +38,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
               maxValue={currentPlayer?.wallet}
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => setRangeBetValue(e)}
               
             />
             <div className="inputRangeSlider">
