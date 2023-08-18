@@ -1676,7 +1676,9 @@ const PokerTable = (props) => {
         currentAction.allin = true;
         currentAction.raise = false;
 
-        if (wallet + pot > raiseAmount) {
+        if (pot >= raiseAmount) {
+          currentAction.check = true;
+        } else if (wallet + pot > raiseAmount) {
           currentAction.call = true;
         }
       }
@@ -1698,7 +1700,12 @@ const PokerTable = (props) => {
         }
       } else {
         if (raiseAmount * 2 - pot < wallet) {
-          currentAction.call = true;
+          if (raiseAmount > pot) {
+            currentAction.call = true;
+          } else {
+            currentAction.check = true;
+          }
+
           currentAction.bet = false;
           currentAction.check = false;
         }

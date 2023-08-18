@@ -48,7 +48,7 @@ const BetRaise = ({
         ((roomData.pot + playersPot) * 25) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
-            disabled={remainingTime <= 1}
+            disabled={remainingTime <= 0}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 25) / 100)
               // setAction(((roomData.pot + playersPot) * 25) / 100);
