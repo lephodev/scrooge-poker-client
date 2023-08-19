@@ -61,7 +61,7 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
           <Button
             variant="primary"
             onClick={(e) => SliderAction(e, parseInt(rangeBetValue))}
-            disabled={rangeBetValue <= 0 || remainingTime <= 1}
+            disabled={rangeBetValue <= 0 || remainingTime <= 0}
             type="submit"
           >
             Bet
