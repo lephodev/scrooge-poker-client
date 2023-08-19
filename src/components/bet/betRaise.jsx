@@ -76,7 +76,7 @@ const BetRaise = ({
         ((roomData.pot + playersPot) * 50) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
-            disabled={remainingTime <= 1}
+            disabled={remainingTime <=0}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 50) / 100)
               //   setAction(((roomData.pot + playersPot) * 50) / 100)
@@ -105,7 +105,7 @@ const BetRaise = ({
         ((roomData.pot + playersPot) * 75) / 100 >=
         roomData.raiseAmount * 2 && (
           <Button
-            disabled={remainingTime <= 1}
+            disabled={remainingTime <= 0}
             onClick={() => {
               getConfirmation(((roomData.pot + playersPot) * 75) / 100)
               //   setAction(((roomData.pot + playersPot) * 75) / 100)
@@ -116,7 +116,7 @@ const BetRaise = ({
           </Button>
         )}
       <Button
-        disabled={remainingTime <= 1}
+        disabled={remainingTime <= 0}
         onClick={() => {
           allinAction()
           setBetRaise(false)
