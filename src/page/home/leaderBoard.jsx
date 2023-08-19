@@ -374,8 +374,7 @@ const LeaderBoard = () => {
                   <p>
                     Total Players :{' '}
                     <span>
-                      {tournamentData?.rooms?.filter((el) => el?.players)[0]
-                        ?.players?.length || 0}
+                      {tournamentData?.totalJoinPlayer || 0}
                     </span>
                   </p>
                   <p>
