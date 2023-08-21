@@ -213,12 +213,12 @@ const Spectate = () => {
                             </div>
                             <div className="home-poker-card-grid">
                                 {allRooms?.map((el, i) => (
-                                    <GameTable
+                                    el ? <GameTable
                                         data={el}
                                         gameType="Poker"
                                         tableId={el._id}
                                         index={i}
-                                    />
+                                    /> : null
                                 ))}
 
 
