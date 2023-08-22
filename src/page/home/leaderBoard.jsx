@@ -127,6 +127,7 @@ const LeaderBoard = () => {
       }
       setShowLoader(false);
     } catch (err) {
+      console.log("erroorr ===>", err);
       history.push('/')
       setShowLoader(false);
     }
@@ -407,7 +408,7 @@ const LeaderBoard = () => {
                     <div className="btn-grid">
                       {" "}
 
-                      {ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (
+                      {ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid?.toString() === userId?.toString())) ? (
                         <button
 
                           onClick={() => enterRoom(tournamentData?._id)}
