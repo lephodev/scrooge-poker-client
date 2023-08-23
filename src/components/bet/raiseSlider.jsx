@@ -4,7 +4,12 @@ import { Form, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import numFormatter from "../../utils/utils";
 
-const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) => {
+const RaiseSlider = ({
+  currentPlayer,
+  SliderAction,
+  roomData,
+  remainingTime,
+}) => {
   const [rangeBetValue, setRangeBetValue] = useState(roomData.raiseAmount * 2);
   const { wallet } = currentPlayer || {};
 
@@ -17,14 +22,14 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
     setRangeBetValue(value);
   };
 
-
-
   const onBlurChange = () => {
     if (rangeBetValue < roomData?.raiseAmount * 2) {
-      toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, { id: "A" });
+      toast.error(`Raise amount must be double of ${roomData?.raiseAmount}`, {
+        id: "A",
+      });
       return;
     }
-  }
+  };
 
   const maxBetValue = numFormatter(currentPlayer?.wallet);
   const minBetValue = numFormatter(roomData?.raiseAmount * 2);
@@ -39,14 +44,14 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
               minValue={roomData?.raiseAmount * 2}
               value={rangeBetValue}
               onChange={(e) => setRangeBetValue(e)}
-              
             />
             <div className="inputRangeSlider">
               <span className="minValueSpan">{minBetValue}</span>
               <span className="maxValueSpan">{maxBetValue}</span>
             </div>
           </div>
-
+        </div>
+        <div className="bet-grid-input">
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Control
               type="number"
@@ -56,17 +61,17 @@ const RaiseSlider = ({ currentPlayer, SliderAction, roomData, remainingTime }) =
               onBlur={onBlurChange}
             />
           </Form.Group>
+          {currentPlayer && (
+            <Button
+              variant="primary"
+              onClick={(e) => SliderAction(e, parseInt(rangeBetValue))}
+              disabled={rangeBetValue <= 0 || remainingTime <= 0}
+              type="submit"
+            >
+              Bet
+            </Button>
+          )}
         </div>
-        {currentPlayer && (
-          <Button
-            variant="primary"
-            onClick={(e) => SliderAction(e, parseInt(rangeBetValue))}
-            disabled={rangeBetValue <= 0 || remainingTime <= 0}
-            type="submit"
-          >
-            Bet
-          </Button>
-        )}
       </Form>
     </div>
   );
