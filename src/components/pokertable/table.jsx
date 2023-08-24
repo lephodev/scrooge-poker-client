@@ -1576,6 +1576,8 @@ const PokerTable = (props) => {
   };
 
   const betAction = (x) => {
+    console.log("input amount", x, "currentPlayer Wallet", currentPlayer?.wallet);
+
     setOpenAction({
       bet: false,
       call: false,
@@ -1994,8 +1996,18 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (e, x) => {
+    console.log("xxxxx", x, "currentPlayer wallet", currentPlayer.wallet);
+
     e.preventDefault();
-    if (x >= roomData?.raiseAmount * 2) {
+    if (currentPlayer.wallet < x) {
+      socket.emit("doallin", {
+        userid: currentPlayer?.id,
+        roomid: tableId,
+        amount: currentPlayer?.wallet,
+      });
+    }
+
+    else if (x >= roomData?.raiseAmount * 2) {
       setOpenAction({
         bet: false,
         call: false,
