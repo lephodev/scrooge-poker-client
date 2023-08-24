@@ -4,6 +4,7 @@ import React, { useState, useRef, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { Form, Spinner } from 'react-bootstrap'
+
 import { useHistory } from 'react-router-dom'
 import './home.css'
 import cookie from 'js-cookie'
@@ -19,7 +20,7 @@ import Homesvg from '../../assets/home.svg'
 import toast from 'react-hot-toast'
 import Select from 'react-select'
 import { useMemo } from 'react'
-import { FaInfoCircle, FaUser, FaCoins } from 'react-icons/fa'
+import { FaInfoCircle, FaUser, FaTrophy, FaCoins } from 'react-icons/fa'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import { socket } from '../../config/socketConnection'
@@ -1164,17 +1165,21 @@ const GameTournament = ({
     return tableId
   })
   useEffect(() => {
+
     socket.on('alreadyInTournament', (data) => {
       const { message, code } = data
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
           setUserData(data?.user)
         }
+
         toast.success(message, { id: 'Nofull' })
       } else {
         toast.error(message, { id: 'full' })
       }
     })
+
+
     socket.on('leaveTournament', (data) => {
       const { message, code } = data
       if (code === 200) {
@@ -1325,7 +1330,7 @@ const GameTournament = ({
               {data?.totalJoinPlayer}
             </div>
           </div>
-          {/* <div className="cardTournament-Fee">
+          <div className="cardTournament-Fee">
             <p>Prize Pool</p>
             <div className="extraDetail-container">
               <FaTrophy />
@@ -1336,7 +1341,7 @@ const GameTournament = ({
                   parseFloat(data?.totalJoinPlayer)
                 ).toFixed(2)}
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="tournamentCard-buttonDetail">
           {console.log("eleminated players ===>", data?.eleminatedPlayers)}
@@ -1368,14 +1373,14 @@ const GameTournament = ({
               disabled={buttonClick}
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
-              {data?.isStart ? "Spectate" : "Join Game"}
+              {buttonClick ? <Spinner animation='border' /> : data.isStart ? "Spectate" : "Join Game"}
             </Button>
           ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid?.toString() === userId?.toString())) ? (<Button
             type="text"
             disabled={buttonClick}
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
-            Join Game
+            {buttonClick ? <Spinner animation='border' /> : "Join Game"}
           </Button>) : (<Button
             type="text"
             onClick={() => { openSpectatingTables(data?._id) }}

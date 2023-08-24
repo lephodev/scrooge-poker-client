@@ -587,7 +587,7 @@ form.customBet-amount {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 form.customBet-amount .form-group {
@@ -600,10 +600,10 @@ form.customBet-amount .form-control:focus {
   width: 90px;
   background: #35363a;
   border: 1px solid #4e4e4e;
-  margin-top: 2px;
   color: #fff;
   font-size: 16px;
   box-shadow: none !important;
+  height: 28px;
 }
 
 .customBet-amount button.btn.btn-primary,
@@ -619,6 +619,7 @@ form.customBet-amount .form-control:focus {
   text-transform: uppercase;
   box-shadow: none !important;
   height: 28px;
+  margin: 0 !important;
 }
 
 .footer-btn .callBtn-amount {
@@ -652,7 +653,7 @@ form.customBet-amount .form-control:focus {
 
 .inputRange-Box {
   position: relative;
-  max-width: calc(100% - 110px);
+  max-width: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -676,6 +677,12 @@ form.customBet-amount .form-control:focus {
 span.input-range__label.input-range__label--min,
 span.input-range__label.input-range__label--max {
   display: none;
+}
+.bet-grid-input {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 200px;
 }
 
 @media only screen and (min-device-width: 280px) and (max-device-width: 767px) and (orientation: portrait) {
