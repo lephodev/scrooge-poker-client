@@ -1380,7 +1380,7 @@ const GameTournament = ({
             disabled={buttonClick}
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
           >
-            Join Game
+            {buttonClick ? <Spinner animation='border' /> : "Join Game"}
           </Button>) : (<Button
             type="text"
             onClick={() => { openSpectatingTables(data?._id) }}
