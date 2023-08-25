@@ -5,7 +5,7 @@ import avtar from "../../assets/profile_user.jpg";
 import WinHistoryPopup from "./winHistorypopup";
 import { useMediaQuery } from "react-responsive";
 
-const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, scrollToBottom, scrollDownRef, leaveTable }) => {
+const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, leaveTable }) => {
   // const [message, setMessages] = useState([]);
   const [typingOnChat, setTypingOnChat] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -18,6 +18,8 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   // const isRoomData = roomData?.showdown?.length;
 
   const wrapperRef = useRef(null);
+  const scrollDownRef = useRef(null)
+
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -55,11 +57,11 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
 
 
 
-  useEffect(() => {
-    if (openChatHistory) {
-      scrollToBottom();
-    }
-  }, [openChatHistory])
+  // useEffect(() => {
+  //   if (openChatHistory) {
+  //     scrollToBottom();
+  //   }
+  // }, [openChatHistory])
 
   useOutsideAlerter(wrapperRef);
 
@@ -67,6 +69,15 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     setModalShow(!modalShow)
     setWinPopupData(data)
   }
+
+  const scrollToBottom = () => {
+    scrollDownRef?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages?.length, openChatHistory])
+
 
   console.log("Chat messages ===>", chatMessages);
 
