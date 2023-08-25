@@ -5,7 +5,7 @@ import "./chat.css";
 import { socket } from '../../config/socketConnection';
 import Picker from 'emoji-picker-react';
 
-const Chat = ({ open, handleClick, userId, tableId, currentPlayer, scrollToBottom }) => {
+const Chat = ({ open, handleClick, userId, tableId, currentPlayer }) => {
     const [message, setMessage] = useState('');
     const [openEmoji, setOpenEMoji] = useState(false);
     const ref = useRef(null);
@@ -34,7 +34,7 @@ const Chat = ({ open, handleClick, userId, tableId, currentPlayer, scrollToBotto
             message,
             tableId
         });
-        scrollToBottom();
+
 
         setMessage('');
         setOpenEMoji(false);
