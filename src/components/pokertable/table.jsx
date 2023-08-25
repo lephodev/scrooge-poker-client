@@ -2626,6 +2626,7 @@ const PokerTable = (props) => {
             userId={userId}
             tableId={tableId}
             currentPlayer={currentPlayer}
+            scrollToBottom={scrollToBottom}
           // playerData={playerData}
           />
           {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}

@@ -59,7 +59,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
     if (openChatHistory) {
       scrollToBottom();
     }
-  }, [])
+  }, [openChatHistory])
 
   useOutsideAlerter(wrapperRef);
 
