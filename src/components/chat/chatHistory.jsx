@@ -91,7 +91,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
         {chatMessages?.map((msg) => {
           return (
             <>
-              <div className={`playerComment-box ${ userId === msg.userId ? "playerSelfMssg" : "" }`}>
+              <div className={`playerComment-box ${ userId === msg.userId ? "playerSelfMssg" : "" }`} ref={scrollDownRef}>
                 <div className="playerAvtar">
                   <img src={msg.profile ? msg.profile : avtar} alt="" />
                 </div>
