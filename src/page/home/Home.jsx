@@ -1375,7 +1375,7 @@ const GameTournament = ({
             >
               {buttonClick ? <Spinner animation='border' /> : data.isStart ? "Spectate" : "Join Game"}
             </Button>
-          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString())) ? (<Button
+          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid?.toString() === userId?.toString())) ? (<Button
             type="text"
             disabled={buttonClick}
             onClick={() => joinTournament(data?._id, data?.tournamentFee)}
