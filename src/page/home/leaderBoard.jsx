@@ -416,7 +416,7 @@ const LeaderBoard = () => {
                         >
                           Enter Game
                         </button>
-                      ) : (tournamentData?.tournamentType !== 'sit&go' && !tournamentData.joinTimeExceeded && !ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid.toString() === userId.toString()))) || (tournamentData?.tournamentType === 'sit&go' && !tournamentData?.isStart) ? (
+                      ) : (tournamentData?.tournamentType !== 'sit&go' && !tournamentData.joinTimeExceeded && !ifUserJoind() && !tournamentData?.eleminatedPlayers?.find(el => (el.userid?.toString() === userId?.toString()))) || (tournamentData?.tournamentType === 'sit&go' && !tournamentData?.isStart) ? (
                         <button
                           disabled={ifUserJoind() || tournamentData?.isStart || tournamentData?.isFinished}
                           onClick={() => joinTournament(tournamentData?._id, tournamentData?.tournamentFee)
