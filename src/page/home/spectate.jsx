@@ -425,10 +425,13 @@ const GameTable = ({
             roomId: roomId,
             userId: userId,
         })
-        socket.emit('spectateMultiTable', {
-            roomId: roomId,
-            userId: userId,
-        })
+        if (roomId && userId) {
+            socket.emit('spectateMultiTable', {
+                roomId: roomId,
+                userId: userId,
+            });
+        }
+
     }
 
     useEffect(() => {
