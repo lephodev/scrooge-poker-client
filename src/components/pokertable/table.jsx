@@ -951,10 +951,10 @@ const PokerTable = (props) => {
 
     socket.on("roomchanged", (data) => {
       console.log("this room changed has been executed 1547 :-", 929, isWatcher);
-      if (isWatcher) {
-        history.goBack();
-        return;
-      }
+      // if (isWatcher) {
+      //   history.goBack();
+      //   return;
+      // }
       let user = data?.userIds?.find((el) => el.userId === userId);
       if (user) {
         window.location.href = `/table?gamecollection=poker&tableid=${ user.newRoomId }`;
@@ -1576,6 +1576,8 @@ const PokerTable = (props) => {
   };
 
   const betAction = (x) => {
+    console.log("input amount", x, "currentPlayer Wallet", currentPlayer?.wallet);
+
     setOpenAction({
       bet: false,
       call: false,
@@ -1793,10 +1795,10 @@ const PokerTable = (props) => {
     socket.on("roomchanged", (data) => {
       const { newRoomId, changeIds } = data;
       console.log("this room changed has been executed 1547 :-", data, isWatcher);
-      if (isWatcher) {
-        history.goBack();
-        return;
-      }
+      // if (isWatcher) {
+      //   history.goBack();
+      //   return;
+      // }
       if (newRoomId && changeIds.length > 0) {
         if (changeIds.find((el) => el.toString() === userId.toString())) {
           window.location.href =
@@ -1994,8 +1996,18 @@ const PokerTable = (props) => {
   };
 
   const raiseInSliderAction = (e, x) => {
+    console.log("xxxxx", x, "currentPlayer wallet", currentPlayer.wallet);
+
     e.preventDefault();
-    if (x >= roomData?.raiseAmount * 2) {
+    if (currentPlayer.wallet < x) {
+      socket.emit("doallin", {
+        userid: currentPlayer?.id,
+        roomid: tableId,
+        amount: currentPlayer?.wallet,
+      });
+    }
+
+    else if (x >= roomData?.raiseAmount * 2) {
       setOpenAction({
         bet: false,
         call: false,

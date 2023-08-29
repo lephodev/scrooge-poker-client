@@ -5,7 +5,7 @@ import "./chat.css";
 import { socket } from '../../config/socketConnection';
 import Picker from 'emoji-picker-react';
 
-const Chat = ({ open, handleClick, userId, tableId,currentPlayer}) => {
+const Chat = ({ open, handleClick, userId, tableId, currentPlayer }) => {
     const [message, setMessage] = useState('');
     const [openEmoji, setOpenEMoji] = useState(false);
     const ref = useRef(null);
@@ -34,6 +34,8 @@ const Chat = ({ open, handleClick, userId, tableId,currentPlayer}) => {
             message,
             tableId
         });
+
+
         setMessage('');
         setOpenEMoji(false);
     }
@@ -51,7 +53,7 @@ const Chat = ({ open, handleClick, userId, tableId,currentPlayer}) => {
     }
 
     return (
-        <div className={`chat-wrapper ${open && currentPlayer && currentPlayer.id === userId ? 'currentWithChat':''} ${ open ? `expand` : `` }`}>
+        <div className={`chat-wrapper ${ open && currentPlayer && currentPlayer.id === userId ? 'currentWithChat' : '' } ${ open ? `expand` : `` }`}>
 
             {openEmoji ? <Picker emojiStyle={{ width: "100%" }} onEmojiClick={handleOnEmojiClick} /> : null}
             <div className="chat-section">
