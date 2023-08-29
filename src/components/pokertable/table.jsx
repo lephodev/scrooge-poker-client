@@ -2536,7 +2536,7 @@ const PokerTable = (props) => {
                   )}
                 {isWatcher ? (
                   ""
-                ) : players &&
+                ) : !roomData?.tournament && players &&
                   players.length &&
                   players.find(
                     (ele) => (ele.id ? ele.id : ele.userid) === userId
@@ -2553,7 +2553,7 @@ const PokerTable = (props) => {
                       </button>
                     </OverlayTrigger>
                   </li>
-                ) : (
+                ) : !roomData?.tournament ? (
                   <li>
                     <OverlayTrigger
                       placement="left"
@@ -2566,7 +2566,7 @@ const PokerTable = (props) => {
                       </button>
                     </OverlayTrigger>
                   </li>
-                )}
+                ) : null}
                 {((roomData && roomData.public) ||
                   (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
                     <li>
