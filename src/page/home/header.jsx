@@ -2,7 +2,7 @@ import React, { useEffect, /* useState */ } from 'react'
 import numFormatter from "../../utils/utils";
 import token from "../../assets/images/sweep.png";
 import { /* FaArrowsAltH */ FaPlusCircle } from "react-icons/fa";
-import tickets from "../../assets/tickets.png";
+// import tickets from "../../assets/tickets.png";
 import gold from "../../assets/images/goldCoin.png";
 import { Button, Form, OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
@@ -22,11 +22,11 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
             This is your token balance, and can be used for betting.
         </Tooltip>
     );
-    const renderTicket = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            This is your ticket balance and can be redeemed for prizes.
-        </Tooltip>
-    );
+    // const renderTicket = (props) => (
+    //     <Tooltip id="button-tooltip" {...props}>
+    //         This is your ticket balance and can be redeemed for prizes.
+    //     </Tooltip>
+    // );
     const renderGold = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             This gold coins is for fun play.
@@ -151,9 +151,9 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                                 </OverlayTrigger>
                             </div>
                             <div className="pokerWallet-box">
-                                <img src={tickets} alt="" className="pokerWallet" />
-                                <span>{numFormatter(userData?.ticket || 0)}</span>
-                                <OverlayTrigger
+                                {/* <img src={tickets} alt="" className="pokerWallet" /> */}
+                                {/* <span>{numFormatter(userData?.ticket || 0)}</span> */}
+                                {/* <OverlayTrigger
                                     placement={window.innerWidth < 767 ? "bottom" : "left"}
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={renderTicket}
@@ -161,7 +161,7 @@ const Header = ({ userData, handleShow, mode, setMode, setUserData }) => {
                                     <Button variant="success">
                                         <FaQuestionCircle />
                                     </Button>
-                                </OverlayTrigger>
+                                </OverlayTrigger> */}
                             </div>
                             <div className="pokerWallet-box">
                                 <img src={gold} alt="" className="pokerWallet" />
