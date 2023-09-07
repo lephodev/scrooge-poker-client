@@ -2328,7 +2328,7 @@ const PokerTable = (props) => {
                                 </>
                               )}
                             {roomData &&
-                              roomData.handWinner.length === 0 &&
+                              roomData.handWinner?.length === 0 &&
                               !roomData?.gamestart ? (
                               <>
                                 {roomData.gameType !== "poker-tournament" && (
