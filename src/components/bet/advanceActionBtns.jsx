@@ -196,6 +196,12 @@ const AdvanceActionBtns = ({
           {CALL_ANY_BTN}
         </>
       );
+    } else if(player?.wallet + player?.pot >= roomData?.raiseAmount){
+      <>
+          {FOLD_BTN}
+          {CALL_BTN}
+          {ALL_IN_BTN}
+        </>
     } else {
       btn = (
         <>
