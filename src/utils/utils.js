@@ -3,20 +3,20 @@ import { PUBLICK_KEY } from "../config/keys";
 
 const numFormatter = (num) => {
   return parseFloat(num)?.toFixed(2);
-  if (num > 1 && num < 999) {
-    return (num / 1).toFixed(2); // convert to K for number from > 1000 < 1 million
-  }
-  if (num > 999 && num < 1000000) {
-    return `${(num / 1000).toFixed(2)}K`; // convert to K for number from > 1000 < 1 million
-  }
-  if (num >= 1000000 && num < 1000000000) {
-    return `${(num / 1000000).toFixed(2)}M`; // convert to M for number from > 1 million
-  }
-  if (num >= 100000000 && num < 1000000000000) {
-    return `${(num / 100000000).toFixed(2)}B`;
-  }
-  if (num >= 1000000000000) return `${(num / 1000000000000).toFixed(2)}T`;
-  return num; // if value < 1000, nothing to do
+  // if (num > 1 && num < 999) {
+  //   return (num / 1).toFixed(2); // convert to K for number from > 1000 < 1 million
+  // }
+  // if (num > 999 && num < 1000000) {
+  //   return `${(num / 1000).toFixed(2)}K`; // convert to K for number from > 1000 < 1 million
+  // }
+  // if (num >= 1000000 && num < 1000000000) {
+  //   return `${(num / 1000000).toFixed(2)}M`; // convert to M for number from > 1 million
+  // }
+  // if (num >= 100000000 && num < 1000000000000) {
+  //   return `${(num / 100000000).toFixed(2)}B`;
+  // }
+  // if (num >= 1000000000000) return `${(num / 1000000000000).toFixed(2)}T`;
+  // return num; // if value < 1000, nothing to do
 };
 
 export const getCookie = (name) => {
