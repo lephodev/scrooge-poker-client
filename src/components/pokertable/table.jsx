@@ -115,7 +115,7 @@ const PokerTable = (props) => {
   const [handMatch, setHandMatch] = useState([]);
   const [matchCards, setMatchCards] = useState([]);
   const [messageBy, setMessageBy] = useState();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
   const [allowWatcher, setAllowWatcher] = useState(false);
   const [watchers, setWatchers] = useState([]);
   const [betOn, setBetOn] = useState("");
@@ -309,17 +309,33 @@ const PokerTable = (props) => {
     socket.on("userId", async (data) => {
       userId = data;
     });
+
+
     socket.on("newMessage", (data) => {
       playAudio("chat");
-      setMessage(() => {
-        return data.message;
+      // setMessage(() => {
+      //   return data.message;
+      // });
+      // console.log("messages ==>", [...filteredMessage, {message: data.message, userId: data.userId}], message);
+      // setMessage([...filteredMessage, {message: data.message, userId: data.userId}]);
+
+      let messageNo;
+
+      setMessage((old) => {
+        console.log("old =====>", old);
+        const filteredMessage = old?.filter(el => (el.userId !== data.userId));
+        messageNo = filteredMessage.length ? filteredMessage[filteredMessage.length - 1].messageNo + 1 : 1
+        return [...filteredMessage, { message: data.message, userId: data.userId, messageNo }];
       });
       setMessageBy(() => {
         return data.userId;
       });
 
       setTimeout(() => {
-        setMessage("");
+        setMessage((old) => {
+          const filteredMessage = old?.filter(el => (el.messageNo !== messageNo));
+          return filteredMessage;
+        });
         setMessageBy(null);
       }, 10000);
     });
@@ -2406,7 +2422,7 @@ const PokerTable = (props) => {
                 ) : (
                   ""
                 )}
-                {showPairHand && showPairHand?.length > 0 && !isWatcher ? (
+                {showPairHand && showPairHand?.length > 0 && showPairHand.find((el) => el?.id === userId)?.hand?.descr.replace(",", " of") && !isWatcher ? (
                   <div className="playerHand-status">
                     <p>
                       Card Pair :&nbsp;
@@ -2995,8 +3011,9 @@ const Players = ({
             ""
           )}
         </div>
-        {playerData && playerData.id === messageBy && (
-          <BubbleMessage message={message} />
+        {/* messageBy */}
+        {playerData && message?.find(el => el.userId === playerData.id) && (
+          <BubbleMessage message={message?.find(el => el.userId === playerData.id).message} />
         )}
       </div>
     </>
@@ -3355,7 +3372,7 @@ const GameMessage = ({ winnerText }) => {
 const BubbleMessage = ({ message }) => {
   return (
     <div className="bubble-msg">
-      <div className="triangle-isosceles left">{message}</div>
+      <div className="triangle-isosceles left">Meesage {message}</div>
     </div>
   );
 };
