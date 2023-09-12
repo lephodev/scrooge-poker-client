@@ -2968,7 +2968,7 @@ const Players = ({
             <p>
               {newPurchase
                 ? "Purchase"
-                : numFormatter(playerData && playerData.wallet)}
+                : playerData && playerData.wallet.toFixed(2)}
             </p>
           </div>
           {roomData &&
