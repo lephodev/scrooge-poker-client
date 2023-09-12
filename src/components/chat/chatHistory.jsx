@@ -79,7 +79,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   }, [chatMessages?.length, openChatHistory])
 
 
-  console.log("Chat messages ===>", chatMessages);
+  // console.log("Chat messages ===>", chatMessages);
 
   return (
     <div
