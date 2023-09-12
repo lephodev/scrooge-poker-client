@@ -2,6 +2,7 @@ import CryptoJS from "crypto-js";
 import { PUBLICK_KEY } from "../config/keys";
 
 const numFormatter = (num) => {
+  return parseFloat(num)?.toFixed(2);
   if (num > 1 && num < 999) {
     return (num / 1).toFixed(2); // convert to K for number from > 1000 < 1 million
   }
