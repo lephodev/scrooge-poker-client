@@ -1049,7 +1049,11 @@ const PokerTable = (props) => {
     socket.on('availableinNextRound', () => {
 
       toast.success("You can play from next round", { toast_id: "availableinNextRound" });
-    })
+    });
+
+    socket.on('tournamentLastRoom', () => {
+      toast.success("Congratulations! you all are at the last table of the tournament", { toast_id: "availableinNextRound" });
+    });
 
   }, []);
   const handleTentativeActionAuto = (player) => {
