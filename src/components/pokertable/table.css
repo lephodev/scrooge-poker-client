@@ -1833,7 +1833,7 @@ button.btnForFullscreen.onScreen {
 
 .player-info h4 {
   font-size: 13px;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
   margin: 0;
   font-weight: 700;
   color: #111111;

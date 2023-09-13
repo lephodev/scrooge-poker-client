@@ -2,17 +2,21 @@ import CryptoJS from "crypto-js";
 import { PUBLICK_KEY } from "../config/keys";
 
 const numFormatter = (num) => {
-  if (num > 1 && num < 999) {
-    return (num / 1)?.toFixed(0); // convert to K for number from > 1000 < 1 million
-  } else if (num > 999 && num < 1000000) {
-    return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
-  } else if (num >= 1000000 && num < 1000000000) {
-    return (num / 1000000).toFixed(2) + "M"; // convert to M for number from > 1 million
-  } else if (num >= 100000000 && num < 1000000000000) {
-    return (num / 100000000).toFixed(2) + "B";
-  } else if (num >= 1000000000000)
-    return (num / 1000000000000).toFixed(2) + "T";
-  else return num; // if value < 1000, nothing to do
+  return parseFloat(num)?.toFixed(2);
+  // if (num > 1 && num < 999) {
+  //   return (num / 1).toFixed(2); // convert to K for number from > 1000 < 1 million
+  // }
+  // if (num > 999 && num < 1000000) {
+  //   return `${(num / 1000).toFixed(2)}K`; // convert to K for number from > 1000 < 1 million
+  // }
+  // if (num >= 1000000 && num < 1000000000) {
+  //   return `${(num / 1000000).toFixed(2)}M`; // convert to M for number from > 1 million
+  // }
+  // if (num >= 100000000 && num < 1000000000000) {
+  //   return `${(num / 100000000).toFixed(2)}B`;
+  // }
+  // if (num >= 1000000000000) return `${(num / 1000000000000).toFixed(2)}T`;
+  // return num; // if value < 1000, nothing to do
 };
 
 export const getCookie = (name) => {
@@ -65,7 +69,7 @@ function getMonthName(month) {
 export const dateFormat = (d = new Date()) => {
   const date = new Date(d);
   const day = date.getDate(); // Date of the month: 2 in our example
-  let month = date.getMonth()+1; // Month of the Year: 0-based index, so 1 in our example
+  let month = date.getMonth() + 1; // Month of the Year: 0-based index, so 1 in our example
   // const year = date.getFullYear(); // Year: 2013
   //const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   //const dayofweek = weekday[date.getDay(0)];
