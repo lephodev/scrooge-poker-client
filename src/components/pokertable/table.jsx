@@ -1052,7 +1052,7 @@ const PokerTable = (props) => {
     });
 
     socket.on('tournamentLastRoom', () => {
-      toast.success("Congratulations! you all are at the last table of the tournament", { toast_id: "availableinNextRound" });
+      toast.success("Congratulations ! You made it to the last Table", { toast_id: "availableinNextRound" });
     });
 
   }, []);
@@ -3376,7 +3376,7 @@ const GameMessage = ({ winnerText }) => {
 const BubbleMessage = ({ message }) => {
   return (
     <div className="bubble-msg">
-      <div className="triangle-isosceles left">Meesage {message}</div>
+      <div className="triangle-isosceles left">{message}</div>
     </div>
   );
 };
