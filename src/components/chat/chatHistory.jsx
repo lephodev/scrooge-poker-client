@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { socket } from '../../config/socketConnection';
 import avtar from "../../assets/profile_user.jpg";
 import WinHistoryPopup from "./winHistorypopup";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 
 const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistory, userId, roomData, chatMessages, leaveTable }) => {
   // const [message, setMessages] = useState([]);
@@ -12,28 +12,28 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   const [winHistoryData, setWinHistoryData] = useState([]);
   const [typingPlayrName, setTypingPlayerName] = useState("");
   const [winPopupData, setWinPopupData] = useState();
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 1024px)",
-  });
+  // const isDesktop = useMediaQuery({
+  //   query: "(min-width: 1024px)",
+  // });
   // const isRoomData = roomData?.showdown?.length;
 
   const wrapperRef = useRef(null);
   const scrollDownRef = useRef(null)
 
 
-  const useOutsideAlerter = (ref) => {
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (!isDesktop && ref.current && !ref.current.contains(event.target)) {
-          setOpenChatHistory(false);
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  };
+  // const useOutsideAlerter = (ref) => {
+  //   useEffect(() => {
+  //     const handleClickOutside = (event) => {
+  //       if (!isDesktop && ref.current && !ref.current.contains(event.target)) {
+  //         setOpenChatHistory(false);
+  //       }
+  //     };
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => {
+  //       document.removeEventListener("mousedown", handleClickOutside);
+  //     };
+  //   }, [ref]);
+  // };
 
   useEffect(() => {
     socket.on('typingOnChat', (data) => {
@@ -63,7 +63,7 @@ const ChatHistory = ({ openChatHistory, handleOpenChatHistory, setOpenChatHistor
   //   }
   // }, [openChatHistory])
 
-  useOutsideAlerter(wrapperRef);
+  // useOutsideAlerter(wrapperRef);
 
   const handleWinPopup = (data) => {
     setModalShow(!modalShow)
