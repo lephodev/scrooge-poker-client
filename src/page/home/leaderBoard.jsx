@@ -525,7 +525,7 @@ const Results = ({ tournamentData }) => {
                 <p>Player</p>
               </th>
               <th>
-                <p>Tickets won</p>
+                <p>Tokens won</p>
               </th>
             </tr>
           </thead>
