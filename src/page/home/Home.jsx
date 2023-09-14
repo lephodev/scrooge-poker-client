@@ -34,6 +34,7 @@ import { getCookie } from '../../utils/cookieUtil'
 // import feeIcon from "../../assets/images/feeIcon.png"
 import ranking from '../../assets/images/ranking.png'
 import { dateFormat, timeFormat } from '../../utils/utils' //, getTime
+import PlayerList from './PlayerList'
 let userId
 const Home = () => {
   // inital state
@@ -77,6 +78,9 @@ const Home = () => {
     { value: 60, label: "60 seconds" },
   ]);
   const [eventKey, setEventKey] = useState("register");
+
+  const [showPlayerList, setShowPlayerList] = useState(false);
+  const [selectedTournament, setSelectedTournament] = useState(null);
 
   // utils function
   const checkUserInGame = async () => {
@@ -551,7 +555,7 @@ const Home = () => {
                           <div className="home-poker-card-grid">
                             {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === false && el?.isFinished === false).map((el) => (
                               <React.Fragment key={el._id}>
-                                {console.log("elll", el)}
+                                {/* {console.log("elll", el)} */}
                                 <GameTournament
                                   data={el}
                                   gameType="Tournament"
@@ -559,6 +563,8 @@ const Home = () => {
                                   setUserData={setUserData}
                                   filterTournaments={filterTournaments}
                                   userId={user?.id || userId}
+                                  setShowPlayerList={setShowPlayerList}
+                                  setSelectedTournament={setSelectedTournament}
                                 />
                               </React.Fragment>
                             ))}
@@ -582,6 +588,8 @@ const Home = () => {
                                   setUserData={setUserData}
                                   filterTournaments={filterTournaments}
                                   userId={user?.id || userId}
+                                  setShowPlayerList={setShowPlayerList}
+                                  setSelectedTournament={setSelectedTournament}
                                 />
                               </React.Fragment>
                             ))}
@@ -606,6 +614,8 @@ const Home = () => {
                                   setUserData={setUserData}
                                   filterTournaments={filterTournaments}
                                   userId={user?.id || userId}
+                                  setShowPlayerList={setShowPlayerList}
+                                  setSelectedTournament={setSelectedTournament}
                                 />
                               </React.Fragment>
                             ))}
@@ -631,6 +641,7 @@ const Home = () => {
                 )}
               </Tab>
             </Tabs>
+              <PlayerList show={showPlayerList} setShowPlayerList={setShowPlayerList} tournament={selectedTournament} setSelectedTournament={setSelectedTournament} />
           </div>
         </div>
       </div>
@@ -1153,6 +1164,8 @@ const GameTournament = ({
   height,
   setUserData,
   userId,
+  setShowPlayerList,
+  setSelectedTournament
 }) => {
   const history = useHistory()
   let tableId
@@ -1244,7 +1257,7 @@ const GameTournament = ({
     let getData = data?.rooms?.find((el) =>
       el?.players?.find((el) => el?.userid === userId),
     )
-    console.log("getData ===>", getData);
+    // console.log("getData ===>", getData);
 
     return getData
   }
@@ -1279,6 +1292,12 @@ const GameTournament = ({
     if (tournamentId) {
       window.location.href = '/spectate?tournamentId=' + tournamentId;
     }
+  }
+
+  const handleShowParticipants =  ()=>{
+    console.log("handle show aprticipants executed");
+    setShowPlayerList(true);
+    setSelectedTournament(data);
   }
 
 
@@ -1323,7 +1342,7 @@ const GameTournament = ({
               {data?.tournamentFee}
             </div>
           </div>
-          <div className="cardTournament-Fee">
+          <div className="cardTournament-Fee" onClick={handleShowParticipants}>
             <p>Participants</p>
             <div className="extraDetail-container">
               <FaUser />
@@ -1344,7 +1363,7 @@ const GameTournament = ({
           </div>
         </div>
         <div className="tournamentCard-buttonDetail">
-          {console.log("eleminated players ===>", data?.eleminatedPlayers)}
+          {/* {console.log("eleminated players ===>", data?.eleminatedPlayers)} */}
           {data?.isFinished ? (
             <Button type="text" disabled="true">
               Game Finished
@@ -1400,6 +1419,7 @@ const GameTournament = ({
     </>
   )
 }
+
 const AvatarGroup = ({ imgArr }) => {
   return (
     <div className="poker-avatar-box">
