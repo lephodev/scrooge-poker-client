@@ -2905,7 +2905,7 @@ const Players = ({
   // console.log("allPlayingPlayers length ", allPlayingPlayers.length);
   // console.log("gameData.allinPlayers length ", gameData.allinPlayers.length);
 
-  if(inHandPlayers.length === gameData.allinPlayers.length && (allFoldedPlayers.length + inHandPlayers.length) === allPlayingPlayers.length){
+  if(gameData.allinPlayers.length && inHandPlayers.length === gameData.allinPlayers.length && (allFoldedPlayers.length + inHandPlayers.length) === allPlayingPlayers.length){
     if(showcardFlipAnimation){
       setShowAnimation(showcardFlipAnimation);
       setShowCardFlipAnimation(false);
