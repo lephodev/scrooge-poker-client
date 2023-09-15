@@ -169,6 +169,7 @@ const PokerTable = (props) => {
   const [openChatHistory, setOpenChatHistory] = useState(false);
   const [disable, setDisable] = useState(false);
   const [tourTimer, setTourTimer] = useState();
+  const [showcardFlipAnimation, setShowCardFlipAnimation] = useState(false);
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
@@ -2420,6 +2421,8 @@ const PokerTable = (props) => {
                           activeWinnerPlayersPot={activeWinnerPlayersPot}
                           roomData={roomData}
                           open={open}
+                          showcardFlipAnimation={setShowCardFlipAnimation}
+                          setShowCardFlipAnimation={setShowCardFlipAnimation}
                         />
                       ))}
                   </div>
@@ -2768,12 +2771,16 @@ const Players = ({
   remainingTime,
   mergeAnimationState,
   activeWinnerPlayersPot,
-  open
+  open,
+  roomData,
+  showcardFlipAnimation,
+  setShowCardFlipAnimation
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const [showamination, setShowAnimation] = useState(false);
   const target = useRef(null);
   useEffect(() => {
     setShowCard(false);
@@ -2814,6 +2821,102 @@ const Players = ({
     }
   }, [playerData]);
 
+  useEffect(()=>{
+    let inHandPlayers = [];
+    let allPlayingPlayers = [];
+    let allFoldedPlayers = [];
+    const gameData = roomData;
+  switch (gameData?.runninground) {
+    case 1:
+
+      gameData?.preflopround?.forEach(el=>{
+        if(!el.fold && el.playing){
+          inHandPlayers.push(el);
+        }
+        if(el.fold && el.playing){
+          allFoldedPlayers.push(el);
+        }
+        if(el.playing){
+          allPlayingPlayers.push(el);
+        }
+      });
+
+      break;
+    case 2:
+      gameData?.flopround?.forEach(el=>{
+        if(!el.fold && el.playing){
+          inHandPlayers.push(el);
+        }
+        if(el.fold && el.playing){
+          allFoldedPlayers.push(el);
+        }
+        if(el.playing){
+          allPlayingPlayers.push(el);
+        }
+      });
+      break;
+    case 3:
+      gameData?.turnround?.forEach(el=>{
+        if(!el.fold && el.playing){
+          inHandPlayers.push(el);
+        }
+        if(el.fold && el.playing){
+          allFoldedPlayers.push(el);
+        }
+        if(el.playing){
+          allPlayingPlayers.push(el);
+        }
+      });
+      break;
+    case 4:
+      gameData?.riverround?.forEach(el=>{
+        if(!el.fold && el.playing){
+          inHandPlayers.push(el);
+        }
+        if(el.fold && el.playing){
+          allFoldedPlayers.push(el);
+        }
+        if(el.playing){
+          allPlayingPlayers.push(el);
+        }
+      });
+      break;
+    
+    case 5:
+        gameData?.showdown?.forEach(el=>{
+          if(!el.fold && el.playing){
+            inHandPlayers.push(el);
+          }
+          if(el.fold && el.playing){
+            allFoldedPlayers.push(el);
+          }
+          if(el.playing){
+            allPlayingPlayers.push(el);
+          }
+        });
+        break;
+
+    default:
+      inHandPlayers = gameData.players?.filter((el) => !el.fold && el.playing)?.length;
+  }
+
+  // console.log("inHandPlayers length ", inHandPlayers.length);
+  // console.log("allFoldedPlayers length ", allFoldedPlayers.length);
+  // console.log("allPlayingPlayers length ", allPlayingPlayers.length);
+  // console.log("gameData.allinPlayers length ", gameData.allinPlayers.length);
+
+  if(inHandPlayers.length === gameData.allinPlayers.length && (allFoldedPlayers.length + inHandPlayers.length) === allPlayingPlayers.length){
+    if(showcardFlipAnimation){
+      setShowAnimation(showcardFlipAnimation);
+      setShowCardFlipAnimation(false);
+    }else{
+      setShowAnimation(showcardFlipAnimation);
+    }
+    setShowCard(true);
+  }
+
+  }, [roomData]);
+
   useEffect(() => {
     socket.on("showCard", (data) => {
       if (playerData.id === userId) {
@@ -2845,8 +2948,6 @@ const Players = ({
       });
     }
   };
-
-
 
   return (
     <>
@@ -2904,12 +3005,14 @@ const Players = ({
             <ShowCard
               cards={playerData.cards ? playerData.cards : []}
               handMatch={handMatch}
+              showamination={showamination}
             />
           )}
         {showCard ? (
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : playerData && (playerData.fold || !playerData.playing) ? (
           ""
@@ -2921,6 +3024,7 @@ const Players = ({
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : roomData &&
           roomData.runninground >= 1 &&
@@ -2928,6 +3032,7 @@ const Players = ({
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : roomData && roomData.runninground === 0 ? (
           ""
@@ -3344,7 +3449,10 @@ const HideCard = () => {
   );
 };
 
-const ShowCard = ({ cards, handMatch }) => {
+const ShowCard = ({ cards, handMatch, showamination }) => {
+
+  // console.log("showamination ===>", showamination);
+
   return (
     <div className="show-card">
       {cards &&
@@ -3354,10 +3462,10 @@ const ShowCard = ({ cards, handMatch }) => {
               key={`item-${ card }`}
               src={`/cards/${ DecryptCard(card)?.toUpperCase() }.svg`}
               alt="card"
-              className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-                } `}
+              // className={showamination ? `animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
+              //   ? ``
+              //   : `winner-card`
+              //   }` : ""}
             />
           );
         })}
