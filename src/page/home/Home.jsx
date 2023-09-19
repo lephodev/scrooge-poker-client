@@ -1,73 +1,65 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useRef, useContext } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import { Form, Spinner } from 'react-bootstrap'
+import React, { useState, useRef, useContext, useEffect, useMemo } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Form, Spinner } from "react-bootstrap";
 
-import { useHistory } from 'react-router-dom'
-import './home.css'
-import cookie from 'js-cookie'
+import { useHistory } from "react-router-dom";
+import "./home.css";
+import cookie from "js-cookie";
 
-import { useEffect } from 'react'
-import userUtils from '../../utils/user'
-import loaderImg from '../../assets/chat/loader1.webp'
-import casino from '../../assets/game/placeholder.png'
-import casino1 from '../../assets/game/logo-poker.png'
-import { pokerInstance, tournamentInstance } from '../../utils/axios.config'
-import Homesvg from '../../assets/home.svg'
+import userUtils from "../../utils/user";
+import loaderImg from "../../assets/chat/loader1.webp";
+import casino from "../../assets/game/placeholder.png";
+import casino1 from "../../assets/game/logo-poker.png";
+import { pokerInstance, tournamentInstance } from "../../utils/axios.config";
+import Homesvg from "../../assets/home.svg";
 // import axios from "axios";
-import toast from 'react-hot-toast'
-import Select from 'react-select'
-import { useMemo } from 'react'
-import { FaInfoCircle, FaUser, FaTrophy, FaCoins } from 'react-icons/fa'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
-import { socket } from '../../config/socketConnection'
-import axios from 'axios'
-import { landingClient } from '../../config/keys'
-import UserContext from '../../context/UserContext'
-import AlreadyInGamePopup from '../../components/pokertable/alreadyInGamePopup'
-import Header from './header'
-import CONSTANTS from '../../config/contants'
-import { getCookie } from '../../utils/cookieUtil'
+import toast from "react-hot-toast";
+import Select from "react-select";
+import { FaInfoCircle, FaUser, FaTrophy, FaCoins } from "react-icons/fa";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import { socket } from "../../config/socketConnection";
+import axios from "axios";
+import { landingClient } from "../../config/keys";
+import UserContext from "../../context/UserContext";
+import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
+import Header from "./header";
+import CONSTANTS from "../../config/contants";
+import { getCookie } from "../../utils/cookieUtil";
 // import feeIcon from "../../assets/images/feeIcon.png"
-import ranking from '../../assets/images/ranking.png'
-import { dateFormat, timeFormat } from '../../utils/utils' //, getTime
-import PlayerList from './PlayerList'
-let userId
+import ranking from "../../assets/images/ranking.png";
+import { dateFormat, timeFormat } from "../../utils/utils"; //, getTime
+import PlayerList from "./PlayerList";
+let userId;
 const Home = () => {
   // inital state
   const gameInit = {
-    gameName: '',
+    gameName: "",
     public: false,
-    minchips: '',
-    maxchips: '',
+    minchips: "",
+    maxchips: "",
     autohand: true,
-    sitInAmount: '',
+    sitInAmount: "",
     invitedUsers: [],
-    actionTime: '',
-  }
+    actionTime: "",
+  };
   // States
-  const {
-    userInAnyGame,
-    setUserInAnyGame,
-    user,
-    setUser,
-    mode,
-    setMode,
-  } = useContext(UserContext) //userInAnyGame,
-  const [searchText, setSearchText] = useState('')
-  const [loader, setLoader] = useState(true)
-  const [userData, setUserData] = useState({})
-  const [gameState, setGameState] = useState({ ...gameInit })
-  const [show, setShow] = useState(false)
-  const [errors, setErrors] = useState({})
-  const [pokerRooms, setPokerRooms] = useState([])
-  const [tournaments, setTournaments] = useState([])
-  const [key, setKey] = useState('home')
-  const history = useHistory()
-  const [allUsers, setAllUsers] = useState([])
+  const { userInAnyGame, setUserInAnyGame, user, setUser, mode, setMode } =
+    useContext(UserContext); //userInAnyGame,
+  const [searchText, setSearchText] = useState("");
+  const [loader, setLoader] = useState(true);
+  const [userData, setUserData] = useState({});
+  const [gameState, setGameState] = useState({ ...gameInit });
+  const [show, setShow] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [pokerRooms, setPokerRooms] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
+  const [key, setKey] = useState("home");
+  const history = useHistory();
+  const [allUsers, setAllUsers] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [timeOptions] = useState([
     { value: 10, label: "10 seconds" },
@@ -85,58 +77,58 @@ const Home = () => {
   // utils function
   const checkUserInGame = async () => {
     let userData = await axios({
-      method: 'get',
-      url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
-      headers: { authorization: `Bearer ${ getCookie('token') }` },
+      method: "get",
+      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
+      headers: { authorization: `Bearer ${getCookie("token")}` },
       withCredentials: true,
-      credentials: "include"
-    })
+      credentials: "include",
+    });
     if (userData?.data) {
-      setUserInAnyGame(userData.data)
+      setUserInAnyGame(userData.data);
     }
-  }
+  };
   useEffect(() => {
-    checkUserInGame()
-  }, [])
+    checkUserInGame();
+  }, []);
   const handleShow = () => {
-    setShow(!show)
-    setGameState({ ...gameInit })
-    setShowSpinner(false)
-    setErrors({})
-  }
+    setShow(!show);
+    setGameState({ ...gameInit });
+    setShowSpinner(false);
+    setErrors({});
+  };
   const handleChange = (e) => {
-    const { name, value } = e.target
-    if (name === 'public' || name === 'autohand') {
-      setGameState({ ...gameState, [name]: e.target.checked })
-    } else if (name === 'gameName') {
+    const { name, value } = e.target;
+    if (name === "public" || name === "autohand") {
+      setGameState({ ...gameState, [name]: e.target.checked });
+    } else if (name === "gameName") {
       if (value.length <= 20) {
-        setGameState({ ...gameState, [name]: value })
+        setGameState({ ...gameState, [name]: value });
         setErrors({
           ...errors,
-          gameName: '',
-        })
+          gameName: "",
+        });
       } else {
         setErrors({
           ...errors,
-          gameName: 'Maximum 20 character is allowed for game name.',
-        })
+          gameName: "Maximum 20 character is allowed for game name.",
+        });
       }
     } else {
-      setGameState({ ...gameState, [name]: value })
+      setGameState({ ...gameState, [name]: value });
     }
-  }
+  };
 
   const getUser = async () => {
-    let res = await userUtils.getAuthUserData()
-    userId = res?.data?.user?.id
-    setUser(res?.data?.user)
+    let res = await userUtils.getAuthUserData();
+    userId = res?.data?.user?.id;
+    setUser(res?.data?.user);
     if (userId) {
-      localStorage.setItem('userId', userId)
+      localStorage.setItem("userId", userId);
     }
-  }
+  };
   const handleChnageInviteUsers = (selectedOptions) => {
-    setGameState({ ...gameState, invitedUsers: [...selectedOptions] })
-  }
+    setGameState({ ...gameState, invitedUsers: [...selectedOptions] });
+  };
 
   const validateCreateTable = () => {
     let checkIfExist =
@@ -144,71 +136,71 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-          gameState?.gameName?.trim()?.toLowerCase() &&
-          el?.gameMode === cookie.get('mode'),
-      )
+            gameState?.gameName?.trim()?.toLowerCase() &&
+          el?.gameMode === cookie.get("mode")
+      );
 
-    let valid = true
-    let err = {}
-    const mimimumBet = 0
-    if (gameState?.gameName === '') {
-      err.gameName = 'Game name is required.'
-      valid = false
+    let valid = true;
+    let err = {};
+    const mimimumBet = 0;
+    if (gameState?.gameName === "") {
+      err.gameName = "Game name is required.";
+      valid = false;
     }
-    if (gameState?.gameName.trim() === '') {
-      err.gameName = 'Game name is required.'
-      valid = false
+    if (gameState?.gameName.trim() === "") {
+      err.gameName = "Game name is required.";
+      valid = false;
     }
-    console.log('mode and user data', userData, cookie.get('mode'))
+    console.log("mode and user data", userData, cookie.get("mode"));
     if (
-      (!userData?.wallet && cookie.get('mode') === 'token') ||
-      (gameState?.minchips > userData?.wallet && cookie.get('mode') === 'token')
+      (!userData?.wallet && cookie.get("mode") === "token") ||
+      (gameState?.minchips > userData?.wallet && cookie.get("mode") === "token")
     ) {
-      err.minchips = "You don't have enough balance in your wallet."
-      valid = false
+      err.minchips = "You don't have enough balance in your wallet.";
+      valid = false;
     } else if (
-      (!userData?.goldCoin && cookie.get('mode') === 'goldCoin') ||
+      (!userData?.goldCoin && cookie.get("mode") === "goldCoin") ||
       (gameState?.minchips > userData?.goldCoin &&
-        cookie.get('mode') === 'goldCoin')
+        cookie.get("mode") === "goldCoin")
     ) {
-      err.minchips = "You don't have enough gold coins in your wallet."
-      valid = false
+      err.minchips = "You don't have enough gold coins in your wallet.";
+      valid = false;
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
-        `Minimum bet can't be less then or equal to ` + mimimumBet + '.'
+        `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
     } else if (gameState.minchips <= mimimumBet) {
       err.minchips =
-        `Minimum bet can't be less then or equal to ` + mimimumBet + '.'
-      valid = false
+        `Minimum bet can't be less then or equal to ` + mimimumBet + ".";
+      valid = false;
     } else if (
       parseInt(gameState?.sitInAmount) < parseInt(gameState?.minchips)
     ) {
-      err.minchips = 'Small blind amount must be less than Sit In amount'
-      valid = false
+      err.minchips = "Small blind amount must be less than Sit In amount";
+      valid = false;
     }
     if (!gameState.sitInAmount) {
-      err.sitInAmount = `Sit in amount is required.`
-      valid = false
+      err.sitInAmount = `Sit in amount is required.`;
+      valid = false;
     }
 
     if (parseFloat(gameState.sitInAmount) < 100) {
-      err.sitInAmount = `Minimum sit in amount is 100.`
-      valid = false
+      err.sitInAmount = `Minimum sit in amount is 100.`;
+      valid = false;
     }
 
     if (
       parseFloat(gameState.sitInAmount) > userData?.wallet &&
-      cookie.get('mode') === 'token'
+      cookie.get("mode") === "token"
     ) {
-      err.sitInAmount = `You don't have enough balance in your wallet.`
-      valid = false
+      err.sitInAmount = `You don't have enough balance in your wallet.`;
+      valid = false;
     }
     if (
       parseFloat(gameState.sitInAmount) > userData?.goldCoin &&
-      cookie.get('mode') === 'goldCoin'
+      cookie.get("mode") === "goldCoin"
     ) {
-      err.sitInAmount = `You don't have enough gold coins in your wallet.`
-      valid = false
+      err.sitInAmount = `You don't have enough gold coins in your wallet.`;
+      valid = false;
     }
 
     //  else if (!gameState.maxchips) {
@@ -216,143 +208,143 @@ const Home = () => {
     //   valid = false;
     // }
     else if (parseFloat(gameState.maxchips) < parseFloat(gameState.minchips)) {
-      err.maxchips = 'Big blind amount cant be less then small blind'
-      valid = false
+      err.maxchips = "Big blind amount cant be less then small blind";
+      valid = false;
     } else if (gameState.minchips <= 0) {
-      err.maxchips = 'Minimum bet cant be less then or equal to 0'
-      valid = false
+      err.maxchips = "Minimum bet cant be less then or equal to 0";
+      valid = false;
     } else if (!gameState.public && !gameState.invitedUsers.length) {
-      err.invitedPlayer = 'Please invite some player if table is private.'
-      valid = false
+      err.invitedPlayer = "Please invite some player if table is private.";
+      valid = false;
     }
 
     if (checkIfExist) {
-      err.gameName = 'Game name is already exist.'
-      valid = false
+      err.gameName = "Game name is already exist.";
+      valid = false;
     }
 
-    if (gameState.actionTime === '') {
-      err.actionTime = 'Please select an action time.'
-      valid = false
+    if (gameState.actionTime === "") {
+      err.actionTime = "Please select an action time.";
+      valid = false;
     }
 
-    return { valid, err }
-  }
+    return { valid, err };
+  };
 
   const createTable = async (e) => {
-    e.preventDefault()
-    setErrors({})
-    setShowSpinner(true)
+    e.preventDefault();
+    setErrors({});
+    setShowSpinner(true);
     if (showSpinner) {
-      return false
+      return false;
     }
 
-    const tableValidation = validateCreateTable()
+    const tableValidation = validateCreateTable();
     if (!tableValidation.valid) {
-      setErrors({ ...tableValidation.err })
-      setShowSpinner(false)
-      return
+      setErrors({ ...tableValidation.err });
+      setShowSpinner(false);
+      return;
     }
     try {
-      const resp = await pokerInstance().post('/createTable', {
+      const resp = await pokerInstance().post("/createTable", {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
-        gameMode: cookie.get('mode'),
-      })
-      setGameState({ ...gameInit })
+        gameMode: cookie.get("mode"),
+      });
+      setGameState({ ...gameInit });
       history.push({
-        pathname: '/table',
-        search: '?gamecollection=poker&tableid=' + resp.data.roomData._id,
-      })
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + resp.data.roomData._id,
+      });
 
-      setShowSpinner(false)
+      setShowSpinner(false);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.message, { id: 'create-table-error' })
+        toast.error(error.response.data.message, { id: "create-table-error" });
       }
-      setShowSpinner(false)
+      setShowSpinner(false);
     }
-  }
+  };
 
   useEffect(() => {
-    ; (async () => {
-      const response = await pokerInstance().get('/getAllUsers')
-      setAllUsers(response.data.allUsers || [])
-    })()
-  }, [])
+    (async () => {
+      const response = await pokerInstance().get("/getAllUsers");
+      setAllUsers(response.data.allUsers || []);
+    })();
+  }, []);
 
   useEffect(() => {
-    socket.on('updatePlayerList', (data) => {
-      setTournaments(data)
-    })
-    socket.on('tournamentUpdate', (data) => {
-      const { updateTournament } = data
+    socket.on("updatePlayerList", (data) => {
+      setTournaments(data);
+    });
+    socket.on("tournamentUpdate", (data) => {
+      const { updateTournament } = data;
       if (updateTournament) {
-        getTournamentDetails()
+        getTournamentDetails();
       }
-    })
+    });
 
-    socket.on('allTournaments', (data) => {
-      setTournaments(data?.tournaments)
-    })
+    socket.on("allTournaments", (data) => {
+      setTournaments(data?.tournaments);
+    });
 
-    socket.on('tournamentCreated', (data) => {
-      setTournaments(data.tournaments)
-    })
+    socket.on("tournamentCreated", (data) => {
+      setTournaments(data.tournaments);
+    });
 
-    socket.on('NoTournamentFound', (data) => {
-      toast.error('No tournament found', { id: 'no-tournament' })
-    })
-    socket.on('AllTables', (data) => {
-      setPokerRooms(data?.tables || [])
-    })
-  }, [])
+    socket.on("NoTournamentFound", (data) => {
+      toast.error("No tournament found", { id: "no-tournament" });
+    });
+    socket.on("AllTables", (data) => {
+      setPokerRooms(data?.tables || []);
+    });
+  }, []);
 
   const checkAuth = async () => {
-    const data = await userUtils.getAuthUserData()
+    const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${ landingClient }`)
+      return (window.location.href = `${landingClient}`);
     }
-    setLoader(false)
-    setUserData({ ...data?.data?.user })
-  }
+    setLoader(false);
+    setUserData({ ...data?.data?.user });
+  };
   // UseEffects
   useEffect(() => {
-    checkAuth()
-    getUser()
-  }, [])
+    checkAuth();
+    getUser();
+  }, []);
 
   useEffect(() => {
-    ; (async () => {
+    (async () => {
       try {
-        const response = await pokerInstance().get('/rooms')
-        setPokerRooms(response.data.rooms || [])
-      } catch (error) { }
-    })()
-  }, [])
+        const response = await pokerInstance().get("/rooms");
+        setPokerRooms(response.data.rooms || []);
+      } catch (error) {}
+    })();
+  }, []);
 
   const getTournamentDetails = async () => {
     try {
-      const response = await tournamentInstance().get('/tournaments')
-      const { status } = response
+      const response = await tournamentInstance().get("/tournaments");
+      const { status } = response;
       if (status === 200) {
-        const { tournaments } = response.data
-        setTournaments(tournaments || [])
+        const { tournaments } = response.data;
+        setTournaments(tournaments || []);
       }
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
 
   const handleActionTime = (selectedOption) => {
     console.log("selectedOption ===>", selectedOption);
-    setGameState({ ...gameState, actionTime: selectedOption.value })
-  }
+    setGameState({ ...gameState, actionTime: selectedOption.value });
+  };
 
   useEffect(() => {
-    getTournamentDetails()
-  }, [])
+    getTournamentDetails();
+  }, []);
 
   socket.on("tournamentStart", (data) => {
-    getTournamentDetails()
+    getTournamentDetails();
 
     // setTimeout(() => {
     //   getTournamentDetails()
@@ -362,20 +354,23 @@ const Home = () => {
   const options = useMemo(
     () =>
       allUsers.map((el) => {
-        return { value: el.id, label: el.username }
+        return { value: el.id, label: el.username };
       }),
-    [allUsers],
-  )
+    [allUsers]
+  );
 
   useEffect(() => {
     socket.on("redirectToTableAsWatcher", async (data) => {
       console.log("redirectToTableAsWatcher ==>", data);
       try {
         if (data?.userId === userId) {
-          console.log("hellow", data, window)
+          console.log("hellow", data, window);
           if (window) {
             console.log("redirectToTableAsWatcher111 ==>", data, window);
-            window.location.href = window.location.origin + "/table?gamecollection=poker&tableid=" + data?.gameId;
+            window.location.href =
+              window.location.origin +
+              "/table?gamecollection=poker&tableid=" +
+              data?.gameId;
             console.log("helloo i am here");
           }
           // history.push("/table?gamecollection=poker&tableid=" + data?.gameId);
@@ -384,9 +379,9 @@ const Home = () => {
         console.log("errror in redirection ==>", err);
       }
     });
-  }, [])
+  }, []);
 
-  console.log('cookie?', cookie?.get('mode'))
+  console.log("cookie?", cookie?.get("mode"));
 
   const filterRoom =
     pokerRooms &&
@@ -395,25 +390,24 @@ const Home = () => {
       (el) =>
         el?.gameName &&
         el?.gameName?.toLowerCase()?.includes(searchText?.toLowerCase()) &&
-        el?.gameMode === mode,
-    )
+        el?.gameMode === mode
+    );
 
   const filterTournaments =
     tournaments &&
     tournaments?.length > 0 &&
     tournaments?.filter(
       (el) =>
-        el?.name &&
-        el?.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
-    )
+        el?.name && el?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
+    );
 
-  const [openCardHeight, setOpenCardHeight] = useState(150)
-  const pokerCard = useRef(null)
+  const [openCardHeight, setOpenCardHeight] = useState(150);
+  const pokerCard = useRef(null);
   useEffect(() => {
     if (pokerCard?.current?.clientHeight) {
-      setOpenCardHeight(pokerCard.current.clientHeight)
+      setOpenCardHeight(pokerCard.current.clientHeight);
     }
-  }, [pokerCard, filterRoom])
+  }, [pokerCard, filterRoom]);
 
   const handleTabSwitch = (k) => {
     setEventKey(k);
@@ -504,7 +498,7 @@ const Home = () => {
                             el?.invPlayers?.find(
                               (pl) =>
                                 pl?.toString() === userId ||
-                                pl?.toString() === user?.id,
+                                pl?.toString() === user?.id
                             ) &&
                             el?.hostId?.toString !== user?.id?.toString() && (
                               <GameTable
@@ -518,7 +512,7 @@ const Home = () => {
                           {!el.public &&
                             (el?.hostId?.toString === user?.id?.toString() ||
                               el?.hostId?.toString() ===
-                              userId?.toString()) && (
+                                userId?.toString()) && (
                               <GameTable
                                 data={el}
                                 gameType="Poker"
@@ -550,86 +544,121 @@ const Home = () => {
                       <Tabs
                         activeKey={eventKey}
                         onSelect={(k) => handleTabSwitch(k)}
-                        id='uncontrolled-tab-example'>
-                        <Tab eventKey='register' title='Register'>
+                        id="uncontrolled-tab-example"
+                      >
+                        <Tab eventKey="register" title="Register">
                           <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === false && el?.isFinished === false).map((el) => (
-                              <React.Fragment key={el._id}>
-                                {/* {console.log("elll", el)} */}
-                                <GameTournament
-                                  data={el}
-                                  gameType="Tournament"
-                                  getTournamentDetails={getTournamentDetails}
-                                  setUserData={setUserData}
-                                  filterTournaments={filterTournaments}
-                                  userId={user?.id || userId}
-                                  setShowPlayerList={setShowPlayerList}
-                                  setSelectedTournament={setSelectedTournament}
-                                />
-                              </React.Fragment>
-                            ))}
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === false && el?.isFinished === false).length === 0 &&
-                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                <div className="no-room-available">
-                                  <h4>No Tournament Available</h4>
+                            {filterTournaments.length > 0 &&
+                              filterTournaments
+                                .filter(
+                                  (el) =>
+                                    el?.isStart === false &&
+                                    el?.isFinished === false
+                                )
+                                .map((el) => (
+                                  <React.Fragment key={el._id}>
+                                    {/* {console.log("elll", el)} */}
+                                    <GameTournament
+                                      data={el}
+                                      gameType="Tournament"
+                                      getTournamentDetails={
+                                        getTournamentDetails
+                                      }
+                                      setUserData={setUserData}
+                                      filterTournaments={filterTournaments}
+                                      userId={user?.id || userId}
+                                      setShowPlayerList={setShowPlayerList}
+                                      setSelectedTournament={
+                                        setSelectedTournament
+                                      }
+                                    />
+                                  </React.Fragment>
+                                ))}
+                            {filterTournaments.length > 0 &&
+                              filterTournaments.filter(
+                                (el) =>
+                                  el?.isStart === false &&
+                                  el?.isFinished === false
+                              ).length === 0 && (
+                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                  <div className="no-room-available">
+                                    <h4>No Tournament Available</h4>
+                                  </div>
                                 </div>
-                              </div>
-                            }
+                              )}
                           </div>
                         </Tab>
-                        <Tab eventKey='running' title='Running'>
+                        <Tab eventKey="running" title="Running">
                           <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === true).map((el) => (
-                              <React.Fragment key={el._id}>
-                                <GameTournament
-                                  data={el}
-                                  gameType="Tournament"
-                                  getTournamentDetails={getTournamentDetails}
-                                  setUserData={setUserData}
-                                  filterTournaments={filterTournaments}
-                                  userId={user?.id || userId}
-                                  setShowPlayerList={setShowPlayerList}
-                                  setSelectedTournament={setSelectedTournament}
-                                />
-                              </React.Fragment>
-                            ))}
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isStart === true).length === 0 &&
-                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                <div className="no-room-available">
-                                  <h4>No Tournament Available</h4>
+                            {filterTournaments.length > 0 &&
+                              filterTournaments
+                                .filter((el) => el?.isStart === true)
+                                .map((el) => (
+                                  <React.Fragment key={el._id}>
+                                    <GameTournament
+                                      data={el}
+                                      gameType="Tournament"
+                                      getTournamentDetails={
+                                        getTournamentDetails
+                                      }
+                                      setUserData={setUserData}
+                                      filterTournaments={filterTournaments}
+                                      userId={user?.id || userId}
+                                      setShowPlayerList={setShowPlayerList}
+                                      setSelectedTournament={
+                                        setSelectedTournament
+                                      }
+                                    />
+                                  </React.Fragment>
+                                ))}
+                            {filterTournaments.length > 0 &&
+                              filterTournaments.filter(
+                                (el) => el?.isStart === true
+                              ).length === 0 && (
+                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                  <div className="no-room-available">
+                                    <h4>No Tournament Available</h4>
+                                  </div>
                                 </div>
-                              </div>
-                            }
+                              )}
                           </div>
                         </Tab>
-                        <Tab eventKey='finsih' title='Completed'>
+                        <Tab eventKey="finsih" title="Completed">
                           <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el.isFinished === true).map((el) => (
-
-                              <React.Fragment key={el._id}>
-                                <GameTournament
-                                  data={el}
-                                  gameType="Tournament"
-                                  getTournamentDetails={getTournamentDetails}
-                                  setUserData={setUserData}
-                                  filterTournaments={filterTournaments}
-                                  userId={user?.id || userId}
-                                  setShowPlayerList={setShowPlayerList}
-                                  setSelectedTournament={setSelectedTournament}
-                                />
-                              </React.Fragment>
-                            ))}
-                            {filterTournaments.length > 0 && filterTournaments.filter((el) => el?.isFinished === true).length === 0 &&
-                              <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                <div className="no-room-available">
-                                  <h4>No Tournament Available</h4>
+                            {filterTournaments.length > 0 &&
+                              filterTournaments
+                                .filter((el) => el.isFinished === true)
+                                .map((el) => (
+                                  <React.Fragment key={el._id}>
+                                    <GameTournament
+                                      data={el}
+                                      gameType="Tournament"
+                                      getTournamentDetails={
+                                        getTournamentDetails
+                                      }
+                                      setUserData={setUserData}
+                                      filterTournaments={filterTournaments}
+                                      userId={user?.id || userId}
+                                      setShowPlayerList={setShowPlayerList}
+                                      setSelectedTournament={
+                                        setSelectedTournament
+                                      }
+                                    />
+                                  </React.Fragment>
+                                ))}
+                            {filterTournaments.length > 0 &&
+                              filterTournaments.filter(
+                                (el) => el?.isFinished === true
+                              ).length === 0 && (
+                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                  <div className="no-room-available">
+                                    <h4>No Tournament Available</h4>
+                                  </div>
                                 </div>
-                              </div>
-                            }
+                              )}
                           </div>
                         </Tab>
                       </Tabs>
-
                     </div>
                   </div>
                 ) : (
@@ -641,93 +670,98 @@ const Home = () => {
                 )}
               </Tab>
             </Tabs>
-              <PlayerList show={showPlayerList} setShowPlayerList={setShowPlayerList} tournament={selectedTournament} setSelectedTournament={setSelectedTournament} />
+            <PlayerList
+              show={showPlayerList}
+              setShowPlayerList={setShowPlayerList}
+              tournament={selectedTournament}
+              setSelectedTournament={setSelectedTournament}
+            />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 const customStyles = {
   option: (provided) => ({
     ...provided,
-    background: '#000',
-    color: '#ddd',
-    fontWeight: '400',
-    fontSize: '16px',
-    padding: '10px 20px',
-    lineHeight: '16px',
-    cursor: 'pointer',
-    borderRadius: '4px',
-    borderBottom: '1px solid #141414',
-    ':hover': {
-      background: '#141414',
-      borderRadius: '4px',
+    background: "#000",
+    color: "#ddd",
+    fontWeight: "400",
+    fontSize: "16px",
+    padding: "10px 20px",
+    lineHeight: "16px",
+    cursor: "pointer",
+    borderRadius: "4px",
+    borderBottom: "1px solid #141414",
+    ":hover": {
+      background: "#141414",
+      borderRadius: "4px",
     },
   }),
   menu: (provided) => ({
     ...provided,
-    background: '#000',
-    borderRadius: '30px',
-    padding: '10px 20px',
-    border: '2px solid transparent',
+    background: "#000",
+    borderRadius: "30px",
+    padding: "10px 20px",
+    border: "2px solid transparent",
   }),
   control: () => ({
-    background: '#000',
-    border: '2px solid #000',
-    borderRadius: '30px',
-    color: '#fff',
-    display: 'flex',
-    alignItem: 'center',
-    height: '41',
-    margin: '2px 0',
-    boxShadow: ' 0 2px 10px #000000a5',
-    cursor: 'pointer',
-    ':hover': {
-      background: '#000',
+    background: "#000",
+    border: "2px solid #000",
+    borderRadius: "30px",
+    color: "#fff",
+    display: "flex",
+    alignItem: "center",
+    height: "41",
+    margin: "2px 0",
+    boxShadow: " 0 2px 10px #000000a5",
+    cursor: "pointer",
+    ":hover": {
+      background: "#000",
       // border: "2px solid #306CFE",
     },
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: '#fff',
-    fontWeight: '400',
-    fontSize: '14px',
-    lineHeight: '16px',
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "16px",
   }),
   indicatorSeparator: (provided) => ({
     ...provided,
-    display: 'none',
+    display: "none",
   }),
   placeholder: (provided) => ({
     ...provided,
-    fontWeight: '400',
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: '#858585c7',
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "19px",
+    color: "#858585c7",
   }),
   input: (provided) => ({
     ...provided,
     // height: "38px",
-    color: 'fff',
+    color: "fff",
   }),
   valueContainer: (provided) => ({
     ...provided,
-    padding: '2px 20px',
+    padding: "2px 20px",
   }),
   indicatorsContainer: (provided) => ({
     ...provided,
-    paddingRight: '20px',
-    color: '#858585c7',
+    paddingRight: "20px",
+    color: "#858585c7",
   }),
   svg: (provided) => ({
     ...provided,
-    fill: '#858585c7 !important',
-    ':hover': {
-      fill: '#858585c7 !important',
+    fill: "#858585c7 !important",
+    ":hover": {
+      fill: "#858585c7 !important",
     },
   }),
-}
+};
 const CreateTable = ({
   show,
   handleShow,
@@ -739,7 +773,7 @@ const CreateTable = ({
   showSpinner,
   handleChnageInviteUsers,
   handleActionTime,
-  timeOptions
+  timeOptions,
 }) => {
   return (
     <Modal show={show} onHide={handleShow} centered className="casino-popup">
@@ -779,10 +813,10 @@ const CreateTable = ({
           </div>
 
           <div>
-            {' '}
+            {" "}
             <div className="blindFields-box">
               <div>
-                {' '}
+                {" "}
                 <Form.Label>Small Blind</Form.Label>
                 <Form.Control
                   name="minchips"
@@ -793,7 +827,7 @@ const CreateTable = ({
                 />
               </div>
               <div>
-                {' '}
+                {" "}
                 <Form.Label>Big Blind</Form.Label>
                 <Form.Control
                   name="maxchips"
@@ -842,7 +876,7 @@ const CreateTable = ({
             label="Public Game"
             name="public"
             type="checkbox"
-            id={'public'}
+            id={"public"}
             onChange={handleChange}
             checked={values.public}
           />
@@ -851,7 +885,7 @@ const CreateTable = ({
             label="Auto Hand"
             name="autohand"
             type="checkbox"
-            id={'autohand'}
+            id={"autohand"}
             onChange={handleChange}
             checked={values.autohand}
           />
@@ -862,12 +896,12 @@ const CreateTable = ({
           Close
         </Button>
         <Button variant="primary" type="submit" onClick={createTable}>
-          {showSpinner ? <Spinner animation="border" /> : 'Create Table'}
+          {showSpinner ? <Spinner animation="border" /> : "Create Table"}
         </Button>
       </Modal.Footer>
     </Modal>
-  )
-}
+  );
+};
 
 const GameTable = ({
   data,
@@ -877,161 +911,155 @@ const GameTable = ({
   setUserData,
   tableId,
 }) => {
-  const history = useHistory()
+  const history = useHistory();
   const redirectToTable = () => {
-    socket.emit('checkAlreadyInGame', {
+    socket.emit("checkAlreadyInGame", {
       userId,
       tableId,
-      gameMode: cookie.get('mode'),
-    })
-    socket.on('userAlreadyInGame', (value) => {
-      const { message, join } = value
+      gameMode: cookie.get("mode"),
+    });
+    socket.on("userAlreadyInGame", (value) => {
+      const { message, join } = value;
       if (join) {
         history.push({
-          pathname: '/table',
-          search: '?gamecollection=poker&tableid=' + data?._id,
-        })
+          pathname: "/table",
+          search: "?gamecollection=poker&tableid=" + data?._id,
+        });
       } else {
-        toast.error(message, { id: 'create-table-error' })
+        toast.error(message, { id: "create-table-error" });
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    socket.on('alreadyInTournament', (data) => {
-      const { message, code } = data
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
-          setUserData(data?.user)
+          setUserData(data?.user);
         }
 
-        toast.success(message, { id: 'Nofull' })
+        toast.success(message, { id: "Nofull" });
       } else {
-        toast.error(message, { id: 'full' })
+        toast.error(message, { id: "full" });
       }
-    })
-    socket.on('notEnoughAmount', (data) => {
-      const { message, code } = data
+    });
+    socket.on("notEnoughAmount", (data) => {
+      const { message, code } = data;
       if (code === 200) {
-        toast.success(message, { id: 'Nofull' })
+        toast.success(message, { id: "Nofull" });
       } else {
-        toast.error(message, { id: 'full' })
+        toast.error(message, { id: "full" });
       }
-    })
+    });
 
-    socket.on('tournamentAlreadyFinished', (data) => {
-      toast.error('Tournament has been finished.', {
-        id: 'tournament-finished',
-      })
-    })
+    socket.on("tournamentAlreadyFinished", (data) => {
+      toast.error("Tournament has been finished.", {
+        id: "tournament-finished",
+      });
+    });
 
-    socket.on('tournamentAlreadyStarted', (data) => {
-      toast.error(data.message, { id: 'tournamentStarted' })
-    })
-
-
-
-
-  }, [])
+    socket.on("tournamentAlreadyStarted", (data) => {
+      toast.error(data.message, { id: "tournamentStarted" });
+    });
+  }, []);
 
   const joinTournament = async (tournamentId, fees) => {
-    socket.emit('joinTournament', {
+    socket.emit("joinTournament", {
       tournamentId: tournamentId,
       userId: userId,
       fees,
-    })
+    });
     setTimeout(() => {
-      getTournamentDetails()
-    }, 1000)
-  }
-
-
+      getTournamentDetails();
+    }, 1000);
+  };
 
   const enterRoom = async (tournamentId) => {
-    const res = await tournamentInstance().post('/enterroom', {
+    const res = await tournamentInstance().post("/enterroom", {
       tournamentId: tournamentId,
-    })
+    });
     if (res.data.code === 200) {
-      let roomid = res.data.roomId
+      let roomid = res.data.roomId;
       history.push({
-        pathname: '/table',
-        search: '?gamecollection=poker&tableid=' + roomid,
-      })
+        pathname: "/table",
+        search: "?gamecollection=poker&tableid=" + roomid,
+      });
     } else {
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
     }
-  }
+  };
 
   const getTime = (time) => {
-    let d = new Date(time)
-    let pm = d.getHours() >= 12
-    let hour12 = d.getHours() % 12
-    if (!hour12) hour12 += 12
-    let minute = d.getMinutes()
-    let date = d.getDate()
-    let month = d.getMonth() + 1
-    let year = d.getFullYear()
-    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? 'pm' : 'am' }`
-  }
+    let d = new Date(time);
+    let pm = d.getHours() >= 12;
+    let hour12 = d.getHours() % 12;
+    if (!hour12) hour12 += 12;
+    let minute = d.getMinutes();
+    let date = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+  };
 
-  const [cardFlip, setCardFlip] = useState(false)
-  const [dateState, setDateState] = useState()
+  const [cardFlip, setCardFlip] = useState(false);
+  const [dateState, setDateState] = useState();
   const handleFlip = (tDate) => {
-    setCardFlip(!cardFlip)
-    countDownData(tDate)
-  }
+    setCardFlip(!cardFlip);
+    countDownData(tDate);
+  };
   const countDownData = (tDate) => {
     var x = setInterval(() => {
-      let countDownDate = new Date(tDate).getTime()
-      var now = new Date().getTime()
-      var distance = countDownDate - now
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+      let countDownDate = new Date(tDate).getTime();
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-      )
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
       setDateState({
         days,
         hours,
         minutes,
         seconds,
-      })
+      });
       if (distance < 0) {
-        clearInterval(x)
+        clearInterval(x);
         setDateState({
-          days: '0',
-          hours: '0',
-          minutes: '0',
-          seconds: '0',
-        })
+          days: "0",
+          hours: "0",
+          minutes: "0",
+          seconds: "0",
+        });
       }
-    }, 1000)
-  }
+    }, 1000);
+  };
 
-  const wrapperRef = useRef()
+  const wrapperRef = useRef();
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
-          setCardFlip(false)
+          setCardFlip(false);
         }
-      }
-      document.addEventListener('mousedown', handleClickOutside)
+      };
+      document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        document.removeEventListener('mousedown', handleClickOutside)
-      }
-    }, [ref])
-  }
-  useOutsideAlerter(wrapperRef)
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperRef);
 
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
-      el?.players?.find((el) => el?.userid === userId),
-    )
-    return getData
-  }
+      el?.players?.find((el) => el?.userid === userId)
+    );
+    return getData;
+  };
   return (
     <>
       <div className="tournamentCard" ref={wrapperRef}>
@@ -1041,21 +1069,21 @@ const GameTable = ({
         />
         <div
           className={`tournamentCard-inner
-         ${ cardFlip && gameType === 'Poker' ? 'rotate' : '' }
+         ${cardFlip && gameType === "Poker" ? "rotate" : ""}
          `}
         >
-          {!cardFlip && gameType === 'Poker' ? (
+          {!cardFlip && gameType === "Poker" ? (
             <div className="tournamentCard-front">
               <img src={casino} alt="" />
               <div className="tournamentFront-info">
-                <h4>{gameType === 'Poker' ? data?.gameName : data.name}</h4>
-                {gameType === 'Poker' ? (
+                <h4>{gameType === "Poker" ? data?.gameName : data.name}</h4>
+                {gameType === "Poker" ? (
                   <button onClick={redirectToTable} type="submit">
                     Join Game
                   </button>
                 ) : (
                   <div className="btn-grid">
-                    {' '}
+                    {" "}
                     {!data?.isFinished ? (
                       <button
                         disabled={ifUserJoind()}
@@ -1087,75 +1115,75 @@ const GameTable = ({
             </div>
           ) : (
             <div className="tournamentCard-back" style={{ height: height }}>
-              {gameType === 'Poker' ? (
+              {gameType === "Poker" ? (
                 <AvatarGroup imgArr={data?.players} />
               ) : (
-                ''
+                ""
               )}
               <h4>
-                people joined :{' '}
+                people joined :{" "}
                 <span>
-                  {(gameType === 'Tournament'
+                  {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                      ?.length || 0
+                        ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
               <h4>
-                SB/BB :{' '}
+                SB/BB :{" "}
                 <span>
                   {data?.smallBlind}
-                  {'/'}
+                  {"/"}
                   {data?.bigBlind}
                 </span>
               </h4>
-              {gameType === 'Tournament' ? (
+              {gameType === "Tournament" ? (
                 <h4>
                   Fee : <span>{data?.tournamentFee}</span>
                 </h4>
               ) : (
-                ''
+                ""
               )}
-              {gameType === 'Tournament' ? (
+              {gameType === "Tournament" ? (
                 <h4>
                   Date : <span>{getTime(data?.tournamentDate)}</span>
                 </h4>
               ) : (
-                ''
+                ""
               )}
-              {gameType === 'Tournament' ? (
+              {gameType === "Tournament" ? (
                 <>
                   <div id="clockdiv">
                     <h4>
                       Days
-                      <span class="days">{dateState?.days || '0'}</span>
+                      <span class="days">{dateState?.days || "0"}</span>
                     </h4>
                     <h4>
                       Hours
-                      <span class="hours">{dateState?.hours || '0'}</span>
+                      <span class="hours">{dateState?.hours || "0"}</span>
                     </h4>
                   </div>
                   <div id="clockdiv">
                     <h4>
                       Minutes
-                      <span class="minutes">{dateState?.minutes || '0'}</span>
+                      <span class="minutes">{dateState?.minutes || "0"}</span>
                     </h4>
                     <h4>
                       Seconds
-                      <span class="seconds">{dateState?.seconds || '0'}</span>
+                      <span class="seconds">{dateState?.seconds || "0"}</span>
                     </h4>
                   </div>
                 </>
               ) : (
-                ''
+                ""
               )}
             </div>
           )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const GameTournament = ({
   data,
@@ -1165,159 +1193,160 @@ const GameTournament = ({
   setUserData,
   userId,
   setShowPlayerList,
-  setSelectedTournament
+  setSelectedTournament,
 }) => {
-  const history = useHistory()
-  let tableId
+  const history = useHistory();
+  let tableId;
   let [buttonClick, setButtonClick] = useState(false);
 
-  data && data?.rooms?.length > 0 && data?.rooms?.filter((el) => {
-    if (el.players.find((p) => p?.userid === userId)) {
-      tableId = el?._id
-    }
-    return tableId
-  })
+  data &&
+    data?.rooms?.length > 0 &&
+    data?.rooms?.filter((el) => {
+      if (el.players.find((p) => p?.userid === userId)) {
+        tableId = el?._id;
+      }
+      return tableId;
+    });
   useEffect(() => {
-
-    socket.on('alreadyInTournament', (data) => {
-      const { message, code } = data
+    socket.on("alreadyInTournament", (data) => {
+      const { message, code } = data;
       if (code === 200) {
         if (data?.user && Object.keys(data?.user)?.length > 0) {
-          setUserData(data?.user)
+          setUserData(data?.user);
         }
 
-        toast.success(message, { id: 'Nofull' })
+        toast.success(message, { id: "Nofull" });
       } else {
-        toast.error(message, { id: 'full' })
+        toast.error(message, { id: "full" });
       }
-    })
+    });
 
-
-    socket.on('leaveTournament', (data) => {
-      const { message, code } = data
+    socket.on("leaveTournament", (data) => {
+      const { message, code } = data;
       if (code === 200) {
-        if (data?.user && Object.keys(data?.user)?.length > 0 && data.user.id === userId) {
-          setUserData(data?.user)
-          toast.success(message, { id: 'Nofull' })
+        if (
+          data?.user &&
+          Object.keys(data?.user)?.length > 0 &&
+          data.user.id === userId
+        ) {
+          setUserData(data?.user);
+          toast.success(message, { id: "Nofull" });
         }
       }
-    })
-    socket.on('notEnoughAmount', (data) => {
-      const { message, code } = data
+    });
+    socket.on("notEnoughAmount", (data) => {
+      const { message, code } = data;
       if (code === 200) {
-        toast.success(message, { id: 'Nofull' })
+        toast.success(message, { id: "Nofull" });
       } else {
-        toast.error(message, { id: 'full' })
+        toast.error(message, { id: "full" });
       }
-    })
+    });
 
-    socket.on('tournamentSlotFull', (data) => {
-      toast.error('Tournament slot is full', { id: 'slot-full' })
-    })
-
-  }, [])
-
-
+    socket.on("tournamentSlotFull", (data) => {
+      toast.error("Tournament slot is full", { id: "slot-full" });
+    });
+  }, []);
 
   const joinTournament = async (tournamentId, fees) => {
     console.log("tournamentId, fees", tournamentId, fees);
     setButtonClick(true);
-    socket.emit('joinTournament', {
+    socket.emit("joinTournament", {
       tournamentId: tournamentId,
       userId: userId,
       fees,
-    })
+    });
     setTimeout(() => {
       getTournamentDetails();
       setButtonClick(false);
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   const enterRoom = async (tournamentId) => {
-    buttonClick = true
-    const res = await tournamentInstance().post('/enterroom', {
+    buttonClick = true;
+    const res = await tournamentInstance().post("/enterroom", {
       tournamentId: tournamentId,
-    })
+    });
     if (res.data.code === 200) {
-      let roomid = res.data.roomId
-      window.location.href = window.location.origin + '/table?gamecollection=poker&tableid=' + roomid
+      let roomid = res.data.roomId;
+      window.location.href =
+        window.location.origin +
+        "/table?gamecollection=poker&tableid=" +
+        roomid;
       // history.push({
       //   pathname: '/table',
       //   search: '?gamecollection=poker&tableid=' + roomid,
       // })
     } else {
-      buttonClick = false
+      buttonClick = false;
       // toast.error(toast.success(res.data.msg, { containerId: 'B' }))
     }
-  }
+  };
   const handleFlip = (tournamentId) => {
-    history.push(`/leaderboard?tournamentId=${ tournamentId }`)
-  }
+    history.push(`/leaderboard?tournamentId=${tournamentId}`);
+  };
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
-      el?.players?.find((el) => el?.userid === userId),
-    )
+      el?.players?.find((el) => el?.userid === userId)
+    );
     // console.log("getData ===>", getData);
 
-    return getData
-  }
+    return getData;
+  };
   // var startDateTime = new Date(data?.tournamentDate).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
   const cancelTournament = async () => {
     setButtonClick(true);
-    socket.emit('doleavetable', {
+    socket.emit("doleavetable", {
       tableId,
       userId,
       gameType: gameType,
       isWatcher: false,
-      action: 'Leave',
-    })
+      action: "Leave",
+    });
     setTimeout(() => {
       getTournamentDetails();
       setButtonClick(false);
-    }, 1000)
-  }
+    }, 1000);
+  };
   useEffect(() => {
-    socket.on('sitInOut', (data) => {
+    socket.on("sitInOut", (data) => {
       console.log("sitout runs from home ==>", data);
-      if (data?.updatedRoom?.gameType === 'poker-tournament') {
+      if (data?.updatedRoom?.gameType === "poker-tournament") {
         setTimeout(async () => {
           await getTournamentDetails();
         }, 500);
-
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const openSpectatingTables = (tournamentId) => {
     if (tournamentId) {
-      window.location.href = '/spectate?tournamentId=' + tournamentId;
+      window.location.href = "/spectate?tournamentId=" + tournamentId;
     }
-  }
+  };
 
-  const handleShowParticipants =  ()=>{
+  const handleShowParticipants = () => {
     console.log("handle show aprticipants executed");
     setShowPlayerList(true);
     setSelectedTournament(data);
-  }
-
+  };
 
   // const joinTimeExceeded = (tourData) => {
   //   const startTime = new Date(tourData?.startDate+" "+tourData?.statrTime)
   // }
 
-
   return (
     <>
-
       <div className="pokerTournament-tableCard">
-
         <div className="tableCard-imgDetail">
           <img src={casino1} className="tournamentImg" alt="" />
           <div className="tournamentCard-nameDetail">
-            {data?.tournamentType !== 'sit&go' ? (<h6>
-              {dateFormat(data.startDate)}, Start at{' '}
-              {timeFormat(data.tournamentDate)}
-            </h6>) : null}
+            {data?.tournamentType !== "sit&go" ? (
+              <h6>
+                {dateFormat(data.startDate)}, Start at{" "}
+                {timeFormat(data.tournamentDate)}
+              </h6>
+            ) : null}
 
             <h2 title={data?.name}>{data?.name}</h2>
             {data?.isStart ? (
@@ -1327,7 +1356,7 @@ const GameTournament = ({
             ) : (
               <p>Not started</p>
             )}
-            {data?.tournamentType === 'sit&go' ? (
+            {data?.tournamentType === "sit&go" ? (
               <p className="tournamentRunning">Sit & Go</p>
             ) : (
               <p className="tournamentRunning">Multi-Table Tournament</p>
@@ -1342,7 +1371,10 @@ const GameTournament = ({
               {data?.tournamentFee}
             </div>
           </div>
-          <div className="cardTournament-Fee" onClick={handleShowParticipants}>
+          <div
+            className="cardTournament-Fee participants"
+            onClick={handleShowParticipants}
+          >
             <p>Participants</p>
             <div className="extraDetail-container">
               <FaUser />
@@ -1368,8 +1400,8 @@ const GameTournament = ({
             <Button type="text" disabled="true">
               Game Finished
             </Button>
-          ) : (ifUserJoind()) ? (
-            <div className='buttonDetail-twobtns'>
+          ) : ifUserJoind() ? (
+            <div className="buttonDetail-twobtns">
               <Button
                 type="text"
                 disabled={buttonClick}
@@ -1377,48 +1409,65 @@ const GameTournament = ({
               >
                 Enter Game
               </Button>
-              {!data?.isStart ? (<Button
-                type="button"
-                disabled={buttonClick}
-                onClick={() => cancelTournament()}
-              >
-                Leave
-              </Button>) : null}
-
+              {!data?.isStart ? (
+                <Button
+                  type="button"
+                  disabled={buttonClick}
+                  onClick={() => cancelTournament()}
+                >
+                  Leave
+                </Button>
+              ) : null}
             </div>
-          ) : data?.tournamentType === 'sit&go' ? (
+          ) : data?.tournamentType === "sit&go" ? (
             <Button
               type="text"
               disabled={buttonClick}
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
-              {buttonClick ? <Spinner animation='border' /> : data.isStart ? "Spectate" : "Join Game"}
+              {buttonClick ? (
+                <Spinner animation="border" />
+              ) : data.isStart ? (
+                "Spectate"
+              ) : (
+                "Join Game"
+              )}
             </Button>
-          ) : data?.tournamentType !== 'sit&go' && !data.joinTimeExceeded && !data?.eleminatedPlayers?.find(el => (el.userid?.toString() === userId?.toString())) ? (<Button
-            type="text"
-            disabled={buttonClick}
-            onClick={() => joinTournament(data?._id, data?.tournamentFee)}
-          >
-            {buttonClick ? <Spinner animation='border' /> : "Join Game"}
-          </Button>) : (<Button
-            type="text"
-            onClick={() => { openSpectatingTables(data?._id) }}
-          >
-            Spectate
-          </Button>)}
+          ) : data?.tournamentType !== "sit&go" &&
+            !data.joinTimeExceeded &&
+            !data?.eleminatedPlayers?.find(
+              (el) => el.userid?.toString() === userId?.toString()
+            ) ? (
+            <Button
+              type="text"
+              disabled={buttonClick}
+              onClick={() => joinTournament(data?._id, data?.tournamentFee)}
+            >
+              {buttonClick ? <Spinner animation="border" /> : "Join Game"}
+            </Button>
+          ) : (
+            <Button
+              type="text"
+              onClick={() => {
+                openSpectatingTables(data?._id);
+              }}
+            >
+              Spectate
+            </Button>
+          )}
           {/*  && !data?.eleminatedPlayers?.find(el => (el.userid === userId)) */}
           <img
             src={ranking}
             alt=""
             onClick={() => {
-              handleFlip(data._id)
+              handleFlip(data._id);
             }}
           />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const AvatarGroup = ({ imgArr }) => {
   return (
@@ -1430,7 +1479,7 @@ const AvatarGroup = ({ imgArr }) => {
               <img
                 src={
                   el.photoURI ||
-                  'https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg'
+                  "https://i.pinimg.com/736x/06/d0/00/06d00052a36c6788ba5f9eeacb2c37c3.jpg"
                 }
                 width="30"
                 height="30"
@@ -1441,8 +1490,8 @@ const AvatarGroup = ({ imgArr }) => {
       </div>
       {/* <p>{imgArr?.length || 0} people</p> */}
     </div>
-  )
-}
+  );
+};
 
 // const TournamentGroup = ({players}) => {
 //   return (
@@ -1452,4 +1501,4 @@ const AvatarGroup = ({ imgArr }) => {
 //   );
 // };
 
-export default Home
+export default Home;

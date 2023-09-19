@@ -728,6 +728,9 @@ div#clockdiv h4 {
   background-color: #2d3140;
   width: 100%;
 }
+.cardTournament-Fee.participants {
+  cursor: pointer;
+}
 
 .cardTournament-Fee p {
   font-size: 12px;
@@ -1704,6 +1707,23 @@ input#custom-switch {
 /* .slotLobby-mode label:active:after {
 	width: 130px;
 } */
+.participant-list .table-responsive {
+  width: 100%;
+  margin-bottom: 0;
+}
+.participant-list .table {
+  margin-bottom: 0;
+}
+.participant-list .participant-avtar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.participant-list p {
+  margin: 0;
+}
 
 @media screen and (max-width: 1200px) {
   .home-poker-card-grid {
