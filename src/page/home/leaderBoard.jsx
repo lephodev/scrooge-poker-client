@@ -1089,7 +1089,7 @@ const Results = ({ tournamentData }) => {
           userId: winrObj.userId?._id,
           amount: winrObj.amount
         });
-      }else if(winrObj.userIds.length){
+      }else if(winrObj.userIds?.length){
         winrObj.userIds.forEach(el=>{
           allWinnerPlayers.push({
             userId: el,
