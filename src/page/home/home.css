@@ -886,6 +886,7 @@ tr.myRank {
   position: relative;
 }
 
+
 .leaderboard-table tr td p {
   display: grid;
   place-content: center;
@@ -1072,7 +1073,6 @@ div#controlled-tab-example-tabpane-2
   display: flex;
   align-items: center;
   gap: 20px;
-  justify-content: center;
 }
 
 .leaderboard-table .rankingUsers p {
@@ -1153,6 +1153,9 @@ h4.tournamentFinished h2.tournamentFinished {
   border-color: #292929 !important;
   vertical-align: middle;
   text-align: center;
+}
+.leaderboard-table tr.my-position {
+  border: 2px solid rgb(249 255 0 / 70%) !important;
 }
 
 .leaderboard-table {
