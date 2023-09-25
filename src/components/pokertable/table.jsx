@@ -1205,7 +1205,7 @@ const PokerTable = (props) => {
   }, []);
 
   const updatePlayer = (data) => {
-    console.log("update player executed", data);
+    // console.log("update player executed", data);
     if (!data) {
       console.log("Entered in null");
       return;
@@ -2836,8 +2836,9 @@ const Players = ({
   const [showCard, setShowCard] = useState(false);
   const [showamination, setShowAnimation] = useState(false);
   const target = useRef(null);
+  console.log("show card ==>", showCard);
   useEffect(() => {
-    setShowCard(false);
+    // setShowCard(false);
     const showBuyIn = () => {
       if (
         playerData &&
@@ -2966,6 +2967,7 @@ const Players = ({
       allFoldedPlayers.length + inHandPlayers.length ===
         allPlayingPlayers.length
     ) {
+      console.log("entered in true condition for show card.");
       if (showcardFlipAnimation) {
         setShowAnimation(showcardFlipAnimation);
         setShowCardFlipAnimation(false);
@@ -2973,6 +2975,8 @@ const Players = ({
         setShowAnimation(showcardFlipAnimation);
       }
       setShowCard(true);
+    }else{
+      setShowCard(false);
     }
   }, [roomData]);
 
@@ -3525,12 +3529,12 @@ const HideCard = () => {
       <img
         src={front}
         alt="card"
-        className="animate__animated animate__rollIn duration-0"
+        // className="animate__animated animate__rollIn duration-0"
       />
       <img
         src={back}
         alt="card"
-        className="animate__animated animate__rollIn duration-1"
+        // className="animate__animated animate__rollIn duration-1"
       />
     </div>
   );
@@ -3538,7 +3542,7 @@ const HideCard = () => {
 
 const ShowCard = ({ cards, handMatch, showamination }) => {
   // console.log("showamination ===>", showamination);
-
+// show-card
   return (
     <div className="show-card">
       {cards &&
