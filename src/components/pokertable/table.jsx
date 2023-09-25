@@ -2961,11 +2961,13 @@ const Players = ({
     // console.log("allPlayingPlayers length ", allPlayingPlayers.length);
     // console.log("gameData.allinPlayers length ", gameData.allinPlayers.length);
 
+    console.log("playerData ==>", gameData.allinPlayers);
+
     if (
       gameData.allinPlayers.length &&
       inHandPlayers.length === gameData.allinPlayers.length &&
       allFoldedPlayers.length + inHandPlayers.length ===
-        allPlayingPlayers.length
+        allPlayingPlayers.length && gameData.allinPlayers.find(el=> (el.id === playerData?.id))
     ) {
       console.log("entered in true condition for show card.");
       if (showcardFlipAnimation) {
