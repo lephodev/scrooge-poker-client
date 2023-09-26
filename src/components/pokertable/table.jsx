@@ -176,7 +176,7 @@ const PokerTable = (props) => {
     setAnimatedState(true);
     setTimeout(() => {
       setAnimatedState(false);
-    }, "10000");
+    }, "6000");
   };
 
   const handleBtnClick = () => {
