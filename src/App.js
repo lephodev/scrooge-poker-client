@@ -37,11 +37,11 @@ const App = () => {
     getUser();
   }, []);
 
-  console.log(
-    "tournamentStart socket listen",
-    window.location.pathname,
-    window.location
-  );
+  // console.log(
+  //   "tournamentStart socket listen",
+  //   window.location.pathname,
+  //   window.location
+  // );
 
   useEffect(() => {
     socket.on("tournamentStart", (data) => {

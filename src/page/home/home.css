@@ -728,6 +728,9 @@ div#clockdiv h4 {
   background-color: #2d3140;
   width: 100%;
 }
+.cardTournament-Fee.participants {
+  cursor: pointer;
+}
 
 .cardTournament-Fee p {
   font-size: 12px;
@@ -882,6 +885,7 @@ tr.myRank {
 .leaderboard-table tr td {
   position: relative;
 }
+
 
 .leaderboard-table tr td p {
   display: grid;
@@ -1069,7 +1073,6 @@ div#controlled-tab-example-tabpane-2
   display: flex;
   align-items: center;
   gap: 20px;
-  justify-content: center;
 }
 
 .leaderboard-table .rankingUsers p {
@@ -1150,6 +1153,9 @@ h4.tournamentFinished h2.tournamentFinished {
   border-color: #292929 !important;
   vertical-align: middle;
   text-align: center;
+}
+.leaderboard-table tr.my-position {
+  border: 2px solid rgb(249 255 0 / 70%) !important;
 }
 
 .leaderboard-table {
@@ -1704,6 +1710,23 @@ input#custom-switch {
 /* .slotLobby-mode label:active:after {
 	width: 130px;
 } */
+.participant-list .table-responsive {
+  width: 100%;
+  margin-bottom: 0;
+}
+.participant-list .table {
+  margin-bottom: 0;
+}
+.participant-list .participant-avtar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.participant-list p {
+  margin: 0;
+}
 
 @media screen and (max-width: 1200px) {
   .home-poker-card-grid {
