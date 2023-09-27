@@ -51,6 +51,7 @@ import EnterAmountPopup from "./enterAmountPopup";
 import { DecryptCard } from "../../utils/utils";
 import RaiseContainer from "../bet/raiseContainer";
 import { FaCompressArrowsAlt } from "react-icons/fa";
+import FinalTableAnimation from "./finalTableAnimation";
 // import { useNavigate } from "react-router-dom";
 
 const getQueryParams = () => {
@@ -169,6 +170,14 @@ const PokerTable = (props) => {
   const [openChatHistory, setOpenChatHistory] = useState(false);
   const [disable, setDisable] = useState(false);
   const [tourTimer, setTourTimer] = useState();
+  const [showcardFlipAnimation, setShowCardFlipAnimation] = useState(false);
+  const [animatedState, setAnimatedState] = useState(false);
+  const handleAnimationState = () => {
+    setAnimatedState(true);
+    setTimeout(() => {
+      setAnimatedState(false);
+    }, "6000");
+  };
 
   const handleBtnClick = () => {
     setBtnToggle(!btnToggle);
@@ -199,7 +208,7 @@ const PokerTable = (props) => {
             console.log("reconnect err => ", err);
             tryReconnect();
           } else {
-            console.log("reconnect4ed")
+            console.log("reconnect4ed");
             let urlParams = new URLSearchParams(window.location.search);
             let table = urlParams.get("tableid");
             let type =
@@ -237,7 +246,7 @@ const PokerTable = (props) => {
       user = await userUtils.getAuthUserData();
 
       if (!user.success) {
-        return (window.location.href = `${ CONSTANTS.landingClient }`);
+        return (window.location.href = `${CONSTANTS.landingClient}`);
       }
       userId = user?.data.user?.id;
       let table = urlParams.get("tableid");
@@ -310,7 +319,6 @@ const PokerTable = (props) => {
       userId = data;
     });
 
-
     socket.on("newMessage", (data) => {
       playAudio("chat");
       // setMessage(() => {
@@ -323,9 +331,14 @@ const PokerTable = (props) => {
 
       setMessage((old) => {
         console.log("old =====>", old);
-        const filteredMessage = old?.filter(el => (el.userId !== data.userId));
-        messageNo = filteredMessage.length ? filteredMessage[filteredMessage.length - 1].messageNo + 1 : 1
-        return [...filteredMessage, { message: data.message, userId: data.userId, messageNo }];
+        const filteredMessage = old?.filter((el) => el.userId !== data.userId);
+        messageNo = filteredMessage.length
+          ? filteredMessage[filteredMessage.length - 1].messageNo + 1
+          : 1;
+        return [
+          ...filteredMessage,
+          { message: data.message, userId: data.userId, messageNo },
+        ];
       });
       setMessageBy(() => {
         return data.userId;
@@ -333,7 +346,9 @@ const PokerTable = (props) => {
 
       setTimeout(() => {
         setMessage((old) => {
-          const filteredMessage = old?.filter(el => (el.messageNo !== messageNo));
+          const filteredMessage = old?.filter(
+            (el) => el.messageNo !== messageNo
+          );
           return filteredMessage;
         });
         setMessageBy(null);
@@ -494,7 +509,7 @@ const PokerTable = (props) => {
         roomData.players.find(
           (ele) => (ele.id ? ele.id : ele.userid) === data.id
         );
-      toast.success(`${ pl.name } made ${ data.action }`, { id: "info" });
+      toast.success(`${pl.name} made ${data.action}`, { id: "info" });
     });
 
     socket.on("cancelJoinRequest", (data) => {
@@ -507,7 +522,7 @@ const PokerTable = (props) => {
         toast.success("Join request is approved", { id: "approved" });
         setNewUser(false);
       } else {
-        toast.success(`${ data.name } join the table`, { id: "joined" });
+        toast.success(`${data.name} join the table`, { id: "joined" });
       }
     });
 
@@ -531,7 +546,7 @@ const PokerTable = (props) => {
             (el) => el?.userid?.toString() === userId?.toString()
           )
         ) {
-          window.location.href = `/leaderboard?tournamentId=${ tournamentId }`
+          window.location.href = `/leaderboard?tournamentId=${tournamentId}`;
           // history.push(`/leaderboard?tournamentId=${ tournamentId }`);
         }
       }
@@ -563,7 +578,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("preflopround", (data) => {
-      setCurrentPlayer({})
+      setCurrentPlayer({});
       setCommunityCards([]);
       tPlayer = null;
       tRound = null;
@@ -575,7 +590,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("flopround", (data) => {
-      setCurrentPlayer({})
+      setCurrentPlayer({});
       tPlayer = null;
       tRound = null;
       setMergeAnimationState(true);
@@ -596,7 +611,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("turnround", (data) => {
-      setCurrentPlayer({})
+      setCurrentPlayer({});
       tPlayer = null;
       tRound = null;
       setMergeAnimationState(true);
@@ -617,7 +632,7 @@ const PokerTable = (props) => {
     });
 
     socket.on("riverround", (data) => {
-      setCurrentPlayer({})
+      setCurrentPlayer({});
       tPlayer = null;
       tRound = null;
       setMergeAnimationState(true);
@@ -669,7 +684,7 @@ const PokerTable = (props) => {
         gameType: gameCollection,
       });
       setTimeout(() => {
-        window.location.href = `${ window.location.origin }`;
+        window.location.href = `${window.location.origin}`;
       }, 100);
     });
 
@@ -812,7 +827,7 @@ const PokerTable = (props) => {
           tPlayer = null;
           tRound = null;
         }
-        return old
+        return old;
       });
 
       setChatMessages(data.game.chats);
@@ -850,8 +865,8 @@ const PokerTable = (props) => {
         updatePlayer(roomData.showdown);
       }
       setWatchers(roomData.watchers);
-      console.log("watchers ===>", roomData.watchers)
-      if (roomData.watchers.find(el => (el?.toString() === userId))) {
+      console.log("watchers ===>", roomData.watchers);
+      if (roomData.watchers.find((el) => el?.toString() === userId)) {
         isWatcher = true;
       }
     });
@@ -902,7 +917,7 @@ const PokerTable = (props) => {
         setisAdmin(true);
       } else {
         toast.success(
-          `Admin left the game, Now ${ data.name } is the Game Admin`,
+          `Admin left the game, Now ${data.name} is the Game Admin`,
           { id: "GameAdmin" }
         );
       }
@@ -961,19 +976,25 @@ const PokerTable = (props) => {
     });
 
     socket.on("tournamentFinished", (data) => {
-      const { tournamentId: { _id } } = data;
-      window.location.href = `/leaderboard?tournamentId=${ _id }`;
+      const {
+        tournamentId: { _id },
+      } = data;
+      window.location.href = `/leaderboard?tournamentId=${_id}`;
     });
 
     socket.on("roomchanged", (data) => {
-      console.log("this room changed has been executed 1547 :-", 929, isWatcher);
+      console.log(
+        "this room changed has been executed 1547 :-",
+        929,
+        isWatcher
+      );
       // if (isWatcher) {
       //   history.goBack();
       //   return;
       // }
       let user = data?.userIds?.find((el) => el.userId === userId);
       if (user) {
-        window.location.href = `/table?gamecollection=poker&tableid=${ user.newRoomId }`;
+        window.location.href = `/table?gamecollection=poker&tableid=${user.newRoomId}`;
       }
     });
 
@@ -1043,18 +1064,21 @@ const PokerTable = (props) => {
     socket.on("tournamentLeave", () => {
       setTimeout(() => {
         history.push("/");
-      }, 500)
-    })
-
-    socket.on('availableinNextRound', () => {
-
-      toast.success("You can play from next round", { toast_id: "availableinNextRound" });
+      }, 500);
     });
 
-    socket.on('tournamentLastRoom', () => {
-      toast.success("Congratulations ! You made it to the last Table", { toast_id: "availableinNextRound" });
+    socket.on("availableinNextRound", () => {
+      toast.success("You can play from next round", {
+        toast_id: "availableinNextRound",
+      });
     });
 
+    socket.on("tournamentLastRoom", () => {
+      // toast.success("Congratulations ! You made it to the last Table", {
+      //   toast_id: "availableinNextRound",
+      // });
+      handleAnimationState();
+    });
   }, []);
   const handleTentativeActionAuto = (player) => {
     let event;
@@ -1144,7 +1168,7 @@ const PokerTable = (props) => {
 
         setPlayers((preState) => {
           setCurrentPlayer(preState.find((ele) => ele.id === data.id));
-          console.log("tirgger")
+          console.log("tirgger");
           handleActionButton(preState.find((ele) => ele.id === data.id));
           return preState;
         });
@@ -1181,7 +1205,7 @@ const PokerTable = (props) => {
   }, []);
 
   const updatePlayer = (data) => {
-    console.log("update player executed", data);
+    // console.log("update player executed", data);
     if (!data) {
       console.log("Entered in null");
       return;
@@ -1236,18 +1260,17 @@ const PokerTable = (props) => {
         if (el.playing) {
           playerDetails.push({
             ...el,
-            availablePosition: el.position,//availablePosition[i],
+            availablePosition: el.position, //availablePosition[i],
             isDealer: roomData.dealerPosition === el.position ? true : false,
             isSmallBlind:
               roomData.smallBlindPosition === el.position ? true : false,
-            isBigBlind: roomData.bigBlindPosition === el.position ? true : false,
+            isBigBlind:
+              roomData.bigBlindPosition === el.position ? true : false,
             id: el.userid ? el.userid : el.id,
           });
         }
-
       });
     } else {
-
       data = data.sort((a, b) => a.position - b.position);
       const index = data.findIndex(
         (ele) => (ele.id ? ele.id : ele.userid) === userId
@@ -1260,13 +1283,13 @@ const PokerTable = (props) => {
             el.self = true;
           }
           return el;
-        })
+        });
         const startPosition = data.filter(
           (ele) => (ele.id ? ele.id : ele.userid) === userId
         )[0].position;
         // arrangePlayers(data)
         const split1 = data.slice(0, index + 1);
-        const me = split1.pop() // data.find(el => (el.id ? el.id : el.userid) === userId);
+        const me = split1.pop(); // data.find(el => (el.id ? el.id : el.userid) === userId);
         const split2 = data.slice(index + 1, data.length);
         whole.push(me);
         // let swapIndx;
@@ -1282,11 +1305,12 @@ const PokerTable = (props) => {
         // data[swapIndx] = data[0];
         // data[0] = temp
 
-
         whole = whole.concat(split2).concat(split1);
 
         let totalPlayerPushd = 1;
-        let alreadyPushdUsers = [whole[0].userid ? whole[0].userid : whole[0].id];
+        let alreadyPushdUsers = [
+          whole[0].userid ? whole[0].userid : whole[0].id,
+        ];
         console.log("");
         let currntVacantPosition = 0;
         let startCountIndx = startPosition;
@@ -1354,11 +1378,13 @@ const PokerTable = (props) => {
 
         playerDetails.push({
           ...whole[0],
-          availablePosition: currntVacantPosition,//availablePosition[i],
-          isDealer: roomData.dealerPosition === whole[0].position ? true : false,
+          availablePosition: currntVacantPosition, //availablePosition[i],
+          isDealer:
+            roomData.dealerPosition === whole[0].position ? true : false,
           isSmallBlind:
             roomData.smallBlindPosition === whole[0].position ? true : false,
-          isBigBlind: roomData.bigBlindPosition === whole[0].position ? true : false,
+          isBigBlind:
+            roomData.bigBlindPosition === whole[0].position ? true : false,
           id: whole[0].userid ? whole[0].userid : whole[0].id,
         });
         currntVacantPosition++;
@@ -1368,7 +1394,7 @@ const PokerTable = (props) => {
 
         for (let i = startPosition; i < 9; i++) {
           // count++;
-          if (totalPlayerPushd === whole.length) break
+          if (totalPlayerPushd === whole.length) break;
           // if (count === 20) {
           //   break
           // }
@@ -1376,20 +1402,30 @@ const PokerTable = (props) => {
           if (indxesFinished.indexOf(i) === -1) {
             // console.log("indxesFinished ===>", indxesFinished, alreadyPushdUsers)
             console.log(i);
-            const playerAvail = whole.find(el => (el.position === i));
+            const playerAvail = whole.find((el) => el.position === i);
             // console.log("player avail ===>", playerAvail)
             if (playerAvail) {
               if (alreadyPushdUsers.indexOf(playerAvail.id) === -1) {
                 playerDetails.push({
                   ...playerAvail,
-                  availablePosition: currntVacantPosition,//availablePosition[i],
-                  isDealer: roomData.dealerPosition === playerAvail.position ? true : false,
+                  availablePosition: currntVacantPosition, //availablePosition[i],
+                  isDealer:
+                    roomData.dealerPosition === playerAvail.position
+                      ? true
+                      : false,
                   isSmallBlind:
-                    roomData.smallBlindPosition === playerAvail.position ? true : false,
-                  isBigBlind: roomData.bigBlindPosition === playerAvail.position ? true : false,
+                    roomData.smallBlindPosition === playerAvail.position
+                      ? true
+                      : false,
+                  isBigBlind:
+                    roomData.bigBlindPosition === playerAvail.position
+                      ? true
+                      : false,
                   id: playerAvail.userid ? playerAvail.userid : playerAvail.id,
                 });
-                alreadyPushdUsers.push(playerAvail.userid ? playerAvail.userid : playerAvail.id)
+                alreadyPushdUsers.push(
+                  playerAvail.userid ? playerAvail.userid : playerAvail.id
+                );
                 indxesFinished.push(i);
                 currntVacantPosition++;
                 totalPlayerPushd++;
@@ -1405,18 +1441,12 @@ const PokerTable = (props) => {
               }
               currntVacantPosition++;
             }
-
-          }
-          else if (totalPlayerPushd < whole.length && i === 8) {
+          } else if (totalPlayerPushd < whole.length && i === 8) {
             i = -1;
           }
-
         }
-
       }
-
     }
-
 
     // whole?.forEach((el, i) => {
     //   if (el.playing) {
@@ -1433,20 +1463,16 @@ const PokerTable = (props) => {
 
     // });
 
-
-
     // data.forEach
     // console.log("player detailsssssss ===>>", playerDetails);
 
     tablePlayers = playerDetails;
     setPlayers(playerDetails);
-
   };
-
 
   function arrangePlayers(players) {
     // Find the index of the self player
-    let selfPlayerIndex = players.findIndex(player => player.self);
+    let selfPlayerIndex = players.findIndex((player) => player.self);
 
     if (selfPlayerIndex === -1) {
       // Self player not found, cannot proceed with arrangement
@@ -1454,13 +1480,12 @@ const PokerTable = (props) => {
     }
 
     // Shift the players array so that the self player is in the center (position 4 on a 9-position round table)
-    let arrangedPlayers = players.slice(selfPlayerIndex - 4).concat(players.slice(0, selfPlayerIndex - 4));
-
-
+    let arrangedPlayers = players
+      .slice(selfPlayerIndex - 4)
+      .concat(players.slice(0, selfPlayerIndex - 4));
 
     return arrangedPlayers;
   }
-
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1488,7 +1513,7 @@ const PokerTable = (props) => {
             setWinner(item);
             playAudio("winner");
             if (item.handName) {
-              setWinnerText(`${ item.name } wins with ${ item.handName }`);
+              setWinnerText(`${item.name} wins with ${item.handName}`);
               let newMatch = [];
               let hand = [];
               item.communityCards.forEach((card, j) => {
@@ -1508,7 +1533,7 @@ const PokerTable = (props) => {
               setMatchCards(newMatch);
               setHandMatch(hand);
             } else if (!item.handName || item.name) {
-              setWinnerText(`All players folded, ${ item.name } Wins`);
+              setWinnerText(`All players folded, ${item.name} Wins`);
             }
           })
           .then(() => delay(timeDelay))
@@ -1596,7 +1621,12 @@ const PokerTable = (props) => {
   };
 
   const betAction = (x) => {
-    console.log("input amount", x, "currentPlayer Wallet", currentPlayer?.wallet);
+    console.log(
+      "input amount",
+      x,
+      "currentPlayer Wallet",
+      currentPlayer?.wallet
+    );
 
     setOpenAction({
       bet: false,
@@ -1751,7 +1781,10 @@ const PokerTable = (props) => {
           currentAction.call = true;
         }
       }
-      if ((lastAction !== "check" && pot !== raiseAmount) || currentAction.call === true) {
+      if (
+        (lastAction !== "check" && pot !== raiseAmount) ||
+        currentAction.call === true
+      ) {
         currentAction.check = false;
       }
     }
@@ -1762,7 +1795,7 @@ const PokerTable = (props) => {
 
   const playAudio = (type) => {
     if (type) {
-      const audioEl = document.getElementsByClassName(`audio-${ type }`)[0];
+      const audioEl = document.getElementsByClassName(`audio-${type}`)[0];
       if (audioEl) {
         audioEl.play();
       }
@@ -1814,7 +1847,11 @@ const PokerTable = (props) => {
     });
     socket.on("roomchanged", (data) => {
       const { newRoomId, changeIds } = data;
-      console.log("this room changed has been executed 1547 :-", data, isWatcher);
+      console.log(
+        "this room changed has been executed 1547 :-",
+        data,
+        isWatcher
+      );
       // if (isWatcher) {
       //   history.goBack();
       //   return;
@@ -2025,9 +2062,7 @@ const PokerTable = (props) => {
         roomid: tableId,
         amount: currentPlayer?.wallet,
       });
-    }
-
-    else if (x >= roomData?.raiseAmount * 2) {
+    } else if (x >= roomData?.raiseAmount * 2) {
       setOpenAction({
         bet: false,
         call: false,
@@ -2043,7 +2078,7 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Raise amount must be minimum ${ roomData?.raiseAmount * 2 }`, {
+      toast.error(`Raise amount must be minimum ${roomData?.raiseAmount * 2}`, {
         id: "minimum-raise",
       });
     }
@@ -2066,7 +2101,7 @@ const PokerTable = (props) => {
         amount: currentPlayer?.pot + x,
       });
     } else {
-      toast.error(`Bet amount must be minimum ${ roomData?.raiseAmount * 2 }`, {
+      toast.error(`Bet amount must be minimum ${roomData?.raiseAmount * 2}`, {
         id: "bet-minimum",
       });
     }
@@ -2085,13 +2120,10 @@ const PokerTable = (props) => {
       setMousePos({ x: event.clientX, y: event.clientY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener(
-        'mousemove',
-        handleMouseMove
-      );
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -2123,19 +2155,30 @@ const PokerTable = (props) => {
   };
 
   const setAvailability = async (availability) => {
-    socket.emit('setAvailability', {
+    socket.emit("setAvailability", {
       userId,
       tableId,
-      availability
+      availability,
     });
-  }
+  };
 
   return (
     <>
-      <p className="contentForFullScreen">{!isFullScreen ? "Tap here for Full Screen View" : "Exit From Full Screen"}</p>
-      <button onClick={handleToggleFullscreen} className={`btnForFullscreen ${ mousePos.y < 60 ? "onScreen" : "offScreen" }`}  >
+      <p className="contentForFullScreen">
+        {!isFullScreen
+          ? "Tap here for Full Screen View"
+          : "Exit From Full Screen"}
+      </p>
+      <button
+        onClick={handleToggleFullscreen}
+        className={`btnForFullscreen ${
+          mousePos.y < 60 ? "onScreen" : "offScreen"
+        }`}
+      >
         {/* <button onClick={handle.enter} className={`btnForFullscreen ${mousePos.y < 60 ? "onScreen" : "offScreen"}`}  > */}
-        {isFullScreen ? <FaCompressArrowsAlt /> :
+        {isFullScreen ? (
+          <FaCompressArrowsAlt />
+        ) : (
           <svg
             height="20px"
             // style="enable-background:new 0 0 32 32;"
@@ -2149,43 +2192,46 @@ const PokerTable = (props) => {
               <g>
                 <polygon
                   points="29.414,26.586 22.828,20 20,22.828 26.586,29.414 24,32 32,32 32,24   "
-                // style="fill:#4E4E50;"
+                  // style="fill:#4E4E50;"
                 />
                 <polygon
                   points="2.586,5.414 9.172,12 12,9.172 5.414,2.586 8,0 0,0 0,8   "
-                // style="fill:#4E4E50;"
+                  // style="fill:#4E4E50;"
                 />
                 <polygon
                   points="26.586,2.586 20,9.172 22.828,12 29.414,5.414 32,8 32,0 24,0   "
-                // style="fill:#4E4E50;"
+                  // style="fill:#4E4E50;"
                 />
                 <polygon
                   points="12,22.828 9.172,20 2.586,26.586 0,24 0,32 8,32 5.414,29.414   "
-                // style="fill:#4E4E50;"
+                  // style="fill:#4E4E50;"
                 />
               </g>
             </g>
-          </svg>}
+          </svg>
+        )}
       </button>
       <FullScreen handle={handle}>
         <div className="poker" id={players.length}>
           {/* {console.log("players ====>", players)} */}
           <Helmet>
             <html
-              className={`game-page ${ !(players && players.find((ele) => ele.id === userId)) &&
+              className={`game-page ${
+                !(players && players.find((ele) => ele.id === userId)) &&
                 roomData &&
-                roomData.players.find((ele) => (ele.userid === userId)) && !isWatcher
-                ? "game-started-join"
-                : ""
-                }`}
+                roomData.players.find((ele) => ele.userid === userId) &&
+                !isWatcher
+                  ? "game-started-join"
+                  : ""
+              }`}
             />
           </Helmet>
 
           <div
             className={
               !(players && players.find((ele) => ele.id === userId)) &&
-                roomData &&
-                roomData.players.find((ele) => ele.userid === userId)
+              roomData &&
+              roomData.players.find((ele) => ele.userid === userId)
                 ? "backToHome"
                 : "notShow"
             }
@@ -2194,7 +2240,7 @@ const PokerTable = (props) => {
               <i class="fa fa-sign-out" aria-hidden="true" />
             </button>
           </div>
-          <div className={`poker-bg ${ loader ? "loaderactive" : "" } `}>
+          <div className={`poker-bg ${loader ? "loaderactive" : ""} `}>
             {loader && (
               <div className="poker-loader">
                 <img src={loaderImg} alt="loader-Las vegas" />{" "}
@@ -2242,17 +2288,19 @@ const PokerTable = (props) => {
                 </h4>
               ) : null}
 
-              <div className={`poker-table ${ winner ? "winner-show" : "" }`}>
+              <div className={`poker-table ${winner ? "winner-show" : ""} `}>
                 <div className="containerFor-chatHistory">
-                  {!isWatcher ? (<div
-                    className="chatHistory-icon"
-                    onClick={handleOpenChatHistory}
-                  >
-                    {unReadMessages > 0 && (
-                      <p className="ChatHistory-count">{unReadMessages}</p>
-                    )}
-                    <img src={UsersComments} alt="" />
-                  </div>) : null}
+                  {!isWatcher ? (
+                    <div
+                      className="chatHistory-icon"
+                      onClick={handleOpenChatHistory}
+                    >
+                      {unReadMessages > 0 && (
+                        <p className="ChatHistory-count">{unReadMessages}</p>
+                      )}
+                      <img src={UsersComments} alt="" />
+                    </div>
+                  ) : null}
                   <ChatHistory
                     setOpenChatHistory={setOpenChatHistory}
                     openChatHistory={openChatHistory}
@@ -2267,11 +2315,11 @@ const PokerTable = (props) => {
                 </div>
                 {/* {console.log("players ===>", players)} */}
                 {(players && players.find((ele) => ele.id === userId)) ||
-                  (roomData &&
-                    roomData.players.find((ele) => ele.userid === userId)) ||
-                  isWatcher ? (
+                (roomData &&
+                  roomData.players.find((ele) => ele.userid === userId)) ||
+                isWatcher ? (
                   <div
-                    className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${ players?.length }`}
+                    className={`poker-table-bg wow animate__animated animate__fadeIn player-count-${players?.length}`}
                   >
                     {/* {console.log('con--', roomData?.players.find((el) => el.id === userId) &&
                   !roomData?.gamestart &&
@@ -2348,8 +2396,8 @@ const PokerTable = (props) => {
                                 </>
                               )}
                             {roomData &&
-                              roomData.handWinner?.length === 0 &&
-                              !roomData?.gamestart ? (
+                            roomData.handWinner?.length === 0 &&
+                            !roomData?.gamestart ? (
                               <>
                                 {roomData.gameType !== "poker-tournament" && (
                                   <p className="joined-player">
@@ -2385,18 +2433,18 @@ const PokerTable = (props) => {
                       roomData={roomData}
                       blindTimer={blindTimer}
                     />
-                    {
-                      roomData &&
+                    {roomData &&
                       userId &&
                       players.map((player, i) => (
                         <Players
                           mergeAnimationState={mergeAnimationState}
-                          key={`item-${ player.userid ? player.userid : player.id
-                            }`}
+                          key={`item-${
+                            player.userid ? player.userid : player.id
+                          }`}
                           followingList={followingList}
                           friendList={friendList}
                           systemplayer={i === 0 ? true : false}
-                          playerclass={`player${ player.availablePosition + 1 }`}
+                          playerclass={`player${player.availablePosition + 1}`}
                           playerData={player}
                           timer={timer}
                           action={action}
@@ -2420,13 +2468,20 @@ const PokerTable = (props) => {
                           activeWinnerPlayersPot={activeWinnerPlayersPot}
                           roomData={roomData}
                           open={open}
+                          showcardFlipAnimation={setShowCardFlipAnimation}
+                          setShowCardFlipAnimation={setShowCardFlipAnimation}
                         />
                       ))}
                   </div>
                 ) : (
                   ""
                 )}
-                {showPairHand && showPairHand?.length > 0 && showPairHand.find((el) => el?.id === userId)?.hand?.descr.replace(",", " of") && !isWatcher ? (
+                {showPairHand &&
+                showPairHand?.length > 0 &&
+                showPairHand
+                  .find((el) => el?.id === userId)
+                  ?.hand?.descr.replace(",", " of") &&
+                !isWatcher ? (
                   <div className="playerHand-status">
                     <p>
                       Card Pair :&nbsp;
@@ -2437,34 +2492,36 @@ const PokerTable = (props) => {
                   </div>
                 ) : isWatcher ? (
                   <div className="playerHand-status">
-                    <p>
-                      Spectate Mode
-                    </p>
+                    <p>Spectate Mode</p>
                   </div>
                 ) : null}
               </div>
+              {animatedState ? <FinalTableAnimation /> : null}
               {/* {console.log("players.find((ele) => ele.id === userId).away ==>", players.find((ele) => ele.id === userId)?.away)}
 
               {console.log("roomData?.gamestart", roomData?.gamestart)} */}
-              {players.find((ele) => ele.id === userId)?.away && roomData?.gamestart ? <>
-                <div className={`footer-button `}>
-                  <div className="container">
-                    <div className="footer-container">
-                      <div className="footer-btn away-btn">
-                        <Button
-                          onClick={() => {
-                            setAvailability(!currentPlayer?.away);
-                          }}
-
-                        >
-                          Not Available <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                        </Button>
+              {players.find((ele) => ele.id === userId)?.away &&
+              roomData?.gamestart ? (
+                <>
+                  <div className={`footer-button `}>
+                    <div className="container">
+                      <div className="footer-container">
+                        <div className="footer-btn away-btn">
+                          <Button
+                            onClick={() => {
+                              setAvailability(!currentPlayer?.away);
+                            }}
+                          >
+                            Not Available{" "}
+                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </>
-                : <>
+                </>
+              ) : (
+                <>
                   <FooterButton
                     bet={bet}
                     setBet={setBet}
@@ -2494,12 +2551,10 @@ const PokerTable = (props) => {
                     playersLeft={playersLeft}
                     players={players}
                     remainingTime={remainingTime}
-                    open={open} />
+                    open={open}
+                  />
                 </>
-
-              }
-
-
+              )}
             </div>
           </div>
 
@@ -2556,7 +2611,8 @@ const PokerTable = (props) => {
                   )}
                 {isWatcher ? (
                   ""
-                ) : !roomData?.tournament && players &&
+                ) : !roomData?.tournament &&
+                  players &&
                   players.length &&
                   players.find(
                     (ele) => (ele.id ? ele.id : ele.userid) === userId
@@ -2589,20 +2645,20 @@ const PokerTable = (props) => {
                 ) : null}
                 {((roomData && roomData.public) ||
                   (isAdmin && roomData.gameType !== "poker1vs1_Tables")) && (
-                    <li>
-                      <OverlayTrigger
-                        placement="left"
-                        overlay={
-                          <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
-                        }
-                      >
-                        <button onClick={() => setShowInvite(true)}>
-                          {/* <img src={addcoin} alt="Invite friend" /> */}
-                          <i className="fa fa-envelope"></i>
-                        </button>
-                      </OverlayTrigger>
-                    </li>
-                  )}
+                  <li>
+                    <OverlayTrigger
+                      placement="left"
+                      overlay={
+                        <Tooltip id="tooltip-disabled">Invite Friends</Tooltip>
+                      }
+                    >
+                      <button onClick={() => setShowInvite(true)}>
+                        {/* <img src={addcoin} alt="Invite friend" /> */}
+                        <i className="fa fa-envelope"></i>
+                      </button>
+                    </OverlayTrigger>
+                  </li>
+                )}
                 {roomData?.tournament ? (
                   ""
                 ) : (
@@ -2637,7 +2693,6 @@ const PokerTable = (props) => {
                     </button>
                   </OverlayTrigger>
                 </li>
-
               </ul>
             )}
           <Chat
@@ -2646,7 +2701,7 @@ const PokerTable = (props) => {
             userId={userId}
             tableId={tableId}
             currentPlayer={currentPlayer}
-          // playerData={playerData}
+            // playerData={playerData}
           />
           {/* <div className="play-pause-button leave-btn"><div className="pause-btn"><Button >Leave</Button> </div></div> */}
           {/* {isWatcher && (
@@ -2664,23 +2719,25 @@ const PokerTable = (props) => {
             </div>
           )} */}
           {/* {console.log("roomdata: ==>", roomData?.tournament)} */}
-          {!roomData?.tournament ? (<EnterAmountPopup
-            handleSitin={handleSitInAmount}
-            showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
-            submitButtonText={
-              refillSitInAmount && roomData?.gameMode === "token"
-                ? "Refill Tokens"
-                : refillSitInAmount && roomData?.gameMode === "goldCoin"
+          {!roomData?.tournament ? (
+            <EnterAmountPopup
+              handleSitin={handleSitInAmount}
+              showEnterAmountPopup={showEnterAmountPopup || refillSitInAmount}
+              submitButtonText={
+                refillSitInAmount && roomData?.gameMode === "token"
+                  ? "Refill Tokens"
+                  : refillSitInAmount && roomData?.gameMode === "goldCoin"
                   ? "Refill gold coin"
                   : "Join"
-            }
-            setShow={
-              refillSitInAmount ? setRefillSitInAmount : setShowEnterAmountPopup
-            }
-            disable={disable}
-          />) : null}
-
-
+              }
+              setShow={
+                refillSitInAmount
+                  ? setRefillSitInAmount
+                  : setShowEnterAmountPopup
+              }
+              disable={disable}
+            />
+          ) : null}
 
           <Bet
             handleBetClick={handleBetClick}
@@ -2768,15 +2825,20 @@ const Players = ({
   remainingTime,
   mergeAnimationState,
   activeWinnerPlayersPot,
-  open
+  open,
+  roomData,
+  showcardFlipAnimation,
+  setShowCardFlipAnimation,
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
   const [foldShowCard, setFoldShowCard] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const [showamination, setShowAnimation] = useState(false);
   const target = useRef(null);
+  console.log("show card ==>", showCard);
   useEffect(() => {
-    setShowCard(false);
+    // setShowCard(false);
     const showBuyIn = () => {
       if (
         playerData &&
@@ -2815,6 +2877,112 @@ const Players = ({
   }, [playerData]);
 
   useEffect(() => {
+    let inHandPlayers = [];
+    let allPlayingPlayers = [];
+    let allFoldedPlayers = [];
+    const gameData = roomData;
+    switch (gameData?.runninground) {
+      case 1:
+        gameData?.preflopround?.forEach((el) => {
+          if (!el.fold && el.playing) {
+            inHandPlayers.push(el);
+          }
+          if (el.fold && el.playing) {
+            allFoldedPlayers.push(el);
+          }
+          if (el.playing) {
+            allPlayingPlayers.push(el);
+          }
+        });
+
+        break;
+      case 2:
+        gameData?.flopround?.forEach((el) => {
+          if (!el.fold && el.playing) {
+            inHandPlayers.push(el);
+          }
+          if (el.fold && el.playing) {
+            allFoldedPlayers.push(el);
+          }
+          if (el.playing) {
+            allPlayingPlayers.push(el);
+          }
+        });
+        break;
+      case 3:
+        gameData?.turnround?.forEach((el) => {
+          if (!el.fold && el.playing) {
+            inHandPlayers.push(el);
+          }
+          if (el.fold && el.playing) {
+            allFoldedPlayers.push(el);
+          }
+          if (el.playing) {
+            allPlayingPlayers.push(el);
+          }
+        });
+        break;
+      case 4:
+        gameData?.riverround?.forEach((el) => {
+          if (!el.fold && el.playing) {
+            inHandPlayers.push(el);
+          }
+          if (el.fold && el.playing) {
+            allFoldedPlayers.push(el);
+          }
+          if (el.playing) {
+            allPlayingPlayers.push(el);
+          }
+        });
+        break;
+
+      case 5:
+        gameData?.showdown?.forEach((el) => {
+          if (!el.fold && el.playing) {
+            inHandPlayers.push(el);
+          }
+          if (el.fold && el.playing) {
+            allFoldedPlayers.push(el);
+          }
+          if (el.playing) {
+            allPlayingPlayers.push(el);
+          }
+        });
+        break;
+
+      default:
+        inHandPlayers = gameData.players?.filter(
+          (el) => !el.fold && el.playing
+        )?.length;
+    }
+
+    // console.log("inHandPlayers length ", inHandPlayers.length);
+    // console.log("allFoldedPlayers length ", allFoldedPlayers.length);
+    // console.log("allPlayingPlayers length ", allPlayingPlayers.length);
+    // console.log("gameData.allinPlayers length ", gameData.allinPlayers.length);
+
+    console.log("playerData ==>", gameData.allinPlayers);
+
+    if (
+      gameData.allinPlayers.length &&
+      inHandPlayers.length === gameData.allinPlayers.length &&
+      allFoldedPlayers.length + inHandPlayers.length ===
+        allPlayingPlayers.length && gameData.allinPlayers.find(el=> (el.id === playerData?.id))
+    ) {
+      console.log("entered in true condition for show card.");
+      if (showcardFlipAnimation) {
+        setShowAnimation(showcardFlipAnimation);
+        setShowCardFlipAnimation(false);
+      } else {
+        setShowAnimation(showcardFlipAnimation);
+      }
+      setShowCard(true);
+    }else{
+      setShowCard(false);
+    }
+  }, [roomData]);
+
+  useEffect(() => {
     socket.on("showCard", (data) => {
       if (playerData.id === userId) {
         setShowCard(true);
@@ -2846,8 +3014,6 @@ const Players = ({
     }
   };
 
-
-
   return (
     <>
       <div
@@ -2858,26 +3024,36 @@ const Players = ({
         }}
         ref={target}
         key={playerData?.id}
-
-        className={`players ${ playerclass } ${ (open && currentPlayer && playerData && currentPlayer.id === playerData.id) ? 'currentWithChat' : '' } ${ winner && playerData && winner.id === playerData.id
-          ? `winner-player`
-          : ``
-          }
-          ${ activeWinnerPlayersPot?.potPlayer?.find(
-            (el) => el.id === playerData?.id
-          ) && roomData.runninground === 5
-            ? "activeWinnerpot"
+        className={`players ${playerclass} ${
+          open &&
+          currentPlayer &&
+          playerData &&
+          currentPlayer.id === playerData.id
+            ? "currentWithChat"
             : ""
+        } ${
+          winner && playerData && winner.id === playerData.id
+            ? `winner-player`
+            : ``
+        }
+          ${
+            activeWinnerPlayersPot?.potPlayer?.find(
+              (el) => el.id === playerData?.id
+            ) && roomData.runninground === 5
+              ? "activeWinnerpot"
+              : ""
           }
-          ${ (playerData && playerData.playing && !playerData?.fold) ||
+          ${
+            (playerData && playerData.playing && !playerData?.fold) ||
             (activeWinnerPlayersPot?.potPlayer?.find(
               (el) => el.id === playerData?.id
             ) &&
               roomData.runninground === 5)
-            ? ""
-            : "not-playing"
-          } ${ mergeAnimationState ? "animateMerge-chips" : "" } ${ playerData && playerData.id === messageBy ? "playerChated" : ""
-          }`}
+              ? ""
+              : "not-playing"
+          } ${mergeAnimationState ? "animateMerge-chips" : ""} ${
+          playerData && playerData.id === messageBy ? "playerChated" : ""
+        }`}
       >
         {((playerData?.availablePosition === 0 &&
           playerData?.fold &&
@@ -2886,7 +3062,8 @@ const Players = ({
             (el) => !el?.handName && el.id === userId
           ) &&
             playerData.id === userId &&
-            !playerData?.fold)) && !isWatcher ? (
+            !playerData?.fold)) &&
+        !isWatcher ? (
           <div className="showCardIn-fold">
             <Form.Check
               inline
@@ -2904,12 +3081,14 @@ const Players = ({
             <ShowCard
               cards={playerData.cards ? playerData.cards : []}
               handMatch={handMatch}
+              showamination={showamination}
             />
           )}
         {showCard ? (
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : playerData && (playerData.fold || !playerData.playing) ? (
           ""
@@ -2921,6 +3100,7 @@ const Players = ({
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : roomData &&
           roomData.runninground >= 1 &&
@@ -2928,6 +3108,7 @@ const Players = ({
           <ShowCard
             cards={playerData.cards ? playerData.cards : []}
             handMatch={handMatch}
+            showamination={showamination}
           />
         ) : roomData && roomData.runninground === 0 ? (
           ""
@@ -2940,12 +3121,13 @@ const Players = ({
           currentPlayer.id === playerData.id &&
           action && <span className="player-action">{actionText}</span>}
 
-        <div id={`store-item-${ playerData.id }`}></div>
+        <div id={`store-item-${playerData.id}`}></div>
         <div
-          className={`player-box ${ currentPlayer && playerData && currentPlayer.id === playerData.id
-            ? "currentPlayerChance"
-            : ""
-            }`}
+          className={`player-box ${
+            currentPlayer && playerData && currentPlayer.id === playerData.id
+              ? "currentPlayerChance"
+              : ""
+          }`}
         >
           {winner && playerData && winner.id === playerData.id && (
             <img className="coinWinning-animation" src={coinWinning} alt="" />
@@ -2975,10 +3157,11 @@ const Players = ({
             />
           </div>
           <div
-            className={`player-info ${ currentPlayer && playerData && currentPlayer.id === playerData.id
-              ? "progressActive"
-              : ""
-              } `}
+            className={`player-info ${
+              currentPlayer && playerData && currentPlayer.id === playerData.id
+                ? "progressActive"
+                : ""
+            } `}
           >
             <h4>
               {playerData && playerData?.name?.length > 8
@@ -3000,8 +3183,8 @@ const Players = ({
                 {playerData.isSmallBlind
                   ? "S"
                   : playerData.isBigBlind
-                    ? "B"
-                    : // : playerData.isDealer
+                  ? "B"
+                  : // : playerData.isDealer
                     // ? "D"
                     ""}
               </div>
@@ -3016,8 +3199,10 @@ const Players = ({
           )}
         </div>
         {/* messageBy */}
-        {playerData && message?.find(el => el.userId === playerData.id) && (
-          <BubbleMessage message={message?.find(el => el.userId === playerData.id).message} />
+        {playerData && message?.find((el) => el.userId === playerData.id) && (
+          <BubbleMessage
+            message={message?.find((el) => el.userId === playerData.id).message}
+          />
         )}
       </div>
     </>
@@ -3032,28 +3217,29 @@ const TableCard = ({
   blindTimer,
 }) => {
   return (
-    <div className={`table-card ${ winner ? "winner-show" : "" }`}>
+    <div className={`table-card ${winner ? "winner-show" : ""}`}>
       {communityCards &&
         communityCards.map((card, i) => {
           // console.log("DecryptCard(card)", DecryptCard(card));
           // const cards = require(`../../assets/cards/${card.toUpperCase()}.svg`).default
           return (
-            <div className={`card-animate active duration-${ i }`}>
+            <div className={`card-animate active duration-${i}`}>
               <img
-                key={`item-${ i }`}
+                key={`item-${i}`}
                 // src={cards ? cards : back }
-                src={`/cards/${ DecryptCard(card)?.toUpperCase() }.svg`}
+                src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
                 alt="card"
-                className={`${ winner && matchCards.findIndex((ele) => ele === i) !== -1
-                  ? `winner-card`
-                  : ``
-                  } front-card duration-${ i }`}
+                className={`${
+                  winner && matchCards.findIndex((ele) => ele === i) !== -1
+                    ? `winner-card`
+                    : ``
+                } front-card duration-${i}`}
               />
               <img
-                key={`item1-${ i }`}
+                key={`item1-${i}`}
                 src={back2}
                 alt="back"
-                className={`back-card duration-${ i }`}
+                className={`back-card duration-${i}`}
               />
             </div>
           );
@@ -3067,24 +3253,27 @@ const TablePotMoney = ({ tablePot, sidePots, activeWinnerPlayersPot }) => {
     <div className="pot-money">
       {/* {console.log("Sideeeeee potsssssss ", sidePots.filter(el => !(el.pot)))} */}
       {sidePots.length ? (
-        sidePots.filter(el => (el.pot)).map((sidePot) => (
-          <div
-            className={`total-pot-money animate__animated animate__fadeIn ${ activeWinnerPlayersPot?.potPlayer?.length ===
-              sidePot?.players?.length
-              ? `winnPlayer${ activeWinnerPlayersPot.availablePosition + 1 }`
-              : ""
+        sidePots
+          .filter((el) => el.pot)
+          .map((sidePot) => (
+            <div
+              className={`total-pot-money animate__animated animate__fadeIn ${
+                activeWinnerPlayersPot?.potPlayer?.length ===
+                sidePot?.players?.length
+                  ? `winnPlayer${activeWinnerPlayersPot.availablePosition + 1}`
+                  : ""
               }`}
-          >
-            <span className={`pots-${ sidePots.length }`}>
-              <p>{numFormatter(sidePot.pot)}</p>
-            </span>
-          </div>)
-
-        )
+            >
+              <span className={`pots-${sidePots.length}`}>
+                <p>{numFormatter(sidePot.pot)}</p>
+              </span>
+            </div>
+          ))
       ) : (
         <div
-          className={`total-pot-money animate__animated animate__fadeIn winnPlayer${ activeWinnerPlayersPot.availablePosition + 1
-            }`}
+          className={`total-pot-money animate__animated animate__fadeIn winnPlayer${
+            activeWinnerPlayersPot.availablePosition + 1
+          }`}
         >
           <span className="pots-1">
             <p>{numFormatter(tablePot && tablePot)}</p>
@@ -3130,150 +3319,159 @@ const FooterButton = ({
   open,
 }) => {
   return (
-    <div className={`footer-button ${ (open && currentPlayer && userId && currentPlayer.id === userId) ? 'currentWithChat' : '' }`}>
+    <div
+      className={`footer-button ${
+        open && currentPlayer && userId && currentPlayer.id === userId
+          ? "currentWithChat"
+          : ""
+      }`}
+    >
       <div className="container">
-        {<div className="footer-container">
-          {currentPlayer &&
+        {
+          <div className="footer-container">
+            {currentPlayer &&
             currentPlayer?.id === userId &&
             !currentPlayer?.tentativeAction ? (
-            <>
-              {openAction.fold && (
-                <div className="footer-btn ">
-                  <Button
-                    onClick={() => foldAction()}
-                    disabled={remainingTime <= 0}
-                  >
-                    {" "}
-                    Fold
-                  </Button>
-                </div>
-              )}
-              {openAction.check && (
-                <div className="footer-btn ">
-                  <Button
-                    onClick={() => checkAction()}
-                    disabled={remainingTime <= 0}
-                  >
-                    Check
-                  </Button>
-                </div>
-              )}
-              {openAction.call && (
-                <div className="footer-btn ">
-                  <Button
-                    onClick={() => callAction()}
-                    disabled={remainingTime <= 0}
-                  >
-                    Call{" "}
-                    <span
-                      className={
-                        roomData.raiseAmount - currentPlayer?.pot > 0
-                          ? "callBtn-amount"
-                          : "callBtn-amount-none"
-                      }
+              <>
+                {openAction.fold && (
+                  <div className="footer-btn ">
+                    <Button
+                      onClick={() => foldAction()}
+                      disabled={remainingTime <= 0}
                     >
-                      ({" "}
-                      {numFormatter(roomData?.raiseAmount - currentPlayer?.pot)}
-                      )
-                    </span>
-                  </Button>
-                </div>
-              )}
-              {!openAction.check && !openAction.call && (
-                <div className="footer-btn hiddenBtn">
-                  <Button disabled="true"> </Button>
-                </div>
-              )}
-              {console.log("raise =====>", raise)}
-              {openAction.raise && (
-                <div className="footer-btn ">
-                  {raise && (
-                    <RaiseContainer
-                      currentPlayer={currentPlayer}
-                      SliderAction={raiseInSliderAction}
-                      roomData={roomData}
-                      setBetRaise={setRaise}
-                      setAction={raiseAction}
-                      allinAction={allinAction}
-                      players={players}
-                      remainingTime={remainingTime}
-                    />
-                  )}
-                  <Button
-                    onClick={() => {
-                      setBet(false);
-                      setRaise(true);
-                    }}
-                    disabled={remainingTime <= 0}
-                  >
-                    Raise
-                  </Button>
-                </div>
-              )}
-
-              {openAction.bet && (
-                <div className="footer-btn ">
-                  {bet && (
-                    <RaiseContainer
-                      currentPlayer={currentPlayer}
-                      SliderAction={betInSliderAction}
-                      roomData={roomData}
-                      setBetRaise={setBet}
-                      setAction={betAction}
-                      allinAction={allinAction}
-                      players={players}
-                      remainingTime={remainingTime}
-                    />
-                  )}
-                  <Button
-                    onClick={() => {
-                      setBet(true);
-                      setRaise(false);
-                    }}
-                    disabled={remainingTime <= 0}
-                  >
-                    Bet
-                  </Button>
-                </div>
-              )}
-
-              {!openAction.raise && !openAction.bet && openAction.allin && (
-                <div className="footer-btn ">
-                  <Button
-                    onClick={() => allinAction()}
-                    disabled={remainingTime <= 0}
-                  >
-                    All In
-                  </Button>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              {roomData?.gamestart &&
-                roomData.runninground >= 1 &&
-                roomData.runninground < 5 &&
-                players.find((el) => el.id === userId)?.cards?.length === 2 &&
-                !players.find((el) => el.id === userId)?.fold &&
-                !(
-                  roomData.lastAction === "check" &&
-                  players.find((el) => el.id === userId)?.action === true
-                ) &&
-                players.find((el) => el.id === userId).actionType !==
-                "all-in" && (
-                  <AdvanceActionBtn
-                    setTentativeAction={setTentativeAction}
-                    tentativeAction={tentativeAction}
-                    handleTentativeAction={handleTentativeAction}
-                    roomData={roomData}
-                    currentPlayer={currentPlayer}
-                    player={players.find((el) => el.id === userId)}
-                  />
+                      {" "}
+                      Fold
+                    </Button>
+                  </div>
                 )}
-            </>
-          )}
-        </div>}
+                {openAction.check && (
+                  <div className="footer-btn ">
+                    <Button
+                      onClick={() => checkAction()}
+                      disabled={remainingTime <= 0}
+                    >
+                      Check
+                    </Button>
+                  </div>
+                )}
+                {openAction.call && (
+                  <div className="footer-btn ">
+                    <Button
+                      onClick={() => callAction()}
+                      disabled={remainingTime <= 0}
+                    >
+                      Call{" "}
+                      <span
+                        className={
+                          roomData.raiseAmount - currentPlayer?.pot > 0
+                            ? "callBtn-amount"
+                            : "callBtn-amount-none"
+                        }
+                      >
+                        ({" "}
+                        {numFormatter(
+                          roomData?.raiseAmount - currentPlayer?.pot
+                        )}
+                        )
+                      </span>
+                    </Button>
+                  </div>
+                )}
+                {!openAction.check && !openAction.call && (
+                  <div className="footer-btn hiddenBtn">
+                    <Button disabled="true"> </Button>
+                  </div>
+                )}
+                {console.log("raise =====>", raise)}
+                {openAction.raise && (
+                  <div className="footer-btn ">
+                    {raise && (
+                      <RaiseContainer
+                        currentPlayer={currentPlayer}
+                        SliderAction={raiseInSliderAction}
+                        roomData={roomData}
+                        setBetRaise={setRaise}
+                        setAction={raiseAction}
+                        allinAction={allinAction}
+                        players={players}
+                        remainingTime={remainingTime}
+                      />
+                    )}
+                    <Button
+                      onClick={() => {
+                        setBet(false);
+                        setRaise(true);
+                      }}
+                      disabled={remainingTime <= 0}
+                    >
+                      Raise
+                    </Button>
+                  </div>
+                )}
 
+                {openAction.bet && (
+                  <div className="footer-btn ">
+                    {bet && (
+                      <RaiseContainer
+                        currentPlayer={currentPlayer}
+                        SliderAction={betInSliderAction}
+                        roomData={roomData}
+                        setBetRaise={setBet}
+                        setAction={betAction}
+                        allinAction={allinAction}
+                        players={players}
+                        remainingTime={remainingTime}
+                      />
+                    )}
+                    <Button
+                      onClick={() => {
+                        setBet(true);
+                        setRaise(false);
+                      }}
+                      disabled={remainingTime <= 0}
+                    >
+                      Bet
+                    </Button>
+                  </div>
+                )}
+
+                {!openAction.raise && !openAction.bet && openAction.allin && (
+                  <div className="footer-btn ">
+                    <Button
+                      onClick={() => allinAction()}
+                      disabled={remainingTime <= 0}
+                    >
+                      All In
+                    </Button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {roomData?.gamestart &&
+                  roomData.runninground >= 1 &&
+                  roomData.runninground < 5 &&
+                  players.find((el) => el.id === userId)?.cards?.length === 2 &&
+                  !players.find((el) => el.id === userId)?.fold &&
+                  !(
+                    roomData.lastAction === "check" &&
+                    players.find((el) => el.id === userId)?.action === true
+                  ) &&
+                  players.find((el) => el.id === userId).actionType !==
+                    "all-in" && (
+                    <AdvanceActionBtn
+                      setTentativeAction={setTentativeAction}
+                      tentativeAction={tentativeAction}
+                      handleTentativeAction={handleTentativeAction}
+                      roomData={roomData}
+                      currentPlayer={currentPlayer}
+                      player={players.find((el) => el.id === userId)}
+                    />
+                  )}
+              </>
+            )}
+          </div>
+        }
       </div>
     </div>
   );
@@ -3333,31 +3531,33 @@ const HideCard = () => {
       <img
         src={front}
         alt="card"
-        className="animate__animated animate__rollIn duration-0"
+        // className="animate__animated animate__rollIn duration-0"
       />
       <img
         src={back}
         alt="card"
-        className="animate__animated animate__rollIn duration-1"
+        // className="animate__animated animate__rollIn duration-1"
       />
     </div>
   );
 };
 
-const ShowCard = ({ cards, handMatch }) => {
+const ShowCard = ({ cards, handMatch, showamination }) => {
+  // console.log("showamination ===>", showamination);
+// show-card
   return (
     <div className="show-card">
       {cards &&
         cards.map((card, i) => {
           return (
             <img
-              key={`item-${ card }`}
-              src={`/cards/${ DecryptCard(card)?.toUpperCase() }.svg`}
+              key={`item-${card}`}
+              src={`/cards/${DecryptCard(card)?.toUpperCase()}.svg`}
               alt="card"
-              className={`animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
-                ? ``
-                : `winner-card`
-                } `}
+              // className={showamination ? `animate__animated animate__rollIn duration-${ i } ${ handMatch.findIndex((ele) => ele === i) !== -1
+              //   ? ``
+              //   : `winner-card`
+              //   }` : ""}
             />
           );
         })}
