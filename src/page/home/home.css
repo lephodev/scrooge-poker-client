@@ -1727,6 +1727,18 @@ input#custom-switch {
 .participant-list p {
   margin: 0;
 }
+.tab-loader-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+}
+.tab-loader-grid .spinner-border {
+  border-color: #f9ff00;
+  border-right-color: transparent;
+  width: 36px;
+  height: 36px;
+}
 
 @media screen and (max-width: 1200px) {
   .home-poker-card-grid {
