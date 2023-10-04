@@ -51,6 +51,7 @@ const Home = () => {
     useContext(UserContext); //userInAnyGame,
   const [searchText, setSearchText] = useState("");
   const [loader, setLoader] = useState(true);
+  const [tLoader, setTLoader] = useState(true);
   const [userData, setUserData] = useState({});
   const [gameState, setGameState] = useState({ ...gameInit });
   const [show, setShow] = useState(false);
@@ -325,13 +326,17 @@ const Home = () => {
 
   const getTournamentDetails = async () => {
     try {
+      setTLoader(true);
       const response = await tournamentInstance().get("/tournaments");
       const { status } = response;
       if (status === 200) {
         const { tournaments } = response.data;
         setTournaments(tournaments || []);
       }
-    } catch (error) {}
+      setTLoader(false);
+    } catch (error) {
+      setTLoader(false);
+    }
   };
 
   const handleActionTime = (selectedOption) => {
@@ -412,8 +417,6 @@ const Home = () => {
   const handleTabSwitch = (k) => {
     setEventKey(k);
   };
-
-  console.log("Tournament Tabs", eventKey);
 
   return (
     <div className="poker-home">
@@ -538,135 +541,143 @@ const Home = () => {
                 )}
               </Tab>
               <Tab eventKey="2" title="Poker Tournament Tables">
-                {filterTournaments.length > 0 ? (
-                  <div className="home-poker-card">
-                    <div className="container">
-                      <Tabs
-                        activeKey={eventKey}
-                        onSelect={(k) => handleTabSwitch(k)}
-                        id="uncontrolled-tab-example"
-                      >
-                        <Tab eventKey="register" title="Register">
-                          <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 &&
-                              filterTournaments
-                                .filter(
-                                  (el) =>
-                                    el?.isStart === false &&
-                                    el?.isFinished === false
-                                )
-                                .map((el) => (
-                                  <React.Fragment key={el._id}>
-                                    {/* {console.log("elll", el)} */}
-                                    <GameTournament
-                                      data={el}
-                                      gameType="Tournament"
-                                      getTournamentDetails={
-                                        getTournamentDetails
-                                      }
-                                      setUserData={setUserData}
-                                      filterTournaments={filterTournaments}
-                                      userId={user?.id || userId}
-                                      setShowPlayerList={setShowPlayerList}
-                                      setSelectedTournament={
-                                        setSelectedTournament
-                                      }
-                                    />
-                                  </React.Fragment>
-                                ))}
-                            {filterTournaments.length > 0 &&
-                              filterTournaments.filter(
-                                (el) =>
-                                  el?.isStart === false &&
-                                  el?.isFinished === false
-                              ).length === 0 && (
-                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                  <div className="no-room-available">
-                                    <h4>No Tournament Available</h4>
-                                  </div>
-                                </div>
-                              )}
-                          </div>
-                        </Tab>
-                        <Tab eventKey="running" title="Running">
-                          <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 &&
-                              filterTournaments
-                                .filter((el) => el?.isStart === true)
-                                .map((el) => (
-                                  <React.Fragment key={el._id}>
-                                    <GameTournament
-                                      data={el}
-                                      gameType="Tournament"
-                                      getTournamentDetails={
-                                        getTournamentDetails
-                                      }
-                                      setUserData={setUserData}
-                                      filterTournaments={filterTournaments}
-                                      userId={user?.id || userId}
-                                      setShowPlayerList={setShowPlayerList}
-                                      setSelectedTournament={
-                                        setSelectedTournament
-                                      }
-                                    />
-                                  </React.Fragment>
-                                ))}
-                            {filterTournaments.length > 0 &&
-                              filterTournaments.filter(
-                                (el) => el?.isStart === true
-                              ).length === 0 && (
-                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                  <div className="no-room-available">
-                                    <h4>No Tournament Available</h4>
-                                  </div>
-                                </div>
-                              )}
-                          </div>
-                        </Tab>
-                        <Tab eventKey="finsih" title="Completed">
-                          <div className="home-poker-card-grid">
-                            {filterTournaments.length > 0 &&
-                              filterTournaments
-                                .filter((el) => el.isFinished === true)
-                                .map((el) => (
-                                  <React.Fragment key={el._id}>
-                                    <GameTournament
-                                      data={el}
-                                      gameType="Tournament"
-                                      getTournamentDetails={
-                                        getTournamentDetails
-                                      }
-                                      setUserData={setUserData}
-                                      filterTournaments={filterTournaments}
-                                      userId={user?.id || userId}
-                                      setShowPlayerList={setShowPlayerList}
-                                      setSelectedTournament={
-                                        setSelectedTournament
-                                      }
-                                    />
-                                  </React.Fragment>
-                                ))}
-                            {filterTournaments.length > 0 &&
-                              filterTournaments.filter(
-                                (el) => el?.isFinished === true
-                              ).length === 0 && (
-                                <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                                  <div className="no-room-available">
-                                    <h4>No Tournament Available</h4>
-                                  </div>
-                                </div>
-                              )}
-                          </div>
-                        </Tab>
-                      </Tabs>
-                    </div>
+                {tLoader ? (
+                  <div className="tab-loader-grid">
+                    <Spinner animation="border" />
                   </div>
                 ) : (
-                  <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
-                    <div className="no-room-available">
-                      <h4>No Tournament Available</h4>
-                    </div>
-                  </div>
+                  <>
+                    {filterTournaments.length > 0 ? (
+                      <div className="home-poker-card">
+                        <div className="container">
+                          <Tabs
+                            activeKey={eventKey}
+                            onSelect={(k) => handleTabSwitch(k)}
+                            id="uncontrolled-tab-example"
+                          >
+                            <Tab eventKey="register" title="Register">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter(
+                                      (el) =>
+                                        el?.isStart === false &&
+                                        el?.isFinished === false
+                                    )
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        {/* {console.log("elll", el)} */}
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) =>
+                                      el?.isStart === false &&
+                                      el?.isFinished === false
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                            <Tab eventKey="running" title="Running">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter((el) => el?.isStart === true)
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) => el?.isStart === true
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                            <Tab eventKey="finsih" title="Completed">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter((el) => el.isFinished === true)
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) => el?.isFinished === true
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                          </Tabs>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                        <div className="no-room-available">
+                          <h4>No Tournament Available</h4>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </Tab>
             </Tabs>
