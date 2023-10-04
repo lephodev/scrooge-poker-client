@@ -2759,7 +2759,7 @@ const PokerTable = (props) => {
           <audio className="audio-turn" muted={!volume}>
             <source src={myTurn}></source>
           </audio>
-          <audio className="audio-bet" muted={!volume}>
+          <audio className="audio-fold" muted={!volume}>
             <source src={fold}></source>
           </audio>
           <audio className="audio-collect" muted={!volume}>
