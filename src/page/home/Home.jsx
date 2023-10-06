@@ -71,6 +71,7 @@ const Home = () => {
     { value: 60, label: "60 seconds" },
   ]);
   const [eventKey, setEventKey] = useState("register");
+  const [sitKey, setSitKey] = useState("s&gregister");
 
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [selectedTournament, setSelectedTournament] = useState(null);
@@ -417,6 +418,9 @@ const Home = () => {
   const handleTabSwitch = (k) => {
     setEventKey(k);
   };
+  const handleSitTabSwitch = (k) => {
+    setSitKey(k);
+  };
 
   return (
     <div className="poker-home">
@@ -475,14 +479,14 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="poker-table-content">
+          <div className="poker-table-content ">
             <Tabs
               id="controlled-tab-example"
               activeKey={key}
               onSelect={(k) => setKey(k)}
-              className="mb-3"
+              className="mb-3 first-tab-content"
             >
-              <Tab eventKey="home" title="Poker Open Tables">
+              <Tab eventKey="home" title="Ring games">
                 {filterRoom.length > 0 ? (
                   <>
                     <div className="home-poker-card-grid">
@@ -540,7 +544,7 @@ const Home = () => {
                   </div>
                 )}
               </Tab>
-              <Tab eventKey="2" title="Poker Tournament Tables">
+              <Tab eventKey="sit&go" title="Sit & Go">
                 {tLoader ? (
                   <div className="tab-loader-grid">
                     <Spinner animation="border" />
@@ -551,18 +555,19 @@ const Home = () => {
                       <div className="home-poker-card">
                         <div className="container">
                           <Tabs
-                            activeKey={eventKey}
-                            onSelect={(k) => handleTabSwitch(k)}
+                            activeKey={sitKey}
+                            onSelect={(k) => handleSitTabSwitch(k)}
                             id="uncontrolled-tab-example"
                           >
-                            <Tab eventKey="register" title="Register">
+                            <Tab eventKey="s&gregister" title="Register">
                               <div className="home-poker-card-grid">
                                 {filterTournaments.length > 0 &&
                                   filterTournaments
                                     .filter(
                                       (el) =>
                                         el?.isStart === false &&
-                                        el?.isFinished === false
+                                        el?.isFinished === false &&
+                                        el?.tournamentType === key
                                     )
                                     .map((el) => (
                                       <React.Fragment key={el._id}>
@@ -587,7 +592,162 @@ const Home = () => {
                                   filterTournaments.filter(
                                     (el) =>
                                       el?.isStart === false &&
-                                      el?.isFinished === false
+                                      el?.isFinished === false &&
+                                      el?.tournamentType === key
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                            <Tab eventKey="s&grunning" title="Running">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter(
+                                      (el) =>
+                                        el?.isStart === true &&
+                                        el?.tournamentType === key
+                                    )
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) =>
+                                      el?.isStart === true &&
+                                      el?.tournamentType === key
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                            <Tab eventKey="s&gfinsih" title="Completed">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter(
+                                      (el) =>
+                                        el.isFinished === true &&
+                                        el?.tournamentType === key
+                                    )
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) =>
+                                      el?.isFinished === true &&
+                                      el?.tournamentType === key
+                                  ).length === 0 && (
+                                    <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                                      <div className="no-room-available">
+                                        <h4>No Tournament Available</h4>
+                                      </div>
+                                    </div>
+                                  )}
+                              </div>
+                            </Tab>
+                          </Tabs>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
+                        <div className="no-room-available">
+                          <h4>No Tournament Available</h4>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </Tab>
+              <Tab eventKey="Multi-Table" title="Multi Table Tournament">
+                {tLoader ? (
+                  <div className="tab-loader-grid">
+                    <Spinner animation="border" />
+                  </div>
+                ) : (
+                  <>
+                    {filterTournaments.length > 0 ? (
+                      <div className="home-poker-card">
+                        <div className="container">
+                          <Tabs
+                            activeKey={eventKey}
+                            onSelect={(k) => handleTabSwitch(k)}
+                            id="uncontrolled-tab-example"
+                          >
+                            <Tab eventKey="register" title="Register">
+                              <div className="home-poker-card-grid">
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments
+                                    .filter(
+                                      (el) =>
+                                        el?.isStart === false &&
+                                        el?.isFinished === false &&
+                                        el?.tournamentType === key
+                                    )
+                                    .map((el) => (
+                                      <React.Fragment key={el._id}>
+                                        {/* {console.log("elll", el)} */}
+                                        <GameTournament
+                                          data={el}
+                                          gameType="Tournament"
+                                          getTournamentDetails={
+                                            getTournamentDetails
+                                          }
+                                          setUserData={setUserData}
+                                          filterTournaments={filterTournaments}
+                                          userId={user?.id || userId}
+                                          setShowPlayerList={setShowPlayerList}
+                                          setSelectedTournament={
+                                            setSelectedTournament
+                                          }
+                                        />
+                                      </React.Fragment>
+                                    ))}
+                                {filterTournaments.length > 0 &&
+                                  filterTournaments.filter(
+                                    (el) =>
+                                      el?.isStart === false &&
+                                      el?.isFinished === false &&
+                                      el?.tournamentType === key
                                   ).length === 0 && (
                                     <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                                       <div className="no-room-available">
@@ -601,7 +761,11 @@ const Home = () => {
                               <div className="home-poker-card-grid">
                                 {filterTournaments.length > 0 &&
                                   filterTournaments
-                                    .filter((el) => el?.isStart === true)
+                                    .filter(
+                                      (el) =>
+                                        el?.isStart === true &&
+                                        el?.tournamentType === key
+                                    )
                                     .map((el) => (
                                       <React.Fragment key={el._id}>
                                         <GameTournament
@@ -622,7 +786,9 @@ const Home = () => {
                                     ))}
                                 {filterTournaments.length > 0 &&
                                   filterTournaments.filter(
-                                    (el) => el?.isStart === true
+                                    (el) =>
+                                      el?.isStart === true &&
+                                      el?.tournamentType === key
                                   ).length === 0 && (
                                     <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                                       <div className="no-room-available">
@@ -636,7 +802,11 @@ const Home = () => {
                               <div className="home-poker-card-grid">
                                 {filterTournaments.length > 0 &&
                                   filterTournaments
-                                    .filter((el) => el.isFinished === true)
+                                    .filter(
+                                      (el) =>
+                                        el.isFinished === true &&
+                                        el?.tournamentType === key
+                                    )
                                     .map((el) => (
                                       <React.Fragment key={el._id}>
                                         <GameTournament
@@ -657,7 +827,9 @@ const Home = () => {
                                     ))}
                                 {filterTournaments.length > 0 &&
                                   filterTournaments.filter(
-                                    (el) => el?.isFinished === true
+                                    (el) =>
+                                      el?.isFinished === true &&
+                                      el?.tournamentType === key
                                   ).length === 0 && (
                                     <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
                                       <div className="no-room-available">
