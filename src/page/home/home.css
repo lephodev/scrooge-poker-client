@@ -494,6 +494,9 @@ input[type="number"] {
 .poker-table-content .nav-tabs {
   max-width: 470px !important;
 }
+.poker-table-content .first-tab-content.nav-tabs {
+  max-width: 550px !important;
+}
 
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
@@ -1986,12 +1989,14 @@ input#custom-switch {
   .poker-home .nav-tabs .nav-link,
   .poker-home .nav-tabs .nav-link {
     border-color: #1b1b1b;
-    padding: 6px 12px;
+    padding: 6px;
+    text-align: center;
   }
 
   .poker-home .nav-tabs {
     margin-top: 0;
     margin-bottom: 12px !important;
+    gap: 5px;
   }
 
   .poker-table-content {
