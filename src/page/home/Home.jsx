@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useContext, useEffect, useMemo } from "react";
@@ -719,7 +720,8 @@ const Home = () => {
                                   filterTournaments
                                     .filter(
                                       (el) =>
-                                        el?.isStart === false &&
+                                        // el?.isStart === false &&
+                                        !el.joinTimeExceeded &&
                                         el?.isFinished === false &&
                                         el?.tournamentType === key
                                     )
@@ -745,7 +747,7 @@ const Home = () => {
                                 {filterTournaments.length > 0 &&
                                   filterTournaments.filter(
                                     (el) =>
-                                      el?.isStart === false &&
+                                      !el.joinTimeExceeded &&
                                       el?.isFinished === false &&
                                       el?.tournamentType === key
                                   ).length === 0 && (
@@ -764,6 +766,7 @@ const Home = () => {
                                     .filter(
                                       (el) =>
                                         el?.isStart === true &&
+                                        el.joinTimeExceeded &&
                                         el?.tournamentType === key
                                     )
                                     .map((el) => (
@@ -788,6 +791,7 @@ const Home = () => {
                                   filterTournaments.filter(
                                     (el) =>
                                       el?.isStart === true &&
+                                      el.joinTimeExceeded &&
                                       el?.tournamentType === key
                                   ).length === 0 && (
                                     <div className="d-flex flex-column justify-content-center align-items-center create-game-box">
@@ -1381,42 +1385,43 @@ const GameTournament = ({
   const history = useHistory();
   let tableId;
   let [buttonClick, setButtonClick] = useState(false);
+  
+  console.log("game tournament executed");
 
   const [lateJoiningTimimng, setLateJoiningAtiming] = useState("00:00");
 
-  console.log(" tournamnet data ==>", data);
+  useEffect(()=>{
+    const lateJoiningTime = new Date(data.tournamentStartTime);
+    lateJoiningTime.setMinutes(lateJoiningTime.getMinutes() + data.joinTime);
 
-  const lateJoiningTime = new Date(data.tournamentStartTime);
-  lateJoiningTime.setMinutes(lateJoiningTime.getMinutes() + data.joinTime);
+    let lateJoiningInterVal;
 
-  let lateJoiningInterVal;
-
-  if(data.isStart){
-    if(lateJoiningInterVal){
-      clearInterval(lateJoiningInterVal);
-    }
-    lateJoiningInterVal = setInterval(()=>{
-      const date1 = new Date();
-      const date2 = new Date(lateJoiningTime);
-
-      if(date2 > date1){
-        
-        const timeDifferenceMs = date2 - date1;
-
-        let minutes = Math.floor(timeDifferenceMs / (1000 * 60));
-        let seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-        minutes = minutes < 9 ? "0"+minutes : minutes;
-        seconds = seconds < 9 ? "0"+seconds : seconds;
-
-        setLateJoiningAtiming(`${minutes}:${seconds}`);
-
-      }else{
-        console.log(`time running clear interval`);
+    if(data.isStart){
+      if(lateJoiningInterVal){
         clearInterval(lateJoiningInterVal);
       }
-    }, 1000);
-  }
+      lateJoiningInterVal = setInterval(()=>{
+        const date1 = new Date();
+        const date2 = new Date(lateJoiningTime);
 
+        if(date2 > date1){
+          
+          const timeDifferenceMs = date2 - date1;
+
+          let minutes = Math.floor(timeDifferenceMs / (1000 * 60));
+          let seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+          minutes = minutes < 9 ? "0"+minutes : minutes;
+          seconds = seconds < 9 ? "0"+seconds : seconds;
+
+          setLateJoiningAtiming(`${minutes}:${seconds}`);
+
+        }else{
+          console.log(`time running clear interval`);
+          clearInterval(lateJoiningInterVal);
+        }
+      }, 1000);
+    }
+  }, [data.isStart]);
 
   data &&
     data?.rooms?.length > 0 &&
