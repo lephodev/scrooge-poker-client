@@ -1382,6 +1382,40 @@ const GameTournament = ({
   let tableId;
   let [buttonClick, setButtonClick] = useState(false);
 
+  const [lateJoiningTimimng, setLateJoiningAtiming] = useState("00:00");
+
+  console.log(" tournamnet data ==>", data);
+
+  const lateJoiningTime = new Date(data.tournamentStartTime);
+  lateJoiningTime.setMinutes(lateJoiningTime.getMinutes() + data.joinTime);
+
+  let lateJoiningInterVal;
+
+  if(data.isStart){
+    if(lateJoiningInterVal){
+      clearInterval(lateJoiningInterVal);
+    }
+    lateJoiningInterVal = setInterval(()=>{
+      const date1 = new Date();
+      const date2 = new Date(lateJoiningTime);
+
+      if(date2 > date1){
+        
+        const timeDifferenceMs = date2 - date1;
+
+        const minutes = Math.floor(timeDifferenceMs / (1000 * 60));
+        const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+        setLateJoiningAtiming(`${minutes}:${seconds}`);
+
+      }else{
+        console.log(`time running clear interval`);
+        clearInterval(lateJoiningInterVal);
+      }
+    }, 1000);
+  }
+
+
   data &&
     data?.rooms?.length > 0 &&
     data?.rooms?.filter((el) => {
@@ -1577,6 +1611,7 @@ const GameTournament = ({
             </div>
           </div>
         </div>
+        {/* {lateJoiningTimimng !== "00:00" ? lateJoiningTimimng : null} */}
         <div className="tournamentCard-buttonDetail">
           {/* {console.log("eleminated players ===>", data?.eleminatedPlayers)} */}
           {data?.isFinished ? (
@@ -1621,13 +1656,22 @@ const GameTournament = ({
             !data?.eleminatedPlayers?.find(
               (el) => el.userid?.toString() === userId?.toString()
             ) ? (
-            <Button
+            <><Button
               type="text"
               disabled={buttonClick}
               onClick={() => joinTournament(data?._id, data?.tournamentFee)}
             >
-              {buttonClick ? <Spinner animation="border" /> : "Join Game"}
+              {buttonClick ? <Spinner animation="border" /> :  data.isStart ? `Late Join ${lateJoiningTimimng}` : `Join Game`}
             </Button>
+            { data.isStart ? <Button
+              type="text"
+              onClick={() => {
+                openSpectatingTables(data?._id);
+              }}
+            >
+              Spectate
+            </Button> : null}
+            </>
           ) : (
             <Button
               type="text"
