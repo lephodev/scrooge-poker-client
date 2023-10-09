@@ -1403,8 +1403,10 @@ const GameTournament = ({
         
         const timeDifferenceMs = date2 - date1;
 
-        const minutes = Math.floor(timeDifferenceMs / (1000 * 60));
-        const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+        let minutes = Math.floor(timeDifferenceMs / (1000 * 60));
+        let seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+        minutes = minutes < 9 ? "0"+minutes : minutes;
+        seconds = seconds < 9 ? "0"+seconds : seconds;
 
         setLateJoiningAtiming(`${minutes}:${seconds}`);
 
