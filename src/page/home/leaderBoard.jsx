@@ -1109,13 +1109,11 @@ const Results = ({ tournamentData }) => {
   const [allPlayers, setAllPlayers] = useState([]);
   useEffect(() => {
     const allWinnerPlayers = [];
-
     Object.keys(tournamentData?.winPlayer).forEach((key) => {
       const winrObj = tournamentData?.winPlayer[key];
-
       if (winrObj.userId) {
         allWinnerPlayers.push({
-          userId: winrObj.userId?._id,
+          userId: tournamentData.prizeType === "Percentage" ? winrObj.userId : winrObj.userId?._id,
           amount: winrObj.amount,
         });
       } else if (winrObj.userIds?.length) {
@@ -1132,10 +1130,13 @@ const Results = ({ tournamentData }) => {
 
     const players = [];
 
-    tournamentData?.eleminatedPlayers.reverse().forEach((el) => {
+    tournamentData.eleminatedPlayers = tournamentData?.prizeType === "Percentage" ? tournamentData?.eleminatedPlayers : tournamentData?.eleminatedPlayers.reverse()
+
+    tournamentData?.eleminatedPlayers.forEach((el) => {
       const winnrPlayr = allWinnerPlayers.find(
         (winnr) => winnr.userId === el.userid
       );
+      console.log("winnrPlayr ==>", winnrPlayr);
       if (winnrPlayr) {
         players.push({
           name: el.name,
@@ -1205,7 +1206,7 @@ const Results = ({ tournamentData }) => {
                           </div>
                         </td>
                         <td>
-                          <p>{el?.amount || "To be decided"}</p>
+                          <p>{el?.amount && !tournamentData.isFinished ? "To be decided" : el?.amount}</p>
                         </td>
                       </tr>
                     );
@@ -1234,7 +1235,7 @@ const Results = ({ tournamentData }) => {
                           </div>
                         </td>
                         <td>
-                          <p>{el?.amount || "To be decided"}</p>
+                        <p>{el?.amount && !tournamentData.isFinished ? "To be decided" : el?.amount}</p>
                         </td>
                       </tr>
                     );
@@ -1263,7 +1264,7 @@ const Results = ({ tournamentData }) => {
                           </div>
                         </td>
                         <td>
-                          <p>{el?.amount || "To be decided"}</p>
+                          <p>{el?.amount && !tournamentData.isFinished ? "To be decided" : el?.amount}</p>
                         </td>
                       </tr>
                     );
