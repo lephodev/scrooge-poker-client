@@ -1108,53 +1108,56 @@ const Star = () => {
 const Results = ({ tournamentData }) => {
   const [allPlayers, setAllPlayers] = useState([]);
   useEffect(() => {
-    const allWinnerPlayers = [];
-    Object.keys(tournamentData?.winPlayer).forEach((key) => {
-      const winrObj = tournamentData?.winPlayer[key];
-      if (winrObj.userId) {
-        allWinnerPlayers.push({
-          userId: tournamentData.prizeType === "Percentage" ? winrObj.userId : winrObj.userId?._id,
-          amount: winrObj.amount,
-        });
-      } else if (winrObj.userIds?.length) {
-        winrObj.userIds.forEach((el) => {
+    if(tournamentData.isFinished){
+      const allWinnerPlayers = [];
+      Object.keys(tournamentData?.winPlayer).forEach((key) => {
+        const winrObj = tournamentData?.winPlayer[key];
+        if (winrObj.userId) {
           allWinnerPlayers.push({
-            userId: el,
+            userId: tournamentData.prizeType === "Percentage" ? winrObj.userId : winrObj.userId?._id,
             amount: winrObj.amount,
           });
-        });
-      }
-    });
+        } else if (winrObj.userIds?.length) {
+          winrObj.userIds.forEach((el) => {
+            allWinnerPlayers.push({
+              userId: el,
+              amount: winrObj.amount,
+            });
+          });
+        }
+      });
 
-    console.log("allWinnerPlayers ===>", allWinnerPlayers);
+      console.log("allWinnerPlayers ===>", allWinnerPlayers);
 
-    const players = [];
+      const players = [];
 
-    tournamentData.eleminatedPlayers = tournamentData?.prizeType === "Percentage" ? tournamentData?.eleminatedPlayers : tournamentData?.eleminatedPlayers.reverse()
+      tournamentData.eleminatedPlayers = tournamentData?.prizeType === "Percentage" ? tournamentData?.eleminatedPlayers : tournamentData?.eleminatedPlayers.reverse()
 
-    tournamentData?.eleminatedPlayers.forEach((el) => {
-      const winnrPlayr = allWinnerPlayers.find(
-        (winnr) => winnr.userId === el.userid
-      );
-      console.log("winnrPlayr ==>", winnrPlayr);
-      if (winnrPlayr) {
-        players.push({
-          name: el.name,
-          photoURI: el.photoURI,
-          amount: winnrPlayr.amount,
-          userId: el.userid,
-        });
-      } else {
-        players.push({
-          name: el.name,
-          photoURI: el.photoURI,
-          amount: 0,
-          userId: el.userid,
-        });
-      }
-    });
+      tournamentData?.eleminatedPlayers.forEach((el) => {
+        const winnrPlayr = allWinnerPlayers.find(
+          (winnr) => winnr.userId === el.userid
+        );
+        console.log("winnrPlayr ==>", winnrPlayr);
+        if (winnrPlayr) {
+          players.push({
+            name: el.name,
+            photoURI: el.photoURI,
+            amount: winnrPlayr.amount,
+            userId: el.userid,
+          });
+        } else {
+          players.push({
+            name: el.name,
+            photoURI: el.photoURI,
+            amount: 0,
+            userId: el.userid,
+          });
+        }
+      });
 
-    setAllPlayers(players);
+      setAllPlayers(players);
+    }
+    
   }, [tournamentData]);
 
   return (
