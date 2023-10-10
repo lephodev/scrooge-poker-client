@@ -707,7 +707,7 @@ const Home = () => {
                 ) : (
                   <>
                     {filterTournaments.length > 0 ? (
-                      <div className="home-poker-card">
+                      <div className="home-poker-card mtt">
                         <div className="container">
                           <Tabs
                             activeKey={eventKey}
@@ -1385,37 +1385,35 @@ const GameTournament = ({
   const history = useHistory();
   let tableId;
   let [buttonClick, setButtonClick] = useState(false);
-  
+
   console.log("game tournament executed");
 
   const [lateJoiningTimimng, setLateJoiningAtiming] = useState("00:00");
 
-  useEffect(()=>{
+  useEffect(() => {
     const lateJoiningTime = new Date(data.tournamentStartTime);
     lateJoiningTime.setMinutes(lateJoiningTime.getMinutes() + data.joinTime);
 
     let lateJoiningInterVal;
 
-    if(data.isStart){
-      if(lateJoiningInterVal){
+    if (data.isStart) {
+      if (lateJoiningInterVal) {
         clearInterval(lateJoiningInterVal);
       }
-      lateJoiningInterVal = setInterval(()=>{
+      lateJoiningInterVal = setInterval(() => {
         const date1 = new Date();
         const date2 = new Date(lateJoiningTime);
 
-        if(date2 > date1){
-          
+        if (date2 > date1) {
           const timeDifferenceMs = date2 - date1;
 
           let minutes = Math.floor(timeDifferenceMs / (1000 * 60));
           let seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-          minutes = minutes < 9 ? "0"+minutes : minutes;
-          seconds = seconds < 9 ? "0"+seconds : seconds;
+          minutes = minutes < 9 ? "0" + minutes : minutes;
+          seconds = seconds < 9 ? "0" + seconds : seconds;
 
           setLateJoiningAtiming(`${minutes}:${seconds}`);
-
-        }else{
+        } else {
           console.log(`time running clear interval`);
           clearInterval(lateJoiningInterVal);
         }
@@ -1663,21 +1661,33 @@ const GameTournament = ({
             !data?.eleminatedPlayers?.find(
               (el) => el.userid?.toString() === userId?.toString()
             ) ? (
-            <><Button
-              type="text"
-              disabled={buttonClick}
-              onClick={() => joinTournament(data?._id, data?.tournamentFee)}
-            >
-              {buttonClick ? <Spinner animation="border" /> :  data.isStart ? `Late Join ${lateJoiningTimimng}` : `Join Game`}
-            </Button>
-            { data.isStart ? <Button
-              type="text"
-              onClick={() => {
-                openSpectatingTables(data?._id);
-              }}
-            >
-              Spectate
-            </Button> : null}
+            <>
+              <Button
+                type="text"
+                disabled={buttonClick}
+                className="late-join-btn"
+                onClick={() => joinTournament(data?._id, data?.tournamentFee)}
+              >
+                {buttonClick ? (
+                  <Spinner animation="border" />
+                ) : data.isStart ? (
+                  <>
+                    Late Join <span>{lateJoiningTimimng}</span>
+                  </>
+                ) : (
+                  `Join Game`
+                )}
+              </Button>
+              {data.isStart ? (
+                <Button
+                  type="text"
+                  onClick={() => {
+                    openSpectatingTables(data?._id);
+                  }}
+                >
+                  Spectate
+                </Button>
+              ) : null}
             </>
           ) : (
             <Button
