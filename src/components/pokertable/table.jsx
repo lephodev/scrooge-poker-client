@@ -172,6 +172,9 @@ const PokerTable = (props) => {
   const [tourTimer, setTourTimer] = useState();
   const [showcardFlipAnimation, setShowCardFlipAnimation] = useState(false);
   const [animatedState, setAnimatedState] = useState(false);
+  const [showCardsToAll, setShowCardsToAll] = useState(false);
+
+
   const handleAnimationState = () => {
     setAnimatedState(true);
     setTimeout(() => {
@@ -570,6 +573,7 @@ const PokerTable = (props) => {
         setActionText("");
         setActiveWinnerPlayersPot({});
         setHandMatch([]);
+        setShowCardsToAll(false);
         if (roomData?.hostId === userId) {
           setisAdmin(true);
           admin = true;
@@ -1401,7 +1405,7 @@ const PokerTable = (props) => {
           // console.log("aaaaiieeee ++>", i, indxesFinished)
           if (indxesFinished.indexOf(i) === -1) {
             // console.log("indxesFinished ===>", indxesFinished, alreadyPushdUsers)
-            console.log(i);
+            // console.log(i);
             const playerAvail = whole.find((el) => el.position === i);
             // console.log("player avail ===>", playerAvail)
             if (playerAvail) {
@@ -2470,6 +2474,8 @@ const PokerTable = (props) => {
                           open={open}
                           showcardFlipAnimation={setShowCardFlipAnimation}
                           setShowCardFlipAnimation={setShowCardFlipAnimation}
+                          showCardsToAll={showCardsToAll}
+                          setShowCardsToAll={setShowCardsToAll}
                         />
                       ))}
                   </div>
@@ -2759,7 +2765,7 @@ const PokerTable = (props) => {
           <audio className="audio-turn" muted={!volume}>
             <source src={myTurn}></source>
           </audio>
-          <audio className="audio-bet" muted={!volume}>
+          <audio className="audio-fold" muted={!volume}>
             <source src={fold}></source>
           </audio>
           <audio className="audio-collect" muted={!volume}>
@@ -2829,6 +2835,8 @@ const Players = ({
   roomData,
   showcardFlipAnimation,
   setShowCardFlipAnimation,
+  showCardsToAll,
+  setShowCardsToAll
 }) => {
   const [newPurchase, setNewPurchase] = useState(false);
   const [showFollowMe, setShowFollowMe] = useState(false);
@@ -2836,7 +2844,6 @@ const Players = ({
   const [showCard, setShowCard] = useState(false);
   const [showamination, setShowAnimation] = useState(false);
   const target = useRef(null);
-  console.log("show card ==>", showCard);
   useEffect(() => {
     // setShowCard(false);
     const showBuyIn = () => {
@@ -2880,6 +2887,7 @@ const Players = ({
     let inHandPlayers = [];
     let allPlayingPlayers = [];
     let allFoldedPlayers = [];
+    let playrs = [];
     const gameData = roomData;
     switch (gameData?.runninground) {
       case 1:
@@ -2894,7 +2902,7 @@ const Players = ({
             allPlayingPlayers.push(el);
           }
         });
-
+        playrs = gameData?.preflopround;
         break;
       case 2:
         gameData?.flopround?.forEach((el) => {
@@ -2908,6 +2916,7 @@ const Players = ({
             allPlayingPlayers.push(el);
           }
         });
+        playrs = gameData?.flopround;
         break;
       case 3:
         gameData?.turnround?.forEach((el) => {
@@ -2921,6 +2930,7 @@ const Players = ({
             allPlayingPlayers.push(el);
           }
         });
+        playrs = gameData?.turnround;
         break;
       case 4:
         gameData?.riverround?.forEach((el) => {
@@ -2934,6 +2944,7 @@ const Players = ({
             allPlayingPlayers.push(el);
           }
         });
+        playrs = gameData?.riverround
         break;
 
       case 5:
@@ -2948,12 +2959,14 @@ const Players = ({
             allPlayingPlayers.push(el);
           }
         });
+        playrs = gameData?.showdown
         break;
 
       default:
         inHandPlayers = gameData.players?.filter(
           (el) => !el.fold && el.playing
-        )?.length;
+        );
+        playrs = gameData.players
     }
 
     // console.log("inHandPlayers length ", inHandPlayers.length);
@@ -2961,25 +2974,73 @@ const Players = ({
     // console.log("allPlayingPlayers length ", allPlayingPlayers.length);
     // console.log("gameData.allinPlayers length ", gameData.allinPlayers.length);
 
-    console.log("playerData ==>", gameData.allinPlayers);
+    console.log(gameData.allinPlayers);
 
-    if (
-      gameData.allinPlayers.length &&
-      inHandPlayers.length === gameData.allinPlayers.length &&
-      allFoldedPlayers.length + inHandPlayers.length ===
-        allPlayingPlayers.length && gameData.allinPlayers.find(el=> (el.id === playerData?.id))
-    ) {
-      console.log("entered in true condition for show card.");
-      if (showcardFlipAnimation) {
-        setShowAnimation(showcardFlipAnimation);
-        setShowCardFlipAnimation(false);
-      } else {
-        setShowAnimation(showcardFlipAnimation);
+    console.log("all in data ==>", gameData.runninground,gameData.allinPlayers);
+    let playingPlayer = 0;
+    
+
+    playrs?.forEach(el=>{
+      if (el.actionType === null && el.playing) {
+        playingPlayer++;
       }
-      setShowCard(true);
+    });
+
+    const othrthnAllInAndFold = inHandPlayers?.filter(el => !gameData.allinPlayers.find(el2=> el.id === el2.id))
+
+    const allInRound = gameData.allinPlayers[gameData.allinPlayers.length - 1]?.round;
+    const isAllPlayersAllIn = gameData.allinPlayers.length && inHandPlayers.length === gameData.allinPlayers.length;
+    const someAllInAndSomeFolds =  allFoldedPlayers.length + gameData.allinPlayers.length === allPlayingPlayers.length;
+    const allInRoundIsNotCurrentRound = allInRound !== gameData.runninground && allInRound + 1 === gameData.runninground;
+    const onlyOneLeftForAction = othrthnAllInAndFold?.length === 1 && gameData.allinPlayers.length + allFoldedPlayers.length + 1 === allPlayingPlayers.length;
+    
+    const playrFolded = allFoldedPlayers.find(el => el.id === playerData?.id)
+    
+    if((((isAllPlayersAllIn || someAllInAndSomeFolds || onlyOneLeftForAction) && allInRoundIsNotCurrentRound) || showCardsToAll) && !playrFolded){
+        if (showcardFlipAnimation) {
+          setShowAnimation(showcardFlipAnimation);
+          setShowCardFlipAnimation(false);
+        } else {
+          setShowAnimation(showcardFlipAnimation);
+        }
+        setShowCard(true);
+        setShowCardsToAll(true);
     }else{
       setShowCard(false);
     }
+
+
+    // if(playingPlayer < 1 && !allFoldedPlayers.find(el=> (el.id === playerData?.id))){
+    //   console.log("entered in true condition for show card.");
+    //   if (showcardFlipAnimation) {
+    //     setShowAnimation(showcardFlipAnimation);
+    //     setShowCardFlipAnimation(false);
+    //   } else {
+    //     setShowAnimation(showcardFlipAnimation);
+    //   }
+    //   setShowCard(true);
+    // }else{
+    //   setShowCard(false);
+    // }
+
+
+    // if (
+    //   gameData.allinPlayers.length &&
+    //   inHandPlayers.length === gameData.allinPlayers.length &&
+    //   allFoldedPlayers.length + inHandPlayers.length ===
+    //     allPlayingPlayers.length && gameData.allinPlayers.find(el=> (el.id === playerData?.id))
+    // ) {
+    //   console.log("entered in true condition for show card.");
+    //   if (showcardFlipAnimation) {
+    //     setShowAnimation(showcardFlipAnimation);
+    //     setShowCardFlipAnimation(false);
+    //   } else {
+    //     setShowAnimation(showcardFlipAnimation);
+    //   }
+    //   setShowCard(true);
+    // }else{
+    //   setShowCard(false);
+    // }
   }, [roomData]);
 
   useEffect(() => {
