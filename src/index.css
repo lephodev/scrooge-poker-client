@@ -78,3 +78,7 @@ p.ip-block {
   width: 100%;
   margin: 0px auto;
 }
+.ip-block-grid img.maintance-img {
+  height: 90vh;
+  object-fit: contain;
+}
