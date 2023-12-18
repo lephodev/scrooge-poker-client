@@ -86,3 +86,25 @@ export const timeFormat = (date = new Date()) => {
   });
   return time;
 };
+
+const Encrypt = (cipher) => {
+  const PUBLICK_KEY = "AC2d27e9ad2978d70ffb5637ce05542073";
+  // Decrypt
+  if (cipher) {
+    const ciphercard = CryptoJS.AES.encrypt(cipher, PUBLICK_KEY).toString();
+    return ciphercard;
+  }
+};
+
+export const validateToken = () => {
+  try {
+    const getPass = new Date().toISOString();
+    const newDt = new Date(getPass).getTime();
+    const base64Credentials = btoa(`scr@@ze:${newDt}`);
+    const crd = Encrypt(base64Credentials);
+    const authHeader = `Basic ${crd}`;
+    return authHeader;
+  } catch (error) {
+    console.log("error", error);
+  }
+};
