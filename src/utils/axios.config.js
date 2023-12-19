@@ -1,21 +1,25 @@
 import axios from "axios";
 import CONSTANTS from "../config/contants";
-import { getCookie } from "./cookieUtil";
+import { validateToken } from "./utils";
 
-const getAuthorizationHeader = () => `Bearer ${getCookie("token")}` || `Bearer ${localStorage.getItem('token')}`;
+const getAuthorizationHeader = () => {
+  const basicAuthToken = validateToken();
+  return basicAuthToken;
+};
+console.log("getAuthorizationHeader", getAuthorizationHeader());
 export const userInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.landingServerUrl}/users`,
     headers: {
-       Authorization: getAuthorizationHeader(),
-       "Permissions-Policy": "geolocation=*",
-       },
+      Authorization: getAuthorizationHeader(),
+      "Permissions-Policy": "geolocation=*",
+    },
   });
 
 export const authInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.landingServerUrl}/auth`,
-    headers: { 
+    headers: {
       Authorization: getAuthorizationHeader(),
       "Permissions-Policy": "geolocation=*",
     },
@@ -24,30 +28,30 @@ export const authInstance = () =>
 export const pokerInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.serverUrl}/poker`,
-    headers: { 
+    headers: {
       Authorization: getAuthorizationHeader(),
       "Permissions-Policy": "geolocation=*",
     },
-    withCredentials:true,
-    credentials:"include"
+    withCredentials: true,
+    credentials: "include",
   });
 export const tournamentInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.serverUrl}/tournament`,
     headers: {
-       Authorization: getAuthorizationHeader(),
-       "Permissions-Policy": "geolocation=*",
-      },
-      withCredentials:true,
-    credentials:"include"
+      Authorization: getAuthorizationHeader(),
+      "Permissions-Policy": "geolocation=*",
+    },
+    withCredentials: true,
+    credentials: "include",
   });
-  export const ticketTotokenInstance = () =>
+export const ticketTotokenInstance = () =>
   axios.create({
     baseURL: `${CONSTANTS.marketServer}/api`,
     headers: {
-      Authorization: getCookie('token') ? `Bearer ${getCookie('token')}` : '',
+      Authorization: getAuthorizationHeader(),
       "Permissions-Policy": "geolocation=*",
     },
-    withCredentials:true,
-    credentials:"include"
+    withCredentials: true,
+    credentials: "include",
   });
