@@ -29,7 +29,7 @@ import UserContext from "../../context/UserContext";
 import AlreadyInGamePopup from "../../components/pokertable/alreadyInGamePopup";
 import Header from "./header";
 import CONSTANTS from "../../config/contants";
-import { getCookie } from "../../utils/cookieUtil";
+import { validateToken } from "../../utils/cookieUtil";
 // import feeIcon from "../../assets/images/feeIcon.png"
 import ranking from "../../assets/images/ranking.png";
 import { dateFormat, timeFormat } from "../../utils/utils"; //, getTime
@@ -76,13 +76,16 @@ const Home = () => {
 
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [selectedTournament, setSelectedTournament] = useState(null);
+  const basicAuthToken = validateToken();
 
   // utils function
   const checkUserInGame = async () => {
     let userData = await axios({
       method: "get",
-      url: `${CONSTANTS.landingServerUrl}/users/checkUserInGame`,
-      headers: { authorization: `Bearer ${getCookie("token")}` },
+      url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
+      headers: {
+        Authorization: basicAuthToken,
+      },
       withCredentials: true,
       credentials: "include",
     });
@@ -139,7 +142,7 @@ const Home = () => {
       pokerRooms.find(
         (el) =>
           el?.gameName?.toLowerCase() ===
-            gameState?.gameName?.trim()?.toLowerCase() &&
+          gameState?.gameName?.trim()?.toLowerCase() &&
           el?.gameMode === cookie.get("mode")
       );
 
@@ -306,7 +309,7 @@ const Home = () => {
   const checkAuth = async () => {
     const data = await userUtils.getAuthUserData();
     if (!data.success) {
-      return (window.location.href = `${landingClient}`);
+      return (window.location.href = `${ landingClient }`);
     }
     setLoader(false);
     setUserData({ ...data?.data?.user });
@@ -322,7 +325,7 @@ const Home = () => {
       try {
         const response = await pokerInstance().get("/rooms");
         setPokerRooms(response.data.rooms || []);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 
@@ -520,7 +523,7 @@ const Home = () => {
                           {!el.public &&
                             (el?.hostId?.toString === user?.id?.toString() ||
                               el?.hostId?.toString() ===
-                                userId?.toString()) && (
+                              userId?.toString()) && (
                               <GameTable
                                 data={el}
                                 gameType="Poker"
@@ -1186,7 +1189,7 @@ const GameTable = ({
     let date = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return `${date}/${month}/${year} ${hour12}:${minute} ${pm ? "pm" : "am"}`;
+    return `${ date }/${ month }/${ year } ${ hour12 }:${ minute } ${ pm ? "pm" : "am" }`;
   };
 
   const [cardFlip, setCardFlip] = useState(false);
@@ -1256,7 +1259,7 @@ const GameTable = ({
         />
         <div
           className={`tournamentCard-inner
-         ${cardFlip && gameType === "Poker" ? "rotate" : ""}
+         ${ cardFlip && gameType === "Poker" ? "rotate" : "" }
          `}
         >
           {!cardFlip && gameType === "Poker" ? (
@@ -1312,7 +1315,7 @@ const GameTable = ({
                 <span>
                   {(gameType === "Tournament"
                     ? data?.rooms?.filter((el) => el?.players)[0]?.players
-                        ?.length || 0
+                      ?.length || 0
                     : data?.players?.length) || 0}
                 </span>
               </h4>
@@ -1412,7 +1415,7 @@ const GameTournament = ({
           minutes = minutes < 9 ? "0" + minutes : minutes;
           seconds = seconds < 9 ? "0" + seconds : seconds;
 
-          setLateJoiningAtiming(`${minutes}:${seconds}`);
+          setLateJoiningAtiming(`${ minutes }:${ seconds }`);
         } else {
           console.log(`time running clear interval`);
           clearInterval(lateJoiningInterVal);
@@ -1505,7 +1508,7 @@ const GameTournament = ({
     }
   };
   const handleFlip = (tournamentId) => {
-    history.push(`/leaderboard?tournamentId=${tournamentId}`);
+    history.push(`/leaderboard?tournamentId=${ tournamentId }`);
   };
   const ifUserJoind = () => {
     let getData = data?.rooms?.find((el) =>
