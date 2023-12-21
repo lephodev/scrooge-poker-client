@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { socket } from '../../config/socketConnection';
 import contants from '../../config/contants';
 import { Spinner } from 'react-bootstrap';
+import { validateToken } from '../../utils/cookieUtil';
 
 const InviteFriend = ({
   userId,
@@ -18,7 +19,7 @@ const InviteFriend = ({
   const [invPlayers, setInvPlayers] = useState([]);
   const [friendList, setFriendList] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
-
+  const basicAuthToken = validateToken();
   useEffect(() => {
     socket.on('invitationSend', (data) => {
       toast.success('Invitation Send Successfully', { id: 'A' });
@@ -35,7 +36,11 @@ const InviteFriend = ({
   const fetchFriendList = useCallback(async () => {
     try {
       const res = await axios.get(
-        contants.serverUrl + '/getUserForInvite/' + tableId
+        contants.serverUrl + '/getUserForInvite/' + tableId,{
+          headers: {
+            Authorization: basicAuthToken,
+          },
+        }
       );
       if (res.data.data) {
         setFriendList(res.data.data);
