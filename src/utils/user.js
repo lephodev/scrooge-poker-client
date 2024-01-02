@@ -1,8 +1,7 @@
 import axios from "axios";
-import { getCookie, validateToken } from "./cookieUtil";
+import { validateToken } from "./cookieUtil";
 import CONSTANTS from "../config/contants";
 // import { pokerInstance } from "./axios.config";
-
 
 // This function is alternative of firebase.auth().onAuthStateChanged
 const getAuthUserData = async () => {
@@ -13,8 +12,8 @@ const getAuthUserData = async () => {
       method: "get",
       url: `${CONSTANTS.landingServerUrl}/auth/check-auth`,
       headers: {
-        Authorization: basicAuthToken
-    },
+        Authorization: basicAuthToken,
+      },
       withCredentials: true,
       credentials: "include",
     });
