@@ -98,7 +98,7 @@ const App = () => {
   const getGeoLocationDetails = async () => {
     try {
       // const apiUrl = `http://api.vpnblocker.net/v2/json/${CurrentIp}`;
-      const serverUrl = `/auth/getgeolocationDetails`;
+      const serverUrl = `/getgeolocationDetails`;
       const response = await authInstance().get(serverUrl);
       console.log("response", response);
       const ipAddressObject = {
