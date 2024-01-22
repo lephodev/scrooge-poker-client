@@ -75,6 +75,7 @@ const Home = () => {
 
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [selectedTournament, setSelectedTournament] = useState(null);
+  const basicAuthToken = validateToken();
 
   // utils function
   const checkUserInGame = async () => {

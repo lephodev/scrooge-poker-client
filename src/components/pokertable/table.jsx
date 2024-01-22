@@ -315,6 +315,10 @@ const PokerTable = (props) => {
       if (data.message === "tablenotFound") {
         setShowEnterAmountPopup(false);
         history.push("/");
+      }else if(data.message === "You can only play with One Time Wager and Withdrawable amount"){
+        toast.error(data.message, { toast_id: "walletLimitExceeds" });
+        setShowEnterAmountPopup(false);
+        history.push("/");
       }
     });
 
