@@ -1,12 +1,11 @@
 import axios from "axios";
 import { validateToken } from "./cookieUtil";
 import CONSTANTS from "../config/contants";
-import { validateToken } from "./utils";
+// import { validateToken } from "./utils";
 // import { pokerInstance } from "./axios.config";
 
 // This function is alternative of firebase.auth().onAuthStateChanged
 const getAuthUserData = async () => {
-  const basicAuthToken = validateToken();
 
   try {
     const basicAuthToken = validateToken();
