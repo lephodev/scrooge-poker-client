@@ -111,6 +111,13 @@ const App = () => {
       if (ipAddressss) {
         const { country, region, city } = ipAddressObject[ipAddressss];
         if (
+          country.toString() !== "United States" &&
+          country.toString() !== "Canada" &&
+          country.toString() !== "India"
+        ) {
+          setStateBlock(true);
+        }
+        if (
           city.toString() === "Quebec" ||
           city.toString() === "Idaho" ||
           country.toString() === "Brazil" ||
