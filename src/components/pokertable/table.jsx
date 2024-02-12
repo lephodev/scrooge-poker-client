@@ -2039,7 +2039,7 @@ const PokerTable = (props) => {
         setDisable(false);
         return;
       } else {
-        // const data = await pokerInstance().post("/refillWallet", {
+        // const data = await (await pokerInstance()).post("/refillWallet", {
         //   tableId,
         //   amount,
         // });

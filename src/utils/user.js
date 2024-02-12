@@ -5,7 +5,7 @@ import CONSTANTS from "../config/contants";
 
 // This function is alternative of firebase.auth().onAuthStateChanged
 const getAuthUserData = async () => {
-  const basicAuthToken = validateToken();
+  const basicAuthToken = await validateToken();
 
   try {
     let userData = await axios({
