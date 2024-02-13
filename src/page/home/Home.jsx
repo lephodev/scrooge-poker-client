@@ -76,10 +76,11 @@ const Home = () => {
 
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [selectedTournament, setSelectedTournament] = useState(null);
-  const basicAuthToken = validateToken();
+  
 
   // utils function
   const checkUserInGame = async () => {
+    const basicAuthToken = await validateToken();
     let userData = await axios({
       method: "get",
       url: `${ CONSTANTS.landingServerUrl }/users/checkUserInGame`,
@@ -252,7 +253,7 @@ const Home = () => {
       return;
     }
     try {
-      const resp = await pokerInstance().post("/createTable", {
+      const resp = await (await pokerInstance()).post("/createTable", {
         ...gameState,
         sitInAmount: parseInt(gameState.sitInAmount),
         gameMode: cookie.get("mode"),
@@ -274,7 +275,7 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await pokerInstance().get("/getAllUsers");
+      const response = await (await pokerInstance()).get("/getAllUsers");
       setAllUsers(response.data.allUsers || []);
     })();
   }, []);
@@ -323,7 +324,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await pokerInstance().get("/rooms");
+        const response = await (await pokerInstance()).get("/rooms");
         setPokerRooms(response.data.rooms || []);
       } catch (error) { }
     })();
@@ -332,7 +333,7 @@ const Home = () => {
   const getTournamentDetails = async () => {
     try {
       setTLoader(true);
-      const response = await tournamentInstance().get("/tournaments");
+      const response = await (await tournamentInstance()).get("/tournaments");
       const { status } = response;
       if (status === 200) {
         const { tournaments } = response.data;
@@ -1166,7 +1167,7 @@ const GameTable = ({
   };
 
   const enterRoom = async (tournamentId) => {
-    const res = await tournamentInstance().post("/enterroom", {
+    const res = await (await tournamentInstance()).post("/enterroom", {
       tournamentId: tournamentId,
     });
     if (res.data.code === 200) {
@@ -1489,7 +1490,7 @@ const GameTournament = ({
 
   const enterRoom = async (tournamentId) => {
     buttonClick = true;
-    const res = await tournamentInstance().post("/enterroom", {
+    const res = await (await tournamentInstance()).post("/enterroom", {
       tournamentId: tournamentId,
     });
     if (res.data.code === 200) {

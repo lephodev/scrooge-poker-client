@@ -114,7 +114,7 @@ const LeaderBoard = () => {
     try {
       setShowLoader(true);
       if (url.get("tournamentId")) {
-        const res = await tournamentInstance().get(`/tournamentById`, {
+        const res = await (await tournamentInstance()).get(`/tournamentById`, {
           params: { tournamentId: url.get("tournamentId") },
         });
         const { tournament, payout } = res.data || {};
@@ -158,7 +158,7 @@ const LeaderBoard = () => {
 
   // const getTournamentDetails = async () => {
   //   try {
-  //     const response = await tournamentInstance().get("/tournaments");
+  //     const response = await (await tournamentInstance()).get("/tournaments");
   //     const { status } = response;
   //     if (status === 200) {
   //       const { tournaments } = response.data;
@@ -168,7 +168,7 @@ const LeaderBoard = () => {
   // };
 
   const enterRoom = async (tournamentId) => {
-    const res = await tournamentInstance().post("/enterroom", {
+    const res = await (await tournamentInstance()).post("/enterroom", {
       tournamentId: tournamentId,
     });
     if (res.data.code === 200) {
