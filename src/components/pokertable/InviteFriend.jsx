@@ -20,7 +20,6 @@ const InviteFriend = ({
   const [invPlayers, setInvPlayers] = useState([]);
   const [friendList, setFriendList] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const basicAuthToken = validateToken();
   useEffect(() => {
     socket.on("invitationSend", (data) => {
       toast.success("Invitation Send Successfully", { id: "A" });
@@ -36,6 +35,7 @@ const InviteFriend = ({
 
   const fetchFriendList = useCallback(async () => {
     try {
+      const basicAuthToken = await validateToken();
       const res = await axios.get(
         contants.serverUrl + "/getUserForInvite/" + tableId,
         {
