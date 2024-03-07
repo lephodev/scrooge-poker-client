@@ -119,12 +119,12 @@ const App = () => {
         }
         if (
           city.toString() === "Quebec" ||
-          city.toString() === "Idaho" ||
+          // city.toString() === "Idaho" ||
           country.toString() === "Brazil" ||
-          region.toString() === "Quebec" ||
-          region.toString() === "Idaho" ||
-          region.toString() === "Michigan" ||
-          region.toString() === "Washington"
+          region.toString() === "Quebec" 
+          // region.toString() === "Idaho" ||
+          // region.toString() === "Michigan" ||
+          // region.toString() === "Washington"
         ) {
           setStateBlock(true);
         }
